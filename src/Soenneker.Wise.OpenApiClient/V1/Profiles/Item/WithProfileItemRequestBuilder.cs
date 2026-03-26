@@ -14,6 +14,8 @@ using Soenneker.Wise.OpenApiClient.V1.Profiles.Item.ExcessMoneyAccount;
 using Soenneker.Wise.OpenApiClient.V1.Profiles.Item.ExtensionRequirements;
 using Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Extensions;
 using Soenneker.Wise.OpenApiClient.V1.Profiles.Item.KycReviews;
+using Soenneker.Wise.OpenApiClient.V1.Profiles.Item.PartnerLicenceTransfers;
+using Soenneker.Wise.OpenApiClient.V1.Profiles.Item.ThirdPartyTransfers;
 using Soenneker.Wise.OpenApiClient.V1.Profiles.Item.TotalFunds;
 using Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Transfers;
 using Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Ubos;
@@ -90,6 +92,16 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item
         public global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.KycReviews.KycReviewsRequestBuilder KycReviews
         {
             get => new global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.KycReviews.KycReviewsRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The partnerLicenceTransfers property</summary>
+        public global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.PartnerLicenceTransfers.PartnerLicenceTransfersRequestBuilder PartnerLicenceTransfers
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.PartnerLicenceTransfers.PartnerLicenceTransfersRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The thirdPartyTransfers property</summary>
+        public global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.ThirdPartyTransfers.ThirdPartyTransfersRequestBuilder ThirdPartyTransfers
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.ThirdPartyTransfers.ThirdPartyTransfersRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The totalFunds property</summary>
         public global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.TotalFunds.TotalFundsRequestBuilder TotalFunds

@@ -6,6 +6,7 @@ using Soenneker.Wise.OpenApiClient.V2.Accounts;
 using Soenneker.Wise.OpenApiClient.V2.BorderlessAccountsConfiguration;
 using Soenneker.Wise.OpenApiClient.V2.Profiles;
 using Soenneker.Wise.OpenApiClient.V2.Simulation;
+using Soenneker.Wise.OpenApiClient.V2.Transfers;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -37,6 +38,11 @@ namespace Soenneker.Wise.OpenApiClient.V2
         public global::Soenneker.Wise.OpenApiClient.V2.Simulation.SimulationRequestBuilder Simulation
         {
             get => new global::Soenneker.Wise.OpenApiClient.V2.Simulation.SimulationRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The transfers property</summary>
+        public global::Soenneker.Wise.OpenApiClient.V2.Transfers.TransfersRequestBuilder Transfers
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.V2.Transfers.TransfersRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.V2.V2RequestBuilder"/> and sets the default values.

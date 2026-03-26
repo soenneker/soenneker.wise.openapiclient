@@ -9,6 +9,7 @@ using Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BatchGroups;
 using Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BatchPayments;
 using Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BusinessProfile;
 using Soenneker.Wise.OpenApiClient.V3.Profiles.Item.Quotes;
+using Soenneker.Wise.OpenApiClient.V3.Profiles.Item.Transfers;
 using Soenneker.Wise.OpenApiClient.V3.Profiles.Item.TrustedVerification;
 using Soenneker.Wise.OpenApiClient.V3.Profiles.Item.VerificationStatus;
 using System.Collections.Generic;
@@ -57,6 +58,11 @@ namespace Soenneker.Wise.OpenApiClient.V3.Profiles.Item
         public global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.Quotes.QuotesRequestBuilder Quotes
         {
             get => new global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.Quotes.QuotesRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The transfers property</summary>
+        public global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.Transfers.TransfersRequestBuilder Transfers
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.Transfers.TransfersRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The trustedVerification property</summary>
         public global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.TrustedVerification.TrustedVerificationRequestBuilder TrustedVerification

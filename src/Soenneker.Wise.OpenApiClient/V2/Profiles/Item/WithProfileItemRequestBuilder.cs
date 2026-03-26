@@ -14,6 +14,7 @@ using Soenneker.Wise.OpenApiClient.V2.Profiles.Item.KycReviews;
 using Soenneker.Wise.OpenApiClient.V2.Profiles.Item.PersonalProfile;
 using Soenneker.Wise.OpenApiClient.V2.Profiles.Item.Pin;
 using Soenneker.Wise.OpenApiClient.V2.Profiles.Item.ScaSessions;
+using Soenneker.Wise.OpenApiClient.V2.Profiles.Item.ThirdPartyTransfers;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -76,6 +77,11 @@ namespace Soenneker.Wise.OpenApiClient.V2.Profiles.Item
         public global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.ScaSessions.ScaSessionsRequestBuilder ScaSessions
         {
             get => new global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.ScaSessions.ScaSessionsRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The thirdPartyTransfers property</summary>
+        public global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.ThirdPartyTransfers.ThirdPartyTransfersRequestBuilder ThirdPartyTransfers
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.ThirdPartyTransfers.ThirdPartyTransfersRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.WithProfileItemRequestBuilder"/> and sets the default values.

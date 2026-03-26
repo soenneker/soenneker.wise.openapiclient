@@ -3,6 +3,7 @@
 using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions.Serialization;
 using Microsoft.Kiota.Abstractions;
+using Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PaymentTokens.Item;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -16,6 +17,18 @@ namespace Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.Payment
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class PaymentTokensRequestBuilder : BaseRequestBuilder
     {
+        /// <summary>Gets an item from the Soenneker.Wise.OpenApiClient.v3.spend.profiles.item.cards.item.paymentTokens.item collection</summary>
+        /// <param name="position">The payment token unique reference issued by the scheme token service</param>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PaymentTokens.Item.WithPaymentTokenUniqueReferenceItemRequestBuilder"/></returns>
+        public global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PaymentTokens.Item.WithPaymentTokenUniqueReferenceItemRequestBuilder this[string position]
+        {
+            get
+            {
+                var urlTplParams = new Dictionary<string, object>(PathParameters);
+                urlTplParams.Add("paymentTokenUniqueReference", position);
+                return new global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PaymentTokens.Item.WithPaymentTokenUniqueReferenceItemRequestBuilder(urlTplParams, RequestAdapter);
+            }
+        }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PaymentTokens.PaymentTokensRequestBuilder"/> and sets the default values.
         /// </summary>

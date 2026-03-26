@@ -16,6 +16,8 @@ using Soenneker.Wise.OpenApiClient.V1.Quotes;
 using Soenneker.Wise.OpenApiClient.V1.Rates;
 using Soenneker.Wise.OpenApiClient.V1.Settlements;
 using Soenneker.Wise.OpenApiClient.V1.Simulation;
+using Soenneker.Wise.OpenApiClient.V1.TransferRequirements;
+using Soenneker.Wise.OpenApiClient.V1.Transfers;
 using Soenneker.Wise.OpenApiClient.V1.User;
 using System.Collections.Generic;
 using System.IO;
@@ -98,6 +100,16 @@ namespace Soenneker.Wise.OpenApiClient.V1
         public global::Soenneker.Wise.OpenApiClient.V1.Simulation.SimulationRequestBuilder Simulation
         {
             get => new global::Soenneker.Wise.OpenApiClient.V1.Simulation.SimulationRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The transferRequirements property</summary>
+        public global::Soenneker.Wise.OpenApiClient.V1.TransferRequirements.TransferRequirementsRequestBuilder TransferRequirements
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.V1.TransferRequirements.TransferRequirementsRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The transfers property</summary>
+        public global::Soenneker.Wise.OpenApiClient.V1.Transfers.TransfersRequestBuilder Transfers
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.V1.Transfers.TransfersRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The user property</summary>
         public global::Soenneker.Wise.OpenApiClient.V1.User.UserRequestBuilder User
