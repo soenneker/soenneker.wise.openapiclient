@@ -12149,6 +12149,14 @@ paths:
         request.
 
 
+        {% admonition type="warning" %}
+
+        This endpoint will soon be deprecated, please use the `/v2` endpoints
+        instead.
+
+        {% /admonition %}
+
+
         {% admonition type="info" %}
 
         This request accepts an optional field in the header,
@@ -12908,6 +12916,14 @@ paths:
       description: >
         Update or transfer the Business Representative for the specified
         Business Profile.
+
+
+        {% admonition type="warning" %}
+
+        This endpoint will soon be deprecated, please use the `/v2` endpoints
+        instead.
+
+        {% /admonition %}
 
 
         Set `updateContext` to `UPDATE_DETAILS` to update the existing Business

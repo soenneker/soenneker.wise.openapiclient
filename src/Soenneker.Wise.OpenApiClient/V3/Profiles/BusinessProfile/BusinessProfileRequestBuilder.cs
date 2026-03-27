@@ -33,7 +33,7 @@ namespace Soenneker.Wise.OpenApiClient.V3.Profiles.BusinessProfile
         {
         }
         /// <summary>
-        /// Create a business profile and its authorized representative in a single request.{% admonition type=&quot;info&quot; %}This request accepts an optional field in the header, `X-idempotence-uuid`. This should be unique for each Profile you create. In the event that the request fails, you should use the same value again when retrying. If the `X-idempotence-uuid` header is not provided and a Profile already exists, then you will receive a response with an HTTP status code `409`.{% /admonition %}See [Business Category](/guides/developer/api-guides/business-categories) for the list of valid `firstLevelCategory` and `secondLevelCategory` values.
+        /// Create a business profile and its authorized representative in a single request.{% admonition type=&quot;warning&quot; %}This endpoint will soon be deprecated, please use the `/v2` endpoints instead.{% /admonition %}{% admonition type=&quot;info&quot; %}This request accepts an optional field in the header, `X-idempotence-uuid`. This should be unique for each Profile you create. In the event that the request fails, you should use the same value again when retrying. If the `X-idempotence-uuid` header is not provided and a Profile already exists, then you will receive a response with an HTTP status code `409`.{% /admonition %}See [Business Category](/guides/developer/api-guides/business-categories) for the list of valid `firstLevelCategory` and `secondLevelCategory` values.
         /// </summary>
         /// <returns>A <see cref="Stream"/></returns>
         /// <param name="body">The request body</param>
@@ -53,7 +53,7 @@ namespace Soenneker.Wise.OpenApiClient.V3.Profiles.BusinessProfile
             return await RequestAdapter.SendPrimitiveAsync<Stream>(requestInfo, default, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Create a business profile and its authorized representative in a single request.{% admonition type=&quot;info&quot; %}This request accepts an optional field in the header, `X-idempotence-uuid`. This should be unique for each Profile you create. In the event that the request fails, you should use the same value again when retrying. If the `X-idempotence-uuid` header is not provided and a Profile already exists, then you will receive a response with an HTTP status code `409`.{% /admonition %}See [Business Category](/guides/developer/api-guides/business-categories) for the list of valid `firstLevelCategory` and `secondLevelCategory` values.
+        /// Create a business profile and its authorized representative in a single request.{% admonition type=&quot;warning&quot; %}This endpoint will soon be deprecated, please use the `/v2` endpoints instead.{% /admonition %}{% admonition type=&quot;info&quot; %}This request accepts an optional field in the header, `X-idempotence-uuid`. This should be unique for each Profile you create. In the event that the request fails, you should use the same value again when retrying. If the `X-idempotence-uuid` header is not provided and a Profile already exists, then you will receive a response with an HTTP status code `409`.{% /admonition %}See [Business Category](/guides/developer/api-guides/business-categories) for the list of valid `firstLevelCategory` and `secondLevelCategory` values.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>
