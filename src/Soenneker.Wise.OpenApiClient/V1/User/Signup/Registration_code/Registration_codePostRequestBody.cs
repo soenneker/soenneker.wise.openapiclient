@@ -5,16 +5,32 @@ using Microsoft.Kiota.Abstractions.Serialization;
 using System.Collections.Generic;
 using System.IO;
 using System;
-namespace Soenneker.Wise.OpenApiClient.V1.User.ClaimAccount
+namespace Soenneker.Wise.OpenApiClient.V1.User.Signup.Registration_code
 {
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
-    public partial class ClaimAccountPostRequestBody : IAdditionalDataHolder, IParsable
+    public partial class Registration_codePostRequestBody : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>The `registration_code` obtained when [creating the user](/api-reference/user/usercreate).</summary>
+        /// <summary>New user&apos;s email address.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? Email { get; set; }
+#nullable restore
+#else
+        public string Email { get; set; }
+#endif
+        /// <summary>User default language for UI and email communication.Allowed values: EN, US, PT, ES, FR, DE, IT, JA, RU, PL, HU, TR, RO, NL, HK.Default value: EN.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? Language { get; set; }
+#nullable restore
+#else
+        public string Language { get; set; }
+#endif
+        /// <summary>Randomly generated registration code that is unique to this user and request. At least 32 characters long.You need to store registration code to obtain access token on behalf of this newly created user in next step.Please apply the same security standards to handling registration code as if it was a password.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? RegistrationCode { get; set; }
@@ -23,21 +39,21 @@ namespace Soenneker.Wise.OpenApiClient.V1.User.ClaimAccount
         public string RegistrationCode { get; set; }
 #endif
         /// <summary>
-        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.V1.User.ClaimAccount.ClaimAccountPostRequestBody"/> and sets the default values.
+        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.V1.User.Signup.Registration_code.Registration_codePostRequestBody"/> and sets the default values.
         /// </summary>
-        public ClaimAccountPostRequestBody()
+        public Registration_codePostRequestBody()
         {
             AdditionalData = new Dictionary<string, object>();
         }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.User.ClaimAccount.ClaimAccountPostRequestBody"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.User.Signup.Registration_code.Registration_codePostRequestBody"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static global::Soenneker.Wise.OpenApiClient.V1.User.ClaimAccount.ClaimAccountPostRequestBody CreateFromDiscriminatorValue(IParseNode parseNode)
+        public static global::Soenneker.Wise.OpenApiClient.V1.User.Signup.Registration_code.Registration_codePostRequestBody CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.V1.User.ClaimAccount.ClaimAccountPostRequestBody();
+            return new global::Soenneker.Wise.OpenApiClient.V1.User.Signup.Registration_code.Registration_codePostRequestBody();
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -47,6 +63,8 @@ namespace Soenneker.Wise.OpenApiClient.V1.User.ClaimAccount
         {
             return new Dictionary<string, Action<IParseNode>>
             {
+                { "email", n => { Email = n.GetStringValue(); } },
+                { "language", n => { Language = n.GetStringValue(); } },
                 { "registrationCode", n => { RegistrationCode = n.GetStringValue(); } },
             };
         }
@@ -57,6 +75,8 @@ namespace Soenneker.Wise.OpenApiClient.V1.User.ClaimAccount
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
+            writer.WriteStringValue("email", Email);
+            writer.WriteStringValue("language", Language);
             writer.WriteStringValue("registrationCode", RegistrationCode);
             writer.WriteAdditionalData(AdditionalData);
         }

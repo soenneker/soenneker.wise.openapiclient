@@ -3,6 +3,7 @@
 using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions;
 using Soenneker.Wise.OpenApiClient.V1.User.ClaimAccount;
+using Soenneker.Wise.OpenApiClient.V1.User.Signup;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -19,6 +20,11 @@ namespace Soenneker.Wise.OpenApiClient.V1.User
         public global::Soenneker.Wise.OpenApiClient.V1.User.ClaimAccount.ClaimAccountRequestBuilder ClaimAccount
         {
             get => new global::Soenneker.Wise.OpenApiClient.V1.User.ClaimAccount.ClaimAccountRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The signup property</summary>
+        public global::Soenneker.Wise.OpenApiClient.V1.User.Signup.SignupRequestBuilder Signup
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.V1.User.Signup.SignupRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.V1.User.UserRequestBuilder"/> and sets the default values.

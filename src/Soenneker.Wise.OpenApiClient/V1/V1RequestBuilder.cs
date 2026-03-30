@@ -10,6 +10,7 @@ using Soenneker.Wise.OpenApiClient.V1.Cases;
 using Soenneker.Wise.OpenApiClient.V1.Currencies;
 using Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates;
 using Soenneker.Wise.OpenApiClient.V1.Facetec;
+using Soenneker.Wise.OpenApiClient.V1.Me;
 using Soenneker.Wise.OpenApiClient.V1.OneTimeToken;
 using Soenneker.Wise.OpenApiClient.V1.Profiles;
 using Soenneker.Wise.OpenApiClient.V1.Quotes;
@@ -19,6 +20,7 @@ using Soenneker.Wise.OpenApiClient.V1.Simulation;
 using Soenneker.Wise.OpenApiClient.V1.TransferRequirements;
 using Soenneker.Wise.OpenApiClient.V1.Transfers;
 using Soenneker.Wise.OpenApiClient.V1.User;
+using Soenneker.Wise.OpenApiClient.V1.Users;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -71,6 +73,11 @@ namespace Soenneker.Wise.OpenApiClient.V1
         {
             get => new global::Soenneker.Wise.OpenApiClient.V1.Facetec.FacetecRequestBuilder(PathParameters, RequestAdapter);
         }
+        /// <summary>The me property</summary>
+        public global::Soenneker.Wise.OpenApiClient.V1.Me.MeRequestBuilder Me
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.V1.Me.MeRequestBuilder(PathParameters, RequestAdapter);
+        }
         /// <summary>The oneTimeToken property</summary>
         public global::Soenneker.Wise.OpenApiClient.V1.OneTimeToken.OneTimeTokenRequestBuilder OneTimeToken
         {
@@ -115,6 +122,11 @@ namespace Soenneker.Wise.OpenApiClient.V1
         public global::Soenneker.Wise.OpenApiClient.V1.User.UserRequestBuilder User
         {
             get => new global::Soenneker.Wise.OpenApiClient.V1.User.UserRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The users property</summary>
+        public global::Soenneker.Wise.OpenApiClient.V1.Users.UsersRequestBuilder Users
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.V1.Users.UsersRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.V1.V1RequestBuilder"/> and sets the default values.
