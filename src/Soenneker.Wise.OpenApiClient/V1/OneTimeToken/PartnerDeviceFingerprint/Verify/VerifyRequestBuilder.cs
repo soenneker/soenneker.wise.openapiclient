@@ -33,7 +33,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.OneTimeToken.PartnerDeviceFingerprint.
         {
         }
         /// <summary>
-        /// [{% img src=&quot;https://img.shields.io/badge/jose-direct_encryption-blue&quot; /%}](/guides/developer/auth-and-security/jose-jwe){% .d-inline-block %}To clear a **Device Fingerprint** challenge listed in an OTT.Notes:1. User is required to [create a device fingerprint](/api-reference/user-security#create-device-fingerprint) before the verification can be successful.2. Rate limit may be applied if there are 5 continuous unsuccessful attempts and OTT creation will be blocked for 15 minutes.
+        /// [{% img src=&quot;https://img.shields.io/badge/jose-direct_encryption-blue&quot; /%}](/guides/developer/auth-and-security/jose-jwe){% .d-inline-block %}To clear a **Device Fingerprint** challenge listed in an OTT.Notes:1. User is required to [create a device fingerprint](/api-reference/user-security/usersecuritydevicefingerprintcreate) before the verification can be successful.2. Rate limit may be applied if there are 5 continuous unsuccessful attempts and OTT creation will be blocked for 15 minutes.
         /// </summary>
         /// <returns>A <see cref="string"/></returns>
         /// <param name="body">JWE-encrypted string. The payload before encryption should contain a `deviceFingerprint` field.Original payload:```json{&quot;deviceFingerprint&quot;: &quot;&lt;device_fingerprint_value&gt;&quot;}```Encoded (JWE):```eyJlbmMiOiJBMjU2R0NNIiwi...```</param>
@@ -53,7 +53,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.OneTimeToken.PartnerDeviceFingerprint.
             return await RequestAdapter.SendPrimitiveAsync<string>(requestInfo, default, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// [{% img src=&quot;https://img.shields.io/badge/jose-direct_encryption-blue&quot; /%}](/guides/developer/auth-and-security/jose-jwe){% .d-inline-block %}To clear a **Device Fingerprint** challenge listed in an OTT.Notes:1. User is required to [create a device fingerprint](/api-reference/user-security#create-device-fingerprint) before the verification can be successful.2. Rate limit may be applied if there are 5 continuous unsuccessful attempts and OTT creation will be blocked for 15 minutes.
+        /// [{% img src=&quot;https://img.shields.io/badge/jose-direct_encryption-blue&quot; /%}](/guides/developer/auth-and-security/jose-jwe){% .d-inline-block %}To clear a **Device Fingerprint** challenge listed in an OTT.Notes:1. User is required to [create a device fingerprint](/api-reference/user-security/usersecuritydevicefingerprintcreate) before the verification can be successful.2. Rate limit may be applied if there are 5 continuous unsuccessful attempts and OTT creation will be blocked for 15 minutes.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">JWE-encrypted string. The payload before encryption should contain a `deviceFingerprint` field.Original payload:```json{&quot;deviceFingerprint&quot;: &quot;&lt;device_fingerprint_value&gt;&quot;}```Encoded (JWE):```eyJlbmMiOiJBMjU2R0NNIiwi...```</param>

@@ -5,6 +5,7 @@ using Microsoft.Kiota.Abstractions;
 using Soenneker.Wise.OpenApiClient.V1.Accounts;
 using Soenneker.Wise.OpenApiClient.V1.AddressRequirements;
 using Soenneker.Wise.OpenApiClient.V1.Addresses;
+using Soenneker.Wise.OpenApiClient.V1.Application;
 using Soenneker.Wise.OpenApiClient.V1.Auth;
 using Soenneker.Wise.OpenApiClient.V1.Cases;
 using Soenneker.Wise.OpenApiClient.V1.Currencies;
@@ -47,6 +48,11 @@ namespace Soenneker.Wise.OpenApiClient.V1
         public global::Soenneker.Wise.OpenApiClient.V1.AddressRequirements.AddressRequirementsRequestBuilder AddressRequirements
         {
             get => new global::Soenneker.Wise.OpenApiClient.V1.AddressRequirements.AddressRequirementsRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The application property</summary>
+        public global::Soenneker.Wise.OpenApiClient.V1.Application.ApplicationRequestBuilder Application
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.V1.Application.ApplicationRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The auth property</summary>
         public global::Soenneker.Wise.OpenApiClient.V1.Auth.AuthRequestBuilder Auth

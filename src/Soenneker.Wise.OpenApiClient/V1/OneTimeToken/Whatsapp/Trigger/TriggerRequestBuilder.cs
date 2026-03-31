@@ -33,7 +33,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Whatsapp.Trigger
         {
         }
         /// <summary>
-        /// To trigger a WhatsApp challenge by sending WhatsApp message to user verified [phone number](/api-reference/user-security#phone-number) containing a 6 digit one time password (**OTP**).This **OTP** code can be used to clear a WHATSAPP challenge by using the [Verify WhatsApp endpoint](/api-reference/one-time-token/ottwhatsappverify).{% admonition type=&quot;warning&quot; %}The Trigger WhatsApp Challenge API is currently in closed Beta and subject to change. Please speak with your implementation manager if you would like to use this API.{% /admonition %}
+        /// To trigger a WhatsApp challenge by sending WhatsApp message to user verified [phone number](/api-reference/user-security/usersecurityphonenumberlist) containing a 6 digit one time password (**OTP**).This **OTP** code can be used to clear a WHATSAPP challenge by using the [Verify WhatsApp endpoint](/api-reference/one-time-token/ottwhatsappverify).{% admonition type=&quot;warning&quot; %}The Trigger WhatsApp Challenge API is currently in closed Beta and subject to change. Please speak with your implementation manager if you would like to use this API.{% /admonition %}
         /// </summary>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Whatsapp.Trigger.TriggerPostResponse"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
@@ -51,7 +51,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Whatsapp.Trigger
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Whatsapp.Trigger.TriggerPostResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Whatsapp.Trigger.TriggerPostResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// To trigger a WhatsApp challenge by sending WhatsApp message to user verified [phone number](/api-reference/user-security#phone-number) containing a 6 digit one time password (**OTP**).This **OTP** code can be used to clear a WHATSAPP challenge by using the [Verify WhatsApp endpoint](/api-reference/one-time-token/ottwhatsappverify).{% admonition type=&quot;warning&quot; %}The Trigger WhatsApp Challenge API is currently in closed Beta and subject to change. Please speak with your implementation manager if you would like to use this API.{% /admonition %}
+        /// To trigger a WhatsApp challenge by sending WhatsApp message to user verified [phone number](/api-reference/user-security/usersecurityphonenumberlist) containing a 6 digit one time password (**OTP**).This **OTP** code can be used to clear a WHATSAPP challenge by using the [Verify WhatsApp endpoint](/api-reference/one-time-token/ottwhatsappverify).{% admonition type=&quot;warning&quot; %}The Trigger WhatsApp Challenge API is currently in closed Beta and subject to change. Please speak with your implementation manager if you would like to use this API.{% /admonition %}
         /// </summary>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Whatsapp.Trigger.TriggerResponse"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
@@ -70,7 +70,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Whatsapp.Trigger
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Whatsapp.Trigger.TriggerResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Whatsapp.Trigger.TriggerResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// To trigger a WhatsApp challenge by sending WhatsApp message to user verified [phone number](/api-reference/user-security#phone-number) containing a 6 digit one time password (**OTP**).This **OTP** code can be used to clear a WHATSAPP challenge by using the [Verify WhatsApp endpoint](/api-reference/one-time-token/ottwhatsappverify).{% admonition type=&quot;warning&quot; %}The Trigger WhatsApp Challenge API is currently in closed Beta and subject to change. Please speak with your implementation manager if you would like to use this API.{% /admonition %}
+        /// To trigger a WhatsApp challenge by sending WhatsApp message to user verified [phone number](/api-reference/user-security/usersecurityphonenumberlist) containing a 6 digit one time password (**OTP**).This **OTP** code can be used to clear a WHATSAPP challenge by using the [Verify WhatsApp endpoint](/api-reference/one-time-token/ottwhatsappverify).{% admonition type=&quot;warning&quot; %}The Trigger WhatsApp Challenge API is currently in closed Beta and subject to change. Please speak with your implementation manager if you would like to use this API.{% /admonition %}
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>

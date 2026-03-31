@@ -5,6 +5,9 @@ using Microsoft.Kiota.Abstractions.Serialization;
 using Microsoft.Kiota.Abstractions;
 using Soenneker.Wise.OpenApiClient.Models;
 using Soenneker.Wise.OpenApiClient.V1.Users.Item.ContactEmail;
+using Soenneker.Wise.OpenApiClient.V1.Users.Item.Facemap;
+using Soenneker.Wise.OpenApiClient.V1.Users.Item.PartnerDeviceFingerprints;
+using Soenneker.Wise.OpenApiClient.V1.Users.Item.Pin;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -22,6 +25,21 @@ namespace Soenneker.Wise.OpenApiClient.V1.Users.Item
         public global::Soenneker.Wise.OpenApiClient.V1.Users.Item.ContactEmail.ContactEmailRequestBuilder ContactEmail
         {
             get => new global::Soenneker.Wise.OpenApiClient.V1.Users.Item.ContactEmail.ContactEmailRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The facemap property</summary>
+        public global::Soenneker.Wise.OpenApiClient.V1.Users.Item.Facemap.FacemapRequestBuilder Facemap
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.V1.Users.Item.Facemap.FacemapRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The partnerDeviceFingerprints property</summary>
+        public global::Soenneker.Wise.OpenApiClient.V1.Users.Item.PartnerDeviceFingerprints.PartnerDeviceFingerprintsRequestBuilder PartnerDeviceFingerprints
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.V1.Users.Item.PartnerDeviceFingerprints.PartnerDeviceFingerprintsRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The pin property</summary>
+        public global::Soenneker.Wise.OpenApiClient.V1.Users.Item.Pin.PinRequestBuilder Pin
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.V1.Users.Item.Pin.PinRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.V1.Users.Item.WithUserItemRequestBuilder"/> and sets the default values.

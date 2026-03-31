@@ -33,7 +33,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Facetec.PublicKey
         {
         }
         /// <summary>
-        /// Retrieve Wise&apos;s FaceTec public key to be used when [exporting 3D FaceMap](https://dev.facetec.com/api-guide#export-3d-facemap) from your FaceTec host to Wise.The exported FaceMap can be used to [Enrol FaceMap](/api-reference/user-security#enrol-facemap).
+        /// Retrieve Wise&apos;s FaceTec public key to be used when [exporting 3D FaceMap](https://dev.facetec.com/api-guide#export-3d-facemap) from your FaceTec host to Wise.The exported FaceMap can be used to [Enrol FaceMap](/api-reference/user-security/usersecurityfacemapenrol).
         /// </summary>
         /// <returns>A <see cref="string"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
@@ -51,7 +51,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Facetec.PublicKey
             return await RequestAdapter.SendPrimitiveAsync<string>(requestInfo, default, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Retrieve Wise&apos;s FaceTec public key to be used when [exporting 3D FaceMap](https://dev.facetec.com/api-guide#export-3d-facemap) from your FaceTec host to Wise.The exported FaceMap can be used to [Enrol FaceMap](/api-reference/user-security#enrol-facemap).
+        /// Retrieve Wise&apos;s FaceTec public key to be used when [exporting 3D FaceMap](https://dev.facetec.com/api-guide#export-3d-facemap) from your FaceTec host to Wise.The exported FaceMap can be used to [Enrol FaceMap](/api-reference/user-security/usersecurityfacemapenrol).
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>

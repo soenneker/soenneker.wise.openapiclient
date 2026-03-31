@@ -1087,30 +1087,31 @@ tags:
 
       |------|---------------|---------|--------|
 
-      | PIN | [Create Pin](/api-reference/user-security#create-pin) | - |
-      [Verify Pin](/api-reference/one-time-token/ottpinverify) |
+      | PIN | [Create Pin](/api-reference/user-security/usersecuritypincreate) |
+      - | [Verify Pin](/api-reference/one-time-token/ottpinverify) |
 
-      | FACE_MAP | [Enrol FaceMap](/api-reference/user-security#enrol-facemap) |
-      - | [Verify FaceMap](/api-reference/one-time-token/ottfacemapverify) |
+      | FACE_MAP | [Enrol
+      FaceMap](/api-reference/user-security/usersecurityfacemapenrol) | - |
+      [Verify FaceMap](/api-reference/one-time-token/ottfacemapverify) |
 
       | SMS | [Create Phone
-      Number](/api-reference/user-security#create-phone-number) | [Trigger
-      SMS](/api-reference/one-time-token/ottsmstrigger) | [Verify
+      Number](/api-reference/user-security/usersecurityphonenumbercreate) |
+      [Trigger SMS](/api-reference/one-time-token/ottsmstrigger) | [Verify
       SMS](/api-reference/one-time-token/ottsmsverify) |
 
       | WHATSAPP | [Create Phone
-      Number](/api-reference/user-security#create-phone-number) | [Trigger
-      WhatsApp](/api-reference/one-time-token/ottwhatsapptrigger) | [Verify
-      WhatsApp](/api-reference/one-time-token/ottwhatsappverify) |
+      Number](/api-reference/user-security/usersecurityphonenumbercreate) |
+      [Trigger WhatsApp](/api-reference/one-time-token/ottwhatsapptrigger) |
+      [Verify WhatsApp](/api-reference/one-time-token/ottwhatsappverify) |
 
       | VOICE | [Create Phone
-      Number](/api-reference/user-security#create-phone-number) | [Trigger
-      Voice](/api-reference/one-time-token/ottvoicetrigger) | [Verify
+      Number](/api-reference/user-security/usersecurityphonenumbercreate) |
+      [Trigger Voice](/api-reference/one-time-token/ottvoicetrigger) | [Verify
       Voice](/api-reference/one-time-token/ottvoiceverify) |
 
       | PARTNER_DEVICE_FINGERPRINT | [Create Device
-      Fingerprint](/api-reference/user-security#create-device-fingerprint) | - |
-      [Verify Device
+      Fingerprint](/api-reference/user-security/usersecuritydevicefingerprintcreate)
+      | - | [Verify Device
       Fingerprint](/api-reference/one-time-token/ottdevicefingerprintverify) |
   - name: case
     x-displayName: Partner Cases
@@ -1351,6 +1352,20 @@ tags:
 
 
       ![User profile structure](/images/diagrams/user-profile-structure.svg)
+  - name: user-security
+    x-displayName: User Security
+    description: >
+      {% admonition type="warning" %}
+
+      These endpoints are deprecated. Please refer to [Strong Customer
+      Authentication](/api-reference/strong-customer-authentication) to
+      integrate with SCA.
+
+      {% /admonition %}
+
+
+      User security allows users to set up security-related protections over the
+      API.
 paths:
   /v3/spend/profiles/{profileId}/3dsecure/challenge-result:
     post:
@@ -7989,7 +8004,7 @@ paths:
 
 
         The exported FaceMap can be used to [Enrol
-        FaceMap](/api-reference/user-security#enrol-facemap).
+        FaceMap](/api-reference/user-security/usersecurityfacemapenrol).
       tags:
         - facetec
       security:
@@ -9911,8 +9926,8 @@ paths:
         Notes:
 
         1. User is required to [create
-        pin](/api-reference/user-security#create-pin) before the verification
-        can be successful.
+        pin](/api-reference/user-security/usersecuritypincreate) before the
+        verification can be successful.
 
         2. Rate limit may be applied if there are 5 continuous unsuccessful
         attempts and OTT creation will be blocked for 15 minutes.
@@ -10017,7 +10032,7 @@ paths:
         Notes:
 
         1. User is required to [create a device
-        fingerprint](/api-reference/user-security#create-device-fingerprint)
+        fingerprint](/api-reference/user-security/usersecuritydevicefingerprintcreate)
         before the verification can be successful.
 
         2. Rate limit may be applied if there are 5 continuous unsuccessful
@@ -10122,8 +10137,8 @@ paths:
         Notes:
 
         1. User is required to [enrol
-        facemap](/api-reference/user-security#enrol-facemap) before the
-        verification can be successful.
+        facemap](/api-reference/user-security/usersecurityfacemapenrol) before
+        the verification can be successful.
 
         2. Rate limit may be applied if there are 5 continuous unsuccessful
         attempts and OTT creation will be blocked for 15 minutes.
@@ -10178,8 +10193,8 @@ paths:
       summary: Trigger SMS Challenge
       description: >
         To trigger a SMS challenge by sending SMS to user verified [phone
-        number](/api-reference/user-security#phone-number) containing a 6 digit
-        one time password (**OTP**).
+        number](/api-reference/user-security/usersecurityphonenumberlist)
+        containing a 6 digit one time password (**OTP**).
 
 
         This **OTP** code can be used to clear a SMS challenge by using the
@@ -10230,8 +10245,8 @@ paths:
         Notes:
 
         1. User is required to have a verified phone number. See [create phone
-        number](/api-reference/user-security#create-phone-number) for more
-        information.
+        number](/api-reference/user-security/usersecurityphonenumbercreate) for
+        more information.
 
         2. [Trigger SMS Challenge](/api-reference/one-time-token/ottsmstrigger)
         is required to be called first.
@@ -10287,7 +10302,8 @@ paths:
       summary: Trigger WhatsApp Challenge
       description: >
         To trigger a WhatsApp challenge by sending WhatsApp message to user
-        verified [phone number](/api-reference/user-security#phone-number)
+        verified [phone
+        number](/api-reference/user-security/usersecurityphonenumberlist)
         containing a 6 digit one time password (**OTP**).
 
 
@@ -10340,8 +10356,8 @@ paths:
         Notes:
 
         1. User is required to have a verified phone number. See [create phone
-        number](/api-reference/user-security#create-phone-number) for more
-        information.
+        number](/api-reference/user-security/usersecurityphonenumbercreate) for
+        more information.
 
         2. [Trigger WhatsApp
         Challenge](/api-reference/one-time-token/ottwhatsapptrigger) is required
@@ -10398,8 +10414,8 @@ paths:
       summary: Trigger Voice Challenge
       description: >
         To trigger a Voice challenge by sending voice message to user verified
-        [phone number](/api-reference/user-security#phone-number) containing a 6
-        digit one time password (**OTP**).
+        [phone number](/api-reference/user-security/usersecurityphonenumberlist)
+        containing a 6 digit one time password (**OTP**).
 
 
         This **OTP** code can be used to clear a VOICE challenge by using the
@@ -10450,8 +10466,8 @@ paths:
         Notes:
 
         1. User is required to have a verified phone number. See [create phone
-        number](/api-reference/user-security#create-phone-number) for more
-        information.
+        number](/api-reference/user-security/usersecurityphonenumbercreate) for
+        more information.
 
         2. [Trigger Voice
         Challenge](/api-reference/one-time-token/ottvoicetrigger) is required to
@@ -21279,6 +21295,630 @@ paths:
                     description: Contact email address.
               example:
                 email: new-user@email.com
+  /v1/user/pin:
+    post:
+      operationId: userSecurityPinCreate
+      summary: Create PIN
+      description: >
+        Create PIN for a user as a form of authentication.
+
+
+        Can be used to [verify pin](/api-reference/one-time-token/ottpinverify)
+        when accessing a strongly protected endpoint via [One Time Token
+        Framework](/api-reference/one-time-token).
+
+
+        The request and response are encrypted using the JOSE framework. Please
+        refer to the [JOSE JWE
+        guide](/guides/developer/auth-and-security/jose-jwe) to understand how
+        encryption and decryption work.
+      tags:
+        - user-security
+      security:
+        - UserToken: []
+      parameters:
+        - name: Accept
+          in: header
+          required: true
+          schema:
+            type: string
+            default: application/jose+json
+        - name: Accept-Encoding
+          in: header
+          required: true
+          schema:
+            type: string
+            default: identity
+        - name: Content-Encoding
+          in: header
+          required: true
+          schema:
+            type: string
+            default: identity
+        - name: X-tw-jose-method
+          in: header
+          required: true
+          schema:
+            type: string
+            default: jwe
+      x-codeSamples:
+        - lang: bash
+          label: cURL
+          source: |
+            curl -X POST \
+              'https://api.wise-sandbox.com/v1/user/pin' \
+              -H 'Authorization: Bearer <YOUR_JWT_HERE>' \
+              -H 'Accept: application/jose+json' \
+              -H 'Accept-Encoding: identity' \
+              -H 'Content-Type: application/jose+json' \
+              -H 'Content-Encoding: identity' \
+              -H 'X-TW-JOSE-Method: jwe' \
+              -d 'eyJlbmMiOiJBMjU2R0NNIiwi...'
+      requestBody:
+        required: true
+        content:
+          application/jose+json:
+            schema:
+              type: string
+              description: |
+                A JWE encrypted string. The decrypted payload contains:
+                - `pin` — A four-digit string.
+
+                Payload before encryption:
+                ```json
+                {"pin": "1234"}
+                ```
+            example: <JWE encrypted string>
+      responses:
+        '204':
+          description: PIN is created successfully.
+        '409':
+          description: PIN has already been created.
+  /v1/users/{userId}/pin:
+    delete:
+      operationId: userSecurityPinDelete
+      summary: Delete PIN
+      description: >
+        Remove the PIN from the user's account.
+
+
+        {% admonition type="warning" %}
+
+        This endpoint is restricted and requires both a client credentials token
+        and additional access to use. Please speak with your implementation
+        manager if you would like to use this API.
+
+        {% /admonition %}
+      tags:
+        - user-security
+      security:
+        - ClientCredentialsToken: []
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: User ID.
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: PIN is deleted successfully.
+        '404':
+          description: PIN is not setup for this user.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                        message:
+                          type: string
+              example:
+                errors:
+                  - code: pin.not.setup
+                    message: PIN has not been setup.
+  /v1/user/facemap/enrol:
+    post:
+      operationId: userSecurityFacemapEnrol
+      summary: Enrol FaceMap
+      description: >
+        Facial biometric enrolment for Strong Customer Authentication (SCA).
+
+
+        Can be used to [verify
+        facemap](/api-reference/one-time-token/ottfacemapverify) when accessing
+        a strongly protected endpoint via [One Time Token
+        Framework](/api-reference/one-time-token).
+      tags:
+        - user-security
+      security:
+        - UserToken: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                faceMap:
+                  type: string
+                  description: >
+                    Base64-encoded binary data as a string.
+
+
+                    For more details how to get this binary, please read
+                    FaceTec's [export
+                    API](https://dev.facetec.com/api-guide#export-3d-facemap).
+
+
+                    To retrieve Wise's FaceTec public key, please refer to our
+                    FaceTec's [Get Public Key
+                    API](/api-reference/facetec/facetecpublickeyget).
+      responses:
+        '204':
+          description: Enrollment is successful.
+        '409':
+          description: FaceMap has already been enrolled.
+  /v1/users/{userId}/facemap/enrol:
+    delete:
+      operationId: userSecurityFacemapDelete
+      summary: Delete FaceMap
+      description: >
+        Remove the FaceMap from the user's account.
+
+
+        {% admonition type="warning" %}
+
+        This endpoint is restricted and requires both a client credentials token
+        and additional access to use. Please speak with your implementation
+        manager if you would like to use this API.
+
+        {% /admonition %}
+      tags:
+        - user-security
+      security:
+        - ClientCredentialsToken: []
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: User ID.
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: FaceMap is deleted successfully.
+        '404':
+          description: FaceMap is not setup for this user.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                        message:
+                          type: string
+              example:
+                errors:
+                  - code: facemap.not.setup
+                    message: FaceMap has not been setup.
+  /v1/user/partner-device-fingerprints:
+    post:
+      operationId: userSecurityDeviceFingerprintCreate
+      summary: Create Device Fingerprint
+      description: >
+        A device fingerprint represents a string that identifies a unique
+        device.
+
+
+        This endpoint is used to register the fingerprint of the device as one
+        of the allowed devices used during an One Time Token (OTT) challenge.
+
+
+        This can be used to [verify device
+        fingerprint](/api-reference/one-time-token/ottdevicefingerprintverify)
+        when clearing a [OTT](/api-reference/one-time-token).
+
+
+        The request and response are encrypted using the JOSE framework. Please
+        refer to the [JOSE JWE
+        guide](/guides/developer/auth-and-security/jose-jwe) to understand how
+        encryption and decryption work.
+      tags:
+        - user-security
+      security:
+        - UserToken: []
+      parameters:
+        - name: Accept
+          in: header
+          required: true
+          schema:
+            type: string
+            default: application/jose+json
+        - name: Accept-Encoding
+          in: header
+          required: true
+          schema:
+            type: string
+            default: identity
+        - name: Content-Encoding
+          in: header
+          required: true
+          schema:
+            type: string
+            default: identity
+        - name: X-tw-jose-method
+          in: header
+          required: true
+          schema:
+            type: string
+            default: jwe
+      x-codeSamples:
+        - lang: bash
+          label: cURL
+          source: |
+            curl -X POST \
+              'https://api.wise-sandbox.com/v1/user/partner-device-fingerprints' \
+              -H 'Authorization: Bearer <YOUR_JWT_HERE>' \
+              -H 'Accept: application/jose+json' \
+              -H 'Accept-Encoding: identity' \
+              -H 'Content-Type: application/jose+json' \
+              -H 'Content-Encoding: identity' \
+              -H 'X-TW-JOSE-Method: jwe' \
+              -d 'eyJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiUlNBLU9BRVAtMjU2In0.W0fuxaZOoyaBcx...'
+      requestBody:
+        required: true
+        content:
+          application/jose+json:
+            schema:
+              type: string
+              description: >
+                A JWE encrypted string. The decrypted payload contains:
+
+                - `deviceFingerprint` — A string value used as a device
+                fingerprint.
+
+
+                Payload before encryption:
+
+                ```json
+
+                {"deviceFingerprint": "3207da22-a0d3-4b6b-a591-6297e646fe32"}
+
+                ```
+            example: <JWE encrypted string>
+      responses:
+        '200':
+          description: The device fingerprint has been successfully created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  deviceFingerprintId:
+                    type: string
+                    format: uuid
+                    description: Identifier of the device fingerprint.
+                  createdAt:
+                    type: string
+                    format: date-time
+                    description: Timestamp on when the device fingerprint was created.
+              example:
+                deviceFingerprintId: 636a5514-aa86-4719-8700-e9a9a0ae7ea7
+                createdAt: '2024-05-24T07:27:58.273205554Z'
+        '400':
+          description: Maximum number of device fingerprints reached (defaulted to 3).
+        '409':
+          description: The device fingerprint has already been created.
+  /v1/users/{userId}/partner-device-fingerprints:
+    get:
+      operationId: userSecurityDeviceFingerprintList
+      summary: List Device Fingerprints
+      description: >
+        Returns a list of device fingerprints created for this user.
+
+
+        {% admonition type="warning" %}
+
+        This endpoint is restricted and requires both a client credentials token
+        and additional access to use. Please speak with your implementation
+        manager if you would like to use this API.
+
+        {% /admonition %}
+      tags:
+        - user-security
+      security:
+        - ClientCredentialsToken: []
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: User ID.
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    deviceFingerprintId:
+                      type: string
+                      format: uuid
+                      description: Identifier of the device fingerprint.
+                    createdAt:
+                      type: string
+                      format: date-time
+                      description: Timestamp on when the device fingerprint was created.
+              example:
+                - deviceFingerprintId: 636a5514-aa86-4719-8700-e9a9a0ae7ea7
+                  createdAt: '2024-05-24T07:27:58.273205554Z'
+        '404':
+          description: The user is not found.
+  /v1/users/{userId}/partner-device-fingerprints/{deviceFingerprintId}:
+    delete:
+      operationId: userSecurityDeviceFingerprintDelete
+      summary: Delete Device Fingerprint
+      description: >
+        Remove a specific device fingerprint from the allowed devices of a user.
+
+
+        {% admonition type="warning" %}
+
+        This endpoint is restricted and requires both a client credentials token
+        and additional access to use. Please speak with your implementation
+        manager if you would like to use this API.
+
+        {% /admonition %}
+      tags:
+        - user-security
+      security:
+        - ClientCredentialsToken: []
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: User ID.
+          schema:
+            type: integer
+            format: int64
+        - name: deviceFingerprintId
+          in: path
+          required: true
+          description: Device fingerprint ID.
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Device fingerprint has been successfully removed.
+        '404':
+          description: User or deviceFingerprintId is not found.
+  /v1/application/users/{userId}/phone-numbers:
+    get:
+      operationId: userSecurityPhoneNumberList
+      summary: List Phone Numbers
+      description: >
+        List verified phone numbers for a user.
+
+
+        {% admonition type="warning" %}
+
+        This endpoint is restricted and requires both a client credentials token
+        and additional access to use. Please speak with your implementation
+        manager if you would like to use this API.
+
+        {% /admonition %}
+      tags:
+        - user-security
+      security:
+        - ClientCredentialsToken: []
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: User ID.
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/phone-number'
+    post:
+      operationId: userSecurityPhoneNumberCreate
+      summary: Create Phone Number
+      description: >
+        Create a verified phone number for a user.
+
+
+        {% admonition type="warning" %}
+
+        This endpoint is restricted and requires both a client credentials token
+        and additional access to use. Please speak with your implementation
+        manager if you would like to use this API.
+
+        {% /admonition %}
+      tags:
+        - user-security
+      security:
+        - ClientCredentialsToken: []
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: User ID.
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                phoneNumber:
+                  type: string
+                  description: A valid phone number in string.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/phone-number'
+        '422':
+          description: The phone number is already associated with another account.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                        message:
+                          type: string
+              example:
+                errors:
+                  - code: phone.number.repeated
+                    message: It's linked to an account with the email ****@wise.com
+  /v1/application/users/{userId}/phone-numbers/{phoneNumberId}:
+    put:
+      operationId: userSecurityPhoneNumberUpdate
+      summary: Update Phone Number
+      description: >
+        Update a verified phone number for a user.
+
+
+        {% admonition type="warning" %}
+
+        This endpoint is restricted and requires both a client credentials token
+        and additional access to use. Please speak with your implementation
+        manager if you would like to use this API.
+
+        {% /admonition %}
+      tags:
+        - user-security
+      security:
+        - ClientCredentialsToken: []
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: User ID.
+          schema:
+            type: integer
+            format: int64
+        - name: phoneNumberId
+          in: path
+          required: true
+          description: ID of a phone number.
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                phoneNumber:
+                  type: string
+                  description: A valid phone number in string.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/phone-number'
+        '422':
+          description: The phone number is already associated with another account.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                        message:
+                          type: string
+              example:
+                errors:
+                  - code: phone.number.repeated
+                    message: It's linked to an account with the email ****@wise.com
+    delete:
+      operationId: userSecurityPhoneNumberDelete
+      summary: Delete Phone Number
+      description: >
+        Delete a verified phone number for a user.
+
+
+        {% admonition type="warning" %}
+
+        This endpoint is restricted and requires both a client credentials token
+        and additional access to use. Please speak with your implementation
+        manager if you would like to use this API.
+
+        {% /admonition %}
+      tags:
+        - user-security
+      security:
+        - ClientCredentialsToken: []
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: User ID.
+          schema:
+            type: integer
+            format: int64
+        - name: phoneNumberId
+          in: path
+          required: true
+          description: ID of a phone number.
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: No Content.
 components:
   securitySchemes:
     UserToken:
@@ -27073,3 +27713,31 @@ components:
                   type: string
                   description: User occupation. Required for US, CA, JP.
                   example: ''
+    phone-number:
+      title: Phone Number
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: ID of the phone number.
+          example: 1230944
+        phoneNumber:
+          type: string
+          description: A text representation of phone number.
+          example: '+6588888888'
+        type:
+          type: string
+          description: |
+            Type of phone number when used in authentication.
+
+            Only **PRIMARY** is supported at the moment.
+          example: PRIMARY
+        verified:
+          type: boolean
+          description: Indicator if phone number is verified.
+          example: true
+        clientId:
+          type: string
+          description: Client ID of which this phone number belongs to.
+          example: clientId

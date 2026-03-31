@@ -33,7 +33,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Pin.Verify
         {
         }
         /// <summary>
-        /// [{% img src=&quot;https://img.shields.io/badge/jose-direct_encryption-blue&quot; /%}](/guides/developer/auth-and-security/jose-jwe){% .d-inline-block %}To clear a **PIN** challenge listed in a OTT.Notes:1. User is required to [create pin](/api-reference/user-security#create-pin) before the verification can be successful.2. Rate limit may be applied if there are 5 continuous unsuccessful attempts and OTT creation will be blocked for 15 minutes.
+        /// [{% img src=&quot;https://img.shields.io/badge/jose-direct_encryption-blue&quot; /%}](/guides/developer/auth-and-security/jose-jwe){% .d-inline-block %}To clear a **PIN** challenge listed in a OTT.Notes:1. User is required to [create pin](/api-reference/user-security/usersecuritypincreate) before the verification can be successful.2. Rate limit may be applied if there are 5 continuous unsuccessful attempts and OTT creation will be blocked for 15 minutes.
         /// </summary>
         /// <returns>A <see cref="string"/></returns>
         /// <param name="body">JWE-encrypted string. The payload before encryption should contain a `pin` field.Original payload:```json{&quot;pin&quot;: &quot;1234&quot;}```Encoded (JWE):```eyJlbmMiOiJBMjU2R0NNIiwi...```</param>
@@ -53,7 +53,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Pin.Verify
             return await RequestAdapter.SendPrimitiveAsync<string>(requestInfo, default, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// [{% img src=&quot;https://img.shields.io/badge/jose-direct_encryption-blue&quot; /%}](/guides/developer/auth-and-security/jose-jwe){% .d-inline-block %}To clear a **PIN** challenge listed in a OTT.Notes:1. User is required to [create pin](/api-reference/user-security#create-pin) before the verification can be successful.2. Rate limit may be applied if there are 5 continuous unsuccessful attempts and OTT creation will be blocked for 15 minutes.
+        /// [{% img src=&quot;https://img.shields.io/badge/jose-direct_encryption-blue&quot; /%}](/guides/developer/auth-and-security/jose-jwe){% .d-inline-block %}To clear a **PIN** challenge listed in a OTT.Notes:1. User is required to [create pin](/api-reference/user-security/usersecuritypincreate) before the verification can be successful.2. Rate limit may be applied if there are 5 continuous unsuccessful attempts and OTT creation will be blocked for 15 minutes.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">JWE-encrypted string. The payload before encryption should contain a `pin` field.Original payload:```json{&quot;pin&quot;: &quot;1234&quot;}```Encoded (JWE):```eyJlbmMiOiJBMjU2R0NNIiwi...```</param>

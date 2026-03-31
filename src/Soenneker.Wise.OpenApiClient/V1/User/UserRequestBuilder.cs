@@ -3,6 +3,9 @@
 using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions;
 using Soenneker.Wise.OpenApiClient.V1.User.ClaimAccount;
+using Soenneker.Wise.OpenApiClient.V1.User.Facemap;
+using Soenneker.Wise.OpenApiClient.V1.User.PartnerDeviceFingerprints;
+using Soenneker.Wise.OpenApiClient.V1.User.Pin;
 using Soenneker.Wise.OpenApiClient.V1.User.Signup;
 using System.Collections.Generic;
 using System.IO;
@@ -20,6 +23,21 @@ namespace Soenneker.Wise.OpenApiClient.V1.User
         public global::Soenneker.Wise.OpenApiClient.V1.User.ClaimAccount.ClaimAccountRequestBuilder ClaimAccount
         {
             get => new global::Soenneker.Wise.OpenApiClient.V1.User.ClaimAccount.ClaimAccountRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The facemap property</summary>
+        public global::Soenneker.Wise.OpenApiClient.V1.User.Facemap.FacemapRequestBuilder Facemap
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.V1.User.Facemap.FacemapRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The partnerDeviceFingerprints property</summary>
+        public global::Soenneker.Wise.OpenApiClient.V1.User.PartnerDeviceFingerprints.PartnerDeviceFingerprintsRequestBuilder PartnerDeviceFingerprints
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.V1.User.PartnerDeviceFingerprints.PartnerDeviceFingerprintsRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The pin property</summary>
+        public global::Soenneker.Wise.OpenApiClient.V1.User.Pin.PinRequestBuilder Pin
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.V1.User.Pin.PinRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The signup property</summary>
         public global::Soenneker.Wise.OpenApiClient.V1.User.Signup.SignupRequestBuilder Signup

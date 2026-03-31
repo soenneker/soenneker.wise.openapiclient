@@ -34,7 +34,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Facemap.Verify
         {
         }
         /// <summary>
-        /// To clear a **FACE_MAP** challenge listed in a OTT.Notes:1. User is required to [enrol facemap](/api-reference/user-security#enrol-facemap) before the verification can be successful.2. Rate limit may be applied if there are 5 continuous unsuccessful attempts and OTT creation will be blocked for 15 minutes.
+        /// To clear a **FACE_MAP** challenge listed in a OTT.Notes:1. User is required to [enrol facemap](/api-reference/user-security/usersecurityfacemapenrol) before the verification can be successful.2. Rate limit may be applied if there are 5 continuous unsuccessful attempts and OTT creation will be blocked for 15 minutes.
         /// </summary>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.OttResponse"/></returns>
         /// <param name="body">The request body</param>
@@ -54,7 +54,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Facemap.Verify
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.OttResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.OttResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// To clear a **FACE_MAP** challenge listed in a OTT.Notes:1. User is required to [enrol facemap](/api-reference/user-security#enrol-facemap) before the verification can be successful.2. Rate limit may be applied if there are 5 continuous unsuccessful attempts and OTT creation will be blocked for 15 minutes.
+        /// To clear a **FACE_MAP** challenge listed in a OTT.Notes:1. User is required to [enrol facemap](/api-reference/user-security/usersecurityfacemapenrol) before the verification can be successful.2. Rate limit may be applied if there are 5 continuous unsuccessful attempts and OTT creation will be blocked for 15 minutes.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>
