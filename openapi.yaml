@@ -775,12 +775,6 @@ tags:
       `claim_account_code` and use it when [redirecting the customer to
       Wise](/guides/product/kyc/wise-kyc/redirect-to-wise/claim-account) to
       finalize their account setup.
-  - name: client-credentials-token
-    x-displayName: Client Credentials Token
-    description: >
-      Application-level token for partner operations that don't require a
-      specific user context. Obtained via Basic Authentication with your API
-      client credentials (`client_id` and `client_secret`).
   - name: comparison
     x-displayName: Comparison
     description: >
@@ -1033,6 +1027,56 @@ tags:
 
 
       Please see the [Balances APIs](/api-reference/balance) for more details.
+  - name: oauth-token
+    x-displayName: OAuth Token
+    description: >
+      Exchange client credentials or authorisation grants for OAuth 2.0 access
+      tokens. All grant types use `POST /oauth/token` with basic authentication
+      (your `client_id` and `client_secret`).
+
+
+      Depending on the grant type, this endpoint issues either a **client
+      credentials token** or a **user token**.
+
+
+      Client credentials token {% .title-3 .m-t-5 %}
+
+
+      An application-level token for requests that aren't tied to a specific
+      Wise user, such as generating un-authenticated quotes and subscribing to
+      application webhooks. Valid for 12 hours.
+
+
+      - `client_credentials` — the only grant type for this token.
+
+
+      User token {% .title-3 .m-t-5 %}
+
+
+      A token for making API calls on behalf of a specific Wise user, such as
+      creating transfers and managing balances. Access tokens are valid for 12
+      hours and can be refreshed using a refresh token. Grant types:
+
+
+      - `registration_code` — for partners that create Wise users via API.
+      Exchanges a registration code for a user access token and refresh token.
+
+      - `authorization_code` — for partners using the OAuth redirect flow.
+      Exchanges an authorisation code for a user access token and refresh token.
+
+      - `refresh_token` — obtain a new user access token without requiring the
+      user to re-authorise.
+
+
+      Managing token expiration {% #managing-token-expiration .title-3 .m-t-5 %}
+
+
+      Access tokens are valid for 12 hours. You can request a new access token
+      whenever it's close to expiring — there is no need to wait for the actual
+      expiration to happen first. Depending on how your application uses the
+      Wise Platform API, requesting a new access token before attempting a
+      series of API calls on behalf of an individual user will avoid issues with
+      expired access tokens.
   - name: one-time-token
     x-displayName: One Time Token
     description: >
@@ -1258,8 +1302,8 @@ tags:
 
 
       Rules are scoped at the application level. Use a [client credentials
-      token](/api-reference/client-credentials-token/clientcredentialstokenretrieve)
-      to call these endpoints.
+      token](/api-reference/oauth-token/oauthtokencreate) to call these
+      endpoints.
   - name: spend-limits
     x-displayName: Spend Limits
     description: >
@@ -6501,59 +6545,6 @@ paths:
                       Wise.
               example:
                 claimAccountCode: <claim_account_code>
-  /oauth/token:
-    post:
-      operationId: clientCredentialsTokenRetrieve
-      summary: Retrieve a client credentials token
-      description: |
-        Obtain an access token based on your Client ID and Client Secret.
-      tags:
-        - client-credentials-token
-      security:
-        - BasicAuth: []
-      requestBody:
-        required: true
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              type: object
-              required:
-                - grant_type
-              properties:
-                grant_type:
-                  type: string
-                  description: Must be `client_credentials`.
-                  example: client_credentials
-      responses:
-        '200':
-          description: Client credentials token retrieved successfully.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  access_token:
-                    type: string
-                    description: >-
-                      Access token to be used when calling the API. Valid for 12
-                      hours.
-                    example: ba8k1234-00f2-475a-60d8-6g45377b4062
-                  token_type:
-                    type: string
-                    description: Type of the token (`bearer`).
-                    example: bearer
-                  expires_in:
-                    type: integer
-                    description: Expiry time in seconds.
-                    example: 43199
-                  expires_at:
-                    type: string
-                    description: Access token expiration timestamp (UTC).
-                    example: '2025-04-11T03:43:28.148Z'
-                  scope:
-                    type: string
-                    description: Scope of the token (`transfers`).
-                    example: transfers
   /v3/comparisons:
     get:
       operationId: comparisonGetV3
@@ -8040,7 +8031,7 @@ paths:
 
 
         {% admonition type="warning" %}
-          This endpoint requires a client credentials token, not a user level access token. Make sure you use your client details to fetch a valid [client credentials token](/api-reference/client-credentials-token/clientcredentialstokenretrieve) before performing this call.
+          This endpoint requires a client credentials token, not a user level access token. Make sure you use your client details to fetch a valid [client credentials token](/api-reference/oauth-token/oauthtokencreate) before performing this call.
         {% /admonition %}
       tags:
         - jose
@@ -8141,7 +8132,7 @@ paths:
 
 
         {% admonition type="warning" %}
-          This endpoint requires a client credentials token, not a user level access token. Make sure you use your client details to fetch a valid [client credentials token](/api-reference/client-credentials-token/clientcredentialstokenretrieve) before performing this call.
+          This endpoint requires a client credentials token, not a user level access token. Make sure you use your client details to fetch a valid [client credentials token](/api-reference/oauth-token/oauthtokencreate) before performing this call.
         {% /admonition %}
       tags:
         - jose
@@ -9868,6 +9859,78 @@ paths:
                       - 'null'
                     description: Reason the profile is not eligible.
                     example: null
+  /oauth/token:
+    post:
+      operationId: oauthTokenCreate
+      summary: Create an OAuth token
+      description: >
+        Exchange credentials or authorisation grants for an OAuth 2.0 access
+        token.
+
+
+        The `grant_type` field determines which parameters are required and
+        which response fields are returned.
+
+
+        See [managing token
+        expiration](/api-reference/oauth-token#managing-token-expiration) for
+        guidance on refreshing tokens before they expire.
+      tags:
+        - oauth-token
+      security:
+        - BasicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              discriminator:
+                propertyName: grant_type
+                mapping:
+                  client_credentials: '#/components/schemas/client-credentials-grant'
+                  registration_code: '#/components/schemas/registration-code-grant'
+                  authorization_code: '#/components/schemas/authorization-code-grant'
+                  refresh_token: '#/components/schemas/refresh-token-grant'
+              oneOf:
+                - $ref: '#/components/schemas/client-credentials-grant'
+                - $ref: '#/components/schemas/registration-code-grant'
+                - $ref: '#/components/schemas/authorization-code-grant'
+                - $ref: '#/components/schemas/refresh-token-grant'
+      responses:
+        '200':
+          description: Token created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/token-response'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: invalid_request
+                  error_description:
+                    type: string
+                    example: Missing grant type
+        '401':
+          description: >-
+            Invalid credentials. For example, the user reclaimed the account or
+            an invalid registration code was used.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: invalid_grant
+                  error_description:
+                    type: string
+                    example: Invalid user credentials.
   /v1/one-time-token/status:
     get:
       operationId: ottStatusGet
@@ -21967,8 +22030,7 @@ components:
         Valid for 12 hours. No refresh token — fetch a new token when expired.
 
 
-        See [retrieve client credentials
-        token](/api-reference/client-credentials-token/clientcredentialstokenretrieve)
+        See [create an OAuth token](/api-reference/oauth-token/oauthtokencreate)
         for details.
     BasicAuth:
       type: http
@@ -25262,6 +25324,148 @@ components:
                           If present, indicates the expiry date of this version
                           (ISO 8601).
                         example: '2026-06-30'
+    client-credentials-grant:
+      type: object
+      required:
+        - grant_type
+      properties:
+        grant_type:
+          type: string
+          description: OAuth 2.0 grant type.
+          enum:
+            - client_credentials
+          example: client_credentials
+    registration-code-grant:
+      type: object
+      required:
+        - grant_type
+        - client_id
+        - email
+        - registration_code
+      properties:
+        grant_type:
+          type: string
+          description: OAuth 2.0 grant type.
+          enum:
+            - registration_code
+          example: registration_code
+        client_id:
+          type: string
+          description: Your API client ID.
+        email:
+          type: string
+          format: email
+          description: The email address of the user being registered.
+        registration_code:
+          type: string
+          description: >-
+            Registration code obtained when creating the user via `POST
+            /v1/user/signup/registration_code`.
+    authorization-code-grant:
+      type: object
+      required:
+        - grant_type
+        - client_id
+        - code
+        - redirect_uri
+      properties:
+        grant_type:
+          type: string
+          description: OAuth 2.0 grant type.
+          enum:
+            - authorization_code
+          example: authorization_code
+        client_id:
+          type: string
+          description: Your API client ID.
+        code:
+          type: string
+          description: >-
+            Authorisation code provided upon redirect back from the
+            authorisation flow.
+        redirect_uri:
+          type: string
+          description: Registered redirect URL coordinated with Wise during onboarding.
+          example: https://www.yourapp.com
+    refresh-token-grant:
+      type: object
+      required:
+        - grant_type
+        - refresh_token
+      properties:
+        grant_type:
+          type: string
+          description: OAuth 2.0 grant type.
+          enum:
+            - refresh_token
+          example: refresh_token
+        refresh_token:
+          type: string
+          description: >-
+            Refresh token obtained from a `registration_code` or
+            `authorization_code` grant.
+    token-response:
+      type: object
+      properties:
+        access_token:
+          type: string
+          description: Access token to be used when calling the API. Valid for 12 hours.
+          example: 01234567-89ab-cdef-0123-456789abcdef
+        token_type:
+          type: string
+          description: Type of the token.
+          example: bearer
+        refresh_token:
+          type: string
+          description: >
+            Refresh token used to obtain new user access tokens without
+            requiring the user to re-authorise. Valid for up to 20 years.
+
+
+            Only returned for user access token grant types
+            (`registration_code`, `authorization_code`, `refresh_token`).
+          example: 01234567-89ab-cdef-0123-456789abcdef
+        expires_in:
+          type: integer
+          format: int32
+          description: Access token expiry time in seconds.
+          example: 43199
+        expires_at:
+          type: string
+          description: Access token expiration timestamp (UTC).
+          example: '2025-04-11T03:43:28.148Z'
+        refresh_token_expires_in:
+          type: integer
+          format: int32
+          description: >
+            Refresh token expiry time in seconds.
+
+
+            Only returned for user access token grant types
+            (`registration_code`, `authorization_code`, `refresh_token`).
+          example: 628639555
+        refresh_token_expires_at:
+          type: string
+          description: >
+            Refresh token expiration timestamp (UTC).
+
+
+            Only returned for user access token grant types
+            (`registration_code`, `authorization_code`, `refresh_token`).
+          example: '2045-03-12T13:49:23.552Z'
+        scope:
+          type: string
+          description: Scope of the token.
+          example: transfers
+        created_at:
+          type: string
+          description: >
+            Token creation time in ISO 8601 format.
+
+
+            Only returned for user access token grant types
+            (`registration_code`, `authorization_code`, `refresh_token`).
+          example: '2020-01-01T12:33:33.12345Z'
     ott-response:
       type: object
       properties:

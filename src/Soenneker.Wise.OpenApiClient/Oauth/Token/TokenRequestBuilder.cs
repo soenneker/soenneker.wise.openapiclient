@@ -3,6 +3,7 @@
 using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions.Serialization;
 using Microsoft.Kiota.Abstractions;
+using Soenneker.Wise.OpenApiClient.Models;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -33,59 +34,45 @@ namespace Soenneker.Wise.OpenApiClient.Oauth.Token
         {
         }
         /// <summary>
-        /// Obtain an access token based on your Client ID and Client Secret.
+        /// Exchange credentials or authorisation grants for an OAuth 2.0 access token.The `grant_type` field determines which parameters are required and which response fields are returned.See [managing token expiration](/api-reference/oauth-token#managing-token-expiration) for guidance on refreshing tokens before they expire.
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Oauth.Token.TokenPostResponse"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.TokenResponse"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Oauth.Token.TokenResponse400Error">When receiving a 400 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Oauth.Token.TokenResponse401Error">When receiving a 401 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.Oauth.Token.TokenPostResponse?> PostAsTokenPostResponseAsync(global::Soenneker.Wise.OpenApiClient.Oauth.Token.TokenPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.TokenResponse?> PostAsync(global::Soenneker.Wise.OpenApiClient.Oauth.Token.TokenRequestBuilder.TokenPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.Oauth.Token.TokenPostResponse> PostAsTokenPostResponseAsync(global::Soenneker.Wise.OpenApiClient.Oauth.Token.TokenPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.TokenResponse> PostAsync(global::Soenneker.Wise.OpenApiClient.Oauth.Token.TokenRequestBuilder.TokenPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Oauth.Token.TokenPostResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.Oauth.Token.TokenPostResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "400", global::Soenneker.Wise.OpenApiClient.Oauth.Token.TokenResponse400Error.CreateFromDiscriminatorValue },
+                { "401", global::Soenneker.Wise.OpenApiClient.Oauth.Token.TokenResponse401Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.TokenResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.TokenResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Obtain an access token based on your Client ID and Client Secret.
-        /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Oauth.Token.TokenResponse"/></returns>
-        /// <param name="body">The request body</param>
-        /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
-        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        [Obsolete("This method is obsolete. Use PostAsTokenPostResponseAsync instead.")]
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.Oauth.Token.TokenResponse?> PostAsync(global::Soenneker.Wise.OpenApiClient.Oauth.Token.TokenPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#nullable restore
-#else
-        public async Task<global::Soenneker.Wise.OpenApiClient.Oauth.Token.TokenResponse> PostAsync(global::Soenneker.Wise.OpenApiClient.Oauth.Token.TokenPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#endif
-            if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
-            var requestInfo = ToPostRequestInformation(body, requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Oauth.Token.TokenResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.Oauth.Token.TokenResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
-        }
-        /// <summary>
-        /// Obtain an access token based on your Client ID and Client Secret.
+        /// Exchange credentials or authorisation grants for an OAuth 2.0 access token.The `grant_type` field determines which parameters are required and which response fields are returned.See [managing token expiration](/api-reference/oauth-token#managing-token-expiration) for guidance on refreshing tokens before they expire.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.Oauth.Token.TokenPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.Oauth.Token.TokenRequestBuilder.TokenPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
         {
 #nullable restore
 #else
-        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.Oauth.Token.TokenPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.Oauth.Token.TokenRequestBuilder.TokenPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
@@ -103,6 +90,121 @@ namespace Soenneker.Wise.OpenApiClient.Oauth.Token
         public global::Soenneker.Wise.OpenApiClient.Oauth.Token.TokenRequestBuilder WithUrl(string rawUrl)
         {
             return new global::Soenneker.Wise.OpenApiClient.Oauth.Token.TokenRequestBuilder(rawUrl, RequestAdapter);
+        }
+        /// <summary>
+        /// Composed type wrapper for classes <see cref="global::Soenneker.Wise.OpenApiClient.Models.AuthorizationCodeGrant"/>, <see cref="global::Soenneker.Wise.OpenApiClient.Models.ClientCredentialsGrant"/>, <see cref="global::Soenneker.Wise.OpenApiClient.Models.RefreshTokenGrant"/>, <see cref="global::Soenneker.Wise.OpenApiClient.Models.RegistrationCodeGrant"/>
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+        public partial class TokenPostRequestBody : IComposedTypeWrapper, IParsable
+        {
+            /// <summary>Composed type representation for type <see cref="global::Soenneker.Wise.OpenApiClient.Models.AuthorizationCodeGrant"/></summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            public global::Soenneker.Wise.OpenApiClient.Models.AuthorizationCodeGrant? AuthorizationCodeGrant { get; set; }
+#nullable restore
+#else
+            public global::Soenneker.Wise.OpenApiClient.Models.AuthorizationCodeGrant AuthorizationCodeGrant { get; set; }
+#endif
+            /// <summary>Composed type representation for type <see cref="global::Soenneker.Wise.OpenApiClient.Models.ClientCredentialsGrant"/></summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            public global::Soenneker.Wise.OpenApiClient.Models.ClientCredentialsGrant? ClientCredentialsGrant { get; set; }
+#nullable restore
+#else
+            public global::Soenneker.Wise.OpenApiClient.Models.ClientCredentialsGrant ClientCredentialsGrant { get; set; }
+#endif
+            /// <summary>Composed type representation for type <see cref="global::Soenneker.Wise.OpenApiClient.Models.RefreshTokenGrant"/></summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            public global::Soenneker.Wise.OpenApiClient.Models.RefreshTokenGrant? RefreshTokenGrant { get; set; }
+#nullable restore
+#else
+            public global::Soenneker.Wise.OpenApiClient.Models.RefreshTokenGrant RefreshTokenGrant { get; set; }
+#endif
+            /// <summary>Composed type representation for type <see cref="global::Soenneker.Wise.OpenApiClient.Models.RegistrationCodeGrant"/></summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            public global::Soenneker.Wise.OpenApiClient.Models.RegistrationCodeGrant? RegistrationCodeGrant { get; set; }
+#nullable restore
+#else
+            public global::Soenneker.Wise.OpenApiClient.Models.RegistrationCodeGrant RegistrationCodeGrant { get; set; }
+#endif
+            /// <summary>
+            /// Creates a new instance of the appropriate class based on discriminator value
+            /// </summary>
+            /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Oauth.Token.TokenRequestBuilder.TokenPostRequestBody"/></returns>
+            /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
+            public static global::Soenneker.Wise.OpenApiClient.Oauth.Token.TokenRequestBuilder.TokenPostRequestBody CreateFromDiscriminatorValue(IParseNode parseNode)
+            {
+                if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
+                var mappingValue = parseNode.GetChildNode("grant_type")?.GetStringValue();
+                var result = new global::Soenneker.Wise.OpenApiClient.Oauth.Token.TokenRequestBuilder.TokenPostRequestBody();
+                if("authorization_code".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+                {
+                    result.AuthorizationCodeGrant = new global::Soenneker.Wise.OpenApiClient.Models.AuthorizationCodeGrant();
+                }
+                else if("client_credentials".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+                {
+                    result.ClientCredentialsGrant = new global::Soenneker.Wise.OpenApiClient.Models.ClientCredentialsGrant();
+                }
+                else if("refresh_token".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+                {
+                    result.RefreshTokenGrant = new global::Soenneker.Wise.OpenApiClient.Models.RefreshTokenGrant();
+                }
+                else if("registration_code".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+                {
+                    result.RegistrationCodeGrant = new global::Soenneker.Wise.OpenApiClient.Models.RegistrationCodeGrant();
+                }
+                return result;
+            }
+            /// <summary>
+            /// The deserialization information for the current model
+            /// </summary>
+            /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
+            public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
+            {
+                if(AuthorizationCodeGrant != null)
+                {
+                    return AuthorizationCodeGrant.GetFieldDeserializers();
+                }
+                else if(ClientCredentialsGrant != null)
+                {
+                    return ClientCredentialsGrant.GetFieldDeserializers();
+                }
+                else if(RefreshTokenGrant != null)
+                {
+                    return RefreshTokenGrant.GetFieldDeserializers();
+                }
+                else if(RegistrationCodeGrant != null)
+                {
+                    return RegistrationCodeGrant.GetFieldDeserializers();
+                }
+                return new Dictionary<string, Action<IParseNode>>();
+            }
+            /// <summary>
+            /// Serializes information the current object
+            /// </summary>
+            /// <param name="writer">Serialization writer to use to serialize this model</param>
+            public virtual void Serialize(ISerializationWriter writer)
+            {
+                if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
+                if(AuthorizationCodeGrant != null)
+                {
+                    writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.AuthorizationCodeGrant>(null, AuthorizationCodeGrant);
+                }
+                else if(ClientCredentialsGrant != null)
+                {
+                    writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.ClientCredentialsGrant>(null, ClientCredentialsGrant);
+                }
+                else if(RefreshTokenGrant != null)
+                {
+                    writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.RefreshTokenGrant>(null, RefreshTokenGrant);
+                }
+                else if(RegistrationCodeGrant != null)
+                {
+                    writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.RegistrationCodeGrant>(null, RegistrationCodeGrant);
+                }
+            }
         }
         /// <summary>
         /// Configuration for the request such as headers, query parameters, and middleware options.

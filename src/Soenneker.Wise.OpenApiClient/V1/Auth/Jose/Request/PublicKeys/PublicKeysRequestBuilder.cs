@@ -33,7 +33,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Request.PublicKeys
         {
         }
         /// <summary>
-        /// Upload a client public key for request payload signing or response payload encryption.{% admonition type=&quot;warning&quot; %}  This endpoint requires a client credentials token, not a user level access token. Make sure you use your client details to fetch a valid [client credentials token](/api-reference/client-credentials-token/clientcredentialstokenretrieve) before performing this call.{% /admonition %}
+        /// Upload a client public key for request payload signing or response payload encryption.{% admonition type=&quot;warning&quot; %}  This endpoint requires a client credentials token, not a user level access token. Make sure you use your client details to fetch a valid [client credentials token](/api-reference/oauth-token/oauthtokencreate) before performing this call.{% /admonition %}
         /// </summary>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Request.PublicKeys.PublicKeysPostResponse"/></returns>
         /// <param name="body">The request body</param>
@@ -53,7 +53,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Request.PublicKeys
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Request.PublicKeys.PublicKeysPostResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Request.PublicKeys.PublicKeysPostResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Upload a client public key for request payload signing or response payload encryption.{% admonition type=&quot;warning&quot; %}  This endpoint requires a client credentials token, not a user level access token. Make sure you use your client details to fetch a valid [client credentials token](/api-reference/client-credentials-token/clientcredentialstokenretrieve) before performing this call.{% /admonition %}
+        /// Upload a client public key for request payload signing or response payload encryption.{% admonition type=&quot;warning&quot; %}  This endpoint requires a client credentials token, not a user level access token. Make sure you use your client details to fetch a valid [client credentials token](/api-reference/oauth-token/oauthtokencreate) before performing this call.{% /admonition %}
         /// </summary>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Request.PublicKeys.PublicKeysResponse"/></returns>
         /// <param name="body">The request body</param>
@@ -74,7 +74,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Request.PublicKeys
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Request.PublicKeys.PublicKeysResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Request.PublicKeys.PublicKeysResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Upload a client public key for request payload signing or response payload encryption.{% admonition type=&quot;warning&quot; %}  This endpoint requires a client credentials token, not a user level access token. Make sure you use your client details to fetch a valid [client credentials token](/api-reference/client-credentials-token/clientcredentialstokenretrieve) before performing this call.{% /admonition %}
+        /// Upload a client public key for request payload signing or response payload encryption.{% admonition type=&quot;warning&quot; %}  This endpoint requires a client credentials token, not a user level access token. Make sure you use your client details to fetch a valid [client credentials token](/api-reference/oauth-token/oauthtokencreate) before performing this call.{% /admonition %}
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>

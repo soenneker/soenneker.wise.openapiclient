@@ -5,65 +5,57 @@ using Microsoft.Kiota.Abstractions.Serialization;
 using System.Collections.Generic;
 using System.IO;
 using System;
-namespace Soenneker.Wise.OpenApiClient.Oauth.Token
+namespace Soenneker.Wise.OpenApiClient.Models
 {
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
-    public partial class TokenPostResponse : IAdditionalDataHolder, IParsable
+    public partial class AuthorizationCodeGrant : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
     {
-        /// <summary>Access token to be used when calling the API. Valid for 12 hours.</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? AccessToken { get; set; }
-#nullable restore
-#else
-        public string AccessToken { get; set; }
-#endif
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Access token expiration timestamp (UTC).</summary>
+        /// <summary>Your API client ID.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? ExpiresAt { get; set; }
+        public string? ClientId { get; set; }
 #nullable restore
 #else
-        public string ExpiresAt { get; set; }
+        public string ClientId { get; set; }
 #endif
-        /// <summary>Expiry time in seconds.</summary>
-        public int? ExpiresIn { get; set; }
-        /// <summary>Scope of the token (`transfers`).</summary>
+        /// <summary>Authorisation code provided upon redirect back from the authorisation flow.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Scope { get; set; }
+        public string? Code { get; set; }
 #nullable restore
 #else
-        public string Scope { get; set; }
+        public string Code { get; set; }
 #endif
-        /// <summary>Type of the token (`bearer`).</summary>
+        /// <summary>OAuth 2.0 grant type.</summary>
+        public global::Soenneker.Wise.OpenApiClient.Models.AuthorizationCodeGrant_grant_type? GrantType { get; set; }
+        /// <summary>Registered redirect URL coordinated with Wise during onboarding.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? TokenType { get; set; }
+        public string? RedirectUri { get; set; }
 #nullable restore
 #else
-        public string TokenType { get; set; }
+        public string RedirectUri { get; set; }
 #endif
         /// <summary>
-        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Oauth.Token.TokenPostResponse"/> and sets the default values.
+        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.AuthorizationCodeGrant"/> and sets the default values.
         /// </summary>
-        public TokenPostResponse()
+        public AuthorizationCodeGrant()
         {
             AdditionalData = new Dictionary<string, object>();
         }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Oauth.Token.TokenPostResponse"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.AuthorizationCodeGrant"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static global::Soenneker.Wise.OpenApiClient.Oauth.Token.TokenPostResponse CreateFromDiscriminatorValue(IParseNode parseNode)
+        public static global::Soenneker.Wise.OpenApiClient.Models.AuthorizationCodeGrant CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Oauth.Token.TokenPostResponse();
+            return new global::Soenneker.Wise.OpenApiClient.Models.AuthorizationCodeGrant();
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -73,11 +65,10 @@ namespace Soenneker.Wise.OpenApiClient.Oauth.Token
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "access_token", n => { AccessToken = n.GetStringValue(); } },
-                { "expires_at", n => { ExpiresAt = n.GetStringValue(); } },
-                { "expires_in", n => { ExpiresIn = n.GetIntValue(); } },
-                { "scope", n => { Scope = n.GetStringValue(); } },
-                { "token_type", n => { TokenType = n.GetStringValue(); } },
+                { "client_id", n => { ClientId = n.GetStringValue(); } },
+                { "code", n => { Code = n.GetStringValue(); } },
+                { "grant_type", n => { GrantType = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.AuthorizationCodeGrant_grant_type>(); } },
+                { "redirect_uri", n => { RedirectUri = n.GetStringValue(); } },
             };
         }
         /// <summary>
@@ -87,11 +78,10 @@ namespace Soenneker.Wise.OpenApiClient.Oauth.Token
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteStringValue("access_token", AccessToken);
-            writer.WriteStringValue("expires_at", ExpiresAt);
-            writer.WriteIntValue("expires_in", ExpiresIn);
-            writer.WriteStringValue("scope", Scope);
-            writer.WriteStringValue("token_type", TokenType);
+            writer.WriteStringValue("client_id", ClientId);
+            writer.WriteStringValue("code", Code);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.AuthorizationCodeGrant_grant_type>("grant_type", GrantType);
+            writer.WriteStringValue("redirect_uri", RedirectUri);
             writer.WriteAdditionalData(AdditionalData);
         }
     }
