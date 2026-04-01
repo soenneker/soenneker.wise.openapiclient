@@ -2,6 +2,7 @@
 #pragma warning disable CS0618
 using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions;
+using Soenneker.Wise.OpenApiClient.V3.Applications;
 using Soenneker.Wise.OpenApiClient.V3.Comparisons;
 using Soenneker.Wise.OpenApiClient.V3.Profiles;
 using Soenneker.Wise.OpenApiClient.V3.Quotes;
@@ -18,6 +19,11 @@ namespace Soenneker.Wise.OpenApiClient.V3
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class V3RequestBuilder : BaseRequestBuilder
     {
+        /// <summary>The applications property</summary>
+        public global::Soenneker.Wise.OpenApiClient.V3.Applications.ApplicationsRequestBuilder Applications
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.V3.Applications.ApplicationsRequestBuilder(PathParameters, RequestAdapter);
+        }
         /// <summary>The comparisons property</summary>
         public global::Soenneker.Wise.OpenApiClient.V3.Comparisons.ComparisonsRequestBuilder Comparisons
         {
