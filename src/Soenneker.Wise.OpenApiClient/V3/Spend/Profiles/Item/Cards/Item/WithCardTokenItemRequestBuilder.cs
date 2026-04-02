@@ -5,6 +5,7 @@ using Microsoft.Kiota.Abstractions.Serialization;
 using Microsoft.Kiota.Abstractions;
 using Soenneker.Wise.OpenApiClient.Models;
 using Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PaymentTokens;
+using Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PhoneNumber;
 using Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.Production;
 using Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.ResetPinCount;
 using Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.SpendingPermissions;
@@ -26,6 +27,11 @@ namespace Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item
         public global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PaymentTokens.PaymentTokensRequestBuilder PaymentTokens
         {
             get => new global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PaymentTokens.PaymentTokensRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The phoneNumber property</summary>
+        public global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PhoneNumber.PhoneNumberRequestBuilder PhoneNumber
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PhoneNumber.PhoneNumberRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The production property</summary>
         public global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.Production.ProductionRequestBuilder Production

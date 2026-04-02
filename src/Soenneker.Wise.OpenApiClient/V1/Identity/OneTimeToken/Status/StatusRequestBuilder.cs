@@ -9,36 +9,37 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Threading;
 using System;
-namespace Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Status
+namespace Soenneker.Wise.OpenApiClient.V1.Identity.OneTimeToken.Status
 {
     /// <summary>
-    /// Builds and executes requests for operations under \v1\one-time-token\status
+    /// Builds and executes requests for operations under \v1\identity\one-time-token\status
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class StatusRequestBuilder : BaseRequestBuilder
     {
         /// <summary>
-        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Status.StatusRequestBuilder"/> and sets the default values.
+        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.V1.Identity.OneTimeToken.Status.StatusRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public StatusRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/v1/one-time-token/status", pathParameters)
+        public StatusRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/v1/identity/one-time-token/status", pathParameters)
         {
         }
         /// <summary>
-        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Status.StatusRequestBuilder"/> and sets the default values.
+        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.V1.Identity.OneTimeToken.Status.StatusRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public StatusRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/v1/one-time-token/status", rawUrl)
+        public StatusRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/v1/identity/one-time-token/status", rawUrl)
         {
         }
         /// <summary>
-        /// Retrieve necessary information to clear a OTT.
+        /// {% admonition type=&quot;warning&quot; %}This endpoint is deprecated. Use the [new endpoint](/api-reference/one-time-token/ottstatusget) to get status of a one time token instead.{% /admonition %}Retrieve necessary information to clear a OTT.
         /// </summary>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.OttResponse"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::Soenneker.Wise.OpenApiClient.Models.OttResponse?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -52,10 +53,11 @@ namespace Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Status
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.OttResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.OttResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Retrieve necessary information to clear a OTT.
+        /// {% admonition type=&quot;warning&quot; %}This endpoint is deprecated. Use the [new endpoint](/api-reference/one-time-token/ottstatusget) to get status of a one time token instead.{% /admonition %}Retrieve necessary information to clear a OTT.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
@@ -73,11 +75,12 @@ namespace Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Status
         /// <summary>
         /// Returns a request builder with the provided arbitrary URL. Using this method means any other path or query parameters are ignored.
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Status.StatusRequestBuilder"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.Identity.OneTimeToken.Status.StatusRequestBuilder"/></returns>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
-        public global::Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Status.StatusRequestBuilder WithUrl(string rawUrl)
+        [Obsolete("")]
+        public global::Soenneker.Wise.OpenApiClient.V1.Identity.OneTimeToken.Status.StatusRequestBuilder WithUrl(string rawUrl)
         {
-            return new global::Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Status.StatusRequestBuilder(rawUrl, RequestAdapter);
+            return new global::Soenneker.Wise.OpenApiClient.V1.Identity.OneTimeToken.Status.StatusRequestBuilder(rawUrl, RequestAdapter);
         }
         /// <summary>
         /// Configuration for the request such as headers, query parameters, and middleware options.

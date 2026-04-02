@@ -2,6 +2,7 @@
 #pragma warning disable CS0618
 using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions;
+using Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.FileNamespace;
 using Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows;
 using Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Reasons;
 using System.Collections.Generic;
@@ -16,6 +17,11 @@ namespace Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class DisputeFormRequestBuilder : BaseRequestBuilder
     {
+        /// <summary>The file property</summary>
+        public global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.FileNamespace.FileRequestBuilder File
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.FileNamespace.FileRequestBuilder(PathParameters, RequestAdapter);
+        }
         /// <summary>The flows property</summary>
         public global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.FlowsRequestBuilder Flows
         {

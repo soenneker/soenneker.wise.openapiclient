@@ -7,10 +7,12 @@ using Soenneker.Wise.OpenApiClient.V1.AddressRequirements;
 using Soenneker.Wise.OpenApiClient.V1.Addresses;
 using Soenneker.Wise.OpenApiClient.V1.Application;
 using Soenneker.Wise.OpenApiClient.V1.Auth;
+using Soenneker.Wise.OpenApiClient.V1.BorderlessAccounts;
 using Soenneker.Wise.OpenApiClient.V1.Cases;
 using Soenneker.Wise.OpenApiClient.V1.Currencies;
 using Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates;
 using Soenneker.Wise.OpenApiClient.V1.Facetec;
+using Soenneker.Wise.OpenApiClient.V1.Identity;
 using Soenneker.Wise.OpenApiClient.V1.Me;
 using Soenneker.Wise.OpenApiClient.V1.OneTimeToken;
 using Soenneker.Wise.OpenApiClient.V1.Profiles;
@@ -59,6 +61,11 @@ namespace Soenneker.Wise.OpenApiClient.V1
         {
             get => new global::Soenneker.Wise.OpenApiClient.V1.Auth.AuthRequestBuilder(PathParameters, RequestAdapter);
         }
+        /// <summary>The borderlessAccounts property</summary>
+        public global::Soenneker.Wise.OpenApiClient.V1.BorderlessAccounts.BorderlessAccountsRequestBuilder BorderlessAccounts
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.V1.BorderlessAccounts.BorderlessAccountsRequestBuilder(PathParameters, RequestAdapter);
+        }
         /// <summary>The cases property</summary>
         public global::Soenneker.Wise.OpenApiClient.V1.Cases.CasesRequestBuilder Cases
         {
@@ -78,6 +85,11 @@ namespace Soenneker.Wise.OpenApiClient.V1
         public global::Soenneker.Wise.OpenApiClient.V1.Facetec.FacetecRequestBuilder Facetec
         {
             get => new global::Soenneker.Wise.OpenApiClient.V1.Facetec.FacetecRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The identity property</summary>
+        public global::Soenneker.Wise.OpenApiClient.V1.Identity.IdentityRequestBuilder Identity
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.V1.Identity.IdentityRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The me property</summary>
         public global::Soenneker.Wise.OpenApiClient.V1.Me.MeRequestBuilder Me

@@ -3101,6 +3101,291 @@ paths:
                               type: string
                               description: Currency code (ISO 4217 Alphabetic Code).
                               example: EUR
+  /v1/borderless-accounts:
+    get:
+      operationId: balanceGetV1
+      summary: Get account balance (v1)
+      deprecated: true
+      description: >
+        {% admonition type="warning" %}
+
+        This endpoint is deprecated. Use the [v4 Balances
+        endpoint](/api-reference/balance/balanceget) instead.
+
+        {% /admonition %}
+
+
+        Get available balances for all activated currencies in your
+        multi-currency account.
+      tags:
+        - balance
+      security:
+        - UserToken: []
+      parameters:
+        - name: profileId
+          in: query
+          required: true
+          description: Your profile ID.
+          schema:
+            type: integer
+            format: int64
+          example: 33333333
+      responses:
+        '200':
+          description: Array of borderless account objects with balances.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      description: Multi-currency account ID.
+                      example: 64
+                    profileId:
+                      type: integer
+                      description: Personal or business profile ID.
+                      example: 33333333
+                    recipientId:
+                      type: integer
+                      description: >-
+                        Recipient ID you can use for a multi-currency account
+                        deposit.
+                      example: 13828530
+                    creationTime:
+                      type: string
+                      format: date-time
+                      description: Date when multi-currency account was opened.
+                      example: '2018-03-14T12:31:15.678Z'
+                    modificationTime:
+                      type: string
+                      format: date-time
+                      description: Date when multi-currency account setup was modified.
+                      example: '2018-03-19T15:19:42.111Z'
+                    active:
+                      type: boolean
+                      description: Is multi-currency account active or inactive.
+                      example: true
+                    eligible:
+                      type: boolean
+                      description: Ignore.
+                      example: true
+                    balances:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          balanceType:
+                            type: string
+                            description: Balance type.
+                            example: AVAILABLE
+                          currency:
+                            type: string
+                            description: Currency code.
+                            example: GBP
+                          amount:
+                            type: object
+                            properties:
+                              value:
+                                type: number
+                                description: Available balance in specified currency.
+                                example: 10999859
+                              currency:
+                                type: string
+                                description: Currency code.
+                                example: GBP
+                          reservedAmount:
+                            type: object
+                            properties:
+                              value:
+                                type: number
+                                description: Reserved amount from your balance.
+                                example: 0
+                              currency:
+                                type: string
+                                description: Reserved amount currency code.
+                                example: GBP
+                          bankDetails:
+                            type:
+                              - object
+                              - 'null'
+                            description: >-
+                              Bank account details assigned to your
+                              multi-currency account. Available for EUR, GBP,
+                              USD, AUD, NZD.
+                            properties:
+                              id:
+                                type: integer
+                                format: int64
+                                description: Bank account details ID.
+                                example: 90
+                              currency:
+                                type: string
+                                description: Bank account currency.
+                                example: EUR
+                              bankCode:
+                                type: string
+                                description: Bank account code.
+                                example: DEKTDE7GXXX
+                              accountNumber:
+                                type: string
+                                description: Bank account number.
+                                example: DE51 7001 1110 6050 1008 91
+                              swift:
+                                type: string
+                                description: Bank account swift code.
+                                example: DEKTDE7GXXX
+                              iban:
+                                type: string
+                                description: Bank account IBAN.
+                                example: DE51 7001 1110 6050 0008 91
+                              bankName:
+                                type: string
+                                description: Bank name.
+                                example: Handelsbank
+                              accountHolderName:
+                                type: string
+                                description: Bank account holder name.
+                                example: Oliver Wilson
+                              bankAddress:
+                                type: object
+                                properties:
+                                  addressFirstLine:
+                                    type: string
+                                    description: Bank address street and house.
+                                    example: Elsenheimer Str. 41
+                                  postCode:
+                                    type: string
+                                    description: Bank address zip code.
+                                    example: '80687'
+                                  city:
+                                    type: string
+                                    description: Bank address city.
+                                    example: München
+                                  country:
+                                    type: string
+                                    description: Bank address country.
+                                    example: Germany
+                                  stateCode:
+                                    type:
+                                      - string
+                                      - 'null'
+                                    description: Bank address state code.
+                                    example: null
+  /v1/borderless-accounts/{borderlessAccountId}/conversions:
+    post:
+      operationId: balanceConvertV1
+      summary: Convert currencies between balances (v1)
+      deprecated: true
+      description: >
+        {% admonition type="warning" %}
+
+        This endpoint is deprecated. Use the [balance movements
+        endpoint](/api-reference/balance/balancemovement) to move and convert
+        between balances instead.
+
+        {% /admonition %}
+
+
+        Convert funds between your multi-currency account currencies.
+
+        Quote which is used in this call must be created with `"payOut":
+        "BALANCE"`.
+
+
+        Note that this call needs an extra field in header called
+        `X-idempotence-uuid`.
+      tags:
+        - balance
+      security:
+        - UserToken: []
+      parameters:
+        - name: borderlessAccountId
+          in: path
+          required: true
+          description: Your borderless account ID.
+          schema:
+            type: integer
+            format: int64
+          example: 64
+        - name: X-idempotence-uuid
+          in: header
+          required: true
+          description: >-
+            Unique identifier assigned by you. Used for idempotency check
+            purposes. Should your call fail for technical reasons then you can
+            use the same value again for making retry call.
+          schema:
+            type: string
+            format: uuid
+          example: a1b2c3d4-e5f6-7890-abcd-ef0123456789
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - quoteId
+              properties:
+                quoteId:
+                  type: integer
+                  description: Conversion quote ID.
+                  example: 1234
+      responses:
+        '200':
+          description: Conversion result.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: >-
+                  Conversion result containing source and target amounts,
+                  exchange rate, fees, and balance state after conversion.
+              example:
+                id: 1
+                type: CONVERSION
+                state: COMPLETED
+                balancesAfter:
+                  - value: 10000594.71
+                    currency: GBP
+                  - value: 9998887.01
+                    currency: EUR
+                creationTime: '2017-11-21T09:55:49.275Z'
+                steps:
+                  - id: 369588
+                    type: CONVERSION
+                    creationTime: '2017-11-21T09:55:49.276Z'
+                    balancesAfter:
+                      - value: 9998887.01
+                        currency: EUR
+                      - value: 10000594.71
+                        currency: GBP
+                    channelName: null
+                    channelReferenceId: null
+                    tracingReferenceCode: null
+                    sourceAmount:
+                      value: 113.48
+                      currency: EUR
+                    targetAmount:
+                      value: 100
+                      currency: GBP
+                    fee:
+                      value: 0.56
+                      currency: EUR
+                    rate: 0.88558
+                sourceAmount:
+                  value: 113.48
+                  currency: EUR
+                targetAmount:
+                  value: 100
+                  currency: GBP
+                rate: 0.88558
+                feeAmounts:
+                  - value: 0.56
+                    currency: EUR
   /v1/profiles/{profileId}/balance-statements/{balanceId}/statement.json:
     get:
       tags:
@@ -5439,6 +5724,80 @@ paths:
                     type: string
                     description: The card PIN.
                     example: '1234'
+  /v3/spend/profiles/{profileId}/cards/{cardToken}/phone-number:
+    put:
+      operationId: cardPhoneNumberUpdate
+      summary: Update phone number
+      deprecated: true
+      description: >
+        {% admonition type="warning" %}
+
+        This endpoint is deprecated for partners onboarded after 1/3/2025. For
+        new and existing partners, your clientId will need to be approved by our
+        support team to make the `phoneNumber` optional in the [create card
+        order endpoint](/api-reference/card-order/cardordercreate). See [3DS for
+        more information](/guides/product/issue-cards/3ds).
+
+        {% /admonition %}
+
+
+        Updates the phone number of a card. The new phone number must be a valid
+        phone number.
+      tags:
+        - card
+      security:
+        - UserToken: []
+      parameters:
+        - name: profileId
+          in: path
+          required: true
+          description: Your profile ID.
+          schema:
+            type: integer
+            format: int64
+          example: 30000000
+        - name: cardToken
+          in: path
+          required: true
+          description: The card token.
+          schema:
+            type: string
+          example: 12345-12345-12345-12345
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - phoneNumber
+              properties:
+                phoneNumber:
+                  type: string
+                  description: >-
+                    Must be a valid phone number prefixed with + and country
+                    code.
+                  example: '+6588888888'
+      responses:
+        '200':
+          description: Updated card phone number details.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    description: The card token that you are modifying.
+                    example: 12345-12345-12345-12345
+                  profileId:
+                    type: integer
+                    description: The profile ID that the card is linked to.
+                    example: 30000000
+                  phoneNumber:
+                    type: string
+                    description: The new phone number associated with the card.
+                    example: '+6588888888'
   /v3/spend/profiles/{profileId}/cards/{cardToken}/production:
     put:
       tags:
@@ -7994,6 +8353,70 @@ paths:
                 createdBy: '6097861'
                 lastUpdatedAt: '2024-03-27T13:12:28.390Z'
                 canWithdraw: false
+  /v3/spend/profiles/{profileId}/dispute-form/file:
+    post:
+      operationId: disputeFileUploadV3
+      summary: Upload dispute file (v3)
+      deprecated: true
+      description: >
+        {% admonition type="warning" %}
+
+        This endpoint is deprecated. Use the [v4 upload dispute file
+        endpoint](/api-reference/disputes/disputefileupload) instead.
+
+        {% /admonition %}
+
+
+        Submit a file for disputes.
+
+
+        This API is not available for sandbox testing.
+
+
+        Use the `fileId` in the response for the dispute submission.
+
+
+        **NB:** A dispute referencing the returned `fileId` must be submitted no
+        later than **two hours** after the file submission, otherwise the file
+        will expire and must be re-submitted.
+      tags:
+        - disputes
+      security:
+        - UserToken: []
+      parameters:
+        - name: profileId
+          in: path
+          required: true
+          description: Your profile ID.
+          schema:
+            type: integer
+            format: int64
+          example: 14547572
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                receipt:
+                  type: string
+                  format: binary
+                  description: The file to upload.
+      responses:
+        '200':
+          description: A key-value pair mapping the file name to the assigned file ID.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+                description: >-
+                  Object with the file field name as key and the assigned file
+                  ID as value.
+              example:
+                receipt: ab4f5d2
   /v1/facetec/public-key:
     get:
       operationId: facetecPublicKeyGet
@@ -9945,12 +10368,8 @@ paths:
     get:
       operationId: ottStatusGet
       summary: Get status of a one time token
-      description: >
+      description: |
         Retrieve necessary information to clear a OTT.
-
-
-        **Note:** `GET /v1/identity/one-time-token/status` will be deprecated
-        soon. Please use `/v1/one-time-token/status` instead.
       tags:
         - one-time-token
       security:
@@ -10591,6 +11010,55 @@ paths:
                   oneTimeToken: 9f5f5812-2609-4e48-8418-b64437c0c7cd
                   challenges: []
                   validity: 3600
+  /v1/identity/one-time-token/status:
+    get:
+      operationId: ottStatusGetV1
+      summary: Get OTT status (v1)
+      deprecated: true
+      description: >
+        {% admonition type="warning" %}
+
+        This endpoint is deprecated. Use the [new
+        endpoint](/api-reference/one-time-token/ottstatusget) to get status of a
+        one time token instead.
+
+        {% /admonition %}
+
+
+        Retrieve necessary information to clear a OTT.
+      tags:
+        - one-time-token
+      security:
+        - UserToken: []
+      parameters:
+        - name: One-Time-Token
+          in: header
+          required: true
+          description: Text value of a OTT.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: One time token status.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ott-response'
+              example:
+                oneTimeTokenProperties:
+                  oneTimeToken: 9f5f5812-2609-4e48-8418-b64437c0c7cd
+                  challenges:
+                    - primaryChallenge:
+                        type: PIN
+                        viewData:
+                          attributes:
+                            userId: 6146956
+                      alternatives: []
+                      required: true
+                      passed: false
+                  validity: 3600
+                  actionType: BALANCE__GET_STATEMENT
+                  userId: 6146956
   /v1/cases:
     post:
       operationId: caseCreate
