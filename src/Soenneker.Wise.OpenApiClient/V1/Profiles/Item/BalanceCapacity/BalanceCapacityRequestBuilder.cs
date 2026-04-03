@@ -40,34 +40,15 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceCapacity
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceCapacity.BalanceCapacityGetResponse?> GetAsBalanceCapacityGetResponseAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceCapacity.BalanceCapacityRequestBuilder.BalanceCapacityRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceCapacity.BalanceCapacityGetResponse?> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceCapacity.BalanceCapacityRequestBuilder.BalanceCapacityRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceCapacity.BalanceCapacityGetResponse> GetAsBalanceCapacityGetResponseAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceCapacity.BalanceCapacityRequestBuilder.BalanceCapacityRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceCapacity.BalanceCapacityGetResponse> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceCapacity.BalanceCapacityRequestBuilder.BalanceCapacityRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceCapacity.BalanceCapacityGetResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceCapacity.BalanceCapacityGetResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
-        }
-        /// <summary>
-        /// Returns the deposit limit for a profile based on regulatory requirements.Useful for personal profiles located in countries that have hold limits. We advise calling this API before depositing money into an account if the profile is located in Singapore or Malaysia.
-        /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceCapacity.BalanceCapacityResponse"/></returns>
-        /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
-        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        [Obsolete("This method is obsolete. Use GetAsBalanceCapacityGetResponseAsync instead.")]
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceCapacity.BalanceCapacityResponse?> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceCapacity.BalanceCapacityRequestBuilder.BalanceCapacityRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#nullable restore
-#else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceCapacity.BalanceCapacityResponse> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceCapacity.BalanceCapacityRequestBuilder.BalanceCapacityRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#endif
-            var requestInfo = ToGetRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceCapacity.BalanceCapacityResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceCapacity.BalanceCapacityResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Returns the deposit limit for a profile based on regulatory requirements.Useful for personal profiles located in countries that have hold limits. We advise calling this API before depositing money into an account if the profile is located in Singapore or Malaysia.
@@ -113,14 +94,6 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceCapacity
             [QueryParameter("currency")]
             public string Currency { get; set; }
 #endif
-        }
-        /// <summary>
-        /// Configuration for the request such as headers, query parameters, and middleware options.
-        /// </summary>
-        [Obsolete("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.")]
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-        public partial class BalanceCapacityRequestBuilderGetRequestConfiguration : RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceCapacity.BalanceCapacityRequestBuilder.BalanceCapacityRequestBuilderGetQueryParameters>
-        {
         }
     }
 }

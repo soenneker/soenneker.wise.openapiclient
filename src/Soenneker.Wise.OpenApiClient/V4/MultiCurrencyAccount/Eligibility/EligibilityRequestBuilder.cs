@@ -40,34 +40,15 @@ namespace Soenneker.Wise.OpenApiClient.V4.MultiCurrencyAccount.Eligibility
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V4.MultiCurrencyAccount.Eligibility.EligibilityGetResponse?> GetAsEligibilityGetResponseAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V4.MultiCurrencyAccount.Eligibility.EligibilityRequestBuilder.EligibilityRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V4.MultiCurrencyAccount.Eligibility.EligibilityGetResponse?> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V4.MultiCurrencyAccount.Eligibility.EligibilityRequestBuilder.EligibilityRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V4.MultiCurrencyAccount.Eligibility.EligibilityGetResponse> GetAsEligibilityGetResponseAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V4.MultiCurrencyAccount.Eligibility.EligibilityRequestBuilder.EligibilityRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V4.MultiCurrencyAccount.Eligibility.EligibilityGetResponse> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V4.MultiCurrencyAccount.Eligibility.EligibilityRequestBuilder.EligibilityRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V4.MultiCurrencyAccount.Eligibility.EligibilityGetResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V4.MultiCurrencyAccount.Eligibility.EligibilityGetResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
-        }
-        /// <summary>
-        /// Checks eligibility for a multi-currency account for either a specific profile or for a location. Customers in some countries and states/provinces may not be eligible for a multi currency account.To check a profile, pass the `profileId` as a query parameter.To check a specific location, pass the `country` using 2-letter ISO 3166 codes. If the country is `US`, a valid 2-letter `state` parameter must also be passed.- Example (France): `/v4/multi-currency-account/eligibility?country=FR`- Example (USA, California): `/v4/multi-currency-account/eligibility?country=US&amp;state=CA`
-        /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V4.MultiCurrencyAccount.Eligibility.EligibilityResponse"/></returns>
-        /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
-        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        [Obsolete("This method is obsolete. Use GetAsEligibilityGetResponseAsync instead.")]
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V4.MultiCurrencyAccount.Eligibility.EligibilityResponse?> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V4.MultiCurrencyAccount.Eligibility.EligibilityRequestBuilder.EligibilityRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#nullable restore
-#else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V4.MultiCurrencyAccount.Eligibility.EligibilityResponse> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V4.MultiCurrencyAccount.Eligibility.EligibilityRequestBuilder.EligibilityRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#endif
-            var requestInfo = ToGetRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V4.MultiCurrencyAccount.Eligibility.EligibilityResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V4.MultiCurrencyAccount.Eligibility.EligibilityResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Checks eligibility for a multi-currency account for either a specific profile or for a location. Customers in some countries and states/provinces may not be eligible for a multi currency account.To check a profile, pass the `profileId` as a query parameter.To check a specific location, pass the `country` using 2-letter ISO 3166 codes. If the country is `US`, a valid 2-letter `state` parameter must also be passed.- Example (France): `/v4/multi-currency-account/eligibility?country=FR`- Example (USA, California): `/v4/multi-currency-account/eligibility?country=US&amp;state=CA`
@@ -126,14 +107,6 @@ namespace Soenneker.Wise.OpenApiClient.V4.MultiCurrencyAccount.Eligibility
             [QueryParameter("state")]
             public string State { get; set; }
 #endif
-        }
-        /// <summary>
-        /// Configuration for the request such as headers, query parameters, and middleware options.
-        /// </summary>
-        [Obsolete("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.")]
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-        public partial class EligibilityRequestBuilderGetRequestConfiguration : RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V4.MultiCurrencyAccount.Eligibility.EligibilityRequestBuilder.EligibilityRequestBuilderGetQueryParameters>
-        {
         }
     }
 }

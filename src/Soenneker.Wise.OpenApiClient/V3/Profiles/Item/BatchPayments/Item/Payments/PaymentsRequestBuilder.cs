@@ -41,37 +41,16 @@ namespace Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BatchPayments.Item.Payme
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BatchPayments.Item.Payments.PaymentsPostResponse?> PostAsPaymentsPostResponseAsync(global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BatchPayments.Item.Payments.PaymentsPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BatchPayments.Item.Payments.PaymentsPostResponse?> PostAsync(global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BatchPayments.Item.Payments.PaymentsPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BatchPayments.Item.Payments.PaymentsPostResponse> PostAsPaymentsPostResponseAsync(global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BatchPayments.Item.Payments.PaymentsPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BatchPayments.Item.Payments.PaymentsPostResponse> PostAsync(global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BatchPayments.Item.Payments.PaymentsPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BatchPayments.Item.Payments.PaymentsPostResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BatchPayments.Item.Payments.PaymentsPostResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
-        }
-        /// <summary>
-        /// Funds all transfers in a batch group from a multi-currency account balance. Transfers are paid out immediately.The batch group must first be completed, and there must be enough funds in the account for the whole batch. Otherwise, an insufficient funds error will be returned.{% admonition type=&quot;warning&quot; %}This endpoint is SCA protected when it applies. If your profile is registered within the UK and/or EEA, SCA most likely applies to you. For more information, please read [implementing SCA](/guides/developer/auth-and-security/sca-and-2fa).{% /admonition %}
-        /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BatchPayments.Item.Payments.PaymentsResponse"/></returns>
-        /// <param name="body">The request body</param>
-        /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
-        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        [Obsolete("This method is obsolete. Use PostAsPaymentsPostResponseAsync instead.")]
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BatchPayments.Item.Payments.PaymentsResponse?> PostAsync(global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BatchPayments.Item.Payments.PaymentsPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#nullable restore
-#else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BatchPayments.Item.Payments.PaymentsResponse> PostAsync(global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BatchPayments.Item.Payments.PaymentsPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#endif
-            if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
-            var requestInfo = ToPostRequestInformation(body, requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BatchPayments.Item.Payments.PaymentsResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BatchPayments.Item.Payments.PaymentsResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Funds all transfers in a batch group from a multi-currency account balance. Transfers are paid out immediately.The batch group must first be completed, and there must be enough funds in the account for the whole batch. Otherwise, an insufficient funds error will be returned.{% admonition type=&quot;warning&quot; %}This endpoint is SCA protected when it applies. If your profile is registered within the UK and/or EEA, SCA most likely applies to you. For more information, please read [implementing SCA](/guides/developer/auth-and-security/sca-and-2fa).{% /admonition %}
@@ -103,14 +82,6 @@ namespace Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BatchPayments.Item.Payme
         public global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BatchPayments.Item.Payments.PaymentsRequestBuilder WithUrl(string rawUrl)
         {
             return new global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BatchPayments.Item.Payments.PaymentsRequestBuilder(rawUrl, RequestAdapter);
-        }
-        /// <summary>
-        /// Configuration for the request such as headers, query parameters, and middleware options.
-        /// </summary>
-        [Obsolete("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.")]
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-        public partial class PaymentsRequestBuilderPostRequestConfiguration : RequestConfiguration<DefaultQueryParameters>
-        {
         }
     }
 }

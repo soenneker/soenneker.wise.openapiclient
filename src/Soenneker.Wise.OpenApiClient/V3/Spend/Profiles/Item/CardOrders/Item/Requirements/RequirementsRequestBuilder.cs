@@ -40,34 +40,15 @@ namespace Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.CardOrders.Item.Re
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.CardOrders.Item.Requirements.RequirementsGetResponse?> GetAsRequirementsGetResponseAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.CardOrders.Item.Requirements.RequirementsGetResponse?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.CardOrders.Item.Requirements.RequirementsGetResponse> GetAsRequirementsGetResponseAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.CardOrders.Item.Requirements.RequirementsGetResponse> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.CardOrders.Item.Requirements.RequirementsGetResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.CardOrders.Item.Requirements.RequirementsGetResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
-        }
-        /// <summary>
-        /// Retrieves all card requirements for a `cardOrderId`. A valid card order needs all its requirements status to be `COMPLETED`.The type of requirements are:- `PIN (optional)`: [Set a PIN](/api-reference/card-order/cardorderpresetpin) on a virtual or physical card order. Contact the team if you need this feature.- `VERIFICATION`: Verify your customer by providing KYC evidences. Refer to the [KYC guide](/guides/product/kyc).- `ADDRESS`: Provide a valid address for your card order. Refer to [address validation](/api-reference/card-order/cardordervalidateaddress).A requirement **status** has the following values:- `NOT_INITIATED`- `NEEDS_ACTION`- `PENDING`- `COMPLETED`- `FAILED`
-        /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.CardOrders.Item.Requirements.RequirementsResponse"/></returns>
-        /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
-        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        [Obsolete("This method is obsolete. Use GetAsRequirementsGetResponseAsync instead.")]
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.CardOrders.Item.Requirements.RequirementsResponse?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#nullable restore
-#else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.CardOrders.Item.Requirements.RequirementsResponse> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#endif
-            var requestInfo = ToGetRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.CardOrders.Item.Requirements.RequirementsResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.CardOrders.Item.Requirements.RequirementsResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Retrieves all card requirements for a `cardOrderId`. A valid card order needs all its requirements status to be `COMPLETED`.The type of requirements are:- `PIN (optional)`: [Set a PIN](/api-reference/card-order/cardorderpresetpin) on a virtual or physical card order. Contact the team if you need this feature.- `VERIFICATION`: Verify your customer by providing KYC evidences. Refer to the [KYC guide](/guides/product/kyc).- `ADDRESS`: Provide a valid address for your card order. Refer to [address validation](/api-reference/card-order/cardordervalidateaddress).A requirement **status** has the following values:- `NOT_INITIATED`- `NEEDS_ACTION`- `PENDING`- `COMPLETED`- `FAILED`
@@ -96,14 +77,6 @@ namespace Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.CardOrders.Item.Re
         public global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.CardOrders.Item.Requirements.RequirementsRequestBuilder WithUrl(string rawUrl)
         {
             return new global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.CardOrders.Item.Requirements.RequirementsRequestBuilder(rawUrl, RequestAdapter);
-        }
-        /// <summary>
-        /// Configuration for the request such as headers, query parameters, and middleware options.
-        /// </summary>
-        [Obsolete("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.")]
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-        public partial class RequirementsRequestBuilderGetRequestConfiguration : RequestConfiguration<DefaultQueryParameters>
-        {
         }
     }
 }

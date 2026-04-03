@@ -27,19 +27,6 @@ namespace Soenneker.Wise.OpenApiClient.V1.Simulation.Profiles
                 return new global::Soenneker.Wise.OpenApiClient.V1.Simulation.Profiles.Item.WithProfileItemRequestBuilder(urlTplParams, RequestAdapter);
             }
         }
-        /// <summary>Gets an item from the Soenneker.Wise.OpenApiClient.v1.simulation.profiles.item collection</summary>
-        /// <param name="position">The ID of the profile to verify.</param>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.Simulation.Profiles.Item.WithProfileItemRequestBuilder"/></returns>
-        [Obsolete("This indexer is deprecated and will be removed in the next major version. Use the one with the typed parameter instead.")]
-        public global::Soenneker.Wise.OpenApiClient.V1.Simulation.Profiles.Item.WithProfileItemRequestBuilder this[string position]
-        {
-            get
-            {
-                var urlTplParams = new Dictionary<string, object>(PathParameters);
-                if (!string.IsNullOrWhiteSpace(position)) urlTplParams.Add("profileId", position);
-                return new global::Soenneker.Wise.OpenApiClient.V1.Simulation.Profiles.Item.WithProfileItemRequestBuilder(urlTplParams, RequestAdapter);
-            }
-        }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.V1.Simulation.Profiles.ProfilesRequestBuilder"/> and sets the default values.
         /// </summary>

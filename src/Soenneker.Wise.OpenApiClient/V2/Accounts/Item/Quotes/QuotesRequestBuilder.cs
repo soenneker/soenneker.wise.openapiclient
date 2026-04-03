@@ -27,19 +27,6 @@ namespace Soenneker.Wise.OpenApiClient.V2.Accounts.Item.Quotes
                 return new global::Soenneker.Wise.OpenApiClient.V2.Accounts.Item.Quotes.Item.WithQuoteItemRequestBuilder(urlTplParams, RequestAdapter);
             }
         }
-        /// <summary>Gets an item from the Soenneker.Wise.OpenApiClient.v2.accounts.item.quotes.item collection</summary>
-        /// <param name="position">Quote ID.</param>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V2.Accounts.Item.Quotes.Item.WithQuoteItemRequestBuilder"/></returns>
-        [Obsolete("This indexer is deprecated and will be removed in the next major version. Use the one with the typed parameter instead.")]
-        public global::Soenneker.Wise.OpenApiClient.V2.Accounts.Item.Quotes.Item.WithQuoteItemRequestBuilder this[string position]
-        {
-            get
-            {
-                var urlTplParams = new Dictionary<string, object>(PathParameters);
-                if (!string.IsNullOrWhiteSpace(position)) urlTplParams.Add("quoteId", position);
-                return new global::Soenneker.Wise.OpenApiClient.V2.Accounts.Item.Quotes.Item.WithQuoteItemRequestBuilder(urlTplParams, RequestAdapter);
-            }
-        }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.V2.Accounts.Item.Quotes.QuotesRequestBuilder"/> and sets the default values.
         /// </summary>

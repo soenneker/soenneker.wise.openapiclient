@@ -41,37 +41,16 @@ namespace Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Request.PublicKeys
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Request.PublicKeys.PublicKeysPostResponse?> PostAsPublicKeysPostResponseAsync(global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Request.PublicKeys.PublicKeysPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Request.PublicKeys.PublicKeysPostResponse?> PostAsync(global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Request.PublicKeys.PublicKeysPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Request.PublicKeys.PublicKeysPostResponse> PostAsPublicKeysPostResponseAsync(global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Request.PublicKeys.PublicKeysPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Request.PublicKeys.PublicKeysPostResponse> PostAsync(global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Request.PublicKeys.PublicKeysPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Request.PublicKeys.PublicKeysPostResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Request.PublicKeys.PublicKeysPostResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
-        }
-        /// <summary>
-        /// Upload a client public key for request payload signing or response payload encryption.{% admonition type=&quot;warning&quot; %}  This endpoint requires a client credentials token, not a user level access token. Make sure you use your client details to fetch a valid [client credentials token](/api-reference/oauth-token/oauthtokencreate) before performing this call.{% /admonition %}
-        /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Request.PublicKeys.PublicKeysResponse"/></returns>
-        /// <param name="body">The request body</param>
-        /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
-        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        [Obsolete("This method is obsolete. Use PostAsPublicKeysPostResponseAsync instead.")]
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Request.PublicKeys.PublicKeysResponse?> PostAsync(global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Request.PublicKeys.PublicKeysPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#nullable restore
-#else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Request.PublicKeys.PublicKeysResponse> PostAsync(global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Request.PublicKeys.PublicKeysPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#endif
-            if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
-            var requestInfo = ToPostRequestInformation(body, requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Request.PublicKeys.PublicKeysResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Request.PublicKeys.PublicKeysResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Upload a client public key for request payload signing or response payload encryption.{% admonition type=&quot;warning&quot; %}  This endpoint requires a client credentials token, not a user level access token. Make sure you use your client details to fetch a valid [client credentials token](/api-reference/oauth-token/oauthtokencreate) before performing this call.{% /admonition %}
@@ -103,14 +82,6 @@ namespace Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Request.PublicKeys
         public global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Request.PublicKeys.PublicKeysRequestBuilder WithUrl(string rawUrl)
         {
             return new global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Request.PublicKeys.PublicKeysRequestBuilder(rawUrl, RequestAdapter);
-        }
-        /// <summary>
-        /// Configuration for the request such as headers, query parameters, and middleware options.
-        /// </summary>
-        [Obsolete("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.")]
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-        public partial class PublicKeysRequestBuilderPostRequestConfiguration : RequestConfiguration<DefaultQueryParameters>
-        {
         }
     }
 }

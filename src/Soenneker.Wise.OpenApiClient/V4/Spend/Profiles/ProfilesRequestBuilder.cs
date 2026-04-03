@@ -27,19 +27,6 @@ namespace Soenneker.Wise.OpenApiClient.V4.Spend.Profiles
                 return new global::Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.WithProfileItemRequestBuilder(urlTplParams, RequestAdapter);
             }
         }
-        /// <summary>Gets an item from the Soenneker.Wise.OpenApiClient.v4.spend.profiles.item collection</summary>
-        /// <param name="position">The ID of the profile that owns the card.</param>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.WithProfileItemRequestBuilder"/></returns>
-        [Obsolete("This indexer is deprecated and will be removed in the next major version. Use the one with the typed parameter instead.")]
-        public global::Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.WithProfileItemRequestBuilder this[string position]
-        {
-            get
-            {
-                var urlTplParams = new Dictionary<string, object>(PathParameters);
-                if (!string.IsNullOrWhiteSpace(position)) urlTplParams.Add("profileId", position);
-                return new global::Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.WithProfileItemRequestBuilder(urlTplParams, RequestAdapter);
-            }
-        }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.ProfilesRequestBuilder"/> and sets the default values.
         /// </summary>

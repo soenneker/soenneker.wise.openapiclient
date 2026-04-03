@@ -42,37 +42,16 @@ namespace Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PhoneNu
         [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PhoneNumber.PhoneNumberPutResponse?> PutAsPhoneNumberPutResponseAsync(global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PhoneNumber.PhoneNumberPutRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PhoneNumber.PhoneNumberPutResponse?> PutAsync(global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PhoneNumber.PhoneNumberPutRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PhoneNumber.PhoneNumberPutResponse> PutAsPhoneNumberPutResponseAsync(global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PhoneNumber.PhoneNumberPutRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PhoneNumber.PhoneNumberPutResponse> PutAsync(global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PhoneNumber.PhoneNumberPutRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPutRequestInformation(body, requestConfiguration);
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PhoneNumber.PhoneNumberPutResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PhoneNumber.PhoneNumberPutResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
-        }
-        /// <summary>
-        /// {% admonition type=&quot;warning&quot; %}This endpoint is deprecated for partners onboarded after 1/3/2025. For new and existing partners, your clientId will need to be approved by our support team to make the `phoneNumber` optional in the [create card order endpoint](/api-reference/card-order/cardordercreate). See [3DS for more information](/guides/product/issue-cards/3ds).{% /admonition %}Updates the phone number of a card. The new phone number must be a valid phone number.
-        /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PhoneNumber.PhoneNumberResponse"/></returns>
-        /// <param name="body">The request body</param>
-        /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
-        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        [Obsolete("This method is obsolete. Use PutAsPhoneNumberPutResponseAsync instead.")]
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PhoneNumber.PhoneNumberResponse?> PutAsync(global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PhoneNumber.PhoneNumberPutRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#nullable restore
-#else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PhoneNumber.PhoneNumberResponse> PutAsync(global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PhoneNumber.PhoneNumberPutRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#endif
-            if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
-            var requestInfo = ToPutRequestInformation(body, requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PhoneNumber.PhoneNumberResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PhoneNumber.PhoneNumberResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// {% admonition type=&quot;warning&quot; %}This endpoint is deprecated for partners onboarded after 1/3/2025. For new and existing partners, your clientId will need to be approved by our support team to make the `phoneNumber` optional in the [create card order endpoint](/api-reference/card-order/cardordercreate). See [3DS for more information](/guides/product/issue-cards/3ds).{% /admonition %}Updates the phone number of a card. The new phone number must be a valid phone number.
@@ -106,14 +85,6 @@ namespace Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PhoneNu
         public global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PhoneNumber.PhoneNumberRequestBuilder WithUrl(string rawUrl)
         {
             return new global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PhoneNumber.PhoneNumberRequestBuilder(rawUrl, RequestAdapter);
-        }
-        /// <summary>
-        /// Configuration for the request such as headers, query parameters, and middleware options.
-        /// </summary>
-        [Obsolete("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.")]
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-        public partial class PhoneNumberRequestBuilderPutRequestConfiguration : RequestConfiguration<DefaultQueryParameters>
-        {
         }
     }
 }

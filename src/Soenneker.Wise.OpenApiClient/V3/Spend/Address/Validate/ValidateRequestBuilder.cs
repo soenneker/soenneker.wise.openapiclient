@@ -41,37 +41,16 @@ namespace Soenneker.Wise.OpenApiClient.V3.Spend.Address.Validate
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Address.Validate.ValidatePostResponse?> PostAsValidatePostResponseAsync(global::Soenneker.Wise.OpenApiClient.V3.Spend.Address.Validate.ValidatePostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Address.Validate.ValidatePostResponse?> PostAsync(global::Soenneker.Wise.OpenApiClient.V3.Spend.Address.Validate.ValidatePostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Address.Validate.ValidatePostResponse> PostAsValidatePostResponseAsync(global::Soenneker.Wise.OpenApiClient.V3.Spend.Address.Validate.ValidatePostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Address.Validate.ValidatePostResponse> PostAsync(global::Soenneker.Wise.OpenApiClient.V3.Spend.Address.Validate.ValidatePostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V3.Spend.Address.Validate.ValidatePostResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V3.Spend.Address.Validate.ValidatePostResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
-        }
-        /// <summary>
-        /// Validates the format of an address for a card order. Make sure to follow country-specific address fields and validation as described in the [card address validation guide](/guides/developer/api-guides/card-address-validation).For virtual cards, the address field will be used as a billing address. It will be used for AVS checks in countries where it is required.For physical cards, the address field will be used as a delivery address. It will be used to deliver your card and for AVS checks in countries where it is required.{% admonition type=&quot;warning&quot; %}We do not support PO BOX addresses.{% /admonition %}
-        /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V3.Spend.Address.Validate.ValidateResponse"/></returns>
-        /// <param name="body">Address to validate. Fields vary by country. See the [card address validation guide](/guides/developer/api-guides/card-address-validation).</param>
-        /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
-        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        [Obsolete("This method is obsolete. Use PostAsValidatePostResponseAsync instead.")]
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Address.Validate.ValidateResponse?> PostAsync(global::Soenneker.Wise.OpenApiClient.V3.Spend.Address.Validate.ValidatePostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#nullable restore
-#else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Address.Validate.ValidateResponse> PostAsync(global::Soenneker.Wise.OpenApiClient.V3.Spend.Address.Validate.ValidatePostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#endif
-            if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
-            var requestInfo = ToPostRequestInformation(body, requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V3.Spend.Address.Validate.ValidateResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V3.Spend.Address.Validate.ValidateResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Validates the format of an address for a card order. Make sure to follow country-specific address fields and validation as described in the [card address validation guide](/guides/developer/api-guides/card-address-validation).For virtual cards, the address field will be used as a billing address. It will be used for AVS checks in countries where it is required.For physical cards, the address field will be used as a delivery address. It will be used to deliver your card and for AVS checks in countries where it is required.{% admonition type=&quot;warning&quot; %}We do not support PO BOX addresses.{% /admonition %}
@@ -103,14 +82,6 @@ namespace Soenneker.Wise.OpenApiClient.V3.Spend.Address.Validate
         public global::Soenneker.Wise.OpenApiClient.V3.Spend.Address.Validate.ValidateRequestBuilder WithUrl(string rawUrl)
         {
             return new global::Soenneker.Wise.OpenApiClient.V3.Spend.Address.Validate.ValidateRequestBuilder(rawUrl, RequestAdapter);
-        }
-        /// <summary>
-        /// Configuration for the request such as headers, query parameters, and middleware options.
-        /// </summary>
-        [Obsolete("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.")]
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-        public partial class ValidateRequestBuilderPostRequestConfiguration : RequestConfiguration<DefaultQueryParameters>
-        {
         }
     }
 }

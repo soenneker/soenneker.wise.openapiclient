@@ -41,34 +41,15 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Activities
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Activities.ActivitiesGetResponse?> GetAsActivitiesGetResponseAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Activities.ActivitiesRequestBuilder.ActivitiesRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Activities.ActivitiesGetResponse?> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Activities.ActivitiesRequestBuilder.ActivitiesRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Activities.ActivitiesGetResponse> GetAsActivitiesGetResponseAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Activities.ActivitiesRequestBuilder.ActivitiesRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Activities.ActivitiesGetResponse> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Activities.ActivitiesRequestBuilder.ActivitiesRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Activities.ActivitiesGetResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Activities.ActivitiesGetResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
-        }
-        /// <summary>
-        /// List of activities belonging to user profile.Activities represent snapshots of performed actions and can be filtered by various parameters to narrow down the results.
-        /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Activities.ActivitiesResponse"/></returns>
-        /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
-        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        [Obsolete("This method is obsolete. Use GetAsActivitiesGetResponseAsync instead.")]
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Activities.ActivitiesResponse?> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Activities.ActivitiesRequestBuilder.ActivitiesRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#nullable restore
-#else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Activities.ActivitiesResponse> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Activities.ActivitiesRequestBuilder.ActivitiesRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#endif
-            var requestInfo = ToGetRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Activities.ActivitiesResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Activities.ActivitiesResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// List of activities belonging to user profile.Activities represent snapshots of performed actions and can be filtered by various parameters to narrow down the results.
@@ -105,19 +86,8 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Activities
         public partial class ActivitiesRequestBuilderGetQueryParameters 
         {
             /// <summary>Filter activity by resource type.</summary>
-            [Obsolete("This property is deprecated, use MonetaryResourceTypeAsActivityResourceType instead")]
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
             [QueryParameter("monetaryResourceType")]
-            public string? MonetaryResourceType { get; set; }
-#nullable restore
-#else
-            [QueryParameter("monetaryResourceType")]
-            public string MonetaryResourceType { get; set; }
-#endif
-            /// <summary>Filter activity by resource type.</summary>
-            [QueryParameter("monetaryResourceType")]
-            public global::Soenneker.Wise.OpenApiClient.Models.ActivityResourceType? MonetaryResourceTypeAsActivityResourceType { get; set; }
+            public global::Soenneker.Wise.OpenApiClient.Models.ActivityResourceType? MonetaryResourceType { get; set; }
             /// <summary>Pagination cursor returned from a previous response. Use the `cursor` value from the response to fetch the next page of activities.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -135,30 +105,11 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Activities
             [QueryParameter("size")]
             public int? Size { get; set; }
             /// <summary>Filter by activity status.</summary>
-            [Obsolete("This property is deprecated, use StatusAsActivityStatus instead")]
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
             [QueryParameter("status")]
-            public string? Status { get; set; }
-#nullable restore
-#else
-            [QueryParameter("status")]
-            public string Status { get; set; }
-#endif
-            /// <summary>Filter by activity status.</summary>
-            [QueryParameter("status")]
-            public global::Soenneker.Wise.OpenApiClient.Models.ActivityStatus? StatusAsActivityStatus { get; set; }
+            public global::Soenneker.Wise.OpenApiClient.Models.ActivityStatus? Status { get; set; }
             /// <summary>Filter activity list until a certain timestamp. Use ISO 8601 format.</summary>
             [QueryParameter("until")]
             public DateTimeOffset? Until { get; set; }
-        }
-        /// <summary>
-        /// Configuration for the request such as headers, query parameters, and middleware options.
-        /// </summary>
-        [Obsolete("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.")]
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-        public partial class ActivitiesRequestBuilderGetRequestConfiguration : RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Activities.ActivitiesRequestBuilder.ActivitiesRequestBuilderGetQueryParameters>
-        {
         }
     }
 }

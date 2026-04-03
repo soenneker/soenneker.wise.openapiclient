@@ -27,19 +27,6 @@ namespace Soenneker.Wise.OpenApiClient.V2.Simulation.Profiles.Item.KycReviews
                 return new global::Soenneker.Wise.OpenApiClient.V2.Simulation.Profiles.Item.KycReviews.Item.WithKycReviewItemRequestBuilder(urlTplParams, RequestAdapter);
             }
         }
-        /// <summary>Gets an item from the Soenneker.Wise.OpenApiClient.v2.simulation.profiles.item.kycReviews.item collection</summary>
-        /// <param name="position">The ID of the existing KYC review.</param>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V2.Simulation.Profiles.Item.KycReviews.Item.WithKycReviewItemRequestBuilder"/></returns>
-        [Obsolete("This indexer is deprecated and will be removed in the next major version. Use the one with the typed parameter instead.")]
-        public global::Soenneker.Wise.OpenApiClient.V2.Simulation.Profiles.Item.KycReviews.Item.WithKycReviewItemRequestBuilder this[string position]
-        {
-            get
-            {
-                var urlTplParams = new Dictionary<string, object>(PathParameters);
-                if (!string.IsNullOrWhiteSpace(position)) urlTplParams.Add("kycReviewId", position);
-                return new global::Soenneker.Wise.OpenApiClient.V2.Simulation.Profiles.Item.KycReviews.Item.WithKycReviewItemRequestBuilder(urlTplParams, RequestAdapter);
-            }
-        }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.V2.Simulation.Profiles.Item.KycReviews.KycReviewsRequestBuilder"/> and sets the default values.
         /// </summary>

@@ -41,37 +41,16 @@ namespace Soenneker.Wise.OpenApiClient.V2.Simulation.Spend.Profiles.Item.Cards.I
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V2.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.Authorisation.AuthorisationPostResponse?> PostAsAuthorisationPostResponseAsync(global::Soenneker.Wise.OpenApiClient.V2.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.Authorisation.AuthorisationPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V2.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.Authorisation.AuthorisationPostResponse?> PostAsync(global::Soenneker.Wise.OpenApiClient.V2.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.Authorisation.AuthorisationPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V2.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.Authorisation.AuthorisationPostResponse> PostAsAuthorisationPostResponseAsync(global::Soenneker.Wise.OpenApiClient.V2.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.Authorisation.AuthorisationPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V2.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.Authorisation.AuthorisationPostResponse> PostAsync(global::Soenneker.Wise.OpenApiClient.V2.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.Authorisation.AuthorisationPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V2.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.Authorisation.AuthorisationPostResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V2.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.Authorisation.AuthorisationPostResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
-        }
-        /// <summary>
-        /// Simulates a card transaction authorisation request in the sandbox environment. It can simulate ATM withdrawals, POS purchases, e-commerce transactions, and refunds. This is an authorisation hold, where funds are held, but not yet captured by the acquirer.The `cardNumber` represents the 16-digit Primary Account Number (PAN) of the card, and must be a valid PAN retrieved from sensitive card details. Please follow the [detailed guide](/guides/product/issue-cards/sensitive-card-details) on retrieving sensitive card details.#### RefundA refund is a 2-step process: first authorise with `transactionType` set to `REFUND`, then clear using the [clearing endpoint](/api-reference/simulation/simulationcardtransactionclearing) with the same transaction type.{% admonition type=&quot;warning&quot; %}Refund simulation doesn&apos;t work with Mastercard.{% /admonition %}
-        /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V2.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.Authorisation.AuthorisationResponse"/></returns>
-        /// <param name="body">The request body</param>
-        /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
-        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        [Obsolete("This method is obsolete. Use PostAsAuthorisationPostResponseAsync instead.")]
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V2.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.Authorisation.AuthorisationResponse?> PostAsync(global::Soenneker.Wise.OpenApiClient.V2.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.Authorisation.AuthorisationPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#nullable restore
-#else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V2.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.Authorisation.AuthorisationResponse> PostAsync(global::Soenneker.Wise.OpenApiClient.V2.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.Authorisation.AuthorisationPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#endif
-            if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
-            var requestInfo = ToPostRequestInformation(body, requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V2.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.Authorisation.AuthorisationResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V2.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.Authorisation.AuthorisationResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Simulates a card transaction authorisation request in the sandbox environment. It can simulate ATM withdrawals, POS purchases, e-commerce transactions, and refunds. This is an authorisation hold, where funds are held, but not yet captured by the acquirer.The `cardNumber` represents the 16-digit Primary Account Number (PAN) of the card, and must be a valid PAN retrieved from sensitive card details. Please follow the [detailed guide](/guides/product/issue-cards/sensitive-card-details) on retrieving sensitive card details.#### RefundA refund is a 2-step process: first authorise with `transactionType` set to `REFUND`, then clear using the [clearing endpoint](/api-reference/simulation/simulationcardtransactionclearing) with the same transaction type.{% admonition type=&quot;warning&quot; %}Refund simulation doesn&apos;t work with Mastercard.{% /admonition %}
@@ -103,14 +82,6 @@ namespace Soenneker.Wise.OpenApiClient.V2.Simulation.Spend.Profiles.Item.Cards.I
         public global::Soenneker.Wise.OpenApiClient.V2.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.Authorisation.AuthorisationRequestBuilder WithUrl(string rawUrl)
         {
             return new global::Soenneker.Wise.OpenApiClient.V2.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.Authorisation.AuthorisationRequestBuilder(rawUrl, RequestAdapter);
-        }
-        /// <summary>
-        /// Configuration for the request such as headers, query parameters, and middleware options.
-        /// </summary>
-        [Obsolete("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.")]
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-        public partial class AuthorisationRequestBuilderPostRequestConfiguration : RequestConfiguration<DefaultQueryParameters>
-        {
         }
     }
 }

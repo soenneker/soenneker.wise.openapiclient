@@ -27,19 +27,6 @@ namespace Soenneker.Wise.OpenApiClient.V1.Simulation.Spend.Profiles.Item.Cards
                 return new global::Soenneker.Wise.OpenApiClient.V1.Simulation.Spend.Profiles.Item.Cards.Item.WithCardTokenItemRequestBuilder(urlTplParams, RequestAdapter);
             }
         }
-        /// <summary>Gets an item from the Soenneker.Wise.OpenApiClient.v1.simulation.spend.profiles.item.cards.item collection</summary>
-        /// <param name="position">The card token.</param>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.Simulation.Spend.Profiles.Item.Cards.Item.WithCardTokenItemRequestBuilder"/></returns>
-        [Obsolete("This indexer is deprecated and will be removed in the next major version. Use the one with the typed parameter instead.")]
-        public global::Soenneker.Wise.OpenApiClient.V1.Simulation.Spend.Profiles.Item.Cards.Item.WithCardTokenItemRequestBuilder this[string position]
-        {
-            get
-            {
-                var urlTplParams = new Dictionary<string, object>(PathParameters);
-                if (!string.IsNullOrWhiteSpace(position)) urlTplParams.Add("cardToken", position);
-                return new global::Soenneker.Wise.OpenApiClient.V1.Simulation.Spend.Profiles.Item.Cards.Item.WithCardTokenItemRequestBuilder(urlTplParams, RequestAdapter);
-            }
-        }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.V1.Simulation.Spend.Profiles.Item.Cards.CardsRequestBuilder"/> and sets the default values.
         /// </summary>

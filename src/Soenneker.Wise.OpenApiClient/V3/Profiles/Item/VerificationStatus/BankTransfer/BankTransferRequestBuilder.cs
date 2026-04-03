@@ -40,34 +40,15 @@ namespace Soenneker.Wise.OpenApiClient.V3.Profiles.Item.VerificationStatus.BankT
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.VerificationStatus.BankTransfer.BankTransferPostResponse?> PostAsBankTransferPostResponseAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.VerificationStatus.BankTransfer.BankTransferRequestBuilder.BankTransferRequestBuilderPostQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.VerificationStatus.BankTransfer.BankTransferPostResponse?> PostAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.VerificationStatus.BankTransfer.BankTransferRequestBuilder.BankTransferRequestBuilderPostQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.VerificationStatus.BankTransfer.BankTransferPostResponse> PostAsBankTransferPostResponseAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.VerificationStatus.BankTransfer.BankTransferRequestBuilder.BankTransferRequestBuilderPostQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.VerificationStatus.BankTransfer.BankTransferPostResponse> PostAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.VerificationStatus.BankTransfer.BankTransferRequestBuilder.BankTransferRequestBuilderPostQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             var requestInfo = ToPostRequestInformation(requestConfiguration);
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.VerificationStatus.BankTransfer.BankTransferPostResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.VerificationStatus.BankTransfer.BankTransferPostResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
-        }
-        /// <summary>
-        /// You can check the verification status of a profile using this API. This is a profile-specific API resource which should be accessed using an access token acquired for the profile.We do not expose any finer details of customer verification.
-        /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.VerificationStatus.BankTransfer.BankTransferResponse"/></returns>
-        /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
-        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        [Obsolete("This method is obsolete. Use PostAsBankTransferPostResponseAsync instead.")]
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.VerificationStatus.BankTransfer.BankTransferResponse?> PostAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.VerificationStatus.BankTransfer.BankTransferRequestBuilder.BankTransferRequestBuilderPostQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#nullable restore
-#else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.VerificationStatus.BankTransfer.BankTransferResponse> PostAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.VerificationStatus.BankTransfer.BankTransferRequestBuilder.BankTransferRequestBuilderPostQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#endif
-            var requestInfo = ToPostRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.VerificationStatus.BankTransfer.BankTransferResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.VerificationStatus.BankTransfer.BankTransferResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// You can check the verification status of a profile using this API. This is a profile-specific API resource which should be accessed using an access token acquired for the profile.We do not expose any finer details of customer verification.
@@ -113,14 +94,6 @@ namespace Soenneker.Wise.OpenApiClient.V3.Profiles.Item.VerificationStatus.BankT
             [QueryParameter("source_currencies")]
             public string SourceCurrencies { get; set; }
 #endif
-        }
-        /// <summary>
-        /// Configuration for the request such as headers, query parameters, and middleware options.
-        /// </summary>
-        [Obsolete("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.")]
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-        public partial class BankTransferRequestBuilderPostRequestConfiguration : RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.VerificationStatus.BankTransfer.BankTransferRequestBuilder.BankTransferRequestBuilderPostQueryParameters>
-        {
         }
     }
 }

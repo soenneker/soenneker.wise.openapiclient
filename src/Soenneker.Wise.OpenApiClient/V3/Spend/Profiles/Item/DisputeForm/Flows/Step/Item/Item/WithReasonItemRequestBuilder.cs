@@ -41,37 +41,16 @@ namespace Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.Step.Item.Item.WithReasonPostResponse?> PostAsWithReasonPostResponseAsync(global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.Step.Item.Item.WithReasonPostRequestBody body, Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.Step.Item.Item.WithReasonItemRequestBuilder.WithReasonItemRequestBuilderPostQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.Step.Item.Item.WithReasonPostResponse?> PostAsync(global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.Step.Item.Item.WithReasonPostRequestBody body, Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.Step.Item.Item.WithReasonItemRequestBuilder.WithReasonItemRequestBuilderPostQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.Step.Item.Item.WithReasonPostResponse> PostAsWithReasonPostResponseAsync(global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.Step.Item.Item.WithReasonPostRequestBody body, Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.Step.Item.Item.WithReasonItemRequestBuilder.WithReasonItemRequestBuilderPostQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.Step.Item.Item.WithReasonPostResponse> PostAsync(global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.Step.Item.Item.WithReasonPostRequestBody body, Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.Step.Item.Item.WithReasonItemRequestBuilder.WithReasonItemRequestBuilderPostQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.Step.Item.Item.WithReasonPostResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.Step.Item.Item.WithReasonPostResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
-        }
-        /// <summary>
-        /// Retrieves the JSON for initiating the dispute flow. Use this endpoint with Wise&apos;s[Dynamic Flow framework](https://www.npmjs.com/package/@transferwise/dynamic-flows).The JSON response must be passed into the Dynamic Flow framework, which handles the multi-step dispute submission including the generation of subsequent pages and the creation of the dispute.**Setting up the API**You will need to implement a GET API with the following format:`GET https://{{yourApiUrl}}/v3/spend/profiles/{{profileId}}/dispute-form/flows/step/{{scheme}}/{{reason}}?transactionId={{transactionId}}`This API should forward the call to:`POST https://{{wiseUrl}}/v3/spend/profiles/{{profileId}}/dispute-form/flows/step/{{scheme}}/{{reason}}?transactionId={{transactionId}}`This is required as the dynamic flow returned by Wise will automatically be configured to call your GET API. Use `baseUrl` or `fetcher` as part of the dynamic flow setup to redirect the Dynamic Flow JavaScript library to your domain.For a full integration guide, including example backend implementation and styling, see [Disputes via Dynamic Flow](/guides/product/issue-cards/card-disputes-dynamic-flow).
-        /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.Step.Item.Item.WithReasonResponse"/></returns>
-        /// <param name="body">The request body</param>
-        /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
-        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        [Obsolete("This method is obsolete. Use PostAsWithReasonPostResponseAsync instead.")]
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.Step.Item.Item.WithReasonResponse?> PostAsync(global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.Step.Item.Item.WithReasonPostRequestBody body, Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.Step.Item.Item.WithReasonItemRequestBuilder.WithReasonItemRequestBuilderPostQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#nullable restore
-#else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.Step.Item.Item.WithReasonResponse> PostAsync(global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.Step.Item.Item.WithReasonPostRequestBody body, Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.Step.Item.Item.WithReasonItemRequestBuilder.WithReasonItemRequestBuilderPostQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#endif
-            if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
-            var requestInfo = ToPostRequestInformation(body, requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.Step.Item.Item.WithReasonResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.Step.Item.Item.WithReasonResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Retrieves the JSON for initiating the dispute flow. Use this endpoint with Wise&apos;s[Dynamic Flow framework](https://www.npmjs.com/package/@transferwise/dynamic-flows).The JSON response must be passed into the Dynamic Flow framework, which handles the multi-step dispute submission including the generation of subsequent pages and the creation of the dispute.**Setting up the API**You will need to implement a GET API with the following format:`GET https://{{yourApiUrl}}/v3/spend/profiles/{{profileId}}/dispute-form/flows/step/{{scheme}}/{{reason}}?transactionId={{transactionId}}`This API should forward the call to:`POST https://{{wiseUrl}}/v3/spend/profiles/{{profileId}}/dispute-form/flows/step/{{scheme}}/{{reason}}?transactionId={{transactionId}}`This is required as the dynamic flow returned by Wise will automatically be configured to call your GET API. Use `baseUrl` or `fetcher` as part of the dynamic flow setup to redirect the Dynamic Flow JavaScript library to your domain.For a full integration guide, including example backend implementation and styling, see [Disputes via Dynamic Flow](/guides/product/issue-cards/card-disputes-dynamic-flow).
@@ -120,14 +99,6 @@ namespace Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.
             [QueryParameter("transactionId")]
             public string TransactionId { get; set; }
 #endif
-        }
-        /// <summary>
-        /// Configuration for the request such as headers, query parameters, and middleware options.
-        /// </summary>
-        [Obsolete("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.")]
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-        public partial class WithReasonItemRequestBuilderPostRequestConfiguration : RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.Step.Item.Item.WithReasonItemRequestBuilder.WithReasonItemRequestBuilderPostQueryParameters>
-        {
         }
     }
 }

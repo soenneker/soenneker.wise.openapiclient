@@ -27,19 +27,6 @@ namespace Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates
                 return new global::Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates.Item.WithTransferItemRequestBuilder(urlTplParams, RequestAdapter);
             }
         }
-        /// <summary>Gets an item from the Soenneker.Wise.OpenApiClient.v1.deliveryEstimates.item collection</summary>
-        /// <param name="position">The ID of the transfer.</param>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates.Item.WithTransferItemRequestBuilder"/></returns>
-        [Obsolete("This indexer is deprecated and will be removed in the next major version. Use the one with the typed parameter instead.")]
-        public global::Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates.Item.WithTransferItemRequestBuilder this[string position]
-        {
-            get
-            {
-                var urlTplParams = new Dictionary<string, object>(PathParameters);
-                if (!string.IsNullOrWhiteSpace(position)) urlTplParams.Add("transferId", position);
-                return new global::Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates.Item.WithTransferItemRequestBuilder(urlTplParams, RequestAdapter);
-            }
-        }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates.DeliveryEstimatesRequestBuilder"/> and sets the default values.
         /// </summary>

@@ -54,37 +54,16 @@ namespace Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.Payment
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PaymentTokens.PaymentTokensPostResponse?> PostAsPaymentTokensPostResponseAsync(global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PaymentTokens.PaymentTokensPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PaymentTokens.PaymentTokensPostResponse?> PostAsync(global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PaymentTokens.PaymentTokensPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PaymentTokens.PaymentTokensPostResponse> PostAsPaymentTokensPostResponseAsync(global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PaymentTokens.PaymentTokensPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PaymentTokens.PaymentTokensPostResponse> PostAsync(global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PaymentTokens.PaymentTokensPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PaymentTokens.PaymentTokensPostResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PaymentTokens.PaymentTokensPostResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
-        }
-        /// <summary>
-        /// You have the option to obtain the payment tokens associated with a card, which can assist in determining if it&apos;s already linked to a specific wallet.Note that the payment token status associated with the card may not be accurate (for example, after a phone factory reset).Therefore, it&apos;s advisable to consistently check the wallet instance for the most up-to-date token status.
-        /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PaymentTokens.PaymentTokensResponse"/></returns>
-        /// <param name="body">The request body</param>
-        /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
-        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        [Obsolete("This method is obsolete. Use PostAsPaymentTokensPostResponseAsync instead.")]
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PaymentTokens.PaymentTokensResponse?> PostAsync(global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PaymentTokens.PaymentTokensPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#nullable restore
-#else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PaymentTokens.PaymentTokensResponse> PostAsync(global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PaymentTokens.PaymentTokensPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#endif
-            if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
-            var requestInfo = ToPostRequestInformation(body, requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PaymentTokens.PaymentTokensResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PaymentTokens.PaymentTokensResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// You have the option to obtain the payment tokens associated with a card, which can assist in determining if it&apos;s already linked to a specific wallet.Note that the payment token status associated with the card may not be accurate (for example, after a phone factory reset).Therefore, it&apos;s advisable to consistently check the wallet instance for the most up-to-date token status.
@@ -116,14 +95,6 @@ namespace Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.Payment
         public global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PaymentTokens.PaymentTokensRequestBuilder WithUrl(string rawUrl)
         {
             return new global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PaymentTokens.PaymentTokensRequestBuilder(rawUrl, RequestAdapter);
-        }
-        /// <summary>
-        /// Configuration for the request such as headers, query parameters, and middleware options.
-        /// </summary>
-        [Obsolete("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.")]
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-        public partial class PaymentTokensRequestBuilderPostRequestConfiguration : RequestConfiguration<DefaultQueryParameters>
-        {
         }
     }
 }

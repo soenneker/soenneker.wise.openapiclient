@@ -41,37 +41,16 @@ namespace Soenneker.Wise.OpenApiClient.V3.Profiles.Item.Transfers.Item.Payments
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.Transfers.Item.Payments.PaymentsPostResponse?> PostAsPaymentsPostResponseAsync(global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.Transfers.Item.Payments.PaymentsPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.Transfers.Item.Payments.PaymentsPostResponse?> PostAsync(global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.Transfers.Item.Payments.PaymentsPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.Transfers.Item.Payments.PaymentsPostResponse> PostAsPaymentsPostResponseAsync(global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.Transfers.Item.Payments.PaymentsPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.Transfers.Item.Payments.PaymentsPostResponse> PostAsync(global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.Transfers.Item.Payments.PaymentsPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.Transfers.Item.Payments.PaymentsPostResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.Transfers.Item.Payments.PaymentsPostResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
-        }
-        /// <summary>
-        /// {% admonition type=&quot;warning&quot; %}This endpoint is SCA protected when it applies. If your profile is registered within the UK and/or EEA, SCA most likely applies to you.Please read more about [implementing SCA](/guides/developer/auth-and-security/sca-and-2fa).{% /admonition %}This API call is the final step for executing payouts when using a balance with Wise. Upon calling the endpoint, Wise will begin the processing of the transfer, depending on the status of funds.When using the transfer by transfer settlement model, the following funding type(s) must be used:- **BALANCE** — Funds are pulled from a multi-currency account held with Wise.- **BANK_TRANSFER** — Manually send funds from your business bank account to pay for any transfers. Only applicable when using the [Batch Group API](/api-reference/batch-group/).When funding through the Bulk Settlement model, the following funding type(s) must be used:- **TRUSTED_PRE_FUND_BULK** — Funds for the transfer will be settled through a bulk payment at a later date. This method is not applicable for First Party partner account transfers.If funding from `BALANCE`, and your multi-currency account does not have the required funds to complete the action, then this call will fail with an &quot;insufficient funds&quot; error. Once funds are added and available, you must call this endpoint again.
-        /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.Transfers.Item.Payments.PaymentsResponse"/></returns>
-        /// <param name="body">The request body</param>
-        /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
-        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        [Obsolete("This method is obsolete. Use PostAsPaymentsPostResponseAsync instead.")]
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.Transfers.Item.Payments.PaymentsResponse?> PostAsync(global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.Transfers.Item.Payments.PaymentsPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#nullable restore
-#else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.Transfers.Item.Payments.PaymentsResponse> PostAsync(global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.Transfers.Item.Payments.PaymentsPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#endif
-            if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
-            var requestInfo = ToPostRequestInformation(body, requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.Transfers.Item.Payments.PaymentsResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.Transfers.Item.Payments.PaymentsResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// {% admonition type=&quot;warning&quot; %}This endpoint is SCA protected when it applies. If your profile is registered within the UK and/or EEA, SCA most likely applies to you.Please read more about [implementing SCA](/guides/developer/auth-and-security/sca-and-2fa).{% /admonition %}This API call is the final step for executing payouts when using a balance with Wise. Upon calling the endpoint, Wise will begin the processing of the transfer, depending on the status of funds.When using the transfer by transfer settlement model, the following funding type(s) must be used:- **BALANCE** — Funds are pulled from a multi-currency account held with Wise.- **BANK_TRANSFER** — Manually send funds from your business bank account to pay for any transfers. Only applicable when using the [Batch Group API](/api-reference/batch-group/).When funding through the Bulk Settlement model, the following funding type(s) must be used:- **TRUSTED_PRE_FUND_BULK** — Funds for the transfer will be settled through a bulk payment at a later date. This method is not applicable for First Party partner account transfers.If funding from `BALANCE`, and your multi-currency account does not have the required funds to complete the action, then this call will fail with an &quot;insufficient funds&quot; error. Once funds are added and available, you must call this endpoint again.
@@ -103,14 +82,6 @@ namespace Soenneker.Wise.OpenApiClient.V3.Profiles.Item.Transfers.Item.Payments
         public global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.Transfers.Item.Payments.PaymentsRequestBuilder WithUrl(string rawUrl)
         {
             return new global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.Transfers.Item.Payments.PaymentsRequestBuilder(rawUrl, RequestAdapter);
-        }
-        /// <summary>
-        /// Configuration for the request such as headers, query parameters, and middleware options.
-        /// </summary>
-        [Obsolete("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.")]
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-        public partial class PaymentsRequestBuilderPostRequestConfiguration : RequestConfiguration<DefaultQueryParameters>
-        {
         }
     }
 }

@@ -41,37 +41,16 @@ namespace Soenneker.Wise.OpenApiClient.V1.Users.Exists
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Users.Exists.ExistsPostResponse?> PostAsExistsPostResponseAsync(global::Soenneker.Wise.OpenApiClient.V1.Users.Exists.ExistsPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Users.Exists.ExistsPostResponse?> PostAsync(global::Soenneker.Wise.OpenApiClient.V1.Users.Exists.ExistsPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Users.Exists.ExistsPostResponse> PostAsExistsPostResponseAsync(global::Soenneker.Wise.OpenApiClient.V1.Users.Exists.ExistsPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Users.Exists.ExistsPostResponse> PostAsync(global::Soenneker.Wise.OpenApiClient.V1.Users.Exists.ExistsPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.Users.Exists.ExistsPostResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Users.Exists.ExistsPostResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
-        }
-        /// <summary>
-        /// Check if a user already exists by email. Wise uses email address as unique identifier for users. If email has already been used by a user, it cannot be reused to create a new user.Note that this uses a `client-credentials-token` and not a `user access_token` for authentication.
-        /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.Users.Exists.ExistsResponse"/></returns>
-        /// <param name="body">The request body</param>
-        /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
-        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        [Obsolete("This method is obsolete. Use PostAsExistsPostResponseAsync instead.")]
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Users.Exists.ExistsResponse?> PostAsync(global::Soenneker.Wise.OpenApiClient.V1.Users.Exists.ExistsPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#nullable restore
-#else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Users.Exists.ExistsResponse> PostAsync(global::Soenneker.Wise.OpenApiClient.V1.Users.Exists.ExistsPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#endif
-            if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
-            var requestInfo = ToPostRequestInformation(body, requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.Users.Exists.ExistsResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Users.Exists.ExistsResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Check if a user already exists by email. Wise uses email address as unique identifier for users. If email has already been used by a user, it cannot be reused to create a new user.Note that this uses a `client-credentials-token` and not a `user access_token` for authentication.
@@ -103,14 +82,6 @@ namespace Soenneker.Wise.OpenApiClient.V1.Users.Exists
         public global::Soenneker.Wise.OpenApiClient.V1.Users.Exists.ExistsRequestBuilder WithUrl(string rawUrl)
         {
             return new global::Soenneker.Wise.OpenApiClient.V1.Users.Exists.ExistsRequestBuilder(rawUrl, RequestAdapter);
-        }
-        /// <summary>
-        /// Configuration for the request such as headers, query parameters, and middleware options.
-        /// </summary>
-        [Obsolete("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.")]
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-        public partial class ExistsRequestBuilderPostRequestConfiguration : RequestConfiguration<DefaultQueryParameters>
-        {
         }
     }
 }

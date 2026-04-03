@@ -36,19 +36,6 @@ namespace Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.CardOrders
                 return new global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.CardOrders.Item.WithCardOrderItemRequestBuilder(urlTplParams, RequestAdapter);
             }
         }
-        /// <summary>Gets an item from the Soenneker.Wise.OpenApiClient.v3.spend.profiles.item.cardOrders.item collection</summary>
-        /// <param name="position">The card order ID.</param>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.CardOrders.Item.WithCardOrderItemRequestBuilder"/></returns>
-        [Obsolete("This indexer is deprecated and will be removed in the next major version. Use the one with the typed parameter instead.")]
-        public global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.CardOrders.Item.WithCardOrderItemRequestBuilder this[string position]
-        {
-            get
-            {
-                var urlTplParams = new Dictionary<string, object>(PathParameters);
-                if (!string.IsNullOrWhiteSpace(position)) urlTplParams.Add("cardOrderId", position);
-                return new global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.CardOrders.Item.WithCardOrderItemRequestBuilder(urlTplParams, RequestAdapter);
-            }
-        }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.CardOrders.CardOrdersRequestBuilder"/> and sets the default values.
         /// </summary>
@@ -73,34 +60,15 @@ namespace Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.CardOrders
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.CardOrders.CardOrdersGetResponse?> GetAsCardOrdersGetResponseAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.CardOrders.CardOrdersRequestBuilder.CardOrdersRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.CardOrders.CardOrdersGetResponse?> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.CardOrders.CardOrdersRequestBuilder.CardOrdersRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.CardOrders.CardOrdersGetResponse> GetAsCardOrdersGetResponseAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.CardOrders.CardOrdersRequestBuilder.CardOrdersRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.CardOrders.CardOrdersGetResponse> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.CardOrders.CardOrdersRequestBuilder.CardOrdersRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.CardOrders.CardOrdersGetResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.CardOrders.CardOrdersGetResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
-        }
-        /// <summary>
-        /// Retrieves a list of card orders created for the specified `profileId`.
-        /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.CardOrders.CardOrdersResponse"/></returns>
-        /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
-        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        [Obsolete("This method is obsolete. Use GetAsCardOrdersGetResponseAsync instead.")]
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.CardOrders.CardOrdersResponse?> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.CardOrders.CardOrdersRequestBuilder.CardOrdersRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#nullable restore
-#else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.CardOrders.CardOrdersResponse> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.CardOrders.CardOrdersRequestBuilder.CardOrdersRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#endif
-            var requestInfo = ToGetRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.CardOrders.CardOrdersResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.CardOrders.CardOrdersResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Creates a new card order. The `program` field value is retrieved from the [retrieve all card programs](/api-reference/card-order/cardorderprogramsget) endpoint.{% admonition type=&quot;warning&quot; %}This request requires an extra field in the header, `X-idempotence-uuid`. This should be generated and used for any subsequent retries in the event that the initial request fails.{% /admonition %}When you issue a card under a business profile, the cardholder will automatically default to the [business representative](/api-reference/profile/profilebusinesscreate).If the cardholder is not the business representative, create a cardholder [personal profile](/api-reference/profile/profilepersonalcreate) and add the profileId of the cardholder profile to the `cardHolderProfileId` field on the card order request.For country-specific address fields and validation rules, see the [card address validation guide](/guides/developer/api-guides/card-address-validation).
@@ -184,22 +152,6 @@ namespace Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.CardOrders
             /// <summary>The maximum number of card orders to return per page. This number can be between 10 - 100, and will default to 10.</summary>
             [QueryParameter("pageSize")]
             public int? PageSize { get; set; }
-        }
-        /// <summary>
-        /// Configuration for the request such as headers, query parameters, and middleware options.
-        /// </summary>
-        [Obsolete("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.")]
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-        public partial class CardOrdersRequestBuilderGetRequestConfiguration : RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.CardOrders.CardOrdersRequestBuilder.CardOrdersRequestBuilderGetQueryParameters>
-        {
-        }
-        /// <summary>
-        /// Configuration for the request such as headers, query parameters, and middleware options.
-        /// </summary>
-        [Obsolete("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.")]
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-        public partial class CardOrdersRequestBuilderPostRequestConfiguration : RequestConfiguration<DefaultQueryParameters>
-        {
         }
     }
 }

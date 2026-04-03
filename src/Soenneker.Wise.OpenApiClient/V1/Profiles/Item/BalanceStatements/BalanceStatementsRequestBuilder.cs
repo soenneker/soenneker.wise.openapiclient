@@ -27,19 +27,6 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceStatements
                 return new global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceStatements.Item.WithBalanceItemRequestBuilder(urlTplParams, RequestAdapter);
             }
         }
-        /// <summary>Gets an item from the Soenneker.Wise.OpenApiClient.v1.profiles.item.balanceStatements.item collection</summary>
-        /// <param name="position">The balance ID to get the statement for.</param>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceStatements.Item.WithBalanceItemRequestBuilder"/></returns>
-        [Obsolete("This indexer is deprecated and will be removed in the next major version. Use the one with the typed parameter instead.")]
-        public global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceStatements.Item.WithBalanceItemRequestBuilder this[string position]
-        {
-            get
-            {
-                var urlTplParams = new Dictionary<string, object>(PathParameters);
-                if (!string.IsNullOrWhiteSpace(position)) urlTplParams.Add("balanceId", position);
-                return new global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceStatements.Item.WithBalanceItemRequestBuilder(urlTplParams, RequestAdapter);
-            }
-        }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceStatements.BalanceStatementsRequestBuilder"/> and sets the default values.
         /// </summary>

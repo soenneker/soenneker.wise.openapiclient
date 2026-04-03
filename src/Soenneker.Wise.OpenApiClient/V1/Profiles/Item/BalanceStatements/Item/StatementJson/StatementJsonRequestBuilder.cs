@@ -40,34 +40,15 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceStatements.Item.S
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceStatements.Item.StatementJson.StatementGetResponse?> GetAsStatementGetResponseAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceStatements.Item.StatementJson.StatementJsonRequestBuilder.StatementJsonRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceStatements.Item.StatementJson.StatementGetResponse?> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceStatements.Item.StatementJson.StatementJsonRequestBuilder.StatementJsonRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceStatements.Item.StatementJson.StatementGetResponse> GetAsStatementGetResponseAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceStatements.Item.StatementJson.StatementJsonRequestBuilder.StatementJsonRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceStatements.Item.StatementJson.StatementGetResponse> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceStatements.Item.StatementJson.StatementJsonRequestBuilder.StatementJsonRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceStatements.Item.StatementJson.StatementGetResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceStatements.Item.StatementJson.StatementGetResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
-        }
-        /// <summary>
-        /// Retrieve a statement for the specified balance account.The response format depends on the URL path:- `statement.json` - JSON format- `statement.csv` - CSV format- `statement.pdf` - PDF format (includes Wise branding)- `statement.xlsx` - Excel format- `statement.xml` - CAMT.053 XML format- `statement.mt940` - MT940 format- `statement.qif` - QIF formatThe period between `intervalStart` and `intervalEnd` cannot exceed 469 days (around 1 year 3 months).{% admonition type=&quot;warning&quot; %}This endpoint is SCA protected when it applies. If your profile is registered within the UK and/or EEA, SCA most likely applies to you.The additional authentication is only required once every 90 days, viewing the statement on the website or in the mobile app counts towards that as well.[Learn more](/guides/developer/auth-and-security/sca-and-2fa){% /admonition %}
-        /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceStatements.Item.StatementJson.StatementResponse"/></returns>
-        /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
-        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        [Obsolete("This method is obsolete. Use GetAsStatementGetResponseAsync instead.")]
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceStatements.Item.StatementJson.StatementResponse?> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceStatements.Item.StatementJson.StatementJsonRequestBuilder.StatementJsonRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#nullable restore
-#else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceStatements.Item.StatementJson.StatementResponse> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceStatements.Item.StatementJson.StatementJsonRequestBuilder.StatementJsonRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#endif
-            var requestInfo = ToGetRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceStatements.Item.StatementJson.StatementResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceStatements.Item.StatementJson.StatementResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Retrieve a statement for the specified balance account.The response format depends on the URL path:- `statement.json` - JSON format- `statement.csv` - CSV format- `statement.pdf` - PDF format (includes Wise branding)- `statement.xlsx` - Excel format- `statement.xml` - CAMT.053 XML format- `statement.mt940` - MT940 format- `statement.qif` - QIF formatThe period between `intervalStart` and `intervalEnd` cannot exceed 469 days (around 1 year 3 months).{% admonition type=&quot;warning&quot; %}This endpoint is SCA protected when it applies. If your profile is registered within the UK and/or EEA, SCA most likely applies to you.The additional authentication is only required once every 90 days, viewing the statement on the website or in the mobile app counts towards that as well.[Learn more](/guides/developer/auth-and-security/sca-and-2fa){% /admonition %}
@@ -130,27 +111,8 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceStatements.Item.S
             public string StatementLocale { get; set; }
 #endif
             /// <summary>Statement type:- `COMPACT` - Single statement line per transaction- `FLAT` - Accounting statements where transaction fees are on a separate line</summary>
-            [Obsolete("This property is deprecated, use TypeAsGetTypeQueryParameterType instead")]
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
             [QueryParameter("type")]
-            public string? Type { get; set; }
-#nullable restore
-#else
-            [QueryParameter("type")]
-            public string Type { get; set; }
-#endif
-            /// <summary>Statement type:- `COMPACT` - Single statement line per transaction- `FLAT` - Accounting statements where transaction fees are on a separate line</summary>
-            [QueryParameter("type")]
-            public global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceStatements.Item.StatementJson.GetTypeQueryParameterType? TypeAsGetTypeQueryParameterType { get; set; }
-        }
-        /// <summary>
-        /// Configuration for the request such as headers, query parameters, and middleware options.
-        /// </summary>
-        [Obsolete("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.")]
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-        public partial class StatementJsonRequestBuilderGetRequestConfiguration : RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceStatements.Item.StatementJson.StatementJsonRequestBuilder.StatementJsonRequestBuilderGetQueryParameters>
-        {
+            public global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceStatements.Item.StatementJson.GetTypeQueryParameterType? Type { get; set; }
         }
     }
 }

@@ -40,34 +40,15 @@ namespace Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates.Item
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates.Item.WithTransferGetResponse?> GetAsWithTransferGetResponseAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates.Item.WithTransferItemRequestBuilder.WithTransferItemRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates.Item.WithTransferGetResponse?> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates.Item.WithTransferItemRequestBuilder.WithTransferItemRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates.Item.WithTransferGetResponse> GetAsWithTransferGetResponseAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates.Item.WithTransferItemRequestBuilder.WithTransferItemRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates.Item.WithTransferGetResponse> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates.Item.WithTransferItemRequestBuilder.WithTransferItemRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates.Item.WithTransferGetResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates.Item.WithTransferGetResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
-        }
-        /// <summary>
-        /// Get the live delivery estimate for a transfer by the transfer ID.The delivery estimate is the time at which we currently expect the transfer to arrive in the beneficiary&apos;s bank account. This is not a guaranteed time but we are working hard to make these estimates as accurate as possible.
-        /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates.Item.WithTransferResponse"/></returns>
-        /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
-        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        [Obsolete("This method is obsolete. Use GetAsWithTransferGetResponseAsync instead.")]
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates.Item.WithTransferResponse?> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates.Item.WithTransferItemRequestBuilder.WithTransferItemRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#nullable restore
-#else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates.Item.WithTransferResponse> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates.Item.WithTransferItemRequestBuilder.WithTransferItemRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#endif
-            var requestInfo = ToGetRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates.Item.WithTransferResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates.Item.WithTransferResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Get the live delivery estimate for a transfer by the transfer ID.The delivery estimate is the time at which we currently expect the transfer to arrive in the beneficiary&apos;s bank account. This is not a guaranteed time but we are working hard to make these estimates as accurate as possible.
@@ -113,14 +94,6 @@ namespace Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates.Item
             [QueryParameter("timezone")]
             public string Timezone { get; set; }
 #endif
-        }
-        /// <summary>
-        /// Configuration for the request such as headers, query parameters, and middleware options.
-        /// </summary>
-        [Obsolete("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.")]
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-        public partial class WithTransferItemRequestBuilderGetRequestConfiguration : RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates.Item.WithTransferItemRequestBuilder.WithTransferItemRequestBuilderGetQueryParameters>
-        {
         }
     }
 }

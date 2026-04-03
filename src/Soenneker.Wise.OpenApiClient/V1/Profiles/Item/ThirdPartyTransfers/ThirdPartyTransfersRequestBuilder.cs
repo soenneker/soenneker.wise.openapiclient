@@ -28,19 +28,6 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.ThirdPartyTransfers
                 return new global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.ThirdPartyTransfers.Item.WithTransferItemRequestBuilder(urlTplParams, RequestAdapter);
             }
         }
-        /// <summary>Gets an item from the Soenneker.Wise.OpenApiClient.v1.profiles.item.thirdPartyTransfers.item collection</summary>
-        /// <param name="position">The transfer ID</param>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.ThirdPartyTransfers.Item.WithTransferItemRequestBuilder"/></returns>
-        [Obsolete("This indexer is deprecated and will be removed in the next major version. Use the one with the typed parameter instead.")]
-        public global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.ThirdPartyTransfers.Item.WithTransferItemRequestBuilder this[string position]
-        {
-            get
-            {
-                var urlTplParams = new Dictionary<string, object>(PathParameters);
-                if (!string.IsNullOrWhiteSpace(position)) urlTplParams.Add("transferId", position);
-                return new global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.ThirdPartyTransfers.Item.WithTransferItemRequestBuilder(urlTplParams, RequestAdapter);
-            }
-        }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.ThirdPartyTransfers.ThirdPartyTransfersRequestBuilder"/> and sets the default values.
         /// </summary>

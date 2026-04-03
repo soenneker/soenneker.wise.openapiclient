@@ -41,37 +41,16 @@ namespace Soenneker.Wise.OpenApiClient.V1.Simulation.Spend.Profiles.Item.Cards.I
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.Clearing.ClearingPostResponse?> PostAsClearingPostResponseAsync(global::Soenneker.Wise.OpenApiClient.V1.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.Clearing.ClearingPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.Clearing.ClearingPostResponse?> PostAsync(global::Soenneker.Wise.OpenApiClient.V1.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.Clearing.ClearingPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.Clearing.ClearingPostResponse> PostAsClearingPostResponseAsync(global::Soenneker.Wise.OpenApiClient.V1.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.Clearing.ClearingPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.Clearing.ClearingPostResponse> PostAsync(global::Soenneker.Wise.OpenApiClient.V1.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.Clearing.ClearingPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.Clearing.ClearingPostResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.Clearing.ClearingPostResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
-        }
-        /// <summary>
-        /// Simulates a transaction clearing request in the sandbox environment. This is done after the authorisation. The `ref` field can be copied from the `reference` object in the authorisation response.To clear a previous authorisation, the `ref` details must match the previous authorisation request. The `amount` does not have to match the previous authorisation request, it can be more or less than the authorisation request amount.{% admonition type=&quot;warning&quot; %}Clearing simulation doesn&apos;t work with Mastercard.{% /admonition %}#### RefundA refund is a 2-step process: first [authorise](/api-reference/simulation/simulationcardtransactionauthorisation) with `transactionType` set to `REFUND`, then clear using this endpoint with the same transaction type.
-        /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.Clearing.ClearingResponse"/></returns>
-        /// <param name="body">The request body</param>
-        /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
-        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        [Obsolete("This method is obsolete. Use PostAsClearingPostResponseAsync instead.")]
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.Clearing.ClearingResponse?> PostAsync(global::Soenneker.Wise.OpenApiClient.V1.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.Clearing.ClearingPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#nullable restore
-#else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.Clearing.ClearingResponse> PostAsync(global::Soenneker.Wise.OpenApiClient.V1.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.Clearing.ClearingPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#endif
-            if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
-            var requestInfo = ToPostRequestInformation(body, requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.Clearing.ClearingResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.Clearing.ClearingResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Simulates a transaction clearing request in the sandbox environment. This is done after the authorisation. The `ref` field can be copied from the `reference` object in the authorisation response.To clear a previous authorisation, the `ref` details must match the previous authorisation request. The `amount` does not have to match the previous authorisation request, it can be more or less than the authorisation request amount.{% admonition type=&quot;warning&quot; %}Clearing simulation doesn&apos;t work with Mastercard.{% /admonition %}#### RefundA refund is a 2-step process: first [authorise](/api-reference/simulation/simulationcardtransactionauthorisation) with `transactionType` set to `REFUND`, then clear using this endpoint with the same transaction type.
@@ -103,14 +82,6 @@ namespace Soenneker.Wise.OpenApiClient.V1.Simulation.Spend.Profiles.Item.Cards.I
         public global::Soenneker.Wise.OpenApiClient.V1.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.Clearing.ClearingRequestBuilder WithUrl(string rawUrl)
         {
             return new global::Soenneker.Wise.OpenApiClient.V1.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.Clearing.ClearingRequestBuilder(rawUrl, RequestAdapter);
-        }
-        /// <summary>
-        /// Configuration for the request such as headers, query parameters, and middleware options.
-        /// </summary>
-        [Obsolete("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.")]
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-        public partial class ClearingRequestBuilderPostRequestConfiguration : RequestConfiguration<DefaultQueryParameters>
-        {
         }
     }
 }

@@ -40,34 +40,15 @@ namespace Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys.PublicKeysGetResponse?> GetAsPublicKeysGetResponseAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys.PublicKeysRequestBuilder.PublicKeysRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys.PublicKeysGetResponse?> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys.PublicKeysRequestBuilder.PublicKeysRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys.PublicKeysGetResponse> GetAsPublicKeysGetResponseAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys.PublicKeysRequestBuilder.PublicKeysRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys.PublicKeysGetResponse> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys.PublicKeysRequestBuilder.PublicKeysRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys.PublicKeysGetResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys.PublicKeysGetResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
-        }
-        /// <summary>
-        /// Returns a public key issued by Wise for verifying signed HTTP responses and for encrypting payloads.For both signature verification and payload encryption, the process involves storing this public key after retrieval. In both cases, the stored public key should be used without calling this endpoint.If verification of the signed request fails or you receive an encryption error, call this API once to issue a fresh key from Wise and then try verification one more time.{% admonition type=&quot;warning&quot; %}  This endpoint requires a client credentials token, not a user level access token. Make sure you use your client details to fetch a valid [client credentials token](/api-reference/oauth-token/oauthtokencreate) before performing this call.{% /admonition %}
-        /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys.PublicKeysResponse"/></returns>
-        /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
-        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        [Obsolete("This method is obsolete. Use GetAsPublicKeysGetResponseAsync instead.")]
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys.PublicKeysResponse?> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys.PublicKeysRequestBuilder.PublicKeysRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#nullable restore
-#else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys.PublicKeysResponse> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys.PublicKeysRequestBuilder.PublicKeysRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#endif
-            var requestInfo = ToGetRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys.PublicKeysResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys.PublicKeysResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Returns a public key issued by Wise for verifying signed HTTP responses and for encrypting payloads.For both signature verification and payload encryption, the process involves storing this public key after retrieval. In both cases, the stored public key should be used without calling this endpoint.If verification of the signed request fails or you receive an encryption error, call this API once to issue a fresh key from Wise and then try verification one more time.{% admonition type=&quot;warning&quot; %}  This endpoint requires a client credentials token, not a user level access token. Make sure you use your client details to fetch a valid [client credentials token](/api-reference/oauth-token/oauthtokencreate) before performing this call.{% /admonition %}
@@ -104,44 +85,14 @@ namespace Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys
         public partial class PublicKeysRequestBuilderGetQueryParameters 
         {
             /// <summary>Algorithm to be used for signature verification or payload encryption. This must match the algorithm used during request.- Signature verification (Scope: `PAYLOAD_SIGNING`): `ES256`, `ES384`, `ES512`, `PS256`, `PS384`, `PS512`- Payload encryption (Scope: `PAYLOAD_ENCRYPTION`): `RSA_OAEP_256`</summary>
-            [Obsolete("This property is deprecated, use AlgorithmAsGetAlgorithmQueryParameterType instead")]
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
             [QueryParameter("algorithm")]
-            public string? Algorithm { get; set; }
-#nullable restore
-#else
-            [QueryParameter("algorithm")]
-            public string Algorithm { get; set; }
-#endif
-            /// <summary>Algorithm to be used for signature verification or payload encryption. This must match the algorithm used during request.- Signature verification (Scope: `PAYLOAD_SIGNING`): `ES256`, `ES384`, `ES512`, `PS256`, `PS384`, `PS512`- Payload encryption (Scope: `PAYLOAD_ENCRYPTION`): `RSA_OAEP_256`</summary>
-            [QueryParameter("algorithm")]
-            public global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys.GetAlgorithmQueryParameterType? AlgorithmAsGetAlgorithmQueryParameterType { get; set; }
-            /// <summary>Scope of the key. Must be `PAYLOAD_SIGNING` or `PAYLOAD_ENCRYPTION`.</summary>
-            [Obsolete("This property is deprecated, use ScopeAsGetScopeQueryParameterType instead")]
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-            [QueryParameter("scope")]
-            public string? Scope { get; set; }
-#nullable restore
-#else
-            [QueryParameter("scope")]
-            public string Scope { get; set; }
-#endif
+            public global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys.GetAlgorithmQueryParameterType? Algorithm { get; set; }
             /// <summary>Scope of the key. Must be `PAYLOAD_SIGNING` or `PAYLOAD_ENCRYPTION`.</summary>
             [QueryParameter("scope")]
-            public global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys.GetScopeQueryParameterType? ScopeAsGetScopeQueryParameterType { get; set; }
+            public global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys.GetScopeQueryParameterType? Scope { get; set; }
             /// <summary>Fetch a specific public key version. If omitted the most recent public key is provided.</summary>
             [QueryParameter("version")]
             public int? Version { get; set; }
-        }
-        /// <summary>
-        /// Configuration for the request such as headers, query parameters, and middleware options.
-        /// </summary>
-        [Obsolete("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.")]
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-        public partial class PublicKeysRequestBuilderGetRequestConfiguration : RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys.PublicKeysRequestBuilder.PublicKeysRequestBuilderGetQueryParameters>
-        {
         }
     }
 }

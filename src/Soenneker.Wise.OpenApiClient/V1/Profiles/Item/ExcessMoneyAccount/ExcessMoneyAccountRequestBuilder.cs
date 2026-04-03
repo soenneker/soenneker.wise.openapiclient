@@ -41,37 +41,16 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.ExcessMoneyAccount
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.ExcessMoneyAccount.ExcessMoneyAccountPostResponse?> PostAsExcessMoneyAccountPostResponseAsync(global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.ExcessMoneyAccount.ExcessMoneyAccountPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.ExcessMoneyAccount.ExcessMoneyAccountPostResponse?> PostAsync(global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.ExcessMoneyAccount.ExcessMoneyAccountPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.ExcessMoneyAccount.ExcessMoneyAccountPostResponse> PostAsExcessMoneyAccountPostResponseAsync(global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.ExcessMoneyAccount.ExcessMoneyAccountPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.ExcessMoneyAccount.ExcessMoneyAccountPostResponse> PostAsync(global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.ExcessMoneyAccount.ExcessMoneyAccountPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.ExcessMoneyAccount.ExcessMoneyAccountPostResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.ExcessMoneyAccount.ExcessMoneyAccountPostResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
-        }
-        /// <summary>
-        /// If a balance goes over the regulatory hold limit, excess funds are automatically moved to another account at the end of the day.Use this endpoint to specify a recipient where excess money will be transferred.Primarily used for Singapore and Malaysia customers.
-        /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.ExcessMoneyAccount.ExcessMoneyAccountResponse"/></returns>
-        /// <param name="body">Request body for configuring an excess money account.</param>
-        /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
-        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        [Obsolete("This method is obsolete. Use PostAsExcessMoneyAccountPostResponseAsync instead.")]
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.ExcessMoneyAccount.ExcessMoneyAccountResponse?> PostAsync(global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.ExcessMoneyAccount.ExcessMoneyAccountPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#nullable restore
-#else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.ExcessMoneyAccount.ExcessMoneyAccountResponse> PostAsync(global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.ExcessMoneyAccount.ExcessMoneyAccountPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#endif
-            if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
-            var requestInfo = ToPostRequestInformation(body, requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.ExcessMoneyAccount.ExcessMoneyAccountResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.ExcessMoneyAccount.ExcessMoneyAccountResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// If a balance goes over the regulatory hold limit, excess funds are automatically moved to another account at the end of the day.Use this endpoint to specify a recipient where excess money will be transferred.Primarily used for Singapore and Malaysia customers.
@@ -103,14 +82,6 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.ExcessMoneyAccount
         public global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.ExcessMoneyAccount.ExcessMoneyAccountRequestBuilder WithUrl(string rawUrl)
         {
             return new global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.ExcessMoneyAccount.ExcessMoneyAccountRequestBuilder(rawUrl, RequestAdapter);
-        }
-        /// <summary>
-        /// Configuration for the request such as headers, query parameters, and middleware options.
-        /// </summary>
-        [Obsolete("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.")]
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-        public partial class ExcessMoneyAccountRequestBuilderPostRequestConfiguration : RequestConfiguration<DefaultQueryParameters>
-        {
         }
     }
 }

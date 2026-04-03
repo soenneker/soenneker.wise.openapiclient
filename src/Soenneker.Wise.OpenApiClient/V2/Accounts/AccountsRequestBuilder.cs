@@ -29,19 +29,6 @@ namespace Soenneker.Wise.OpenApiClient.V2.Accounts
                 return new global::Soenneker.Wise.OpenApiClient.V2.Accounts.Item.WithAccountItemRequestBuilder(urlTplParams, RequestAdapter);
             }
         }
-        /// <summary>Gets an item from the Soenneker.Wise.OpenApiClient.v2.accounts.item collection</summary>
-        /// <param name="position">Recipient account ID.</param>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V2.Accounts.Item.WithAccountItemRequestBuilder"/></returns>
-        [Obsolete("This indexer is deprecated and will be removed in the next major version. Use the one with the typed parameter instead.")]
-        public global::Soenneker.Wise.OpenApiClient.V2.Accounts.Item.WithAccountItemRequestBuilder this[string position]
-        {
-            get
-            {
-                var urlTplParams = new Dictionary<string, object>(PathParameters);
-                if (!string.IsNullOrWhiteSpace(position)) urlTplParams.Add("accountId", position);
-                return new global::Soenneker.Wise.OpenApiClient.V2.Accounts.Item.WithAccountItemRequestBuilder(urlTplParams, RequestAdapter);
-            }
-        }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.V2.Accounts.AccountsRequestBuilder"/> and sets the default values.
         /// </summary>
@@ -66,34 +53,15 @@ namespace Soenneker.Wise.OpenApiClient.V2.Accounts
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V2.Accounts.AccountsGetResponse?> GetAsAccountsGetResponseAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V2.Accounts.AccountsRequestBuilder.AccountsRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V2.Accounts.AccountsGetResponse?> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V2.Accounts.AccountsRequestBuilder.AccountsRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V2.Accounts.AccountsGetResponse> GetAsAccountsGetResponseAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V2.Accounts.AccountsRequestBuilder.AccountsRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V2.Accounts.AccountsGetResponse> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V2.Accounts.AccountsRequestBuilder.AccountsRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V2.Accounts.AccountsGetResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V2.Accounts.AccountsGetResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
-        }
-        /// <summary>
-        /// Fetch a list of the user&apos;s recipient accounts. Use the `profileId` parameter to filter by the profile who created the accounts, you should do this based on the personal or business profile ID you have linked to, based on your use case. Other filters are listed below for your convenience, for example `currency` is a useful filter to use when presenting the user a list of recipients to choose from in the case they have already submitted the target currency in your flow.#### PaginationPagination is supported for this endpoint. The response includes the `seekPositionForNext` and `size` parameters to manage this.It works by setting `size` and `seekPosition` parameters in the call. Set the value in the `seekPositionForNext` of the previous response into the `seekPosition` parameter of your subsequent call in order to get the next page. To get the current page again, use the `seekPositionForCurrent` value.#### SortingYou can also set the `sort` parameter to control the sorting of the response, for example:`?sort=id,asc` sort by `id` ascending.&lt;br&gt;`?sort=id,desc` sort by `id` descending.&lt;br&gt;`?sort=currency,asc` sort by currency ascending.All query parameters are optional.
-        /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V2.Accounts.AccountsResponse"/></returns>
-        /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
-        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        [Obsolete("This method is obsolete. Use GetAsAccountsGetResponseAsync instead.")]
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V2.Accounts.AccountsResponse?> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V2.Accounts.AccountsRequestBuilder.AccountsRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#nullable restore
-#else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V2.Accounts.AccountsResponse> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V2.Accounts.AccountsRequestBuilder.AccountsRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#endif
-            var requestInfo = ToGetRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V2.Accounts.AccountsResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V2.Accounts.AccountsResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Fetch a list of the user&apos;s recipient accounts. Use the `profileId` parameter to filter by the profile who created the accounts, you should do this based on the personal or business profile ID you have linked to, based on your use case. Other filters are listed below for your convenience, for example `currency` is a useful filter to use when presenting the user a list of recipients to choose from in the case they have already submitted the target currency in your flow.#### PaginationPagination is supported for this endpoint. The response includes the `seekPositionForNext` and `size` parameters to manage this.It works by setting `size` and `seekPosition` parameters in the call. Set the value in the `seekPositionForNext` of the previous response into the `seekPosition` parameter of your subsequent call in order to get the next page. To get the current page again, use the `seekPositionForCurrent` value.#### SortingYou can also set the `sort` parameter to control the sorting of the response, for example:`?sort=id,asc` sort by `id` ascending.&lt;br&gt;`?sort=id,desc` sort by `id` descending.&lt;br&gt;`?sort=currency,asc` sort by currency ascending.All query parameters are optional.
@@ -180,14 +148,6 @@ namespace Soenneker.Wise.OpenApiClient.V2.Accounts
             [QueryParameter("type")]
             public string Type { get; set; }
 #endif
-        }
-        /// <summary>
-        /// Configuration for the request such as headers, query parameters, and middleware options.
-        /// </summary>
-        [Obsolete("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.")]
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-        public partial class AccountsRequestBuilderGetRequestConfiguration : RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V2.Accounts.AccountsRequestBuilder.AccountsRequestBuilderGetQueryParameters>
-        {
         }
     }
 }

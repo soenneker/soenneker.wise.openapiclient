@@ -41,37 +41,16 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.VerificationDocuments
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.VerificationDocuments.VerificationDocumentsPostResponse?> PostAsVerificationDocumentsPostResponseAsync(global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.VerificationDocuments.VerificationDocumentsPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.VerificationDocuments.VerificationDocumentsPostResponse?> PostAsync(global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.VerificationDocuments.VerificationDocumentsPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.VerificationDocuments.VerificationDocumentsPostResponse> PostAsVerificationDocumentsPostResponseAsync(global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.VerificationDocuments.VerificationDocumentsPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.VerificationDocuments.VerificationDocumentsPostResponse> PostAsync(global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.VerificationDocuments.VerificationDocumentsPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.VerificationDocuments.VerificationDocumentsPostResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.VerificationDocuments.VerificationDocumentsPostResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
-        }
-        /// <summary>
-        /// Add an identification document to a personal profile. Not applicable to business profiles.For SSN submissions, only `type` and `uniqueIdentifier` (9 digits, no letters or symbols) are required.
-        /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.VerificationDocuments.VerificationDocumentsResponse"/></returns>
-        /// <param name="body">The request body</param>
-        /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
-        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        [Obsolete("This method is obsolete. Use PostAsVerificationDocumentsPostResponseAsync instead.")]
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.VerificationDocuments.VerificationDocumentsResponse?> PostAsync(global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.VerificationDocuments.VerificationDocumentsPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#nullable restore
-#else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.VerificationDocuments.VerificationDocumentsResponse> PostAsync(global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.VerificationDocuments.VerificationDocumentsPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#endif
-            if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
-            var requestInfo = ToPostRequestInformation(body, requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.VerificationDocuments.VerificationDocumentsResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.VerificationDocuments.VerificationDocumentsResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Update an existing identification document on a personal profile. Notapplicable to business profiles.This endpoint performs a full replacement of the document details. Anyfields not provided in the request body will be set to null on the storeddocument. Partners must provide all fields they wish to retain. Only partners with a KYC partner onboarding modelare permitted to use this endpoint. Non-KYC partners will receive a 400 error.
@@ -83,11 +62,11 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.VerificationDocuments
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.VerificationDocuments.VerificationDocuments400Error">When receiving a 400 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.VerificationDocuments.VerificationDocumentsPutResponse?> PutAsVerificationDocumentsPutResponseAsync(global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.VerificationDocuments.VerificationDocumentsPutRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.VerificationDocuments.VerificationDocumentsPutResponse?> PutAsync(global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.VerificationDocuments.VerificationDocumentsPutRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.VerificationDocuments.VerificationDocumentsPutResponse> PutAsVerificationDocumentsPutResponseAsync(global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.VerificationDocuments.VerificationDocumentsPutRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.VerificationDocuments.VerificationDocumentsPutResponse> PutAsync(global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.VerificationDocuments.VerificationDocumentsPutRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
@@ -97,32 +76,6 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.VerificationDocuments
                 { "400", global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.VerificationDocuments.VerificationDocuments400Error.CreateFromDiscriminatorValue },
             };
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.VerificationDocuments.VerificationDocumentsPutResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.VerificationDocuments.VerificationDocumentsPutResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
-        }
-        /// <summary>
-        /// Update an existing identification document on a personal profile. Notapplicable to business profiles.This endpoint performs a full replacement of the document details. Anyfields not provided in the request body will be set to null on the storeddocument. Partners must provide all fields they wish to retain. Only partners with a KYC partner onboarding modelare permitted to use this endpoint. Non-KYC partners will receive a 400 error.
-        /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.VerificationDocuments.VerificationDocumentsResponse"/></returns>
-        /// <param name="body">The request body</param>
-        /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
-        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.VerificationDocuments.VerificationDocuments400Error">When receiving a 400 status code</exception>
-        [Obsolete("This method is obsolete. Use PutAsVerificationDocumentsPutResponseAsync instead.")]
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.VerificationDocuments.VerificationDocumentsResponse?> PutAsync(global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.VerificationDocuments.VerificationDocumentsPutRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#nullable restore
-#else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.VerificationDocuments.VerificationDocumentsResponse> PutAsync(global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.VerificationDocuments.VerificationDocumentsPutRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#endif
-            if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
-            var requestInfo = ToPutRequestInformation(body, requestConfiguration);
-            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
-            {
-                { "400", global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.VerificationDocuments.VerificationDocuments400Error.CreateFromDiscriminatorValue },
-            };
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.VerificationDocuments.VerificationDocumentsResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.VerificationDocuments.VerificationDocumentsResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Add an identification document to a personal profile. Not applicable to business profiles.For SSN submissions, only `type` and `uniqueIdentifier` (9 digits, no letters or symbols) are required.
@@ -176,22 +129,6 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.VerificationDocuments
         public global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.VerificationDocuments.VerificationDocumentsRequestBuilder WithUrl(string rawUrl)
         {
             return new global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.VerificationDocuments.VerificationDocumentsRequestBuilder(rawUrl, RequestAdapter);
-        }
-        /// <summary>
-        /// Configuration for the request such as headers, query parameters, and middleware options.
-        /// </summary>
-        [Obsolete("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.")]
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-        public partial class VerificationDocumentsRequestBuilderPostRequestConfiguration : RequestConfiguration<DefaultQueryParameters>
-        {
-        }
-        /// <summary>
-        /// Configuration for the request such as headers, query parameters, and middleware options.
-        /// </summary>
-        [Obsolete("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.")]
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-        public partial class VerificationDocumentsRequestBuilderPutRequestConfiguration : RequestConfiguration<DefaultQueryParameters>
-        {
         }
     }
 }

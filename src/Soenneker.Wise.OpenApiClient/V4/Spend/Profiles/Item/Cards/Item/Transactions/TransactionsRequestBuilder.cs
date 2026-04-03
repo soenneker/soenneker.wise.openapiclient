@@ -40,34 +40,15 @@ namespace Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.Cards.Item.Transac
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.Cards.Item.Transactions.TransactionsGetResponse?> GetAsTransactionsGetResponseAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.Cards.Item.Transactions.TransactionsRequestBuilder.TransactionsRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.Cards.Item.Transactions.TransactionsGetResponse?> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.Cards.Item.Transactions.TransactionsRequestBuilder.TransactionsRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.Cards.Item.Transactions.TransactionsGetResponse> GetAsTransactionsGetResponseAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.Cards.Item.Transactions.TransactionsRequestBuilder.TransactionsRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.Cards.Item.Transactions.TransactionsGetResponse> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.Cards.Item.Transactions.TransactionsRequestBuilder.TransactionsRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.Cards.Item.Transactions.TransactionsGetResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.Cards.Item.Transactions.TransactionsGetResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
-        }
-        /// <summary>
-        /// Retrieve a list of card transactions for a specific card. Transactions are ordered by transaction ID in descending order.Use in conjunction with the [V2.1.0 card transaction state change webhook](/guides/developer/webhooks/event-types#cards-transaction-state-change).{% admonition type=&quot;warning&quot; %}Only transactions created in the past 90 days can be accessed. A 422 error code will be returned otherwise.{% /admonition %}The `debits` and `credits` fields are not included in list responses. Use the [Get card transaction](/api-reference/card-transaction/cardtransactionget) endpoint to retrieve these fields.
-        /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.Cards.Item.Transactions.TransactionsResponse"/></returns>
-        /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
-        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        [Obsolete("This method is obsolete. Use GetAsTransactionsGetResponseAsync instead.")]
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.Cards.Item.Transactions.TransactionsResponse?> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.Cards.Item.Transactions.TransactionsRequestBuilder.TransactionsRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#nullable restore
-#else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.Cards.Item.Transactions.TransactionsResponse> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.Cards.Item.Transactions.TransactionsRequestBuilder.TransactionsRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#endif
-            var requestInfo = ToGetRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.Cards.Item.Transactions.TransactionsResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.Cards.Item.Transactions.TransactionsResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Retrieve a list of card transactions for a specific card. Transactions are ordered by transaction ID in descending order.Use in conjunction with the [V2.1.0 card transaction state change webhook](/guides/developer/webhooks/event-types#cards-transaction-state-change).{% admonition type=&quot;warning&quot; %}Only transactions created in the past 90 days can be accessed. A 422 error code will be returned otherwise.{% /admonition %}The `debits` and `credits` fields are not included in list responses. Use the [Get card transaction](/api-reference/card-transaction/cardtransactionget) endpoint to retrieve these fields.
@@ -115,14 +96,6 @@ namespace Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.Cards.Item.Transac
             /// <summary>End of range for transaction creation time in UTC, in ISO-8601 format.</summary>
             [QueryParameter("toCreationTime")]
             public DateTimeOffset? ToCreationTime { get; set; }
-        }
-        /// <summary>
-        /// Configuration for the request such as headers, query parameters, and middleware options.
-        /// </summary>
-        [Obsolete("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.")]
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-        public partial class TransactionsRequestBuilderGetRequestConfiguration : RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.Cards.Item.Transactions.TransactionsRequestBuilder.TransactionsRequestBuilderGetQueryParameters>
-        {
         }
     }
 }

@@ -27,19 +27,6 @@ namespace Soenneker.Wise.OpenApiClient.V1.Application.Users
                 return new global::Soenneker.Wise.OpenApiClient.V1.Application.Users.Item.WithUserItemRequestBuilder(urlTplParams, RequestAdapter);
             }
         }
-        /// <summary>Gets an item from the Soenneker.Wise.OpenApiClient.v1.application.users.item collection</summary>
-        /// <param name="position">User ID.</param>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.Application.Users.Item.WithUserItemRequestBuilder"/></returns>
-        [Obsolete("This indexer is deprecated and will be removed in the next major version. Use the one with the typed parameter instead.")]
-        public global::Soenneker.Wise.OpenApiClient.V1.Application.Users.Item.WithUserItemRequestBuilder this[string position]
-        {
-            get
-            {
-                var urlTplParams = new Dictionary<string, object>(PathParameters);
-                if (!string.IsNullOrWhiteSpace(position)) urlTplParams.Add("userId", position);
-                return new global::Soenneker.Wise.OpenApiClient.V1.Application.Users.Item.WithUserItemRequestBuilder(urlTplParams, RequestAdapter);
-            }
-        }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.V1.Application.Users.UsersRequestBuilder"/> and sets the default values.
         /// </summary>

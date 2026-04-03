@@ -27,19 +27,6 @@ namespace Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BatchPayments
                 return new global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BatchPayments.Item.WithBatchGroupItemRequestBuilder(urlTplParams, RequestAdapter);
             }
         }
-        /// <summary>Gets an item from the Soenneker.Wise.OpenApiClient.v3.profiles.item.batchPayments.item collection</summary>
-        /// <param name="position">The batch group ID.</param>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BatchPayments.Item.WithBatchGroupItemRequestBuilder"/></returns>
-        [Obsolete("This indexer is deprecated and will be removed in the next major version. Use the one with the typed parameter instead.")]
-        public global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BatchPayments.Item.WithBatchGroupItemRequestBuilder this[string position]
-        {
-            get
-            {
-                var urlTplParams = new Dictionary<string, object>(PathParameters);
-                if (!string.IsNullOrWhiteSpace(position)) urlTplParams.Add("batchGroupId", position);
-                return new global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BatchPayments.Item.WithBatchGroupItemRequestBuilder(urlTplParams, RequestAdapter);
-            }
-        }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BatchPayments.BatchPaymentsRequestBuilder"/> and sets the default values.
         /// </summary>

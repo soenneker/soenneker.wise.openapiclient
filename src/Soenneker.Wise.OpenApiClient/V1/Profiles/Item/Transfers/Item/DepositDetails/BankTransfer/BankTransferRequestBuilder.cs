@@ -40,34 +40,15 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Transfers.Item.DepositDe
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Transfers.Item.DepositDetails.BankTransfer.BankTransferGetResponse?> GetAsBankTransferGetResponseAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Transfers.Item.DepositDetails.BankTransfer.BankTransferGetResponse?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Transfers.Item.DepositDetails.BankTransfer.BankTransferGetResponse> GetAsBankTransferGetResponseAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Transfers.Item.DepositDetails.BankTransfer.BankTransferGetResponse> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Transfers.Item.DepositDetails.BankTransfer.BankTransferGetResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Transfers.Item.DepositDetails.BankTransfer.BankTransferGetResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
-        }
-        /// <summary>
-        /// Retrieve the bank details for the account that the customer should send funds to when paying for a Wise transfer via a bank transfer.`profileId` in the request URL refers to the profile that created the transfer. It can be either the personal profile ID, or the business profile ID.The `payinBankAccount` field allows the bank details to be displayed dynamically in a user interface, by displaying the label and value fields.Currently, this API supports the following currencies: AUD, BGN, BRL, CAD, CHF, CZK, DKK, EUR, GBP, HKD, HRK, HUF, IDR, INR, JPY, MYR, NOK, NZD, PLN, RON, SEK, SGD, TRY, USD.
-        /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Transfers.Item.DepositDetails.BankTransfer.BankTransferResponse"/></returns>
-        /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
-        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        [Obsolete("This method is obsolete. Use GetAsBankTransferGetResponseAsync instead.")]
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Transfers.Item.DepositDetails.BankTransfer.BankTransferResponse?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#nullable restore
-#else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Transfers.Item.DepositDetails.BankTransfer.BankTransferResponse> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#endif
-            var requestInfo = ToGetRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Transfers.Item.DepositDetails.BankTransfer.BankTransferResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Transfers.Item.DepositDetails.BankTransfer.BankTransferResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Retrieve the bank details for the account that the customer should send funds to when paying for a Wise transfer via a bank transfer.`profileId` in the request URL refers to the profile that created the transfer. It can be either the personal profile ID, or the business profile ID.The `payinBankAccount` field allows the bank details to be displayed dynamically in a user interface, by displaying the label and value fields.Currently, this API supports the following currencies: AUD, BGN, BRL, CAD, CHF, CZK, DKK, EUR, GBP, HKD, HRK, HUF, IDR, INR, JPY, MYR, NOK, NZD, PLN, RON, SEK, SGD, TRY, USD.
@@ -96,14 +77,6 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Transfers.Item.DepositDe
         public global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Transfers.Item.DepositDetails.BankTransfer.BankTransferRequestBuilder WithUrl(string rawUrl)
         {
             return new global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Transfers.Item.DepositDetails.BankTransfer.BankTransferRequestBuilder(rawUrl, RequestAdapter);
-        }
-        /// <summary>
-        /// Configuration for the request such as headers, query parameters, and middleware options.
-        /// </summary>
-        [Obsolete("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.")]
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-        public partial class BankTransferRequestBuilderGetRequestConfiguration : RequestConfiguration<DefaultQueryParameters>
-        {
         }
     }
 }

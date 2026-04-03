@@ -35,19 +35,6 @@ namespace Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards
                 return new global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.WithCardTokenItemRequestBuilder(urlTplParams, RequestAdapter);
             }
         }
-        /// <summary>Gets an item from the Soenneker.Wise.OpenApiClient.v3.spend.profiles.item.cards.item collection</summary>
-        /// <param name="position">The unique token identifying the card.</param>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.WithCardTokenItemRequestBuilder"/></returns>
-        [Obsolete("This indexer is deprecated and will be removed in the next major version. Use the one with the typed parameter instead.")]
-        public global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.WithCardTokenItemRequestBuilder this[string position]
-        {
-            get
-            {
-                var urlTplParams = new Dictionary<string, object>(PathParameters);
-                if (!string.IsNullOrWhiteSpace(position)) urlTplParams.Add("cardToken", position);
-                return new global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.WithCardTokenItemRequestBuilder(urlTplParams, RequestAdapter);
-            }
-        }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.CardsRequestBuilder"/> and sets the default values.
         /// </summary>
@@ -72,34 +59,15 @@ namespace Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.CardsGetResponse?> GetAsCardsGetResponseAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.CardsRequestBuilder.CardsRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.CardsGetResponse?> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.CardsRequestBuilder.CardsRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.CardsGetResponse> GetAsCardsGetResponseAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.CardsRequestBuilder.CardsRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.CardsGetResponse> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.CardsRequestBuilder.CardsRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.CardsGetResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.CardsGetResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
-        }
-        /// <summary>
-        /// Returns a paginated list of cards that belong to a specific profile.
-        /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.CardsResponse"/></returns>
-        /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
-        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        [Obsolete("This method is obsolete. Use GetAsCardsGetResponseAsync instead.")]
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.CardsResponse?> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.CardsRequestBuilder.CardsRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#nullable restore
-#else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.CardsResponse> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.CardsRequestBuilder.CardsRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#endif
-            var requestInfo = ToGetRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.CardsResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.CardsResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Returns a paginated list of cards that belong to a specific profile.
@@ -141,14 +109,6 @@ namespace Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards
             /// <summary>The maximum number of cards to return per page. Must be between 10 and 100.</summary>
             [QueryParameter("pageSize")]
             public long? PageSize { get; set; }
-        }
-        /// <summary>
-        /// Configuration for the request such as headers, query parameters, and middleware options.
-        /// </summary>
-        [Obsolete("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.")]
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-        public partial class CardsRequestBuilderGetRequestConfiguration : RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.CardsRequestBuilder.CardsRequestBuilderGetQueryParameters>
-        {
         }
     }
 }

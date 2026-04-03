@@ -40,34 +40,15 @@ namespace Soenneker.Wise.OpenApiClient.V2.Accounts.Item.Quotes.Item.Compatibilit
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V2.Accounts.Item.Quotes.Item.Compatibility.CompatibilityPostResponse?> PostAsCompatibilityPostResponseAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V2.Accounts.Item.Quotes.Item.Compatibility.CompatibilityPostResponse?> PostAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V2.Accounts.Item.Quotes.Item.Compatibility.CompatibilityPostResponse> PostAsCompatibilityPostResponseAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V2.Accounts.Item.Quotes.Item.Compatibility.CompatibilityPostResponse> PostAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             var requestInfo = ToPostRequestInformation(requestConfiguration);
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V2.Accounts.Item.Quotes.Item.Compatibility.CompatibilityPostResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V2.Accounts.Item.Quotes.Item.Compatibility.CompatibilityPostResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
-        }
-        /// <summary>
-        /// Use this endpoint to check the compatibility of a recipient account with a quote before creating a transfer. This validation includes:- Re-validating the recipient account details- Checking all required fields are present (e.g., recipient address for USD transfers)- Verifying account details with the recipient&apos;s bank (for supported currencies)This endpoint is optional but useful to identify potential issues before transfer creation.{% admonition type=&quot;info&quot; %}The confirmations field is only populated for currencies with recipient verification enabled. If absent, only standard validations apply.{% /admonition %}
-        /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V2.Accounts.Item.Quotes.Item.Compatibility.CompatibilityResponse"/></returns>
-        /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
-        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        [Obsolete("This method is obsolete. Use PostAsCompatibilityPostResponseAsync instead.")]
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V2.Accounts.Item.Quotes.Item.Compatibility.CompatibilityResponse?> PostAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#nullable restore
-#else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V2.Accounts.Item.Quotes.Item.Compatibility.CompatibilityResponse> PostAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#endif
-            var requestInfo = ToPostRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V2.Accounts.Item.Quotes.Item.Compatibility.CompatibilityResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V2.Accounts.Item.Quotes.Item.Compatibility.CompatibilityResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Use this endpoint to check the compatibility of a recipient account with a quote before creating a transfer. This validation includes:- Re-validating the recipient account details- Checking all required fields are present (e.g., recipient address for USD transfers)- Verifying account details with the recipient&apos;s bank (for supported currencies)This endpoint is optional but useful to identify potential issues before transfer creation.{% admonition type=&quot;info&quot; %}The confirmations field is only populated for currencies with recipient verification enabled. If absent, only standard validations apply.{% /admonition %}
@@ -96,14 +77,6 @@ namespace Soenneker.Wise.OpenApiClient.V2.Accounts.Item.Quotes.Item.Compatibilit
         public global::Soenneker.Wise.OpenApiClient.V2.Accounts.Item.Quotes.Item.Compatibility.CompatibilityRequestBuilder WithUrl(string rawUrl)
         {
             return new global::Soenneker.Wise.OpenApiClient.V2.Accounts.Item.Quotes.Item.Compatibility.CompatibilityRequestBuilder(rawUrl, RequestAdapter);
-        }
-        /// <summary>
-        /// Configuration for the request such as headers, query parameters, and middleware options.
-        /// </summary>
-        [Obsolete("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.")]
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-        public partial class CompatibilityRequestBuilderPostRequestConfiguration : RequestConfiguration<DefaultQueryParameters>
-        {
         }
     }
 }

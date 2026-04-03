@@ -27,19 +27,6 @@ namespace Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.Cards.Transactions
                 return new global::Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.Cards.Transactions.Item.WithTransactionItemRequestBuilder(urlTplParams, RequestAdapter);
             }
         }
-        /// <summary>Gets an item from the Soenneker.Wise.OpenApiClient.v4.spend.profiles.item.cards.transactions.item collection</summary>
-        /// <param name="position">The ID of the transaction.</param>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.Cards.Transactions.Item.WithTransactionItemRequestBuilder"/></returns>
-        [Obsolete("This indexer is deprecated and will be removed in the next major version. Use the one with the typed parameter instead.")]
-        public global::Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.Cards.Transactions.Item.WithTransactionItemRequestBuilder this[string position]
-        {
-            get
-            {
-                var urlTplParams = new Dictionary<string, object>(PathParameters);
-                if (!string.IsNullOrWhiteSpace(position)) urlTplParams.Add("transactionId", position);
-                return new global::Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.Cards.Transactions.Item.WithTransactionItemRequestBuilder(urlTplParams, RequestAdapter);
-            }
-        }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.Cards.Transactions.TransactionsRequestBuilder"/> and sets the default values.
         /// </summary>

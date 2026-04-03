@@ -41,37 +41,16 @@ namespace Soenneker.Wise.OpenApiClient.V1.User.PartnerDeviceFingerprints
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.User.PartnerDeviceFingerprints.PartnerDeviceFingerprintsPostResponse?> PostAsPartnerDeviceFingerprintsPostResponseAsync(string body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V1.User.PartnerDeviceFingerprints.PartnerDeviceFingerprintsPostResponse?> PostAsync(string body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.User.PartnerDeviceFingerprints.PartnerDeviceFingerprintsPostResponse> PostAsPartnerDeviceFingerprintsPostResponseAsync(string body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V1.User.PartnerDeviceFingerprints.PartnerDeviceFingerprintsPostResponse> PostAsync(string body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             if(string.IsNullOrEmpty(body)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.User.PartnerDeviceFingerprints.PartnerDeviceFingerprintsPostResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.User.PartnerDeviceFingerprints.PartnerDeviceFingerprintsPostResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
-        }
-        /// <summary>
-        /// A device fingerprint represents a string that identifies a unique device.This endpoint is used to register the fingerprint of the device as one of the allowed devices used during an One Time Token (OTT) challenge.This can be used to [verify device fingerprint](/api-reference/one-time-token/ottdevicefingerprintverify) when clearing a [OTT](/api-reference/one-time-token).The request and response are encrypted using the JOSE framework. Please refer to the [JOSE JWE guide](/guides/developer/auth-and-security/jose-jwe) to understand how encryption and decryption work.
-        /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.User.PartnerDeviceFingerprints.PartnerDeviceFingerprintsResponse"/></returns>
-        /// <param name="body">A JWE encrypted string. The decrypted payload contains:- `deviceFingerprint` — A string value used as a device fingerprint.Payload before encryption:```json{&quot;deviceFingerprint&quot;: &quot;3207da22-a0d3-4b6b-a591-6297e646fe32&quot;}```</param>
-        /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
-        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        [Obsolete("This method is obsolete. Use PostAsPartnerDeviceFingerprintsPostResponseAsync instead.")]
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.User.PartnerDeviceFingerprints.PartnerDeviceFingerprintsResponse?> PostAsync(string body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#nullable restore
-#else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.User.PartnerDeviceFingerprints.PartnerDeviceFingerprintsResponse> PostAsync(string body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#endif
-            if(string.IsNullOrEmpty(body)) throw new ArgumentNullException(nameof(body));
-            var requestInfo = ToPostRequestInformation(body, requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.User.PartnerDeviceFingerprints.PartnerDeviceFingerprintsResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.User.PartnerDeviceFingerprints.PartnerDeviceFingerprintsResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// A device fingerprint represents a string that identifies a unique device.This endpoint is used to register the fingerprint of the device as one of the allowed devices used during an One Time Token (OTT) challenge.This can be used to [verify device fingerprint](/api-reference/one-time-token/ottdevicefingerprintverify) when clearing a [OTT](/api-reference/one-time-token).The request and response are encrypted using the JOSE framework. Please refer to the [JOSE JWE guide](/guides/developer/auth-and-security/jose-jwe) to understand how encryption and decryption work.
@@ -103,14 +82,6 @@ namespace Soenneker.Wise.OpenApiClient.V1.User.PartnerDeviceFingerprints
         public global::Soenneker.Wise.OpenApiClient.V1.User.PartnerDeviceFingerprints.PartnerDeviceFingerprintsRequestBuilder WithUrl(string rawUrl)
         {
             return new global::Soenneker.Wise.OpenApiClient.V1.User.PartnerDeviceFingerprints.PartnerDeviceFingerprintsRequestBuilder(rawUrl, RequestAdapter);
-        }
-        /// <summary>
-        /// Configuration for the request such as headers, query parameters, and middleware options.
-        /// </summary>
-        [Obsolete("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.")]
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-        public partial class PartnerDeviceFingerprintsRequestBuilderPostRequestConfiguration : RequestConfiguration<DefaultQueryParameters>
-        {
         }
     }
 }

@@ -40,34 +40,15 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.TotalFunds.Item
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.TotalFunds.Item.WithCurrencyGetResponse?> GetAsWithCurrencyGetResponseAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.TotalFunds.Item.WithCurrencyGetResponse?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.TotalFunds.Item.WithCurrencyGetResponse> GetAsWithCurrencyGetResponseAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.TotalFunds.Item.WithCurrencyGetResponse> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.TotalFunds.Item.WithCurrencyGetResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.TotalFunds.Item.WithCurrencyGetResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
-        }
-        /// <summary>
-        /// Provides an overview of your account&apos;s total valuation and available liquidity across all balances.Returns total worth, total available (including overdraft), total cash, and overdraft details.#### Example (Assuming GBP and USD has 1:1 exchange rate)| Scenario                                 | GBP balance | USD balance | Total Worth | Total Available | Overdraft Usage | Overdraft Limit || ---------------------------------------- | ----------- | ----------- | ----------- | --------------- | --------------- | --------------- || Positive account value with no overdraft | 2000        | 0           | 2000        | 2000            | 0               | 0               || Positive account value with overdraft    | 2000        | -100        | 1900        | 2400            | 100             | 500             || Negative account value with overdraft    | 0           | -100        | -100        | 400             | 100             | 500             |
-        /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.TotalFunds.Item.WithCurrencyResponse"/></returns>
-        /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
-        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        [Obsolete("This method is obsolete. Use GetAsWithCurrencyGetResponseAsync instead.")]
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.TotalFunds.Item.WithCurrencyResponse?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#nullable restore
-#else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.TotalFunds.Item.WithCurrencyResponse> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#endif
-            var requestInfo = ToGetRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.TotalFunds.Item.WithCurrencyResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.TotalFunds.Item.WithCurrencyResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Provides an overview of your account&apos;s total valuation and available liquidity across all balances.Returns total worth, total available (including overdraft), total cash, and overdraft details.#### Example (Assuming GBP and USD has 1:1 exchange rate)| Scenario                                 | GBP balance | USD balance | Total Worth | Total Available | Overdraft Usage | Overdraft Limit || ---------------------------------------- | ----------- | ----------- | ----------- | --------------- | --------------- | --------------- || Positive account value with no overdraft | 2000        | 0           | 2000        | 2000            | 0               | 0               || Positive account value with overdraft    | 2000        | -100        | 1900        | 2400            | 100             | 500             || Negative account value with overdraft    | 0           | -100        | -100        | 400             | 100             | 500             |
@@ -96,14 +77,6 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.TotalFunds.Item
         public global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.TotalFunds.Item.WithCurrencyItemRequestBuilder WithUrl(string rawUrl)
         {
             return new global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.TotalFunds.Item.WithCurrencyItemRequestBuilder(rawUrl, RequestAdapter);
-        }
-        /// <summary>
-        /// Configuration for the request such as headers, query parameters, and middleware options.
-        /// </summary>
-        [Obsolete("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.")]
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-        public partial class WithCurrencyItemRequestBuilderGetRequestConfiguration : RequestConfiguration<DefaultQueryParameters>
-        {
         }
     }
 }

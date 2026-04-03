@@ -35,19 +35,6 @@ namespace Soenneker.Wise.OpenApiClient.V2.Profiles.Item.DeviceFingerprints
                 return new global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.DeviceFingerprints.Item.WithDeviceFingerprintItemRequestBuilder(urlTplParams, RequestAdapter);
             }
         }
-        /// <summary>Gets an item from the Soenneker.Wise.OpenApiClient.v2.profiles.item.deviceFingerprints.item collection</summary>
-        /// <param name="position">The device fingerprint ID.</param>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.DeviceFingerprints.Item.WithDeviceFingerprintItemRequestBuilder"/></returns>
-        [Obsolete("This indexer is deprecated and will be removed in the next major version. Use the one with the typed parameter instead.")]
-        public global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.DeviceFingerprints.Item.WithDeviceFingerprintItemRequestBuilder this[string position]
-        {
-            get
-            {
-                var urlTplParams = new Dictionary<string, object>(PathParameters);
-                if (!string.IsNullOrWhiteSpace(position)) urlTplParams.Add("deviceFingerprintId", position);
-                return new global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.DeviceFingerprints.Item.WithDeviceFingerprintItemRequestBuilder(urlTplParams, RequestAdapter);
-            }
-        }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.DeviceFingerprints.DeviceFingerprintsRequestBuilder"/> and sets the default values.
         /// </summary>
@@ -73,37 +60,16 @@ namespace Soenneker.Wise.OpenApiClient.V2.Profiles.Item.DeviceFingerprints
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.DeviceFingerprints.DeviceFingerprintsPostResponse?> PostAsDeviceFingerprintsPostResponseAsync(string body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.DeviceFingerprints.DeviceFingerprintsPostResponse?> PostAsync(string body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.DeviceFingerprints.DeviceFingerprintsPostResponse> PostAsDeviceFingerprintsPostResponseAsync(string body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.DeviceFingerprints.DeviceFingerprintsPostResponse> PostAsync(string body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             if(string.IsNullOrEmpty(body)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.DeviceFingerprints.DeviceFingerprintsPostResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.DeviceFingerprints.DeviceFingerprintsPostResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
-        }
-        /// <summary>
-        /// Creates a new device fingerprint factor used to resolve a SCA possession challenge type.The request and response are encrypted using the JOSE framework. Please refer to the [SCA over API guide](/guides/developer/auth-and-security/sca-over-api) to understand how encryption and decryption work.
-        /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.DeviceFingerprints.DeviceFingerprintsResponse"/></returns>
-        /// <param name="body">A JWE encrypted string. The decrypted payload contains:- `deviceFingerprint` — A string value used as a device fingerprint.Payload before encryption:```json{&quot;deviceFingerprint&quot;: &quot;3207da22-a0d3-4b6b-a591-6297e646fe32&quot;}```</param>
-        /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
-        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        [Obsolete("This method is obsolete. Use PostAsDeviceFingerprintsPostResponseAsync instead.")]
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.DeviceFingerprints.DeviceFingerprintsResponse?> PostAsync(string body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#nullable restore
-#else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.DeviceFingerprints.DeviceFingerprintsResponse> PostAsync(string body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#endif
-            if(string.IsNullOrEmpty(body)) throw new ArgumentNullException(nameof(body));
-            var requestInfo = ToPostRequestInformation(body, requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.DeviceFingerprints.DeviceFingerprintsResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.DeviceFingerprints.DeviceFingerprintsResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Creates a new device fingerprint factor used to resolve a SCA possession challenge type.The request and response are encrypted using the JOSE framework. Please refer to the [SCA over API guide](/guides/developer/auth-and-security/sca-over-api) to understand how encryption and decryption work.
@@ -135,14 +101,6 @@ namespace Soenneker.Wise.OpenApiClient.V2.Profiles.Item.DeviceFingerprints
         public global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.DeviceFingerprints.DeviceFingerprintsRequestBuilder WithUrl(string rawUrl)
         {
             return new global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.DeviceFingerprints.DeviceFingerprintsRequestBuilder(rawUrl, RequestAdapter);
-        }
-        /// <summary>
-        /// Configuration for the request such as headers, query parameters, and middleware options.
-        /// </summary>
-        [Obsolete("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.")]
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-        public partial class DeviceFingerprintsRequestBuilderPostRequestConfiguration : RequestConfiguration<DefaultQueryParameters>
-        {
         }
     }
 }
