@@ -22832,7 +22832,7 @@ components:
       description: >
         Personal API Token for individual personal or small business users.
 
-        Generated from Wise.com > Settings > Integrations and Tools > API
+        Generated from Wise.com > Settings > Connect and manage apps > API
         tokens.
 
         Has limited API access compared to OAuth tokens (PSD2 restrictions apply
