@@ -15,6 +15,7 @@ using Soenneker.Wise.OpenApiClient.V1.Profiles.Item.ExtensionRequirements;
 using Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Extensions;
 using Soenneker.Wise.OpenApiClient.V1.Profiles.Item.KycReviews;
 using Soenneker.Wise.OpenApiClient.V1.Profiles.Item.PartnerLicenceTransfers;
+using Soenneker.Wise.OpenApiClient.V1.Profiles.Item.PayinSessions;
 using Soenneker.Wise.OpenApiClient.V1.Profiles.Item.ThirdPartyTransfers;
 using Soenneker.Wise.OpenApiClient.V1.Profiles.Item.TotalFunds;
 using Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Transfers;
@@ -97,6 +98,11 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item
         public global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.PartnerLicenceTransfers.PartnerLicenceTransfersRequestBuilder PartnerLicenceTransfers
         {
             get => new global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.PartnerLicenceTransfers.PartnerLicenceTransfersRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The payinSessions property</summary>
+        public global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.PayinSessions.PayinSessionsRequestBuilder PayinSessions
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.PayinSessions.PayinSessionsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The thirdPartyTransfers property</summary>
         public global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.ThirdPartyTransfers.ThirdPartyTransfersRequestBuilder ThirdPartyTransfers
