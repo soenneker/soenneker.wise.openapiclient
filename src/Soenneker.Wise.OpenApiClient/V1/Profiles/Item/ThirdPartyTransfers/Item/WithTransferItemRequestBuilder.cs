@@ -39,6 +39,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.ThirdPartyTransfers.Item
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransfer"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransfer429Error">When receiving a 429 status code</exception>
         [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -50,7 +51,11 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.ThirdPartyTransfers.Item
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransfer>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransfer.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransfer429Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransfer>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransfer.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// {% admonition type=&quot;warning&quot; %}This endpoint is deprecated. Use [Get a third party transfer by ID](transferthirdpartyget) (V2) instead.{% /admonition %}Get third party transfer info by ID. To receive dynamic updates as the state of the transfer changes, see the [webhooks documentation](/api-reference/webhook).

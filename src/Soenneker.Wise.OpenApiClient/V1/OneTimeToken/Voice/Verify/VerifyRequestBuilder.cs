@@ -40,6 +40,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Voice.Verify
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.OttResponse429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::Soenneker.Wise.OpenApiClient.Models.OttResponse?> PostAsync(global::Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Voice.Verify.VerifyPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -51,7 +52,11 @@ namespace Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Voice.Verify
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.OttResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.OttResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.OttResponse429Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.OttResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.OttResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// To clear a **VOICE** challenge listed in a OTT.Notes:1. User is required to have a verified phone number. See [create phone number](/api-reference/user-security/usersecurityphonenumbercreate) for more information.2. [Trigger Voice Challenge](/api-reference/one-time-token/ottvoicetrigger) is required to be called first.3. Since we won&apos;t be sending real voice message on sandbox, the **OTP Code** will always be **111111**.{% admonition type=&quot;warning&quot; %}The Verify Voice Challenge API is currently in closed Beta and subject to change. Please speak with your implementation manager if you would like to use this API.{% /admonition %}

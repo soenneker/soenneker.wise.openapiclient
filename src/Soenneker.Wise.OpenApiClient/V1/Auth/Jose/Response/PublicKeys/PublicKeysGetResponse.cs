@@ -14,6 +14,8 @@ namespace Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
+        /// <summary>ID of the key in UUID format.</summary>
+        public Guid? KeyId { get; set; }
         /// <summary>The keyMaterial property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -51,6 +53,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys
         {
             return new Dictionary<string, Action<IParseNode>>
             {
+                { "keyId", n => { KeyId = n.GetGuidValue(); } },
                 { "keyMaterial", n => { KeyMaterial = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys.PublicKeysGetResponse_keyMaterial>(global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys.PublicKeysGetResponse_keyMaterial.CreateFromDiscriminatorValue); } },
                 { "scope", n => { Scope = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys.PublicKeysGetResponse_scope>(); } },
                 { "version", n => { Version = n.GetIntValue(); } },
@@ -63,6 +66,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
+            writer.WriteGuidValue("keyId", KeyId);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys.PublicKeysGetResponse_keyMaterial>("keyMaterial", KeyMaterial);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys.PublicKeysGetResponse_scope>("scope", Scope);
             writer.WriteIntValue("version", Version);

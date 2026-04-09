@@ -39,6 +39,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Transfers.Item.Cancel
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.Transfers.Item.Cancel.CancelRequestBuilder.CancelPutResponse"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Cancel429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::Soenneker.Wise.OpenApiClient.V1.Transfers.Item.Cancel.CancelRequestBuilder.CancelPutResponse?> PutAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -49,7 +50,11 @@ namespace Soenneker.Wise.OpenApiClient.V1.Transfers.Item.Cancel
         {
 #endif
             var requestInfo = ToPutRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.Transfers.Item.Cancel.CancelRequestBuilder.CancelPutResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Transfers.Item.Cancel.CancelRequestBuilder.CancelPutResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Cancel429Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.Transfers.Item.Cancel.CancelRequestBuilder.CancelPutResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Transfers.Item.Cancel.CancelRequestBuilder.CancelPutResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Transfers may be cancelled up until the transfer has been processed and funds converted. Cancellation is final — it cannot be undone.{% admonition type=&quot;info&quot; name=&quot;When can a transfer be cancelled?&quot; %}A transfer can only be cancelled programmatically via the API if it meets **all** of the following criteria:- The transfer is not in `funds_converted` or later state.- There are no processing problems with the transfer.If the transfer does not meet these criteria, the API will return a **409 Conflict** error with the code `transfer.cancellation.not.allowed`.For more information about transfer states, see [Tracking Transfers](/guides/product/send-money/tracking-transfers#transfer-statuses).{% /admonition %}

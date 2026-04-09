@@ -40,6 +40,7 @@ namespace Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Disputes.Item.Stat
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Dispute429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::Soenneker.Wise.OpenApiClient.Models.Dispute?> PutAsync(global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Disputes.Item.Status.StatusPutRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -51,7 +52,11 @@ namespace Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Disputes.Item.Stat
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPutRequestInformation(body, requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.Dispute>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.Dispute.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Dispute429Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.Dispute>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.Dispute.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Withdraw a dispute by setting its status to `CLOSED`.You can only withdraw a dispute if `canWithdraw` is `true` on the dispute resource.

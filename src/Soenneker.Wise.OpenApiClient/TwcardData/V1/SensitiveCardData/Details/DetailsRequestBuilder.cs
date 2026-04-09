@@ -3,6 +3,7 @@
 using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions.Serialization;
 using Microsoft.Kiota.Abstractions;
+using Soenneker.Wise.OpenApiClient.Models;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -39,6 +40,7 @@ namespace Soenneker.Wise.OpenApiClient.TwcardData.V1.SensitiveCardData.Details
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Details429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::Soenneker.Wise.OpenApiClient.TwcardData.V1.SensitiveCardData.Details.DetailsPostResponse?> PostAsync(global::Soenneker.Wise.OpenApiClient.TwcardData.V1.SensitiveCardData.Details.DetailsPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -50,7 +52,11 @@ namespace Soenneker.Wise.OpenApiClient.TwcardData.V1.SensitiveCardData.Details
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.TwcardData.V1.SensitiveCardData.Details.DetailsPostResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.TwcardData.V1.SensitiveCardData.Details.DetailsPostResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Details429Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.TwcardData.V1.SensitiveCardData.Details.DetailsPostResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.TwcardData.V1.SensitiveCardData.Details.DetailsPostResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Fetches the card&apos;s Primary Account Number (PAN), security code (CVV2), expiry date, and cardholder name.Requires an encrypted JWE payload for security. See the [sensitive card details guide](/guides/product/issue-cards/sensitive-card-details) for implementation details.To retrieve sensitive card details, the card must be in either `ACTIVE` or `FROZEN` status. A 403 response will be returned for cards in any other status.{% admonition type=&quot;warning&quot; %}This endpoint is SCA protected when applicable. If your profile is registered within the UK and/or EEA, SCA most likely applies. For more information, see [implementing SCA](/guides/developer/auth-and-security/sca-and-2fa).{% /admonition %}

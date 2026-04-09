@@ -3,6 +3,7 @@
 using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions.Serialization;
 using Microsoft.Kiota.Abstractions;
+using Soenneker.Wise.OpenApiClient.Models;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -39,6 +40,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Simulation.Spend.Profiles.Item.Cards.I
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Clearing429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::Soenneker.Wise.OpenApiClient.V1.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.Clearing.ClearingPostResponse?> PostAsync(global::Soenneker.Wise.OpenApiClient.V1.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.Clearing.ClearingPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -50,7 +52,11 @@ namespace Soenneker.Wise.OpenApiClient.V1.Simulation.Spend.Profiles.Item.Cards.I
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.Clearing.ClearingPostResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.Clearing.ClearingPostResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Clearing429Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.Clearing.ClearingPostResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.Clearing.ClearingPostResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Simulates a transaction clearing request in the sandbox environment. This is done after the authorisation. The `ref` field can be copied from the `reference` object in the authorisation response.To clear a previous authorisation, the `ref` details must match the previous authorisation request. The `amount` does not have to match the previous authorisation request, it can be more or less than the authorisation request amount.{% admonition type=&quot;warning&quot; %}Clearing simulation doesn&apos;t work with Mastercard.{% /admonition %}#### RefundA refund is a 2-step process: first [authorise](/api-reference/simulation/simulationcardtransactionauthorisation) with `transactionType` set to `REFUND`, then clear using this endpoint with the same transaction type.

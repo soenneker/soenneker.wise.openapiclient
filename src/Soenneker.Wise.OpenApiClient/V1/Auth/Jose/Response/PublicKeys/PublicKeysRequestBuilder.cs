@@ -3,6 +3,7 @@
 using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions.Serialization;
 using Microsoft.Kiota.Abstractions;
+using Soenneker.Wise.OpenApiClient.Models;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -38,6 +39,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys.PublicKeysGetResponse"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.PublicKeys429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys.PublicKeysGetResponse?> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys.PublicKeysRequestBuilder.PublicKeysRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -48,7 +50,11 @@ namespace Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys.PublicKeysGetResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys.PublicKeysGetResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.PublicKeys429Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys.PublicKeysGetResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys.PublicKeysGetResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Returns a public key issued by Wise for verifying signed HTTP responses and for encrypting payloads.For both signature verification and payload encryption, the process involves storing this public key after retrieval. In both cases, the stored public key should be used without calling this endpoint.If verification of the signed request fails or you receive an encryption error, call this API once to issue a fresh key from Wise and then try verification one more time.{% admonition type=&quot;warning&quot; %}  This endpoint requires a client credentials token, not a user level access token. Make sure you use your client details to fetch a valid [client credentials token](/api-reference/oauth-token/oauthtokencreate) before performing this call.{% /admonition %}

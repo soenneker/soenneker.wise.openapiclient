@@ -39,6 +39,7 @@ namespace Soenneker.Wise.OpenApiClient.V3.Comparisons
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.ComparisonV3"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.ComparisonV3429Error">When receiving a 429 status code</exception>
         [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -50,7 +51,11 @@ namespace Soenneker.Wise.OpenApiClient.V3.Comparisons
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.ComparisonV3>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.ComparisonV3.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.ComparisonV3429Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.ComparisonV3>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.ComparisonV3.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// {% admonition type=&quot;warning&quot; name=&quot;Deprecated&quot; %}This endpoint is deprecated. Use the [V4 comparison endpoint](/api-reference/comparison/comparisonget) instead.{% /admonition %}Request price and speed comparison data for money transfer providers on a given currency route.

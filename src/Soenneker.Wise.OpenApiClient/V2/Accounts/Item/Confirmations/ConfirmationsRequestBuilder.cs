@@ -40,6 +40,7 @@ namespace Soenneker.Wise.OpenApiClient.V2.Accounts.Item.Confirmations
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Recipient429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::Soenneker.Wise.OpenApiClient.Models.Recipient?> PatchAsync(global::Soenneker.Wise.OpenApiClient.V2.Accounts.Item.Confirmations.ConfirmationsPatchRequestBody body, Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V2.Accounts.Item.Confirmations.ConfirmationsRequestBuilder.ConfirmationsRequestBuilderPatchQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -51,7 +52,11 @@ namespace Soenneker.Wise.OpenApiClient.V2.Accounts.Item.Confirmations
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPatchRequestInformation(body, requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.Recipient>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.Recipient.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Recipient429Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.Recipient>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.Recipient.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// When `requiresCustomerAcceptance` is `true` in the confirmation outcomes, the recipient cannot be used for a transfer until the customer explicitly confirms the details. You must present the mismatch to the customer and get their approval.{% admonition type=&quot;warning&quot; %}If the confirmation result contained a `quoteId` then the acceptance request must also specify that as part of the query parameters, otherwise the request will be rejected.{% /admonition %}

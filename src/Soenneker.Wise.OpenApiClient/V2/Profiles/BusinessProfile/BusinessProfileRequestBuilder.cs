@@ -40,6 +40,7 @@ namespace Soenneker.Wise.OpenApiClient.V2.Profiles.BusinessProfile
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.BusinessProfile429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::Soenneker.Wise.OpenApiClient.Models.BusinessProfile?> PostAsync(global::Soenneker.Wise.OpenApiClient.V2.Profiles.BusinessProfile.BusinessProfilePostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -51,7 +52,11 @@ namespace Soenneker.Wise.OpenApiClient.V2.Profiles.BusinessProfile
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.BusinessProfile>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.BusinessProfile.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.BusinessProfile429Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.BusinessProfile>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.BusinessProfile.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// It is required that you first create a personal profile with details of the authorized representative of the business. It is currently not possible to create a business profile without first creating a personal profile.{% admonition type=&quot;info&quot; %}This request accepts an optional field in the header, `X-idempotence-uuid`. This should be unique for each Profile you create. In the event that the request fails, you should use the same value again when retrying. If the `X-idempotence-uuid` header is not provided and a Profile already exists, then you will receive a response with an HTTP status code `409`. If this happens, you can retrieve the profiles with the &apos;List profiles for a user account&apos; API `GET /v2/profiles`.{% /admonition %}See [Business Category](/guides/developer/api-guides/business-categories) for the list of valid `firstLevelCategory` and `secondLevelCategory` values.

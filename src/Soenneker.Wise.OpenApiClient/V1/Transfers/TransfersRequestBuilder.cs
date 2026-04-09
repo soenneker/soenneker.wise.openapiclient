@@ -52,6 +52,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Transfers
         /// <returns>A List&lt;global::Soenneker.Wise.OpenApiClient.V1.Transfers.TransfersRequestBuilder.Transfers&gt;</returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Transfers429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<List<global::Soenneker.Wise.OpenApiClient.V1.Transfers.TransfersRequestBuilder.Transfers>?> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.Transfers.TransfersRequestBuilder.TransfersRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -62,7 +63,11 @@ namespace Soenneker.Wise.OpenApiClient.V1.Transfers
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
-            var collectionResult = await RequestAdapter.SendCollectionAsync<global::Soenneker.Wise.OpenApiClient.V1.Transfers.TransfersRequestBuilder.Transfers>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Transfers.TransfersRequestBuilder.Transfers.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Transfers429Error.CreateFromDiscriminatorValue },
+            };
+            var collectionResult = await RequestAdapter.SendCollectionAsync<global::Soenneker.Wise.OpenApiClient.V1.Transfers.TransfersRequestBuilder.Transfers>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Transfers.TransfersRequestBuilder.Transfers.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
             return collectionResult?.AsList();
         }
         /// <summary>
@@ -72,6 +77,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Transfers
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Transfer429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::Soenneker.Wise.OpenApiClient.Models.Transfer?> PostAsync(global::Soenneker.Wise.OpenApiClient.V1.Transfers.TransfersPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -83,7 +89,11 @@ namespace Soenneker.Wise.OpenApiClient.V1.Transfers
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.Transfer>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.Transfer.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Transfer429Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.Transfer>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.Transfer.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Get the list of transfers for a given user&apos;s profile (defaults to user&apos;s personal profile).You can add query parameters to specify user&apos;s profile (personal or business), time period and/or payment status. For example, you can query all failed payments created since last week, or all completed payments created since yesterday.

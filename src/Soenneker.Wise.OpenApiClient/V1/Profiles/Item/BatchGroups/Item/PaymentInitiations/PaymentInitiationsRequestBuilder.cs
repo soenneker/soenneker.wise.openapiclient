@@ -53,6 +53,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BatchGroups.Item.Payment
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiation429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiation?> PostAsync(global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BatchGroups.Item.PaymentInitiations.PaymentInitiationsPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -64,7 +65,11 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BatchGroups.Item.Payment
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiation>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiation.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiation429Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiation>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiation.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Funds all transfers in a batch group via direct debit. The batch group must be in the `COMPLETED` state.To use this funding method, you need to link an external bank account first. See [direct debit account creation](/api-reference/direct-debit-account/directdebitaccountcreate) for more information.{% admonition type=&quot;warning&quot; %}This endpoint is SCA protected when it applies. If your profile is registered within the UK and/or EEA, SCA most likely applies to you. For more information, please read [implementing SCA](/guides/developer/auth-and-security/sca-and-2fa).{% /admonition %}

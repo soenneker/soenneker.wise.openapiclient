@@ -52,6 +52,7 @@ namespace Soenneker.Wise.OpenApiClient.V4.Profiles.Item.Balances
         /// <returns>A List&lt;global::Soenneker.Wise.OpenApiClient.Models.Balance&gt;</returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Balances429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<List<global::Soenneker.Wise.OpenApiClient.Models.Balance>?> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V4.Profiles.Item.Balances.BalancesRequestBuilder.BalancesRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -62,7 +63,11 @@ namespace Soenneker.Wise.OpenApiClient.V4.Profiles.Item.Balances
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
-            var collectionResult = await RequestAdapter.SendCollectionAsync<global::Soenneker.Wise.OpenApiClient.Models.Balance>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.Balance.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Balances429Error.CreateFromDiscriminatorValue },
+            };
+            var collectionResult = await RequestAdapter.SendCollectionAsync<global::Soenneker.Wise.OpenApiClient.Models.Balance>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.Balance.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
             return collectionResult?.AsList();
         }
         /// <summary>
@@ -72,6 +77,7 @@ namespace Soenneker.Wise.OpenApiClient.V4.Profiles.Item.Balances
         /// <param name="body">Request body for creating a balance account.</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Balance429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::Soenneker.Wise.OpenApiClient.Models.Balance?> PostAsync(global::Soenneker.Wise.OpenApiClient.V4.Profiles.Item.Balances.BalancesPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -83,7 +89,11 @@ namespace Soenneker.Wise.OpenApiClient.V4.Profiles.Item.Balances
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.Balance>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.Balance.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Balance429Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.Balance>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.Balance.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Retrieves the user&apos;s multi-currency account balance accounts. Returns all balance accounts the profile has in the types specified.The `types` parameter must include at least one type. To return more than one type, comma-separate the values.

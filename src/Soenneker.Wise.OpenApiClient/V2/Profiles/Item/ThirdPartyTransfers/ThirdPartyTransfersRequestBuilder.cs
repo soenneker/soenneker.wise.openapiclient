@@ -53,6 +53,7 @@ namespace Soenneker.Wise.OpenApiClient.V2.Profiles.Item.ThirdPartyTransfers
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransfer429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransfer?> PostAsync(global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.ThirdPartyTransfers.ThirdPartyTransfersRequestBuilder.ThirdPartyTransfersPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -64,7 +65,11 @@ namespace Soenneker.Wise.OpenApiClient.V2.Profiles.Item.ThirdPartyTransfers
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransfer>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransfer.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransfer429Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransfer>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransfer.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Create a transfer on behalf of a third party.When creating a third party transfer:- The `originator` datablock is **required**. This details the ultimate sender of funds in the transfer.- Depending on the legal entity type of the originator (`PRIVATE` or `BUSINESS`), the required fields vary.- `originalTransferId` field must be used. This is your own ID for the transfer.You need to save the transfer ID for tracking its status later via webhooks.#### Avoiding duplicate transfersThe `originalTransferId` field is used to avoid duplicate transfer requests. If your initial call fails (error or timeout), retry the call using the same `originalTransferId` value. Subsequent retry messages are treated as repeat messages and will not create duplicate transfers.

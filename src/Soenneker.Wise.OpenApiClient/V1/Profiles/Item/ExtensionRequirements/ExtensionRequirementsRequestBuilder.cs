@@ -3,6 +3,7 @@
 using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions.Serialization;
 using Microsoft.Kiota.Abstractions;
+using Soenneker.Wise.OpenApiClient.Models;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -38,6 +39,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.ExtensionRequirements
         /// <returns>A List&lt;global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.ExtensionRequirements.ExtensionRequirements&gt;</returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.ExtensionRequirements429Error">When receiving a 429 status code</exception>
         [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -49,7 +51,11 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.ExtensionRequirements
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
-            var collectionResult = await RequestAdapter.SendCollectionAsync<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.ExtensionRequirements.ExtensionRequirements>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.ExtensionRequirements.ExtensionRequirements.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.ExtensionRequirements429Error.CreateFromDiscriminatorValue },
+            };
+            var collectionResult = await RequestAdapter.SendCollectionAsync<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.ExtensionRequirements.ExtensionRequirements>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.ExtensionRequirements.ExtensionRequirements.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
             return collectionResult?.AsList();
         }
         /// <summary>
@@ -59,6 +65,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.ExtensionRequirements
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.ExtensionRequirements429Error">When receiving a 429 status code</exception>
         [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -71,7 +78,11 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.ExtensionRequirements
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
-            return await RequestAdapter.SendPrimitiveAsync<Stream>(requestInfo, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.ExtensionRequirements429Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendPrimitiveAsync<Stream>(requestInfo, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// {% admonition type=&quot;warning&quot; %}This endpoint is deprecated. Please check the [Additional Verification](/api-reference/verification) endpoints for providing additional verification details for a profile.{% /admonition %}After having a profile created, in some situations we can need more specific information about it. In order to know which fields are required for a given profile, and to send the information over, we expose a few endpoints:- `GET /v1/profiles/{profileId}/extension-requirements`- `POST /v1/profiles/{profileId}/extension-requirements`and- `POST /v1/profiles/{profileId}/extensions`- `GET /v1/profiles/{profileId}/extensions`The `GET` and `POST` profile extension-requirements endpoints help you to figure out which fields are required to create a valid profile for different regions. You can use this data to build a dynamic user interface on top of these endpoints.The `POST` and `GET` profile extensions endpoints allow you to send the extra profile information and retrieve it, respectively.**This format for dynamic forms is the same as the one used for recipient creation.** See [Recipient Requirements](/api-reference/recipient/recipientaccountrequirementsget).Using profile extension requirements {% .title-4 .m-t-3 %}1. First create a profile. See [Create Personal Profile](/api-reference/profile/profilepersonalcreate) and [Create Business Profile](/api-reference/profile/profilebusinesscreate).2. Call `GET /v1/profiles/{profileId}/extension-requirements` to get the list of fields you need to fill with values in the &quot;details&quot; section for adding information that will make a profile valid.3. Some fields require multiple levels of fields in the details request. This should be handled by the client based on the `refreshRequirementsOnChange` field. A top level field can have this field set to true, indicating that there are additional fields required depending on the selected value. To manage this you should create a request with all of the initially requested data and call the POST `extension-requirements` endpoint. You will be returned a response similar the previously returned data from GET `extension-requirements` but with additional fields.4. Once you have built your full profile extension details object you can add it to add information to the profile.Building a user interface {% .title-4 .m-t-3 %}When requesting the form data from the `extension-requirements` endpoint, the response defines different types of extensions that can be added. Each extension type then has multiple fields describing the form elements required to be shown to collect information from the user. Each field will have a type value, these tell you the field type that your front end needs to render to be able to collect the data. A number of field types are permitted, these are:| type   | UI element                        ||--------|-----------------------------------|| text   | A free text box                   || select | A selection box/dialog            || radio  | A radio button choice between options || date   | A text box with a date picker     |Example data is also included in each field which should be shown to the user, along with a regex or min and max length constraints that should be applied as field level validations. You can optionally implement the dynamic validation using the `validationAsync` field, however these checks will also be done when a completed profile extension is submitted to `POST /v1/profiles/{profileId}/extensions`.
@@ -112,6 +123,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.ExtensionRequirements
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = new RequestInformation(Method.POST, UrlTemplate, PathParameters);
             requestInfo.Configure(requestConfiguration);
+            requestInfo.Headers.TryAdd("Accept", "application/json");
             requestInfo.SetContentFromParsable(RequestAdapter, "application/json", body);
             return requestInfo;
         }

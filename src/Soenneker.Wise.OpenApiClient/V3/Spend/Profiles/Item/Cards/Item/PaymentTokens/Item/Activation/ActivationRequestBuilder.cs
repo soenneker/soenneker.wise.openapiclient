@@ -3,6 +3,7 @@
 using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions.Serialization;
 using Microsoft.Kiota.Abstractions;
+using Soenneker.Wise.OpenApiClient.Models;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -41,6 +42,7 @@ namespace Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.Payment
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PaymentTokens.Item.Activation.Activation400Error">When receiving a 400 status code</exception>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PaymentTokens.Item.Activation.Activation403Error">When receiving a 403 status code</exception>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PaymentTokens.Item.Activation.Activation404Error">When receiving a 404 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Activation429Error">When receiving a 429 status code</exception>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PaymentTokens.Item.Activation.Activation500Error">When receiving a 500 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -58,6 +60,7 @@ namespace Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.Payment
                 { "400", global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PaymentTokens.Item.Activation.Activation400Error.CreateFromDiscriminatorValue },
                 { "403", global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PaymentTokens.Item.Activation.Activation403Error.CreateFromDiscriminatorValue },
                 { "404", global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PaymentTokens.Item.Activation.Activation404Error.CreateFromDiscriminatorValue },
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Activation429Error.CreateFromDiscriminatorValue },
                 { "500", global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.PaymentTokens.Item.Activation.Activation500Error.CreateFromDiscriminatorValue },
             };
             await RequestAdapter.SendNoContentAsync(requestInfo, errorMapping, cancellationToken).ConfigureAwait(false);

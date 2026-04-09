@@ -39,6 +39,7 @@ namespace Soenneker.Wise.OpenApiClient.V3.Profiles.Item.Quotes.Item
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.Quote"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Quote429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::Soenneker.Wise.OpenApiClient.Models.Quote?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -49,7 +50,11 @@ namespace Soenneker.Wise.OpenApiClient.V3.Profiles.Item.Quotes.Item
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.Quote>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.Quote.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Quote429Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.Quote>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.Quote.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// You should update a quote using a `PATCH` call to add a recipient. This will update the saved quote&apos;s data based on who and where the money will be sent to.Updating the quote with a recipient may cause the available payment options, prices and estimated delivery times to change from the original quoted amounts. This is due to the fact that sending some currencies to some destinations costs a different amount based on the payment networks we use, for example sending USD to a country outside the USA uses international rather than domestic payment networks and as such costs more, or sending CAD over the Interac network is a more expensive operation.When updating a quote the `payOut` field may change to denote the payment option you should select when sending to this recipient. For example sending USD to a `swift_code` recipient or CAD to an `interac` recipient will change `payOut` to `SWIFT` or `INTERAC` respectively. This field defaults to `BANK_TRANSFER` so it can be used in all cases to help select the correct `paymentOption` and hence show the correct pricing to users.If you want to provide more transparency in terms of fees charged when your customers create quote with swift recipient for global currencies, you might consider to set payOut field with SWIFT_OUR value. This will ensure that the recipient receives complete target amount.In this case, where pricing changes after a user selects recipient, you should show a message to your customer before confirming the transfer. Please see the section on [Global Currencies](/guides/product/send-money/swift-network-transfers) to learn more how and why this works and the messaging you need to display.#### Transfer Nature for BRLWhen creating or updating a quote, the transfer nature can be set. This is a requirement for transfers to or from BRL and impacts the fees we charge on the quote, specifically the IOF.Note that IOF is determined based on the transfer nature, sender information, and recipient information. The default IOF will be included in a quote until all relevant information has been included.{% admonition type=&quot;info&quot; %}Omitting transfer nature will not prevent the transfer from being created or even funded. However, when attempting to process the transfer, it will be blocked and the money will be refunded to the sender.{% /admonition %}
@@ -58,6 +63,7 @@ namespace Soenneker.Wise.OpenApiClient.V3.Profiles.Item.Quotes.Item
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Quote429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::Soenneker.Wise.OpenApiClient.Models.Quote?> PatchAsync(global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.Quotes.Item.WithQuotePatchRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -69,7 +75,11 @@ namespace Soenneker.Wise.OpenApiClient.V3.Profiles.Item.Quotes.Item
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPatchRequestInformation(body, requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.Quote>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.Quote.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Quote429Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.Quote>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.Quote.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Get quote info by ID. If the quote has expired (not used to create a transfer within 30 minutes of quote creation), it will only be accessible for approximately 48 hours via this endpoint.

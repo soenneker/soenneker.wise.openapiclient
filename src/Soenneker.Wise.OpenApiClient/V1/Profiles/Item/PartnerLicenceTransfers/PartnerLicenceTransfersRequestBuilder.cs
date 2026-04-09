@@ -40,6 +40,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.PartnerLicenceTransfers
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransfer429Error">When receiving a 429 status code</exception>
         [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -52,7 +53,11 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.PartnerLicenceTransfers
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransfer>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransfer.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransfer429Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransfer>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransfer.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// {% admonition type=&quot;warning&quot; name=&quot;Deprecated&quot; %}This endpoint is deprecated and only maintained for existing legacy integrations. Do not use it for new integrations. Use [Create a transfer](/api-reference/transfer/transfercreate) or [Create a third party transfer](/api-reference/transfer/transferthirdpartycreate) instead.{% /admonition %}This is similar to the [Create a transfer](/api-reference/transfer/transfercreate) endpoint, but the `originator` datablock is additionally required.You need to save the transfer ID for tracking its status later via webhooks.#### Avoiding duplicate transfersThe `customerTransactionId` field is used to avoid duplicate transfer requests. If your initial call fails (error or timeout), retry the call using the same `customerTransactionId` value. Subsequent retry messages are treated as repeat messages and will not create duplicate transfers.

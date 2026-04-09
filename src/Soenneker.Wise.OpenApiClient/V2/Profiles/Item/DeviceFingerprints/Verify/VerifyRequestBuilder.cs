@@ -40,6 +40,7 @@ namespace Soenneker.Wise.OpenApiClient.V2.Profiles.Item.DeviceFingerprints.Verif
         /// <param name="body">A JWE encrypted string. The decrypted payload contains:- `deviceFingerprint` — A device fingerprint value.Payload before encryption:```json{&quot;deviceFingerprint&quot;: &quot;3207da22-a0d3-4b6b-a591-6297e646fe32&quot;}```</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.OneTimeToken429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::Soenneker.Wise.OpenApiClient.Models.OneTimeToken?> PostAsync(string body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -51,7 +52,11 @@ namespace Soenneker.Wise.OpenApiClient.V2.Profiles.Item.DeviceFingerprints.Verif
 #endif
             if(string.IsNullOrEmpty(body)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.OneTimeToken>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.OneTimeToken.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.OneTimeToken429Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.OneTimeToken>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.OneTimeToken.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Verifies a device fingerprint challenge when calling a SCA-secured endpoint. Make sure to [create a device fingerprint](/api-reference/strong-customer-authentication/scadevicefingerprintcreate) before using this endpoint.The request and response are encrypted using the JOSE framework. Please refer to the [SCA over API guide](/guides/developer/auth-and-security/sca-over-api) to understand how encryption and decryption work.

@@ -3,6 +3,7 @@
 using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions.Serialization;
 using Microsoft.Kiota.Abstractions;
+using Soenneker.Wise.OpenApiClient.Models;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -38,6 +39,7 @@ namespace Soenneker.Wise.OpenApiClient.V3.Profiles.Item.VerificationStatus.Requi
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.VerificationStatus.RequiredEvidences.RequiredEvidencesGetResponse"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.RequiredEvidences429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.VerificationStatus.RequiredEvidences.RequiredEvidencesGetResponse?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -48,7 +50,11 @@ namespace Soenneker.Wise.OpenApiClient.V3.Profiles.Item.VerificationStatus.Requi
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.VerificationStatus.RequiredEvidences.RequiredEvidencesGetResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.VerificationStatus.RequiredEvidences.RequiredEvidencesGetResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.RequiredEvidences429Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.VerificationStatus.RequiredEvidences.RequiredEvidencesGetResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.VerificationStatus.RequiredEvidences.RequiredEvidencesGetResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Fetches the required evidences for a profile to complete additional customer verification.If one or more evidences are returned, the customer should submit those evidences using the upload-evidences endpoint.See the [Supported Evidences guide](/guides/product/kyc/partner-kyc/supported-evidences) for the list of possible evidence types and how to submit them.

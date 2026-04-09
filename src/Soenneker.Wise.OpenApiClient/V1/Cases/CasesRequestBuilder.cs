@@ -53,6 +53,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Cases
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Case429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::Soenneker.Wise.OpenApiClient.Models.Case?> PostAsync(global::Soenneker.Wise.OpenApiClient.V1.Cases.CasesPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -64,7 +65,11 @@ namespace Soenneker.Wise.OpenApiClient.V1.Cases
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.Case>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.Case.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Case429Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.Case>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.Case.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Cases are used to collect or transmit additional information between Partners and Wise. Use this endpoint to create a new case.{% admonition type=&quot;warning&quot; %}Please do not include PII in the `subject` of a case. Any specific details regarding the case that need to be communicated should be included in the `description`.{% /admonition %}

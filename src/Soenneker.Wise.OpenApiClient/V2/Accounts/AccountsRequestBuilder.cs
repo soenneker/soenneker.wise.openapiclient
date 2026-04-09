@@ -3,6 +3,7 @@
 using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions.Serialization;
 using Microsoft.Kiota.Abstractions;
+using Soenneker.Wise.OpenApiClient.Models;
 using Soenneker.Wise.OpenApiClient.V2.Accounts.Item;
 using System.Collections.Generic;
 using System.IO;
@@ -51,6 +52,7 @@ namespace Soenneker.Wise.OpenApiClient.V2.Accounts
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V2.Accounts.AccountsGetResponse"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Accounts429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::Soenneker.Wise.OpenApiClient.V2.Accounts.AccountsGetResponse?> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V2.Accounts.AccountsRequestBuilder.AccountsRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -61,7 +63,11 @@ namespace Soenneker.Wise.OpenApiClient.V2.Accounts
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V2.Accounts.AccountsGetResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V2.Accounts.AccountsGetResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Accounts429Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V2.Accounts.AccountsGetResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V2.Accounts.AccountsGetResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Fetch a list of the user&apos;s recipient accounts. Use the `profileId` parameter to filter by the profile who created the accounts, you should do this based on the personal or business profile ID you have linked to, based on your use case. Other filters are listed below for your convenience, for example `currency` is a useful filter to use when presenting the user a list of recipients to choose from in the case they have already submitted the target currency in your flow.#### PaginationPagination is supported for this endpoint. The response includes the `seekPositionForNext` and `size` parameters to manage this.It works by setting `size` and `seekPosition` parameters in the call. Set the value in the `seekPositionForNext` of the previous response into the `seekPosition` parameter of your subsequent call in order to get the next page. To get the current page again, use the `seekPositionForCurrent` value.#### SortingYou can also set the `sort` parameter to control the sorting of the response, for example:`?sort=id,asc` sort by `id` ascending.&lt;br&gt;`?sort=id,desc` sort by `id` descending.&lt;br&gt;`?sort=currency,asc` sort by currency ascending.All query parameters are optional.

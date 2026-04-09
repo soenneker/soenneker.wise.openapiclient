@@ -3,6 +3,7 @@
 using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions.Serialization;
 using Microsoft.Kiota.Abstractions;
+using Soenneker.Wise.OpenApiClient.Models;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -39,6 +40,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.User.PartnerDeviceFingerprints
         /// <param name="body">A JWE encrypted string. The decrypted payload contains:- `deviceFingerprint` — A string value used as a device fingerprint.Payload before encryption:```json{&quot;deviceFingerprint&quot;: &quot;3207da22-a0d3-4b6b-a591-6297e646fe32&quot;}```</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.PartnerDeviceFingerprints429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::Soenneker.Wise.OpenApiClient.V1.User.PartnerDeviceFingerprints.PartnerDeviceFingerprintsPostResponse?> PostAsync(string body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -50,7 +52,11 @@ namespace Soenneker.Wise.OpenApiClient.V1.User.PartnerDeviceFingerprints
 #endif
             if(string.IsNullOrEmpty(body)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.User.PartnerDeviceFingerprints.PartnerDeviceFingerprintsPostResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.User.PartnerDeviceFingerprints.PartnerDeviceFingerprintsPostResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.PartnerDeviceFingerprints429Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.User.PartnerDeviceFingerprints.PartnerDeviceFingerprintsPostResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.User.PartnerDeviceFingerprints.PartnerDeviceFingerprintsPostResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// A device fingerprint represents a string that identifies a unique device.This endpoint is used to register the fingerprint of the device as one of the allowed devices used during an One Time Token (OTT) challenge.This can be used to [verify device fingerprint](/api-reference/one-time-token/ottdevicefingerprintverify) when clearing a [OTT](/api-reference/one-time-token).The request and response are encrypted using the JOSE framework. Please refer to the [JOSE JWE guide](/guides/developer/auth-and-security/jose-jwe) to understand how encryption and decryption work.

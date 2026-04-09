@@ -3,6 +3,7 @@
 using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions.Serialization;
 using Microsoft.Kiota.Abstractions;
+using Soenneker.Wise.OpenApiClient.Models;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -38,6 +39,7 @@ namespace Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.CardOrders.Item.St
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Status429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task PutAsync(global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.CardOrders.Item.Status.StatusPutRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -49,7 +51,11 @@ namespace Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.CardOrders.Item.St
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPutRequestInformation(body, requestConfiguration);
-            await RequestAdapter.SendNoContentAsync(requestInfo, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Status429Error.CreateFromDiscriminatorValue },
+            };
+            await RequestAdapter.SendNoContentAsync(requestInfo, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Updates the status of a card order based on its `cardOrderId`. The status can be updated to one of the following:1. `CANCELLED`2. `COMPLETED` (deprecated)The behaviour for card order cancellation differs across card order statuses:- `PLACED`: Card order can be cancelled with no further action required.- `REQUIREMENTS_FULFILLED`, `CARD_DETAILS_CREATED`, `PRODUCED`: Card order can be cancelled, and its associated card will be blocked. However, the physical card may have already been produced and may be in delivery. If so, the card will still reach the end user&apos;s address. This should be communicated to the end user to prevent confusion.- `COMPLETED`, `RETURNED`: Card orders in these statuses cannot be cancelled.{% admonition type=&quot;info&quot; %}Updating a card order status to `COMPLETED` is deprecated. Check with our team whether this is supported in your integration.{% /admonition %}
@@ -69,6 +75,7 @@ namespace Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.CardOrders.Item.St
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = new RequestInformation(Method.PUT, UrlTemplate, PathParameters);
             requestInfo.Configure(requestConfiguration);
+            requestInfo.Headers.TryAdd("Accept", "application/json");
             requestInfo.SetContentFromParsable(RequestAdapter, "application/json", body);
             return requestInfo;
         }

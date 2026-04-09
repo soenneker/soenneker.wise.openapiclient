@@ -3,6 +3,7 @@
 using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions.Serialization;
 using Microsoft.Kiota.Abstractions;
+using Soenneker.Wise.OpenApiClient.Models;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -33,13 +34,14 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.PayinSessions.Item.Payno
         {
         }
         /// <summary>
-        /// Retrieve the Paynow details and reference for the account that the customer should send funds to when paying for a Wise transfer or balance top-up.`profileId` in the request URL refers to the profile that created the transfer.This API supports the SGD currency only.{% admonition type=&quot;warning&quot; %}This API is not available for sandbox testing.{% /admonition %}
+        /// Creates the encoded QR code and details for the payin session so the user can fund a transfer or balance top-up via a Paynow transaction.This operation supports the SGD currency only.{% admonition type=&quot;warning&quot; %}This operation is not available for sandbox testing.{% /admonition %}
         /// </summary>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.PayinSessions.Item.Paynow.PaynowPostResponse"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.PayinSessions.Item.Paynow.Paynow400Error">When receiving a 400 status code</exception>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.PayinSessions.Item.Paynow.Paynow422Error">When receiving a 422 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Paynow429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.PayinSessions.Item.Paynow.PaynowPostResponse?> PostAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -54,11 +56,12 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.PayinSessions.Item.Payno
             {
                 { "400", global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.PayinSessions.Item.Paynow.Paynow400Error.CreateFromDiscriminatorValue },
                 { "422", global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.PayinSessions.Item.Paynow.Paynow422Error.CreateFromDiscriminatorValue },
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Paynow429Error.CreateFromDiscriminatorValue },
             };
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.PayinSessions.Item.Paynow.PaynowPostResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.PayinSessions.Item.Paynow.PaynowPostResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Retrieve the Paynow details and reference for the account that the customer should send funds to when paying for a Wise transfer or balance top-up.`profileId` in the request URL refers to the profile that created the transfer.This API supports the SGD currency only.{% admonition type=&quot;warning&quot; %}This API is not available for sandbox testing.{% /admonition %}
+        /// Creates the encoded QR code and details for the payin session so the user can fund a transfer or balance top-up via a Paynow transaction.This operation supports the SGD currency only.{% admonition type=&quot;warning&quot; %}This operation is not available for sandbox testing.{% /admonition %}
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>

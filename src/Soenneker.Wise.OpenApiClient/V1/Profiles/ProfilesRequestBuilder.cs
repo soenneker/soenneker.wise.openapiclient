@@ -3,6 +3,7 @@
 using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions.Serialization;
 using Microsoft.Kiota.Abstractions;
+using Soenneker.Wise.OpenApiClient.Models;
 using Soenneker.Wise.OpenApiClient.V1.Profiles.Item;
 using System.Collections.Generic;
 using System.IO;
@@ -52,6 +53,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Profiles429Error">When receiving a 429 status code</exception>
         [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -64,7 +66,11 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.Profiles.ProfilesRequestBuilder.ProfilesPostResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Profiles.ProfilesRequestBuilder.ProfilesPostResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Profiles429Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.Profiles.ProfilesRequestBuilder.ProfilesPostResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Profiles.ProfilesRequestBuilder.ProfilesPostResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// {% admonition type=&quot;warning&quot; %}This endpoint is deprecated. Please see the [Update Personal Profile](/api-reference/profile/profilepersonalupdate) and [Update Business Profile](/api-reference/profile/profilebusinessupdate) v2 endpoints.{% /admonition %}Update user profile information. Request and response is same as described in the create profile endpoint, with the addition of the `id` field.{% admonition type=&quot;info&quot; %}If user profile has been verified then there are restrictions on what information is allowed to change, where permitted, use the update window functionality to submit updated data.{% /admonition %}
@@ -73,6 +79,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Profiles429Error">When receiving a 429 status code</exception>
         [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -85,7 +92,11 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPutRequestInformation(body, requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.Profiles.ProfilesRequestBuilder.ProfilesPutResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Profiles.ProfilesRequestBuilder.ProfilesPutResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Profiles429Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.Profiles.ProfilesRequestBuilder.ProfilesPutResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Profiles.ProfilesRequestBuilder.ProfilesPutResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// {% admonition type=&quot;warning&quot; %}This endpoint is deprecated. Please see the [Create Personal Profile](/api-reference/profile/profilepersonalcreate) and [Create Business Profile](/api-reference/profile/profilebusinesscreate) v2 endpoints.{% /admonition %}Create personal or business user profile. Set `type` to `&quot;personal&quot;` or `&quot;business&quot;`.One person cannot have multiple active duplicate user profiles, creating multiple profiles with the same details will fail. When this happens, you should show an error message to the user informing them that they may have an existing Wise account. The customer should then be allowed to [link to an existing Wise account](/guides/product/kyc/partner-kyc/accessing-accounts#link-account).{% admonition type=&quot;info&quot; %}For personal profiles, you must submit the profile&apos;s address using [POST /v1/addresses](/api-reference/address/addresscreate). Failure to do so will result in an incomplete registration and delayed transactions.{% /admonition %}For business profiles, you must always create a personal profile first. Business profiles cannot be created without a personal profile.See [Business Category](/guides/developer/api-guides/business-categories) for the list of valid category and sub-category values for business profiles.

@@ -3,6 +3,7 @@
 using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions.Serialization;
 using Microsoft.Kiota.Abstractions;
+using Soenneker.Wise.OpenApiClient.Models;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -38,6 +39,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Sms.Trigger
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Sms.Trigger.TriggerPostResponse"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Trigger429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Sms.Trigger.TriggerPostResponse?> PostAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -48,7 +50,11 @@ namespace Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Sms.Trigger
         {
 #endif
             var requestInfo = ToPostRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Sms.Trigger.TriggerPostResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Sms.Trigger.TriggerPostResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Trigger429Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Sms.Trigger.TriggerPostResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Sms.Trigger.TriggerPostResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// To trigger a SMS challenge by sending SMS to user verified [phone number](/api-reference/user-security/usersecurityphonenumberlist) containing a 6 digit one time password (**OTP**).This **OTP** code can be used to clear a SMS challenge by using the [Verify SMS endpoint](/api-reference/one-time-token/ottsmsverify).{% admonition type=&quot;warning&quot; %}The Trigger SMS Challenge API is currently in closed Beta and subject to change. Please speak with your implementation manager if you would like to use this API.{% /admonition %}

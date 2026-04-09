@@ -3,6 +3,7 @@
 using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions.Serialization;
 using Microsoft.Kiota.Abstractions;
+using Soenneker.Wise.OpenApiClient.Models;
 using Soenneker.Wise.OpenApiClient.V1.BorderlessAccounts.Item;
 using System.Collections.Generic;
 using System.IO;
@@ -51,6 +52,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.BorderlessAccounts
         /// <returns>A List&lt;global::Soenneker.Wise.OpenApiClient.V1.BorderlessAccounts.BorderlessAccounts&gt;</returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.BorderlessAccounts429Error">When receiving a 429 status code</exception>
         [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -62,7 +64,11 @@ namespace Soenneker.Wise.OpenApiClient.V1.BorderlessAccounts
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
-            var collectionResult = await RequestAdapter.SendCollectionAsync<global::Soenneker.Wise.OpenApiClient.V1.BorderlessAccounts.BorderlessAccounts>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.BorderlessAccounts.BorderlessAccounts.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.BorderlessAccounts429Error.CreateFromDiscriminatorValue },
+            };
+            var collectionResult = await RequestAdapter.SendCollectionAsync<global::Soenneker.Wise.OpenApiClient.V1.BorderlessAccounts.BorderlessAccounts>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.BorderlessAccounts.BorderlessAccounts.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
             return collectionResult?.AsList();
         }
         /// <summary>

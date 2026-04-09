@@ -39,6 +39,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Activities
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Activities.ActivitiesGetResponse"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Activities429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Activities.ActivitiesGetResponse?> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Activities.ActivitiesRequestBuilder.ActivitiesRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -49,7 +50,11 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Activities
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Activities.ActivitiesGetResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Activities.ActivitiesGetResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Activities429Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Activities.ActivitiesGetResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Activities.ActivitiesGetResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// List of activities belonging to user profile.Activities represent snapshots of performed actions and can be filtered by various parameters to narrow down the results.

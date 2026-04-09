@@ -40,6 +40,7 @@ namespace Soenneker.Wise.OpenApiClient.V3.Quotes
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Quote429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::Soenneker.Wise.OpenApiClient.Models.Quote?> PostAsync(global::Soenneker.Wise.OpenApiClient.V3.Quotes.QuotesPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -51,7 +52,11 @@ namespace Soenneker.Wise.OpenApiClient.V3.Quotes
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.Quote>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.Quote.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Quote429Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.Quote>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.Quote.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Use this endpoint to get example quotes for people to see the exchange rate and fees Wise offers before a user has created or linked an account. This can drive a version of the quote screen that shows the user what Wise offers before they sign up.Note that this endpoint does not require a token to create the resource, however, since it is just an example, the returned quote has no ID so can&apos;t be used later to create a transfer.In order to get an accurate partner fee, we require a client credentials token to be provided. If you are a partner and would like your fee to be included in the quote returned, you must provide your auth token. If not, you do not require the Authorization header.{% admonition type=&quot;info&quot; %}Unauthenticated quotes cannot be used to create transfers, they are meant for illustration purposes in partner interfaces only. Make sure to create an authenticated quote during the transfer creation flow.{% /admonition %}

@@ -40,6 +40,7 @@ namespace Soenneker.Wise.OpenApiClient.V2.Profiles.Item.Facemaps.Verify
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.OneTimeToken429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::Soenneker.Wise.OpenApiClient.Models.OneTimeToken?> PostAsync(global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.Facemaps.Verify.VerifyPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -51,7 +52,11 @@ namespace Soenneker.Wise.OpenApiClient.V2.Profiles.Item.Facemaps.Verify
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.OneTimeToken>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.OneTimeToken.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.OneTimeToken429Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.OneTimeToken>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.OneTimeToken.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Verifies a facemap challenge when calling a SCA-secured endpoint. Make sure to [create a facemap](/api-reference/strong-customer-authentication/scafacemapcreate) before using this endpoint.A facemap should be exported from your FaceTec server using the SDK&apos;s [export API](https://dev.facetec.com/api-guide#export-3d-facemap). Please use Wise&apos;s FaceTec [public key](/api-reference/facetec/facetecpublickeyget) to encrypt a facemap during the export process.

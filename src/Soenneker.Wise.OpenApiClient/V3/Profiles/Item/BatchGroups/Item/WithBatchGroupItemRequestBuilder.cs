@@ -45,6 +45,7 @@ namespace Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BatchGroups.Item
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.BatchGroup"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.BatchGroup429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::Soenneker.Wise.OpenApiClient.Models.BatchGroup?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -55,7 +56,11 @@ namespace Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BatchGroups.Item
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.BatchGroup>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.BatchGroup.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.BatchGroup429Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.BatchGroup>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.BatchGroup.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Update a batch group&apos;s status to complete or cancel it.**Complete a batch group:** Set `status` to `COMPLETED` to close the group for modifications and allow funding to proceed. Once completed, `payInDetails` will be populated with funding instructions.**Cancel a batch group:** Set `status` to `CANCELLED` to cancel all transfers in the batch. Only batches that are not funded can be cancelled. Cancellation is final and cannot be undone.The `version` parameter is required for concurrency control. The operation will be rejected if the provided version does not match the server&apos;s current version.
@@ -64,6 +69,7 @@ namespace Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BatchGroups.Item
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.BatchGroup429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::Soenneker.Wise.OpenApiClient.Models.BatchGroup?> PatchAsync(global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BatchGroups.Item.WithBatchGroupPatchRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -75,7 +81,11 @@ namespace Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BatchGroups.Item
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPatchRequestInformation(body, requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.BatchGroup>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.BatchGroup.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.BatchGroup429Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.BatchGroup>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.BatchGroup.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Get an existing batch group by ID.

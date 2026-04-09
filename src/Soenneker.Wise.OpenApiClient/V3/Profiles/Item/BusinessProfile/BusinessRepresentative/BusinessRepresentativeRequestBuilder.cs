@@ -3,6 +3,7 @@
 using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions.Serialization;
 using Microsoft.Kiota.Abstractions;
+using Soenneker.Wise.OpenApiClient.Models;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -38,6 +39,7 @@ namespace Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BusinessProfile.Business
         /// <returns>A <see cref="Stream"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.BusinessRepresentative429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<Stream?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -48,7 +50,11 @@ namespace Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BusinessProfile.Business
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendPrimitiveAsync<Stream>(requestInfo, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.BusinessRepresentative429Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendPrimitiveAsync<Stream>(requestInfo, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Update or transfer the Business Representative for the specified Business Profile.{% admonition type=&quot;warning&quot; %}This endpoint will soon be deprecated, please use the `/v2` endpoints instead.{% /admonition %}Set `updateContext` to `UPDATE_DETAILS` to update the existing Business Representative&apos;s details, or `TRANSFER_OF_AUTHORISATION` to transfer authority of the Business Profile to a new Business Representative.{% admonition type=&quot;info&quot; %}If the Business Representative has been verified then there are restrictions on what information is allowed to change.{% /admonition %}{% admonition type=&quot;info&quot; %}If this Business Representative is shared across multiple Business Profiles, then changes will be reflected for all of the Business Profiles.{% /admonition %}When using `TRANSFER_OF_AUTHORISATION`, this will overwrite the existing Business Representative. The new Business Representative will need to be verified for KYC purposes.
@@ -57,6 +63,7 @@ namespace Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BusinessProfile.Business
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.BusinessRepresentative429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<Stream?> PutAsync(global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BusinessProfile.BusinessRepresentative.BusinessRepresentativePutRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -68,7 +75,11 @@ namespace Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BusinessProfile.Business
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPutRequestInformation(body, requestConfiguration);
-            return await RequestAdapter.SendPrimitiveAsync<Stream>(requestInfo, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.BusinessRepresentative429Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendPrimitiveAsync<Stream>(requestInfo, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Get Business Representative info by Business Profile ID.
@@ -86,6 +97,7 @@ namespace Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BusinessProfile.Business
 #endif
             var requestInfo = new RequestInformation(Method.GET, UrlTemplate, PathParameters);
             requestInfo.Configure(requestConfiguration);
+            requestInfo.Headers.TryAdd("Accept", "application/json");
             return requestInfo;
         }
         /// <summary>
@@ -106,6 +118,7 @@ namespace Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BusinessProfile.Business
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = new RequestInformation(Method.PUT, UrlTemplate, PathParameters);
             requestInfo.Configure(requestConfiguration);
+            requestInfo.Headers.TryAdd("Accept", "application/json");
             requestInfo.SetContentFromParsable(RequestAdapter, "application/json", body);
             return requestInfo;
         }

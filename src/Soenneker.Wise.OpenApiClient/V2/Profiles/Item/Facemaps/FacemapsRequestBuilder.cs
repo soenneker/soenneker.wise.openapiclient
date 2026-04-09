@@ -3,6 +3,7 @@
 using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions.Serialization;
 using Microsoft.Kiota.Abstractions;
+using Soenneker.Wise.OpenApiClient.Models;
 using Soenneker.Wise.OpenApiClient.V2.Profiles.Item.Facemaps.Verify;
 using System.Collections.Generic;
 using System.IO;
@@ -43,6 +44,7 @@ namespace Soenneker.Wise.OpenApiClient.V2.Profiles.Item.Facemaps
         /// </summary>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Facemaps429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task DeleteAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -53,7 +55,11 @@ namespace Soenneker.Wise.OpenApiClient.V2.Profiles.Item.Facemaps
         {
 #endif
             var requestInfo = ToDeleteRequestInformation(requestConfiguration);
-            await RequestAdapter.SendNoContentAsync(requestInfo, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Facemaps429Error.CreateFromDiscriminatorValue },
+            };
+            await RequestAdapter.SendNoContentAsync(requestInfo, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Creates a new facemap factor used to resolve a SCA inherence challenge type.A facemap should be exported from your FaceTec server using the SDK&apos;s [export API](https://dev.facetec.com/api-guide#export-3d-facemap). Please use Wise&apos;s FaceTec [public key](/api-reference/facetec/facetecpublickeyget) to encrypt the facemap during the export process.
@@ -61,6 +67,7 @@ namespace Soenneker.Wise.OpenApiClient.V2.Profiles.Item.Facemaps
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Facemaps429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task PostAsync(global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.Facemaps.FacemapsPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -72,7 +79,11 @@ namespace Soenneker.Wise.OpenApiClient.V2.Profiles.Item.Facemaps
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
-            await RequestAdapter.SendNoContentAsync(requestInfo, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Facemaps429Error.CreateFromDiscriminatorValue },
+            };
+            await RequestAdapter.SendNoContentAsync(requestInfo, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Deletes a facemap associated to a profile.To update a facemap for a profile, use this endpoint followed by [Create a facemap](/api-reference/strong-customer-authentication/scafacemapcreate).{% admonition type=&quot;warning&quot; %}This operation is irreversible.{% /admonition %}
@@ -90,6 +101,7 @@ namespace Soenneker.Wise.OpenApiClient.V2.Profiles.Item.Facemaps
 #endif
             var requestInfo = new RequestInformation(Method.DELETE, UrlTemplate, PathParameters);
             requestInfo.Configure(requestConfiguration);
+            requestInfo.Headers.TryAdd("Accept", "application/json");
             return requestInfo;
         }
         /// <summary>
@@ -110,6 +122,7 @@ namespace Soenneker.Wise.OpenApiClient.V2.Profiles.Item.Facemaps
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = new RequestInformation(Method.POST, UrlTemplate, PathParameters);
             requestInfo.Configure(requestConfiguration);
+            requestInfo.Headers.TryAdd("Accept", "application/json");
             requestInfo.SetContentFromParsable(RequestAdapter, "application/json", body);
             return requestInfo;
         }

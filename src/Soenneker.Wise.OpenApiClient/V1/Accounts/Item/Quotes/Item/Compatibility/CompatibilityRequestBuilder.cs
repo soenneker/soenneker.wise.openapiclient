@@ -3,6 +3,7 @@
 using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions.Serialization;
 using Microsoft.Kiota.Abstractions;
+using Soenneker.Wise.OpenApiClient.Models;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -38,6 +39,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Accounts.Item.Quotes.Item.Compatibilit
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.Accounts.Item.Quotes.Item.Compatibility.CompatibilityPostResponse"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Compatibility429Error">When receiving a 429 status code</exception>
         [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -49,7 +51,11 @@ namespace Soenneker.Wise.OpenApiClient.V1.Accounts.Item.Quotes.Item.Compatibilit
         {
 #endif
             var requestInfo = ToPostRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.Accounts.Item.Quotes.Item.Compatibility.CompatibilityPostResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Accounts.Item.Quotes.Item.Compatibility.CompatibilityPostResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Compatibility429Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.Accounts.Item.Quotes.Item.Compatibility.CompatibilityPostResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Accounts.Item.Quotes.Item.Compatibility.CompatibilityPostResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// {% admonition type=&quot;warning&quot; %}This is a deprecated v1 endpoint. For new integrations please use the [v2 compatibility endpoint](/api-reference/recipient/recipientcompatibilitycheck).{% /admonition %}{% admonition type=&quot;info&quot; %}Use this version if you are fetching recipients through the v1 API. There are no functional differences between v1 and v2, but the field paths referenced in the response differ between the v1 and v2 recipient resources.{% /admonition %}Use this endpoint to check the compatibility of a recipient account with a quote before creating a transfer. This validation includes:- Re-validating the recipient account details- Checking all required fields are present (e.g., recipient address for USD transfers)- Verifying account details with the recipient&apos;s bank (for supported currencies)This endpoint is optional but recommended to identify potential issues before transfer creation.{% admonition type=&quot;info&quot; %}The confirmations field is only populated for currencies with recipient verification enabled. If absent, only standard validations apply.{% /admonition %}

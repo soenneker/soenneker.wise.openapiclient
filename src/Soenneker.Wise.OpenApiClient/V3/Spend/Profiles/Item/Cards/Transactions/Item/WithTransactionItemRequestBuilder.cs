@@ -39,6 +39,7 @@ namespace Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Transactions
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.CardTransactionV3"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.CardTransactionV3429Error">When receiving a 429 status code</exception>
         [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -50,7 +51,11 @@ namespace Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Transactions
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.CardTransactionV3>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.CardTransactionV3.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.CardTransactionV3429Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.CardTransactionV3>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.CardTransactionV3.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// {% admonition type=&quot;warning&quot; %}This endpoint is deprecated. Use the [V4 Get card transaction](/api-reference/card-transaction/cardtransactionget) endpoint instead.{% /admonition %}Retrieve a card transaction by its ID.Use in conjunction with the [V2.0.0 card transaction state change webhook](/guides/developer/webhooks/event-types#cards-transaction-state-change).When a refund happens, a separate transaction will be added with a `REFUND` transaction type.

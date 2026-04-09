@@ -3,6 +3,7 @@
 using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions.Serialization;
 using Microsoft.Kiota.Abstractions;
+using Soenneker.Wise.OpenApiClient.Models;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -38,6 +39,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates.Item
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates.Item.WithTransferGetResponse"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.WithTransfer429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates.Item.WithTransferGetResponse?> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates.Item.WithTransferItemRequestBuilder.WithTransferItemRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -48,7 +50,11 @@ namespace Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates.Item
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates.Item.WithTransferGetResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates.Item.WithTransferGetResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.WithTransfer429Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates.Item.WithTransferGetResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates.Item.WithTransferGetResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Get the live delivery estimate for a transfer by the transfer ID.The delivery estimate is the time at which we currently expect the transfer to arrive in the beneficiary&apos;s bank account. This is not a guaranteed time but we are working hard to make these estimates as accurate as possible.
