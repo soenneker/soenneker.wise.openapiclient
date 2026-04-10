@@ -14796,7 +14796,7 @@ paths:
   /v3/profiles/{profileId}/business-profile/business-representative:
     get:
       operationId: profileBusinessRepresentativeGet
-      summary: Retrieve business representative (beta)
+      summary: Retrieve business representative
       description: |
         Get Business Representative info by Business Profile ID.
       tags:
@@ -14824,18 +14824,10 @@ paths:
           $ref: '#/components/responses/429'
     put:
       operationId: profileBusinessRepresentativeUpdate
-      summary: Update business representative (beta)
+      summary: Update business representative
       description: >
         Update or transfer the Business Representative for the specified
         Business Profile.
-
-
-        {% admonition type="warning" %}
-
-        This endpoint will soon be deprecated, please use the `/v2` endpoints
-        instead.
-
-        {% /admonition %}
 
 
         Set `updateContext` to `UPDATE_DETAILS` to update the existing Business
