@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
-    /// <summary>Investment state of the balance.</summary>
+    /// <summary>Investment state of the balance.- `NOT_INVESTED` - Balance is not invested.- `INVESTED` - Balance is invested in assets.- `INVESTING` - Balance is being invested into assets.- `DIVESTING` - Balance is being divested from assets.- `UNKNOWN` - Investment state is unknown.</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public enum Balance_investmentState
     {

@@ -25496,7 +25496,23 @@ components:
         - TRANSFER
     ActivityStatus:
       type: string
-      description: Status of the Activity.
+      description: >
+        Status of the Activity.
+
+        - `REQUIRES_ATTENTION` - Requires an end user attention.
+
+        - `IN_PROGRESS` - Indicates that this activity has yet to be completed.
+        (Example: In progress Top Up)
+
+        - `UPCOMING` - Indicates that this activity is scheduled to happen in
+        the future. By default these activities will only be shown 2 days before
+        the date. (Example: A scheduled transfer)
+
+        - `COMPLETED` - Indicates that this activity is at its end state.
+        (Example: A completed Top Up)
+
+        - `CANCELLED` - Indicates that this activity is cancelled. (Example: A
+        Top Up is cancelled)
       example: IN_PROGRESS
       enum:
         - REQUIRES_ATTENTION
@@ -25504,21 +25520,6 @@ components:
         - UPCOMING
         - COMPLETED
         - CANCELLED
-      x-enumDescriptions:
-        REQUIRES_ATTENTION: Requires an end user attention.
-        IN_PROGRESS: >-
-          Indicates that this activity has yet to be completed. (Example: In
-          progress Top Up)
-        UPCOMING: >-
-          Indicates that this activity is scheduled to happen in the future. By
-          default these activities will only be shown 2 days before the date.
-          (Example: A scheduled transfer)
-        COMPLETED: >-
-          Indicates that this activity is at its end state. (Example: A
-          completed Top Up)
-        CANCELLED: >-
-          Indicates that this activity is cancelled. (Example: A Top Up is
-          cancelled)
     ActivityType:
       type: string
       description: Type of Activity.
@@ -25898,13 +25899,16 @@ components:
               lookup.
     BalanceType:
       type: string
-      description: Type of balance account.
+      description: >
+        Type of balance account.
+
+        - `STANDARD` - Standard balance account. Only one per currency per
+        profile.
+
+        - `SAVINGS` - Savings balance (Jar). Multiple allowed per currency.
       enum:
         - STANDARD
         - SAVINGS
-      x-enumDescriptions:
-        STANDARD: Standard balance account. Only one per currency per profile.
-        SAVINGS: Savings balance (Jar). Multiple allowed per currency.
       example: STANDARD
     Balance:
       type: object
@@ -25946,19 +25950,19 @@ components:
           example: null
         investmentState:
           type: string
-          description: Investment state of the balance.
+          description: |
+            Investment state of the balance.
+            - `NOT_INVESTED` - Balance is not invested.
+            - `INVESTED` - Balance is invested in assets.
+            - `INVESTING` - Balance is being invested into assets.
+            - `DIVESTING` - Balance is being divested from assets.
+            - `UNKNOWN` - Investment state is unknown.
           enum:
             - NOT_INVESTED
             - INVESTED
             - INVESTING
             - DIVESTING
             - UNKNOWN
-          x-enumDescriptions:
-            NOT_INVESTED: Balance is not invested.
-            INVESTED: Balance is invested in assets.
-            INVESTING: Balance is being invested into assets.
-            DIVESTING: Balance is being divested from assets.
-            UNKNOWN: Investment state is unknown.
           example: NOT_INVESTED
         amount:
           type: object
@@ -28631,21 +28635,15 @@ components:
                   SGD, EUR) that the bank details have been created for.
 
 
-                  Table below shows the fields and their data type for each
-                  triggerReference type:
+                  Fields and their data types for each `triggerReference.type`:
 
+                  - `QUOTE` - `id` (uuid)
 
-                  | triggerReference.type | field | type |
+                  - `TRANSFER` - `id` (long)
 
-                  |---|---|---|
+                  - `ADD_MONEY` - `id` (long)
 
-                  | QUOTE | id | uuid |
-
-                  | TRANSFER | id | long |
-
-                  | ADD_MONEY | id | long |
-
-                  | BANK_ACCOUNT_DETAILS | currencies | list of string |
+                  - `BANK_ACCOUNT_DETAILS` - `currencies` (list of string)
                 additionalProperties: true
                 example:
                   id: ba83a43a-f623-46f0-956d-196c13e2ab01

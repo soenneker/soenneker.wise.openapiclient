@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Key-value object containing metadata of the underlying product object that triggered the KYC Review.For `QUOTE`, `TRANSFER` and `ADD_MONEY` types, `triggerData` contains an `id` field that refers to their respective IDs.For `BANK_ACCOUNT_DETAILS`, `triggerData` has a field called `currencies` which contains a list of currencies (e.g. USD, SGD, EUR) that the bank details have been created for.Table below shows the fields and their data type for each triggerReference type:| triggerReference.type | field | type ||---|---|---|| QUOTE | id | uuid || TRANSFER | id | long || ADD_MONEY | id | long || BANK_ACCOUNT_DETAILS | currencies | list of string |
+    /// Key-value object containing metadata of the underlying product object that triggered the KYC Review.For `QUOTE`, `TRANSFER` and `ADD_MONEY` types, `triggerData` contains an `id` field that refers to their respective IDs.For `BANK_ACCOUNT_DETAILS`, `triggerData` has a field called `currencies` which contains a list of currencies (e.g. USD, SGD, EUR) that the bank details have been created for.Fields and their data types for each `triggerReference.type`:- `QUOTE` - `id` (uuid)- `TRANSFER` - `id` (long)- `ADD_MONEY` - `id` (long)- `BANK_ACCOUNT_DETAILS` - `currencies` (list of string)
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class KycReview_triggerReferences_triggerData : IAdditionalDataHolder, IParsable

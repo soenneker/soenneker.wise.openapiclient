@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
-    /// <summary>Type of balance account.</summary>
+    /// <summary>Type of balance account.- `STANDARD` - Standard balance account. Only one per currency per profile.- `SAVINGS` - Savings balance (Jar). Multiple allowed per currency.</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public enum BalanceType
     {

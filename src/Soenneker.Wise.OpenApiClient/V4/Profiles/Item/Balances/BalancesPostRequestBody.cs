@@ -32,7 +32,7 @@ namespace Soenneker.Wise.OpenApiClient.V4.Profiles.Item.Balances
 #else
         public string Name { get; set; }
 #endif
-        /// <summary>Type of balance account.</summary>
+        /// <summary>Type of balance account.- `STANDARD` - Standard balance account. Only one per currency per profile.- `SAVINGS` - Savings balance (Jar). Multiple allowed per currency.</summary>
         public global::Soenneker.Wise.OpenApiClient.Models.BalanceType? Type { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.V4.Profiles.Item.Balances.BalancesPostRequestBody"/> and sets the default values.

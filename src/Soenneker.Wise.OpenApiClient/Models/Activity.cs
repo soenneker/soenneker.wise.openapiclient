@@ -57,7 +57,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string SecondaryAmount { get; set; }
 #endif
-        /// <summary>Status of the Activity.</summary>
+        /// <summary>Status of the Activity.- `REQUIRES_ATTENTION` - Requires an end user attention.- `IN_PROGRESS` - Indicates that this activity has yet to be completed. (Example: In progress Top Up)- `UPCOMING` - Indicates that this activity is scheduled to happen in the future. By default these activities will only be shown 2 days before the date. (Example: A scheduled transfer)- `COMPLETED` - Indicates that this activity is at its end state. (Example: A completed Top Up)- `CANCELLED` - Indicates that this activity is cancelled. (Example: A Top Up is cancelled)</summary>
         public global::Soenneker.Wise.OpenApiClient.Models.ActivityStatus? Status { get; set; }
         /// <summary>Title of the Activity.Value can be formatted with custom tags to put emphasis on important wordings.Supported custom tags:- `&lt;strong&gt;`: Indicates strong emphasis on words that the end user should pay attention to.- `&lt;positive&gt;`: Indicates a positive transaction (e.g., top up to balance is successful).- `&lt;negative&gt;`: Indicates a negative transaction (e.g., amount is deducted from a balance).- `&lt;strikethrough&gt;`: (Coming soon) Indicates the negation of an activity (e.g., transfer is cancelled).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER

@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
-    /// <summary>Status of the Activity.</summary>
+    /// <summary>Status of the Activity.- `REQUIRES_ATTENTION` - Requires an end user attention.- `IN_PROGRESS` - Indicates that this activity has yet to be completed. (Example: In progress Top Up)- `UPCOMING` - Indicates that this activity is scheduled to happen in the future. By default these activities will only be shown 2 days before the date. (Example: A scheduled transfer)- `COMPLETED` - Indicates that this activity is at its end state. (Example: A completed Top Up)- `CANCELLED` - Indicates that this activity is cancelled. (Example: A Top Up is cancelled)</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public enum ActivityStatus
     {

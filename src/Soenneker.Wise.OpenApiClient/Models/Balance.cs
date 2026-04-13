@@ -51,7 +51,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #endif
         /// <summary>Balance ID.</summary>
         public long? Id { get; set; }
-        /// <summary>Investment state of the balance.</summary>
+        /// <summary>Investment state of the balance.- `NOT_INVESTED` - Balance is not invested.- `INVESTED` - Balance is invested in assets.- `INVESTING` - Balance is being invested into assets.- `DIVESTING` - Balance is being divested from assets.- `UNKNOWN` - Investment state is unknown.</summary>
         public global::Soenneker.Wise.OpenApiClient.Models.Balance_investmentState? InvestmentState { get; set; }
         /// <summary>Date when the balance was last modified.</summary>
         public DateTimeOffset? ModificationTime { get; set; }
@@ -79,7 +79,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public global::Soenneker.Wise.OpenApiClient.Models.Balance_totalWorth TotalWorth { get; set; }
 #endif
-        /// <summary>Type of balance account.</summary>
+        /// <summary>Type of balance account.- `STANDARD` - Standard balance account. Only one per currency per profile.- `SAVINGS` - Savings balance (Jar). Multiple allowed per currency.</summary>
         public global::Soenneker.Wise.OpenApiClient.Models.BalanceType? Type { get; set; }
         /// <summary>Whether the balance is visible to the user.</summary>
         public bool? Visible { get; set; }
