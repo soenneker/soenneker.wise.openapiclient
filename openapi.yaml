@@ -10441,6 +10441,7 @@ paths:
               - BUSINESS_ULTIMATE_BENEFICIAL_OWNER_ID
               - BUSINESS_USE_CASE
               - ID_DOCUMENT
+              - INDIA_TRANSFER_PURPOSE
               - PROOF_OF_TRADING_ADDRESS
               - SOURCE_OF_WEALTH
               - TAX_RESIDENCY
@@ -10742,6 +10743,139 @@ paths:
                             - GRANTS
                             - OTHER
                             - LEGAL
+                india-transfer-purpose-non-inr-from-currency:
+                  summary: India transfer purpose submitted for non-INR currency
+                  value:
+                    type: /errors/types/validation
+                    title: Validation Error
+                    status: 400
+                    instance: >-
+                      /v2/profiles/{profileId}/kyc-requirements/INDIA_TRANSFER_PURPOSE
+                    errors:
+                      - code: invalid_value
+                        ref: requirementKey
+                        detail: >-
+                          Transfer which triggered KycReview is not from INR
+                          currency so submission of this requirement is not
+                          permitted
+                india-transfer-purpose-not-accepted-to-currency:
+                  summary: India transfer purpose submitted to not accepted currency
+                  value:
+                    type: /errors/types/validation
+                    title: Validation Error
+                    status: 400
+                    instance: >-
+                      /v2/profiles/{profileId}/kyc-requirements/INDIA_TRANSFER_PURPOSE
+                    errors:
+                      - code: invalid_value
+                        ref: requirementKey
+                        detail: >-
+                          Transfer which triggered KycReview does not have an
+                          accepted target currency so submission of this
+                          requirement is not permitted
+                india-transfer-purpose-invalid-code:
+                  summary: India transfer purpose invalid code
+                  value:
+                    type: /errors/types/validation
+                    title: Validation Error
+                    status: 400
+                    instance: >-
+                      /v2/profiles/{profileId}/kyc-requirements/INDIA_TRANSFER_PURPOSE
+                    errors:
+                      - code: invalid_value
+                        ref: code
+                        detail: The code provided is not valid
+                india-transfer-purpose-not-required:
+                  summary: India transfer purpose not required
+                  value:
+                    type: /errors/types/validation
+                    title: Validation Error
+                    status: 400
+                    instance: >-
+                      /v2/profiles/{profileId}/kyc-requirements/INDIA_TRANSFER_PURPOSE
+                    errors:
+                      - code: invalid_value
+                        ref: requirementKey
+                        detail: >-
+                          INDIA_TRANSFER_PURPOSE is not required for the
+                          KycReview
+                india-transfer-purpose-additionaldocumentfilename-not-supplied:
+                  summary: additionalDocumentFileName missing or empty
+                  value:
+                    type: /errors/types/validation
+                    title: Validation Error
+                    status: 400
+                    instance: >-
+                      /v2/profiles/{profileId}/kyc-requirements/INDIA_TRANSFER_PURPOSE
+                    errors:
+                      - code: missing_value
+                        ref: additionalDocumentFileName
+                        detail: additionalDocumentFileName cannot be null or empty
+                india-transfer-purpose-educationpaidwithloan-not-supplied:
+                  summary: educationPaidWithLoan missing
+                  value:
+                    type: /errors/types/validation
+                    title: Validation Error
+                    status: 400
+                    instance: >-
+                      /v2/profiles/{profileId}/kyc-requirements/INDIA_TRANSFER_PURPOSE
+                    errors:
+                      - code: missing_value
+                        ref: educationPaidWithLoan
+                        detail: educationPaidWithLoan cannot be null
+                india-transfer-purpose-educationpaidwithloan-not-required:
+                  summary: educationPaidWithLoan not required
+                  value:
+                    type: /errors/types/validation
+                    title: Validation Error
+                    status: 400
+                    instance: >-
+                      /v2/profiles/{profileId}/kyc-requirements/INDIA_TRANSFER_PURPOSE
+                    errors:
+                      - code: invalid_value
+                        ref: educationPaidWithLoan
+                        detail: >-
+                          educationPaidWithLoan is only valid for
+                          OVERSEAS_EDUCATION & EDUCATION_EXPENSES
+                india-transfer-purpose-loandocumentfilename-not-supplied:
+                  summary: loanDocumentFileName missing
+                  value:
+                    type: /errors/types/validation
+                    title: Validation Error
+                    status: 400
+                    instance: >-
+                      /v2/profiles/{profileId}/kyc-requirements/INDIA_TRANSFER_PURPOSE
+                    errors:
+                      - code: missing_value
+                        ref: loanDocumentFileName
+                        detail: >-
+                          loanDocumentFileName must be provided if the code is
+                          OVERSEAS_EDUCATION or EDUCATION_EXPENSES and
+                          educationPaidWithLoan is true
+                india-transfer-purpose-passportfilename-not-supplied:
+                  summary: passportFileName missing or empty
+                  value:
+                    type: /errors/types/validation
+                    title: Validation Error
+                    status: 400
+                    instance: >-
+                      /v2/profiles/{profileId}/kyc-requirements/INDIA_TRANSFER_PURPOSE
+                    errors:
+                      - code: missing_value
+                        ref: passportFileName
+                        detail: passportFileName cannot be null or empty
+                india-transfer-purpose-tcstaxapplies-not-supplied:
+                  summary: tcsTaxApplies missing
+                  value:
+                    type: /errors/types/validation
+                    title: Validation Error
+                    status: 400
+                    instance: >-
+                      /v2/profiles/{profileId}/kyc-requirements/INDIA_TRANSFER_PURPOSE
+                    errors:
+                      - code: missing_value
+                        ref: tcsTaxApplies
+                        detail: tcsTaxApplies cannot be null
                 invalid-wealth-info-data:
                   summary: Invalid sourceOfWealthList submission data
                   value:
