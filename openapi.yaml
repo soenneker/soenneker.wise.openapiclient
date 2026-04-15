@@ -10504,6 +10504,17 @@ paths:
                     requirement types.
 
 
+                    There are 3 accepted types for documents, they must be
+                    provided with the below content-type/Mime-type and have a
+                    matching file extension.
+
+
+                    ContentType/MimeType & file extension:
+                      - `image/png` & `.png`
+                      - `image/jpeg` & (`.jpg` or `jpeg`)
+                      - `application/pdf` & `.pdf`
+
+
                     See the [KYC requirement
                     types](/guides/product/kyc/wise-kyc/kyc-requirement-types)
                     guide for which types require files.
