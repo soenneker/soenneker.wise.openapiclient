@@ -7,6 +7,7 @@ using Soenneker.Wise.OpenApiClient.V1.Profiles.Item.AccountDetailsOrders;
 using Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Activities;
 using Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceCapacity;
 using Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceStatements;
+using Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Balances;
 using Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BatchGroups;
 using Soenneker.Wise.OpenApiClient.V1.Profiles.Item.DirectDebitAccounts;
 using Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Directors;
@@ -53,6 +54,11 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item
         public global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceCapacity.BalanceCapacityRequestBuilder BalanceCapacity
         {
             get => new global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceCapacity.BalanceCapacityRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The balances property</summary>
+        public global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Balances.BalancesRequestBuilder Balances
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Balances.BalancesRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The balanceStatements property</summary>
         public global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BalanceStatements.BalanceStatementsRequestBuilder BalanceStatements

@@ -3622,6 +3622,367 @@ paths:
               $ref: '#/components/headers/x-trace-id'
         '429':
           $ref: '#/components/responses/429'
+  /v1/profiles/{profileId}/balances/hold-limit-breach:
+    post:
+      tags:
+        - balance
+      summary: List hold limit breaches
+      operationId: holdLimitBreachList
+      description: >
+        Returns a list of hold limit breaches for a profile. A hold limit breach
+        occurs when a balance exceeds the regulatory hold limit for that
+        profile's country (e.g. Singapore, Malaysia).
+
+
+        You can optionally filter by `state` and `closing_reason`.
+      security:
+        - UserToken: []
+        - PersonalToken: []
+      parameters:
+        - name: profileId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: The profile ID.
+        - name: state
+          in: query
+          required: false
+          description: Filter by breach state. One of `OPEN`, `CLOSED`
+          schema:
+            type: string
+            format: string
+          example: OPEN
+        - name: closingReason
+          in: query
+          required: false
+          description: >-
+            Filter by closing reason. One of `AUTOMATICALLY_RESOLVED`,
+            `MANUALLY_RESOLVED`
+          schema:
+            type: string
+            format: string
+          example: AUTOMATICALLY_RESOLVED
+        - $ref: '#/components/parameters/X-External-Correlation-Id'
+      responses:
+        '200':
+          description: Successfully returned list of hold limit breaches.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/HoldLimitBreach'
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '400':
+          description: Invalid closing reason or state used.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    format: uri-reference
+                    description: Must be /errors/types/validation for this error type
+                    examples:
+                      - /errors/types/validation
+                  title:
+                    type: string
+                    description: Request parameter type mismatch
+                    examples:
+                      - Request parameter type mismatch
+                  status:
+                    type: string
+                    description: Bad request error
+                    examples:
+                      - 400
+                  instance:
+                    type: string
+                    description: The uri that triggered the error
+                    examples:
+                      - >-
+                        /v1/profiles/{profileId}/balances/hold-limit-breach?state=INVALID_STATE
+                  errors:
+                    type: array
+                    description: A list of specific validation failures.
+                    items:
+                      type: object
+                      properties:
+                        detail:
+                          type: string
+                          description: A detailed description of the validation failure.
+                          examples:
+                            - The parameter value is not of the expected type.
+                        code:
+                          type: string
+                          description: A specific code for the validation failure type.
+                          examples:
+                            - parameter_invalid_type_mismatch
+                        ref:
+                          type: string
+                          description: A reference to the field that failed validation.
+                          examples:
+                            - state
+                            - closing_reason
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '403':
+          description: Caller does not have access to the profile.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    format: uri-reference
+                    description: Must be /errors/types/access for this error type
+                    examples:
+                      - /errors/types/access
+                  title:
+                    type: string
+                    description: Forbidden
+                    examples:
+                      - Forbidden
+                  status:
+                    type: string
+                    description: Forbidden error
+                    examples:
+                      - 403
+                  instance:
+                    type: string
+                    description: The uri that triggered the error
+                    examples:
+                      - /v1/profiles/{profileId}/balances/hold-limit-breach
+                  detail:
+                    type: string
+                    description: Detail of the error
+                    example: Unauthorized
+                  code:
+                    type: string
+                    description: Error code of the request
+                    example: forbidden
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '429':
+          $ref: '#/components/responses/429'
+  /v1/profiles/{profileId}/balances/hold-limit-breach/{holdLimitBreachId}:
+    post:
+      tags:
+        - balance
+      summary: Close a hold limit breach
+      operationId: holdLimitBreachClose
+      description: >
+        Closes an open hold limit breach by performing a one-time refund to a
+        specified recipient. The recipient will receive the excess amount that
+        caused the breach.
+
+
+        Only breaches with `state: OPEN` can be closed via this endpoint.
+      security:
+        - UserToken: []
+        - PersonalToken: []
+      parameters:
+        - name: profileId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: The profile ID.
+        - name: holdLimitBreachId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: The hold limit breach ID.
+        - $ref: '#/components/parameters/X-External-Correlation-Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - targetRecipientId
+                - state
+              properties:
+                targetRecipientId:
+                  type: integer
+                  description: >-
+                    ID of the recipient to receive the refund of the excess
+                    funds.
+                  example: 148393305
+                state:
+                  type: string
+                  description: Must be `CLOSED`. This is the only supported value.
+                  example: CLOSED
+      responses:
+        '204':
+          description: Returns 204 No Content on success.
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '400':
+          description: Invalid state used.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    format: uri-reference
+                    description: Must be /errors/types/validation for this error type
+                    examples:
+                      - /errors/types/validation
+                  title:
+                    type: string
+                    description: Validation Error
+                    examples:
+                      - Validation Error
+                  status:
+                    type: string
+                    description: Bad request error
+                    examples:
+                      - 400
+                  instance:
+                    type: string
+                    description: The uri that triggered the error
+                    examples:
+                      - >-
+                        /v1/profiles/{profileId}/balances/hold-limit-breach?state=INVALID_STATE
+                  errors:
+                    type: array
+                    description: A list of specific validation failures.
+                    items:
+                      type: object
+                      properties:
+                        detail:
+                          type: string
+                          description: A detailed description of the validation failure.
+                          examples:
+                            - Only state CLOSED is supported
+                        code:
+                          type: string
+                          description: A specific code for the validation failure type.
+                          examples:
+                            - invalid_value
+                        ref:
+                          type: string
+                          description: A reference to the field that failed validation.
+                          examples:
+                            - state
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '403':
+          description: >-
+            Caller attempts to close a holdLimitBreach that does not belong to
+            them.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    format: uri-reference
+                    description: Must be /errors/types/access for this error type
+                    examples:
+                      - /errors/types/access
+                  title:
+                    type: string
+                    description: Forbidden
+                    examples:
+                      - Forbidden
+                  status:
+                    type: string
+                    description: Forbidden error
+                    examples:
+                      - 403
+                  instance:
+                    type: string
+                    description: The uri that triggered the error
+                    examples:
+                      - >-
+                        /v1/profiles/{profileId}/balances/hold-limit-breach/{holdLimitBreachId}
+                  detail:
+                    type: string
+                    description: Detail of the error
+                    example: >-
+                      Hold limit breach {holdLimitBreachId} does not belong to
+                      profile {profileId}
+                  code:
+                    type: string
+                    description: Error code of the request
+                    example: forbidden
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '404':
+          description: Caller attempts to close a holdLimitBreach that does not exist.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    format: uri-reference
+                    description: Must be /errors/types/validation for this error type
+                    examples:
+                      - /errors/types/validation
+                  title:
+                    type: string
+                    description: Validation Error
+                    examples:
+                      - Validation Error
+                  status:
+                    type: string
+                    description: Validation error
+                    examples:
+                      - 404
+                  instance:
+                    type: string
+                    description: The uri that triggered the error
+                    examples:
+                      - >-
+                        /v1/profiles/{profileId}/balances/hold-limit-breach/{holdLimitBreachId}
+                  detail:
+                    type: string
+                    description: Detail of the error
+                    example: 'Hold limit breach not found: 123'
+                  code:
+                    type: string
+                    description: Error code of the request
+                    example: not_found
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '429':
+          $ref: '#/components/responses/429'
   /v1/profiles/{profileId}/balance-statements/{balanceId}/statement.json:
     get:
       tags:
@@ -10071,17 +10432,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/kyc-review'
-              example:
-                id: 46e1a5c4-4a9b-4563-39d3-18174d3ac0f8
-                createdAt: '2024-09-03T16:22:02.257725'
-                updatedAt: '2024-09-03T16:22:02.257725'
-                requiredBy: '2024-09-03T16:22:02.257725'
-                status: NEW
-                triggerReferences:
-                  - type: QUOTE
-                    triggerData:
-                      id: ba83a43a-f623-46f0-956d-196c13e2ab01
-                redirectUrl: null
           headers:
             X-External-Correlation-Id:
               $ref: '#/components/headers/X-External-Correlation-Id'
@@ -15935,42 +16285,6 @@ paths:
                   addressFirstLine: 125 Fake St
                   postCode: FK 12545
                   ownershipPercentage: 70
-          headers:
-            X-External-Correlation-Id:
-              $ref: '#/components/headers/X-External-Correlation-Id'
-            x-trace-id:
-              $ref: '#/components/headers/x-trace-id'
-        '429':
-          $ref: '#/components/responses/429'
-  /v3/profiles/{profileId}/trusted-verification:
-    delete:
-      operationId: profileTrustedVerificationRemove
-      summary: Remove trusted verification
-      description: >
-        This endpoint allows partners to remove the verification that was given
-        to the profile through them creating the profile. This does not delete a
-        profile nor archive it, it simply removes the trusted verification from
-        that partner.
-
-
-        Note that this uses a `client-credentials-token` and not a user
-        `access_token` for authentication.
-      tags:
-        - profile
-      security:
-        - ClientCredentialsToken: []
-      parameters:
-        - name: profileId
-          in: path
-          required: true
-          description: Profile ID.
-          schema:
-            type: integer
-            format: int64
-        - $ref: '#/components/parameters/X-External-Correlation-Id'
-      responses:
-        '204':
-          description: No Content.
           headers:
             X-External-Correlation-Id:
               $ref: '#/components/headers/X-External-Correlation-Id'
@@ -26171,6 +26485,65 @@ components:
           type: boolean
           description: Whether the balance is visible to the user.
           example: true
+    HoldLimitBreach:
+      type: object
+      x-tags:
+        - balance
+      description: Represents a hold limit breach.
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Hold limit breach ID.
+          example: 200001
+        profileId:
+          type: integer
+          format: int64
+          description: ID of the profile that owns the hold limit breach
+          example: 123456
+        amount:
+          type: number
+          description: Amount value.
+          example: 310.86
+        currency:
+          type: string
+          description: Currency code (ISO 4217 Alphabetic Code).
+          example: EUR
+        state:
+          type: string
+          description: Current state of the hold limit breach.
+          enum:
+            - OPEN
+            - CLOSED
+          x-enumDescriptions:
+            OPEN: Hold limit breach is open and needs to be resolved.
+            CLOSED: Hold limit breach is closed and resolved.
+          example: OPEN
+        closingReason:
+          type: string
+          description: Reason the breach was closed, null if state is `OPEN`.
+          enum:
+            - AUTOMATICALLY_RESOLVED
+            - MANUALLY_RESOLVED
+          x-enumDescriptions:
+            AUTOMATICALLY_RESOLVED: >-
+              The breach was resolved automatically after the customer withdrew
+              funds and the balance dropped below the hold limit.
+            MANUALLY_RESOLVED: >-
+              The breach was closed by calling the [Close Hold Limit
+              Breach](/api-reference/balance/holdlimitbreachclose) endpoint with
+              a specified recipient.
+          example: AUTOMATICALLY_RESOLVED
+        createdAt:
+          type: string
+          format: date-time
+          description: Date when the hold limit breach was created.
+          example: '2020-05-20T14:43:16.658Z'
+        updatedAt:
+          type: string
+          format: date-time
+          description: Date when the hold limit breach was last modified.
+          example: '2020-05-20T14:43:16.658Z'
     BankAccountDetails:
       type: object
       title: Bank Account Details
@@ -28804,7 +29177,9 @@ components:
             call.
           example: https://example.com
         requirements:
-          type: array
+          type:
+            - array
+            - 'null'
           description: >
             Nested list of KYC Requirement objects in `[[KycRequirement]]`
             format, where each inner list represents a combination of possible
