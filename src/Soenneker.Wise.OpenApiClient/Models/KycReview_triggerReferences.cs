@@ -23,7 +23,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public global::Soenneker.Wise.OpenApiClient.Models.KycReview_triggerReferences_triggerData TriggerData { get; set; }
 #endif
-        /// <summary>Type of the underlying action or process this KYC Review is for. Usually a reference to which product this KYC Review pertains to (like `QUOTE` or `TRANSFER`) or a reference to a KYC process on the profile that isn&apos;t related to a specific product (like `REFRESH_CYCLE` or `REPAPERING`).Currently supported types:- `QUOTE`- `TRANSFER`- `PROACTIVE_SEND_MONEY`- `ADD_MONEY`- `CARD`- `BANK_ACCOUNT_DETAILS`</summary>
+        /// <summary>Type of the underlying action or process this KYC Review is for. Usually a reference to which product this KYC Review pertains to (like `QUOTE` or `TRANSFER`) or a reference to a KYC process on the profile that isn&apos;t related to a specific product (like `REFRESH_CYCLE` or `REPAPERING`).Currently supported types:- `QUOTE`- `TRANSFER`- `PROACTIVE_SEND_MONEY`- `ADD_MONEY`- `CARD`- `BANK_ACCOUNT_DETAILS`- `INFO_REQUEST`</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Type { get; set; }

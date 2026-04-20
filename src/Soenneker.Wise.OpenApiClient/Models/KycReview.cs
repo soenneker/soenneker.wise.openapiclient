@@ -7,10 +7,11 @@ using System.IO;
 using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
+    /// <summary>
+    /// The return object of most KYC Review endpoints, which includes information about the given KYC Review such as status, trigger references, and a list of [KYC Requirements](api-reference/kyc-review/kyc-requirement).
+    /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    #pragma warning disable CS1591
     public partial class KycReview : IAdditionalDataHolder, IParsable
-    #pragma warning restore CS1591
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
@@ -36,7 +37,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #endif
         /// <summary>Timestamp by which the underlying requirement set needs to be verified to not block the customer. Only relevant if the status is `PASSED_WITH_REQUIREMENTS`.</summary>
         public DateTimeOffset? RequiredBy { get; set; }
-        /// <summary>Nested list of KYC Requirement objects in `[[KycRequirement]]` format, where each inner list represents a combination of possible requirements to be provided. To fulfil the whole KYC Review, at least one item from each inner list should be provided.For example, if the requirements are `[[a, b], [c, d]]` then it should be read as `(a or b) and (c or d)`.</summary>
+        /// <summary>Nested list of [KYC Requirement](api-reference/kyc-review/kyc-requirement) objects in `[[Requirement]]` format, where each inner list represents a combination of possible requirements to be provided. To fulfil the whole KYC Review, at least one item from each inner list should be provided.For example, if the requirements are `[[a, b], [c, d]]` then it should be read as `(a or b) and (c or d)`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public UntypedNode? Requirements { get; set; }
