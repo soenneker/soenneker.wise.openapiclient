@@ -1080,15 +1080,6 @@ tags:
   - name: one-time-token
     x-displayName: One Time Token
     description: >
-      {% admonition type="warning" %}
-
-      These endpoints are deprecated. Please refer to [Strong Customer
-      Authentication](/api-reference/strong-customer-authentication) to
-      integrate with SCA.
-
-      {% /admonition %}
-
-
       Represents a list of challenges that a user needs to clear in order to
       access protected resources. Commonly used for [Strong Customer
       Authentication & 2FA](/guides/developer/auth-and-security/sca-and-2fa.md).
