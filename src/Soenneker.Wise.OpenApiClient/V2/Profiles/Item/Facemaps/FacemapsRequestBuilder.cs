@@ -40,7 +40,7 @@ namespace Soenneker.Wise.OpenApiClient.V2.Profiles.Item.Facemaps
         {
         }
         /// <summary>
-        /// Deletes a facemap associated to a profile.To update a facemap for a profile, use this endpoint followed by [Create a facemap](/api-reference/strong-customer-authentication/scafacemapcreate).{% admonition type=&quot;warning&quot; %}This operation is irreversible.{% /admonition %}
+        /// Deletes a facemap associated to a profile.To update a facemap for a profile, use this endpoint followed by [Create a facemap](/api-reference/sca-facemaps/scafacemapcreate).{% admonition type=&quot;warning&quot; %}This operation is irreversible.{% /admonition %}
         /// </summary>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
@@ -86,7 +86,7 @@ namespace Soenneker.Wise.OpenApiClient.V2.Profiles.Item.Facemaps
             await RequestAdapter.SendNoContentAsync(requestInfo, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Deletes a facemap associated to a profile.To update a facemap for a profile, use this endpoint followed by [Create a facemap](/api-reference/strong-customer-authentication/scafacemapcreate).{% admonition type=&quot;warning&quot; %}This operation is irreversible.{% /admonition %}
+        /// Deletes a facemap associated to a profile.To update a facemap for a profile, use this endpoint followed by [Create a facemap](/api-reference/sca-facemaps/scafacemapcreate).{% admonition type=&quot;warning&quot; %}This operation is irreversible.{% /admonition %}
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>

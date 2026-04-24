@@ -40,7 +40,7 @@ namespace Soenneker.Wise.OpenApiClient.V2.Profiles.Item.Pin
         {
         }
         /// <summary>
-        /// Deletes a PIN associated to a profile.To update a PIN for a profile, use this endpoint followed by [Create a PIN](/api-reference/strong-customer-authentication/scapincreate).{% admonition type=&quot;warning&quot; %}This operation is irreversible.{% /admonition %}
+        /// Deletes a PIN associated to a profile.To update a PIN for a profile, use this endpoint followed by [Create a PIN](/api-reference/sca-pin/scapincreate).{% admonition type=&quot;warning&quot; %}This operation is irreversible.{% /admonition %}
         /// </summary>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
@@ -87,7 +87,7 @@ namespace Soenneker.Wise.OpenApiClient.V2.Profiles.Item.Pin
             return await RequestAdapter.SendPrimitiveAsync<Stream>(requestInfo, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Deletes a PIN associated to a profile.To update a PIN for a profile, use this endpoint followed by [Create a PIN](/api-reference/strong-customer-authentication/scapincreate).{% admonition type=&quot;warning&quot; %}This operation is irreversible.{% /admonition %}
+        /// Deletes a PIN associated to a profile.To update a PIN for a profile, use this endpoint followed by [Create a PIN](/api-reference/sca-pin/scapincreate).{% admonition type=&quot;warning&quot; %}This operation is irreversible.{% /admonition %}
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>

@@ -34,13 +34,14 @@ namespace Soenneker.Wise.OpenApiClient.V1.User.PartnerDeviceFingerprints
         {
         }
         /// <summary>
-        /// A device fingerprint represents a string that identifies a unique device.This endpoint is used to register the fingerprint of the device as one of the allowed devices used during an One Time Token (OTT) challenge.This can be used to [verify device fingerprint](/api-reference/one-time-token/ottdevicefingerprintverify) when clearing a [OTT](/api-reference/one-time-token).The request and response are encrypted using the JOSE framework. Please refer to the [JOSE JWE guide](/guides/developer/auth-and-security/jose-jwe) to understand how encryption and decryption work.
+        /// A device fingerprint represents a string that identifies a unique device.This endpoint is used to register the fingerprint of the device as one of the allowed devices used during an One Time Token (OTT) challenge.This can be used to [verify device fingerprint](/api-reference/sca-device-fingerprints/ottdevicefingerprintverify) when clearing a [OTT](/api-reference/sca-ott).The request and response are encrypted using the JOSE framework. Please refer to the [JOSE JWE guide](/guides/developer/auth-and-security/jose-jwe) to understand how encryption and decryption work.
         /// </summary>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.User.PartnerDeviceFingerprints.PartnerDeviceFingerprintsPostResponse"/></returns>
         /// <param name="body">A JWE encrypted string. The decrypted payload contains:- `deviceFingerprint` — A string value used as a device fingerprint.Payload before encryption:```json{&quot;deviceFingerprint&quot;: &quot;3207da22-a0d3-4b6b-a591-6297e646fe32&quot;}```</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.PartnerDeviceFingerprints429Error">When receiving a 429 status code</exception>
+        [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::Soenneker.Wise.OpenApiClient.V1.User.PartnerDeviceFingerprints.PartnerDeviceFingerprintsPostResponse?> PostAsync(string body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -59,11 +60,12 @@ namespace Soenneker.Wise.OpenApiClient.V1.User.PartnerDeviceFingerprints
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.User.PartnerDeviceFingerprints.PartnerDeviceFingerprintsPostResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.User.PartnerDeviceFingerprints.PartnerDeviceFingerprintsPostResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// A device fingerprint represents a string that identifies a unique device.This endpoint is used to register the fingerprint of the device as one of the allowed devices used during an One Time Token (OTT) challenge.This can be used to [verify device fingerprint](/api-reference/one-time-token/ottdevicefingerprintverify) when clearing a [OTT](/api-reference/one-time-token).The request and response are encrypted using the JOSE framework. Please refer to the [JOSE JWE guide](/guides/developer/auth-and-security/jose-jwe) to understand how encryption and decryption work.
+        /// A device fingerprint represents a string that identifies a unique device.This endpoint is used to register the fingerprint of the device as one of the allowed devices used during an One Time Token (OTT) challenge.This can be used to [verify device fingerprint](/api-reference/sca-device-fingerprints/ottdevicefingerprintverify) when clearing a [OTT](/api-reference/sca-ott).The request and response are encrypted using the JOSE framework. Please refer to the [JOSE JWE guide](/guides/developer/auth-and-security/jose-jwe) to understand how encryption and decryption work.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">A JWE encrypted string. The decrypted payload contains:- `deviceFingerprint` — A string value used as a device fingerprint.Payload before encryption:```json{&quot;deviceFingerprint&quot;: &quot;3207da22-a0d3-4b6b-a591-6297e646fe32&quot;}```</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public RequestInformation ToPostRequestInformation(string body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
@@ -85,6 +87,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.User.PartnerDeviceFingerprints
         /// </summary>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.User.PartnerDeviceFingerprints.PartnerDeviceFingerprintsRequestBuilder"/></returns>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
+        [Obsolete("")]
         public global::Soenneker.Wise.OpenApiClient.V1.User.PartnerDeviceFingerprints.PartnerDeviceFingerprintsRequestBuilder WithUrl(string rawUrl)
         {
             return new global::Soenneker.Wise.OpenApiClient.V1.User.PartnerDeviceFingerprints.PartnerDeviceFingerprintsRequestBuilder(rawUrl, RequestAdapter);

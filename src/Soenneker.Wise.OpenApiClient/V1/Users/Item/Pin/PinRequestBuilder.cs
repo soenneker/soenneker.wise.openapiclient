@@ -40,6 +40,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Users.Item.Pin
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.V1.Users.Item.Pin.Pin404Error">When receiving a 404 status code</exception>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Pin429Error">When receiving a 429 status code</exception>
+        [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task DeleteAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -62,6 +63,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Users.Item.Pin
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public RequestInformation ToDeleteRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
@@ -81,6 +83,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Users.Item.Pin
         /// </summary>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.Users.Item.Pin.PinRequestBuilder"/></returns>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
+        [Obsolete("")]
         public global::Soenneker.Wise.OpenApiClient.V1.Users.Item.Pin.PinRequestBuilder WithUrl(string rawUrl)
         {
             return new global::Soenneker.Wise.OpenApiClient.V1.Users.Item.Pin.PinRequestBuilder(rawUrl, RequestAdapter);

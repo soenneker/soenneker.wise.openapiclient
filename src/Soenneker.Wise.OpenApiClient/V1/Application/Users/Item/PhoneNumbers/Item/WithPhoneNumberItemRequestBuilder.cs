@@ -64,6 +64,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Application.Users.Item.PhoneNumbers.It
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.V1.Application.Users.Item.PhoneNumbers.Item.PhoneNumber422Error">When receiving a 422 status code</exception>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.PhoneNumber429Error">When receiving a 429 status code</exception>
+        [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::Soenneker.Wise.OpenApiClient.Models.PhoneNumber?> PutAsync(global::Soenneker.Wise.OpenApiClient.V1.Application.Users.Item.PhoneNumbers.Item.WithPhoneNumberPutRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -107,6 +108,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Application.Users.Item.PhoneNumbers.It
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public RequestInformation ToPutRequestInformation(global::Soenneker.Wise.OpenApiClient.V1.Application.Users.Item.PhoneNumbers.Item.WithPhoneNumberPutRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)

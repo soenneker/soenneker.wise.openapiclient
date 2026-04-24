@@ -34,7 +34,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Sms.Verify
         {
         }
         /// <summary>
-        /// To clear a **SMS** challenge listed in a OTT.Notes:1. User is required to have a verified phone number. See [create phone number](/api-reference/user-security/usersecurityphonenumbercreate) for more information.2. [Trigger SMS Challenge](/api-reference/one-time-token/ottsmstrigger) is required to be called first.3. Since we won&apos;t be sending real SMS on sandbox, the **OTP Code** will always be **111111**.{% admonition type=&quot;warning&quot; %}The Verify SMS Challenge API is currently in closed Beta and subject to change. Please speak with your implementation manager if you would like to use this API.{% /admonition %}
+        /// To clear a **SMS** challenge listed in a OTT.Notes:1. User is required to have a verified phone number. See [create phone number](/api-reference/sca-otp/usersecurityphonenumbercreate) for more information.2. [Trigger SMS Challenge](/api-reference/sca-otp/ottsmstrigger) is required to be called first.3. Since we won&apos;t be sending real SMS on sandbox, the **OTP Code** will always be **111111**.
         /// </summary>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.OttResponse"/></returns>
         /// <param name="body">The request body</param>
@@ -59,7 +59,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Sms.Verify
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.OttResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.OttResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// To clear a **SMS** challenge listed in a OTT.Notes:1. User is required to have a verified phone number. See [create phone number](/api-reference/user-security/usersecurityphonenumbercreate) for more information.2. [Trigger SMS Challenge](/api-reference/one-time-token/ottsmstrigger) is required to be called first.3. Since we won&apos;t be sending real SMS on sandbox, the **OTP Code** will always be **111111**.{% admonition type=&quot;warning&quot; %}The Verify SMS Challenge API is currently in closed Beta and subject to change. Please speak with your implementation manager if you would like to use this API.{% /admonition %}
+        /// To clear a **SMS** challenge listed in a OTT.Notes:1. User is required to have a verified phone number. See [create phone number](/api-reference/sca-otp/usersecurityphonenumbercreate) for more information.2. [Trigger SMS Challenge](/api-reference/sca-otp/ottsmstrigger) is required to be called first.3. Since we won&apos;t be sending real SMS on sandbox, the **OTP Code** will always be **111111**.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>

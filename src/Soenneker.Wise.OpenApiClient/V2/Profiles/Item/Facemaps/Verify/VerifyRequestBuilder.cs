@@ -34,7 +34,7 @@ namespace Soenneker.Wise.OpenApiClient.V2.Profiles.Item.Facemaps.Verify
         {
         }
         /// <summary>
-        /// Verifies a facemap challenge when calling a SCA-secured endpoint. Make sure to [create a facemap](/api-reference/strong-customer-authentication/scafacemapcreate) before using this endpoint.A facemap should be exported from your FaceTec server using the SDK&apos;s [export API](https://dev.facetec.com/api-guide#export-3d-facemap). Please use Wise&apos;s FaceTec [public key](/api-reference/facetec/facetecpublickeyget) to encrypt a facemap during the export process.
+        /// Verifies a facemap challenge when calling a SCA-secured endpoint. Make sure to [create a facemap](/api-reference/sca-facemaps/scafacemapcreate) before using this endpoint.A facemap should be exported from your FaceTec server using the SDK&apos;s [export API](https://dev.facetec.com/api-guide#export-3d-facemap). Please use Wise&apos;s FaceTec [public key](/api-reference/facetec/facetecpublickeyget) to encrypt a facemap during the export process.
         /// </summary>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.OneTimeToken"/></returns>
         /// <param name="body">The request body</param>
@@ -59,7 +59,7 @@ namespace Soenneker.Wise.OpenApiClient.V2.Profiles.Item.Facemaps.Verify
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.OneTimeToken>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.OneTimeToken.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Verifies a facemap challenge when calling a SCA-secured endpoint. Make sure to [create a facemap](/api-reference/strong-customer-authentication/scafacemapcreate) before using this endpoint.A facemap should be exported from your FaceTec server using the SDK&apos;s [export API](https://dev.facetec.com/api-guide#export-3d-facemap). Please use Wise&apos;s FaceTec [public key](/api-reference/facetec/facetecpublickeyget) to encrypt a facemap during the export process.
+        /// Verifies a facemap challenge when calling a SCA-secured endpoint. Make sure to [create a facemap](/api-reference/sca-facemaps/scafacemapcreate) before using this endpoint.A facemap should be exported from your FaceTec server using the SDK&apos;s [export API](https://dev.facetec.com/api-guide#export-3d-facemap). Please use Wise&apos;s FaceTec [public key](/api-reference/facetec/facetecpublickeyget) to encrypt a facemap during the export process.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>

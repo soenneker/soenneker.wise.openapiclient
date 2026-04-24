@@ -34,12 +34,13 @@ namespace Soenneker.Wise.OpenApiClient.V1.User.Pin
         {
         }
         /// <summary>
-        /// Create PIN for a user as a form of authentication.Can be used to [verify pin](/api-reference/one-time-token/ottpinverify) when accessing a strongly protected endpoint via [One Time Token Framework](/api-reference/one-time-token).The request and response are encrypted using the JOSE framework. Please refer to the [JOSE JWE guide](/guides/developer/auth-and-security/jose-jwe) to understand how encryption and decryption work.
+        /// Create PIN for a user as a form of authentication.Can be used to [verify pin](/api-reference/sca-pin/ottpinverify) when accessing a strongly protected endpoint via [One Time Token Framework](/api-reference/sca-ott).The request and response are encrypted using the JOSE framework. Please refer to the [JOSE JWE guide](/guides/developer/auth-and-security/jose-jwe) to understand how encryption and decryption work.
         /// </summary>
         /// <param name="body">A JWE encrypted string. The decrypted payload contains:- `pin` — A four-digit string.Payload before encryption:```json{&quot;pin&quot;: &quot;1234&quot;}```</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Pin429Error">When receiving a 429 status code</exception>
+        [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task PostAsync(string body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -58,11 +59,12 @@ namespace Soenneker.Wise.OpenApiClient.V1.User.Pin
             await RequestAdapter.SendNoContentAsync(requestInfo, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Create PIN for a user as a form of authentication.Can be used to [verify pin](/api-reference/one-time-token/ottpinverify) when accessing a strongly protected endpoint via [One Time Token Framework](/api-reference/one-time-token).The request and response are encrypted using the JOSE framework. Please refer to the [JOSE JWE guide](/guides/developer/auth-and-security/jose-jwe) to understand how encryption and decryption work.
+        /// Create PIN for a user as a form of authentication.Can be used to [verify pin](/api-reference/sca-pin/ottpinverify) when accessing a strongly protected endpoint via [One Time Token Framework](/api-reference/sca-ott).The request and response are encrypted using the JOSE framework. Please refer to the [JOSE JWE guide](/guides/developer/auth-and-security/jose-jwe) to understand how encryption and decryption work.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">A JWE encrypted string. The decrypted payload contains:- `pin` — A four-digit string.Payload before encryption:```json{&quot;pin&quot;: &quot;1234&quot;}```</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public RequestInformation ToPostRequestInformation(string body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
@@ -84,6 +86,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.User.Pin
         /// </summary>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.User.Pin.PinRequestBuilder"/></returns>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
+        [Obsolete("")]
         public global::Soenneker.Wise.OpenApiClient.V1.User.Pin.PinRequestBuilder WithUrl(string rawUrl)
         {
             return new global::Soenneker.Wise.OpenApiClient.V1.User.Pin.PinRequestBuilder(rawUrl, RequestAdapter);

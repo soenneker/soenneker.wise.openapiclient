@@ -34,7 +34,7 @@ namespace Soenneker.Wise.OpenApiClient.V2.Profiles.Item.DeviceFingerprints.Verif
         {
         }
         /// <summary>
-        /// Verifies a device fingerprint challenge when calling a SCA-secured endpoint. Make sure to [create a device fingerprint](/api-reference/strong-customer-authentication/scadevicefingerprintcreate) before using this endpoint.The request and response are encrypted using the JOSE framework. Please refer to the [SCA over API guide](/guides/developer/auth-and-security/sca-over-api) to understand how encryption and decryption work.
+        /// Verifies a device fingerprint challenge when calling a SCA-secured endpoint. Make sure to [create a device fingerprint](/api-reference/sca-device-fingerprints/scadevicefingerprintcreate) before using this endpoint.The request and response are encrypted using the JOSE framework. Please refer to the [SCA over API guide](/guides/developer/auth-and-security/sca-over-api) to understand how encryption and decryption work.
         /// </summary>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.OneTimeToken"/></returns>
         /// <param name="body">A JWE encrypted string. The decrypted payload contains:- `deviceFingerprint` — A device fingerprint value.Payload before encryption:```json{&quot;deviceFingerprint&quot;: &quot;3207da22-a0d3-4b6b-a591-6297e646fe32&quot;}```</param>
@@ -59,7 +59,7 @@ namespace Soenneker.Wise.OpenApiClient.V2.Profiles.Item.DeviceFingerprints.Verif
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.OneTimeToken>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.OneTimeToken.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Verifies a device fingerprint challenge when calling a SCA-secured endpoint. Make sure to [create a device fingerprint](/api-reference/strong-customer-authentication/scadevicefingerprintcreate) before using this endpoint.The request and response are encrypted using the JOSE framework. Please refer to the [SCA over API guide](/guides/developer/auth-and-security/sca-over-api) to understand how encryption and decryption work.
+        /// Verifies a device fingerprint challenge when calling a SCA-secured endpoint. Make sure to [create a device fingerprint](/api-reference/sca-device-fingerprints/scadevicefingerprintcreate) before using this endpoint.The request and response are encrypted using the JOSE framework. Please refer to the [SCA over API guide](/guides/developer/auth-and-security/sca-over-api) to understand how encryption and decryption work.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">A JWE encrypted string. The decrypted payload contains:- `deviceFingerprint` — A device fingerprint value.Payload before encryption:```json{&quot;deviceFingerprint&quot;: &quot;3207da22-a0d3-4b6b-a591-6297e646fe32&quot;}```</param>

@@ -34,7 +34,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Identity.OneTimeToken.Status
         {
         }
         /// <summary>
-        /// {% admonition type=&quot;warning&quot; %}This endpoint is deprecated. Use the [new endpoint](/api-reference/one-time-token/ottstatusget) to get status of a one time token instead.{% /admonition %}Retrieve necessary information to clear a OTT.
+        /// {% admonition type=&quot;warning&quot; %}This endpoint is deprecated. Use the [new endpoint](/api-reference/sca-ott/ottstatusget) to get status of a one time token instead.{% /admonition %}Retrieve necessary information to clear a OTT.
         /// </summary>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.OttResponse"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
@@ -58,7 +58,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Identity.OneTimeToken.Status
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.OttResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.OttResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// {% admonition type=&quot;warning&quot; %}This endpoint is deprecated. Use the [new endpoint](/api-reference/one-time-token/ottstatusget) to get status of a one time token instead.{% /admonition %}Retrieve necessary information to clear a OTT.
+        /// {% admonition type=&quot;warning&quot; %}This endpoint is deprecated. Use the [new endpoint](/api-reference/sca-ott/ottstatusget) to get status of a one time token instead.{% /admonition %}Retrieve necessary information to clear a OTT.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>

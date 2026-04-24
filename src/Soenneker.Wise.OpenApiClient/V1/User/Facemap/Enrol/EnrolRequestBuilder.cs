@@ -34,12 +34,13 @@ namespace Soenneker.Wise.OpenApiClient.V1.User.Facemap.Enrol
         {
         }
         /// <summary>
-        /// Facial biometric enrolment for Strong Customer Authentication (SCA).Can be used to [verify facemap](/api-reference/one-time-token/ottfacemapverify) when accessing a strongly protected endpoint via [One Time Token Framework](/api-reference/one-time-token).
+        /// Facial biometric enrolment for Strong Customer Authentication (SCA).Can be used to [verify facemap](/api-reference/sca-facemaps/ottfacemapverify) when accessing a strongly protected endpoint via [One Time Token Framework](/api-reference/sca-ott).
         /// </summary>
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Enrol429Error">When receiving a 429 status code</exception>
+        [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task PostAsync(global::Soenneker.Wise.OpenApiClient.V1.User.Facemap.Enrol.EnrolPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -58,11 +59,12 @@ namespace Soenneker.Wise.OpenApiClient.V1.User.Facemap.Enrol
             await RequestAdapter.SendNoContentAsync(requestInfo, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Facial biometric enrolment for Strong Customer Authentication (SCA).Can be used to [verify facemap](/api-reference/one-time-token/ottfacemapverify) when accessing a strongly protected endpoint via [One Time Token Framework](/api-reference/one-time-token).
+        /// Facial biometric enrolment for Strong Customer Authentication (SCA).Can be used to [verify facemap](/api-reference/sca-facemaps/ottfacemapverify) when accessing a strongly protected endpoint via [One Time Token Framework](/api-reference/sca-ott).
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.V1.User.Facemap.Enrol.EnrolPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
@@ -84,6 +86,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.User.Facemap.Enrol
         /// </summary>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.User.Facemap.Enrol.EnrolRequestBuilder"/></returns>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
+        [Obsolete("")]
         public global::Soenneker.Wise.OpenApiClient.V1.User.Facemap.Enrol.EnrolRequestBuilder WithUrl(string rawUrl)
         {
             return new global::Soenneker.Wise.OpenApiClient.V1.User.Facemap.Enrol.EnrolRequestBuilder(rawUrl, RequestAdapter);

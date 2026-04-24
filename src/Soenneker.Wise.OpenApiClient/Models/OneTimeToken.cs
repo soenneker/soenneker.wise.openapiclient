@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// A one-time token is generated when accessing an endpoint secured by SCA. This token includes a list of all available challenges to complete.You can use the [OTT status endpoint](/api-reference/one-time-token/ottstatusget) to view challenges and their statuses, or use [create SCA session](/api-reference/strong-customer-authentication/scasessioncreate) to manually trigger SCA and return a one-time token.At least two challenges must be completed to access an SCA-secured endpoint. For low-risk operations, access is valid for 5 minutes before the one-time token expires.
+    /// A one-time token is generated when accessing an endpoint secured by SCA. This token includes a list of all available challenges to complete.You can use the [OTT status endpoint](/api-reference/sca-ott/ottstatusget) to view challenges and their statuses, or use [create SCA session](/api-reference/sca-sessions/scasessioncreate) to manually trigger SCA and return a one-time token.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class OneTimeToken : IAdditionalDataHolder, IParsable

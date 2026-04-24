@@ -41,6 +41,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Pin.Verify
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Verify429Error">When receiving a 429 status code</exception>
+        [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<string?> PostAsync(string body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -64,6 +65,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Pin.Verify
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">JWE-encrypted string. The payload before encryption should contain a `pin` field.Original payload:```json{&quot;pin&quot;: &quot;1234&quot;}```Encoded (JWE):```eyJlbmMiOiJBMjU2R0NNIiwi...```</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public RequestInformation ToPostRequestInformation(string body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
@@ -85,6 +87,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Pin.Verify
         /// </summary>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Pin.Verify.VerifyRequestBuilder"/></returns>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
+        [Obsolete("")]
         public global::Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Pin.Verify.VerifyRequestBuilder WithUrl(string rawUrl)
         {
             return new global::Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Pin.Verify.VerifyRequestBuilder(rawUrl, RequestAdapter);

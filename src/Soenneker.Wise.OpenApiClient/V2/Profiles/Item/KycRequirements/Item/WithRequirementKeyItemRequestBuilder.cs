@@ -34,7 +34,7 @@ namespace Soenneker.Wise.OpenApiClient.V2.Profiles.Item.KycRequirements.Item
         {
         }
         /// <summary>
-        /// {% admonition type=&quot;warning&quot; %}This functionality is in a closed BETA.{% /admonition %}Submit a KYC requirement for a KYC Review.- A KYC requirement can only be submitted if the KYC Review status is `WAITING_CUSTOMER_INPUT`.- A KYC requirement should only be submitted if its `state` is `NOT_PROVIDED` and `apiCollectionSupported` is `true`.See the [KYC requirement types](/guides/product/kyc/wise-kyc/kyc-requirement-types) guide for the full list of supported requirement types, submission data structures, and accepted values.
+        /// Submit a KYC requirement for a KYC Review.- A KYC requirement can only be submitted if the KYC Review status is `WAITING_CUSTOMER_INPUT` or `PASSED_WITH_REQUIREMENTS`.- A KYC requirement should only be submitted if its `state` is `NOT_PROVIDED` and `apiCollectionSupported` is `true`.See the [KYC requirement types](/guides/product/kyc/wise-kyc/kyc-requirement-types) guide for the full list of supported requirement types, submission data structures, and accepted values.
         /// </summary>
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
@@ -60,7 +60,7 @@ namespace Soenneker.Wise.OpenApiClient.V2.Profiles.Item.KycRequirements.Item
             await RequestAdapter.SendNoContentAsync(requestInfo, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// {% admonition type=&quot;warning&quot; %}This functionality is in a closed BETA.{% /admonition %}Submit a KYC requirement for a KYC Review.- A KYC requirement can only be submitted if the KYC Review status is `WAITING_CUSTOMER_INPUT`.- A KYC requirement should only be submitted if its `state` is `NOT_PROVIDED` and `apiCollectionSupported` is `true`.See the [KYC requirement types](/guides/product/kyc/wise-kyc/kyc-requirement-types) guide for the full list of supported requirement types, submission data structures, and accepted values.
+        /// Submit a KYC requirement for a KYC Review.- A KYC requirement can only be submitted if the KYC Review status is `WAITING_CUSTOMER_INPUT` or `PASSED_WITH_REQUIREMENTS`.- A KYC requirement should only be submitted if its `state` is `NOT_PROVIDED` and `apiCollectionSupported` is `true`.See the [KYC requirement types](/guides/product/kyc/wise-kyc/kyc-requirement-types) guide for the full list of supported requirement types, submission data structures, and accepted values.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>

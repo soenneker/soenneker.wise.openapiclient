@@ -34,7 +34,7 @@ namespace Soenneker.Wise.OpenApiClient.V2.Profiles.Item.Pin.Verify
         {
         }
         /// <summary>
-        /// Verifies a PIN challenge when calling a SCA-secured endpoint. Make sure to [create a PIN](/api-reference/strong-customer-authentication/scapincreate) before using this endpoint.The request and response are encrypted using the JOSE framework. Please refer to the [SCA over API guide](/guides/developer/auth-and-security/sca-over-api) to understand how encryption and decryption work.
+        /// Verifies a PIN challenge when calling a SCA-secured endpoint. Make sure to [create a PIN](/api-reference/sca-pin/scapincreate) before using this endpoint.The request and response are encrypted using the JOSE framework. Please refer to the [SCA over API guide](/guides/developer/auth-and-security/sca-over-api) to understand how encryption and decryption work.
         /// </summary>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.OneTimeToken"/></returns>
         /// <param name="body">A JWE encrypted string. The decrypted payload contains:- `pin` — A four-digit string.Payload before encryption:```json{&quot;pin&quot;: &quot;1234&quot;}```</param>
@@ -59,7 +59,7 @@ namespace Soenneker.Wise.OpenApiClient.V2.Profiles.Item.Pin.Verify
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.OneTimeToken>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.OneTimeToken.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Verifies a PIN challenge when calling a SCA-secured endpoint. Make sure to [create a PIN](/api-reference/strong-customer-authentication/scapincreate) before using this endpoint.The request and response are encrypted using the JOSE framework. Please refer to the [SCA over API guide](/guides/developer/auth-and-security/sca-over-api) to understand how encryption and decryption work.
+        /// Verifies a PIN challenge when calling a SCA-secured endpoint. Make sure to [create a PIN](/api-reference/sca-pin/scapincreate) before using this endpoint.The request and response are encrypted using the JOSE framework. Please refer to the [SCA over API guide](/guides/developer/auth-and-security/sca-over-api) to understand how encryption and decryption work.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">A JWE encrypted string. The decrypted payload contains:- `pin` — A four-digit string.Payload before encryption:```json{&quot;pin&quot;: &quot;1234&quot;}```</param>

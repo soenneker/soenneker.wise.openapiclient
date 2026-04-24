@@ -70,7 +70,7 @@ tags:
     description: |
       Activity represents a snapshot of a performed action for a profile.
   - name: verification
-    x-displayName: Additional Customer Verification
+    x-displayName: Additional Verification
     description: >
       In certain situations, additional evidence is required to verify customers
       and ensure we’re compliant with the KYC regulations.
@@ -104,7 +104,7 @@ tags:
 
       instructions on how to use these APIs.
   - name: address
-    x-displayName: Address
+    x-displayName: Addresses
     description: >
       Manage physical addresses associated with user profiles.
 
@@ -113,7 +113,7 @@ tags:
       endpoints to dynamically discover which fields are needed before creating
       an address.
   - name: balance
-    x-displayName: Balance
+    x-displayName: Balances
     description: >
       Create and manage balance accounts within a multi-currency account.
 
@@ -132,7 +132,7 @@ tags:
       For a complete guide on multi-currency accounts, see [Multi-Currency
       Accounts](/guides/product/accounts).
   - name: balance-statement
-    x-displayName: Balance Statement
+    x-displayName: Balance Statements
     description: >
       Balance statements contain transactional activities on a Wise
       Multi-Currency Account, including deposits, withdrawals, conversions, card
@@ -154,7 +154,7 @@ tags:
       details can be ordered for currencies where they're available but not yet
       issued.
   - name: batch-group
-    x-displayName: Batch Group
+    x-displayName: Batch Payment Groups
     description: >
       A batch group is a named collection of up to 1000 transfers that can be
       managed as a single unit. Batch groups are primarily used for funding
@@ -187,11 +187,11 @@ tags:
       settled, along with the settlement reference that matches your bank
       transfer payment.
   - name: card
-    x-displayName: Card
-    description: >
+    x-displayName: Cards
+    description: >-
       Manage your customers' cards programmatically. These APIs allow you to
-      retrieve card details, control card status, manage spending permissions,
-      and access sensitive card data securely.
+      list cards, retrieve card details, control card status, and manage
+      spending permissions.
 
 
       **Key capabilities:**
@@ -200,25 +200,47 @@ tags:
 
       - Update card status (active, frozen, blocked)
 
-      - Control spending permissions (e-commerce, ATM, contactless, etc.)
+      - Control spending permissions (e-commerce, ATM, contactless, magnetic
+      stripe, etc.)
 
-      - Access sensitive card data (PAN, CVV, PIN) via encrypted JWE payloads
+      - Reset PIN attempt counter after incorrect PIN entries
 
-
-      **Sensitive card details:** Wise is a PCI DSS compliant provider and
-      stores all card data securely. The scope for PCI compliance depends on
-      your use case and will impact how you integrate. For all sensitive card
-      details endpoints, follow the [detailed
-      guide](/guides/product/issue-cards/sensitive-card-details).
+      - Update card phone number for verification purposes
 
 
       {% admonition type="info" %}
 
-      For ordering new cards, see the [Card Order
-      API](/api-reference/card-order). For transaction history, see the [Card
-      Transaction API](/api-reference/card-transaction).
+      For accessing sensitive card data (PAN, CVV, PIN), see the [Sensitive Card
+      Details API](/api-reference/card-sensitive-details). For ordering new
+      cards, see the [Card Orders API](/api-reference/card-order). For
+      transaction history, see the [Card Transactions
+      API](/api-reference/card-transaction).
 
       {% /admonition %}
+  - name: card-sensitive-details
+    x-displayName: Sensitive Card Details
+    description: >-
+      Wise is a PCI DSS compliant provider and stores all card data securely.
+      The scope for PCI compliance depends on your use case and will impact how
+      you integrate. For all sensitive card details endpoints, follow the
+      [detailed guide](/guides/product/issue-cards/sensitive-card-details).
+
+
+      **Key capabilities:**
+
+      - Access sensitive card data (PAN, CVV, PIN) via encrypted JWE payloads
+
+
+      **Related operations:**
+
+      - For card management (list, status, permissions), see the [Cards
+      API](/api-reference/card)
+
+      - For ordering new cards, see the [Card Orders
+      API](/api-reference/card-order)
+
+      - For transaction history, see the [Card Transaction
+      API](/api-reference/card-transaction)
   - name: card-kiosk-collection
     x-displayName: Card Kiosk Collection
     description: >
@@ -283,7 +305,7 @@ tags:
       ![Card production status
       flow](/images/diagrams/card-production-status-flow.png)
   - name: card-order
-    x-displayName: Card Order
+    x-displayName: Card Orders
     description: >
       With this set of APIs, you will be able to create cards for your
       customers. You can also retrieve and view the status of your current card
@@ -332,7 +354,7 @@ tags:
       ![Card order status state
       machine](/images/diagrams/card-order-status-flow.png)
   - name: card-transaction
-    x-displayName: Card Transaction
+    x-displayName: Card Transactions
     description: >-
       Retrieve information on transactions made on your users' cards.
 
@@ -878,7 +900,7 @@ tags:
 
       [https://wise.com/gb/compare/?sourceCurrency=GBP&targetCurrency=EUR&sendAmount=1000](https://wise.com/gb/compare/?sourceCurrency=GBP&targetCurrency=EUR&sendAmount=1000)
   - name: contact
-    x-displayName: Contact
+    x-displayName: Contacts
     description: >
       Find discoverable Wise profiles and add them to your recipient list using
       an identifier — such as a Wisetag, email, or phone number — without
@@ -1077,77 +1099,6 @@ tags:
       Wise Platform API, requesting a new access token before attempting a
       series of API calls on behalf of an individual user will avoid issues with
       expired access tokens.
-  - name: one-time-token
-    x-displayName: One Time Token
-    description: >
-      Represents a list of challenges that a user needs to clear in order to
-      access protected resources. Commonly used for [Strong Customer
-      Authentication & 2FA](/guides/developer/auth-and-security/sca-and-2fa.md).
-
-
-      Learn from our [guide](/guides/developer/auth-and-security/one-time-token)
-      to understand the One Time Token Framework.
-
-
-      To ease reading in this document, we will use OTT as an abbreviation for
-      one time token.
-
-
-      {% admonition type="info" %}
-
-      We suggest the following method to check if the OTT is ready to access an
-      SCA protected endpoint: iterate through the `challenges` array and look
-      for any challenge that has `required: true` and `passed: false`.
-
-      {% /admonition %}
-
-
-      {% admonition type="warning" %}
-
-      The Verify PIN/FaceMap/Device Fingerprint APIs are currently in closed
-      Beta and subject to change. Please speak with your implementation manager
-      if you would like to use these APIs.
-
-      {% /admonition %}
-
-
-      The Challenge Type resource {% #challenge-type .title-3 .m-t-5 %}
-
-
-      Enumerated string that indicates what sort of challenge user can do to
-      pass the associated OTT.
-
-
-      | Type | Pre-requisite | Trigger | Verify |
-
-      |------|---------------|---------|--------|
-
-      | PIN | [Create Pin](/api-reference/user-security/usersecuritypincreate) |
-      - | [Verify Pin](/api-reference/one-time-token/ottpinverify) |
-
-      | FACE_MAP | [Enrol
-      FaceMap](/api-reference/user-security/usersecurityfacemapenrol) | - |
-      [Verify FaceMap](/api-reference/one-time-token/ottfacemapverify) |
-
-      | SMS | [Create Phone
-      Number](/api-reference/user-security/usersecurityphonenumbercreate) |
-      [Trigger SMS](/api-reference/one-time-token/ottsmstrigger) | [Verify
-      SMS](/api-reference/one-time-token/ottsmsverify) |
-
-      | WHATSAPP | [Create Phone
-      Number](/api-reference/user-security/usersecurityphonenumbercreate) |
-      [Trigger WhatsApp](/api-reference/one-time-token/ottwhatsapptrigger) |
-      [Verify WhatsApp](/api-reference/one-time-token/ottwhatsappverify) |
-
-      | VOICE | [Create Phone
-      Number](/api-reference/user-security/usersecurityphonenumbercreate) |
-      [Trigger Voice](/api-reference/one-time-token/ottvoicetrigger) | [Verify
-      Voice](/api-reference/one-time-token/ottvoiceverify) |
-
-      | PARTNER_DEVICE_FINGERPRINT | [Create Device
-      Fingerprint](/api-reference/user-security/usersecuritydevicefingerprintcreate)
-      | - | [Verify Device
-      Fingerprint](/api-reference/one-time-token/ottdevicefingerprintverify) |
   - name: case
     x-displayName: Partner Cases
     description: >
@@ -1223,7 +1174,7 @@ tags:
       address of the Wise entity that owns the bank account, as sometimes these
       are required to make a payment.
   - name: profile
-    x-displayName: Profile
+    x-displayName: Profiles
     description: >+
       A profile represents an identity that can send and receive money through
       Wise — either a personal profile (an individual) or a business profile (a
@@ -1231,7 +1182,7 @@ tags:
       ID of either profile type.
 
   - name: quote
-    x-displayName: Quote
+    x-displayName: Quotes
     description: >
       The quote resource defines the basic information required for a Wise
       transfer - the currencies to send between, the amount to send and the
@@ -1253,11 +1204,11 @@ tags:
       will be locked for 30 minutes to give a user time to complete the transfer
       creation flow.
   - name: rate
-    x-displayName: Rate
+    x-displayName: Exchange Rates
     description: |
       Current and historical exchange rates by currency routes.
   - name: recipient
-    x-displayName: Recipient Account
+    x-displayName: Recipient Accounts
     description: >
       Recipient or beneficiary is the one who will receive the funds.
 
@@ -1272,7 +1223,7 @@ tags:
 
       {% /admonition %}
   - name: simulation
-    x-displayName: Simulation
+    x-displayName: Simulations
     description: >
       Use these endpoints to simulate key actions in the sandbox environment,
       including transfer state changes, balance top-ups, card transactions, KYC
@@ -1316,24 +1267,29 @@ tags:
       For more details on how profile and card limits interact, see the [card
       management
       guide](/guides/product/issue-cards/card-management#spend-limits).
-  - name: strong-customer-authentication
-    x-displayName: Strong Customer Authentication
+  - name: sca-ott
+    x-displayName: One Time Token
     description: >
-      Strong Customer Authentication (SCA) is a regulatory requirement
-      introduced under the Second Payment Services Directive (PSD2) in the
-      European Economic Area (EEA). It aims to enhance security and reduce fraud
-      risks.
+      One-time tokens are temporary authentication sessions used to track SCA
+      challenges. When an SCA-protected endpoint is called, a one-time token is
+      returned containing the challenges that must be completed.
 
 
-      These endpoints allow your customers to comply with SCA, ensuring seamless
-      integration over API while meeting security requirements. Please read the
-      [SCA over API guide](/guides/developer/auth-and-security/sca-over-api) to
-      understand how SCA integration works.
+      Please read the [SCA over API
+      guide](/guides/developer/auth-and-security/sca-over-api) to understand how
+      SCA integration works.
+  - name: sca-sessions
+    x-displayName: SCA Sessions
+    description: >
+      SCA sessions allow you to manually trigger Strong Customer Authentication,
+      returning a one-time token along with a list of associated challenges.
+      These challenges can be cleared using the verify endpoints for PIN, device
+      fingerprints, and facemaps.
 
 
-      SCA is required for high-risk and low-risk operations. On low-risk
-      operations, clearing SCA once allows a 5-minute window where SCA won't be
-      requested again.
+      Please read the [SCA over API
+      guide](/guides/developer/auth-and-security/sca-over-api) to understand how
+      SCA integration works.
 
 
       {% admonition type="info" %}
@@ -1342,8 +1298,64 @@ tags:
       challenges can be enabled.
 
       {% /admonition %}
+  - name: sca-pin
+    x-displayName: PIN
+    description: >-
+      PIN (Personal Identification Number) is a knowledge-based SCA challenge
+      factor. Users create a 4-digit PIN that can be used to verify their
+      identity when accessing SCA-protected endpoints.
+
+
+      All PIN creation and verification requests use JOSE (JWE) encryption to
+      ensure the PIN is never transmitted in plain text. See the [SCA over API
+      guide](/guides/developer/auth-and-security/sca-and-2fa) for encryption
+      details.
+  - name: sca-device-fingerprints
+    x-displayName: Device Fingerprints
+    description: >-
+      Device fingerprints are possession-based SCA challenge factors. They allow
+      you to verify that a user is accessing the API from a recognized device.
+
+
+      A profile can have up to 3 device fingerprints registered simultaneously.
+      All device fingerprint operations use JOSE (JWE) encryption. See the [SCA
+      over API guide](/guides/developer/auth-and-security/sca-and-2fa) for
+      encryption details.
+  - name: sca-facemaps
+    x-displayName: Facemaps
+    description: >-
+      Facemaps are inherence-based (biometric) SCA challenge factors that use
+      FaceTec's 3D face recognition technology.
+
+
+      Facemaps should be exported from your FaceTec server using their SDK's
+      export API. Use Wise's [FaceTec public
+      key](/api-reference/facetec/facetecpublickeyget) to encrypt the facemap
+      during export.
+  - name: sca-otp
+    x-displayName: OTP
+    description: >
+      For phone-based OTP (one-time password) authentication — where an OTP is a
+      single-use 6-digit code sent to verify the identity of a user — Wise
+      supports multiple delivery methods, including SMS, WhatsApp, and voice.
+      Use Wise's secure endpoint to
+      [create](/api-reference/sca-otp/usersecurityphonenumbercreate) and
+      register the end user's phone number. Then, call the trigger endpoints
+      ([SMS](/api-reference/sca-otp/ottsmstrigger),
+      [WhatsApp](/api-reference/sca-otp/ottwhatsapptrigger),
+      [Voice](/api-reference/sca-otp/ottvoicetrigger)) to send an OTP to the
+      registered number. Finally, submit the OTP via the verify endpoints
+      ([SMS](/api-reference/sca-otp/ottsmsverify),
+      [WhatsApp](/api-reference/sca-otp/ottwhatsappverify),
+      [Voice](/api-reference/sca-otp/ottvoiceverify)) to complete the
+      authentication challenge.
+
+
+      Please read the [SCA over API
+      guide](/guides/developer/auth-and-security/sca-over-api) to understand how
+      SCA integration works.
   - name: transfer
-    x-displayName: Transfer
+    x-displayName: Transfers
     description: >
       A transfer is a payment order to a [recipient
       account](/api-reference/recipient) based on a
@@ -1378,7 +1390,7 @@ tags:
       It includes an additional `originator` data block with details about the
       payment originator.
   - name: user
-    x-displayName: User
+    x-displayName: Users
     description: >
       A User serves as the primary entity and can possess multiple Profiles to
       represent different contexts or settings.
@@ -1402,8 +1414,9 @@ tags:
     description: >
       {% admonition type="warning" %}
 
-      These endpoints are deprecated. Please refer to [Strong Customer
-      Authentication](/api-reference/strong-customer-authentication) to
+      These endpoints are deprecated. Please refer to
+      [PIN](/api-reference/sca-pin), [Facemaps](/api-reference/sca-facemaps),
+      and [Device Fingerprints](/api-reference/sca-device-fingerprints) to
       integrate with SCA.
 
       {% /admonition %}
@@ -1412,7 +1425,7 @@ tags:
       User security allows users to set up security-related protections over the
       API.
   - name: webhook
-    x-displayName: Webhook
+    x-displayName: Subscriptions
     description: >
       Manage webhook subscriptions at both the application and profile level.
       Create, list, retrieve, and delete subscriptions, as well as test your
@@ -1421,6 +1434,84 @@ tags:
 
       For more information on creating and managing webhooks, and specific event
       types, see [Webhooks & Notifications](/guides/developer/webhooks).
+x-tagGroups:
+  - name: Authentication
+    tags:
+      - oauth-token
+  - name: Enhanced Security
+    tags:
+      - jose
+  - name: Users
+    tags:
+      - user
+      - claim-account
+  - name: Profiles
+    tags:
+      - profile
+      - activity
+      - address
+  - name: Verification
+    tags:
+      - kyc-review
+      - verification
+      - facetec
+  - name: Strong Customer Authentication
+    tags:
+      - sca-ott
+      - sca-sessions
+      - sca-pin
+      - sca-facemaps
+      - sca-device-fingerprints
+      - sca-otp
+      - user-security
+  - name: Balances
+    tags:
+      - balance
+      - balance-statement
+      - bank-account-details
+      - multi-currency-account
+  - name: Cards
+    tags:
+      - card
+      - card-sensitive-details
+      - 3ds
+      - card-kiosk-collection
+      - card-order
+      - card-transaction
+      - spend-limits
+      - spend-controls
+      - digital-wallet
+      - disputes
+  - name: Quotes
+    tags:
+      - quote
+      - rate
+      - comparison
+  - name: Recipients
+    tags:
+      - recipient
+      - contact
+  - name: Transfers
+    tags:
+      - transfer
+      - delivery-estimate
+      - currencies
+      - batch-group
+  - name: Funding
+    tags:
+      - payin-deposit-detail
+      - direct-debit-account
+      - bulk-settlement
+      - payins
+  - name: Webhooks
+    tags:
+      - webhook
+  - name: Simulations
+    tags:
+      - simulation
+  - name: Partner Support
+    tags:
+      - case
 paths:
   /v3/spend/profiles/{profileId}/3dsecure/challenge-result:
     post:
@@ -6307,7 +6398,7 @@ paths:
         flow](/guides/product/issue-cards/sensitive-card-details) to create JWE
         (JSON Web Encryption) payloads.
       tags:
-        - card
+        - card-sensitive-details
       servers:
         - url: https://twcard.wise.com
           description: Production Environment
@@ -6369,7 +6460,7 @@ paths:
 
         {% /admonition %}
       tags:
-        - card
+        - card-sensitive-details
       servers:
         - url: https://twcard.wise.com
           description: Production Environment
@@ -6466,7 +6557,7 @@ paths:
 
         {% /admonition %}
       tags:
-        - card
+        - card-sensitive-details
       servers:
         - url: https://twcard.wise.com
           description: Production Environment
@@ -10721,18 +10812,11 @@ paths:
       operationId: kycReviewRequirementSubmit
       summary: Submit a KYC Requirement
       description: >
-        {% admonition type="warning" %}
-
-        This functionality is in a closed BETA.
-
-        {% /admonition %}
-
-
         Submit a KYC requirement for a KYC Review.
 
 
         - A KYC requirement can only be submitted if the KYC Review status is
-        `WAITING_CUSTOMER_INPUT`.
+        `WAITING_CUSTOMER_INPUT` or `PASSED_WITH_REQUIREMENTS`.
 
         - A KYC requirement should only be submitted if its `state` is
         `NOT_PROVIDED` and `apiCollectionSupported` is `true`.
@@ -11806,7 +11890,7 @@ paths:
       description: |
         Retrieve necessary information to clear a OTT.
       tags:
-        - one-time-token
+        - sca-ott
       security:
         - UserToken: []
       parameters:
@@ -11848,6 +11932,7 @@ paths:
           $ref: '#/components/responses/429'
   /v1/one-time-token/pin/verify:
     post:
+      deprecated: true
       operationId: ottPinVerify
       summary: Verify PIN
       description: >
@@ -11867,7 +11952,7 @@ paths:
         2. Rate limit may be applied if there are 5 continuous unsuccessful
         attempts and OTT creation will be blocked for 15 minutes.
       tags:
-        - one-time-token
+        - sca-pin
       security:
         - UserToken: []
       parameters:
@@ -11962,6 +12047,7 @@ paths:
           $ref: '#/components/responses/429'
   /v1/one-time-token/partner-device-fingerprint/verify:
     post:
+      deprecated: true
       operationId: ottDeviceFingerprintVerify
       summary: Verify Device Fingerprint
       description: >
@@ -11981,7 +12067,7 @@ paths:
         2. Rate limit may be applied if there are 5 continuous unsuccessful
         attempts and OTT creation will be blocked for 15 minutes.
       tags:
-        - one-time-token
+        - sca-device-fingerprints
       security:
         - UserToken: []
       parameters:
@@ -12079,6 +12165,7 @@ paths:
           $ref: '#/components/responses/429'
   /v1/one-time-token/facemap/verify:
     post:
+      deprecated: true
       operationId: ottFacemapVerify
       summary: Verify FaceMap
       description: >
@@ -12094,7 +12181,7 @@ paths:
         2. Rate limit may be applied if there are 5 continuous unsuccessful
         attempts and OTT creation will be blocked for 15 minutes.
       tags:
-        - one-time-token
+        - sca-facemaps
       security:
         - UserToken: []
       parameters:
@@ -12146,6 +12233,127 @@ paths:
               $ref: '#/components/headers/x-trace-id'
         '429':
           $ref: '#/components/responses/429'
+  /v1/application/users/{userId}/phone-numbers:
+    get:
+      deprecated: true
+      operationId: userSecurityPhoneNumberList
+      summary: List Phone Numbers
+      description: >
+        List verified phone numbers for a user.
+
+
+        {% admonition type="warning" %}
+
+        This endpoint is restricted and requires both a client credentials token
+        and additional access to use. Please speak with your implementation
+        manager if you would like to use this API.
+
+        {% /admonition %}
+      tags:
+        - user-security
+      security:
+        - ClientCredentialsToken: []
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: User ID.
+          schema:
+            type: integer
+            format: int64
+        - $ref: '#/components/parameters/X-External-Correlation-Id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/phone-number'
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '429':
+          $ref: '#/components/responses/429'
+    post:
+      operationId: userSecurityPhoneNumberCreate
+      summary: Create Phone Number
+      description: >
+        Create a verified phone number for a user.
+
+
+        {% admonition type="warning" %}
+
+        This endpoint is restricted and requires both a client credentials token
+        and additional access to use. Please speak with your implementation
+        manager if you would like to use this API.
+
+        {% /admonition %}
+      tags:
+        - sca-otp
+      security:
+        - ClientCredentialsToken: []
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: User ID.
+          schema:
+            type: integer
+            format: int64
+        - $ref: '#/components/parameters/X-External-Correlation-Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                phoneNumber:
+                  type: string
+                  description: A valid phone number in string.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/phone-number'
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '422':
+          description: The phone number is already associated with another account.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                        message:
+                          type: string
+              example:
+                errors:
+                  - code: phone.number.repeated
+                    message: It's linked to an account with the email ****@wise.com
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '429':
+          $ref: '#/components/responses/429'
   /v1/one-time-token/sms/trigger:
     post:
       operationId: ottSmsTrigger
@@ -12157,18 +12365,9 @@ paths:
 
 
         This **OTP** code can be used to clear a SMS challenge by using the
-        [Verify SMS endpoint](/api-reference/one-time-token/ottsmsverify).
-
-
-        {% admonition type="warning" %}
-
-        The Trigger SMS Challenge API is currently in closed Beta and subject to
-        change. Please speak with your implementation manager if you would like
-        to use this API.
-
-        {% /admonition %}
+        [Verify SMS endpoint](/api-reference/sca-otp/ottsmsverify).
       tags:
-        - one-time-token
+        - sca-otp
       security:
         - UserToken: []
       parameters:
@@ -12212,25 +12411,16 @@ paths:
         Notes:
 
         1. User is required to have a verified phone number. See [create phone
-        number](/api-reference/user-security/usersecurityphonenumbercreate) for
-        more information.
+        number](/api-reference/sca-otp/usersecurityphonenumbercreate) for more
+        information.
 
-        2. [Trigger SMS Challenge](/api-reference/one-time-token/ottsmstrigger)
-        is required to be called first.
+        2. [Trigger SMS Challenge](/api-reference/sca-otp/ottsmstrigger) is
+        required to be called first.
 
         3. Since we won't be sending real SMS on sandbox, the **OTP Code** will
         always be **111111**.
-
-
-        {% admonition type="warning" %}
-
-        The Verify SMS Challenge API is currently in closed Beta and subject to
-        change. Please speak with your implementation manager if you would like
-        to use this API.
-
-        {% /admonition %}
       tags:
-        - one-time-token
+        - sca-otp
       security:
         - UserToken: []
       parameters:
@@ -12283,19 +12473,9 @@ paths:
 
 
         This **OTP** code can be used to clear a WHATSAPP challenge by using the
-        [Verify WhatsApp
-        endpoint](/api-reference/one-time-token/ottwhatsappverify).
-
-
-        {% admonition type="warning" %}
-
-        The Trigger WhatsApp Challenge API is currently in closed Beta and
-        subject to change. Please speak with your implementation manager if you
-        would like to use this API.
-
-        {% /admonition %}
+        [Verify WhatsApp endpoint](/api-reference/sca-otp/ottwhatsappverify).
       tags:
-        - one-time-token
+        - sca-otp
       security:
         - UserToken: []
       parameters:
@@ -12339,26 +12519,17 @@ paths:
         Notes:
 
         1. User is required to have a verified phone number. See [create phone
-        number](/api-reference/user-security/usersecurityphonenumbercreate) for
-        more information.
+        number](/api-reference/sca-otp/usersecurityphonenumbercreate) for more
+        information.
 
         2. [Trigger WhatsApp
-        Challenge](/api-reference/one-time-token/ottwhatsapptrigger) is required
-        to be called first.
+        Challenge](/api-reference/sca-otp/ottwhatsapptrigger) is required to be
+        called first.
 
         3. Since we won't be sending real WhatsApp message on sandbox, the **OTP
         Code** will always be **111111**.
-
-
-        {% admonition type="warning" %}
-
-        The Verify WhatsApp Challenge API is currently in closed Beta and
-        subject to change. Please speak with your implementation manager if you
-        would like to use this API.
-
-        {% /admonition %}
       tags:
-        - one-time-token
+        - sca-otp
       security:
         - UserToken: []
       parameters:
@@ -12410,18 +12581,9 @@ paths:
 
 
         This **OTP** code can be used to clear a VOICE challenge by using the
-        [Verify Voice endpoint](/api-reference/one-time-token/ottvoiceverify).
-
-
-        {% admonition type="warning" %}
-
-        The Trigger Voice Challenge API is currently in closed Beta and subject
-        to change. Please speak with your implementation manager if you would
-        like to use this API.
-
-        {% /admonition %}
+        [Verify Voice endpoint](/api-reference/sca-otp/ottvoiceverify).
       tags:
-        - one-time-token
+        - sca-otp
       security:
         - UserToken: []
       parameters:
@@ -12465,26 +12627,16 @@ paths:
         Notes:
 
         1. User is required to have a verified phone number. See [create phone
-        number](/api-reference/user-security/usersecurityphonenumbercreate) for
-        more information.
+        number](/api-reference/sca-otp/usersecurityphonenumbercreate) for more
+        information.
 
-        2. [Trigger Voice
-        Challenge](/api-reference/one-time-token/ottvoicetrigger) is required to
-        be called first.
+        2. [Trigger Voice Challenge](/api-reference/sca-otp/ottvoicetrigger) is
+        required to be called first.
 
         3. Since we won't be sending real voice message on sandbox, the **OTP
         Code** will always be **111111**.
-
-
-        {% admonition type="warning" %}
-
-        The Verify Voice Challenge API is currently in closed Beta and subject
-        to change. Please speak with your implementation manager if you would
-        like to use this API.
-
-        {% /admonition %}
       tags:
-        - one-time-token
+        - sca-otp
       security:
         - UserToken: []
       parameters:
@@ -12525,6 +12677,135 @@ paths:
               $ref: '#/components/headers/x-trace-id'
         '429':
           $ref: '#/components/responses/429'
+  /v1/application/users/{userId}/phone-numbers/{phoneNumberId}:
+    put:
+      deprecated: true
+      operationId: userSecurityPhoneNumberUpdate
+      summary: Update Phone Number
+      description: >
+        Update a verified phone number for a user.
+
+
+        {% admonition type="warning" %}
+
+        This endpoint is restricted and requires both a client credentials token
+        and additional access to use. Please speak with your implementation
+        manager if you would like to use this API.
+
+        {% /admonition %}
+      tags:
+        - user-security
+      security:
+        - ClientCredentialsToken: []
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: User ID.
+          schema:
+            type: integer
+            format: int64
+        - name: phoneNumberId
+          in: path
+          required: true
+          description: ID of a phone number.
+          schema:
+            type: integer
+            format: int64
+        - $ref: '#/components/parameters/X-External-Correlation-Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                phoneNumber:
+                  type: string
+                  description: A valid phone number in string.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/phone-number'
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '422':
+          description: The phone number is already associated with another account.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                        message:
+                          type: string
+              example:
+                errors:
+                  - code: phone.number.repeated
+                    message: It's linked to an account with the email ****@wise.com
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '429':
+          $ref: '#/components/responses/429'
+    delete:
+      operationId: userSecurityPhoneNumberDelete
+      summary: Delete Phone Number
+      description: >
+        Delete a verified phone number for a user.
+
+
+        {% admonition type="warning" %}
+
+        This endpoint is restricted and requires both a client credentials token
+        and additional access to use. Please speak with your implementation
+        manager if you would like to use this API.
+
+        {% /admonition %}
+      tags:
+        - sca-otp
+      security:
+        - ClientCredentialsToken: []
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: User ID.
+          schema:
+            type: integer
+            format: int64
+        - name: phoneNumberId
+          in: path
+          required: true
+          description: ID of a phone number.
+          schema:
+            type: integer
+            format: int64
+        - $ref: '#/components/parameters/X-External-Correlation-Id'
+      responses:
+        '204':
+          description: No Content.
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '429':
+          $ref: '#/components/responses/429'
   /v1/identity/one-time-token/status:
     get:
       operationId: ottStatusGetV1
@@ -12534,15 +12815,15 @@ paths:
         {% admonition type="warning" %}
 
         This endpoint is deprecated. Use the [new
-        endpoint](/api-reference/one-time-token/ottstatusget) to get status of a
-        one time token instead.
+        endpoint](/api-reference/sca-ott/ottstatusget) to get status of a one
+        time token instead.
 
         {% /admonition %}
 
 
         Retrieve necessary information to clear a OTT.
       tags:
-        - one-time-token
+        - sca-ott
       security:
         - UserToken: []
       parameters:
@@ -21833,7 +22114,7 @@ paths:
         guide](/guides/developer/auth-and-security/sca-over-api) to understand
         how encryption and decryption work.
       tags:
-        - strong-customer-authentication
+        - sca-pin
       security:
         - UserToken: []
       parameters:
@@ -21922,7 +22203,7 @@ paths:
 
 
         To update a PIN for a profile, use this endpoint followed by [Create a
-        PIN](/api-reference/strong-customer-authentication/scapincreate).
+        PIN](/api-reference/sca-pin/scapincreate).
 
 
         {% admonition type="warning" %}
@@ -21931,7 +22212,7 @@ paths:
 
         {% /admonition %}
       tags:
-        - strong-customer-authentication
+        - sca-pin
       security:
         - UserToken: []
       parameters:
@@ -21966,9 +22247,8 @@ paths:
       summary: Verify a PIN
       description: >
         Verifies a PIN challenge when calling a SCA-secured endpoint. Make sure
-        to [create a
-        PIN](/api-reference/strong-customer-authentication/scapincreate) before
-        using this endpoint.
+        to [create a PIN](/api-reference/sca-pin/scapincreate) before using this
+        endpoint.
 
 
         The request and response are encrypted using the JOSE framework. Please
@@ -21976,7 +22256,7 @@ paths:
         guide](/guides/developer/auth-and-security/sca-over-api) to understand
         how encryption and decryption work.
       tags:
-        - strong-customer-authentication
+        - sca-pin
       security:
         - UserToken: []
       parameters:
@@ -22090,7 +22370,7 @@ paths:
         guide](/guides/developer/auth-and-security/sca-over-api) to understand
         how encryption and decryption work.
       tags:
-        - strong-customer-authentication
+        - sca-device-fingerprints
       security:
         - UserToken: []
       parameters:
@@ -22207,7 +22487,7 @@ paths:
       description: >
         Verifies a device fingerprint challenge when calling a SCA-secured
         endpoint. Make sure to [create a device
-        fingerprint](/api-reference/strong-customer-authentication/scadevicefingerprintcreate)
+        fingerprint](/api-reference/sca-device-fingerprints/scadevicefingerprintcreate)
         before using this endpoint.
 
 
@@ -22216,7 +22496,7 @@ paths:
         guide](/guides/developer/auth-and-security/sca-over-api) to understand
         how encryption and decryption work.
       tags:
-        - strong-customer-authentication
+        - sca-device-fingerprints
       security:
         - UserToken: []
       parameters:
@@ -22332,7 +22612,7 @@ paths:
 
         {% /admonition %}
       tags:
-        - strong-customer-authentication
+        - sca-device-fingerprints
       security:
         - UserToken: []
       parameters:
@@ -22383,7 +22663,7 @@ paths:
         key](/api-reference/facetec/facetecpublickeyget) to encrypt the facemap
         during the export process.
       tags:
-        - strong-customer-authentication
+        - sca-facemaps
       security:
         - UserToken: []
       parameters:
@@ -22432,8 +22712,7 @@ paths:
 
 
         To update a facemap for a profile, use this endpoint followed by [Create
-        a
-        facemap](/api-reference/strong-customer-authentication/scafacemapcreate).
+        a facemap](/api-reference/sca-facemaps/scafacemapcreate).
 
 
         {% admonition type="warning" %}
@@ -22442,7 +22721,7 @@ paths:
 
         {% /admonition %}
       tags:
-        - strong-customer-authentication
+        - sca-facemaps
       security:
         - UserToken: []
       parameters:
@@ -22477,8 +22756,7 @@ paths:
       summary: Verify a facemap
       description: >
         Verifies a facemap challenge when calling a SCA-secured endpoint. Make
-        sure to [create a
-        facemap](/api-reference/strong-customer-authentication/scafacemapcreate)
+        sure to [create a facemap](/api-reference/sca-facemaps/scafacemapcreate)
         before using this endpoint.
 
 
@@ -22488,7 +22766,7 @@ paths:
         key](/api-reference/facetec/facetecpublickeyget) to encrypt a facemap
         during the export process.
       tags:
-        - strong-customer-authentication
+        - sca-facemaps
       security:
         - UserToken: []
       parameters:
@@ -22549,7 +22827,7 @@ paths:
         associated challenges. These challenges can be cleared with the verify
         endpoints.
       tags:
-        - strong-customer-authentication
+        - sca-sessions
       security:
         - UserToken: []
       parameters:
@@ -24599,15 +24877,16 @@ paths:
           $ref: '#/components/responses/429'
   /v1/user/pin:
     post:
+      deprecated: true
       operationId: userSecurityPinCreate
       summary: Create PIN
       description: >
         Create PIN for a user as a form of authentication.
 
 
-        Can be used to [verify pin](/api-reference/one-time-token/ottpinverify)
-        when accessing a strongly protected endpoint via [One Time Token
-        Framework](/api-reference/one-time-token).
+        Can be used to [verify pin](/api-reference/sca-pin/ottpinverify) when
+        accessing a strongly protected endpoint via [One Time Token
+        Framework](/api-reference/sca-ott).
 
 
         The request and response are encrypted using the JOSE framework. Please
@@ -24691,6 +24970,7 @@ paths:
           $ref: '#/components/responses/429'
   /v1/users/{userId}/pin:
     delete:
+      deprecated: true
       operationId: userSecurityPinDelete
       summary: Delete PIN
       description: >
@@ -24754,6 +25034,7 @@ paths:
           $ref: '#/components/responses/429'
   /v1/user/facemap/enrol:
     post:
+      deprecated: true
       operationId: userSecurityFacemapEnrol
       summary: Enrol FaceMap
       description: >
@@ -24761,9 +25042,9 @@ paths:
 
 
         Can be used to [verify
-        facemap](/api-reference/one-time-token/ottfacemapverify) when accessing
-        a strongly protected endpoint via [One Time Token
-        Framework](/api-reference/one-time-token).
+        facemap](/api-reference/sca-facemaps/ottfacemapverify) when accessing a
+        strongly protected endpoint via [One Time Token
+        Framework](/api-reference/sca-ott).
       tags:
         - user-security
       security:
@@ -24810,6 +25091,7 @@ paths:
         - $ref: '#/components/parameters/X-External-Correlation-Id'
   /v1/users/{userId}/facemap/enrol:
     delete:
+      deprecated: true
       operationId: userSecurityFacemapDelete
       summary: Delete FaceMap
       description: >
@@ -24873,6 +25155,7 @@ paths:
           $ref: '#/components/responses/429'
   /v1/user/partner-device-fingerprints:
     post:
+      deprecated: true
       operationId: userSecurityDeviceFingerprintCreate
       summary: Create Device Fingerprint
       description: >
@@ -24885,8 +25168,8 @@ paths:
 
 
         This can be used to [verify device
-        fingerprint](/api-reference/one-time-token/ottdevicefingerprintverify)
-        when clearing a [OTT](/api-reference/one-time-token).
+        fingerprint](/api-reference/sca-device-fingerprints/ottdevicefingerprintverify)
+        when clearing a [OTT](/api-reference/sca-ott).
 
 
         The request and response are encrypted using the JOSE framework. Please
@@ -24999,6 +25282,7 @@ paths:
           $ref: '#/components/responses/429'
   /v1/users/{userId}/partner-device-fingerprints:
     get:
+      deprecated: true
       operationId: userSecurityDeviceFingerprintList
       summary: List Device Fingerprints
       description: >
@@ -25062,6 +25346,7 @@ paths:
           $ref: '#/components/responses/429'
   /v1/users/{userId}/partner-device-fingerprints/{deviceFingerprintId}:
     delete:
+      deprecated: true
       operationId: userSecurityDeviceFingerprintDelete
       summary: Delete Device Fingerprint
       description: >
@@ -25105,254 +25390,6 @@ paths:
               $ref: '#/components/headers/x-trace-id'
         '404':
           description: User or deviceFingerprintId is not found.
-          headers:
-            X-External-Correlation-Id:
-              $ref: '#/components/headers/X-External-Correlation-Id'
-            x-trace-id:
-              $ref: '#/components/headers/x-trace-id'
-        '429':
-          $ref: '#/components/responses/429'
-  /v1/application/users/{userId}/phone-numbers:
-    get:
-      operationId: userSecurityPhoneNumberList
-      summary: List Phone Numbers
-      description: >
-        List verified phone numbers for a user.
-
-
-        {% admonition type="warning" %}
-
-        This endpoint is restricted and requires both a client credentials token
-        and additional access to use. Please speak with your implementation
-        manager if you would like to use this API.
-
-        {% /admonition %}
-      tags:
-        - user-security
-      security:
-        - ClientCredentialsToken: []
-      parameters:
-        - name: userId
-          in: path
-          required: true
-          description: User ID.
-          schema:
-            type: integer
-            format: int64
-        - $ref: '#/components/parameters/X-External-Correlation-Id'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/phone-number'
-          headers:
-            X-External-Correlation-Id:
-              $ref: '#/components/headers/X-External-Correlation-Id'
-            x-trace-id:
-              $ref: '#/components/headers/x-trace-id'
-        '429':
-          $ref: '#/components/responses/429'
-    post:
-      operationId: userSecurityPhoneNumberCreate
-      summary: Create Phone Number
-      description: >
-        Create a verified phone number for a user.
-
-
-        {% admonition type="warning" %}
-
-        This endpoint is restricted and requires both a client credentials token
-        and additional access to use. Please speak with your implementation
-        manager if you would like to use this API.
-
-        {% /admonition %}
-      tags:
-        - user-security
-      security:
-        - ClientCredentialsToken: []
-      parameters:
-        - name: userId
-          in: path
-          required: true
-          description: User ID.
-          schema:
-            type: integer
-            format: int64
-        - $ref: '#/components/parameters/X-External-Correlation-Id'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                phoneNumber:
-                  type: string
-                  description: A valid phone number in string.
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/phone-number'
-          headers:
-            X-External-Correlation-Id:
-              $ref: '#/components/headers/X-External-Correlation-Id'
-            x-trace-id:
-              $ref: '#/components/headers/x-trace-id'
-        '422':
-          description: The phone number is already associated with another account.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        code:
-                          type: string
-                        message:
-                          type: string
-              example:
-                errors:
-                  - code: phone.number.repeated
-                    message: It's linked to an account with the email ****@wise.com
-          headers:
-            X-External-Correlation-Id:
-              $ref: '#/components/headers/X-External-Correlation-Id'
-            x-trace-id:
-              $ref: '#/components/headers/x-trace-id'
-        '429':
-          $ref: '#/components/responses/429'
-  /v1/application/users/{userId}/phone-numbers/{phoneNumberId}:
-    put:
-      operationId: userSecurityPhoneNumberUpdate
-      summary: Update Phone Number
-      description: >
-        Update a verified phone number for a user.
-
-
-        {% admonition type="warning" %}
-
-        This endpoint is restricted and requires both a client credentials token
-        and additional access to use. Please speak with your implementation
-        manager if you would like to use this API.
-
-        {% /admonition %}
-      tags:
-        - user-security
-      security:
-        - ClientCredentialsToken: []
-      parameters:
-        - name: userId
-          in: path
-          required: true
-          description: User ID.
-          schema:
-            type: integer
-            format: int64
-        - name: phoneNumberId
-          in: path
-          required: true
-          description: ID of a phone number.
-          schema:
-            type: integer
-            format: int64
-        - $ref: '#/components/parameters/X-External-Correlation-Id'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                phoneNumber:
-                  type: string
-                  description: A valid phone number in string.
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/phone-number'
-          headers:
-            X-External-Correlation-Id:
-              $ref: '#/components/headers/X-External-Correlation-Id'
-            x-trace-id:
-              $ref: '#/components/headers/x-trace-id'
-        '422':
-          description: The phone number is already associated with another account.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        code:
-                          type: string
-                        message:
-                          type: string
-              example:
-                errors:
-                  - code: phone.number.repeated
-                    message: It's linked to an account with the email ****@wise.com
-          headers:
-            X-External-Correlation-Id:
-              $ref: '#/components/headers/X-External-Correlation-Id'
-            x-trace-id:
-              $ref: '#/components/headers/x-trace-id'
-        '429':
-          $ref: '#/components/responses/429'
-    delete:
-      operationId: userSecurityPhoneNumberDelete
-      summary: Delete Phone Number
-      description: >
-        Delete a verified phone number for a user.
-
-
-        {% admonition type="warning" %}
-
-        This endpoint is restricted and requires both a client credentials token
-        and additional access to use. Please speak with your implementation
-        manager if you would like to use this API.
-
-        {% /admonition %}
-      tags:
-        - user-security
-      security:
-        - ClientCredentialsToken: []
-      parameters:
-        - name: userId
-          in: path
-          required: true
-          description: User ID.
-          schema:
-            type: integer
-            format: int64
-        - name: phoneNumberId
-          in: path
-          required: true
-          description: ID of a phone number.
-          schema:
-            type: integer
-            format: int64
-        - $ref: '#/components/parameters/X-External-Correlation-Id'
-      responses:
-        '204':
-          description: No Content.
           headers:
             X-External-Correlation-Id:
               $ref: '#/components/headers/X-External-Correlation-Id'
@@ -29577,8 +29614,8 @@ components:
                       type:
                         type: string
                         description: >-
-                          [Type of the
-                          challenge](/api-reference/one-time-token#challenge-type).
+                          Type of the challenge (PIN, FACE_MAP, SMS, WHATSAPP,
+                          VOICE, PARTNER_DEVICE_FINGERPRINT).
                       viewData:
                         type: object
                         description: >-
@@ -29611,6 +29648,34 @@ components:
               type: integer
               format: int64
               description: Creator of this one time token.
+    phone-number:
+      title: Phone Number
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: ID of the phone number.
+          example: 1230944
+        phoneNumber:
+          type: string
+          description: A text representation of phone number.
+          example: '+6588888888'
+        type:
+          type: string
+          description: |
+            Type of phone number when used in authentication.
+
+            Only **PRIMARY** is supported at the moment.
+          example: PRIMARY
+        verified:
+          type: boolean
+          description: Indicator if phone number is verified.
+          example: true
+        clientId:
+          type: string
+          description: Client ID of which this phone number belongs to.
+          example: clientId
     case:
       type: object
       properties:
@@ -31432,7 +31497,7 @@ components:
     one-time-token:
       title: One-Time Token
       x-tags:
-        - strong-customer-authentication
+        - sca-ott
       type: object
       description: >
         A one-time token is generated when accessing an endpoint secured by SCA.
@@ -31440,15 +31505,10 @@ components:
 
 
         You can use the [OTT status
-        endpoint](/api-reference/one-time-token/ottstatusget) to view challenges
-        and their statuses, or use [create SCA
-        session](/api-reference/strong-customer-authentication/scasessioncreate)
-        to manually trigger SCA and return a one-time token.
-
-
-        At least two challenges must be completed to access an SCA-secured
-        endpoint. For low-risk operations, access is valid for 5 minutes before
-        the one-time token expires.
+        endpoint](/api-reference/sca-ott/ottstatusget) to view challenges and
+        their statuses, or use [create SCA
+        session](/api-reference/sca-sessions/scasessioncreate) to manually
+        trigger SCA and return a one-time token.
       properties:
         oneTimeToken:
           type: string
@@ -32002,34 +32062,6 @@ components:
                   type: string
                   description: User occupation. Required for US, CA, JP.
                   example: ''
-    phone-number:
-      title: Phone Number
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          description: ID of the phone number.
-          example: 1230944
-        phoneNumber:
-          type: string
-          description: A text representation of phone number.
-          example: '+6588888888'
-        type:
-          type: string
-          description: |
-            Type of phone number when used in authentication.
-
-            Only **PRIMARY** is supported at the moment.
-          example: PRIMARY
-        verified:
-          type: boolean
-          description: Indicator if phone number is verified.
-          example: true
-        clientId:
-          type: string
-          description: Client ID of which this phone number belongs to.
-          example: clientId
     subscription:
       title: Subscription
       type: object

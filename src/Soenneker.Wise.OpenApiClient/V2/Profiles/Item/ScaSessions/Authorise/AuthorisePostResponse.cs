@@ -15,7 +15,7 @@ namespace Soenneker.Wise.OpenApiClient.V2.Profiles.Item.ScaSessions.Authorise
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>A one-time token is generated when accessing an endpoint secured by SCA. This token includes a list of all available challenges to complete.You can use the [OTT status endpoint](/api-reference/one-time-token/ottstatusget) to view challenges and their statuses, or use [create SCA session](/api-reference/strong-customer-authentication/scasessioncreate) to manually trigger SCA and return a one-time token.At least two challenges must be completed to access an SCA-secured endpoint. For low-risk operations, access is valid for 5 minutes before the one-time token expires.</summary>
+        /// <summary>A one-time token is generated when accessing an endpoint secured by SCA. This token includes a list of all available challenges to complete.You can use the [OTT status endpoint](/api-reference/sca-ott/ottstatusget) to view challenges and their statuses, or use [create SCA session](/api-reference/sca-sessions/scasessioncreate) to manually trigger SCA and return a one-time token.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Soenneker.Wise.OpenApiClient.Models.OneTimeToken? OneTimeTokenProperties { get; set; }

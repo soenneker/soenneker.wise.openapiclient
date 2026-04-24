@@ -15,7 +15,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>[Type of the challenge](/api-reference/one-time-token#challenge-type).</summary>
+        /// <summary>Type of the challenge (PIN, FACE_MAP, SMS, WHATSAPP, VOICE, PARTNER_DEVICE_FINGERPRINT).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Type { get; set; }
