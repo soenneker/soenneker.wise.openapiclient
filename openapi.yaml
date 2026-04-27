@@ -1434,6 +1434,26 @@ tags:
 
       For more information on creating and managing webhooks, and specific event
       types, see [Webhooks & Notifications](/guides/developer/webhooks).
+  - name: webhook-event
+    x-displayName: Events
+    description: >
+      Webhook events are notifications sent by Wise to your server when specific
+      actions occur. Subscribe to events using the
+      [Webhook](/api-reference/webhook) endpoints at the application or profile
+      level.
+
+
+      See the [Webhooks guide](/guides/developer/webhooks) for setup
+      instructions, signature verification, and best practices.
+
+
+      {% admonition type="info" %}
+
+      We're migrating event type documentation to this section. For a complete
+      list of available event types, see the [Event
+      Types](/guides/developer/webhooks/event-types) guide.
+
+      {% /admonition %}
 x-tagGroups:
   - name: Authentication
     tags:
@@ -1506,6 +1526,7 @@ x-tagGroups:
   - name: Webhooks
     tags:
       - webhook
+      - webhook-event
   - name: Simulations
     tags:
       - simulation
@@ -24165,7 +24186,7 @@ paths:
         are in status `outgoing_payment_sent`.
 
         There's also the [transfer state change
-        webhook](/guides/developer/webhooks/event-types#transfer-state-change).
+        webhook](/api-reference/webhook-event/eventtransferstatechange).
 
 
         {% admonition type="info" %}
@@ -25814,6 +25835,71 @@ paths:
               $ref: '#/components/headers/x-trace-id'
         '429':
           $ref: '#/components/responses/429'
+webhooks:
+  transfers#state-change:
+    post:
+      operationId: eventTransferStateChange
+      summary: Transfer state change
+      description: >
+        Triggered every time a transfer's status is updated.
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
+
+
+        Events may not be delivered in the order they occurred. Use
+        `data.occurred_at` to reconcile the order.
+
+        See the [Event Ordering](/guides/developer/webhooks/event-ordering)
+        guide for details.
+
+
+        {% admonition type="warning" %}
+
+        For topup-to-balance transfers, `transfers#state-change` events will
+        **not** be triggered.
+
+        To listen to these, subscribe to the `balances#update` event instead.
+
+        {% /admonition %}
+
+
+        * Event type: `transfers#state-change`
+
+        * Profile level subscriptions: Supported
+
+        * Application level subscriptions: Supported
+      tags:
+        - webhook-event
+        - transfer
+      parameters:
+        - $ref: '#/components/parameters/x-signature-sha256'
+        - $ref: '#/components/parameters/x-delivery-id'
+        - $ref: '#/components/parameters/x-test-notification'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: Transfer State Change Event
+              discriminator:
+                propertyName: schema_version
+                mapping:
+                  4.0.0: '#/components/schemas/v4.0.0'
+                  2.0.0: '#/components/schemas/v2.0.0'
+              oneOf:
+                - $ref: '#/components/schemas/v4.0.0'
+                - $ref: '#/components/schemas/v2.0.0'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+          description: Return any `2xx` status to acknowledge receipt of the event.
 components:
   parameters:
     X-External-Correlation-Id:
@@ -25830,6 +25916,37 @@ components:
         format: uuid
         maxLength: 36
       example: f47ac10b-58cc-4372-a567-0e02b2c3d479
+    x-signature-sha256:
+      name: X-Signature-SHA256
+      in: header
+      required: false
+      description: >
+        RSA-SHA256 signature of the request body, Base64 encoded. Verify this
+        against the [Wise public
+        key](/guides/developer/webhooks/event-handling#requests) to ensure the
+        request is authentic and has not been tampered with.
+      schema:
+        type: string
+      example: t7FMhk3OARMgwqz0LJXO...
+    x-delivery-id:
+      name: X-Delivery-Id
+      in: header
+      required: false
+      description: Unique identifier for this webhook delivery attempt.
+      schema:
+        type: string
+        format: uuid
+      example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+    x-test-notification:
+      name: X-Test-Notification
+      in: header
+      required: false
+      description: >
+        Present with the value `true` if this is a test notification sent to
+        verify your callback URL during subscription setup.
+      schema:
+        type: boolean
+      example: true
   headers:
     X-External-Correlation-Id:
       x-global: true
@@ -32165,3 +32282,139 @@ components:
           format: date-time
           description: Timestamp of when the test notification was created.
           example: '2019-03-28T11:22:33Z'
+    v4.0.0:
+      title: Schema version 4.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 4.0.0
+          example: 4.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: 01234567-89ab-cdef-0123-456789abcdef
+        event_type:
+          type: string
+          description: Event type identifier
+          example: transfers#state-change
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2020-01-01T12:34:56.123Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: Resource type
+                  example: transfer
+                id:
+                  type: integer
+                  description: Transfer ID
+                  example: 111
+                profile_id:
+                  type: integer
+                  description: Profile ID of the transfer owner
+                  example: 222
+                account_id:
+                  type: integer
+                  description: Recipient account ID
+                  example: 333
+            current_state:
+              type: string
+              description: >
+                Current transfer status. See [Transfer
+                Statuses](/guides/product/send-money/tracking-transfers) for
+                possible values.
+              example: processing
+            previous_state:
+              type:
+                - string
+                - 'null'
+              description: >-
+                Previous transfer status. Note that this will be null for newly
+                created transfers.
+              example: incoming_payment_waiting
+            occurred_at:
+              type: string
+              format: date-time
+              description: Timestamp when the state change occurred
+              example: '2020-01-01T12:34:56.789Z'
+    v2.0.0:
+      title: Schema version 2.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 2.0.0
+          example: 2.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: 01234567-89ab-cdef-0123-456789abcdef
+        event_type:
+          type: string
+          description: Event type identifier
+          example: transfers#state-change
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2020-01-01T12:34:56Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: Resource type
+                  example: transfer
+                id:
+                  type: integer
+                  description: Transfer ID
+                  example: 111
+                profile_id:
+                  type: integer
+                  description: Profile ID of the transfer owner
+                  example: 222
+                account_id:
+                  type: integer
+                  description: Recipient account ID
+                  example: 333
+            current_state:
+              type: string
+              description: >
+                Current transfer status. See [Transfer
+                Statuses](/guides/product/send-money/tracking-transfers) for
+                possible values.
+              example: processing
+            previous_state:
+              type:
+                - string
+                - 'null'
+              description: >-
+                Previous transfer status. Note that this will be null for newly
+                created transfers.
+              example: incoming_payment_waiting
+            occurred_at:
+              type: string
+              format: date-time
+              description: Timestamp when the state change occurred
+              example: '2020-01-01T12:34:56Z'
