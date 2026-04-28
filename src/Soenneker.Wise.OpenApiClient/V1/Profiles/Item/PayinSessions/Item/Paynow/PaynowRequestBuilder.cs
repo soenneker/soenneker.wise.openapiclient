@@ -34,7 +34,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.PayinSessions.Item.Payno
         {
         }
         /// <summary>
-        /// Creates the encoded QR code and details for the payin session so the user can fund a transfer or balance top-up via a Paynow transaction.This operation supports the SGD currency only.{% admonition type=&quot;warning&quot; %}This operation is not available for sandbox testing.{% /admonition %}
+        /// Creates the encoded QR code and details for the payin session so the user can fund a transfer or balance top-up via a PayNow transaction.This operation supports the SGD currency only.{% admonition type=&quot;warning&quot; %}This operation is not available for sandbox testing.{% /admonition %}
         /// </summary>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.PayinSessions.Item.Paynow.PaynowPostResponse"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
@@ -61,7 +61,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.PayinSessions.Item.Payno
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.PayinSessions.Item.Paynow.PaynowPostResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.PayinSessions.Item.Paynow.PaynowPostResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Creates the encoded QR code and details for the payin session so the user can fund a transfer or balance top-up via a Paynow transaction.This operation supports the SGD currency only.{% admonition type=&quot;warning&quot; %}This operation is not available for sandbox testing.{% /admonition %}
+        /// Creates the encoded QR code and details for the payin session so the user can fund a transfer or balance top-up via a PayNow transaction.This operation supports the SGD currency only.{% admonition type=&quot;warning&quot; %}This operation is not available for sandbox testing.{% /admonition %}
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>

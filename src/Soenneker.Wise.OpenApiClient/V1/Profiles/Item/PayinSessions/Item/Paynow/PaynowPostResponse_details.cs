@@ -25,7 +25,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.PayinSessions.Item.Payno
 #else
         public string Currency { get; set; }
 #endif
-        /// <summary>Entity name of the Wise Account to make the Paynow transfer to.</summary>
+        /// <summary>Entity name of the Wise Account to make the PayNow transfer to.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? EntityName { get; set; }
@@ -33,7 +33,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.PayinSessions.Item.Payno
 #else
         public string EntityName { get; set; }
 #endif
-        /// <summary>Payment reference used for linking the Paynow transaction to the transfer created by the profile.</summary>
+        /// <summary>Payment reference used for linking the PayNow transaction to the transfer created by the profile.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Reference { get; set; }

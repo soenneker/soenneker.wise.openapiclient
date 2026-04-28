@@ -13140,10 +13140,10 @@ paths:
   /v1/profiles/{profileId}/payin-sessions/{payinSessionId}/paynow:
     post:
       operationId: paynowCreate
-      summary: Create Paynow payment details
+      summary: Create PayNow payment details
       description: >
         Creates the encoded QR code and details for the payin session so the
-        user can fund a transfer or balance top-up via a Paynow transaction.
+        user can fund a transfer or balance top-up via a PayNow transaction.
 
         This operation supports the SGD currency only.
 
@@ -13175,7 +13175,7 @@ paths:
         - $ref: '#/components/parameters/X-External-Correlation-Id'
       responses:
         '200':
-          description: Paynow payment object.
+          description: PayNow payment object.
           content:
             application/json:
               schema:
@@ -13212,14 +13212,14 @@ paths:
                         type:
                           - string
                         description: >-
-                          Payment reference used for linking the Paynow
+                          Payment reference used for linking the PayNow
                           transaction to the transfer created by the profile.
                         example: PP12345678
                       entityName:
                         type:
                           - string
                         description: >-
-                          Entity name of the Wise Account to make the Paynow
+                          Entity name of the Wise Account to make the PayNow
                           transfer to.
                         example: WISE ASIA-PACIFIC PTE LTD
           headers:
@@ -23555,6 +23555,7 @@ paths:
                         - name
                         - dateOfBirth
                         - address
+                        - accountDetails
                       description: Data block to capture payment originator details
                       properties:
                         legalEntityType:
