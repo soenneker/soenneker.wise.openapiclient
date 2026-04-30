@@ -15864,14 +15864,10 @@ paths:
                     EMIRATES_EMPLOYER.
                 birthCity:
                   type: string
-                  description: >-
-                    The city of birth of the customer. Type must be
-                    EMIRATES_PLACE_OF_BIRTH.
+                  description: The city of birth of the customer.
                 birthCountry:
                   type: string
-                  description: >-
-                    2 characters ISO country code. Type must be
-                    EMIRATES_PLACE_OF_BIRTH.
+                  description: 2 characters ISO country code.
             examples:
               identityCard:
                 summary: Identity Card
@@ -25901,6 +25897,55 @@ webhooks:
                     type: string
                     example: ok
           description: Return any `2xx` status to acknowledge receipt of the event.
+  transfers#active-cases:
+    post:
+      operationId: eventTransfersActiveCases
+      summary: Transfer active cases
+      description: >
+        Triggered every time a transfer's list of active cases is updated.
+
+        Active cases indicate potential problems with transfer processing.
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
+
+
+        * Event type: `transfers#active-cases`
+
+        * Profile level subscriptions: Supported
+
+        * Application level subscriptions: Supported
+      tags:
+        - webhook-event
+        - transfer
+      parameters:
+        - $ref: '#/components/parameters/x-signature-sha256'
+        - $ref: '#/components/parameters/x-delivery-id'
+        - $ref: '#/components/parameters/x-test-notification'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: Transfer Active Cases Event
+              discriminator:
+                propertyName: schema_version
+                mapping:
+                  4.0.0: '#/components/schemas/v4.0.0-2'
+                  2.0.0: '#/components/schemas/v2.0.0-2'
+              oneOf:
+                - $ref: '#/components/schemas/v4.0.0-2'
+                - $ref: '#/components/schemas/v2.0.0-2'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+          description: Return any `2xx` status to acknowledge receipt of the event.
 components:
   parameters:
     X-External-Correlation-Id:
@@ -32419,3 +32464,113 @@ components:
               format: date-time
               description: Timestamp when the state change occurred
               example: '2020-01-01T12:34:56Z'
+    v4.0.0-2:
+      title: Schema version 4.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 4.0.0
+          example: 4.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: 01234567-89ab-cdef-0123-456789abcdef
+        event_type:
+          type: string
+          description: Event type identifier
+          example: transfers#active-cases
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2020-01-01T12:34:56.123Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: Resource type
+                  example: transfer
+                id:
+                  type: integer
+                  description: Transfer ID
+                  example: 111
+                profile_id:
+                  type: integer
+                  description: Profile ID of the transfer owner
+                  example: 222
+                account_id:
+                  type: integer
+                  description: Recipient account ID
+                  example: 333
+            active_cases:
+              type: array
+              items:
+                type: string
+              description: Ongoing issues related to the transfer
+              example:
+                - deposit_amount_less_invoice
+    v2.0.0-2:
+      title: Schema version 2.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 2.0.0
+          example: 2.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: 01234567-89ab-cdef-0123-456789abcdef
+        event_type:
+          type: string
+          description: Event type identifier
+          example: transfers#active-cases
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2020-01-01T12:34:56Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: Resource type
+                  example: transfer
+                id:
+                  type: integer
+                  description: Transfer ID
+                  example: 111
+                profile_id:
+                  type: integer
+                  description: Profile ID of the transfer owner
+                  example: 222
+                account_id:
+                  type: integer
+                  description: Recipient account ID
+                  example: 333
+            active_cases:
+              type: array
+              items:
+                type: string
+              description: Ongoing issues related to the transfer
+              example:
+                - deposit_amount_less_invoice

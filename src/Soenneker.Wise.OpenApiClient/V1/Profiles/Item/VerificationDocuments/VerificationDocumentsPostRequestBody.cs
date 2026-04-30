@@ -14,7 +14,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.VerificationDocuments
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>The city of birth of the customer. Type must be EMIRATES_PLACE_OF_BIRTH.</summary>
+        /// <summary>The city of birth of the customer.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? BirthCity { get; set; }
@@ -22,7 +22,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.VerificationDocuments
 #else
         public string BirthCity { get; set; }
 #endif
-        /// <summary>2 characters ISO country code. Type must be EMIRATES_PLACE_OF_BIRTH.</summary>
+        /// <summary>2 characters ISO country code.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? BirthCountry { get; set; }
