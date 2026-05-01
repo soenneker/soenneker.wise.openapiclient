@@ -34,7 +34,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Transfers.Item.ReceiptPdf
         {
         }
         /// <summary>
-        /// Download transfer confirmation receipt in PDF format for transfers that are in status `outgoing_payment_sent`.There&apos;s also the [transfer state change webhook](/api-reference/webhook-event/eventtransferstatechange).{% admonition type=&quot;info&quot; %}If you service US retail consumers you must use the [US combined receipt](/api-reference/transfer/transferuscombinedreceiptget) endpoint instead.{% /admonition %}
+        /// Download transfer confirmation receipt in PDF format for transfers that are in status `outgoing_payment_sent`.There&apos;s also the [transfer state change webhook](/api-reference/webhook-event/eventtransfersstatechange).{% admonition type=&quot;info&quot; %}If you service US retail consumers you must use the [US combined receipt](/api-reference/transfer/transferuscombinedreceiptget) endpoint instead.{% /admonition %}
         /// </summary>
         /// <returns>A <see cref="Stream"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
@@ -57,7 +57,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Transfers.Item.ReceiptPdf
             return await RequestAdapter.SendPrimitiveAsync<Stream>(requestInfo, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Download transfer confirmation receipt in PDF format for transfers that are in status `outgoing_payment_sent`.There&apos;s also the [transfer state change webhook](/api-reference/webhook-event/eventtransferstatechange).{% admonition type=&quot;info&quot; %}If you service US retail consumers you must use the [US combined receipt](/api-reference/transfer/transferuscombinedreceiptget) endpoint instead.{% /admonition %}
+        /// Download transfer confirmation receipt in PDF format for transfers that are in status `outgoing_payment_sent`.There&apos;s also the [transfer state change webhook](/api-reference/webhook-event/eventtransfersstatechange).{% admonition type=&quot;info&quot; %}If you service US retail consumers you must use the [US combined receipt](/api-reference/transfer/transferuscombinedreceiptget) endpoint instead.{% /admonition %}
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
