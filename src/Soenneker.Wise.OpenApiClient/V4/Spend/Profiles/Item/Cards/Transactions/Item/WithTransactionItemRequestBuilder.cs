@@ -34,7 +34,7 @@ namespace Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.Cards.Transactions
         {
         }
         /// <summary>
-        /// Retrieve a card transaction by its ID.Use in conjunction with the [V2.1.0 card transaction state change webhook](/guides/developer/webhooks/event-types#cards-transaction-state-change).{% admonition type=&quot;warning&quot; %}Only transactions created in the past 90 days can be accessed. A 422 error code will be returned otherwise.{% /admonition %}When a refund happens, a separate transaction will be added with a `REFUND` transaction type.
+        /// Retrieve a card transaction by its ID.Use in conjunction with the [card transaction state change webhook](/guides/developer/webhooks/event-types#cards-transaction-state-change) for versions V2.1.0 and later.{% admonition type=&quot;warning&quot; %}Only transactions created in the past 90 days can be accessed. A 422 error code will be returned otherwise.{% /admonition %}When a refund happens, a separate transaction will be added with a `REFUND` transaction type.
         /// </summary>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.CardTransaction"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
@@ -57,7 +57,7 @@ namespace Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.Cards.Transactions
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.CardTransaction>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.CardTransaction.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Retrieve a card transaction by its ID.Use in conjunction with the [V2.1.0 card transaction state change webhook](/guides/developer/webhooks/event-types#cards-transaction-state-change).{% admonition type=&quot;warning&quot; %}Only transactions created in the past 90 days can be accessed. A 422 error code will be returned otherwise.{% /admonition %}When a refund happens, a separate transaction will be added with a `REFUND` transaction type.
+        /// Retrieve a card transaction by its ID.Use in conjunction with the [card transaction state change webhook](/guides/developer/webhooks/event-types#cards-transaction-state-change) for versions V2.1.0 and later.{% admonition type=&quot;warning&quot; %}Only transactions created in the past 90 days can be accessed. A 422 error code will be returned otherwise.{% /admonition %}When a refund happens, a separate transaction will be added with a `REFUND` transaction type.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>

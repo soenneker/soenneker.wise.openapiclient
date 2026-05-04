@@ -7706,8 +7706,9 @@ paths:
         Retrieve a card transaction by its ID.
 
 
-        Use in conjunction with the [V2.1.0 card transaction state change
-        webhook](/guides/developer/webhooks/event-types#cards-transaction-state-change).
+        Use in conjunction with the [card transaction state change
+        webhook](/guides/developer/webhooks/event-types#cards-transaction-state-change)
+        for versions V2.1.0 and later.
 
 
         {% admonition type="warning" %}
@@ -7765,8 +7766,9 @@ paths:
         are ordered by transaction ID in descending order.
 
 
-        Use in conjunction with the [V2.1.0 card transaction state change
-        webhook](/guides/developer/webhooks/event-types#cards-transaction-state-change).
+        Use in conjunction with the [card transaction state change
+        webhook](/guides/developer/webhooks/event-types#cards-transaction-state-change)
+        for versions V2.1.0 and later.
 
 
         {% admonition type="warning" %}
