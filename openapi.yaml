@@ -14729,7 +14729,7 @@ paths:
                       example: gb
                     countryIso3Code:
                       type: string
-                      description: 3 Letter country code. Must be lowercase.
+                      description: 3 letter country code. Must be lowercase.
                       example: gbr
                     postCode:
                       type: string
@@ -14944,7 +14944,7 @@ paths:
                       example: gb
                     countryIso3Code:
                       type: string
-                      description: 3 Letter country code. Must be lowercase.
+                      description: 3 letter country code. Must be lowercase.
                       example: gbr
                     postCode:
                       type: string
@@ -15066,7 +15066,7 @@ paths:
                         countryIso3Code:
                           type: string
                           description: >-
-                            3 Letter country code (lower case). Required unless
+                            3 letter country code (lower case). Required unless
                             Business Representative ID is provided.
                           example: usa
                         postCode:
@@ -15303,7 +15303,7 @@ paths:
                       example: Phoenix
                     countryIso3Code:
                       type: string
-                      description: 3 Letter country code (ISO3, lower case).
+                      description: 3 letter country code (ISO3, lower case).
                       example: usa
                     postCode:
                       type: string
@@ -15316,7 +15316,7 @@ paths:
                       example: AZ
                 nationality:
                   type: string
-                  description: 3 Letter country code (ISO3, lower case).
+                  description: 3 letter country code (ISO3, lower case).
                   example: usa
                 dateOfBirth:
                   type: string
@@ -15698,7 +15698,7 @@ paths:
                       example: Phoenix
                     countryIso3Code:
                       type: string
-                      description: 3 Letter country code (lower case).
+                      description: 3 letter country code (lower case).
                       example: usa
                     postCode:
                       type: string
@@ -26003,6 +26003,47 @@ webhooks:
                     type: string
                     example: ok
           description: Return any `2xx` status to acknowledge receipt of the event.
+  cards#manual-provisioning-verification:
+    post:
+      operationId: eventCardsManualProvisioningVerification
+      summary: Cards manual provisioning verification
+      description: >
+        Triggered when a card is manually added to a wallet provider, and the
+        verification methods required to complete the wallet provisioning are
+        returned.
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
+
+
+        * Event type: `cards#manual-provisioning-verification`
+
+        * Profile level subscriptions: Not Supported
+
+        * Application level subscriptions: Supported
+      tags:
+        - webhook-event
+        - card
+      parameters:
+        - $ref: '#/components/parameters/x-signature-sha256'
+        - $ref: '#/components/parameters/x-delivery-id'
+        - $ref: '#/components/parameters/x-test-notification'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/v2.0.0-4'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+          description: Return any `2xx` status to acknowledge receipt of the event.
 components:
   parameters:
     X-External-Correlation-Id:
@@ -32877,3 +32918,71 @@ components:
               format: date-time
               description: Timestamp when the event occurred
               example: '2026-02-24T11:10:13Z'
+    v2.0.0-4:
+      title: Schema version 2.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 2.0.0
+          example: 2.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: 5281e333-a4d9-4960-aec3-553267a9a8aa
+        event_type:
+          type: string
+          description: Event type identifier
+          example: cards#manual-provisioning-verification
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2026-03-09T05:52:37Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                profile_id:
+                  type: integer
+                  format: int64
+                  description: ID of the profile that owns the card
+                  example: 9953556
+                client_id:
+                  type: string
+                  description: Your api_client_id
+                  example: tw-test-card-issuance
+                card_token:
+                  type: string
+                  description: Unique identifier of the card
+                  example: 72393ec3-0707-4bf1-00b7-744f7a380d2c
+                type:
+                  type: string
+                  description: Resource type (always `card`)
+                  example: card
+            payment_token_unique_reference:
+              type: string
+              description: The payment token unique reference associated to the card
+              example: DNITHE352605523102858206
+            last_four_digits:
+              type: string
+              description: The last four digits for the card Primary Account Number (PAN)
+              example: '8237'
+            creation_time:
+              type: string
+              format: date-time
+              description: The time when the card provisioning request was created
+              example: '2026-03-09T05:52:37.274962Z'
+            wallet_name:
+              type: string
+              description: >-
+                The wallet provider used to provision the card such as "Google
+                Pay" or "Apple Pay"
+              example: Google Pay

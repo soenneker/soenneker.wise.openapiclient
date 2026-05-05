@@ -38,7 +38,7 @@ namespace Soenneker.Wise.OpenApiClient.V3.Profiles.BusinessProfile
 #else
         public string CountryIso2Code { get; set; }
 #endif
-        /// <summary>3 Letter country code. Must be lowercase.</summary>
+        /// <summary>3 letter country code. Must be lowercase.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? CountryIso3Code { get; set; }

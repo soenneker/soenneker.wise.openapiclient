@@ -30,7 +30,7 @@ namespace Soenneker.Wise.OpenApiClient.V2.Profiles.Item.PersonalProfile
 #else
         public string City { get; set; }
 #endif
-        /// <summary>3 Letter country code (ISO3, lower case).</summary>
+        /// <summary>3 letter country code (ISO3, lower case).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? CountryIso3Code { get; set; }

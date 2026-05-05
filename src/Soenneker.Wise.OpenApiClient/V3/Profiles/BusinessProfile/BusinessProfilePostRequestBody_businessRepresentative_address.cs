@@ -30,7 +30,7 @@ namespace Soenneker.Wise.OpenApiClient.V3.Profiles.BusinessProfile
 #else
         public string City { get; set; }
 #endif
-        /// <summary>3 Letter country code (lower case). Required unless Business Representative ID is provided.</summary>
+        /// <summary>3 letter country code (lower case). Required unless Business Representative ID is provided.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? CountryIso3Code { get; set; }
