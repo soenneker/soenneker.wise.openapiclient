@@ -9622,10 +9622,14 @@ paths:
   /v1/auth/jose/response/public-keys:
     get:
       operationId: joseResponsePublicKeysGet
-      summary: Get Wise public signing key
+      summary: Get Wise JOSE public key
       description: >
-        Returns a public key issued by Wise for verifying signed HTTP responses
-        and for encrypting payloads.
+        Returns a public key issued by Wise.
+
+
+        Depending on the scope requested, the key will be used for verifying
+        HTTP responses signed by Wise or for for encrypting the payload prior to
+        sending it to Wise.
 
 
         For both signature verification and payload encryption, the process
@@ -9633,9 +9637,9 @@ paths:
         stored public key should be used without calling this endpoint.
 
 
-        If verification of the signed request fails or you receive an encryption
-        error, call this API once to issue a fresh key from Wise and then try
-        verification one more time.
+        If verification of the signed request fails or Wise is unable to decrypt
+        your request payload, call this API to issue a fresh key from Wise and
+        reattempt the operation again.
 
 
         {% admonition type="warning" %}
@@ -10876,6 +10880,7 @@ paths:
             enum:
               - ACCOUNT_INTENT
               - ACCOUNT_PURPOSE
+              - ANNUAL_VOLUME
               - BUSINESS_ANNUAL_INCOME
               - BUSINESS_AUTHORISATION_ID
               - BUSINESS_AUTHORISATION_LETTER
@@ -10889,9 +10894,13 @@ paths:
               - BUSINESS_ULTIMATE_BENEFICIAL_OWNER_ID
               - BUSINESS_USE_CASE
               - ID_DOCUMENT
+              - INCOME
               - INDIA_TRANSFER_PURPOSE
               - PROOF_OF_TRADING_ADDRESS
+              - SOURCE_OF_FUNDS
               - SOURCE_OF_WEALTH
+              - SOURCE_OF_WEALTH_INFO
+              - SOURCE_OF_WEALTH_PROOF
               - TAX_RESIDENCY
               - USE_CASE_COUNTRIES
         - $ref: '#/components/parameters/X-External-Correlation-Id'
