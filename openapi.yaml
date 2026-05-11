@@ -19794,33 +19794,42 @@ paths:
 
         - `bounced_back` — from `outgoing_payment_sent`
 
-        - `funds_refunded` — from `bounced_back`. Will not trigger a refund
-        webhook.
-
-
-        {% admonition type="warning" %}
-
-        Simulation does not work with email transfers.
-
-        {% /admonition %}
-
-
-        {% admonition type="warning" %}
-
-        You need to fund the transfer before calling simulation endpoints.
-        Calling the `processing` endpoint is required even after the funding
-        call has changed the transfer state to processing automatically.
-
-        {% /admonition %}
+        - `funds_refunded` — from `bounced_back`.
 
 
         {% admonition type="info" %}
 
-        While transfer state simulation calls will respond with 200 in real
-        time, the process internally is asynchronous. Please ensure you give at
-        least 5 seconds in between simulation calls.
-
+        Important notes
+         - Simulation is not supported for email transfers.
+         - Fund the transfer first before calling any simulation endpoints.
+         - Even if funding moves the transfer to a processing state, you must still call the /processing simulation endpoint.
+         - Although the simulation request may respond immediately, processing is asynchronous - wait at least 5 seconds between simulation calls.
         {% /admonition %}
+
+
+        ### Sandbox refund simulation behaviour {% #sandbox-refund %}
+
+
+        When simulating `funds_refunded`, a `transfers#refund` webhook is
+        delivered with a simulated `refund_amount`. The amount is calculated as
+        follows:
+
+
+        - **SWIFT payouts:** A random fee between 15–50% is deducted from the
+        source amount. This is non-deterministic — each simulation produces a
+        different refund amount. This is intended for testing your partial
+        refund handling flow.
+
+        - **Non-SWIFT payouts:** The full source amount is refunded.
+
+
+        The simulated refund amount only applies to the webhook payload.
+        Balances and the sandbox UI will always reflect the full refund amount
+        regardless of payout method, so the webhook `refund_amount` may differ
+        from what is shown in balances and the sandbox UI for SWIFT transfers.  
+
+        This simulation is not suitable for reconciliation testing between
+        webhook amounts and balances.
       tags:
         - simulation
       security:
@@ -26134,6 +26143,55 @@ webhooks:
                     created_at: '2024-06-01T08:00:00Z'
                     updated_at: '2024-06-02T09:15:00Z'
                     occurred_at: '2024-06-02T09:15:00Z'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+          description: Return any `2xx` status to acknowledge receipt of the event.
+  profiles#overdraft-limit-threshold:
+    post:
+      operationId: eventProfilesOverdraftLimitThreshold
+      summary: Overdraft limit threshold
+      description: >
+        Triggered when the overdraft limit usage has reached 70% threshold.
+
+        The event at each threshold is triggered maximum once per hour.
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
+
+
+        * Event type: `profiles#overdraft-limit-threshold`
+
+        * Profile level subscriptions: Not Supported
+
+        * Application level subscriptions: Supported
+      tags:
+        - webhook-event
+        - profile
+      parameters:
+        - $ref: '#/components/parameters/x-signature-sha256'
+        - $ref: '#/components/parameters/x-delivery-id'
+        - $ref: '#/components/parameters/x-test-notification'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: Overdraft Limit Threshold Event
+              discriminator:
+                propertyName: schema_version
+                mapping:
+                  4.0.0: '#/components/schemas/v4.0.0-5'
+                  2.0.0: '#/components/schemas/v2.0.0-5'
+              oneOf:
+                - $ref: '#/components/schemas/v4.0.0-5'
+                - $ref: '#/components/schemas/v2.0.0-5'
       responses:
         '200':
           content:
@@ -33176,3 +33234,119 @@ components:
                 Timestamp when the event occurred (ISO 8601). Use this field to
                 reconcile out-of-order events
               example: '2024-06-01T08:00:00Z'
+    v4.0.0-5:
+      title: Schema version 4.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 4.0.0
+          example: 4.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: 01234567-89ab-cdef-0123-456789abcdef
+        event_type:
+          type: string
+          description: Event type identifier
+          example: profiles#overdraft-limit-threshold
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2020-01-01T12:34:56.123Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: Profile resource type (always `profile`)
+                  example: profile
+                id:
+                  type: integer
+                  format: int64
+                  description: ID of the profile
+                  example: 111
+            overdraft:
+              type: object
+              properties:
+                used:
+                  type: number
+                  format: decimal
+                  description: Overdraft limit used
+                  example: 12000
+                limit:
+                  type: number
+                  format: decimal
+                  description: Overdraft limit approved
+                  example: 20000
+                currency:
+                  type: string
+                  description: Currency in which the amounts are expressed in
+                  example: EUR
+    v2.0.0-5:
+      title: Schema version 2.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 2.0.0
+          example: 2.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: 01234567-89ab-cdef-0123-456789abcdef
+        event_type:
+          type: string
+          description: Event type identifier
+          example: profiles#overdraft-limit-threshold
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2020-01-01T12:34:56Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: Profile resource type (always `profile`)
+                  example: profile
+                id:
+                  type: integer
+                  format: int64
+                  description: ID of the profile
+                  example: 111
+            overdraft:
+              type: object
+              properties:
+                used:
+                  type: number
+                  format: decimal
+                  description: Overdraft limit used
+                  example: 12000
+                limit:
+                  type: number
+                  format: decimal
+                  description: Overdraft limit approved
+                  example: 20000
+                currency:
+                  type: string
+                  description: Currency in which the amounts are expressed in
+                  example: EUR
