@@ -29515,9 +29515,13 @@ components:
 
             - `IN_REVIEW` — the required information has been retrieved and the
             KYC requirement is being reviewed. No action is needed.
+
+            - `VERIFIED` — the required information has been received and
+            verified on our side. No action is needed.
           enum:
             - NOT_PROVIDED
             - IN_REVIEW
+            - VERIFIED
           example: NOT_PROVIDED
         apiCollectionSupported:
           type: boolean
@@ -29572,9 +29576,13 @@ components:
                   - `IN_REVIEW` — the required information has been retrieved
                   and the additional requirement is being reviewed. No action is
                   needed.
+
+                  - `VERIFIED` — the required information has been received and
+                  verified on our side. No action is needed.
                 enum:
                   - NOT_PROVIDED
                   - IN_REVIEW
+                  - VERIFIED
                 example: NOT_PROVIDED
               reasons:
                 type: object
