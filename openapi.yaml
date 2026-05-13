@@ -19886,6 +19886,119 @@ paths:
               $ref: '#/components/headers/x-trace-id'
         '429':
           $ref: '#/components/responses/429'
+  /v1/simulation/transfers/{transferId}/payout-failure:
+    post:
+      operationId: simulationTransferPayoutFailure
+      summary: Simulate transfer payout failure
+      description: >
+        Triggers transfers#payout-failure webhook for the transfer. 
+
+
+        The available payout failure reason codes are listed in the
+        [transfers#payout-failure webhook
+        guide](/guides/developer/webhooks/event-types#table-of-available-failure-reason-codes-and-descriptions).
+
+
+
+
+        {% admonition type="info" %}
+
+        - Simulation requires transfer to be in `bounced_back` state.
+
+        - While payout failure simulation call will respond with 200 in real
+        time, the payout failure webhook is asynchronous.
+
+        {% /admonition %}
+      tags:
+        - simulation
+      security:
+        - UserToken: []
+      parameters:
+        - name: transferId
+          in: path
+          required: true
+          description: The ID of the transfer to simulate.
+          schema:
+            type: integer
+            format: int64
+        - $ref: '#/components/parameters/X-External-Correlation-Id'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                failure_reason_code:
+                  type: string
+                  description: >-
+                    Failure reason code to trigger for payout failure. When not
+                    provided, a failure code is selected at random and returned.
+                  example: WRONG_ID_NUMBER
+      responses:
+        '200':
+          description: Successful initiation of payout failure.
+          content:
+            application/json:
+              example:
+                failure_reason_code: WRONG_ID_NUMBER
+                failure_description: Invalid recipient's ID document number
+                occurred_at: '2023-08-10T10:17:23.123Z'
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '400':
+          description: Bad request - invalid input or transfer state
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                invalidFailureReasonCode:
+                  summary: Invalid failure reason code provided
+                  value:
+                    errors:
+                      - arguments: []
+                        code: invalid_failure_reason_code
+                        message: >-
+                          The provided failure reason code 'INVALID_CODE' is not
+                          recognized
+                invalidTransferState:
+                  summary: Transfer not in `BOUNCED_BACK` state
+                  value:
+                    errors:
+                      - arguments: []
+                        code: invalid_transfer_state
+                        message: >-
+                          Transfer must be in BOUNCED_BACK state to simulate
+                          payout failure. Current state: OUTGOING_PAYMENT_SENT
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                errors:
+                  - code: system_error
+                    message: >-
+                      Something went wrong in our side. Please try again in 5
+                      minutes. If this does not help, please let us know
+                      api@wise.com
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
   /v1/simulation/profiles/{profileId}/verifications:
     post:
       operationId: simulationVerification

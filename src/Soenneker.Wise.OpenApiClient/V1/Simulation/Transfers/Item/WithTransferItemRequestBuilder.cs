@@ -3,6 +3,7 @@
 using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions;
 using Soenneker.Wise.OpenApiClient.V1.Simulation.Transfers.Item.Item;
+using Soenneker.Wise.OpenApiClient.V1.Simulation.Transfers.Item.PayoutFailure;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -15,6 +16,11 @@ namespace Soenneker.Wise.OpenApiClient.V1.Simulation.Transfers.Item
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class WithTransferItemRequestBuilder : BaseRequestBuilder
     {
+        /// <summary>The payoutFailure property</summary>
+        public global::Soenneker.Wise.OpenApiClient.V1.Simulation.Transfers.Item.PayoutFailure.PayoutFailureRequestBuilder PayoutFailure
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.V1.Simulation.Transfers.Item.PayoutFailure.PayoutFailureRequestBuilder(PathParameters, RequestAdapter);
+        }
         /// <summary>Gets an item from the Soenneker.Wise.OpenApiClient.v1.simulation.transfers.item.item collection</summary>
         /// <param name="position">The target transfer status.</param>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.Simulation.Transfers.Item.Item.WithStatusItemRequestBuilder"/></returns>
