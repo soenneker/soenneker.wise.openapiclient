@@ -26316,6 +26316,126 @@ webhooks:
                     type: string
                     example: ok
           description: Return any `2xx` status to acknowledge receipt of the event.
+  profiles#verification-state-change:
+    post:
+      operationId: eventProfilesVerificationStateChange
+      summary: Verification state change
+      description: >
+        Triggered when the verification state of a connected profile changes.
+
+
+        A profile's _verification state_ can be `verified` or `not_verified`.
+
+        If the state is `verified`, then the user is ready to make payments
+        using Wise.
+
+        If the state is `not_verified`, then we advise not to initiate any
+        transfers with the user's access token as the
+
+        payments will not be processed until the verification is completed.
+
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
+
+
+        Events may not be delivered in the order they occurred. Use
+        `data.occurred_at` to reconcile the order.
+
+        See the [Event Ordering](/guides/developer/webhooks/event-ordering)
+        guide for details.
+
+
+        * Event type: `profiles#verification-state-change`
+
+        * Profile level subscriptions: Not Supported
+
+        * Application level subscriptions: Supported
+      tags:
+        - webhook-event
+        - profile
+      parameters:
+        - $ref: '#/components/parameters/x-signature-sha256'
+        - $ref: '#/components/parameters/x-delivery-id'
+        - $ref: '#/components/parameters/x-test-notification'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: Profile Verification State Change Event
+              discriminator:
+                propertyName: schema_version
+                mapping:
+                  4.0.0: '#/components/schemas/v4.0.0-6'
+                  2.0.0: '#/components/schemas/v2.0.0-6'
+              oneOf:
+                - $ref: '#/components/schemas/v4.0.0-6'
+                - $ref: '#/components/schemas/v2.0.0-6'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+          description: Return any `2xx` status to acknowledge receipt of the event.
+  balances#account-state-change:
+    post:
+      operationId: eventBalancesAccountStateChange
+      summary: Balance account state change
+      description: >
+        Triggered every time a balance account is activated or deactivated.
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
+
+
+        Events may not be delivered in the order they occurred. Use
+        `data.occurred_at` to reconcile the order.
+
+        See the [Event Ordering](/guides/developer/webhooks/event-ordering)
+        guide for details.
+
+
+        * Event type: `balances#account-state-change`
+
+        * Profile level subscriptions: Not Supported
+
+        * Application level subscriptions: Supported
+      tags:
+        - webhook-event
+        - balance
+      parameters:
+        - $ref: '#/components/parameters/x-signature-sha256'
+        - $ref: '#/components/parameters/x-delivery-id'
+        - $ref: '#/components/parameters/x-test-notification'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: Balance Account State Change Event
+              discriminator:
+                propertyName: schema_version
+                mapping:
+                  4.0.0: '#/components/schemas/v4.0.0-7'
+                  2.0.0: '#/components/schemas/v2.0.0-7'
+              oneOf:
+                - $ref: '#/components/schemas/v4.0.0-7'
+                - $ref: '#/components/schemas/v2.0.0-7'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+          description: Return any `2xx` status to acknowledge receipt of the event.
 components:
   parameters:
     X-External-Correlation-Id:
@@ -33471,3 +33591,225 @@ components:
                   type: string
                   description: Currency in which the amounts are expressed in
                   example: EUR
+    v4.0.0-6:
+      title: Schema version 4.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 4.0.0
+          example: 4.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: 01234567-89ab-cdef-0123-456789abcdef
+        event_type:
+          type: string
+          description: Event type identifier
+          example: profiles#verification-state-change
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2020-01-01T12:34:56.123Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: Resource type (always `profile`)
+                  example: profile
+                id:
+                  type: integer
+                  format: int64
+                  description: ID of the profile
+                  example: 111
+            current_state:
+              type: string
+              description: Current verification state of the profile
+              enum:
+                - verified
+                - not_verified
+              example: verified
+            occurred_at:
+              type: string
+              format: date-time
+              description: When the verification state change occurred
+              example: '2020-01-01T12:34:56.789Z'
+    v2.0.0-6:
+      title: Schema version 2.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 2.0.0
+          example: 2.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: 01234567-89ab-cdef-0123-456789abcdef
+        event_type:
+          type: string
+          description: Event type identifier
+          example: profiles#verification-state-change
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2020-01-01T12:34:56Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: Resource type (always `profile`)
+                  example: profile
+                id:
+                  type: integer
+                  format: int64
+                  description: ID of the profile
+                  example: 111
+            current_state:
+              type: string
+              description: Current verification state of the profile
+              enum:
+                - verified
+                - not_verified
+              example: verified
+            occurred_at:
+              type: string
+              format: date-time
+              description: When the verification state change occurred
+              example: '2020-01-01T12:34:56Z'
+    v4.0.0-7:
+      title: Schema version 4.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 4.0.0
+          example: 4.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: 01234567-89ab-cdef-0123-456789abcdef
+        event_type:
+          type: string
+          description: Event type identifier
+          example: balances#account-state-change
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2020-01-01T12:34:56.123Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: Resource type (always `balance-account`)
+                  example: balance-account
+                id:
+                  type: integer
+                  format: int64
+                  description: ID of the account
+                  example: 123
+                profile_id:
+                  type: integer
+                  format: int64
+                  description: ID of the profile that owns the account
+                  example: 555
+                state:
+                  type: string
+                  description: State of the account.
+                  enum:
+                    - ACTIVE
+                    - INACTIVE
+                  example: INACTIVE
+            occurred_at:
+              type: string
+              format: date-time
+              description: Timestamp when the event occurred
+              example: '2020-01-01T12:34:56.789Z'
+    v2.0.0-7:
+      title: Schema version 2.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 2.0.0
+          example: 2.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: 01234567-89ab-cdef-0123-456789abcdef
+        event_type:
+          type: string
+          description: Event type identifier
+          example: balances#account-state-change
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2020-01-01T12:34:56Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: Resource type (always `balance-account`)
+                  example: balance-account
+                id:
+                  type: integer
+                  format: int64
+                  description: ID of the account
+                  example: 123
+                profile_id:
+                  type: integer
+                  format: int64
+                  description: ID of the profile that owns the account
+                  example: 555
+                state:
+                  type: string
+                  description: State of the account.
+                  enum:
+                    - ACTIVE
+                    - INACTIVE
+                  example: INACTIVE
+            occurred_at:
+              type: string
+              format: date-time
+              description: Timestamp when the event occurred
+              example: '2020-01-01T12:34:56Z'
