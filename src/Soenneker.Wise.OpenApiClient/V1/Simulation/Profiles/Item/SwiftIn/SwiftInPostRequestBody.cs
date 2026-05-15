@@ -56,6 +56,16 @@ namespace Soenneker.Wise.OpenApiClient.V1.Simulation.Profiles.Item.SwiftIn
 #else
         public string CurrencyCode { get; set; }
 #endif
+        /// <summary>Amount sent by the sender. If not provided, it is assumed to be the same as `amount` plus fees. Required if `instructedCurrencyCode` is provided.</summary>
+        public double? InstructedAmount { get; set; }
+        /// <summary>Currency sent by the sender. 3-letter ISO currency code. If not provided, it is assumed to be the same as `currencyCode`.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? InstructedCurrencyCode { get; set; }
+#nullable restore
+#else
+        public string InstructedCurrencyCode { get; set; }
+#endif
         /// <summary>Custom payment reference.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -135,6 +145,8 @@ namespace Soenneker.Wise.OpenApiClient.V1.Simulation.Profiles.Item.SwiftIn
                 { "beneficiaryName", n => { BeneficiaryName = n.GetStringValue(); } },
                 { "charges", n => { Charges = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.V1.Simulation.Profiles.Item.SwiftIn.SwiftInPostRequestBody_charges>(global::Soenneker.Wise.OpenApiClient.V1.Simulation.Profiles.Item.SwiftIn.SwiftInPostRequestBody_charges.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "currencyCode", n => { CurrencyCode = n.GetStringValue(); } },
+                { "instructedAmount", n => { InstructedAmount = n.GetDoubleValue(); } },
+                { "instructedCurrencyCode", n => { InstructedCurrencyCode = n.GetStringValue(); } },
                 { "paymentReference", n => { PaymentReference = n.GetStringValue(); } },
                 { "previousInstructingAgents", n => { PreviousInstructingAgents = n.GetCollectionOfPrimitiveValues<string>()?.AsList(); } },
                 { "senderAccount", n => { SenderAccount = n.GetStringValue(); } },
@@ -156,6 +168,8 @@ namespace Soenneker.Wise.OpenApiClient.V1.Simulation.Profiles.Item.SwiftIn
             writer.WriteStringValue("beneficiaryName", BeneficiaryName);
             writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.V1.Simulation.Profiles.Item.SwiftIn.SwiftInPostRequestBody_charges>("charges", Charges);
             writer.WriteStringValue("currencyCode", CurrencyCode);
+            writer.WriteDoubleValue("instructedAmount", InstructedAmount);
+            writer.WriteStringValue("instructedCurrencyCode", InstructedCurrencyCode);
             writer.WriteStringValue("paymentReference", PaymentReference);
             writer.WriteCollectionOfPrimitiveValues<string>("previousInstructingAgents", PreviousInstructingAgents);
             writer.WriteStringValue("senderAccount", SenderAccount);

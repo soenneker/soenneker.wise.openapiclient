@@ -916,8 +916,8 @@ tags:
       2. Extract the `targetAccount` value from the Quote response — Wise
       resolves the contact into a recipient account.
 
-      3. [Create a Transfer](/api-reference/transfer/transfercreate) using the
-      `targetAccount` from the Quote response.
+      3. [Create a Transfer](/api-reference/standard-transfer/transfercreate)
+      using the `targetAccount` from the Quote response.
   - name: currencies
     x-displayName: Currencies
     description: >
@@ -1356,7 +1356,7 @@ tags:
       SCA integration works.
   - name: transfer
     x-displayName: Transfers
-    description: >
+    description: >-
       A transfer is a payment order to a [recipient
       account](/api-reference/recipient) based on a
       [quote](/api-reference/quote).
@@ -1364,31 +1364,16 @@ tags:
 
       Once created, a transfer usually needs to be funded within fourteen days.
       Otherwise, it will be automatically cancelled.
-
-
-      There are 2 types of transfer resources: standard transfer resource and
-      originator transfer resource. Please see below for differences between the
-      two.
-
-
-      Standard Transfer {% #standard-transfer .title-3 .m-t-5 %}
-
-
-      The standard transfer object is returned by the [create
-      transfer](/api-reference/transfer/transfercreate), [get
-      transfer](/api-reference/transfer/transferget), [list
-      transfers](/api-reference/transfer/transferlist), and [cancel
-      transfer](/api-reference/transfer/transfercancel) endpoints.
-
-
-      Originator Transfer {% #originator-transfer .title-3 .m-t-5 %}
-
-
-      The originator transfer object is returned by the [create third party
-      transfer](/api-reference/transfer/transferthirdpartycreate) and [get third
-      party transfer](/api-reference/transfer/transferthirdpartyget) endpoints.
-      It includes an additional `originator` data block with details about the
-      payment originator.
+  - name: standard-transfer
+    x-displayName: Standard Transfers
+    description: >-
+      Create and manage transfers over API, either from your own Wise account or
+      on behalf of your customers.
+  - name: third-party-transfer
+    x-displayName: Third Party Transfers
+    description: >-
+      Create and manage transfers over API on behalf of your customers, under
+      your own financial license.
   - name: user
     x-displayName: Users
     description: >
@@ -1514,6 +1499,8 @@ x-tagGroups:
   - name: Transfers
     tags:
       - transfer
+      - standard-transfer
+      - third-party-transfer
       - delivery-estimate
       - currencies
       - batch-group
@@ -5663,7 +5650,7 @@ paths:
         - PersonalToken: []
       description: >
         Get payment initiation info by ID. In addition to
-        [webhooks](/guides/developer/webhooks/event-types#batch-payment-initiations-state-change-event),
+        [webhooks](/api-reference/webhook-event/eventbatchpaymentinitiationsstatechange),
         this endpoint can be used for polling the status of a payment
         initiation.
       parameters:
@@ -13157,13 +13144,6 @@ paths:
         user can fund a transfer or balance top-up via a PayNow transaction.
 
         This operation supports the SGD currency only.
-
-
-        {% admonition type="warning" %}
-
-        This operation is not available for sandbox testing.
-
-        {% /admonition %}
       tags:
         - payins
       security:
@@ -19815,7 +19795,7 @@ paths:
         follows:
 
 
-        - **SWIFT payouts:** A random fee between 15–50% is deducted from the
+        - **SWIFT payouts:** A random fee between 5-15% is deducted from the
         source amount. This is non-deterministic — each simulation produces a
         different refund amount. This is intended for testing your partial
         refund handling flow.
@@ -21312,15 +21292,30 @@ paths:
               required:
                 - currencyCode
                 - amount
+              dependentRequired:
+                instructedCurrencyCode:
+                  - instructedAmount
               properties:
                 currencyCode:
-                  type: string
-                  minLength: 3
-                  maxLength: 3
+                  $ref: '#/components/schemas/CurrencyCode'
                   description: Currency received by Wise. 3-letter ISO currency code.
                 amount:
                   type: number
                   description: Amount received by Wise.
+                  exclusiveMinimum: 0
+                instructedCurrencyCode:
+                  $ref: '#/components/schemas/CurrencyCode'
+                  description: >-
+                    Currency sent by the sender. 3-letter ISO currency code. If
+                    not provided, it is assumed to be the same as
+                    `currencyCode`.
+                instructedAmount:
+                  type: number
+                  description: >-
+                    Amount sent by the sender. If not provided, it is assumed to
+                    be the same as `amount` plus fees. Required if
+                    `instructedCurrencyCode` is provided.
+                  exclusiveMinimum: 0
                 beneficiaryName:
                   type: string
                   description: Name of the ultimate beneficiary.
@@ -21349,7 +21344,7 @@ paths:
                   type: string
                   description: Name of the sender.
                 senderBic:
-                  type: string
+                  $ref: '#/components/schemas/Bic'
                   description: BIC of the sender's bank.
                 senderAccount:
                   type: string
@@ -21390,24 +21385,25 @@ paths:
                       amount:
                         type: number
                         description: Fee amount.
+                        exclusiveMinimum: 0
                       currency:
-                        type: string
-                        minLength: 3
-                        maxLength: 3
+                        $ref: '#/components/schemas/CurrencyCode'
                         description: Fee currency. 3-letter ISO currency code.
                       agent:
-                        type: string
+                        $ref: '#/components/schemas/Bic'
                         description: BIC of the agent incurring the fee.
                 previousInstructingAgents:
                   type: array
                   maxItems: 3
                   description: List of previous instructing agents. Maximum 3 items.
                   items:
-                    type: string
+                    $ref: '#/components/schemas/Bic'
                     description: BIC of a previous instructing agent.
             example:
               currencyCode: EUR
               amount: 100
+              instructedAmount: 101
+              instructedCurrencyCode: EUR
               beneficiaryName: John Doe
               beneficiaryAccount: '8599680548'
               beneficiaryAddress:
@@ -21472,7 +21468,7 @@ paths:
                 errors:
                   - arguments: []
                     code: not.valid
-                    message: must be greater than or equal to 0
+                    message: must be greater than 0
                     path: amount
           headers:
             X-External-Correlation-Id:
@@ -23052,7 +23048,7 @@ paths:
         Consider removing the payment rule if you are going to use the API to
         create transfers.
       tags:
-        - transfer
+        - standard-transfer
       security:
         - UserToken: []
         - PersonalToken: []
@@ -23177,7 +23173,7 @@ paths:
         all failed payments created since last week, or all completed payments
         created since yesterday.
       tags:
-        - transfer
+        - standard-transfer
       security:
         - UserToken: []
         - PersonalToken: []
@@ -23617,7 +23613,7 @@ paths:
         using the same `originalTransferId` value. Subsequent retry messages are
         treated as repeat messages and will not create duplicate transfers.
       tags:
-        - transfer
+        - third-party-transfer
       security:
         - UserToken: []
       parameters:
@@ -23919,7 +23915,7 @@ paths:
         state of the transfer changes, see the [webhooks
         documentation](/api-reference/webhook).
       tags:
-        - transfer
+        - third-party-transfer
       security:
         - UserToken: []
       parameters:
@@ -23968,7 +23964,7 @@ paths:
         state of the transfer changes, see the [webhooks
         documentation](/api-reference/webhook).
       tags:
-        - transfer
+        - third-party-transfer
       security:
         - UserToken: []
       parameters:
@@ -24467,16 +24463,17 @@ paths:
 
         This endpoint is deprecated and only maintained for existing legacy
         integrations. Do not use it for new integrations. Use [Create a
-        transfer](/api-reference/transfer/transfercreate) or [Create a third
-        party transfer](/api-reference/transfer/transferthirdpartycreate)
+        transfer](/api-reference/standard-transfer/transfercreate) or [Create a
+        third party
+        transfer](/api-reference/third-party-transfer/transferthirdpartycreate)
         instead.
 
         {% /admonition %}
 
 
         This is similar to the [Create a
-        transfer](/api-reference/transfer/transfercreate) endpoint, but the
-        `originator` datablock is additionally required.
+        transfer](/api-reference/standard-transfer/transfercreate) endpoint, but
+        the `originator` datablock is additionally required.
 
 
         You need to save the transfer ID for tracking its status later via
@@ -26436,6 +26433,66 @@ webhooks:
                     type: string
                     example: ok
           description: Return any `2xx` status to acknowledge receipt of the event.
+  batch-payment-initiations#state-change:
+    post:
+      operationId: eventBatchPaymentInitiationsStateChange
+      summary: Batch payment initiations state change
+      description: >
+        Triggered when the payment initiation state of a batch group payment
+        changes.
+
+
+        The expected state of a batch payment initiation can be one of: `NEW`,
+        `PROCESSING`, `COMPLETED`, `FAILED`, `CHARGED_BACK`.
+
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
+
+
+        Events may not be delivered in the order they occurred. Use
+        `data.occurred_at` to reconcile the order.
+
+        See the [Event Ordering](/guides/developer/webhooks/event-ordering)
+        guide for details.
+
+
+        * Event type: `batch-payment-initiations#state-change`
+
+        * Profile level subscriptions: Not Supported
+
+        * Application level subscriptions: Supported
+      tags:
+        - webhook-event
+        - batch-group
+      parameters:
+        - $ref: '#/components/parameters/x-signature-sha256'
+        - $ref: '#/components/parameters/x-delivery-id'
+        - $ref: '#/components/parameters/x-test-notification'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: Batch Payment Initiations State Change Event
+              discriminator:
+                propertyName: schema_version
+                mapping:
+                  4.0.0: '#/components/schemas/v4.0.0-8'
+                  2.0.0: '#/components/schemas/v2.0.0-8'
+              oneOf:
+                - $ref: '#/components/schemas/v4.0.0-8'
+                - $ref: '#/components/schemas/v2.0.0-8'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+          description: Return any `2xx` status to acknowledge receipt of the event.
 components:
   parameters:
     X-External-Correlation-Id:
@@ -26527,66 +26584,16 @@ components:
         application/json:
           schema:
             type: object
-  securitySchemes:
-    UserToken:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-      description: >
-        User Access Token for making API calls on behalf of a Wise user.
-
-
-        Can be obtained via two OAuth 2.0 flows:
-
-        - **registration_code grant**: For partners creating users via API
-
-        - **authorization_code grant**: For partners using Wise's authorization
-        page
-
-
-        Access tokens are valid for 12 hours and can be refreshed using a
-        refresh token.
-    PersonalToken:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-      description: >
-        Personal API Token for individual personal or small business users.
-
-        Generated from Wise.com > Settings > Connect and manage apps > API
-        tokens.
-
-        Has limited API access compared to OAuth tokens (PSD2 restrictions apply
-        for EU/UK users).
-    ClientCredentialsToken:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-      description: >
-        Application-level token for partner operations that don't require a
-        specific user context, such as bulk settlement and card spend controls.
-
-
-        Obtained via `POST /oauth/token` with Basic Authentication
-        (client-id:client-secret) and `grant_type=client_credentials`.
-
-
-        Valid for 12 hours. No refresh token — fetch a new token when expired.
-
-
-        See [create an OAuth token](/api-reference/oauth-token/oauthtokencreate)
-        for details.
-    BasicAuth:
-      type: http
-      scheme: basic
-      description: >
-        Basic Authentication using your Client ID and Client Secret as the
-        username and password.
-
-
-        Client credentials are provided by Wise when your partnership begins.
-        See [Getting Started](/guides/developer) for details.
   schemas:
+    CurrencyCode:
+      type: string
+      description: ISO 4217 currency code
+      pattern: ^[A-Z]{3}$
+      example: USD
+    Bic:
+      description: Business Identifier Code, also known as Swift Code.
+      type: string
+      pattern: ^[A-Z]{4}[A-Z]{2}[A-Z0-9]{2}([A-Z0-9]{3})?$
     ChallengeResultRequest:
       type: object
       required:
@@ -33813,3 +33820,212 @@ components:
               format: date-time
               description: Timestamp when the event occurred
               example: '2020-01-01T12:34:56Z'
+    v4.0.0-8:
+      title: Schema version 4.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 4.0.0
+          example: 4.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: 01234567-89ab-cdef-0123-456789abcdef
+        event_type:
+          type: string
+          description: Event type identifier
+          example: batch-payment-initiations#state-change
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2020-01-01T12:34:56.123Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  format: int64
+                  description: Payment initiation ID
+                  example: 12345
+                batch_group_id:
+                  type: string
+                  description: Batch group ID
+                  example: 068e186d-9632-4937-b753-af3e53f4d0b0
+                profile_id:
+                  type: integer
+                  format: int64
+                  description: The ID of the profile this payment belongs to
+                  example: 2
+            previous_status:
+              type: string
+              description: Previous payment initiation state
+              enum:
+                - NEW
+                - PROCESSING
+                - COMPLETED
+                - FAILED
+                - CHARGED_BACK
+              example: NEW
+            current_status:
+              type: string
+              description: Current payment initiation state
+              enum:
+                - NEW
+                - PROCESSING
+                - COMPLETED
+                - FAILED
+                - CHARGED_BACK
+              example: PROCESSING
+            occurred_at:
+              type: string
+              format: date-time
+              description: When the payment initiation state change occurred
+              example: '2021-04-13T19:51:41.423Z'
+            return_code:
+              type: string
+              description: Return code of the underlying payment system
+              example: '200'
+    v2.0.0-8:
+      title: Schema version 2.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 2.0.0
+          example: 2.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: 01234567-89ab-cdef-0123-456789abcdef
+        event_type:
+          type: string
+          description: Event type identifier
+          example: batch-payment-initiations#state-change
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2020-01-01T12:34:56Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  format: int64
+                  description: Payment initiation ID
+                  example: 12345
+                batchGroupId:
+                  type: string
+                  description: Batch group ID
+                  example: 068e186d-9632-4937-b753-af3e53f4d0b0
+                profileId:
+                  type: integer
+                  format: int64
+                  description: The ID of the profile this payment belongs to
+                  example: 2
+            previousStatus:
+              type: string
+              description: Previous payment initiation state
+              enum:
+                - NEW
+                - PROCESSING
+                - COMPLETED
+                - FAILED
+                - CHARGED_BACK
+              example: NEW
+            currentStatus:
+              type: string
+              description: Current payment initiation state
+              enum:
+                - NEW
+                - PROCESSING
+                - COMPLETED
+                - FAILED
+                - CHARGED_BACK
+              example: PROCESSING
+            occurredAt:
+              type: string
+              format: date-time
+              description: When the payment initiation state change occurred
+              example: '2021-04-13T19:51:41.423404Z'
+            returnCode:
+              type: string
+              description: Return code of the underlying payment system
+              example: '200'
+  securitySchemes:
+    UserToken:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: >
+        User Access Token for making API calls on behalf of a Wise user.
+
+
+        Can be obtained via two OAuth 2.0 flows:
+
+        - **registration_code grant**: For partners creating users via API
+
+        - **authorization_code grant**: For partners using Wise's authorization
+        page
+
+
+        Access tokens are valid for 12 hours and can be refreshed using a
+        refresh token.
+    PersonalToken:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: >
+        Personal API Token for individual personal or small business users.
+
+        Generated from Wise.com > Settings > Connect and manage apps > API
+        tokens.
+
+        Has limited API access compared to OAuth tokens (PSD2 restrictions apply
+        for EU/UK users).
+    ClientCredentialsToken:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: >
+        Application-level token for partner operations that don't require a
+        specific user context, such as bulk settlement and card spend controls.
+
+
+        Obtained via `POST /oauth/token` with Basic Authentication
+        (client-id:client-secret) and `grant_type=client_credentials`.
+
+
+        Valid for 12 hours. No refresh token — fetch a new token when expired.
+
+
+        See [create an OAuth token](/api-reference/oauth-token/oauthtokencreate)
+        for details.
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: >
+        Basic Authentication using your Client ID and Client Secret as the
+        username and password.
+
+
+        Client credentials are provided by Wise when your partnership begins.
+        See [Getting Started](/guides/developer) for details.

@@ -34,7 +34,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BatchGroups.Item.Payment
         {
         }
         /// <summary>
-        /// Get payment initiation info by ID. In addition to [webhooks](/guides/developer/webhooks/event-types#batch-payment-initiations-state-change-event), this endpoint can be used for polling the status of a payment initiation.
+        /// Get payment initiation info by ID. In addition to [webhooks](/api-reference/webhook-event/eventbatchpaymentinitiationsstatechange), this endpoint can be used for polling the status of a payment initiation.
         /// </summary>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiation"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
@@ -57,7 +57,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.BatchGroups.Item.Payment
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiation>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiation.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Get payment initiation info by ID. In addition to [webhooks](/guides/developer/webhooks/event-types#batch-payment-initiations-state-change-event), this endpoint can be used for polling the status of a payment initiation.
+        /// Get payment initiation info by ID. In addition to [webhooks](/api-reference/webhook-event/eventbatchpaymentinitiationsstatechange), this endpoint can be used for polling the status of a payment initiation.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
