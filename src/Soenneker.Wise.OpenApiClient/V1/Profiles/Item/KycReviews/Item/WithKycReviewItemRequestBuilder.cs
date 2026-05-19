@@ -58,29 +58,29 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.KycReviews.Item
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.KycReview>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.KycReview.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Updates the KYC Review with a redirect URL.Returns the KYC Review object with a `link` field containing a URL where the end customer needs to be directed in order to complete the Hosted KYC flow.Once the Hosted KYC flow is completed by the end customer, they will be redirected to the `redirectUrl` provided in this API call. During the redirection, the `redirectUrl` will be appended with query parameters: `status=success`, `status=failed`, or `status=closed`.
+        /// Updates the KYC Review with a redirect URL.Returns the KYC Review object with a `link` field containing a URL where the end customer needs to be directed in order to complete the Hosted KYC flow. **The link is short-lived and single-use and valid for 5 minutes**. Use the `expiresAt` field in the response to determine the exact expiry time. To regenerate the link, call this endpoint again.Once the Hosted KYC flow is completed by the end customer, they will be redirected to the `redirectUrl` provided in this API call. During the redirection, the `redirectUrl` will be appended with query parameters: `status=success`, `status=failed`, or `status=closed`.
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.KycReview"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.KycReviewWithLink"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.KycReview429Error">When receiving a 429 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.KycReviewWithLink429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.Models.KycReview?> PatchAsync(global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.KycReviews.Item.WithKycReviewPatchRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.KycReviewWithLink?> PatchAsync(global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.KycReviews.Item.WithKycReviewPatchRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.Models.KycReview> PatchAsync(global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.KycReviews.Item.WithKycReviewPatchRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.KycReviewWithLink> PatchAsync(global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.KycReviews.Item.WithKycReviewPatchRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPatchRequestInformation(body, requestConfiguration);
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
-                { "429", global::Soenneker.Wise.OpenApiClient.Models.KycReview429Error.CreateFromDiscriminatorValue },
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.KycReviewWithLink429Error.CreateFromDiscriminatorValue },
             };
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.KycReview>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.KycReview.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.KycReviewWithLink>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.KycReviewWithLink.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// {% admonition type=&quot;warning&quot; %}This endpoint is deprecated. Use [Get KYC Review by ID](kycreviewget) (V2) instead.{% /admonition %}Retrieves a single KYC Review by ID for a profile.
@@ -103,7 +103,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.KycReviews.Item
             return requestInfo;
         }
         /// <summary>
-        /// Updates the KYC Review with a redirect URL.Returns the KYC Review object with a `link` field containing a URL where the end customer needs to be directed in order to complete the Hosted KYC flow.Once the Hosted KYC flow is completed by the end customer, they will be redirected to the `redirectUrl` provided in this API call. During the redirection, the `redirectUrl` will be appended with query parameters: `status=success`, `status=failed`, or `status=closed`.
+        /// Updates the KYC Review with a redirect URL.Returns the KYC Review object with a `link` field containing a URL where the end customer needs to be directed in order to complete the Hosted KYC flow. **The link is short-lived and single-use and valid for 5 minutes**. Use the `expiresAt` field in the response to determine the exact expiry time. To regenerate the link, call this endpoint again.Once the Hosted KYC flow is completed by the end customer, they will be redirected to the `redirectUrl` provided in this API call. During the redirection, the `redirectUrl` will be appended with query parameters: `status=success`, `status=failed`, or `status=closed`.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>

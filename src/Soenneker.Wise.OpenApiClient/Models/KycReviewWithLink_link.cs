@@ -11,7 +11,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
     /// Contains the URL and expiry of said URL the end customer needs to be directed to in order to go through Hosted KYC flow. `link` is returned only when `status` is `WAITING_CUSTOMER_INPUT` and [Update redirect URL](kycreviewredirecturlupdate) is called.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    public partial class KycReview_link : IAdditionalDataHolder, IParsable
+    public partial class KycReviewWithLink_link : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
@@ -26,21 +26,21 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public string Value { get; set; }
 #endif
         /// <summary>
-        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.KycReview_link"/> and sets the default values.
+        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.KycReviewWithLink_link"/> and sets the default values.
         /// </summary>
-        public KycReview_link()
+        public KycReviewWithLink_link()
         {
             AdditionalData = new Dictionary<string, object>();
         }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.KycReview_link"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.KycReviewWithLink_link"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static global::Soenneker.Wise.OpenApiClient.Models.KycReview_link CreateFromDiscriminatorValue(IParseNode parseNode)
+        public static global::Soenneker.Wise.OpenApiClient.Models.KycReviewWithLink_link CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.KycReview_link();
+            return new global::Soenneker.Wise.OpenApiClient.Models.KycReviewWithLink_link();
         }
         /// <summary>
         /// The deserialization information for the current model
