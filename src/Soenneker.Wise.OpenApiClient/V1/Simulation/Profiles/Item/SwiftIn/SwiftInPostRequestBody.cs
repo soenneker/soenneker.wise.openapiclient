@@ -56,7 +56,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Simulation.Profiles.Item.SwiftIn
 #else
         public string CurrencyCode { get; set; }
 #endif
-        /// <summary>Amount sent by the sender. If not provided, it is assumed to be the same as `amount` plus fees. Required if `instructedCurrencyCode` is provided.</summary>
+        /// <summary>Amount sent by the sender. If not provided, it is assumed to be the same as `amount` plus **same currency** fees.Any outstanding fees in other currencies are ignored.Required if `instructedCurrencyCode` is provided.</summary>
         public double? InstructedAmount { get; set; }
         /// <summary>Currency sent by the sender. 3-letter ISO currency code. If not provided, it is assumed to be the same as `currencyCode`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER

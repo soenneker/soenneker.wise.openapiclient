@@ -34,7 +34,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Simulation.Transfers.Item.PayoutFailur
         {
         }
         /// <summary>
-        /// Triggers transfers#payout-failure webhook for the transfer. The available payout failure reason codes are listed in the [transfers#payout-failure webhook guide](/guides/developer/webhooks/event-types#table-of-available-failure-reason-codes-and-descriptions).{% admonition type=&quot;info&quot; %}- Simulation requires transfer to be in `bounced_back` state.- While payout failure simulation call will respond with 200 in real time, the payout failure webhook is asynchronous.{% /admonition %}
+        /// Triggers transfers#payout-failure webhook for the transfer.The available payout failure reason codes are listed in the [transfers#payout-failure webhook guide](/guides/product/send-money/tracking/payout-failures).{% admonition type=&quot;info&quot; %}- Simulation requires transfer to be in `bounced_back` state.- While payout failure simulation call will respond with 200 in real time, the payout failure webhook is asynchronous.{% /admonition %}Request body is optional; omit it or send {} to trigger a random failure reason.
         /// </summary>
         /// <returns>A <see cref="Stream"/></returns>
         /// <param name="body">The request body</param>
@@ -63,7 +63,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Simulation.Transfers.Item.PayoutFailur
             return await RequestAdapter.SendPrimitiveAsync<Stream>(requestInfo, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Triggers transfers#payout-failure webhook for the transfer. The available payout failure reason codes are listed in the [transfers#payout-failure webhook guide](/guides/developer/webhooks/event-types#table-of-available-failure-reason-codes-and-descriptions).{% admonition type=&quot;info&quot; %}- Simulation requires transfer to be in `bounced_back` state.- While payout failure simulation call will respond with 200 in real time, the payout failure webhook is asynchronous.{% /admonition %}
+        /// Triggers transfers#payout-failure webhook for the transfer.The available payout failure reason codes are listed in the [transfers#payout-failure webhook guide](/guides/product/send-money/tracking/payout-failures).{% admonition type=&quot;info&quot; %}- Simulation requires transfer to be in `bounced_back` state.- While payout failure simulation call will respond with 200 in real time, the payout failure webhook is asynchronous.{% /admonition %}Request body is optional; omit it or send {} to trigger a random failure reason.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>

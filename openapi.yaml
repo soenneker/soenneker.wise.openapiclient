@@ -6719,7 +6719,7 @@ paths:
       description: >
         Sends the card production request to a kiosk machine. To confirm that
         card information has been successfully created, listen to the
-        [card-production-status-change](/guides/developer/webhooks/event-types#cards-card-production-status-change)
+        [card-production-status-change](/api-reference/webhook-event/eventcardscardproductionstatuschange)
         webhook with status `READY`.
 
 
@@ -6814,7 +6814,7 @@ paths:
 
 
         **Best practice**: Subscribe to the [card production status
-        change](/guides/developer/webhooks/event-types#cards-card-production-status-change)
+        change](/api-reference/webhook-event/eventcardscardproductionstatuschange)
         webhook for real-time notifications. Use this endpoint only when you
         need to synchronously check the status.
       security:
@@ -19873,14 +19873,12 @@ paths:
       operationId: simulationTransferPayoutFailure
       summary: Simulate transfer payout failure
       description: >
-        Triggers transfers#payout-failure webhook for the transfer. 
+        Triggers transfers#payout-failure webhook for the transfer.
 
 
         The available payout failure reason codes are listed in the
         [transfers#payout-failure webhook
-        guide](/guides/developer/webhooks/event-types#table-of-available-failure-reason-codes-and-descriptions).
-
-
+        guide](/guides/product/send-money/tracking/payout-failures).
 
 
         {% admonition type="info" %}
@@ -19891,6 +19889,10 @@ paths:
         time, the payout failure webhook is asynchronous.
 
         {% /admonition %}
+
+
+        Request body is optional; omit it or send {} to trigger a random failure
+        reason.
       tags:
         - simulation
       security:
@@ -19910,13 +19912,21 @@ paths:
           application/json:
             schema:
               type: object
+              additionalProperties: false
               properties:
                 failure_reason_code:
                   type: string
                   description: >-
                     Failure reason code to trigger for payout failure. When not
                     provided, a failure code is selected at random and returned.
-                  example: WRONG_ID_NUMBER
+            examples:
+              empty:
+                summary: Random failure reason
+                value: {}
+              wrongId:
+                summary: Explicit failure reason
+                value:
+                  failure_reason_code: WRONG_ID_NUMBER
       responses:
         '200':
           description: Successful initiation of payout failure.
@@ -21313,10 +21323,16 @@ paths:
                     `currencyCode`.
                 instructedAmount:
                   type: number
-                  description: >-
-                    Amount sent by the sender. If not provided, it is assumed to
-                    be the same as `amount` plus fees. Required if
-                    `instructedCurrencyCode` is provided.
+                  description: >
+                    Amount sent by the sender. 
+
+                    If not provided, it is assumed to be the same as `amount`
+                    plus **same currency** fees.
+
+                    Any outstanding fees in other currencies are ignored.
+
+
+                    Required if `instructedCurrencyCode` is provided.
                   exclusiveMinimum: 0
                 beneficiaryName:
                   type: string
@@ -26202,6 +26218,124 @@ webhooks:
                     type: string
                     example: ok
           description: Return any `2xx` status to acknowledge receipt of the event.
+  cards#card-status-change:
+    post:
+      operationId: eventCardsCardStatusChange
+      summary: Card status change
+      description: >
+        This event is triggered for the initial card status as well as any
+        subsequent updates.
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
+
+
+        Events may not be delivered in the order they occurred. Use
+        `data.occurred_at` to reconcile the order.
+
+        See the [Event Ordering](/guides/developer/webhooks/event-ordering)
+        guide for details.
+
+
+        * Event type: `cards#card-status-change`
+
+        * Profile level subscriptions: Not Supported
+
+        * Application level subscriptions: Supported
+      tags:
+        - webhook-event
+        - card
+      parameters:
+        - $ref: '#/components/parameters/x-signature-sha256'
+        - $ref: '#/components/parameters/x-delivery-id'
+        - $ref: '#/components/parameters/x-test-notification'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: Card Status Change Event
+              discriminator:
+                propertyName: schema_version
+                mapping:
+                  4.0.0: '#/components/schemas/v4.0.0-5'
+                  2.0.0: '#/components/schemas/v2.0.0-5'
+              oneOf:
+                - $ref: '#/components/schemas/v4.0.0-5'
+                - $ref: '#/components/schemas/v2.0.0-5'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+          description: Return any `2xx` status to acknowledge receipt of the event.
+  cards#card-production-status-change:
+    post:
+      operationId: eventCardsCardProductionStatusChange
+      summary: Card production status change
+      description: >
+        Triggered every time a card production status is updated.
+
+        Please note that this webhook is solely used for physical card with
+        `KIOSK_COLLECTION` delivery method.
+
+
+        Refer back to the [Card kiosk collection
+        guide](/guides/product/issue-cards/card-kiosk-collection) for more
+        details.
+
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
+
+
+        Events may not be delivered in the order they occurred. Use
+        `data.occurred_at` to reconcile the order.
+
+        See the [Event Ordering](/guides/developer/webhooks/event-ordering)
+        guide for details.
+
+
+        * Event type: `cards#card-production-status-change`
+
+        * Profile level subscriptions: Not Supported
+
+        * Application level subscriptions: Supported
+      tags:
+        - webhook-event
+        - card-kiosk-collection
+      parameters:
+        - $ref: '#/components/parameters/x-signature-sha256'
+        - $ref: '#/components/parameters/x-delivery-id'
+        - $ref: '#/components/parameters/x-test-notification'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: Card Production Status Change Event
+              discriminator:
+                propertyName: schema_version
+                mapping:
+                  4.0.0: '#/components/schemas/v4.0.0-6'
+                  2.0.0: '#/components/schemas/v2.0.0-6'
+              oneOf:
+                - $ref: '#/components/schemas/v4.0.0-6'
+                - $ref: '#/components/schemas/v2.0.0-6'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+          description: Return any `2xx` status to acknowledge receipt of the event.
   cards#manual-provisioning-verification:
     post:
       operationId: eventCardsManualProvisioningVerification
@@ -26231,7 +26365,7 @@ webhooks:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/v2.0.0-5'
+              $ref: '#/components/schemas/v2.0.0-7'
       responses:
         '200':
           content:
@@ -26284,7 +26418,7 @@ webhooks:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/v4.0.0-5'
+              $ref: '#/components/schemas/v4.0.0-7'
             examples:
               breachOpened:
                 summary: Breach opened
@@ -26368,11 +26502,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-6'
-                  2.0.0: '#/components/schemas/v2.0.0-6'
+                  4.0.0: '#/components/schemas/v4.0.0-8'
+                  2.0.0: '#/components/schemas/v2.0.0-8'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-6'
-                - $ref: '#/components/schemas/v2.0.0-6'
+                - $ref: '#/components/schemas/v4.0.0-8'
+                - $ref: '#/components/schemas/v2.0.0-8'
       responses:
         '200':
           content:
@@ -26422,11 +26556,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-7'
-                  2.0.0: '#/components/schemas/v2.0.0-7'
+                  4.0.0: '#/components/schemas/v4.0.0-9'
+                  2.0.0: '#/components/schemas/v2.0.0-9'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-7'
-                - $ref: '#/components/schemas/v2.0.0-7'
+                - $ref: '#/components/schemas/v4.0.0-9'
+                - $ref: '#/components/schemas/v2.0.0-9'
       responses:
         '200':
           content:
@@ -26488,11 +26622,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-8'
-                  2.0.0: '#/components/schemas/v2.0.0-8'
+                  4.0.0: '#/components/schemas/v4.0.0-10'
+                  2.0.0: '#/components/schemas/v2.0.0-10'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-8'
-                - $ref: '#/components/schemas/v2.0.0-8'
+                - $ref: '#/components/schemas/v4.0.0-10'
+                - $ref: '#/components/schemas/v2.0.0-10'
       responses:
         '200':
           content:
@@ -26542,11 +26676,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-9'
-                  2.0.0: '#/components/schemas/v2.0.0-9'
+                  4.0.0: '#/components/schemas/v4.0.0-11'
+                  2.0.0: '#/components/schemas/v2.0.0-11'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-9'
-                - $ref: '#/components/schemas/v2.0.0-9'
+                - $ref: '#/components/schemas/v4.0.0-11'
+                - $ref: '#/components/schemas/v2.0.0-11'
       responses:
         '200':
           content:
@@ -26613,11 +26747,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-10'
-                  2.0.0: '#/components/schemas/v2.0.0-10'
+                  4.0.0: '#/components/schemas/v4.0.0-12'
+                  2.0.0: '#/components/schemas/v2.0.0-12'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-10'
-                - $ref: '#/components/schemas/v2.0.0-10'
+                - $ref: '#/components/schemas/v4.0.0-12'
+                - $ref: '#/components/schemas/v2.0.0-12'
       responses:
         '200':
           content:
@@ -26673,11 +26807,79 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-11'
-                  2.0.0: '#/components/schemas/v2.0.0-11'
+                  4.0.0: '#/components/schemas/v4.0.0-13'
+                  2.0.0: '#/components/schemas/v2.0.0-13'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-11'
-                - $ref: '#/components/schemas/v2.0.0-11'
+                - $ref: '#/components/schemas/v4.0.0-13'
+                - $ref: '#/components/schemas/v2.0.0-13'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+          description: Return any `2xx` status to acknowledge receipt of the event.
+  partner-support#case-changed:
+    post:
+      operationId: eventPartnerSupportCaseChanged
+      summary: Partner support case changed
+      description: >
+        Triggered every time a partner case is updated, including if commented
+        on or if the status is changed.
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
+
+
+        Note that you will also receive a webhook response when you have created
+        a new case or updated a case.
+
+
+        Events may not be delivered in the order they occurred. Use
+        `data.occurred_at` to reconcile the order.
+
+        See the [Event Ordering](/guides/developer/webhooks/event-ordering)
+        guide for details.
+
+
+        {% admonition type="warning" %}
+
+        As the Partner Support API is currently in beta, the information below
+        may change. We will be adding in new types of cases, so please ensure
+        that you handle additional undocumented types.
+
+        {% /admonition %}
+
+
+        * Event type: `partner-support#case-changed`
+
+        * Profile level subscriptions: Not supported
+
+        * Application level subscriptions: Supported
+      tags:
+        - webhook-event
+        - case
+      parameters:
+        - $ref: '#/components/parameters/x-signature-sha256'
+        - $ref: '#/components/parameters/x-delivery-id'
+        - $ref: '#/components/parameters/x-test-notification'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: Partner Support Case Changed Event
+              discriminator:
+                propertyName: schema_version
+                mapping:
+                  4.0.0: '#/components/schemas/v4.0.0-14'
+                  2.0.0: '#/components/schemas/v2.0.0-14'
+              oneOf:
+                - $ref: '#/components/schemas/v4.0.0-14'
+                - $ref: '#/components/schemas/v2.0.0-14'
       responses:
         '200':
           content:
@@ -33806,7 +34008,351 @@ components:
               format: date-time
               description: Timestamp when the event occurred
               example: '2026-02-24T11:10:13Z'
+    v4.0.0-5:
+      title: Schema version 4.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 4.0.0
+          example: 4.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: ABCD-1234-ABCD-1234-ABCD
+        event_type:
+          type: string
+          description: Event type identifier
+          example: cards#card-status-change
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2022-08-22T07:59:50.123Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                profile_id:
+                  type: integer
+                  format: int64
+                  description: ID of the profile that owns the card
+                  example: 123456
+                client_id:
+                  type: string
+                  description: Your api_client_id
+                  example: your-bank
+                card_token:
+                  type: string
+                  description: Unique identifier of the card
+                  example: ABCD-1234-ABCD-1234-ABCD
+                type:
+                  type: string
+                  description: Resource type (always `card`)
+                  example: card
+            card_status:
+              type: string
+              description: >
+                The updated card status. Possible values:
+
+                - `ACTIVE` - Card is active and can be used
+
+                - `INACTIVE` - Card is inactive and all transactions will be
+                declined
+
+                - `BLOCKED` - Card is blocked and cannot be reversed back to any
+                state
+
+                - `FROZEN` - Card is "blocked" but temporarily
+
+                - `PARTNER_SUSPENDED` - Card is suspended by Wise temporarily
+                due to e.g. fraud reasons
+
+                - `EXPIRED` - Card is expired
+
+                - `PURGED` - The cardhoder data (e.g. PAN, PIN) have been purged
+                after exceeds the retention period (555 days after the card's
+                expiry date)
+              example: FROZEN
+            changed_by:
+              type: string
+              description: >
+                The identifier of the entity that updated the card status. If
+                changed by Wise, the value is set to `internal_system`,
+
+                otherwise, it is set to your api_client_id
+              example: internal_system
+            occurred_at:
+              type: string
+              format: date-time
+              description: When the card status change occurred
+              example: '2022-08-22T07:49:50.789Z'
     v2.0.0-5:
+      title: Schema version 2.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 2.0.0
+          example: 2.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: ABCD-1234-ABCD-1234-ABCD
+        event_type:
+          type: string
+          description: Event type identifier
+          example: cards#card-status-change
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2022-08-22T07:59:50Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                profile_id:
+                  type: integer
+                  format: int64
+                  description: ID of the profile that owns the card
+                  example: 123456
+                client_id:
+                  type: string
+                  description: Your api_client_id
+                  example: your-bank
+                card_token:
+                  type: string
+                  description: Unique identifier of the card
+                  example: ABCD-1234-ABCD-1234-ABCD
+                type:
+                  type: string
+                  description: Resource type (always `card`)
+                  example: card
+            card_status:
+              type: string
+              description: >
+                The updated card status. Possible values:
+
+                - `ACTIVE` - Card is active and can be used
+
+                - `INACTIVE` - Card is inactive and all transactions will be
+                declined
+
+                - `BLOCKED` - Card is blocked and cannot be reversed back to any
+                state
+
+                - `FROZEN` - Card is "blocked" but temporarily
+
+                - `PARTNER_SUSPENDED` - Card is suspended by Wise temporarily
+                due to e.g. fraud reasons
+
+                - `EXPIRED` - Card is expired
+
+                - `PURGED` - The cardhoder data (e.g. PAN, PIN) have been purged
+                after exceeds the retention period (555 days after the card's
+                expiry date)
+              example: FROZEN
+            changed_by:
+              type: string
+              description: >
+                The identifier of the entity that updated the card status. If
+                changed by Wise, the value is set to `internal_system`,
+
+                otherwise, it is set to your api_client_id
+              example: internal_system
+            occurred_at:
+              type: string
+              format: date-time
+              description: When the card status change occurred
+              example: '2022-08-22T07:49:50Z'
+    v4.0.0-6:
+      title: Schema version 4.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 4.0.0
+          example: 4.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: 01234567-89ab-cdef-0123-456789abcdef
+        event_type:
+          type: string
+          description: Event type identifier
+          example: cards#card-production-status-change
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2024-01-01T12:34:56.123Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                profile_id:
+                  type: integer
+                  format: int64
+                  description: ID of the profile that owns the card
+                  example: 123456
+                type:
+                  type: string
+                  description: Webhook notification of type 'card'
+                  example: card
+                client_id:
+                  type: string
+                  description: API client_id
+                  example: your-bank
+                card_token:
+                  type:
+                    - string
+                    - 'null'
+                  description: Unique identifier of the card
+                  example: 35050a4a-9521-426e-8109-1396e3687a3e
+            status:
+              type: string
+              description: >
+                Current production status. The possible values can be found in
+                the [production status flow
+                diagram](/api-reference/card-kiosk-collection#production-status-flow).
+              example: PRODUCED
+            kiosk_id:
+              type:
+                - string
+                - 'null'
+              description: >-
+                Identifier that specifies which kiosk machine is producing the
+                card.
+              example: WIS00001
+            occurred_at:
+              type: string
+              format: date-time
+              description: >-
+                Time when the card production request has been sent to the kiosk
+                machine.
+              example: '2024-01-01T12:24:56.789Z'
+            error_code:
+              type:
+                - string
+                - 'null'
+              description: >
+                Code returned when card production is not successful. The
+                possible values can be found in [production
+                errors](/api-reference/card-kiosk-collection/cardkioskcollectionproduce).
+              example: null
+            description:
+              type: string
+              description: Detailed description of the error code.
+              example: Card produced
+    v2.0.0-6:
+      title: Schema version 2.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 2.0.0
+          example: 2.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: 01234567-89ab-cdef-0123-456789abcdef
+        event_type:
+          type: string
+          description: Event type identifier
+          example: cards#card-production-status-change
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2024-01-01T12:34:56Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                profile_id:
+                  type: integer
+                  format: int64
+                  description: ID of the profile that owns the card
+                  example: 123456
+                type:
+                  type: string
+                  description: Webhook notification of type 'card'
+                  example: card
+                client_id:
+                  type: string
+                  description: API client_id
+                  example: your-bank
+                card_token:
+                  type:
+                    - string
+                    - 'null'
+                  description: Unique identifier of the card
+                  example: 35050a4a-9521-426e-8109-1396e3687a3e
+            status:
+              type: string
+              description: >
+                Current production status. The possible values can be found in
+                the [production status flow
+                diagram](/api-reference/card-kiosk-collection#production-status-flow).
+              example: PRODUCED
+            kiosk_id:
+              type:
+                - string
+                - 'null'
+              description: >-
+                Identifier that specifies which kiosk machine is producing the
+                card.
+              example: WIS00001
+            occurred_at:
+              type: string
+              format: date-time
+              description: >-
+                Time when the card production request has been sent to the kiosk
+                machine.
+              example: '2024-01-01T12:24:56Z'
+            error_code:
+              type:
+                - string
+                - 'null'
+              description: >
+                Code returned when card production is not successful. The
+                possible values can be found in [production
+                errors](/api-reference/card-kiosk-collection/cardkioskcollectionproduce).
+              example: null
+            description:
+              type: string
+              description: Detailed description of the error code.
+              example: Card produced
+    v2.0.0-7:
       title: Schema version 2.0.0
       type: object
       properties:
@@ -33874,7 +34420,7 @@ components:
                 The wallet provider used to provision the card such as "Google
                 Pay" or "Apple Pay"
               example: Google Pay
-    v4.0.0-5:
+    v4.0.0-7:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -33963,7 +34509,7 @@ components:
                 Timestamp when the event occurred (ISO 8601). Use this field to
                 reconcile out-of-order events
               example: '2024-06-01T08:00:00Z'
-    v4.0.0-6:
+    v4.0.0-8:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -34021,7 +34567,7 @@ components:
                   type: string
                   description: Currency in which the amounts are expressed in
                   example: EUR
-    v2.0.0-6:
+    v2.0.0-8:
       title: Schema version 2.0.0
       type: object
       properties:
@@ -34079,7 +34625,7 @@ components:
                   type: string
                   description: Currency in which the amounts are expressed in
                   example: EUR
-    v4.0.0-7:
+    v4.0.0-9:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -34160,7 +34706,7 @@ components:
                 Whether the state change was requested by the customer. Not
                 applicable for `current_state` in `ACTIVE`.
               example: false
-    v2.0.0-7:
+    v2.0.0-9:
       title: Schema version 2.0.0
       type: object
       properties:
@@ -34241,228 +34787,6 @@ components:
                 Whether the state change was requested by the customer. Not
                 applicable for `current_state` in `ACTIVE`.
               example: false
-    v4.0.0-8:
-      title: Schema version 4.0.0
-      type: object
-      properties:
-        schema_version:
-          type: string
-          description: >-
-            Version of the event schema. Determined by the `schema_version` on
-            your [webhook subscription](/api-reference/webhook).
-          enum:
-            - 4.0.0
-          example: 4.0.0
-        subscription_id:
-          type: string
-          format: uuid
-          description: ID of the webhook subscription that triggered this event
-          example: 01234567-89ab-cdef-0123-456789abcdef
-        event_type:
-          type: string
-          description: Event type identifier
-          example: profiles#verification-state-change
-        sent_at:
-          type: string
-          format: date-time
-          description: Timestamp when the event was sent
-          example: '2020-01-01T12:34:56.123Z'
-        data:
-          type: object
-          properties:
-            resource:
-              type: object
-              properties:
-                type:
-                  type: string
-                  description: Resource type (always `profile`)
-                  example: profile
-                id:
-                  type: integer
-                  format: int64
-                  description: ID of the profile
-                  example: 111
-            current_state:
-              type: string
-              description: Current verification state of the profile
-              enum:
-                - verified
-                - not_verified
-              example: verified
-            occurred_at:
-              type: string
-              format: date-time
-              description: When the verification state change occurred
-              example: '2020-01-01T12:34:56.789Z'
-    v2.0.0-8:
-      title: Schema version 2.0.0
-      type: object
-      properties:
-        schema_version:
-          type: string
-          description: >-
-            Version of the event schema. Determined by the `schema_version` on
-            your [webhook subscription](/api-reference/webhook).
-          enum:
-            - 2.0.0
-          example: 2.0.0
-        subscription_id:
-          type: string
-          format: uuid
-          description: ID of the webhook subscription that triggered this event
-          example: 01234567-89ab-cdef-0123-456789abcdef
-        event_type:
-          type: string
-          description: Event type identifier
-          example: profiles#verification-state-change
-        sent_at:
-          type: string
-          format: date-time
-          description: Timestamp when the event was sent
-          example: '2020-01-01T12:34:56Z'
-        data:
-          type: object
-          properties:
-            resource:
-              type: object
-              properties:
-                type:
-                  type: string
-                  description: Resource type (always `profile`)
-                  example: profile
-                id:
-                  type: integer
-                  format: int64
-                  description: ID of the profile
-                  example: 111
-            current_state:
-              type: string
-              description: Current verification state of the profile
-              enum:
-                - verified
-                - not_verified
-              example: verified
-            occurred_at:
-              type: string
-              format: date-time
-              description: When the verification state change occurred
-              example: '2020-01-01T12:34:56Z'
-    v4.0.0-9:
-      title: Schema version 4.0.0
-      type: object
-      properties:
-        schema_version:
-          type: string
-          description: >-
-            Version of the event schema. Determined by the `schema_version` on
-            your [webhook subscription](/api-reference/webhook).
-          enum:
-            - 4.0.0
-          example: 4.0.0
-        subscription_id:
-          type: string
-          format: uuid
-          description: ID of the webhook subscription that triggered this event
-          example: 01234567-89ab-cdef-0123-456789abcdef
-        event_type:
-          type: string
-          description: Event type identifier
-          example: balances#account-state-change
-        sent_at:
-          type: string
-          format: date-time
-          description: Timestamp when the event was sent
-          example: '2020-01-01T12:34:56.123Z'
-        data:
-          type: object
-          properties:
-            resource:
-              type: object
-              properties:
-                type:
-                  type: string
-                  description: Resource type (always `balance-account`)
-                  example: balance-account
-                id:
-                  type: integer
-                  format: int64
-                  description: ID of the account
-                  example: 123
-                profile_id:
-                  type: integer
-                  format: int64
-                  description: ID of the profile that owns the account
-                  example: 555
-                state:
-                  type: string
-                  description: State of the account.
-                  enum:
-                    - ACTIVE
-                    - INACTIVE
-                  example: INACTIVE
-            occurred_at:
-              type: string
-              format: date-time
-              description: Timestamp when the event occurred
-              example: '2020-01-01T12:34:56.789Z'
-    v2.0.0-9:
-      title: Schema version 2.0.0
-      type: object
-      properties:
-        schema_version:
-          type: string
-          description: >-
-            Version of the event schema. Determined by the `schema_version` on
-            your [webhook subscription](/api-reference/webhook).
-          enum:
-            - 2.0.0
-          example: 2.0.0
-        subscription_id:
-          type: string
-          format: uuid
-          description: ID of the webhook subscription that triggered this event
-          example: 01234567-89ab-cdef-0123-456789abcdef
-        event_type:
-          type: string
-          description: Event type identifier
-          example: balances#account-state-change
-        sent_at:
-          type: string
-          format: date-time
-          description: Timestamp when the event was sent
-          example: '2020-01-01T12:34:56Z'
-        data:
-          type: object
-          properties:
-            resource:
-              type: object
-              properties:
-                type:
-                  type: string
-                  description: Resource type (always `balance-account`)
-                  example: balance-account
-                id:
-                  type: integer
-                  format: int64
-                  description: ID of the account
-                  example: 123
-                profile_id:
-                  type: integer
-                  format: int64
-                  description: ID of the profile that owns the account
-                  example: 555
-                state:
-                  type: string
-                  description: State of the account.
-                  enum:
-                    - ACTIVE
-                    - INACTIVE
-                  example: INACTIVE
-            occurred_at:
-              type: string
-              format: date-time
-              description: Timestamp when the event occurred
-              example: '2020-01-01T12:34:56Z'
     v4.0.0-10:
       title: Schema version 4.0.0
       type: object
@@ -34483,7 +34807,7 @@ components:
         event_type:
           type: string
           description: Event type identifier
-          example: balances#credit
+          example: profiles#verification-state-change
         sent_at:
           type: string
           format: date-time
@@ -34497,40 +34821,24 @@ components:
               properties:
                 type:
                   type: string
-                  description: Resource type (always `balance-account`)
-                  example: balance-account
+                  description: Resource type (always `profile`)
+                  example: profile
                 id:
                   type: integer
                   format: int64
-                  description: ID of the account
+                  description: ID of the profile
                   example: 111
-                profile_id:
-                  type: integer
-                  format: int64
-                  description: ID of the profile that owns the account
-                  example: 222
-            transaction_type:
+            current_state:
               type: string
-              description: Always `credit`
-              example: credit
-            amount:
-              type: number
-              format: decimal
-              description: Deposited amount
-              example: 1.23
-            currency:
-              type: string
-              description: Currency code
-              example: EUR
-            post_transaction_balance_amount:
-              type: number
-              format: decimal
-              description: Balance after the credit was applied
-              example: 2.34
+              description: Current verification state of the profile
+              enum:
+                - verified
+                - not_verified
+              example: verified
             occurred_at:
               type: string
               format: date-time
-              description: When the credit occurred
+              description: When the verification state change occurred
               example: '2020-01-01T12:34:56.789Z'
     v2.0.0-10:
       title: Schema version 2.0.0
@@ -34552,6 +34860,244 @@ components:
         event_type:
           type: string
           description: Event type identifier
+          example: profiles#verification-state-change
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2020-01-01T12:34:56Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: Resource type (always `profile`)
+                  example: profile
+                id:
+                  type: integer
+                  format: int64
+                  description: ID of the profile
+                  example: 111
+            current_state:
+              type: string
+              description: Current verification state of the profile
+              enum:
+                - verified
+                - not_verified
+              example: verified
+            occurred_at:
+              type: string
+              format: date-time
+              description: When the verification state change occurred
+              example: '2020-01-01T12:34:56Z'
+    v4.0.0-11:
+      title: Schema version 4.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 4.0.0
+          example: 4.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: 01234567-89ab-cdef-0123-456789abcdef
+        event_type:
+          type: string
+          description: Event type identifier
+          example: balances#account-state-change
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2020-01-01T12:34:56.123Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: Resource type (always `balance-account`)
+                  example: balance-account
+                id:
+                  type: integer
+                  format: int64
+                  description: ID of the account
+                  example: 123
+                profile_id:
+                  type: integer
+                  format: int64
+                  description: ID of the profile that owns the account
+                  example: 555
+                state:
+                  type: string
+                  description: State of the account.
+                  enum:
+                    - ACTIVE
+                    - INACTIVE
+                  example: INACTIVE
+            occurred_at:
+              type: string
+              format: date-time
+              description: Timestamp when the event occurred
+              example: '2020-01-01T12:34:56.789Z'
+    v2.0.0-11:
+      title: Schema version 2.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 2.0.0
+          example: 2.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: 01234567-89ab-cdef-0123-456789abcdef
+        event_type:
+          type: string
+          description: Event type identifier
+          example: balances#account-state-change
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2020-01-01T12:34:56Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: Resource type (always `balance-account`)
+                  example: balance-account
+                id:
+                  type: integer
+                  format: int64
+                  description: ID of the account
+                  example: 123
+                profile_id:
+                  type: integer
+                  format: int64
+                  description: ID of the profile that owns the account
+                  example: 555
+                state:
+                  type: string
+                  description: State of the account.
+                  enum:
+                    - ACTIVE
+                    - INACTIVE
+                  example: INACTIVE
+            occurred_at:
+              type: string
+              format: date-time
+              description: Timestamp when the event occurred
+              example: '2020-01-01T12:34:56Z'
+    v4.0.0-12:
+      title: Schema version 4.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 4.0.0
+          example: 4.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: 01234567-89ab-cdef-0123-456789abcdef
+        event_type:
+          type: string
+          description: Event type identifier
+          example: balances#credit
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2020-01-01T12:34:56.123Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: Resource type (always `balance-account`)
+                  example: balance-account
+                id:
+                  type: integer
+                  format: int64
+                  description: ID of the account
+                  example: 111
+                profile_id:
+                  type: integer
+                  format: int64
+                  description: ID of the profile that owns the account
+                  example: 222
+            transaction_type:
+              type: string
+              description: Always `credit`
+              example: credit
+            amount:
+              type: number
+              format: decimal
+              description: Deposited amount
+              example: 1.23
+            currency:
+              type: string
+              description: Currency code
+              example: EUR
+            post_transaction_balance_amount:
+              type: number
+              format: decimal
+              description: Balance after the credit was applied
+              example: 2.34
+            occurred_at:
+              type: string
+              format: date-time
+              description: When the credit occurred
+              example: '2020-01-01T12:34:56.789Z'
+    v2.0.0-12:
+      title: Schema version 2.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 2.0.0
+          example: 2.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: 01234567-89ab-cdef-0123-456789abcdef
+        event_type:
+          type: string
+          description: Event type identifier
           example: balances#credit
         sent_at:
           type: string
@@ -34601,7 +35147,7 @@ components:
               format: date-time
               description: When the credit occurred
               example: '2020-01-01T12:34:56Z'
-    v4.0.0-11:
+    v4.0.0-13:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -34676,7 +35222,7 @@ components:
               type: string
               description: Return code of the underlying payment system
               example: '200'
-    v2.0.0-11:
+    v2.0.0-13:
       title: Schema version 2.0.0
       type: object
       properties:
@@ -34751,6 +35297,200 @@ components:
               type: string
               description: Return code of the underlying payment system
               example: '200'
+    v4.0.0-14:
+      title: Schema version 4.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 4.0.0
+          example: 4.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: 017631af-326c-4a69-93f3-bd1ce987a743
+        event_type:
+          type: string
+          description: Event type identifier
+          example: partner-support#case-changed
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2023-06-23T09:45:36.123Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: >-
+                    Type of resource for webhook. Will always be
+                    `partner-support-case`
+                  example: partner-support-case
+                case_id:
+                  type: integer
+                  format: int64
+                  description: ID of the partner case
+                  example: 136
+                case_type:
+                  type: string
+                  description: >-
+                    Type of the partner case. Value must be `GENERAL_ENQUIRY`.
+                    More case types will be added in the future.
+                  example: GENERAL_ENQUIRY
+                details:
+                  type: object
+                  properties:
+                    transfer_id:
+                      type:
+                        - integer
+                        - 'null'
+                      format: int64
+                      description: >-
+                        ID of the transfer that is associated with the partner
+                        case.
+                      example: 12345678
+                    user_id:
+                      type: integer
+                      format: int64
+                      description: >-
+                        ID of the user account that is associated with the
+                        partner case.
+                      example: 12345678
+                    profile_id:
+                      type: integer
+                      format: int64
+                      description: >-
+                        ID of the profile that is associated with the partner
+                        case.
+                      example: 12345678
+                status:
+                  type: string
+                  description: Status of the case.
+                  enum:
+                    - OPEN
+                    - PENDING
+                    - SOLVED
+                    - CLOSED
+                  example: PENDING
+            type:
+              type: string
+              description: The type of the webhook being sent.
+              enum:
+                - STATUS_UPDATED
+                - NEW_COMMENT
+                - NEW_CASE
+              example: NEW_CASE
+            occurred_at:
+              type: string
+              format: date-time
+              description: When the partner case update occurred.
+              example: '2023-06-23T09:45:34.789Z'
+    v2.0.0-14:
+      title: Schema version 2.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 2.0.0
+          example: 2.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: 017631af-326c-4a69-93f3-bd1ce987a743
+        event_type:
+          type: string
+          description: Event type identifier
+          example: partner-support#case-changed
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2023-06-23T09:45:36Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: >-
+                    Type of resource for webhook. Will always be
+                    `partner-support-case`
+                  example: partner-support-case
+                case_id:
+                  type: integer
+                  format: int64
+                  description: ID of the partner case
+                  example: 136
+                case_type:
+                  type: string
+                  description: >-
+                    Type of the partner case. Value must be `GENERAL_ENQUIRY`.
+                    More case types will be added in the future.
+                  example: GENERAL_ENQUIRY
+                details:
+                  type: object
+                  properties:
+                    transfer_id:
+                      type:
+                        - integer
+                        - 'null'
+                      format: int64
+                      description: >-
+                        ID of the transfer that is associated with the partner
+                        case.
+                      example: 12345678
+                    user_id:
+                      type: integer
+                      format: int64
+                      description: >-
+                        ID of the user account that is associated with the
+                        partner case.
+                      example: 12345678
+                    profile_id:
+                      type: integer
+                      format: int64
+                      description: >-
+                        ID of the profile that is associated with the partner
+                        case.
+                      example: 12345678
+                status:
+                  type: string
+                  description: Status of the case.
+                  enum:
+                    - OPEN
+                    - PENDING
+                    - SOLVED
+                    - CLOSED
+                  example: PENDING
+            type:
+              type: string
+              description: The type of the webhook being sent.
+              enum:
+                - STATUS_UPDATED
+                - NEW_COMMENT
+                - NEW_CASE
+              example: NEW_CASE
+            occurred_at:
+              type: string
+              format: date-time
+              description: When the partner case update occurred.
+              example: '2023-06-23T09:45:34Z'
   securitySchemes:
     UserToken:
       type: http

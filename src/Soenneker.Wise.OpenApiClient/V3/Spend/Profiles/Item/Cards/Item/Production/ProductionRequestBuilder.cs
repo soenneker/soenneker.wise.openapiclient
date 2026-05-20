@@ -34,7 +34,7 @@ namespace Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.Product
         {
         }
         /// <summary>
-        /// Retrieves the current production status of a card at a kiosk machine.**Best practice**: Subscribe to the [card production status change](/guides/developer/webhooks/event-types#cards-card-production-status-change) webhook for real-time notifications. Use this endpoint only when you need to synchronously check the status.
+        /// Retrieves the current production status of a card at a kiosk machine.**Best practice**: Subscribe to the [card production status change](/api-reference/webhook-event/eventcardscardproductionstatuschange) webhook for real-time notifications. Use this endpoint only when you need to synchronously check the status.
         /// </summary>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.ProductionStatus"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
@@ -57,7 +57,7 @@ namespace Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.Product
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.ProductionStatus>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.ProductionStatus.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Sends the card production request to a kiosk machine. To confirm that card information has been successfully created, listen to the [card-production-status-change](/guides/developer/webhooks/event-types#cards-card-production-status-change) webhook with status `READY`.{% admonition type=&quot;warning&quot; %}Cards that were created over 60 days ago will result in a 422 error code and cannot be retried. This is due to the data being obfuscated on our side. In this case, a new card order has to be created.{% /admonition %}
+        /// Sends the card production request to a kiosk machine. To confirm that card information has been successfully created, listen to the [card-production-status-change](/api-reference/webhook-event/eventcardscardproductionstatuschange) webhook with status `READY`.{% admonition type=&quot;warning&quot; %}Cards that were created over 60 days ago will result in a 422 error code and cannot be retried. This is due to the data being obfuscated on our side. In this case, a new card order has to be created.{% /admonition %}
         /// </summary>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.ProductionStatus"/></returns>
         /// <param name="body">Request body for producing a card at a kiosk machine.</param>
@@ -84,7 +84,7 @@ namespace Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.Product
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.ProductionStatus>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.ProductionStatus.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Retrieves the current production status of a card at a kiosk machine.**Best practice**: Subscribe to the [card production status change](/guides/developer/webhooks/event-types#cards-card-production-status-change) webhook for real-time notifications. Use this endpoint only when you need to synchronously check the status.
+        /// Retrieves the current production status of a card at a kiosk machine.**Best practice**: Subscribe to the [card production status change](/api-reference/webhook-event/eventcardscardproductionstatuschange) webhook for real-time notifications. Use this endpoint only when you need to synchronously check the status.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
@@ -103,7 +103,7 @@ namespace Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.Product
             return requestInfo;
         }
         /// <summary>
-        /// Sends the card production request to a kiosk machine. To confirm that card information has been successfully created, listen to the [card-production-status-change](/guides/developer/webhooks/event-types#cards-card-production-status-change) webhook with status `READY`.{% admonition type=&quot;warning&quot; %}Cards that were created over 60 days ago will result in a 422 error code and cannot be retried. This is due to the data being obfuscated on our side. In this case, a new card order has to be created.{% /admonition %}
+        /// Sends the card production request to a kiosk machine. To confirm that card information has been successfully created, listen to the [card-production-status-change](/api-reference/webhook-event/eventcardscardproductionstatuschange) webhook with status `READY`.{% admonition type=&quot;warning&quot; %}Cards that were created over 60 days ago will result in a 422 error code and cannot be retried. This is due to the data being obfuscated on our side. In this case, a new card order has to be created.{% /admonition %}
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">Request body for producing a card at a kiosk machine.</param>
