@@ -26891,6 +26891,69 @@ webhooks:
                     type: string
                     example: ok
           description: Return any `2xx` status to acknowledge receipt of the event.
+  transaction-disputes#update:
+    post:
+      operationId: eventTransactionDisputesUpdate
+      summary: Transaction disputes update
+      description: >
+        Triggered every time a transaction dispute is submitted or updated.
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
+
+
+        Events may not be delivered in the order they occurred. Use
+        `data.occurred_at` to reconcile the order.
+
+        See the [Event Ordering](/guides/developer/webhooks/event-ordering)
+        guide for details.
+
+
+        {% admonition type="warning" %}
+
+        You may receive update events even when there are no apparent changes in
+        the dispute status or subStatus, as certain underlying modifications
+        might not directly impact these visible indicators.
+
+        {% /admonition %}
+
+
+        * Event type: `transaction-disputes#update`
+
+        * Profile level subscriptions: Not Supported
+
+        * Application level subscriptions: Supported
+      tags:
+        - webhook-event
+        - disputes
+      parameters:
+        - $ref: '#/components/parameters/x-signature-sha256'
+        - $ref: '#/components/parameters/x-delivery-id'
+        - $ref: '#/components/parameters/x-test-notification'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: Transaction Disputes Update Event
+              discriminator:
+                propertyName: schema_version
+                mapping:
+                  4.0.0: '#/components/schemas/v4.0.0-15'
+                  2.0.0: '#/components/schemas/v2.0.0-15'
+              oneOf:
+                - $ref: '#/components/schemas/v4.0.0-15'
+                - $ref: '#/components/schemas/v2.0.0-15'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+          description: Return any `2xx` status to acknowledge receipt of the event.
 components:
   parameters:
     X-External-Correlation-Id:
@@ -35491,6 +35554,188 @@ components:
               format: date-time
               description: When the partner case update occurred.
               example: '2023-06-23T09:45:34Z'
+    v4.0.0-15:
+      title: Schema version 4.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 4.0.0
+          example: 4.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: 7bb32a11-74ad-43b6-9505-3f5facbc87ed
+        event_type:
+          type: string
+          description: Event type identifier
+          example: transaction-disputes#update
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2024-04-18T06:36:17.123Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: Unique ID of the dispute
+                  example: 39f893e3-4b0c-4850-9c5c-8cb8f4798a43
+                profile_id:
+                  type: integer
+                  format: int64
+                  description: ID of the profile that owns the card
+                  example: 16605997
+                transaction_id:
+                  type: integer
+                  format: int64
+                  description: ID of the card transaction
+                  example: 4337
+                type:
+                  type: string
+                  description: Resource type (always `transaction-dispute`)
+                  example: transaction-dispute
+            reason:
+              type: string
+              description: >-
+                Dispute reason, you can find all the possible values
+                [here](/api-reference/disputes/disputereasonsget)
+              example: WRONG_AMOUNT
+            status:
+              type: string
+              description: Dispute overall status
+              enum:
+                - ACTIVE
+                - CLOSED
+              example: CLOSED
+            sub_status:
+              type: string
+              description: >-
+                Dispute detailed status, you can find all the possible values
+                [here](/api-reference/disputes#dispute-sub-status)
+              example: WITHDRAWN
+            status_message:
+              type: string
+              description: Explanation for subStatus
+              example: Withdrawn
+            created_at:
+              type: string
+              format: date-time
+              description: Time when the dispute was created
+              example: '2024-04-18T06:17:12.456Z'
+            created_by:
+              type: string
+              description: Creator of the dispute, it is currently set to the user id
+              example: '6097861'
+            can_withdraw:
+              type: boolean
+              description: Whether the dispute can be withdrawn
+              example: false
+            occurred_at:
+              type: string
+              format: date-time
+              description: When the dispute updates occurred
+              example: '2024-04-18T06:36:15.789Z'
+    v2.0.0-15:
+      title: Schema version 2.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 2.0.0
+          example: 2.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: 7bb32a11-74ad-43b6-9505-3f5facbc87ed
+        event_type:
+          type: string
+          description: Event type identifier
+          example: transaction-disputes#update
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2024-04-18T06:36:17Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: Unique ID of the dispute
+                  example: 39f893e3-4b0c-4850-9c5c-8cb8f4798a43
+                profile_id:
+                  type: integer
+                  format: int64
+                  description: ID of the profile that owns the card
+                  example: 16605997
+                transaction_id:
+                  type: integer
+                  format: int64
+                  description: ID of the card transaction
+                  example: 4337
+                type:
+                  type: string
+                  description: Resource type (always `transaction-dispute`)
+                  example: transaction-dispute
+            reason:
+              type: string
+              description: >-
+                Dispute reason, you can find all the possible values
+                [here](/api-reference/disputes/disputereasonsget)
+              example: WRONG_AMOUNT
+            status:
+              type: string
+              description: Dispute overall status
+              enum:
+                - ACTIVE
+                - CLOSED
+              example: CLOSED
+            sub_status:
+              type: string
+              description: >-
+                Dispute detailed status, you can find all the possible values
+                [here](/api-reference/disputes#dispute-sub-status)
+              example: WITHDRAWN
+            status_message:
+              type: string
+              description: Explanation for subStatus
+              example: Withdrawn
+            created_at:
+              type: string
+              format: date-time
+              description: Time when the dispute was created
+              example: '2024-04-18T06:17:12Z'
+            created_by:
+              type: string
+              description: Creator of the dispute, it is currently set to the user id
+              example: '6097861'
+            can_withdraw:
+              type: boolean
+              description: Whether the dispute can be withdrawn
+              example: false
+            occurred_at:
+              type: string
+              format: date-time
+              description: When the dispute updates occurred
+              example: '2024-04-18T06:36:15Z'
   securitySchemes:
     UserToken:
       type: http
