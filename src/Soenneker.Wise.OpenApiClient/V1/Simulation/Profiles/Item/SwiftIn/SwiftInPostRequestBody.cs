@@ -16,7 +16,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Simulation.Profiles.Item.SwiftIn
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Amount received by Wise.</summary>
         public double? Amount { get; set; }
-        /// <summary>Account number of the ultimate beneficiary. It can be either an IBAN or local account number.</summary>
+        /// <summary>Account number of the ultimate beneficiary. It can be either a local account number or an IBAN.*If the provided IBAN resolves to a BIC that does not match any connected test BICs, simulation is not allowed and an error is returned.*</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? BeneficiaryAccount { get; set; }

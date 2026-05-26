@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Verification results for the recipient&apos;s details. Only populated for currencies with recipient verification enabled (KRW, INR, IDR, EUR). See the [Verifying Recipient Details](/guides/developer/api-guides/recipient-verification) guide for how to handle these.
+    /// Verification results for the recipient&apos;s details. Only populated for currencies with recipient verification enabled (CNY, KRW, INR, IDR, EUR). See the [Recipient verification guides](/guides/product/send-money/recipient-verification) for how to handle these.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class Confirmations : IAdditionalDataHolder, IParsable

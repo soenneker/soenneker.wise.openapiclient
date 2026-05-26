@@ -33,7 +33,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public global::Soenneker.Wise.OpenApiClient.Models.Recipient_commonFieldMap CommonFieldMap { get; set; }
 #endif
-        /// <summary>Verification results for the recipient&apos;s details. Only populated for currencies with recipient verification enabled (KRW, INR, IDR, EUR). See the [Verifying Recipient Details](/guides/developer/api-guides/recipient-verification) guide for how to handle these.</summary>
+        /// <summary>Verification results for the recipient&apos;s details. Only populated for currencies with recipient verification enabled (CNY, KRW, INR, IDR, EUR). See the [Recipient verification guides](/guides/product/send-money/recipient-verification) for how to handle these.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Soenneker.Wise.OpenApiClient.Models.Recipient_confirmations? Confirmations { get; set; }

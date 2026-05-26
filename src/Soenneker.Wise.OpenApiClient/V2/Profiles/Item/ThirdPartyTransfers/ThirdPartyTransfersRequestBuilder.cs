@@ -19,7 +19,7 @@ namespace Soenneker.Wise.OpenApiClient.V2.Profiles.Item.ThirdPartyTransfers
     public partial class ThirdPartyTransfersRequestBuilder : BaseRequestBuilder
     {
         /// <summary>Gets an item from the Soenneker.Wise.OpenApiClient.v2.profiles.item.thirdPartyTransfers.item collection</summary>
-        /// <param name="position">The transfer ID</param>
+        /// <param name="position">Unique identifier of the item</param>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.ThirdPartyTransfers.Item.WithTransferItemRequestBuilder"/></returns>
         public global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.ThirdPartyTransfers.Item.WithTransferItemRequestBuilder this[long position]
         {
@@ -47,43 +47,43 @@ namespace Soenneker.Wise.OpenApiClient.V2.Profiles.Item.ThirdPartyTransfers
         {
         }
         /// <summary>
-        /// Create a transfer on behalf of a third party.When creating a third party transfer:- The `originator` datablock is **required**. This details the ultimate sender of funds in the transfer.- Depending on the legal entity type of the originator (`PRIVATE` or `BUSINESS`), the required fields vary.- `originalTransferId` field must be used. This is your own ID for the transfer.You need to save the transfer ID for tracking its status later via webhooks.#### Avoiding duplicate transfersThe `originalTransferId` field is used to avoid duplicate transfer requests. If your initial call fails (error or timeout), retry the call using the same `originalTransferId` value. Subsequent retry messages are treated as repeat messages and will not create duplicate transfers.
+        ///     When creating a transfer on behalf of a third party, you must take note that:    * The `originator` datablock is **required**. This details the ultimate sender of funds in the transfer.    * Depending on the legal entity type of the originator (`PRIVATE` or `BUSINESS`), the required fields vary. Please refer the sample request examples.    * `OriginalTransferId` field must be used. This is your own ID for the transfer.    You need to save the transfer ID for tracking its status later via webhooks.    #### Avoiding duplicate transfers    The `originalTransferId` field is used to avoid duplicate transfer requests. If your initial call fails (error or timeout), retry the call using the same `originalTransferId` value. Subsequent retry messages are treated as repeat messages and will not create duplicate transfers.
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransfer"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.CreateThirdPartyTransferResponseContent"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransfer429Error">When receiving a 429 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.CreateThirdPartyTransferResponseContent429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransfer?> PostAsync(global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.ThirdPartyTransfers.ThirdPartyTransfersRequestBuilder.ThirdPartyTransfersPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.CreateThirdPartyTransferResponseContent?> PostAsync(global::Soenneker.Wise.OpenApiClient.Models.CreateThirdPartyTransferRequestContent body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransfer> PostAsync(global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.ThirdPartyTransfers.ThirdPartyTransfersRequestBuilder.ThirdPartyTransfersPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.CreateThirdPartyTransferResponseContent> PostAsync(global::Soenneker.Wise.OpenApiClient.Models.CreateThirdPartyTransferRequestContent body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
-                { "429", global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransfer429Error.CreateFromDiscriminatorValue },
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.CreateThirdPartyTransferResponseContent429Error.CreateFromDiscriminatorValue },
             };
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransfer>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransfer.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.CreateThirdPartyTransferResponseContent>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.CreateThirdPartyTransferResponseContent.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Create a transfer on behalf of a third party.When creating a third party transfer:- The `originator` datablock is **required**. This details the ultimate sender of funds in the transfer.- Depending on the legal entity type of the originator (`PRIVATE` or `BUSINESS`), the required fields vary.- `originalTransferId` field must be used. This is your own ID for the transfer.You need to save the transfer ID for tracking its status later via webhooks.#### Avoiding duplicate transfersThe `originalTransferId` field is used to avoid duplicate transfer requests. If your initial call fails (error or timeout), retry the call using the same `originalTransferId` value. Subsequent retry messages are treated as repeat messages and will not create duplicate transfers.
+        ///     When creating a transfer on behalf of a third party, you must take note that:    * The `originator` datablock is **required**. This details the ultimate sender of funds in the transfer.    * Depending on the legal entity type of the originator (`PRIVATE` or `BUSINESS`), the required fields vary. Please refer the sample request examples.    * `OriginalTransferId` field must be used. This is your own ID for the transfer.    You need to save the transfer ID for tracking its status later via webhooks.    #### Avoiding duplicate transfers    The `originalTransferId` field is used to avoid duplicate transfer requests. If your initial call fails (error or timeout), retry the call using the same `originalTransferId` value. Subsequent retry messages are treated as repeat messages and will not create duplicate transfers.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.ThirdPartyTransfers.ThirdPartyTransfersRequestBuilder.ThirdPartyTransfersPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.CreateThirdPartyTransferRequestContent body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
         {
 #nullable restore
 #else
-        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.ThirdPartyTransfers.ThirdPartyTransfersRequestBuilder.ThirdPartyTransfersPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.CreateThirdPartyTransferRequestContent body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
@@ -101,81 +101,6 @@ namespace Soenneker.Wise.OpenApiClient.V2.Profiles.Item.ThirdPartyTransfers
         public global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.ThirdPartyTransfers.ThirdPartyTransfersRequestBuilder WithUrl(string rawUrl)
         {
             return new global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.ThirdPartyTransfers.ThirdPartyTransfersRequestBuilder(rawUrl, RequestAdapter);
-        }
-        /// <summary>
-        /// Composed type wrapper for classes <see cref="global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.ThirdPartyTransfers.ThirdPartyTransfersPostRequestBodyMember1"/>, <see cref="global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.ThirdPartyTransfers.ThirdPartyTransfersPostRequestBodyMember2"/>
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-        public partial class ThirdPartyTransfersPostRequestBody : IComposedTypeWrapper, IParsable
-        {
-            /// <summary>Composed type representation for type <see cref="global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.ThirdPartyTransfers.ThirdPartyTransfersPostRequestBodyMember1"/></summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-            public global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.ThirdPartyTransfers.ThirdPartyTransfersPostRequestBodyMember1? ThirdPartyTransfersPostRequestBodyMember1 { get; set; }
-#nullable restore
-#else
-            public global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.ThirdPartyTransfers.ThirdPartyTransfersPostRequestBodyMember1 ThirdPartyTransfersPostRequestBodyMember1 { get; set; }
-#endif
-            /// <summary>Composed type representation for type <see cref="global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.ThirdPartyTransfers.ThirdPartyTransfersPostRequestBodyMember2"/></summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-            public global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.ThirdPartyTransfers.ThirdPartyTransfersPostRequestBodyMember2? ThirdPartyTransfersPostRequestBodyMember2 { get; set; }
-#nullable restore
-#else
-            public global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.ThirdPartyTransfers.ThirdPartyTransfersPostRequestBodyMember2 ThirdPartyTransfersPostRequestBodyMember2 { get; set; }
-#endif
-            /// <summary>
-            /// Creates a new instance of the appropriate class based on discriminator value
-            /// </summary>
-            /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.ThirdPartyTransfers.ThirdPartyTransfersRequestBuilder.ThirdPartyTransfersPostRequestBody"/></returns>
-            /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-            public static global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.ThirdPartyTransfers.ThirdPartyTransfersRequestBuilder.ThirdPartyTransfersPostRequestBody CreateFromDiscriminatorValue(IParseNode parseNode)
-            {
-                if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-                var mappingValue = parseNode.GetChildNode("")?.GetStringValue();
-                var result = new global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.ThirdPartyTransfers.ThirdPartyTransfersRequestBuilder.ThirdPartyTransfersPostRequestBody();
-                if("".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
-                {
-                    result.ThirdPartyTransfersPostRequestBodyMember1 = new global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.ThirdPartyTransfers.ThirdPartyTransfersPostRequestBodyMember1();
-                }
-                else if("".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
-                {
-                    result.ThirdPartyTransfersPostRequestBodyMember2 = new global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.ThirdPartyTransfers.ThirdPartyTransfersPostRequestBodyMember2();
-                }
-                return result;
-            }
-            /// <summary>
-            /// The deserialization information for the current model
-            /// </summary>
-            /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
-            public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
-            {
-                if(ThirdPartyTransfersPostRequestBodyMember1 != null)
-                {
-                    return ThirdPartyTransfersPostRequestBodyMember1.GetFieldDeserializers();
-                }
-                else if(ThirdPartyTransfersPostRequestBodyMember2 != null)
-                {
-                    return ThirdPartyTransfersPostRequestBodyMember2.GetFieldDeserializers();
-                }
-                return new Dictionary<string, Action<IParseNode>>();
-            }
-            /// <summary>
-            /// Serializes information the current object
-            /// </summary>
-            /// <param name="writer">Serialization writer to use to serialize this model</param>
-            public virtual void Serialize(ISerializationWriter writer)
-            {
-                if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-                if(ThirdPartyTransfersPostRequestBodyMember1 != null)
-                {
-                    writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.ThirdPartyTransfers.ThirdPartyTransfersPostRequestBodyMember1>(null, ThirdPartyTransfersPostRequestBodyMember1);
-                }
-                else if(ThirdPartyTransfersPostRequestBodyMember2 != null)
-                {
-                    writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.ThirdPartyTransfers.ThirdPartyTransfersPostRequestBodyMember2>(null, ThirdPartyTransfersPostRequestBodyMember2);
-                }
-            }
         }
     }
 }

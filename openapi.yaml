@@ -21339,9 +21339,13 @@ paths:
                   description: Name of the ultimate beneficiary.
                 beneficiaryAccount:
                   type: string
-                  description: >-
+                  description: >
                     Account number of the ultimate beneficiary. It can be either
-                    an IBAN or local account number.
+                    a local account number or an IBAN.
+
+                    *If the provided IBAN resolves to a BIC that does not match
+                    any connected test BICs, simulation is not allowed and an
+                    error is returned.*
                 beneficiaryAddress:
                   type: object
                   description: Address of the ultimate beneficiary.
@@ -21488,6 +21492,21 @@ paths:
                     code: not.valid
                     message: must be greater than 0
                     path: amount
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '422':
+          description: Unprocessable Entity.
+          content:
+            application/json:
+              example:
+                arguments: []
+                code: not.valid
+                message: >-
+                  None of connected BICs match beneficiary account
+                  DE00000000000000000000 (TESTDE00)
           headers:
             X-External-Correlation-Id:
               $ref: '#/components/headers/X-External-Correlation-Id'
@@ -23601,330 +23620,189 @@ paths:
         - $ref: '#/components/parameters/X-External-Correlation-Id'
   /v2/profiles/{profileId}/third-party-transfers:
     post:
-      operationId: transferThirdPartyCreate
+      description: |2
+
+            When creating a transfer on behalf of a third party, you must take note that:
+
+            * The `originator` datablock is **required**. This details the ultimate sender of funds in the transfer.
+            * Depending on the legal entity type of the originator (`PRIVATE` or `BUSINESS`), the required fields vary. Please refer the sample request examples.
+            * `OriginalTransferId` field must be used. This is your own ID for the transfer.
+
+            You need to save the transfer ID for tracking its status later via webhooks.
+
+            #### Avoiding duplicate transfers
+
+            The `originalTransferId` field is used to avoid duplicate transfer requests. If your initial call fails (error or timeout), retry the call using the same `originalTransferId` value. Subsequent retry messages are treated as repeat messages and will not create duplicate transfers.
       summary: Create a third party transfer
-      description: >
-        Create a transfer on behalf of a third party.
-
-
-        When creating a third party transfer:
-
-        - The `originator` datablock is **required**. This details the ultimate
-        sender of funds in the transfer.
-
-        - Depending on the legal entity type of the originator (`PRIVATE` or
-        `BUSINESS`), the required fields vary.
-
-        - `originalTransferId` field must be used. This is your own ID for the
-        transfer.
-
-
-        You need to save the transfer ID for tracking its status later via
-        webhooks.
-
-
-        #### Avoiding duplicate transfers
-
-
-        The `originalTransferId` field is used to avoid duplicate transfer
-        requests. If your initial call fails (error or timeout), retry the call
-        using the same `originalTransferId` value. Subsequent retry messages are
-        treated as repeat messages and will not create duplicate transfers.
-      tags:
-        - third-party-transfer
-      security:
-        - UserToken: []
-      parameters:
-        - name: profileId
-          in: path
-          required: true
-          description: The profile ID
-          schema:
-            type: integer
-            format: int64
-        - $ref: '#/components/parameters/X-External-Correlation-Id'
+      operationId: CreateThirdPartyTransfer
       requestBody:
-        required: true
         content:
           application/json:
             schema:
-              oneOf:
-                - title: Private originator
-                  type: object
-                  required:
-                    - targetAccount
-                    - quote
-                    - originalTransferId
-                    - originator
-                  properties:
-                    targetAccount:
-                      type: integer
-                      format: int64
-                      description: >-
-                        Recipient account ID. You can create multiple transfers
-                        to same recipient account
-                      example: 12345678
-                    quote:
-                      type: string
-                      description: >-
-                        V2 quote ID. You can only create one transfer per one
-                        quote. You cannot use same quote ID to create multiple
-                        transfers
-                      example: 8fa9be20-ba43-4b15-abbb-9424e1481050
-                    originalTransferId:
-                      type: string
-                      description: >-
-                        Unique transfer ID in your system. Also used to perform
-                        idempotency check to avoid duplicate transfers. You can
-                        only submit one transfer with same originalTransferId
-                      example: unique-transfer-id-in-your-system
-                    details:
-                      type: object
-                      properties:
-                        reference:
-                          type: string
-                          description: >-
-                            Recipient will see this reference text in their bank
-                            statement. Maximum allowed characters depends on the
-                            currency route. See [Business Payments
-                            Tips](https://wise.com/help/articles/2932870/tips-for-paying-invoices)
-                            for a full list
-                          example: Ski trip
-                    originator:
-                      type: object
-                      required:
-                        - legalEntityType
-                        - reference
-                        - name
-                        - dateOfBirth
-                        - address
-                        - accountDetails
-                      description: Data block to capture payment originator details
-                      properties:
-                        legalEntityType:
-                          type: string
-                          enum:
-                            - PRIVATE
-                          description: Payment originator legal type
-                          example: PRIVATE
-                        reference:
-                          type: string
-                          description: >-
-                            Unique customer ID in your system. This allows Wise
-                            to uniquely identify each originator
-                          example: CST-2991992
-                        name:
-                          type: object
-                          required:
-                            - givenName
-                            - familyName
-                          properties:
-                            givenName:
-                              type: string
-                              description: Payment originator first name
-                              example: John
-                            middleNames:
-                              type: array
-                              items:
-                                type: string
-                              description: Payment originator middle name(s)
-                              example:
-                                - Ryan
-                            familyName:
-                              type: string
-                              description: Payment originator family name
-                              example: Godspeed
-                            patronymicName:
-                              type: string
-                              description: Payment originator patronymic name
-                        dateOfBirth:
-                          type: string
-                          format: date
-                          description: Payment originator date of birth
-                          example: '1977-07-01'
-                        nationality:
-                          type: string
-                          description: >-
-                            Payment originator nationality. Required for certain
-                            routes (e.g. to `UGX`)
-                        address:
-                          type: object
-                          required:
-                            - firstLine
-                            - city
-                            - countryCode
-                          properties:
-                            firstLine:
-                              type: string
-                              description: Payment originator address first line
-                              example: Salu tee 100, Apt 4B
-                            city:
-                              type: string
-                              description: Payment originator address city
-                              example: Tallinn
-                            stateCode:
-                              type: string
-                              description: >-
-                                Payment originator address state code. Required
-                                if address country code in (US, CA, BR, AU)
-                            countryCode:
-                              type: string
-                              description: >-
-                                Payment originator address country code ISO
-                                3166-1 alpha-2
-                              minLength: 2
-                              maxLength: 2
-                              example: EE
-                            postCode:
-                              type: string
-                              description: Originator address zip code
-                              example: '12112'
-                        accountDetails:
-                          type: string
-                          description: Originator account number
-                - title: Business originator
-                  type: object
-                  required:
-                    - targetAccount
-                    - quote
-                    - originalTransferId
-                    - originator
-                  properties:
-                    targetAccount:
-                      type: integer
-                      format: int64
-                      description: >-
-                        Recipient account ID. You can create multiple transfers
-                        to same recipient account
-                      example: 12345678
-                    quote:
-                      type: string
-                      description: >-
-                        V2 quote ID. You can only create one transfer per one
-                        quote. You cannot use same quote ID to create multiple
-                        transfers
-                      example: 8fa9be20-ba43-4b15-abbb-9424e1481050
-                    originalTransferId:
-                      type: string
-                      description: >-
-                        Unique transfer ID in your system. Also used to perform
-                        idempotency check to avoid duplicate transfers. You can
-                        only submit one transfer with same originalTransferId
-                      example: unique-transfer-id-in-your-system
-                    details:
-                      type: object
-                      properties:
-                        reference:
-                          type: string
-                          description: >-
-                            Recipient will see this reference text in their bank
-                            statement. Maximum allowed characters depends on the
-                            currency route. See [Business Payments
-                            Tips](https://wise.com/help/articles/2932870/tips-for-paying-invoices)
-                            for a full list
-                          example: Payment for invoice 22092
-                    originator:
-                      type: object
-                      required:
-                        - legalEntityType
-                        - reference
-                        - name
-                        - businessRegistrationCode
-                        - address
-                      description: Data block to capture payment originator details
-                      properties:
-                        legalEntityType:
-                          type: string
-                          enum:
-                            - BUSINESS
-                          description: Payment originator legal type
-                          example: BUSINESS
-                        reference:
-                          type: string
-                          description: >-
-                            Unique customer ID in your system. This allows Wise
-                            to uniquely identify each originator
-                          example: BIZ-2991992
-                        name:
-                          type: object
-                          required:
-                            - fullName
-                          properties:
-                            fullName:
-                              type: string
-                              description: Payment originator full legal name
-                              example: Hot Air Balloon Services Ltd
-                        businessRegistrationCode:
-                          type: string
-                          description: >-
-                            Payment originator business registry number /
-                            incorporation number
-                          example: '1999212'
-                        businessRegistrationDate:
-                          type: string
-                          format: date
-                          description: >-
-                            Payment originator business registration date.
-                            Required for certain routes (e.g. to `UGX`)
-                        address:
-                          type: object
-                          required:
-                            - firstLine
-                            - city
-                            - countryCode
-                          properties:
-                            firstLine:
-                              type: string
-                              description: Payment originator address first line
-                              example: Aiandi tee 1431
-                            city:
-                              type: string
-                              description: Payment originator address city
-                              example: Tallinn
-                            stateCode:
-                              type: string
-                              description: >-
-                                Payment originator address state code. Required
-                                if address country code in (US, CA, BR, AU)
-                            countryCode:
-                              type: string
-                              description: >-
-                                Payment originator address country code ISO
-                                3166-1 alpha-2
-                              minLength: 2
-                              maxLength: 2
-                              example: EE
-                            postCode:
-                              type: string
-                              description: Originator address zip code
-                              example: '12112'
-                        accountDetails:
-                          type: string
-                          description: Originator account number
+              $ref: '#/components/schemas/CreateThirdPartyTransferRequestContent'
+            examples:
+              create-third-party-transfer-business-originator:
+                summary: Business originator
+                value:
+                  profileId: 123456789
+                  targetAccount: 7839323
+                  quote: 3522e360-356a-4e37-9f99-94a21898d8fa
+                  originalTransferId: '4711'
+                  details:
+                    reference: Ski trip
+                  originator:
+                    legalEntityType: BUSINESS
+                    reference: '78976'
+                    name:
+                      fullName: Hot Air Balloon Services Ltd
+                    businessRegistrationCode: AE-89780
+                    businessRegistrationDate: '2020-01-15'
+                    address:
+                      firstLine: Salu tee 100, Apt 4B
+                      city: Tallinn
+                      countryCode: EE
+                      postCode: '12112'
+              create-third-party-transfer-private-originator:
+                summary: PRIVATE originator
+                value:
+                  profileId: 123456789
+                  targetAccount: 7839323
+                  quote: 3522e360-356a-4e37-9f99-94a21898d8fa
+                  originalTransferId: '4711'
+                  details:
+                    reference: Ski trip
+                  originator:
+                    legalEntityType: PRIVATE
+                    accountDetails: '123456789'
+                    reference: CST-2991992
+                    name:
+                      givenName: John
+                      middleNames:
+                        - Ryan
+                      familyName: Godspeed
+                      patronymicName: Fitz
+                    dateOfBirth: '1977-07-01'
+                    nationality: EE
+                    address:
+                      firstLine: Salu tee 100, Apt 4B
+                      city: Tallinn
+                      countryCode: EE
+                      postCode: '12112'
+      parameters:
+        - name: profileId
+          in: path
+          description: The profile ID.
+          schema:
+            type: integer
+            description: The profile ID.
+            format: int64
+            example: 123456789
+          required: true
+        - $ref: '#/components/parameters/X-External-Correlation-Id'
       responses:
-        '200':
+        '201':
           description: Third party transfer successfully created.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/originator-transfer'
           headers:
+            Location:
+              schema:
+                type: string
             X-External-Correlation-Id:
               $ref: '#/components/headers/X-External-Correlation-Id'
             x-trace-id:
               $ref: '#/components/headers/x-trace-id'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateThirdPartyTransferResponseContent'
+              examples:
+                response-business-legalentity:
+                  summary: Successful Response for BUSINESS LegalEntity
+                  description: Returns the originator transfer object
+                  value:
+                    id: 16521632
+                    originalTransferId: 54a6bc09-cef9-49a8-9041-f1f0c654cd88
+                    user: 4342275
+                    targetAccount: 8692237
+                    sourceAccount: 1527389
+                    quote: 8fa9be20-ba43-4b15-abbb-9424e1481050
+                    status: cancelled
+                    rate: 0.89
+                    details:
+                      reference: T475890
+                    hasActiveIssues: false
+                    sourceCurrency: EUR
+                    sourceValue: 0
+                    targetCurrency: GBP
+                    targetValue: 150
+                    originator:
+                      legalEntityType: BUSINESS
+                      name:
+                        fullName: Hot Air Balloon Services Ltd
+                      reference: CST-2991992
+                      businessRegistrationCode: 83920-546
+                      businessRegistrationDate: '2020-01-15'
+                      address:
+                        firstLine: Salu tee 14
+                        city: Tallinn
+                        stateCode: ''
+                        countryCode: EE
+                        postCode: '12112'
+                      accountDetails: '23456789'
+                    created: '2025-10-29T12:28:16.000Z'
+                response-private-legalentity:
+                  summary: Successful Response for PRIVATE LegalEntity
+                  description: Returns the originator transfer object
+                  value:
+                    id: 16521632
+                    originalTransferId: 54a6bc09-cef9-49a8-9041-f1f0c654cd88
+                    user: 4342275
+                    targetAccount: 8692237
+                    sourceAccount: 1527389
+                    quote: 8fa9be20-ba43-4b15-abbb-9424e1481050
+                    status: cancelled
+                    rate: 0.89
+                    details:
+                      reference: Testing
+                    hasActiveIssues: false
+                    sourceCurrency: EUR
+                    sourceValue: 0
+                    targetCurrency: GBP
+                    targetValue: 150
+                    originator:
+                      legalEntityType: PRIVATE
+                      name:
+                        givenName: John
+                        middleNames:
+                          - Ryan
+                        familyName: Godspeed
+                        patronymicName: Fitz
+                      dateOfBirth: '1977-07-01'
+                      nationality: EE
+                      reference: CST-2991992
+                      address:
+                        firstLine: Salu tee 14
+                        city: Tallinn
+                        stateCode: ''
+                        countryCode: EE
+                        postCode: '12112'
+                      accountDetails: '23456789'
+                    created: '2025-10-29T12:28:16.000Z'
         '429':
           $ref: '#/components/responses/429'
+      security:
+        - UserToken: []
+      tags:
+        - third-party-transfer
   /v1/profiles/{profileId}/third-party-transfers/{transferId}:
     get:
-      operationId: transferThirdPartyGetV1
+      operationId: GetThirdPartyTransferV1
       summary: Get a third party transfer by ID (V1)
       deprecated: true
       description: >
         {% admonition type="warning" %}
 
         This endpoint is deprecated. Use [Get a third party transfer by
-        ID](transferthirdpartyget) (V2) instead.
+        ID](GetThirdPartyTransfer) (V2) instead.
 
         {% /admonition %}
 
@@ -23975,44 +23853,115 @@ paths:
           $ref: '#/components/responses/429'
   /v2/profiles/{profileId}/third-party-transfers/{transferId}:
     get:
-      operationId: transferThirdPartyGet
+      description: |2
+
+            Get third party transfer info by ID. To receive dynamic updates as the state of the transfer changes, see the [webhooks documentation](https://docs.wise.com/api-reference/webhook).
       summary: Get a third party transfer by ID
-      description: >
-        Get third party transfer info by ID. To receive dynamic updates as the
-        state of the transfer changes, see the [webhooks
-        documentation](/api-reference/webhook).
-      tags:
-        - third-party-transfer
-      security:
-        - UserToken: []
+      operationId: GetThirdPartyTransfer
       parameters:
         - name: profileId
           in: path
-          required: true
-          description: The profile ID
           schema:
             type: integer
             format: int64
+            example: 123456789
+          required: true
         - name: transferId
           in: path
-          required: true
-          description: The transfer ID
           schema:
             type: integer
             format: int64
+            example: 16521632
+          required: true
         - $ref: '#/components/parameters/X-External-Correlation-Id'
       responses:
         '200':
           description: Returns the originator transfer object.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/originator-transfer'
           headers:
+            Location:
+              schema:
+                type: string
             X-External-Correlation-Id:
               $ref: '#/components/headers/X-External-Correlation-Id'
             x-trace-id:
               $ref: '#/components/headers/x-trace-id'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetThirdPartyTransferResponseContent'
+              examples:
+                response-business-legalentity:
+                  summary: BUSINESS LegalEntity
+                  description: Returns the originator transfer object
+                  value:
+                    id: 16521632
+                    originalTransferId: 54a6bc09-cef9-49a8-9041-f1f0c654cd88
+                    user: 4342275
+                    targetAccount: 8692237
+                    sourceAccount: 1527389
+                    quote: 8fa9be20-ba43-4b15-abbb-9424e1481050
+                    status: cancelled
+                    rate: 0.89
+                    details:
+                      reference: T475890
+                    hasActiveIssues: false
+                    sourceCurrency: EUR
+                    sourceValue: 0
+                    targetCurrency: GBP
+                    targetValue: 150
+                    originator:
+                      business:
+                        name:
+                          fullName: John Godspeed
+                        reference: CST-2991992
+                        businessRegistrationCode: 83920-546
+                        businessRegistrationDate: '2020-01-15'
+                        address:
+                          firstLine: Salu tee 14
+                          city: Tallinn
+                          stateCode: ''
+                          countryCode: EE
+                          postCode: '12112'
+                        accountDetails: '23456789'
+                    created: '2025-10-29T12:28:16.000Z'
+                response-private-legalentity:
+                  summary: PRIVATE LegalEntity
+                  description: Returns the originator transfer object
+                  value:
+                    id: 16521632
+                    originalTransferId: 54a6bc09-cef9-49a8-9041-f1f0c654cd88
+                    user: 4342275
+                    targetAccount: 8692237
+                    sourceAccount: 1527389
+                    quote: 8fa9be20-ba43-4b15-abbb-9424e1481050
+                    status: cancelled
+                    rate: 0.89
+                    details:
+                      reference: Testing
+                    hasActiveIssues: false
+                    sourceCurrency: EUR
+                    sourceValue: 0
+                    targetCurrency: GBP
+                    targetValue: 150
+                    originator:
+                      private:
+                        name:
+                          givenName: John
+                          middleNames:
+                            - Ryan
+                          familyName: Godspeed
+                          patronymicName: Fitz
+                        dateOfBirth: '1977-07-01'
+                        nationality: EE
+                        reference: CST-2991992
+                        address:
+                          firstLine: Salu tee 14
+                          city: Tallinn
+                          stateCode: ''
+                          countryCode: EE
+                          postCode: '12112'
+                        accountDetails: '23456789'
+                    created: '2025-10-29T12:28:16.000Z'
         '404':
           description: Transfer not found.
           headers:
@@ -24022,6 +23971,10 @@ paths:
               $ref: '#/components/headers/x-trace-id'
         '429':
           $ref: '#/components/responses/429'
+      security:
+        - UserToken: []
+      tags:
+        - third-party-transfer
   /v3/profiles/{profileId}/transfers/{transferId}/payments:
     post:
       operationId: transferFund
@@ -24483,7 +24436,7 @@ paths:
         integrations. Do not use it for new integrations. Use [Create a
         transfer](/api-reference/standard-transfer/transfercreate) or [Create a
         third party
-        transfer](/api-reference/third-party-transfer/transferthirdpartycreate)
+        transfer](/api-reference/third-party-transfer/createthirdpartytransfer)
         instead.
 
         {% /admonition %}
@@ -26163,6 +26116,91 @@ webhooks:
                     type: string
                     example: ok
           description: Return any `2xx` status to acknowledge receipt of the event.
+  account-details-order#order-state-change:
+    post:
+      operationId: eventAccountDetailsOrderStateChange
+      summary: Account details order state change
+      description: >
+        Triggered when there is a change in the state of an account details
+        order. The event contains information about the order state and
+        requirement state.
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
+
+
+        Events may not be delivered in the order they occurred. Use
+        `data.modification_time` to reconcile the order.
+
+        See the [Event Ordering](/guides/developer/webhooks/event-ordering)
+        guide for details.
+
+
+        * Event type: `account-details-order#order-state-change`
+
+        * Profile level subscriptions: Not Supported
+
+        * Application level subscriptions: Supported
+
+
+        The possible values for an order are:
+
+
+        - `PENDING_USER`: One or more requirements has some pending action from
+        the user.
+
+        - `PENDING_TW`: One or more requirements has some pending action from
+        Wise.
+
+        - `REQUIREMENTS_FULFILLED`: All requirements are completed and pending
+        account details to be created.
+
+        - `DONE`: All requirements are completed and account details has also
+        been created.
+
+
+        {% img
+          src="/images/diagrams/account-details-order-state-flow.png"
+          alt="Create account details order statuses transition diagram"
+        /%}
+
+
+        The more common requirements are:
+
+
+        - `VERIFICATION`: The user needs to be fully verified before completing
+        this requirement.
+      tags:
+        - webhook-event
+        - bank-account-details
+      parameters:
+        - $ref: '#/components/parameters/x-signature-sha256'
+        - $ref: '#/components/parameters/x-delivery-id'
+        - $ref: '#/components/parameters/x-test-notification'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: Account Details Order State Change Event
+              discriminator:
+                propertyName: schema_version
+                mapping:
+                  4.0.0: '#/components/schemas/v4.0.0-4'
+                  2.0.0: '#/components/schemas/v2.0.0-4'
+              oneOf:
+                - $ref: '#/components/schemas/v4.0.0-4'
+                - $ref: '#/components/schemas/v2.0.0-4'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+          description: Return any `2xx` status to acknowledge receipt of the event.
   account-details-payment#state-change:
     post:
       operationId: eventAccountDetailsPaymentStateChange
@@ -26202,11 +26240,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-4'
-                  2.0.0: '#/components/schemas/v2.0.0-4'
+                  4.0.0: '#/components/schemas/v4.0.0-5'
+                  2.0.0: '#/components/schemas/v2.0.0-5'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-4'
-                - $ref: '#/components/schemas/v2.0.0-4'
+                - $ref: '#/components/schemas/v4.0.0-5'
+                - $ref: '#/components/schemas/v2.0.0-5'
       responses:
         '200':
           content:
@@ -26257,11 +26295,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-5'
-                  2.0.0: '#/components/schemas/v2.0.0-5'
+                  4.0.0: '#/components/schemas/v4.0.0-6'
+                  2.0.0: '#/components/schemas/v2.0.0-6'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-5'
-                - $ref: '#/components/schemas/v2.0.0-5'
+                - $ref: '#/components/schemas/v4.0.0-6'
+                - $ref: '#/components/schemas/v2.0.0-6'
       responses:
         '200':
           content:
@@ -26320,11 +26358,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-6'
-                  2.0.0: '#/components/schemas/v2.0.0-6'
+                  4.0.0: '#/components/schemas/v4.0.0-7'
+                  2.0.0: '#/components/schemas/v2.0.0-7'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-6'
-                - $ref: '#/components/schemas/v2.0.0-6'
+                - $ref: '#/components/schemas/v4.0.0-7'
+                - $ref: '#/components/schemas/v2.0.0-7'
       responses:
         '200':
           content:
@@ -26365,7 +26403,7 @@ webhooks:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/v2.0.0-7'
+              $ref: '#/components/schemas/v2.0.0-8'
       responses:
         '200':
           content:
@@ -26418,7 +26456,7 @@ webhooks:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/v4.0.0-7'
+              $ref: '#/components/schemas/v4.0.0-8'
             examples:
               breachOpened:
                 summary: Breach opened
@@ -26502,11 +26540,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-8'
-                  2.0.0: '#/components/schemas/v2.0.0-8'
+                  4.0.0: '#/components/schemas/v4.0.0-9'
+                  2.0.0: '#/components/schemas/v2.0.0-9'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-8'
-                - $ref: '#/components/schemas/v2.0.0-8'
+                - $ref: '#/components/schemas/v4.0.0-9'
+                - $ref: '#/components/schemas/v2.0.0-9'
       responses:
         '200':
           content:
@@ -26556,11 +26594,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-9'
-                  2.0.0: '#/components/schemas/v2.0.0-9'
+                  4.0.0: '#/components/schemas/v4.0.0-10'
+                  2.0.0: '#/components/schemas/v2.0.0-10'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-9'
-                - $ref: '#/components/schemas/v2.0.0-9'
+                - $ref: '#/components/schemas/v4.0.0-10'
+                - $ref: '#/components/schemas/v2.0.0-10'
       responses:
         '200':
           content:
@@ -26622,11 +26660,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-10'
-                  2.0.0: '#/components/schemas/v2.0.0-10'
+                  4.0.0: '#/components/schemas/v4.0.0-11'
+                  2.0.0: '#/components/schemas/v2.0.0-11'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-10'
-                - $ref: '#/components/schemas/v2.0.0-10'
+                - $ref: '#/components/schemas/v4.0.0-11'
+                - $ref: '#/components/schemas/v2.0.0-11'
       responses:
         '200':
           content:
@@ -26676,11 +26714,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-11'
-                  2.0.0: '#/components/schemas/v2.0.0-11'
+                  4.0.0: '#/components/schemas/v4.0.0-12'
+                  2.0.0: '#/components/schemas/v2.0.0-12'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-11'
-                - $ref: '#/components/schemas/v2.0.0-11'
+                - $ref: '#/components/schemas/v4.0.0-12'
+                - $ref: '#/components/schemas/v2.0.0-12'
       responses:
         '200':
           content:
@@ -26747,11 +26785,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-12'
-                  2.0.0: '#/components/schemas/v2.0.0-12'
+                  4.0.0: '#/components/schemas/v4.0.0-13'
+                  2.0.0: '#/components/schemas/v2.0.0-13'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-12'
-                - $ref: '#/components/schemas/v2.0.0-12'
+                - $ref: '#/components/schemas/v4.0.0-13'
+                - $ref: '#/components/schemas/v2.0.0-13'
       responses:
         '200':
           content:
@@ -26807,11 +26845,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-13'
-                  2.0.0: '#/components/schemas/v2.0.0-13'
+                  4.0.0: '#/components/schemas/v4.0.0-14'
+                  2.0.0: '#/components/schemas/v2.0.0-14'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-13'
-                - $ref: '#/components/schemas/v2.0.0-13'
+                - $ref: '#/components/schemas/v4.0.0-14'
+                - $ref: '#/components/schemas/v2.0.0-14'
       responses:
         '200':
           content:
@@ -26875,11 +26913,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-14'
-                  2.0.0: '#/components/schemas/v2.0.0-14'
+                  4.0.0: '#/components/schemas/v4.0.0-15'
+                  2.0.0: '#/components/schemas/v2.0.0-15'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-14'
-                - $ref: '#/components/schemas/v2.0.0-14'
+                - $ref: '#/components/schemas/v4.0.0-15'
+                - $ref: '#/components/schemas/v2.0.0-15'
       responses:
         '200':
           content:
@@ -26938,11 +26976,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-15'
-                  2.0.0: '#/components/schemas/v2.0.0-15'
+                  4.0.0: '#/components/schemas/v4.0.0-16'
+                  2.0.0: '#/components/schemas/v2.0.0-16'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-15'
-                - $ref: '#/components/schemas/v2.0.0-15'
+                - $ref: '#/components/schemas/v4.0.0-16'
+                - $ref: '#/components/schemas/v2.0.0-16'
       responses:
         '200':
           content:
@@ -32062,10 +32100,10 @@ components:
           type: object
           description: >
             Verification results for the recipient's details. Only populated for
-            currencies with recipient verification enabled (KRW, INR, IDR, EUR).
-            See the [Verifying Recipient
-            Details](/guides/developer/api-guides/recipient-verification) guide
-            for how to handle these.
+            currencies with recipient verification enabled (CNY, KRW, INR, IDR,
+            EUR). See the [Recipient verification
+            guides](/guides/product/send-money/recipient-verification) for how
+            to handle these.
           properties:
             acceptedOutcomes:
               type: boolean
@@ -32379,10 +32417,10 @@ components:
       type: object
       description: >
         Verification results for the recipient's details. Only populated for
-        currencies with recipient verification enabled (KRW, INR, IDR, EUR). See
-        the [Verifying Recipient
-        Details](/guides/developer/api-guides/recipient-verification) guide for
-        how to handle these.
+        currencies with recipient verification enabled (CNY, KRW, INR, IDR,
+        EUR). See the [Recipient verification
+        guides](/guides/product/send-money/recipient-verification) for how to
+        handle these.
       properties:
         acceptedOutcomes:
           type: boolean
@@ -33200,6 +33238,449 @@ components:
                           name:
                             type: string
                             description: Value name
+    Details:
+      type: object
+      properties:
+        reference:
+          type: string
+          description: >-
+            Recipient will see this reference text in their bank statement.
+            Maximum allowed characters depends on the currency route.
+                     [Business Payments Tips](https://wise.com/help/articles/2932870/tips-for-paying-invoices) for a full list
+          example: T12789649
+    Name:
+      type: object
+      description: Data block to capture the originator name details
+      properties:
+        givenName:
+          type: string
+          description: Payment originator first name
+          example: John
+        middleNames:
+          type: array
+          items:
+            type: string
+          description: Payment originator middle name(s)
+        familyName:
+          type: string
+          description: Payment originator family name
+          example: Godspeed
+        patronymicName:
+          type: string
+          description: Payment originator patronymic name
+          example: Fitz
+        fullName:
+          type: string
+          description: Payment originator full legal name
+          example: John Godspeed
+    Address-2:
+      type: object
+      properties:
+        firstLine:
+          type: string
+          description: Payment originator address first line
+          example: Salu tee 14
+        city:
+          type: string
+          description: Payment originator address city
+          example: Tallinn
+        stateCode:
+          type: string
+          description: >-
+            Payment originator address state code. Required if address country
+            code in (US, CA, BR, AU)
+        countryCode:
+          type: string
+          pattern: ^[A-Z]{2}$
+          description: Payment originator address country code ISO 3166-1 alpha-2
+          example: EE
+        postCode:
+          type: string
+          description: Originator address zip code
+          example: '12112'
+    PrivateOriginator:
+      type: object
+      properties:
+        reference:
+          type: string
+          description: >-
+            Unique customer ID in your system. This allows us to uniquely
+            identify each originator
+          example: CST-2991992
+        name:
+          $ref: '#/components/schemas/Name'
+        dateOfBirth:
+          type: string
+          description: Payment originator date of birth
+          format: date
+          example: '1977-07-01'
+        nationality:
+          type: string
+          description: >-
+            Payment originator nationality. Required for certain routes (e.g. to
+            UGX)
+          example: EE
+        accountDetails:
+          type: string
+          description: Payment originator account number
+          example: '23456789'
+        address:
+          $ref: '#/components/schemas/Address-2'
+      required:
+        - address
+        - dateOfBirth
+        - name
+        - reference
+    OriginatorMixin:
+      type: object
+      properties:
+        legalEntityType:
+          type: string
+      required:
+        - legalEntityType
+    OriginatorPRIVATE:
+      allOf:
+        - $ref: '#/components/schemas/PrivateOriginator'
+        - $ref: '#/components/schemas/OriginatorMixin'
+    BusinessOriginator:
+      type: object
+      description: Data block to capture payment originator details for a business entity
+      properties:
+        reference:
+          type: string
+          description: >-
+            Unique customer ID in your system. This allows us to uniquely
+            identify each originator
+          example: CST-2991992
+        name:
+          $ref: '#/components/schemas/Name'
+        businessRegistrationCode:
+          type: string
+          description: Payment originator business registry number / incorporation number
+          example: 83920-546
+        businessRegistrationDate:
+          type: string
+          description: >-
+            Payment originator business registration date. Required for certain
+            routes (e.g. to UGX)
+          format: date
+          example: '2020-01-15'
+        accountDetails:
+          type: string
+          description: Payment originator account number
+          example: '23456789'
+        address:
+          $ref: '#/components/schemas/Address-2'
+      required:
+        - address
+        - businessRegistrationCode
+        - businessRegistrationDate
+        - name
+    OriginatorBUSINESS:
+      allOf:
+        - $ref: '#/components/schemas/BusinessOriginator'
+        - $ref: '#/components/schemas/OriginatorMixin'
+    Originator:
+      oneOf:
+        - $ref: '#/components/schemas/OriginatorPRIVATE'
+        - $ref: '#/components/schemas/OriginatorBUSINESS'
+      discriminator:
+        propertyName: legalEntityType
+        mapping:
+          PRIVATE: '#/components/schemas/OriginatorPRIVATE'
+          BUSINESS: '#/components/schemas/OriginatorBUSINESS'
+    CreateThirdPartyTransferRequestContent:
+      type: object
+      properties:
+        originalTransferId:
+          type: string
+          description: >-
+            Unique transfer ID in your system. We use this field also to perform
+            idempotency check to avoid duplicate transfers in case of network
+            failures or timeouts.
+                You can only submit one transfer with same originalTransferId.
+          example: '4711'
+        targetAccount:
+          type: integer
+          description: Recipient account ID.
+          format: int64
+          example: 7839323
+        quote:
+          type: string
+          description: |-
+            Quote ID. You can only create one transfer per one quote.
+                You cannot use same quote ID to create multiple transfers.
+          example: 3522e360-356a-4e37-9f99-94a21898d8fa
+        details:
+          $ref: '#/components/schemas/Details'
+        originator:
+          $ref: '#/components/schemas/Originator'
+      required:
+        - details
+        - originalTransferId
+        - originator
+        - quote
+        - targetAccount
+    DetailsResponse:
+      type: object
+      properties:
+        reference:
+          type: string
+          description: >-
+            Recipient will see this reference text in their bank statement.
+            Maximum allowed characters depends on the currency route.
+                Business Payments Tips (https://wise.com/help/articles/2932870/tips-for-paying-invoices) article has a full list
+          example: T12789649
+    LegalEntityTypeResponse:
+      type: string
+      enum:
+        - PRIVATE
+        - BUSINESS
+    NameResponse:
+      type: object
+      description: Data block to capture the originator name details
+      properties:
+        givenName:
+          type: string
+          description: Payment originator first name
+          example: John
+        middleNames:
+          type: array
+          items:
+            type: string
+          description: Payment originator middle name(s)
+        familyName:
+          type: string
+          description: Payment originator family name
+          example: Godspeed
+        patronymicName:
+          type: string
+          description: Payment originator patronymic name
+          example: Fitz
+        fullName:
+          type: string
+          description: Payment originator full legal name
+          example: John Godspeed
+    AddressResponse:
+      type: object
+      properties:
+        firstLine:
+          type: string
+          description: Payment originator address first line
+          example: Salu tee 14
+        city:
+          type: string
+          description: Payment originator address city
+          example: Tallinn
+        stateCode:
+          type: string
+          description: >-
+            Payment originator address state code. Required if address country
+            code in (US, CA, BR, AU)
+        countryCode:
+          type: string
+          pattern: ^[A-Z]{2}$
+          description: Payment originator address country code ISO 3166-1 alpha-2
+          example: EE
+        postCode:
+          type: string
+          description: Originator address zip code
+          example: '12112'
+    OriginatorResponse:
+      type: object
+      properties:
+        legalEntityType:
+          $ref: '#/components/schemas/LegalEntityTypeResponse'
+        reference:
+          type: string
+          description: >-
+            Unique customer ID in your system. This allows us to uniquely
+            identify each originator
+          example: CST-2991992
+        name:
+          $ref: '#/components/schemas/NameResponse'
+        dateOfBirth:
+          type: string
+          description: Payment originator date of birth
+          format: date
+          example: '1977-07-01'
+        nationality:
+          type: string
+          description: >-
+            Payment originator nationality. Required for certain routes (e.g. to
+            UGX)
+          example: EE
+        accountDetails:
+          type: string
+          description: Payment originator account number
+          example: '23456789'
+        address:
+          $ref: '#/components/schemas/AddressResponse'
+        businessRegistrationCode:
+          type: string
+          description: Payment originator business registry number / incorporation number
+          example: 83920-546
+        businessRegistrationDate:
+          type: string
+          description: >-
+            Payment originator business registration date. Required for certain
+            routes (e.g. to UGX)
+          format: date
+          example: '2020-01-15'
+    CreateThirdPartyTransferResponseContent:
+      type: object
+      description: Returns the originator transfer object.
+      properties:
+        id:
+          type: integer
+          description: Transfer ID
+          format: int64
+          example: 16521632
+        user:
+          type: integer
+          description: Your user ID
+          format: int64
+          example: 4342275
+        targetAccount:
+          type: integer
+          description: Recipient account ID
+          format: int64
+          example: 8692237
+        sourceAccount:
+          type: integer
+          description: Refund recipient account ID
+          format: int64
+          example: 1527389
+        quote:
+          type: string
+          description: Quote ID
+          example: 8fa9be20-ba43-4b15-abbb-9424e1481050
+        status:
+          type: string
+          description: >-
+            Transfer current status. See [Tracking
+            Transfers](https://docs.wise.com/guides/product/send-money/tracking-transfers)
+            for all possible statuses.
+          example: cancelled
+        rate:
+          type: number
+          description: Exchange rate value
+          format: decimal
+          example: 0.89
+        details:
+          $ref: '#/components/schemas/DetailsResponse'
+        originator:
+          $ref: '#/components/schemas/OriginatorResponse'
+        hasActiveIssues:
+          type: boolean
+          description: Are there any pending issues which stop executing the transfer?
+          example: false
+        sourceCurrency:
+          type: string
+          description: Source currency code
+          example: EUR
+        sourceValue:
+          type: number
+          description: Transfer amount in source currency
+          format: decimal
+          example: 0
+        targetCurrency:
+          type: string
+          description: Target currency code
+          example: GBP
+        targetValue:
+          type: number
+          description: Transfer amount in target currency
+          format: decimal
+          example: 150
+        originalTransferId:
+          type: string
+          description: >-
+            Unique identifier randomly generated per transfer request by the
+            calling client
+          example: 54a6bc09-cef9-49a8-9041-f1f0c654cd88
+        created:
+          type: string
+          description: Timestamp when transfer was created.
+          format: date-time
+          example: '2025-10-29T12:28:16.000Z'
+    GetThirdPartyTransferResponseContent:
+      type: object
+      description: Returns the originator transfer object.
+      properties:
+        id:
+          type: integer
+          description: Transfer ID
+          format: int64
+          example: 16521632
+        user:
+          type: integer
+          description: Your user ID
+          format: int64
+          example: 4342275
+        targetAccount:
+          type: integer
+          description: Recipient account ID
+          format: int64
+          example: 8692237
+        sourceAccount:
+          type: integer
+          description: Refund recipient account ID
+          format: int64
+          example: 1527389
+        quote:
+          type: string
+          description: Quote ID
+          example: 8fa9be20-ba43-4b15-abbb-9424e1481050
+        status:
+          type: string
+          description: >-
+            Transfer current status. See [Tracking
+            Transfers](https://docs.wise.com/guides/product/send-money/tracking-transfers)
+            for all possible statuses.
+          example: cancelled
+        rate:
+          type: number
+          description: Exchange rate value
+          format: decimal
+          example: 0.89
+        details:
+          $ref: '#/components/schemas/DetailsResponse'
+        originator:
+          $ref: '#/components/schemas/OriginatorResponse'
+        hasActiveIssues:
+          type: boolean
+          description: Are there any pending issues which stop executing the transfer?
+          example: false
+        sourceCurrency:
+          type: string
+          description: Source currency code
+          example: EUR
+        sourceValue:
+          type: number
+          description: Transfer amount in source currency
+          format: decimal
+          example: 0
+        targetCurrency:
+          type: string
+          description: Target currency code
+          example: GBP
+        targetValue:
+          type: number
+          description: Transfer amount in target currency
+          format: decimal
+          example: 150
+        originalTransferId:
+          type: string
+          description: >-
+            Unique identifier randomly generated per transfer request by the
+            calling client
+          example: 54a6bc09-cef9-49a8-9041-f1f0c654cd88
+        created:
+          type: string
+          description: Timestamp when transfer was created.
+          format: date-time
+          example: '2025-10-29T12:28:16.000Z'
     payment:
       title: Payment
       type: object
@@ -33853,6 +34334,168 @@ components:
           type: string
           format: uuid
           description: ID of the webhook subscription that triggered this event
+          example: 01989c58-7171-7276-9a4c-c9b4cefc0897
+        event_type:
+          type: string
+          description: Event type identifier
+          example: account-details-order#order-state-change
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2025-08-08T07:49:31.123Z'
+        data:
+          type: object
+          properties:
+            creation_time:
+              type: string
+              format: date-time
+              description: When the order was created
+              example: '2025-08-08T07:49:27.456Z'
+            currency:
+              type: string
+              description: Currency code for the account details order
+              example: CAD
+            is_account_details_issued:
+              type: boolean
+              description: Whether account details have been issued for this order
+              example: false
+            modification_time:
+              type: string
+              format: date-time
+              description: When the order was last modified
+              example: '2025-08-08T07:49:30.789Z'
+            order_id:
+              type: string
+              description: Unique identifier for the account details order
+              example: 01989c58-45e4-71dd-9373-7d999e992f99
+            order_status:
+              type: string
+              description: Current status of the order
+              enum:
+                - PENDING_USER
+                - PENDING_TW
+                - REQUIREMENTS_FULFILLED
+                - DONE
+              example: REQUIREMENTS_FULFILLED
+            profile_id:
+              type: integer
+              format: int64
+              description: ID of the profile associated with this order
+              example: 28835473
+            requirements:
+              type: array
+              description: List of requirements for this order
+              items:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: >-
+                      Status of the individual requirement (`"DONE"`,
+                      `"PENDING"`, etc.)
+                    example: DONE
+                  type:
+                    type: string
+                    description: Type of requirement (`"VERIFICATION"`)
+                    example: VERIFICATION
+    v2.0.0-4:
+      title: Schema version 2.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 2.0.0
+          example: 2.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: 01989c58-7171-7276-9a4c-c9b4cefc0897
+        event_type:
+          type: string
+          description: Event type identifier
+          example: account-details-order#order-state-change
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2025-08-08T07:49:31Z'
+        data:
+          type: object
+          properties:
+            creation_time:
+              type: string
+              format: date-time
+              description: When the order was created
+              example: '2025-08-08T07:49:27Z'
+            currency:
+              type: string
+              description: Currency code for the account details order
+              example: CAD
+            is_account_details_issued:
+              type: boolean
+              description: Whether account details have been issued for this order
+              example: false
+            modification_time:
+              type: string
+              format: date-time
+              description: When the order was last modified
+              example: '2025-08-08T07:49:30Z'
+            order_id:
+              type: string
+              description: Unique identifier for the account details order
+              example: 01989c58-45e4-71dd-9373-7d999e992f99
+            order_status:
+              type: string
+              description: Current status of the order
+              enum:
+                - PENDING_USER
+                - PENDING_TW
+                - REQUIREMENTS_FULFILLED
+                - DONE
+              example: REQUIREMENTS_FULFILLED
+            profile_id:
+              type: integer
+              format: int64
+              description: ID of the profile associated with this order
+              example: 28835473
+            requirements:
+              type: array
+              description: List of requirements for this order
+              items:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: >-
+                      Status of the individual requirement (`"DONE"`,
+                      `"PENDING"`, etc.)
+                    example: DONE
+                  type:
+                    type: string
+                    description: Type of requirement (`"VERIFICATION"`)
+                    example: VERIFICATION
+    v4.0.0-5:
+      title: Schema version 4.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 4.0.0
+          example: 4.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
           example: 36c3f762-560d-4f07-84f9-5d8a3cacabbb
         event_type:
           type: string
@@ -33954,7 +34597,7 @@ components:
               format: date-time
               description: Timestamp when the event occurred
               example: '2026-02-24T11:10:13.789Z'
-    v2.0.0-4:
+    v2.0.0-5:
       title: Schema version 2.0.0
       type: object
       properties:
@@ -34071,7 +34714,7 @@ components:
               format: date-time
               description: Timestamp when the event occurred
               example: '2026-02-24T11:10:13Z'
-    v4.0.0-5:
+    v4.0.0-6:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -34157,7 +34800,7 @@ components:
               format: date-time
               description: When the card status change occurred
               example: '2022-08-22T07:49:50.789Z'
-    v2.0.0-5:
+    v2.0.0-6:
       title: Schema version 2.0.0
       type: object
       properties:
@@ -34243,7 +34886,7 @@ components:
               format: date-time
               description: When the card status change occurred
               example: '2022-08-22T07:49:50Z'
-    v4.0.0-6:
+    v4.0.0-7:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -34329,7 +34972,7 @@ components:
               type: string
               description: Detailed description of the error code.
               example: Card produced
-    v2.0.0-6:
+    v2.0.0-7:
       title: Schema version 2.0.0
       type: object
       properties:
@@ -34415,7 +35058,7 @@ components:
               type: string
               description: Detailed description of the error code.
               example: Card produced
-    v2.0.0-7:
+    v2.0.0-8:
       title: Schema version 2.0.0
       type: object
       properties:
@@ -34483,7 +35126,7 @@ components:
                 The wallet provider used to provision the card such as "Google
                 Pay" or "Apple Pay"
               example: Google Pay
-    v4.0.0-7:
+    v4.0.0-8:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -34572,7 +35215,7 @@ components:
                 Timestamp when the event occurred (ISO 8601). Use this field to
                 reconcile out-of-order events
               example: '2024-06-01T08:00:00Z'
-    v4.0.0-8:
+    v4.0.0-9:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -34630,7 +35273,7 @@ components:
                   type: string
                   description: Currency in which the amounts are expressed in
                   example: EUR
-    v2.0.0-8:
+    v2.0.0-9:
       title: Schema version 2.0.0
       type: object
       properties:
@@ -34688,7 +35331,7 @@ components:
                   type: string
                   description: Currency in which the amounts are expressed in
                   example: EUR
-    v4.0.0-9:
+    v4.0.0-10:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -34769,7 +35412,7 @@ components:
                 Whether the state change was requested by the customer. Not
                 applicable for `current_state` in `ACTIVE`.
               example: false
-    v2.0.0-9:
+    v2.0.0-10:
       title: Schema version 2.0.0
       type: object
       properties:
@@ -34850,112 +35493,6 @@ components:
                 Whether the state change was requested by the customer. Not
                 applicable for `current_state` in `ACTIVE`.
               example: false
-    v4.0.0-10:
-      title: Schema version 4.0.0
-      type: object
-      properties:
-        schema_version:
-          type: string
-          description: >-
-            Version of the event schema. Determined by the `schema_version` on
-            your [webhook subscription](/api-reference/webhook).
-          enum:
-            - 4.0.0
-          example: 4.0.0
-        subscription_id:
-          type: string
-          format: uuid
-          description: ID of the webhook subscription that triggered this event
-          example: 01234567-89ab-cdef-0123-456789abcdef
-        event_type:
-          type: string
-          description: Event type identifier
-          example: profiles#verification-state-change
-        sent_at:
-          type: string
-          format: date-time
-          description: Timestamp when the event was sent
-          example: '2020-01-01T12:34:56.123Z'
-        data:
-          type: object
-          properties:
-            resource:
-              type: object
-              properties:
-                type:
-                  type: string
-                  description: Resource type (always `profile`)
-                  example: profile
-                id:
-                  type: integer
-                  format: int64
-                  description: ID of the profile
-                  example: 111
-            current_state:
-              type: string
-              description: Current verification state of the profile
-              enum:
-                - verified
-                - not_verified
-              example: verified
-            occurred_at:
-              type: string
-              format: date-time
-              description: When the verification state change occurred
-              example: '2020-01-01T12:34:56.789Z'
-    v2.0.0-10:
-      title: Schema version 2.0.0
-      type: object
-      properties:
-        schema_version:
-          type: string
-          description: >-
-            Version of the event schema. Determined by the `schema_version` on
-            your [webhook subscription](/api-reference/webhook).
-          enum:
-            - 2.0.0
-          example: 2.0.0
-        subscription_id:
-          type: string
-          format: uuid
-          description: ID of the webhook subscription that triggered this event
-          example: 01234567-89ab-cdef-0123-456789abcdef
-        event_type:
-          type: string
-          description: Event type identifier
-          example: profiles#verification-state-change
-        sent_at:
-          type: string
-          format: date-time
-          description: Timestamp when the event was sent
-          example: '2020-01-01T12:34:56Z'
-        data:
-          type: object
-          properties:
-            resource:
-              type: object
-              properties:
-                type:
-                  type: string
-                  description: Resource type (always `profile`)
-                  example: profile
-                id:
-                  type: integer
-                  format: int64
-                  description: ID of the profile
-                  example: 111
-            current_state:
-              type: string
-              description: Current verification state of the profile
-              enum:
-                - verified
-                - not_verified
-              example: verified
-            occurred_at:
-              type: string
-              format: date-time
-              description: When the verification state change occurred
-              example: '2020-01-01T12:34:56Z'
     v4.0.0-11:
       title: Schema version 4.0.0
       type: object
@@ -34976,7 +35513,7 @@ components:
         event_type:
           type: string
           description: Event type identifier
-          example: balances#account-state-change
+          example: profiles#verification-state-change
         sent_at:
           type: string
           format: date-time
@@ -34990,29 +35527,24 @@ components:
               properties:
                 type:
                   type: string
-                  description: Resource type (always `balance-account`)
-                  example: balance-account
+                  description: Resource type (always `profile`)
+                  example: profile
                 id:
                   type: integer
                   format: int64
-                  description: ID of the account
-                  example: 123
-                profile_id:
-                  type: integer
-                  format: int64
-                  description: ID of the profile that owns the account
-                  example: 555
-                state:
-                  type: string
-                  description: State of the account.
-                  enum:
-                    - ACTIVE
-                    - INACTIVE
-                  example: INACTIVE
+                  description: ID of the profile
+                  example: 111
+            current_state:
+              type: string
+              description: Current verification state of the profile
+              enum:
+                - verified
+                - not_verified
+              example: verified
             occurred_at:
               type: string
               format: date-time
-              description: Timestamp when the event occurred
+              description: When the verification state change occurred
               example: '2020-01-01T12:34:56.789Z'
     v2.0.0-11:
       title: Schema version 2.0.0
@@ -35034,6 +35566,117 @@ components:
         event_type:
           type: string
           description: Event type identifier
+          example: profiles#verification-state-change
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2020-01-01T12:34:56Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: Resource type (always `profile`)
+                  example: profile
+                id:
+                  type: integer
+                  format: int64
+                  description: ID of the profile
+                  example: 111
+            current_state:
+              type: string
+              description: Current verification state of the profile
+              enum:
+                - verified
+                - not_verified
+              example: verified
+            occurred_at:
+              type: string
+              format: date-time
+              description: When the verification state change occurred
+              example: '2020-01-01T12:34:56Z'
+    v4.0.0-12:
+      title: Schema version 4.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 4.0.0
+          example: 4.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: 01234567-89ab-cdef-0123-456789abcdef
+        event_type:
+          type: string
+          description: Event type identifier
+          example: balances#account-state-change
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2020-01-01T12:34:56.123Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: Resource type (always `balance-account`)
+                  example: balance-account
+                id:
+                  type: integer
+                  format: int64
+                  description: ID of the account
+                  example: 123
+                profile_id:
+                  type: integer
+                  format: int64
+                  description: ID of the profile that owns the account
+                  example: 555
+                state:
+                  type: string
+                  description: State of the account.
+                  enum:
+                    - ACTIVE
+                    - INACTIVE
+                  example: INACTIVE
+            occurred_at:
+              type: string
+              format: date-time
+              description: Timestamp when the event occurred
+              example: '2020-01-01T12:34:56.789Z'
+    v2.0.0-12:
+      title: Schema version 2.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 2.0.0
+          example: 2.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: 01234567-89ab-cdef-0123-456789abcdef
+        event_type:
+          type: string
+          description: Event type identifier
           example: balances#account-state-change
         sent_at:
           type: string
@@ -35072,7 +35715,7 @@ components:
               format: date-time
               description: Timestamp when the event occurred
               example: '2020-01-01T12:34:56Z'
-    v4.0.0-12:
+    v4.0.0-13:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -35141,7 +35784,7 @@ components:
               format: date-time
               description: When the credit occurred
               example: '2020-01-01T12:34:56.789Z'
-    v2.0.0-12:
+    v2.0.0-13:
       title: Schema version 2.0.0
       type: object
       properties:
@@ -35210,7 +35853,7 @@ components:
               format: date-time
               description: When the credit occurred
               example: '2020-01-01T12:34:56Z'
-    v4.0.0-13:
+    v4.0.0-14:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -35285,7 +35928,7 @@ components:
               type: string
               description: Return code of the underlying payment system
               example: '200'
-    v2.0.0-13:
+    v2.0.0-14:
       title: Schema version 2.0.0
       type: object
       properties:
@@ -35360,7 +36003,7 @@ components:
               type: string
               description: Return code of the underlying payment system
               example: '200'
-    v4.0.0-14:
+    v4.0.0-15:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -35457,7 +36100,7 @@ components:
               format: date-time
               description: When the partner case update occurred.
               example: '2023-06-23T09:45:34.789Z'
-    v2.0.0-14:
+    v2.0.0-15:
       title: Schema version 2.0.0
       type: object
       properties:
@@ -35554,7 +36197,7 @@ components:
               format: date-time
               description: When the partner case update occurred.
               example: '2023-06-23T09:45:34Z'
-    v4.0.0-15:
+    v4.0.0-16:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -35645,7 +36288,7 @@ components:
               format: date-time
               description: When the dispute updates occurred
               example: '2024-04-18T06:36:15.789Z'
-    v2.0.0-15:
+    v2.0.0-16:
       title: Schema version 2.0.0
       type: object
       properties:

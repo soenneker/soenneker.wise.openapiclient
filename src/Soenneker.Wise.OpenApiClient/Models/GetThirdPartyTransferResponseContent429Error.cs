@@ -2,42 +2,37 @@
 #pragma warning disable CS0618
 using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions.Serialization;
+using Microsoft.Kiota.Abstractions;
 using System.Collections.Generic;
 using System.IO;
 using System;
-namespace Soenneker.Wise.OpenApiClient.V2.Profiles.Item.ThirdPartyTransfers
+namespace Soenneker.Wise.OpenApiClient.Models
 {
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
-    public partial class ThirdPartyTransfersPostRequestBodyMember2_details : IAdditionalDataHolder, IParsable
+    public partial class GetThirdPartyTransferResponseContent429Error : ApiException, IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Recipient will see this reference text in their bank statement. Maximum allowed characters depends on the currency route. See [Business Payments Tips](https://wise.com/help/articles/2932870/tips-for-paying-invoices) for a full list</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? Reference { get; set; }
-#nullable restore
-#else
-        public string Reference { get; set; }
-#endif
+        /// <summary>The primary error message.</summary>
+        public override string Message { get => base.Message; }
         /// <summary>
-        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.ThirdPartyTransfers.ThirdPartyTransfersPostRequestBodyMember2_details"/> and sets the default values.
+        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.GetThirdPartyTransferResponseContent429Error"/> and sets the default values.
         /// </summary>
-        public ThirdPartyTransfersPostRequestBodyMember2_details()
+        public GetThirdPartyTransferResponseContent429Error()
         {
             AdditionalData = new Dictionary<string, object>();
         }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.ThirdPartyTransfers.ThirdPartyTransfersPostRequestBodyMember2_details"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.GetThirdPartyTransferResponseContent429Error"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.ThirdPartyTransfers.ThirdPartyTransfersPostRequestBodyMember2_details CreateFromDiscriminatorValue(IParseNode parseNode)
+        public static global::Soenneker.Wise.OpenApiClient.Models.GetThirdPartyTransferResponseContent429Error CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.ThirdPartyTransfers.ThirdPartyTransfersPostRequestBodyMember2_details();
+            return new global::Soenneker.Wise.OpenApiClient.Models.GetThirdPartyTransferResponseContent429Error();
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -47,7 +42,6 @@ namespace Soenneker.Wise.OpenApiClient.V2.Profiles.Item.ThirdPartyTransfers
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "reference", n => { Reference = n.GetStringValue(); } },
             };
         }
         /// <summary>
@@ -57,7 +51,6 @@ namespace Soenneker.Wise.OpenApiClient.V2.Profiles.Item.ThirdPartyTransfers
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteStringValue("reference", Reference);
             writer.WriteAdditionalData(AdditionalData);
         }
     }
