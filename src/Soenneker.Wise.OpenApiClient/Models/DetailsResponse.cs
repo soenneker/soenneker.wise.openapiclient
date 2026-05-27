@@ -14,7 +14,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Recipient will see this reference text in their bank statement. Maximum allowed characters depends on the currency route.    Business Payments Tips (https://wise.com/help/articles/2932870/tips-for-paying-invoices) article has a full list</summary>
+        /// <summary>Recipient will see this reference text in their bank statement. Maximum allowed characters depends on the currency route.         [Business Payments Tips](https://wise.com/help/articles/2932870/tips-for-paying-invoices) for a full list</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Reference { get; set; }

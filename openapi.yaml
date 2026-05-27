@@ -23641,29 +23641,8 @@ paths:
             schema:
               $ref: '#/components/schemas/CreateThirdPartyTransferRequestContent'
             examples:
-              create-third-party-transfer-business-originator:
-                summary: Business originator
-                value:
-                  profileId: 123456789
-                  targetAccount: 7839323
-                  quote: 3522e360-356a-4e37-9f99-94a21898d8fa
-                  originalTransferId: '4711'
-                  details:
-                    reference: Ski trip
-                  originator:
-                    legalEntityType: BUSINESS
-                    reference: '78976'
-                    name:
-                      fullName: Hot Air Balloon Services Ltd
-                    businessRegistrationCode: AE-89780
-                    businessRegistrationDate: '2020-01-15'
-                    address:
-                      firstLine: Salu tee 100, Apt 4B
-                      city: Tallinn
-                      countryCode: EE
-                      postCode: '12112'
-              create-third-party-transfer-private-originator:
-                summary: PRIVATE originator
+              1.create-third-party-transfer-private-originator:
+                summary: PRIVATE Originator
                 value:
                   profileId: 123456789
                   targetAccount: 7839323
@@ -23683,6 +23662,27 @@ paths:
                       patronymicName: Fitz
                     dateOfBirth: '1977-07-01'
                     nationality: EE
+                    address:
+                      firstLine: Salu tee 100, Apt 4B
+                      city: Tallinn
+                      countryCode: EE
+                      postCode: '12112'
+              2.create-third-party-transfer-business-originator:
+                summary: BUSINESS Originator
+                value:
+                  profileId: 123456789
+                  targetAccount: 7839323
+                  quote: 3522e360-356a-4e37-9f99-94a21898d8fa
+                  originalTransferId: '4711'
+                  details:
+                    reference: Ski trip
+                  originator:
+                    legalEntityType: BUSINESS
+                    reference: '78976'
+                    name:
+                      fullName: Hot Air Balloon Services Ltd
+                    businessRegistrationCode: AE-89780
+                    businessRegistrationDate: '2020-01-15'
                     address:
                       firstLine: Salu tee 100, Apt 4B
                       city: Tallinn
@@ -23716,8 +23716,7 @@ paths:
                 $ref: '#/components/schemas/CreateThirdPartyTransferResponseContent'
               examples:
                 response-business-legalentity:
-                  summary: Successful Response for BUSINESS LegalEntity
-                  description: Returns the originator transfer object
+                  summary: BUSINESS Originator Response
                   value:
                     id: 16521632
                     originalTransferId: 54a6bc09-cef9-49a8-9041-f1f0c654cd88
@@ -23750,8 +23749,7 @@ paths:
                       accountDetails: '23456789'
                     created: '2025-10-29T12:28:16.000Z'
                 response-private-legalentity:
-                  summary: Successful Response for PRIVATE LegalEntity
-                  description: Returns the originator transfer object
+                  summary: PRIVATE Originator Response
                   value:
                     id: 16521632
                     originalTransferId: 54a6bc09-cef9-49a8-9041-f1f0c654cd88
@@ -23877,22 +23875,13 @@ paths:
       responses:
         '200':
           description: Returns the originator transfer object.
-          headers:
-            Location:
-              schema:
-                type: string
-            X-External-Correlation-Id:
-              $ref: '#/components/headers/X-External-Correlation-Id'
-            x-trace-id:
-              $ref: '#/components/headers/x-trace-id'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/GetThirdPartyTransferResponseContent'
               examples:
                 response-business-legalentity:
-                  summary: BUSINESS LegalEntity
-                  description: Returns the originator transfer object
+                  summary: BUSINESS Originator Response
                   value:
                     id: 16521632
                     originalTransferId: 54a6bc09-cef9-49a8-9041-f1f0c654cd88
@@ -23910,23 +23899,22 @@ paths:
                     targetCurrency: GBP
                     targetValue: 150
                     originator:
-                      business:
-                        name:
-                          fullName: John Godspeed
-                        reference: CST-2991992
-                        businessRegistrationCode: 83920-546
-                        businessRegistrationDate: '2020-01-15'
-                        address:
-                          firstLine: Salu tee 14
-                          city: Tallinn
-                          stateCode: ''
-                          countryCode: EE
-                          postCode: '12112'
-                        accountDetails: '23456789'
+                      legalEntityType: BUSINESS
+                      name:
+                        fullName: John Godspeed
+                      reference: CST-2991992
+                      businessRegistrationCode: 83920-546
+                      businessRegistrationDate: '2020-01-15'
+                      address:
+                        firstLine: Salu tee 14
+                        city: Tallinn
+                        stateCode: ''
+                        countryCode: EE
+                        postCode: '12112'
+                      accountDetails: '23456789'
                     created: '2025-10-29T12:28:16.000Z'
                 response-private-legalentity:
-                  summary: PRIVATE LegalEntity
-                  description: Returns the originator transfer object
+                  summary: PRIVATE Originator Response
                   value:
                     id: 16521632
                     originalTransferId: 54a6bc09-cef9-49a8-9041-f1f0c654cd88
@@ -23944,24 +23932,29 @@ paths:
                     targetCurrency: GBP
                     targetValue: 150
                     originator:
-                      private:
-                        name:
-                          givenName: John
-                          middleNames:
-                            - Ryan
-                          familyName: Godspeed
-                          patronymicName: Fitz
-                        dateOfBirth: '1977-07-01'
-                        nationality: EE
-                        reference: CST-2991992
-                        address:
-                          firstLine: Salu tee 14
-                          city: Tallinn
-                          stateCode: ''
-                          countryCode: EE
-                          postCode: '12112'
-                        accountDetails: '23456789'
+                      legalEntityType: PRIVATE
+                      name:
+                        givenName: John
+                        middleNames:
+                          - Ryan
+                        familyName: Godspeed
+                        patronymicName: Fitz
+                      dateOfBirth: '1977-07-01'
+                      nationality: EE
+                      reference: CST-2991992
+                      address:
+                        firstLine: Salu tee 14
+                        city: Tallinn
+                        stateCode: ''
+                        countryCode: EE
+                        postCode: '12112'
+                      accountDetails: '23456789'
                     created: '2025-10-29T12:28:16.000Z'
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
         '404':
           description: Transfer not found.
           headers:
@@ -33429,7 +33422,7 @@ components:
           description: >-
             Recipient will see this reference text in their bank statement.
             Maximum allowed characters depends on the currency route.
-                Business Payments Tips (https://wise.com/help/articles/2932870/tips-for-paying-invoices) article has a full list
+                     [Business Payments Tips](https://wise.com/help/articles/2932870/tips-for-paying-invoices) for a full list
           example: T12789649
     LegalEntityTypeResponse:
       type: string
