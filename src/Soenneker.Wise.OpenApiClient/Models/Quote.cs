@@ -59,10 +59,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Allows for pricing configurations to be overridden by partners on a transfer level.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.Quote_pricingConfiguration? PricingConfiguration { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.QuotePricingConfiguration? PricingConfiguration { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.Quote_pricingConfiguration PricingConfiguration { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.QuotePricingConfiguration PricingConfiguration { get; set; }
 #endif
         /// <summary>Personal or business profile ID.</summary>
         public long? Profile { get; set; }
@@ -134,7 +134,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "payOut", n => { PayOut = n.GetStringValue(); } },
                 { "paymentOptions", n => { PaymentOptions = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.Quote_paymentOptions>(global::Soenneker.Wise.OpenApiClient.Models.Quote_paymentOptions.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "preferredPayIn", n => { PreferredPayIn = n.GetStringValue(); } },
-                { "pricingConfiguration", n => { PricingConfiguration = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Quote_pricingConfiguration>(global::Soenneker.Wise.OpenApiClient.Models.Quote_pricingConfiguration.CreateFromDiscriminatorValue); } },
+                { "pricingConfiguration", n => { PricingConfiguration = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.QuotePricingConfiguration>(global::Soenneker.Wise.OpenApiClient.Models.QuotePricingConfiguration.CreateFromDiscriminatorValue); } },
                 { "profile", n => { Profile = n.GetLongValue(); } },
                 { "providedAmountType", n => { ProvidedAmountType = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.Quote_providedAmountType>(); } },
                 { "rate", n => { Rate = n.GetDoubleValue(); } },
@@ -165,7 +165,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.Quote_paymentOptions>("paymentOptions", PaymentOptions);
             writer.WriteStringValue("payOut", PayOut);
             writer.WriteStringValue("preferredPayIn", PreferredPayIn);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Quote_pricingConfiguration>("pricingConfiguration", PricingConfiguration);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.QuotePricingConfiguration>("pricingConfiguration", PricingConfiguration);
             writer.WriteLongValue("profile", Profile);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.Quote_providedAmountType>("providedAmountType", ProvidedAmountType);
             writer.WriteDoubleValue("rate", Rate);

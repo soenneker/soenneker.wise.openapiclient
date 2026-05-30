@@ -18,18 +18,18 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Available balance that can be used to fund transfers.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.Balance_amount? Amount { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.BalanceAmount? Amount { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.Balance_amount Amount { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.BalanceAmount Amount { get; set; }
 #endif
         /// <summary>Cash amount in the account.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.Balance_cashAmount? CashAmount { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.BalanceCashAmount? CashAmount { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.Balance_cashAmount CashAmount { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.BalanceCashAmount CashAmount { get; set; }
 #endif
         /// <summary>Date when the balance was created.</summary>
         public DateTimeOffset? CreationTime { get; set; }
@@ -44,10 +44,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Icon for the balance.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.Balance_icon? Icon { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.BalanceIcon? Icon { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.Balance_icon Icon { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.BalanceIcon Icon { get; set; }
 #endif
         /// <summary>Balance ID.</summary>
         public long? Id { get; set; }
@@ -66,18 +66,18 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Amount reserved for transactions.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.Balance_reservedAmount? ReservedAmount { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.BalanceReservedAmount? ReservedAmount { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.Balance_reservedAmount ReservedAmount { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.BalanceReservedAmount ReservedAmount { get; set; }
 #endif
         /// <summary>Current total worth.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.Balance_totalWorth? TotalWorth { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.BalanceTotalWorth? TotalWorth { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.Balance_totalWorth TotalWorth { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.BalanceTotalWorth TotalWorth { get; set; }
 #endif
         /// <summary>Type of balance account.- `STANDARD` - Standard balance account. Only one per currency per profile.- `SAVINGS` - Savings balance (Jar). Multiple allowed per currency.</summary>
         public global::Soenneker.Wise.OpenApiClient.Models.BalanceType? Type { get; set; }
@@ -108,17 +108,17 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "amount", n => { Amount = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Balance_amount>(global::Soenneker.Wise.OpenApiClient.Models.Balance_amount.CreateFromDiscriminatorValue); } },
-                { "cashAmount", n => { CashAmount = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Balance_cashAmount>(global::Soenneker.Wise.OpenApiClient.Models.Balance_cashAmount.CreateFromDiscriminatorValue); } },
+                { "amount", n => { Amount = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.BalanceAmount>(global::Soenneker.Wise.OpenApiClient.Models.BalanceAmount.CreateFromDiscriminatorValue); } },
+                { "cashAmount", n => { CashAmount = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.BalanceCashAmount>(global::Soenneker.Wise.OpenApiClient.Models.BalanceCashAmount.CreateFromDiscriminatorValue); } },
                 { "creationTime", n => { CreationTime = n.GetDateTimeOffsetValue(); } },
                 { "currency", n => { Currency = n.GetStringValue(); } },
-                { "icon", n => { Icon = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Balance_icon>(global::Soenneker.Wise.OpenApiClient.Models.Balance_icon.CreateFromDiscriminatorValue); } },
+                { "icon", n => { Icon = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.BalanceIcon>(global::Soenneker.Wise.OpenApiClient.Models.BalanceIcon.CreateFromDiscriminatorValue); } },
                 { "id", n => { Id = n.GetLongValue(); } },
                 { "investmentState", n => { InvestmentState = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.Balance_investmentState>(); } },
                 { "modificationTime", n => { ModificationTime = n.GetDateTimeOffsetValue(); } },
                 { "name", n => { Name = n.GetStringValue(); } },
-                { "reservedAmount", n => { ReservedAmount = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Balance_reservedAmount>(global::Soenneker.Wise.OpenApiClient.Models.Balance_reservedAmount.CreateFromDiscriminatorValue); } },
-                { "totalWorth", n => { TotalWorth = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Balance_totalWorth>(global::Soenneker.Wise.OpenApiClient.Models.Balance_totalWorth.CreateFromDiscriminatorValue); } },
+                { "reservedAmount", n => { ReservedAmount = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.BalanceReservedAmount>(global::Soenneker.Wise.OpenApiClient.Models.BalanceReservedAmount.CreateFromDiscriminatorValue); } },
+                { "totalWorth", n => { TotalWorth = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.BalanceTotalWorth>(global::Soenneker.Wise.OpenApiClient.Models.BalanceTotalWorth.CreateFromDiscriminatorValue); } },
                 { "type", n => { Type = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BalanceType>(); } },
                 { "visible", n => { Visible = n.GetBoolValue(); } },
             };
@@ -130,17 +130,17 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Balance_amount>("amount", Amount);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Balance_cashAmount>("cashAmount", CashAmount);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.BalanceAmount>("amount", Amount);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.BalanceCashAmount>("cashAmount", CashAmount);
             writer.WriteDateTimeOffsetValue("creationTime", CreationTime);
             writer.WriteStringValue("currency", Currency);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Balance_icon>("icon", Icon);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.BalanceIcon>("icon", Icon);
             writer.WriteLongValue("id", Id);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.Balance_investmentState>("investmentState", InvestmentState);
             writer.WriteDateTimeOffsetValue("modificationTime", ModificationTime);
             writer.WriteStringValue("name", Name);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Balance_reservedAmount>("reservedAmount", ReservedAmount);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Balance_totalWorth>("totalWorth", TotalWorth);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.BalanceReservedAmount>("reservedAmount", ReservedAmount);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.BalanceTotalWorth>("totalWorth", TotalWorth);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BalanceType>("type", Type);
             writer.WriteBoolValue("visible", Visible);
             writer.WriteAdditionalData(AdditionalData);

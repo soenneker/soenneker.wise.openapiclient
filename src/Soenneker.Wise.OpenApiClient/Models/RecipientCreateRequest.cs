@@ -34,10 +34,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Currency/route-specific recipient fields. Common examples include legalType, sortCode, accountNumber, email, dateOfBirth, etc. Use account-requirements APIs to determine what is required.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.RecipientCreateRequest_details? Details { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.RecipientCreateRequestDetails? Details { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.RecipientCreateRequest_details Details { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.RecipientCreateRequestDetails Details { get; set; }
 #endif
         /// <summary>Indicates whether the recipient account is owned by the profile owner (self-transfer), such as a user sending money to their own account in another country or currency. Set to `true` for self-transfers. We strongly recommend setting this field, as distinguishing self-transfers from third-party transfers improves routing and processing efficiency.</summary>
         public bool? OwnedByCustomer { get; set; }
@@ -78,7 +78,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             {
                 { "accountHolderName", n => { AccountHolderName = n.GetStringValue(); } },
                 { "currency", n => { Currency = n.GetStringValue(); } },
-                { "details", n => { Details = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.RecipientCreateRequest_details>(global::Soenneker.Wise.OpenApiClient.Models.RecipientCreateRequest_details.CreateFromDiscriminatorValue); } },
+                { "details", n => { Details = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.RecipientCreateRequestDetails>(global::Soenneker.Wise.OpenApiClient.Models.RecipientCreateRequestDetails.CreateFromDiscriminatorValue); } },
                 { "ownedByCustomer", n => { OwnedByCustomer = n.GetBoolValue(); } },
                 { "profile", n => { Profile = n.GetLongValue(); } },
                 { "type", n => { Type = n.GetStringValue(); } },
@@ -93,7 +93,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("accountHolderName", AccountHolderName);
             writer.WriteStringValue("currency", Currency);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.RecipientCreateRequest_details>("details", Details);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.RecipientCreateRequestDetails>("details", Details);
             writer.WriteBoolValue("ownedByCustomer", OwnedByCustomer);
             writer.WriteLongValue("profile", Profile);
             writer.WriteStringValue("type", Type);

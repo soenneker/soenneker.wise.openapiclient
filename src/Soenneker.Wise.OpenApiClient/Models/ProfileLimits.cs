@@ -17,10 +17,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The aggregateWindow property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.ProfileLimits_aggregateWindow? AggregateWindow { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.ProfileLimitsAggregateWindow? AggregateWindow { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.ProfileLimits_aggregateWindow AggregateWindow { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.ProfileLimitsAggregateWindow AggregateWindow { get; set; }
 #endif
         /// <summary>The type of transaction. `PURCHASE` is a combined limit that applies to contactless, magnetic, online purchase, chip and PIN/mobile wallet transactions.</summary>
         public global::Soenneker.Wise.OpenApiClient.Models.ProfileLimits_type? Type { get; set; }
@@ -49,7 +49,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "aggregateWindow", n => { AggregateWindow = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileLimits_aggregateWindow>(global::Soenneker.Wise.OpenApiClient.Models.ProfileLimits_aggregateWindow.CreateFromDiscriminatorValue); } },
+                { "aggregateWindow", n => { AggregateWindow = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileLimitsAggregateWindow>(global::Soenneker.Wise.OpenApiClient.Models.ProfileLimitsAggregateWindow.CreateFromDiscriminatorValue); } },
                 { "type", n => { Type = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileLimits_type>(); } },
             };
         }
@@ -60,7 +60,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileLimits_aggregateWindow>("aggregateWindow", AggregateWindow);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileLimitsAggregateWindow>("aggregateWindow", AggregateWindow);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileLimits_type>("type", Type);
             writer.WriteAdditionalData(AdditionalData);
         }

@@ -43,7 +43,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             {
                 result.OriginatorBUSINESS = new global::Soenneker.Wise.OpenApiClient.Models.OriginatorBUSINESS();
             }
-            else if("PRIVATE".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+            else if("OriginatorPRIVATE".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
             {
                 result.OriginatorPRIVATE = new global::Soenneker.Wise.OpenApiClient.Models.OriginatorPRIVATE();
             }

@@ -34,30 +34,30 @@ namespace Soenneker.Wise.OpenApiClient.V4.MultiCurrencyAccount.Eligibility
         {
         }
         /// <summary>
-        /// Checks eligibility for a multi-currency account for either a specific profile or for a location. Customers in some countries and states/provinces may not be eligible for a multi currency account.To check a profile, pass the `profileId` as a query parameter.To check a specific location, pass the `country` using 2-letter ISO 3166 codes. If the country is `US`, a valid 2-letter `state` parameter must also be passed.- Example (France): `/v4/multi-currency-account/eligibility?country=FR`- Example (USA, California): `/v4/multi-currency-account/eligibility?country=US&amp;state=CA`
+        /// &quot;Checks eligibility for a multi-currency account for either a specific profile or for a location. Customers in some countries and states/provinces may not be eligible for a multi currency account.To check a profile, pass the `profileId` as a query parameter.To check a specific location, pass the `country` using 2-letter ISO 3166 codes. If the country is `US`, a valid 2-letter `state` parameter must also be passed.- Example (France): `/v4/multi-currency-account/eligibility?country=FR`- Example (USA, California): `/v4/multi-currency-account/eligibility?country=US&amp;state=CA`&quot;
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V4.MultiCurrencyAccount.Eligibility.EligibilityGetResponse"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.McaEligibilityGet200"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Eligibility429Error">When receiving a 429 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.McaEligibilityGet200429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V4.MultiCurrencyAccount.Eligibility.EligibilityGetResponse?> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V4.MultiCurrencyAccount.Eligibility.EligibilityRequestBuilder.EligibilityRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.McaEligibilityGet200?> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V4.MultiCurrencyAccount.Eligibility.EligibilityRequestBuilder.EligibilityRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V4.MultiCurrencyAccount.Eligibility.EligibilityGetResponse> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V4.MultiCurrencyAccount.Eligibility.EligibilityRequestBuilder.EligibilityRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.McaEligibilityGet200> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V4.MultiCurrencyAccount.Eligibility.EligibilityRequestBuilder.EligibilityRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
-                { "429", global::Soenneker.Wise.OpenApiClient.Models.Eligibility429Error.CreateFromDiscriminatorValue },
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.McaEligibilityGet200429Error.CreateFromDiscriminatorValue },
             };
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V4.MultiCurrencyAccount.Eligibility.EligibilityGetResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V4.MultiCurrencyAccount.Eligibility.EligibilityGetResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.McaEligibilityGet200>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.McaEligibilityGet200.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Checks eligibility for a multi-currency account for either a specific profile or for a location. Customers in some countries and states/provinces may not be eligible for a multi currency account.To check a profile, pass the `profileId` as a query parameter.To check a specific location, pass the `country` using 2-letter ISO 3166 codes. If the country is `US`, a valid 2-letter `state` parameter must also be passed.- Example (France): `/v4/multi-currency-account/eligibility?country=FR`- Example (USA, California): `/v4/multi-currency-account/eligibility?country=US&amp;state=CA`
+        /// &quot;Checks eligibility for a multi-currency account for either a specific profile or for a location. Customers in some countries and states/provinces may not be eligible for a multi currency account.To check a profile, pass the `profileId` as a query parameter.To check a specific location, pass the `country` using 2-letter ISO 3166 codes. If the country is `US`, a valid 2-letter `state` parameter must also be passed.- Example (France): `/v4/multi-currency-account/eligibility?country=FR`- Example (USA, California): `/v4/multi-currency-account/eligibility?country=US&amp;state=CA`&quot;
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
@@ -85,7 +85,7 @@ namespace Soenneker.Wise.OpenApiClient.V4.MultiCurrencyAccount.Eligibility
             return new global::Soenneker.Wise.OpenApiClient.V4.MultiCurrencyAccount.Eligibility.EligibilityRequestBuilder(rawUrl, RequestAdapter);
         }
         /// <summary>
-        /// Checks eligibility for a multi-currency account for either a specific profile or for a location. Customers in some countries and states/provinces may not be eligible for a multi currency account.To check a profile, pass the `profileId` as a query parameter.To check a specific location, pass the `country` using 2-letter ISO 3166 codes. If the country is `US`, a valid 2-letter `state` parameter must also be passed.- Example (France): `/v4/multi-currency-account/eligibility?country=FR`- Example (USA, California): `/v4/multi-currency-account/eligibility?country=US&amp;state=CA`
+        /// &quot;Checks eligibility for a multi-currency account for either a specific profile or for a location. Customers in some countries and states/provinces may not be eligible for a multi currency account.To check a profile, pass the `profileId` as a query parameter.To check a specific location, pass the `country` using 2-letter ISO 3166 codes. If the country is `US`, a valid 2-letter `state` parameter must also be passed.- Example (France): `/v4/multi-currency-account/eligibility?country=FR`- Example (USA, California): `/v4/multi-currency-account/eligibility?country=US&amp;state=CA`&quot;
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
         public partial class EligibilityRequestBuilderGetQueryParameters 

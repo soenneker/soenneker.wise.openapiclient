@@ -21,10 +21,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The details property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransfer_details? Details { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransferDetails? Details { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransfer_details Details { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransferDetails Details { get; set; }
 #endif
         /// <summary>Are there any pending issues which stop executing the transfer?</summary>
         public bool? HasActiveIssues { get; set; }
@@ -41,10 +41,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Data block to capture payment originator details</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransfer_originator? Originator { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransferOriginator? Originator { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransfer_originator Originator { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransferOriginator Originator { get; set; }
 #endif
         /// <summary>ID of the Payin Session generated for the transfer, which can be used for certain payin methods when funding the transfer</summary>
         public Guid? PayinSessionId { get; set; }
@@ -131,11 +131,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
             {
                 { "business", n => { Business = n.GetLongValue(); } },
                 { "created", n => { Created = n.GetDateTimeOffsetValue(); } },
-                { "details", n => { Details = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransfer_details>(global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransfer_details.CreateFromDiscriminatorValue); } },
+                { "details", n => { Details = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransferDetails>(global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransferDetails.CreateFromDiscriminatorValue); } },
                 { "hasActiveIssues", n => { HasActiveIssues = n.GetBoolValue(); } },
                 { "id", n => { Id = n.GetLongValue(); } },
                 { "originalTransferId", n => { OriginalTransferId = n.GetStringValue(); } },
-                { "originator", n => { Originator = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransfer_originator>(global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransfer_originator.CreateFromDiscriminatorValue); } },
+                { "originator", n => { Originator = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransferOriginator>(global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransferOriginator.CreateFromDiscriminatorValue); } },
                 { "payinSessionId", n => { PayinSessionId = n.GetGuidValue(); } },
                 { "quote", n => { Quote = n.GetStringValue(); } },
                 { "rate", n => { Rate = n.GetDoubleValue(); } },
@@ -160,11 +160,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteLongValue("business", Business);
             writer.WriteDateTimeOffsetValue("created", Created);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransfer_details>("details", Details);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransferDetails>("details", Details);
             writer.WriteBoolValue("hasActiveIssues", HasActiveIssues);
             writer.WriteLongValue("id", Id);
             writer.WriteStringValue("originalTransferId", OriginalTransferId);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransfer_originator>("originator", Originator);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransferOriginator>("originator", Originator);
             writer.WriteGuidValue("payinSessionId", PayinSessionId);
             writer.WriteStringValue("quote", Quote);
             writer.WriteDoubleValue("rate", Rate);

@@ -71,7 +71,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Transfers
             return collectionResult?.AsList();
         }
         /// <summary>
-        /// Create a transfer to a recipient account based on a quote.Some fields are conditionally required depending on the currency route and transfer amount. Always call the [transfer requirements](/api-reference/transfer/transferrequirementsvalidate) endpoint to determine which fields are needed, and submit values accordingly. These requirements may change over time.#### Avoiding duplicate transfersThe `customerTransactionId` field is used to avoid duplicate transfer requests. If your initial call to create a transfer fails (error or timeout), retry the call using the same `customerTransactionId` value. Subsequent retry messages are treated as repeat messages and will not create duplicate transfers. Use a sensible retry limit, ideally with a back-off approach.#### Payment Approvals{% admonition type=&quot;warning&quot; %}Business Payment Approvals created on your wise.com settings page are not compatible with creating transfers over the API.{% /admonition %}If you use personal tokens and do not use client credentials, and if your business account has payment approvals, your application will receive this error when attempting to create a transfer: `Quote cannot be accepted with this request due to missing approval.`Consider removing the payment rule if you are going to use the API to create transfers.
+        /// &quot;Create a transfer to a recipient account based on a quote.Some fields are conditionally required depending on the currency route and transfer amount. Always call the [transfer requirements](/api-reference/transfer/transferrequirementsvalidate) endpoint to determine which fields are needed, and submit values accordingly. These requirements may change over time.#### Avoiding duplicate transfersThe `customerTransactionId` field is used to avoid duplicate transfer requests. If your initial call to create a transfer fails (error or timeout), retry the call using the same `customerTransactionId` value. Subsequent retry messages are treated as repeat messages and will not create duplicate transfers. Use a sensible retry limit, ideally with a back-off approach.#### Payment Approvals{% admonition type=\&quot;warning\&quot; %}Business Payment Approvals created on your wise.com settings page are not compatible with creating transfers over the API.{% /admonition %}If you use personal tokens and do not use client credentials, and if your business account has payment approvals, your application will receive this error when attempting to create a transfer: `Quote cannot be accepted with this request due to missing approval.`Consider removing the payment rule if you are going to use the API to create transfers.&quot;
         /// </summary>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.Transfer"/></returns>
         /// <param name="body">The request body</param>
@@ -80,11 +80,11 @@ namespace Soenneker.Wise.OpenApiClient.V1.Transfers
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Transfer429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.Models.Transfer?> PostAsync(global::Soenneker.Wise.OpenApiClient.V1.Transfers.TransfersPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.Transfer?> PostAsync(global::Soenneker.Wise.OpenApiClient.Models.TransferCreate body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.Models.Transfer> PostAsync(global::Soenneker.Wise.OpenApiClient.V1.Transfers.TransfersPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.Transfer> PostAsync(global::Soenneker.Wise.OpenApiClient.Models.TransferCreate body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
@@ -115,18 +115,18 @@ namespace Soenneker.Wise.OpenApiClient.V1.Transfers
             return requestInfo;
         }
         /// <summary>
-        /// Create a transfer to a recipient account based on a quote.Some fields are conditionally required depending on the currency route and transfer amount. Always call the [transfer requirements](/api-reference/transfer/transferrequirementsvalidate) endpoint to determine which fields are needed, and submit values accordingly. These requirements may change over time.#### Avoiding duplicate transfersThe `customerTransactionId` field is used to avoid duplicate transfer requests. If your initial call to create a transfer fails (error or timeout), retry the call using the same `customerTransactionId` value. Subsequent retry messages are treated as repeat messages and will not create duplicate transfers. Use a sensible retry limit, ideally with a back-off approach.#### Payment Approvals{% admonition type=&quot;warning&quot; %}Business Payment Approvals created on your wise.com settings page are not compatible with creating transfers over the API.{% /admonition %}If you use personal tokens and do not use client credentials, and if your business account has payment approvals, your application will receive this error when attempting to create a transfer: `Quote cannot be accepted with this request due to missing approval.`Consider removing the payment rule if you are going to use the API to create transfers.
+        /// &quot;Create a transfer to a recipient account based on a quote.Some fields are conditionally required depending on the currency route and transfer amount. Always call the [transfer requirements](/api-reference/transfer/transferrequirementsvalidate) endpoint to determine which fields are needed, and submit values accordingly. These requirements may change over time.#### Avoiding duplicate transfersThe `customerTransactionId` field is used to avoid duplicate transfer requests. If your initial call to create a transfer fails (error or timeout), retry the call using the same `customerTransactionId` value. Subsequent retry messages are treated as repeat messages and will not create duplicate transfers. Use a sensible retry limit, ideally with a back-off approach.#### Payment Approvals{% admonition type=\&quot;warning\&quot; %}Business Payment Approvals created on your wise.com settings page are not compatible with creating transfers over the API.{% /admonition %}If you use personal tokens and do not use client credentials, and if your business account has payment approvals, your application will receive this error when attempting to create a transfer: `Quote cannot be accepted with this request due to missing approval.`Consider removing the payment rule if you are going to use the API to create transfers.&quot;
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.V1.Transfers.TransfersPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.TransferCreate body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
         {
 #nullable restore
 #else
-        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.V1.Transfers.TransfersPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.TransferCreate body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
@@ -177,11 +177,11 @@ namespace Soenneker.Wise.OpenApiClient.V1.Transfers
                 if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
                 var mappingValue = parseNode.GetChildNode("")?.GetStringValue();
                 var result = new global::Soenneker.Wise.OpenApiClient.V1.Transfers.TransfersRequestBuilder.Transfers();
-                if("originator-transfer".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+                if("OriginatorTransfer".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
                 {
                     result.OriginatorTransfer = new global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransfer();
                 }
-                else if("transfer".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+                else if("Transfer".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
                 {
                     result.Transfer = new global::Soenneker.Wise.OpenApiClient.Models.Transfer();
                 }

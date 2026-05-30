@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
-    /// <summary>Current batch group status:- `NEW` — New batch group with zero or more transfers. Able to have more transfers added to it. Transfers in a `NEW` group cannot yet be funded and paid out.- `COMPLETED` — The batch group has had all desired transfers added and is now closed to further changes. Transfers in the group can now be funded and paid out. Note: `COMPLETED` does not imply payouts have been successfully completed.- `MARKED_FOR_CANCELLATION` — Cancellation of the transfers in the batch group was requested.- `PROCESSING_CANCEL` — Transfers in the group are being cancelled.- `CANCELLED` — Transfers in the group have been cancelled.</summary>
+    /// <summary>&quot;Current batch group status:- `NEW` — New batch group with zero or more transfers. Able to have more transfers added to it. Transfers in a `NEW` group cannot yet be funded and paid out.- `COMPLETED` — The batch group has had all desired transfers added and is now closed to further changes. Transfers in the group can now be funded and paid out. Note: `COMPLETED` does not imply payouts have been successfully completed.- `MARKED_FOR_CANCELLATION` — Cancellation of the transfers in the batch group was requested.- `PROCESSING_CANCEL` — Transfers in the group are being cancelled.- `CANCELLED` — Transfers in the group have been cancelled.&quot;</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public enum BatchGroup_status
     {

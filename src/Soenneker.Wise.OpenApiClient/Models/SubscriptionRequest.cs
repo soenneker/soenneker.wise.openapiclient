@@ -17,10 +17,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The delivery property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.SubscriptionRequest_delivery? Delivery { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.SubscriptionRequestDelivery? Delivery { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.SubscriptionRequest_delivery Delivery { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.SubscriptionRequestDelivery Delivery { get; set; }
 #endif
         /// <summary>A custom name for your webhook to ease with identification.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -63,7 +63,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "delivery", n => { Delivery = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.SubscriptionRequest_delivery>(global::Soenneker.Wise.OpenApiClient.Models.SubscriptionRequest_delivery.CreateFromDiscriminatorValue); } },
+                { "delivery", n => { Delivery = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.SubscriptionRequestDelivery>(global::Soenneker.Wise.OpenApiClient.Models.SubscriptionRequestDelivery.CreateFromDiscriminatorValue); } },
                 { "name", n => { Name = n.GetStringValue(); } },
                 { "trigger_on", n => { TriggerOn = n.GetStringValue(); } },
             };
@@ -75,7 +75,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.SubscriptionRequest_delivery>("delivery", Delivery);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.SubscriptionRequestDelivery>("delivery", Delivery);
             writer.WriteStringValue("name", Name);
             writer.WriteStringValue("trigger_on", TriggerOn);
             writer.WriteAdditionalData(AdditionalData);

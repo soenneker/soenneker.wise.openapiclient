@@ -26,16 +26,16 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Currency information for the bank account details.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetails_currency? Currency { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsCurrency? Currency { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetails_currency Currency { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsCurrency Currency { get; set; }
 #endif
         /// <summary>When `true`, Wise has issued new account details for the same currency. Users should not use the deprecated account but may still have external references to it.</summary>
         public bool? Deprecated { get; set; }
         /// <summary>Bank account details ID. Returns `null` for preview account details that have not yet been issued.</summary>
         public long? Id { get; set; }
-        /// <summary>Available receive options for the given currency:- `LOCAL`: Local bank details to receive money in the account currency- `INTERNATIONAL`: SWIFT bank details to receive money internationally</summary>
+        /// <summary>&quot;Available receive options for the given currency:- `LOCAL`: Local bank details to receive money in the account currency- `INTERNATIONAL`: SWIFT bank details to receive money internationally&quot;</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetails_receiveOptions>? ReceiveOptions { get; set; }
@@ -43,7 +43,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public List<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetails_receiveOptions> ReceiveOptions { get; set; }
 #endif
-        /// <summary>Account details status:- `AVAILABLE`: Account details do not exist for the user but may be created- `ACTIVE`: Account details are ready to be used by this user</summary>
+        /// <summary>&quot;Account details status:- `AVAILABLE`: Account details do not exist for the user but may be created- `ACTIVE`: Account details are ready to be used by this user&quot;</summary>
         public global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetails_status? Status { get; set; }
         /// <summary>Account subtitle.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -87,7 +87,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "bankFeatures", n => { BankFeatures = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetails_bankFeatures>(global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetails_bankFeatures.CreateFromDiscriminatorValue)?.AsList(); } },
-                { "currency", n => { Currency = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetails_currency>(global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetails_currency.CreateFromDiscriminatorValue); } },
+                { "currency", n => { Currency = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsCurrency>(global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsCurrency.CreateFromDiscriminatorValue); } },
                 { "deprecated", n => { Deprecated = n.GetBoolValue(); } },
                 { "id", n => { Id = n.GetLongValue(); } },
                 { "receiveOptions", n => { ReceiveOptions = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetails_receiveOptions>(global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetails_receiveOptions.CreateFromDiscriminatorValue)?.AsList(); } },
@@ -104,7 +104,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetails_bankFeatures>("bankFeatures", BankFeatures);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetails_currency>("currency", Currency);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsCurrency>("currency", Currency);
             writer.WriteBoolValue("deprecated", Deprecated);
             writer.WriteLongValue("id", Id);
             writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetails_receiveOptions>("receiveOptions", ReceiveOptions);

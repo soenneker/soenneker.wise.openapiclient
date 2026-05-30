@@ -22,10 +22,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Contains the URL and expiry of said URL the end customer needs to be directed to in order to go through Hosted KYC flow. `link` is returned only when `status` is `WAITING_CUSTOMER_INPUT` and [Update redirect URL](kycreviewredirecturlupdate) is called.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.KycReviewWithLink_link? Link { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.KycReviewWithLinkLink? Link { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.KycReviewWithLink_link Link { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.KycReviewWithLinkLink Link { get; set; }
 #endif
         /// <summary>URL where the user will be redirected at the end of the flow. Can contain query params and path fragments. It has to be a valid URL as per [RFC 2396](https://www.ietf.org/rfc/rfc2396.txt). Provided by the caller in the [Update redirect URL](kycreviewredirecturlupdate) call.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -84,7 +84,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             {
                 { "createdAt", n => { CreatedAt = n.GetDateTimeOffsetValue(); } },
                 { "id", n => { Id = n.GetGuidValue(); } },
-                { "link", n => { Link = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.KycReviewWithLink_link>(global::Soenneker.Wise.OpenApiClient.Models.KycReviewWithLink_link.CreateFromDiscriminatorValue); } },
+                { "link", n => { Link = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.KycReviewWithLinkLink>(global::Soenneker.Wise.OpenApiClient.Models.KycReviewWithLinkLink.CreateFromDiscriminatorValue); } },
                 { "redirectUrl", n => { RedirectUrl = n.GetStringValue(); } },
                 { "requiredBy", n => { RequiredBy = n.GetDateTimeOffsetValue(); } },
                 { "requirements", n => { Requirements = n.GetObjectValue<UntypedNode>(UntypedNode.CreateFromDiscriminatorValue); } },
@@ -102,7 +102,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteDateTimeOffsetValue("createdAt", CreatedAt);
             writer.WriteGuidValue("id", Id);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.KycReviewWithLink_link>("link", Link);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.KycReviewWithLinkLink>("link", Link);
             writer.WriteStringValue("redirectUrl", RedirectUrl);
             writer.WriteDateTimeOffsetValue("requiredBy", RequiredBy);
             writer.WriteObjectValue<UntypedNode>("requirements", Requirements);

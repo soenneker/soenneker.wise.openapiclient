@@ -34,88 +34,43 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.AccountDetailsOrders
         {
         }
         /// <summary>
-        /// Returns the bank account assignment requests for a profile and multi-currency account.{% admonition type=&quot;warning&quot; %}This endpoint is deprecated. Please use the [v3 endpoint](/api-reference/bank-account-details/bankaccountdetailsorderslist) instead.{% /admonition %}
+        /// &quot;Creates an order which will issue account details. It should use the same currency as the balance previously created. Fulfilling all the requirements will complete the order, reaching status `DONE`.The possible values for a requirement status are:- `PENDING_USER`: The requirement has some pending action from the user.- `PENDING_TW`: The requirement has some pending action from Wise.- `DONE`: The requirement is completed.The more common requirements are:- `VERIFICATION`: The user needs to be fully verified before completing this requirement.- `TOP_UP`: A fee will be charged and must be paid through wise.com before completing this requirement.&quot;
         /// </summary>
-        /// <returns>A List&lt;global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.AccountDetailsOrders.AccountDetailsOrders&gt;</returns>
-        /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
-        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.AccountDetailsOrders429Error">When receiving a 429 status code</exception>
-        [Obsolete("")]
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public async Task<List<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.AccountDetailsOrders.AccountDetailsOrders>?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#nullable restore
-#else
-        public async Task<List<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.AccountDetailsOrders.AccountDetailsOrders>> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#endif
-            var requestInfo = ToGetRequestInformation(requestConfiguration);
-            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
-            {
-                { "429", global::Soenneker.Wise.OpenApiClient.Models.AccountDetailsOrders429Error.CreateFromDiscriminatorValue },
-            };
-            var collectionResult = await RequestAdapter.SendCollectionAsync<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.AccountDetailsOrders.AccountDetailsOrders>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.AccountDetailsOrders.AccountDetailsOrders.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
-            return collectionResult?.AsList();
-        }
-        /// <summary>
-        /// Creates an order which will issue account details. It should use the same currency as the balance previously created. Fulfilling all the requirements will complete the order, reaching status `DONE`.The possible values for a requirement status are:- `PENDING_USER`: The requirement has some pending action from the user.- `PENDING_TW`: The requirement has some pending action from Wise.- `DONE`: The requirement is completed.The more common requirements are:- `VERIFICATION`: The user needs to be fully verified before completing this requirement.- `TOP_UP`: A fee will be charged and must be paid through wise.com before completing this requirement.
-        /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.AccountDetailsOrders.AccountDetailsOrdersPostResponse"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsOrderCreate200"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.AccountDetailsOrders429Error">When receiving a 429 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsOrderCreate200429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.AccountDetailsOrders.AccountDetailsOrdersPostResponse?> PostAsync(global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.AccountDetailsOrders.AccountDetailsOrdersPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsOrderCreate200?> PostAsync(global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsOrderCreate body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.AccountDetailsOrders.AccountDetailsOrdersPostResponse> PostAsync(global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.AccountDetailsOrders.AccountDetailsOrdersPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsOrderCreate200> PostAsync(global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsOrderCreate body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
-                { "429", global::Soenneker.Wise.OpenApiClient.Models.AccountDetailsOrders429Error.CreateFromDiscriminatorValue },
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsOrderCreate200429Error.CreateFromDiscriminatorValue },
             };
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.AccountDetailsOrders.AccountDetailsOrdersPostResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.AccountDetailsOrders.AccountDetailsOrdersPostResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsOrderCreate200>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsOrderCreate200.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Returns the bank account assignment requests for a profile and multi-currency account.{% admonition type=&quot;warning&quot; %}This endpoint is deprecated. Please use the [v3 endpoint](/api-reference/bank-account-details/bankaccountdetailsorderslist) instead.{% /admonition %}
-        /// </summary>
-        /// <returns>A <see cref="RequestInformation"/></returns>
-        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        [Obsolete("")]
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
-        {
-#nullable restore
-#else
-        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
-        {
-#endif
-            var requestInfo = new RequestInformation(Method.GET, UrlTemplate, PathParameters);
-            requestInfo.Configure(requestConfiguration);
-            requestInfo.Headers.TryAdd("Accept", "application/json");
-            return requestInfo;
-        }
-        /// <summary>
-        /// Creates an order which will issue account details. It should use the same currency as the balance previously created. Fulfilling all the requirements will complete the order, reaching status `DONE`.The possible values for a requirement status are:- `PENDING_USER`: The requirement has some pending action from the user.- `PENDING_TW`: The requirement has some pending action from Wise.- `DONE`: The requirement is completed.The more common requirements are:- `VERIFICATION`: The user needs to be fully verified before completing this requirement.- `TOP_UP`: A fee will be charged and must be paid through wise.com before completing this requirement.
+        /// &quot;Creates an order which will issue account details. It should use the same currency as the balance previously created. Fulfilling all the requirements will complete the order, reaching status `DONE`.The possible values for a requirement status are:- `PENDING_USER`: The requirement has some pending action from the user.- `PENDING_TW`: The requirement has some pending action from Wise.- `DONE`: The requirement is completed.The more common requirements are:- `VERIFICATION`: The user needs to be fully verified before completing this requirement.- `TOP_UP`: A fee will be charged and must be paid through wise.com before completing this requirement.&quot;
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.AccountDetailsOrders.AccountDetailsOrdersPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsOrderCreate body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
         {
 #nullable restore
 #else
-        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.AccountDetailsOrders.AccountDetailsOrdersPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsOrderCreate body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));

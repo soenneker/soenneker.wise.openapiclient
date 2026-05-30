@@ -23,10 +23,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The details property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.Transfer_details? Details { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.TransferDetails? Details { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.Transfer_details Details { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.TransferDetails Details { get; set; }
 #endif
         /// <summary>Are there any pending issues which stop executing the transfer?</summary>
         public bool? HasActiveIssues { get; set; }
@@ -114,7 +114,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "business", n => { Business = n.GetLongValue(); } },
                 { "created", n => { Created = n.GetDateTimeOffsetValue(); } },
                 { "customerTransactionId", n => { CustomerTransactionId = n.GetGuidValue(); } },
-                { "details", n => { Details = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Transfer_details>(global::Soenneker.Wise.OpenApiClient.Models.Transfer_details.CreateFromDiscriminatorValue); } },
+                { "details", n => { Details = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.TransferDetails>(global::Soenneker.Wise.OpenApiClient.Models.TransferDetails.CreateFromDiscriminatorValue); } },
                 { "hasActiveIssues", n => { HasActiveIssues = n.GetBoolValue(); } },
                 { "id", n => { Id = n.GetLongValue(); } },
                 { "payinSessionId", n => { PayinSessionId = n.GetGuidValue(); } },
@@ -143,7 +143,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteLongValue("business", Business);
             writer.WriteDateTimeOffsetValue("created", Created);
             writer.WriteGuidValue("customerTransactionId", CustomerTransactionId);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Transfer_details>("details", Details);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.TransferDetails>("details", Details);
             writer.WriteBoolValue("hasActiveIssues", HasActiveIssues);
             writer.WriteLongValue("id", Id);
             writer.WriteGuidValue("payinSessionId", PayinSessionId);

@@ -36,25 +36,25 @@ namespace Soenneker.Wise.OpenApiClient.TwcardData.V1.ClientSideEncryption.FetchE
         /// <summary>
         /// Fetches Wise&apos;s RSA public key required for encrypting sensitive card data requests.This key is used in the [sensitive card details flow](/guides/product/issue-cards/sensitive-card-details) to create JWE (JSON Web Encryption) payloads.
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.TwcardData.V1.ClientSideEncryption.FetchEncryptingKey.FetchEncryptingKeyGetResponse"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.CardEncryptionKeyGet200"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.FetchEncryptingKey429Error">When receiving a 429 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.CardEncryptionKeyGet200429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.TwcardData.V1.ClientSideEncryption.FetchEncryptingKey.FetchEncryptingKeyGetResponse?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.CardEncryptionKeyGet200?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.TwcardData.V1.ClientSideEncryption.FetchEncryptingKey.FetchEncryptingKeyGetResponse> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.CardEncryptionKeyGet200> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
-                { "429", global::Soenneker.Wise.OpenApiClient.Models.FetchEncryptingKey429Error.CreateFromDiscriminatorValue },
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.CardEncryptionKeyGet200429Error.CreateFromDiscriminatorValue },
             };
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.TwcardData.V1.ClientSideEncryption.FetchEncryptingKey.FetchEncryptingKeyGetResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.TwcardData.V1.ClientSideEncryption.FetchEncryptingKey.FetchEncryptingKeyGetResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.CardEncryptionKeyGet200>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.CardEncryptionKeyGet200.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Fetches Wise&apos;s RSA public key required for encrypting sensitive card data requests.This key is used in the [sensitive card details flow](/guides/product/issue-cards/sensitive-card-details) to create JWE (JSON Web Encryption) payloads.

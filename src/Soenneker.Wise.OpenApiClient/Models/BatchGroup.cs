@@ -24,7 +24,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string Name { get; set; }
 #endif
-        /// <summary>List of pay-in details describing how the batch group can be funded. Provided only when the batch group is in the `COMPLETED` state.Currently supported types: `bank_transfer`.</summary>
+        /// <summary>&quot;List of pay-in details describing how the batch group can be funded. Provided only when the batch group is in the `COMPLETED` state.Currently supported types: `bank_transfer`.&quot;</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<global::Soenneker.Wise.OpenApiClient.Models.PayInDetails>? PayInDetails { get; set; }
@@ -40,7 +40,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string SourceCurrency { get; set; }
 #endif
-        /// <summary>Current batch group status:- `NEW` — New batch group with zero or more transfers. Able to have more transfers added to it. Transfers in a `NEW` group cannot yet be funded and paid out.- `COMPLETED` — The batch group has had all desired transfers added and is now closed to further changes. Transfers in the group can now be funded and paid out. Note: `COMPLETED` does not imply payouts have been successfully completed.- `MARKED_FOR_CANCELLATION` — Cancellation of the transfers in the batch group was requested.- `PROCESSING_CANCEL` — Transfers in the group are being cancelled.- `CANCELLED` — Transfers in the group have been cancelled.</summary>
+        /// <summary>&quot;Current batch group status:- `NEW` — New batch group with zero or more transfers. Able to have more transfers added to it. Transfers in a `NEW` group cannot yet be funded and paid out.- `COMPLETED` — The batch group has had all desired transfers added and is now closed to further changes. Transfers in the group can now be funded and paid out. Note: `COMPLETED` does not imply payouts have been successfully completed.- `MARKED_FOR_CANCELLATION` — Cancellation of the transfers in the batch group was requested.- `PROCESSING_CANCEL` — Transfers in the group are being cancelled.- `CANCELLED` — Transfers in the group have been cancelled.&quot;</summary>
         public global::Soenneker.Wise.OpenApiClient.Models.BatchGroup_status? Status { get; set; }
         /// <summary>The IDs of all transfers successfully added to the group.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER

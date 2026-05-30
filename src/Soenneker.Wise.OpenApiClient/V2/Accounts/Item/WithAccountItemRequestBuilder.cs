@@ -46,7 +46,7 @@ namespace Soenneker.Wise.OpenApiClient.V2.Accounts.Item
         {
         }
         /// <summary>
-        /// Deletes a recipient by changing its status to inactive (`&quot;active&quot;: false`).Requesting to delete a recipient that is already inactive returns HTTP 403 (Forbidden).{% admonition type=&quot;info&quot; %}Only active recipients can be deleted and a recipient cannot be reactivated, however you can create a new recipient with the same details instead if necessary.{% /admonition %}
+        /// &quot;Deletes a recipient by changing its status to inactive (`\&quot;active\&quot;: false`).Requesting to delete a recipient that is already inactive returns HTTP 403 (Forbidden).{% admonition type=\&quot;info\&quot; %}Only active recipients can be deleted and a recipient cannot be reactivated, however you can create a new recipient with the same details instead if necessary.{% /admonition %}&quot;
         /// </summary>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.Recipient"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
@@ -92,7 +92,7 @@ namespace Soenneker.Wise.OpenApiClient.V2.Accounts.Item
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.Recipient>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.Recipient.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Deletes a recipient by changing its status to inactive (`&quot;active&quot;: false`).Requesting to delete a recipient that is already inactive returns HTTP 403 (Forbidden).{% admonition type=&quot;info&quot; %}Only active recipients can be deleted and a recipient cannot be reactivated, however you can create a new recipient with the same details instead if necessary.{% /admonition %}
+        /// &quot;Deletes a recipient by changing its status to inactive (`\&quot;active\&quot;: false`).Requesting to delete a recipient that is already inactive returns HTTP 403 (Forbidden).{% admonition type=\&quot;info\&quot; %}Only active recipients can be deleted and a recipient cannot be reactivated, however you can create a new recipient with the same details instead if necessary.{% /admonition %}&quot;
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>

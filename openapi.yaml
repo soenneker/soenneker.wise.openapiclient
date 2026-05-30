@@ -1537,7 +1537,7 @@ paths:
         You must call this endpoint before the expiration time, otherwise it
         will return a 400 error. You can find the expiration information from
         the [3DS challenge webhook
-        event](/guides/developer/webhooks/event-types#3ds-challenge).
+        event](/api-reference/webhook-event/eventcards3dschallenge).
 
 
         Only the first call to this endpoint will be processed. Any subsequent
@@ -26367,6 +26367,62 @@ webhooks:
                     type: string
                     example: ok
           description: Return any `2xx` status to acknowledge receipt of the event.
+  cards#3ds-challenge:
+    post:
+      operationId: eventCards3dsChallenge
+      summary: 3DS challenge
+      description: >
+        Triggered when a customer initiates a push notification for 3DS. The
+        provided information can be used to send a push notification to the
+        customer's mobile app.
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
+
+
+        Events may not be delivered in the order they occurred. Use
+        `data.occurred_at` to reconcile the order.
+
+        See the [Event Ordering](/guides/developer/webhooks/event-ordering)
+        guide for details.
+
+
+        * Event type: `cards#3ds-challenge`
+
+        * Profile level subscriptions: Not Supported
+
+        * Application level subscriptions: Supported
+      tags:
+        - webhook-event
+        - 3ds
+      parameters:
+        - $ref: '#/components/parameters/x-signature-sha256'
+        - $ref: '#/components/parameters/x-delivery-id'
+        - $ref: '#/components/parameters/x-test-notification'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: 3DS Challenge Event
+              discriminator:
+                propertyName: schema_version
+                mapping:
+                  4.0.0: '#/components/schemas/v4.0.0-8'
+                  2.0.0: '#/components/schemas/v2.0.0-8'
+              oneOf:
+                - $ref: '#/components/schemas/v4.0.0-8'
+                - $ref: '#/components/schemas/v2.0.0-8'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+          description: Return any `2xx` status to acknowledge receipt of the event.
   cards#manual-provisioning-verification:
     post:
       operationId: eventCardsManualProvisioningVerification
@@ -26396,7 +26452,7 @@ webhooks:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/v2.0.0-8'
+              $ref: '#/components/schemas/v2.0.0-9'
       responses:
         '200':
           content:
@@ -26449,7 +26505,7 @@ webhooks:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/v4.0.0-8'
+              $ref: '#/components/schemas/v4.0.0-9'
             examples:
               breachOpened:
                 summary: Breach opened
@@ -26533,11 +26589,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-9'
-                  2.0.0: '#/components/schemas/v2.0.0-9'
+                  4.0.0: '#/components/schemas/v4.0.0-10'
+                  2.0.0: '#/components/schemas/v2.0.0-10'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-9'
-                - $ref: '#/components/schemas/v2.0.0-9'
+                - $ref: '#/components/schemas/v4.0.0-10'
+                - $ref: '#/components/schemas/v2.0.0-10'
       responses:
         '200':
           content:
@@ -26587,11 +26643,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-10'
-                  2.0.0: '#/components/schemas/v2.0.0-10'
+                  4.0.0: '#/components/schemas/v4.0.0-11'
+                  2.0.0: '#/components/schemas/v2.0.0-11'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-10'
-                - $ref: '#/components/schemas/v2.0.0-10'
+                - $ref: '#/components/schemas/v4.0.0-11'
+                - $ref: '#/components/schemas/v2.0.0-11'
       responses:
         '200':
           content:
@@ -26653,11 +26709,90 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-11'
-                  2.0.0: '#/components/schemas/v2.0.0-11'
+                  4.0.0: '#/components/schemas/v4.0.0-12'
+                  2.0.0: '#/components/schemas/v2.0.0-12'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-11'
-                - $ref: '#/components/schemas/v2.0.0-11'
+                - $ref: '#/components/schemas/v4.0.0-12'
+                - $ref: '#/components/schemas/v2.0.0-12'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+          description: Return any `2xx` status to acknowledge receipt of the event.
+  users#state-change:
+    post:
+      operationId: eventUsersStateChange
+      summary: User state change
+      description: >
+        Triggered every time a user's state is updated.
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
+
+
+        Events may not be delivered in the order they occurred. Use
+        `data.occurred_at` to reconcile the order.
+
+        See the [Event Ordering](/guides/developer/webhooks/event-ordering)
+        guide for details.
+
+
+        * Event type: `users#state-change`
+
+        * Profile level subscriptions: Not Supported
+
+        * Application level subscriptions: Supported
+
+
+        **User state change transitions**
+
+
+        The possible `previous_state` and `current_state` values are:
+
+        - `ACTIVE` - The user's account is active.
+
+        - `WITHDRAW_ONLY` - The user has 90 calendar days to remove their money
+        from their balance before we fully close their account. This can be done
+        through sending from their balance to themselves and others or spending
+        with their card. The user will still be able to order new cards, convert
+        between balances, open and close balances, and download balance
+        statements. After 90 calendar days, the account will move into a
+        `DEACTIVATED` state.
+
+        - `DEACTIVATED` - The user's account is deactivated and they will not be
+        able to perform any actions on their account. The end-user tokens will
+        be revoked and you will receive a `401 Unauthorized` response for API
+        calls.
+
+
+        {% img src="/images/diagrams/user-deactivation-flow.png" alt="User state
+        change flow diagram" /%}
+      tags:
+        - webhook-event
+        - user
+      parameters:
+        - $ref: '#/components/parameters/x-signature-sha256'
+        - $ref: '#/components/parameters/x-delivery-id'
+        - $ref: '#/components/parameters/x-test-notification'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: User State Change Event
+              discriminator:
+                propertyName: schema_version
+                mapping:
+                  4.0.0: '#/components/schemas/v4.0.0-13'
+                  2.0.0: '#/components/schemas/v2.0.0-13'
+              oneOf:
+                - $ref: '#/components/schemas/v4.0.0-13'
+                - $ref: '#/components/schemas/v2.0.0-13'
       responses:
         '200':
           content:
@@ -26707,11 +26842,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-12'
-                  2.0.0: '#/components/schemas/v2.0.0-12'
+                  4.0.0: '#/components/schemas/v4.0.0-14'
+                  2.0.0: '#/components/schemas/v2.0.0-14'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-12'
-                - $ref: '#/components/schemas/v2.0.0-12'
+                - $ref: '#/components/schemas/v4.0.0-14'
+                - $ref: '#/components/schemas/v2.0.0-14'
       responses:
         '200':
           content:
@@ -26778,11 +26913,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-13'
-                  2.0.0: '#/components/schemas/v2.0.0-13'
+                  4.0.0: '#/components/schemas/v4.0.0-15'
+                  2.0.0: '#/components/schemas/v2.0.0-15'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-13'
-                - $ref: '#/components/schemas/v2.0.0-13'
+                - $ref: '#/components/schemas/v4.0.0-15'
+                - $ref: '#/components/schemas/v2.0.0-15'
       responses:
         '200':
           content:
@@ -26838,11 +26973,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-14'
-                  2.0.0: '#/components/schemas/v2.0.0-14'
+                  4.0.0: '#/components/schemas/v4.0.0-16'
+                  2.0.0: '#/components/schemas/v2.0.0-16'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-14'
-                - $ref: '#/components/schemas/v2.0.0-14'
+                - $ref: '#/components/schemas/v4.0.0-16'
+                - $ref: '#/components/schemas/v2.0.0-16'
       responses:
         '200':
           content:
@@ -26906,11 +27041,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-15'
-                  2.0.0: '#/components/schemas/v2.0.0-15'
+                  4.0.0: '#/components/schemas/v4.0.0-17'
+                  2.0.0: '#/components/schemas/v2.0.0-17'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-15'
-                - $ref: '#/components/schemas/v2.0.0-15'
+                - $ref: '#/components/schemas/v4.0.0-17'
+                - $ref: '#/components/schemas/v2.0.0-17'
       responses:
         '200':
           content:
@@ -26969,11 +27104,78 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-16'
-                  2.0.0: '#/components/schemas/v2.0.0-16'
+                  4.0.0: '#/components/schemas/v4.0.0-18'
+                  2.0.0: '#/components/schemas/v2.0.0-18'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-16'
-                - $ref: '#/components/schemas/v2.0.0-16'
+                - $ref: '#/components/schemas/v4.0.0-18'
+                - $ref: '#/components/schemas/v2.0.0-18'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+          description: Return any `2xx` status to acknowledge receipt of the event.
+  bulk-settlement#payment-received:
+    post:
+      operationId: eventBulkSettlementPaymentReceived
+      summary: Bulk settlement payment received
+      description: >
+        Triggered when a bulk settlement fund is received. Once there is a
+        match, meaning the amount for this settlement journal is fully settled,
+        the `amount_matched` will be set to true. If it is not matched, check
+        the difference between `source_amount` and `target_amount` to determine
+        how much more needs to be paid.
+
+
+        Please note that this event can also be triggered when our operations
+        team reallocates funds between settlements. Therefore, the
+        `received_amount` in version 2.0.0 of the webhook is inaccurate. Please
+        use the latest version, 4.0.0. Version 2.0.0 is deprecated.
+
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
+
+
+        Events may not be delivered in the order they occurred. Use
+        `data.occurred_at` to reconcile the order.
+
+        See the [Event Ordering](/guides/developer/webhooks/event-ordering)
+        guide for details.
+
+
+        * Event type: `bulk-settlement#payment-received`
+
+        * Profile level subscriptions: Not Supported
+
+        * Application level subscriptions: Supported
+      tags:
+        - webhook-event
+        - bulk-settlement
+      parameters:
+        - $ref: '#/components/parameters/x-signature-sha256'
+        - $ref: '#/components/parameters/x-delivery-id'
+        - $ref: '#/components/parameters/x-test-notification'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: Bulk Settlement Payment Received Event
+              discriminator:
+                propertyName: schema_version
+                mapping:
+                  4.0.0: '#/components/schemas/v4.0.0-19'
+                  3.0.0: '#/components/schemas/v3.0.0'
+                  2.0.0: '#/components/schemas/v2.0.0-19'
+              oneOf:
+                - $ref: '#/components/schemas/v4.0.0-19'
+                - $ref: '#/components/schemas/v3.0.0'
+                - $ref: '#/components/schemas/v2.0.0-19'
       responses:
         '200':
           content:
@@ -35051,7 +35253,229 @@ components:
               type: string
               description: Detailed description of the error code.
               example: Card produced
+    v4.0.0-8:
+      title: Schema version 4.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 4.0.0
+          example: 4.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: ec6d37c2-4611-457a-b210-d1a5f4e354c7
+        event_type:
+          type: string
+          description: Event type identifier
+          example: cards#3ds-challenge
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2024-09-05T06:47:15.123Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                client_id:
+                  type: string
+                  description: Your api_client_id
+                  example: tw-test-card-issuance
+                card_token:
+                  type: string
+                  description: Card token
+                  example: 3ab81206-d258-4caf-cea5-60067ba82404
+                profile_id:
+                  type: integer
+                  format: int64
+                  description: Profile ID
+                  example: 29751964
+                type:
+                  type: string
+                  description: Resource type (always `card`)
+                  example: card
+            challenge_expires_after:
+              type: integer
+              format: int64
+              description: The number of seconds before the challenge expires
+              example: 300
+            occurred_at:
+              type: string
+              format: date-time
+              description: When the challenge is triggered
+              example: '2024-09-05T06:47:15.789Z'
+            challenge_method:
+              type: string
+              description: The challenge method chosen by customer (always `PUSH`)
+              example: PUSH
+            transaction:
+              type: object
+              properties:
+                reference:
+                  type: string
+                  description: >-
+                    Transaction reference, you should use this field when
+                    notifying us of the challenge result.
+                  example: '148990660'
+                channel:
+                  type: string
+                  description: User agent (usually `browser` or `app`)
+                  example: browser
+                merchant:
+                  type: object
+                  properties:
+                    category:
+                      type:
+                        - string
+                        - 'null'
+                      description: Merchant category code
+                      example: null
+                    country:
+                      type: string
+                      description: Merchant country, it follows ISO 3166-1 alpha-2 standard
+                      example: AD
+                    name:
+                      type: string
+                      description: Merchant name
+                      example: Cards API BBT
+                    url:
+                      type:
+                        - string
+                        - 'null'
+                      description: Merchant url
+                      example: http://intrepid-fav.net
+                money_value:
+                  type: object
+                  properties:
+                    value:
+                      type: number
+                      format: decimal
+                      description: Transaction amount
+                      example: 100
+                    currency:
+                      type: string
+                      description: Currency code
+                      example: EUR
     v2.0.0-8:
+      title: Schema version 2.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 2.0.0
+          example: 2.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: ec6d37c2-4611-457a-b210-d1a5f4e354c7
+        event_type:
+          type: string
+          description: Event type identifier
+          example: cards#3ds-challenge
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2024-09-05T06:47:15Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                client_id:
+                  type: string
+                  description: Your api_client_id
+                  example: tw-test-card-issuance
+                card_token:
+                  type: string
+                  description: Card token
+                  example: 3ab81206-d258-4caf-cea5-60067ba82404
+                profile_id:
+                  type: integer
+                  format: int64
+                  description: Profile ID
+                  example: 29751964
+                type:
+                  type: string
+                  description: Resource type (always `card`)
+                  example: card
+            challenge_expires_after:
+              type: integer
+              format: int64
+              description: The number of seconds before the challenge expires
+              example: 300
+            occurred_at:
+              type: string
+              format: date-time
+              description: When the challenge is triggered
+              example: '2024-09-05T06:47:15Z'
+            challenge_method:
+              type: string
+              description: The challenge method chosen by customer (always `PUSH`)
+              example: PUSH
+            transaction:
+              type: object
+              properties:
+                reference:
+                  type: string
+                  description: >-
+                    Transaction reference, you should use this field when
+                    notifying us of the challenge result.
+                  example: '148990660'
+                channel:
+                  type: string
+                  description: User agent (usually `browser` or `app`)
+                  example: browser
+                merchant:
+                  type: object
+                  properties:
+                    category:
+                      type:
+                        - string
+                        - 'null'
+                      description: Merchant category code
+                      example: null
+                    country:
+                      type: string
+                      description: Merchant country, it follows ISO 3166-1 alpha-2 standard
+                      example: AD
+                    name:
+                      type: string
+                      description: Merchant name
+                      example: Cards API BBT
+                    url:
+                      type:
+                        - string
+                        - 'null'
+                      description: Merchant url
+                      example: http://intrepid-fav.net
+                money_value:
+                  type: object
+                  properties:
+                    value:
+                      type: number
+                      format: decimal
+                      description: Transaction amount
+                      example: 100
+                    currency:
+                      type: string
+                      description: Currency code
+                      example: EUR
+    v2.0.0-9:
       title: Schema version 2.0.0
       type: object
       properties:
@@ -35119,7 +35543,7 @@ components:
                 The wallet provider used to provision the card such as "Google
                 Pay" or "Apple Pay"
               example: Google Pay
-    v4.0.0-8:
+    v4.0.0-9:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -35208,7 +35632,7 @@ components:
                 Timestamp when the event occurred (ISO 8601). Use this field to
                 reconcile out-of-order events
               example: '2024-06-01T08:00:00Z'
-    v4.0.0-9:
+    v4.0.0-10:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -35266,7 +35690,7 @@ components:
                   type: string
                   description: Currency in which the amounts are expressed in
                   example: EUR
-    v2.0.0-9:
+    v2.0.0-10:
       title: Schema version 2.0.0
       type: object
       properties:
@@ -35324,7 +35748,7 @@ components:
                   type: string
                   description: Currency in which the amounts are expressed in
                   example: EUR
-    v4.0.0-10:
+    v4.0.0-11:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -35405,7 +35829,7 @@ components:
                 Whether the state change was requested by the customer. Not
                 applicable for `current_state` in `ACTIVE`.
               example: false
-    v2.0.0-10:
+    v2.0.0-11:
       title: Schema version 2.0.0
       type: object
       properties:
@@ -35486,112 +35910,6 @@ components:
                 Whether the state change was requested by the customer. Not
                 applicable for `current_state` in `ACTIVE`.
               example: false
-    v4.0.0-11:
-      title: Schema version 4.0.0
-      type: object
-      properties:
-        schema_version:
-          type: string
-          description: >-
-            Version of the event schema. Determined by the `schema_version` on
-            your [webhook subscription](/api-reference/webhook).
-          enum:
-            - 4.0.0
-          example: 4.0.0
-        subscription_id:
-          type: string
-          format: uuid
-          description: ID of the webhook subscription that triggered this event
-          example: 01234567-89ab-cdef-0123-456789abcdef
-        event_type:
-          type: string
-          description: Event type identifier
-          example: profiles#verification-state-change
-        sent_at:
-          type: string
-          format: date-time
-          description: Timestamp when the event was sent
-          example: '2020-01-01T12:34:56.123Z'
-        data:
-          type: object
-          properties:
-            resource:
-              type: object
-              properties:
-                type:
-                  type: string
-                  description: Resource type (always `profile`)
-                  example: profile
-                id:
-                  type: integer
-                  format: int64
-                  description: ID of the profile
-                  example: 111
-            current_state:
-              type: string
-              description: Current verification state of the profile
-              enum:
-                - verified
-                - not_verified
-              example: verified
-            occurred_at:
-              type: string
-              format: date-time
-              description: When the verification state change occurred
-              example: '2020-01-01T12:34:56.789Z'
-    v2.0.0-11:
-      title: Schema version 2.0.0
-      type: object
-      properties:
-        schema_version:
-          type: string
-          description: >-
-            Version of the event schema. Determined by the `schema_version` on
-            your [webhook subscription](/api-reference/webhook).
-          enum:
-            - 2.0.0
-          example: 2.0.0
-        subscription_id:
-          type: string
-          format: uuid
-          description: ID of the webhook subscription that triggered this event
-          example: 01234567-89ab-cdef-0123-456789abcdef
-        event_type:
-          type: string
-          description: Event type identifier
-          example: profiles#verification-state-change
-        sent_at:
-          type: string
-          format: date-time
-          description: Timestamp when the event was sent
-          example: '2020-01-01T12:34:56Z'
-        data:
-          type: object
-          properties:
-            resource:
-              type: object
-              properties:
-                type:
-                  type: string
-                  description: Resource type (always `profile`)
-                  example: profile
-                id:
-                  type: integer
-                  format: int64
-                  description: ID of the profile
-                  example: 111
-            current_state:
-              type: string
-              description: Current verification state of the profile
-              enum:
-                - verified
-                - not_verified
-              example: verified
-            occurred_at:
-              type: string
-              format: date-time
-              description: When the verification state change occurred
-              example: '2020-01-01T12:34:56Z'
     v4.0.0-12:
       title: Schema version 4.0.0
       type: object
@@ -35612,7 +35930,7 @@ components:
         event_type:
           type: string
           description: Event type identifier
-          example: balances#account-state-change
+          example: profiles#verification-state-change
         sent_at:
           type: string
           format: date-time
@@ -35626,29 +35944,24 @@ components:
               properties:
                 type:
                   type: string
-                  description: Resource type (always `balance-account`)
-                  example: balance-account
+                  description: Resource type (always `profile`)
+                  example: profile
                 id:
                   type: integer
                   format: int64
-                  description: ID of the account
-                  example: 123
-                profile_id:
-                  type: integer
-                  format: int64
-                  description: ID of the profile that owns the account
-                  example: 555
-                state:
-                  type: string
-                  description: State of the account.
-                  enum:
-                    - ACTIVE
-                    - INACTIVE
-                  example: INACTIVE
+                  description: ID of the profile
+                  example: 111
+            current_state:
+              type: string
+              description: Current verification state of the profile
+              enum:
+                - verified
+                - not_verified
+              example: verified
             occurred_at:
               type: string
               format: date-time
-              description: Timestamp when the event occurred
+              description: When the verification state change occurred
               example: '2020-01-01T12:34:56.789Z'
     v2.0.0-12:
       title: Schema version 2.0.0
@@ -35670,6 +35983,267 @@ components:
         event_type:
           type: string
           description: Event type identifier
+          example: profiles#verification-state-change
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2020-01-01T12:34:56Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: Resource type (always `profile`)
+                  example: profile
+                id:
+                  type: integer
+                  format: int64
+                  description: ID of the profile
+                  example: 111
+            current_state:
+              type: string
+              description: Current verification state of the profile
+              enum:
+                - verified
+                - not_verified
+              example: verified
+            occurred_at:
+              type: string
+              format: date-time
+              description: When the verification state change occurred
+              example: '2020-01-01T12:34:56Z'
+    v4.0.0-13:
+      title: Schema version 4.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 4.0.0
+          example: 4.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: f5b51f77-e14a-433b-9f7c-fc2834ffcff5
+        event_type:
+          type: string
+          description: Event type identifier
+          example: users#state-change
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2020-01-01T12:34:56.123Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  format: int64
+                  description: ID of the user
+                  example: 1234
+                type:
+                  type: string
+                  description: Resource type (always `user`)
+                  example: user
+            previous_state:
+              type: string
+              enum:
+                - ACTIVE
+                - WITHDRAW_ONLY
+                - DEACTIVATED
+              example: ACTIVE
+            current_state:
+              type: string
+              description: The current state of the user
+              enum:
+                - ACTIVE
+                - WITHDRAW_ONLY
+                - DEACTIVATED
+              example: WITHDRAW_ONLY
+            deactivation_type:
+              type: string
+              description: >-
+                If the type is `ACCOUNT_SUSPENSION`, it is possible for your
+                customer support teams to appeal the deactivation by reaching
+                out to Wise.
+              enum:
+                - ACCOUNT_SUSPENSION
+                - ACCOUNT_CLOSURE
+              example: ACCOUNT_SUSPENSION
+            deactivation_reason:
+              type: string
+              description: The reason for deactivation
+              example: REQUESTED_BY_CUSTOMER_CS
+            occurred_at:
+              type: string
+              format: date-time
+              description: When the user state change occurred
+              example: '2020-01-01T12:34:56.789Z'
+    v2.0.0-13:
+      title: Schema version 2.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 2.0.0
+          example: 2.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: f5b51f77-e14a-433b-9f7c-fc2834ffcff5
+        event_type:
+          type: string
+          description: Event type identifier
+          example: users#state-change
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2020-01-01T12:34:56Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  format: int64
+                  description: ID of the user
+                  example: 1234
+                type:
+                  type: string
+                  description: Resource type (always `user`)
+                  example: user
+            previous_state:
+              type: string
+              enum:
+                - ACTIVE
+                - WITHDRAW_ONLY
+                - DEACTIVATED
+              example: ACTIVE
+            current_state:
+              type: string
+              description: The current state of the user
+              enum:
+                - ACTIVE
+                - WITHDRAW_ONLY
+                - DEACTIVATED
+              example: WITHDRAW_ONLY
+            deactivation_type:
+              type: string
+              description: >-
+                If the type is `ACCOUNT_SUSPENSION`, it is possible for your
+                customer support teams to appeal the deactivation by reaching
+                out to Wise.
+              enum:
+                - ACCOUNT_SUSPENSION
+                - ACCOUNT_CLOSURE
+              example: ACCOUNT_SUSPENSION
+            deactivation_reason:
+              type: string
+              description: The reason for deactivation
+              example: REQUESTED_BY_CUSTOMER_CS
+            occurred_at:
+              type: string
+              format: date-time
+              description: When the user state change occurred
+              example: '2020-01-01T12:34:56Z'
+    v4.0.0-14:
+      title: Schema version 4.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 4.0.0
+          example: 4.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: 01234567-89ab-cdef-0123-456789abcdef
+        event_type:
+          type: string
+          description: Event type identifier
+          example: balances#account-state-change
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2020-01-01T12:34:56.123Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: Resource type (always `balance-account`)
+                  example: balance-account
+                id:
+                  type: integer
+                  format: int64
+                  description: ID of the account
+                  example: 123
+                profile_id:
+                  type: integer
+                  format: int64
+                  description: ID of the profile that owns the account
+                  example: 555
+                state:
+                  type: string
+                  description: State of the account.
+                  enum:
+                    - ACTIVE
+                    - INACTIVE
+                  example: INACTIVE
+            occurred_at:
+              type: string
+              format: date-time
+              description: Timestamp when the event occurred
+              example: '2020-01-01T12:34:56.789Z'
+    v2.0.0-14:
+      title: Schema version 2.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 2.0.0
+          example: 2.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: 01234567-89ab-cdef-0123-456789abcdef
+        event_type:
+          type: string
+          description: Event type identifier
           example: balances#account-state-change
         sent_at:
           type: string
@@ -35708,7 +36282,7 @@ components:
               format: date-time
               description: Timestamp when the event occurred
               example: '2020-01-01T12:34:56Z'
-    v4.0.0-13:
+    v4.0.0-15:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -35777,7 +36351,7 @@ components:
               format: date-time
               description: When the credit occurred
               example: '2020-01-01T12:34:56.789Z'
-    v2.0.0-13:
+    v2.0.0-15:
       title: Schema version 2.0.0
       type: object
       properties:
@@ -35846,7 +36420,7 @@ components:
               format: date-time
               description: When the credit occurred
               example: '2020-01-01T12:34:56Z'
-    v4.0.0-14:
+    v4.0.0-16:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -35921,7 +36495,7 @@ components:
               type: string
               description: Return code of the underlying payment system
               example: '200'
-    v2.0.0-14:
+    v2.0.0-16:
       title: Schema version 2.0.0
       type: object
       properties:
@@ -35996,7 +36570,7 @@ components:
               type: string
               description: Return code of the underlying payment system
               example: '200'
-    v4.0.0-15:
+    v4.0.0-17:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -36093,7 +36667,7 @@ components:
               format: date-time
               description: When the partner case update occurred.
               example: '2023-06-23T09:45:34.789Z'
-    v2.0.0-15:
+    v2.0.0-17:
       title: Schema version 2.0.0
       type: object
       properties:
@@ -36190,7 +36764,7 @@ components:
               format: date-time
               description: When the partner case update occurred.
               example: '2023-06-23T09:45:34Z'
-    v4.0.0-16:
+    v4.0.0-18:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -36281,7 +36855,7 @@ components:
               format: date-time
               description: When the dispute updates occurred
               example: '2024-04-18T06:36:15.789Z'
-    v2.0.0-16:
+    v2.0.0-18:
       title: Schema version 2.0.0
       type: object
       properties:
@@ -36372,6 +36946,193 @@ components:
               format: date-time
               description: When the dispute updates occurred
               example: '2024-04-18T06:36:15Z'
+    v4.0.0-19:
+      title: Schema version 4.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 4.0.0
+          example: 4.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: f5b51f77-e14a-433b-9f7c-fc2834ffcff5
+        event_type:
+          type: string
+          description: Event type identifier
+          example: bulk-settlement#payment-received
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2024-04-18T06:36:17.123Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                settlement_reference:
+                  type: string
+                  description: Reference on settlement journal
+                  example: TPFB1111111
+                source_currency:
+                  type: string
+                  description: Settlement currency
+                  example: GBP
+                source_amount:
+                  type: number
+                  format: decimal
+                  description: The amount Wise paid out on behalf of partner
+                  example: -100.1
+                target_amount:
+                  type: number
+                  format: decimal
+                  description: Total settlement fund received for this settlement journal
+                  example: 100.1
+                amount_matched:
+                  type: boolean
+                  description: Whether amount received matches what is expected
+                  example: true
+            occurred_at:
+              type: string
+              format: date-time
+              description: When the settlement fund was received
+              example: '2024-04-18T06:36:15.789Z'
+    v3.0.0:
+      title: Schema version 3.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 3.0.0
+          example: 3.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: f5b51f77-e14a-433b-9f7c-fc2834ffcff5
+        event_type:
+          type: string
+          description: Event type identifier
+          example: bulk-settlement#payment-received
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2024-04-18T06:36:17Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                settlement_reference:
+                  type: string
+                  description: Reference on settlement journal
+                  example: TPFB1111111
+                source_currency:
+                  type: string
+                  description: Settlement currency
+                  example: GBP
+                source_amount:
+                  type: number
+                  format: decimal
+                  description: The amount Wise paid out on behalf of partner
+                  example: -100.1
+                target_amount:
+                  type: number
+                  format: decimal
+                  description: Total settlement fund received for this settlement journal
+                  example: 100.1
+                amount_matched:
+                  type: boolean
+                  description: Whether amount received matches what is expected
+                  example: true
+            occurred_at:
+              type: string
+              format: date-time
+              description: When the settlement fund was received
+              example: '2024-04-18T06:36:15Z'
+    v2.0.0-19:
+      title: Schema version 2.0.0
+      deprecated: true
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 2.0.0
+          example: 2.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: f5b51f77-e14a-433b-9f7c-fc2834ffcff5
+        event_type:
+          type: string
+          description: Event type identifier
+          example: bulk-settlement#payment-received
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2024-04-18T06:36:17Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                settlement_reference:
+                  type: string
+                  description: Reference on settlement journal
+                  example: TPFB1111111
+                source_currency:
+                  type: string
+                  description: Settlement currency
+                  example: GBP
+                received_amount:
+                  type: number
+                  format: decimal
+                  description: >-
+                    Please be aware that this field is unreliable. Always refer
+                    to the `target_amount` field for the total amount paid, and
+                    check the difference between `source_amount` and
+                    `target_amount` to see how much more needs to be paid.
+                  example: 10.1
+                source_amount:
+                  type: number
+                  format: decimal
+                  description: The amount Wise paid out on behalf of partner
+                  example: -100.1
+                target_amount:
+                  type: number
+                  format: decimal
+                  description: Total settlement fund received for this settlement journal
+                  example: 100.1
+                amount_matched:
+                  type: boolean
+                  description: Whether amount received matches what is expected
+                  example: true
+            occurred_at:
+              type: string
+              format: date-time
+              description: When the settlement fund was received
+              example: '2024-04-18T06:36:15Z'
   securitySchemes:
     UserToken:
       type: http
@@ -36424,6 +37185,8 @@ components:
     BasicAuth:
       type: http
       scheme: basic
+      x-defaultUsername: <client_id>
+      x-defaultPassword: <client_secret>
       description: >
         Basic Authentication using your Client ID and Client Secret as the
         username and password.

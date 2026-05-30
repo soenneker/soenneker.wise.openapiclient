@@ -20,10 +20,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>User details.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.User_details? Details { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.UserDetails? Details { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.User_details Details { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.UserDetails Details { get; set; }
 #endif
         /// <summary>User&apos;s email.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -69,7 +69,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "active", n => { Active = n.GetBoolValue(); } },
-                { "details", n => { Details = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.User_details>(global::Soenneker.Wise.OpenApiClient.Models.User_details.CreateFromDiscriminatorValue); } },
+                { "details", n => { Details = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.UserDetails>(global::Soenneker.Wise.OpenApiClient.Models.UserDetails.CreateFromDiscriminatorValue); } },
                 { "email", n => { Email = n.GetStringValue(); } },
                 { "id", n => { Id = n.GetLongValue(); } },
                 { "name", n => { Name = n.GetStringValue(); } },
@@ -83,7 +83,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteBoolValue("active", Active);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.User_details>("details", Details);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.UserDetails>("details", Details);
             writer.WriteStringValue("email", Email);
             writer.WriteLongValue("id", Id);
             writer.WriteStringValue("name", Name);

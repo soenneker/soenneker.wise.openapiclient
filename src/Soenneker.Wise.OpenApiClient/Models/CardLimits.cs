@@ -17,34 +17,34 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The daily property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.CardLimits_daily? Daily { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardLimitsDaily? Daily { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.CardLimits_daily Daily { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardLimitsDaily Daily { get; set; }
 #endif
         /// <summary>The lifetime property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.CardLimits_lifetime? Lifetime { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardLimitsLifetime? Lifetime { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.CardLimits_lifetime Lifetime { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardLimitsLifetime Lifetime { get; set; }
 #endif
         /// <summary>The monthly property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.CardLimits_monthly? Monthly { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardLimitsMonthly? Monthly { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.CardLimits_monthly Monthly { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardLimitsMonthly Monthly { get; set; }
 #endif
         /// <summary>The transaction property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.CardLimits_transaction? Transaction { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardLimitsTransaction? Transaction { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.CardLimits_transaction Transaction { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardLimitsTransaction Transaction { get; set; }
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.CardLimits"/> and sets the default values.
@@ -71,10 +71,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "daily", n => { Daily = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardLimits_daily>(global::Soenneker.Wise.OpenApiClient.Models.CardLimits_daily.CreateFromDiscriminatorValue); } },
-                { "lifetime", n => { Lifetime = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardLimits_lifetime>(global::Soenneker.Wise.OpenApiClient.Models.CardLimits_lifetime.CreateFromDiscriminatorValue); } },
-                { "monthly", n => { Monthly = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardLimits_monthly>(global::Soenneker.Wise.OpenApiClient.Models.CardLimits_monthly.CreateFromDiscriminatorValue); } },
-                { "transaction", n => { Transaction = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardLimits_transaction>(global::Soenneker.Wise.OpenApiClient.Models.CardLimits_transaction.CreateFromDiscriminatorValue); } },
+                { "daily", n => { Daily = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardLimitsDaily>(global::Soenneker.Wise.OpenApiClient.Models.CardLimitsDaily.CreateFromDiscriminatorValue); } },
+                { "lifetime", n => { Lifetime = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardLimitsLifetime>(global::Soenneker.Wise.OpenApiClient.Models.CardLimitsLifetime.CreateFromDiscriminatorValue); } },
+                { "monthly", n => { Monthly = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardLimitsMonthly>(global::Soenneker.Wise.OpenApiClient.Models.CardLimitsMonthly.CreateFromDiscriminatorValue); } },
+                { "transaction", n => { Transaction = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardLimitsTransaction>(global::Soenneker.Wise.OpenApiClient.Models.CardLimitsTransaction.CreateFromDiscriminatorValue); } },
             };
         }
         /// <summary>
@@ -84,10 +84,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardLimits_daily>("daily", Daily);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardLimits_lifetime>("lifetime", Lifetime);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardLimits_monthly>("monthly", Monthly);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardLimits_transaction>("transaction", Transaction);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardLimitsDaily>("daily", Daily);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardLimitsLifetime>("lifetime", Lifetime);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardLimitsMonthly>("monthly", Monthly);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardLimitsTransaction>("transaction", Transaction);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

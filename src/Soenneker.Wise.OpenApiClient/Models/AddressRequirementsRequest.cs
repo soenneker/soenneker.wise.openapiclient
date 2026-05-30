@@ -18,10 +18,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Address details to provide context for requirements lookup. Additional fields beyond those listed are accepted.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.AddressRequirementsRequest_details? Details { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.AddressRequirementsRequestDetails? Details { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.AddressRequirementsRequest_details Details { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.AddressRequirementsRequestDetails Details { get; set; }
 #endif
         /// <summary>User profile ID.</summary>
         public long? Profile { get; set; }
@@ -50,7 +50,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "details", n => { Details = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.AddressRequirementsRequest_details>(global::Soenneker.Wise.OpenApiClient.Models.AddressRequirementsRequest_details.CreateFromDiscriminatorValue); } },
+                { "details", n => { Details = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.AddressRequirementsRequestDetails>(global::Soenneker.Wise.OpenApiClient.Models.AddressRequirementsRequestDetails.CreateFromDiscriminatorValue); } },
                 { "profile", n => { Profile = n.GetLongValue(); } },
             };
         }
@@ -61,7 +61,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.AddressRequirementsRequest_details>("details", Details);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.AddressRequirementsRequestDetails>("details", Details);
             writer.WriteLongValue("profile", Profile);
             writer.WriteAdditionalData(AdditionalData);
         }

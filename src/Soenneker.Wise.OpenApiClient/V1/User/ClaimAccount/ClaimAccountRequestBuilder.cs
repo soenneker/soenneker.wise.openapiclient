@@ -36,27 +36,27 @@ namespace Soenneker.Wise.OpenApiClient.V1.User.ClaimAccount
         /// <summary>
         /// Generate a short-lived `claim_account_code` that allows a customer to take ownership of an account. Use the code when [redirecting the customer to Wise](/guides/product/kyc/wise-kyc/redirect-to-wise/claim-account) to finalize their account setup.
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.User.ClaimAccount.ClaimAccountPostResponse"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.ClaimAccountCreate200"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.ClaimAccount429Error">When receiving a 429 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.ClaimAccountCreate200429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.User.ClaimAccount.ClaimAccountPostResponse?> PostAsync(global::Soenneker.Wise.OpenApiClient.V1.User.ClaimAccount.ClaimAccountPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.ClaimAccountCreate200?> PostAsync(global::Soenneker.Wise.OpenApiClient.Models.ClaimAccountCreate body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.User.ClaimAccount.ClaimAccountPostResponse> PostAsync(global::Soenneker.Wise.OpenApiClient.V1.User.ClaimAccount.ClaimAccountPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.ClaimAccountCreate200> PostAsync(global::Soenneker.Wise.OpenApiClient.Models.ClaimAccountCreate body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
-                { "429", global::Soenneker.Wise.OpenApiClient.Models.ClaimAccount429Error.CreateFromDiscriminatorValue },
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.ClaimAccountCreate200429Error.CreateFromDiscriminatorValue },
             };
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.User.ClaimAccount.ClaimAccountPostResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.User.ClaimAccount.ClaimAccountPostResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.ClaimAccountCreate200>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.ClaimAccountCreate200.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Generate a short-lived `claim_account_code` that allows a customer to take ownership of an account. Use the code when [redirecting the customer to Wise](/guides/product/kyc/wise-kyc/redirect-to-wise/claim-account) to finalize their account setup.
@@ -66,11 +66,11 @@ namespace Soenneker.Wise.OpenApiClient.V1.User.ClaimAccount
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.V1.User.ClaimAccount.ClaimAccountPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.ClaimAccountCreate body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
         {
 #nullable restore
 #else
-        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.V1.User.ClaimAccount.ClaimAccountPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.ClaimAccountCreate body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));

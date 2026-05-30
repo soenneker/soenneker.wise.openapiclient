@@ -36,17 +36,18 @@ namespace Soenneker.Wise.OpenApiClient.V3.Profiles.Item.VerificationStatus.Uploa
         /// <summary>
         /// Uploads verification documents for review. You can upload multiple files at once.A valid document must fulfil these requirements:- The document must be clear.- The document needs to be a .jpg, .png., or .pdf file type up to 10MB in size.
         /// </summary>
+        /// <returns>A <see cref="Stream"/></returns>
         /// <param name="body">Request payload for uploading documents for verification</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.UploadDocument429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task PostAsync(MultipartBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<Stream?> PostAsync(MultipartBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task PostAsync(MultipartBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<Stream> PostAsync(MultipartBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
@@ -55,7 +56,7 @@ namespace Soenneker.Wise.OpenApiClient.V3.Profiles.Item.VerificationStatus.Uploa
             {
                 { "429", global::Soenneker.Wise.OpenApiClient.Models.UploadDocument429Error.CreateFromDiscriminatorValue },
             };
-            await RequestAdapter.SendNoContentAsync(requestInfo, errorMapping, cancellationToken).ConfigureAwait(false);
+            return await RequestAdapter.SendPrimitiveAsync<Stream>(requestInfo, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Uploads verification documents for review. You can upload multiple files at once.A valid document must fulfil these requirements:- The document must be clear.- The document needs to be a .jpg, .png., or .pdf file type up to 10MB in size.

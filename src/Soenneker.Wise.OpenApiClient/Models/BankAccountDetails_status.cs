@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
-    /// <summary>Account details status:- `AVAILABLE`: Account details do not exist for the user but may be created- `ACTIVE`: Account details are ready to be used by this user</summary>
+    /// <summary>&quot;Account details status:- `AVAILABLE`: Account details do not exist for the user but may be created- `ACTIVE`: Account details are ready to be used by this user&quot;</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public enum BankAccountDetails_status
     {

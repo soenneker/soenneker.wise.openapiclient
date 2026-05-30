@@ -14,7 +14,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Main registered address of the business.</summary>
+        /// <summary>Address associated with a profile.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Soenneker.Wise.OpenApiClient.Models.Address? Address { get; set; }
@@ -51,10 +51,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Contact information for the business.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.BusinessProfile_contactDetails? ContactDetails { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.BusinessProfileContactDetails? ContactDetails { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.BusinessProfile_contactDetails ContactDetails { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.BusinessProfileContactDetails ContactDetails { get; set; }
 #endif
         /// <summary>Timestamp when the profile was created (ISO 8601 format).</summary>
         public DateTimeOffset? CreatedAt { get; set; }
@@ -170,7 +170,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "businessName", n => { BusinessName = n.GetStringValue(); } },
                 { "companyRole", n => { CompanyRole = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BusinessProfile_companyRole>(); } },
                 { "companyType", n => { CompanyType = n.GetStringValue(); } },
-                { "contactDetails", n => { ContactDetails = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.BusinessProfile_contactDetails>(global::Soenneker.Wise.OpenApiClient.Models.BusinessProfile_contactDetails.CreateFromDiscriminatorValue); } },
+                { "contactDetails", n => { ContactDetails = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.BusinessProfileContactDetails>(global::Soenneker.Wise.OpenApiClient.Models.BusinessProfileContactDetails.CreateFromDiscriminatorValue); } },
                 { "createdAt", n => { CreatedAt = n.GetDateTimeOffsetValue(); } },
                 { "currentState", n => { CurrentState = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BusinessProfile_currentState>(); } },
                 { "descriptionOfBusiness", n => { DescriptionOfBusiness = n.GetStringValue(); } },
@@ -200,7 +200,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteStringValue("businessName", BusinessName);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BusinessProfile_companyRole>("companyRole", CompanyRole);
             writer.WriteStringValue("companyType", CompanyType);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.BusinessProfile_contactDetails>("contactDetails", ContactDetails);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.BusinessProfileContactDetails>("contactDetails", ContactDetails);
             writer.WriteDateTimeOffsetValue("createdAt", CreatedAt);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BusinessProfile_currentState>("currentState", CurrentState);
             writer.WriteStringValue("descriptionOfBusiness", DescriptionOfBusiness);

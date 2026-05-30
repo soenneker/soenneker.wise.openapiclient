@@ -66,25 +66,25 @@ namespace Soenneker.Wise.OpenApiClient.V1.Transfers.Item
         /// <summary>
         /// Get transfer info by ID. To receive dynamic updates as the state of the transfer changes, see the [webhooks documentation](/guides/developer/webhooks).
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.Transfers.Item.WithTransferItemRequestBuilder.WithTransferGetResponse"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.TransferGet200"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.WithTransfer429Error">When receiving a 429 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.TransferGet200429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Transfers.Item.WithTransferItemRequestBuilder.WithTransferGetResponse?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.TransferGet200?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Transfers.Item.WithTransferItemRequestBuilder.WithTransferGetResponse> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.TransferGet200> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
-                { "429", global::Soenneker.Wise.OpenApiClient.Models.WithTransfer429Error.CreateFromDiscriminatorValue },
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.TransferGet200429Error.CreateFromDiscriminatorValue },
             };
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.Transfers.Item.WithTransferItemRequestBuilder.WithTransferGetResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Transfers.Item.WithTransferItemRequestBuilder.WithTransferGetResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.TransferGet200>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.TransferGet200.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Get transfer info by ID. To receive dynamic updates as the state of the transfer changes, see the [webhooks documentation](/guides/developer/webhooks).
@@ -113,81 +113,6 @@ namespace Soenneker.Wise.OpenApiClient.V1.Transfers.Item
         public global::Soenneker.Wise.OpenApiClient.V1.Transfers.Item.WithTransferItemRequestBuilder WithUrl(string rawUrl)
         {
             return new global::Soenneker.Wise.OpenApiClient.V1.Transfers.Item.WithTransferItemRequestBuilder(rawUrl, RequestAdapter);
-        }
-        /// <summary>
-        /// Composed type wrapper for classes <see cref="global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransfer"/>, <see cref="global::Soenneker.Wise.OpenApiClient.Models.Transfer"/>
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-        public partial class WithTransferGetResponse : IComposedTypeWrapper, IParsable
-        {
-            /// <summary>Composed type representation for type <see cref="global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransfer"/></summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-            public global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransfer? OriginatorTransfer { get; set; }
-#nullable restore
-#else
-            public global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransfer OriginatorTransfer { get; set; }
-#endif
-            /// <summary>Composed type representation for type <see cref="global::Soenneker.Wise.OpenApiClient.Models.Transfer"/></summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-            public global::Soenneker.Wise.OpenApiClient.Models.Transfer? Transfer { get; set; }
-#nullable restore
-#else
-            public global::Soenneker.Wise.OpenApiClient.Models.Transfer Transfer { get; set; }
-#endif
-            /// <summary>
-            /// Creates a new instance of the appropriate class based on discriminator value
-            /// </summary>
-            /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.Transfers.Item.WithTransferItemRequestBuilder.WithTransferGetResponse"/></returns>
-            /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-            public static global::Soenneker.Wise.OpenApiClient.V1.Transfers.Item.WithTransferItemRequestBuilder.WithTransferGetResponse CreateFromDiscriminatorValue(IParseNode parseNode)
-            {
-                if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-                var mappingValue = parseNode.GetChildNode("")?.GetStringValue();
-                var result = new global::Soenneker.Wise.OpenApiClient.V1.Transfers.Item.WithTransferItemRequestBuilder.WithTransferGetResponse();
-                if("originator-transfer".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
-                {
-                    result.OriginatorTransfer = new global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransfer();
-                }
-                else if("transfer".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
-                {
-                    result.Transfer = new global::Soenneker.Wise.OpenApiClient.Models.Transfer();
-                }
-                return result;
-            }
-            /// <summary>
-            /// The deserialization information for the current model
-            /// </summary>
-            /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
-            public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
-            {
-                if(OriginatorTransfer != null)
-                {
-                    return OriginatorTransfer.GetFieldDeserializers();
-                }
-                else if(Transfer != null)
-                {
-                    return Transfer.GetFieldDeserializers();
-                }
-                return new Dictionary<string, Action<IParseNode>>();
-            }
-            /// <summary>
-            /// Serializes information the current object
-            /// </summary>
-            /// <param name="writer">Serialization writer to use to serialize this model</param>
-            public virtual void Serialize(ISerializationWriter writer)
-            {
-                if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-                if(OriginatorTransfer != null)
-                {
-                    writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransfer>(null, OriginatorTransfer);
-                }
-                else if(Transfer != null)
-                {
-                    writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Transfer>(null, Transfer);
-                }
-            }
         }
     }
 }

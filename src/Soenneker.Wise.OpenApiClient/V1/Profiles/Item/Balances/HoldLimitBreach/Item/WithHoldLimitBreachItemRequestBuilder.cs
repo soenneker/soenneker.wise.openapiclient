@@ -34,48 +34,49 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Balances.HoldLimitBreach
         {
         }
         /// <summary>
-        /// Closes an open hold limit breach by performing a one-time refund to a specified recipient. The recipient will receive the excess amount that caused the breach.Only breaches with `state: OPEN` can be closed via this endpoint.
+        /// &quot;Closes an open hold limit breach by performing a one-time refund to a specified recipient. The recipient will receive the excess amount that caused the breach.Only breaches with `state: OPEN` can be closed via this endpoint.&quot;
         /// </summary>
+        /// <returns>A <see cref="Stream"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Balances.HoldLimitBreach.Item.WithHoldLimitBreach400Error">When receiving a 400 status code</exception>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Balances.HoldLimitBreach.Item.WithHoldLimitBreach403Error">When receiving a 403 status code</exception>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Balances.HoldLimitBreach.Item.WithHoldLimitBreach404Error">When receiving a 404 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreachClose400">When receiving a 400 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreachClose403">When receiving a 403 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreachClose404">When receiving a 404 status code</exception>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.WithHoldLimitBreach429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task PostAsync(global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Balances.HoldLimitBreach.Item.WithHoldLimitBreachPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<Stream?> PostAsync(global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreachClose body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task PostAsync(global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Balances.HoldLimitBreach.Item.WithHoldLimitBreachPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<Stream> PostAsync(global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreachClose body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
-                { "400", global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Balances.HoldLimitBreach.Item.WithHoldLimitBreach400Error.CreateFromDiscriminatorValue },
-                { "403", global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Balances.HoldLimitBreach.Item.WithHoldLimitBreach403Error.CreateFromDiscriminatorValue },
-                { "404", global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Balances.HoldLimitBreach.Item.WithHoldLimitBreach404Error.CreateFromDiscriminatorValue },
+                { "400", global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreachClose400.CreateFromDiscriminatorValue },
+                { "403", global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreachClose403.CreateFromDiscriminatorValue },
+                { "404", global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreachClose404.CreateFromDiscriminatorValue },
                 { "429", global::Soenneker.Wise.OpenApiClient.Models.WithHoldLimitBreach429Error.CreateFromDiscriminatorValue },
             };
-            await RequestAdapter.SendNoContentAsync(requestInfo, errorMapping, cancellationToken).ConfigureAwait(false);
+            return await RequestAdapter.SendPrimitiveAsync<Stream>(requestInfo, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Closes an open hold limit breach by performing a one-time refund to a specified recipient. The recipient will receive the excess amount that caused the breach.Only breaches with `state: OPEN` can be closed via this endpoint.
+        /// &quot;Closes an open hold limit breach by performing a one-time refund to a specified recipient. The recipient will receive the excess amount that caused the breach.Only breaches with `state: OPEN` can be closed via this endpoint.&quot;
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Balances.HoldLimitBreach.Item.WithHoldLimitBreachPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreachClose body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
         {
 #nullable restore
 #else
-        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Balances.HoldLimitBreach.Item.WithHoldLimitBreachPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreachClose body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));

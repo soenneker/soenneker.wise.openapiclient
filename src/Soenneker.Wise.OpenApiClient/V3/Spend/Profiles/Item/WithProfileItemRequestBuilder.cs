@@ -6,7 +6,6 @@ using Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.CardOrders;
 using Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards;
 using Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm;
 using Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Disputes;
-using Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.SpendingLimits;
 using Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Threedsecure;
 using System.Collections.Generic;
 using System.IO;
@@ -39,11 +38,6 @@ namespace Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item
         public global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Disputes.DisputesRequestBuilder Disputes
         {
             get => new global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Disputes.DisputesRequestBuilder(PathParameters, RequestAdapter);
-        }
-        /// <summary>The spendingLimits property</summary>
-        public global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.SpendingLimits.SpendingLimitsRequestBuilder SpendingLimits
-        {
-            get => new global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.SpendingLimits.SpendingLimitsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The Threedsecure property</summary>
         public global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Threedsecure.ThreedsecureRequestBuilder Threedsecure

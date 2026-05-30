@@ -2,9 +2,6 @@
 #pragma warning disable CS0618
 using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions;
-using Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Facemap;
-using Soenneker.Wise.OpenApiClient.V1.OneTimeToken.PartnerDeviceFingerprint;
-using Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Pin;
 using Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Sms;
 using Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Status;
 using Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Voice;
@@ -21,21 +18,6 @@ namespace Soenneker.Wise.OpenApiClient.V1.OneTimeToken
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class OneTimeTokenRequestBuilder : BaseRequestBuilder
     {
-        /// <summary>The facemap property</summary>
-        public global::Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Facemap.FacemapRequestBuilder Facemap
-        {
-            get => new global::Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Facemap.FacemapRequestBuilder(PathParameters, RequestAdapter);
-        }
-        /// <summary>The partnerDeviceFingerprint property</summary>
-        public global::Soenneker.Wise.OpenApiClient.V1.OneTimeToken.PartnerDeviceFingerprint.PartnerDeviceFingerprintRequestBuilder PartnerDeviceFingerprint
-        {
-            get => new global::Soenneker.Wise.OpenApiClient.V1.OneTimeToken.PartnerDeviceFingerprint.PartnerDeviceFingerprintRequestBuilder(PathParameters, RequestAdapter);
-        }
-        /// <summary>The pin property</summary>
-        public global::Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Pin.PinRequestBuilder Pin
-        {
-            get => new global::Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Pin.PinRequestBuilder(PathParameters, RequestAdapter);
-        }
         /// <summary>The sms property</summary>
         public global::Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Sms.SmsRequestBuilder Sms
         {

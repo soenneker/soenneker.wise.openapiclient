@@ -48,25 +48,25 @@ namespace Soenneker.Wise.OpenApiClient.V2.Simulation.Profiles.Item.KycReviews.It
         /// <summary>
         /// Lists all blocking requirements for a KYC (Know Your Customer) review. These outstanding KYC requirements typically act as &quot;blocking requirements&quot;, preventing actions like creating transfers.
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V2.Simulation.Profiles.Item.KycReviews.Item.Requirements.RequirementsGetResponse"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.SimulationKycReviewRequirementsList200"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Requirements429Error">When receiving a 429 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.SimulationKycReviewRequirementsList200429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V2.Simulation.Profiles.Item.KycReviews.Item.Requirements.RequirementsGetResponse?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.SimulationKycReviewRequirementsList200?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V2.Simulation.Profiles.Item.KycReviews.Item.Requirements.RequirementsGetResponse> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.SimulationKycReviewRequirementsList200> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
-                { "429", global::Soenneker.Wise.OpenApiClient.Models.Requirements429Error.CreateFromDiscriminatorValue },
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.SimulationKycReviewRequirementsList200429Error.CreateFromDiscriminatorValue },
             };
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V2.Simulation.Profiles.Item.KycReviews.Item.Requirements.RequirementsGetResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V2.Simulation.Profiles.Item.KycReviews.Item.Requirements.RequirementsGetResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.SimulationKycReviewRequirementsList200>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.SimulationKycReviewRequirementsList200.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Lists all blocking requirements for a KYC (Know Your Customer) review. These outstanding KYC requirements typically act as &quot;blocking requirements&quot;, preventing actions like creating transfers.

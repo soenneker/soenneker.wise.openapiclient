@@ -43,11 +43,11 @@ namespace Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.Cards.Item.Spendin
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.SpendingPermissions429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<Stream?> PatchAsync(global::Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.Cards.Item.SpendingPermissions.SpendingPermissionsPatchRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<Stream?> PatchAsync(global::Soenneker.Wise.OpenApiClient.Models.CardPermissionsBulkUpdate body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<Stream> PatchAsync(global::Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.Cards.Item.SpendingPermissions.SpendingPermissionsPatchRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<Stream> PatchAsync(global::Soenneker.Wise.OpenApiClient.Models.CardPermissionsBulkUpdate body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
@@ -66,11 +66,11 @@ namespace Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.Cards.Item.Spendin
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToPatchRequestInformation(global::Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.Cards.Item.SpendingPermissions.SpendingPermissionsPatchRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        public RequestInformation ToPatchRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.CardPermissionsBulkUpdate body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
         {
 #nullable restore
 #else
-        public RequestInformation ToPatchRequestInformation(global::Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.Cards.Item.SpendingPermissions.SpendingPermissionsPatchRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        public RequestInformation ToPatchRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.CardPermissionsBulkUpdate body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));

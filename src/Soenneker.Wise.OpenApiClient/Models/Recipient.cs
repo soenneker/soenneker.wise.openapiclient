@@ -36,10 +36,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Verification results for the recipient&apos;s details. Only populated for currencies with recipient verification enabled (CNY, KRW, INR, IDR, EUR). See the [Recipient verification guides](/guides/product/send-money/recipient-verification) for how to handle these.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.Recipient_confirmations? Confirmations { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.RecipientConfirmations? Confirmations { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.Recipient_confirmations Confirmations { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.RecipientConfirmations Confirmations { get; set; }
 #endif
         /// <summary>2 character country code.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -62,10 +62,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Account details (currency/type-specific). The keys present vary by currency route and recipient type (e.g., sort code, IBAN, SWIFT, email).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.Recipient_details? Details { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.RecipientDetails? Details { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.Recipient_details Details { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.RecipientDetails Details { get; set; }
 #endif
         /// <summary>Lookup fields (key/label/value) for rendering a UI.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -106,10 +106,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Recipient name details.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.Recipient_name? Name { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.RecipientName? Name { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.Recipient_name Name { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.RecipientName Name { get; set; }
 #endif
         /// <summary>If recipient account belongs to profile owner.</summary>
         public bool? OwnedByCustomer { get; set; }
@@ -151,18 +151,18 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "accountSummary", n => { AccountSummary = n.GetStringValue(); } },
                 { "active", n => { Active = n.GetBoolValue(); } },
                 { "commonFieldMap", n => { CommonFieldMap = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Recipient_commonFieldMap>(global::Soenneker.Wise.OpenApiClient.Models.Recipient_commonFieldMap.CreateFromDiscriminatorValue); } },
-                { "confirmations", n => { Confirmations = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Recipient_confirmations>(global::Soenneker.Wise.OpenApiClient.Models.Recipient_confirmations.CreateFromDiscriminatorValue); } },
+                { "confirmations", n => { Confirmations = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.RecipientConfirmations>(global::Soenneker.Wise.OpenApiClient.Models.RecipientConfirmations.CreateFromDiscriminatorValue); } },
                 { "country", n => { Country = n.GetStringValue(); } },
                 { "creatorId", n => { CreatorId = n.GetLongValue(); } },
                 { "currency", n => { Currency = n.GetStringValue(); } },
-                { "details", n => { Details = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Recipient_details>(global::Soenneker.Wise.OpenApiClient.Models.Recipient_details.CreateFromDiscriminatorValue); } },
+                { "details", n => { Details = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.RecipientDetails>(global::Soenneker.Wise.OpenApiClient.Models.RecipientDetails.CreateFromDiscriminatorValue); } },
                 { "displayFields", n => { DisplayFields = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.Recipient_displayFields>(global::Soenneker.Wise.OpenApiClient.Models.Recipient_displayFields.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "hash", n => { Hash = n.GetStringValue(); } },
                 { "id", n => { Id = n.GetLongValue(); } },
                 { "isInternal", n => { IsInternal = n.GetBoolValue(); } },
                 { "legalEntityType", n => { LegalEntityType = n.GetStringValue(); } },
                 { "longAccountSummary", n => { LongAccountSummary = n.GetStringValue(); } },
-                { "name", n => { Name = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Recipient_name>(global::Soenneker.Wise.OpenApiClient.Models.Recipient_name.CreateFromDiscriminatorValue); } },
+                { "name", n => { Name = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.RecipientName>(global::Soenneker.Wise.OpenApiClient.Models.RecipientName.CreateFromDiscriminatorValue); } },
                 { "ownedByCustomer", n => { OwnedByCustomer = n.GetBoolValue(); } },
                 { "profileId", n => { ProfileId = n.GetLongValue(); } },
                 { "type", n => { Type = n.GetStringValue(); } },
@@ -178,18 +178,18 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteStringValue("accountSummary", AccountSummary);
             writer.WriteBoolValue("active", Active);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Recipient_commonFieldMap>("commonFieldMap", CommonFieldMap);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Recipient_confirmations>("confirmations", Confirmations);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.RecipientConfirmations>("confirmations", Confirmations);
             writer.WriteStringValue("country", Country);
             writer.WriteLongValue("creatorId", CreatorId);
             writer.WriteStringValue("currency", Currency);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Recipient_details>("details", Details);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.RecipientDetails>("details", Details);
             writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.Recipient_displayFields>("displayFields", DisplayFields);
             writer.WriteStringValue("hash", Hash);
             writer.WriteLongValue("id", Id);
             writer.WriteBoolValue("isInternal", IsInternal);
             writer.WriteStringValue("legalEntityType", LegalEntityType);
             writer.WriteStringValue("longAccountSummary", LongAccountSummary);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Recipient_name>("name", Name);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.RecipientName>("name", Name);
             writer.WriteBoolValue("ownedByCustomer", OwnedByCustomer);
             writer.WriteLongValue("profileId", ProfileId);
             writer.WriteStringValue("type", Type);

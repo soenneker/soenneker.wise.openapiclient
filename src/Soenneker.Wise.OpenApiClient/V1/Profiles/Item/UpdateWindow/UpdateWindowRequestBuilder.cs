@@ -57,7 +57,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.UpdateWindow
             return await RequestAdapter.SendPrimitiveAsync<Stream>(requestInfo, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Opens the update window for updating the profile information: details, addresses, directors, owners, others.
+        /// &quot;Opens the update window for updating the profile information: details, addresses, directors, owners, others.&quot;
         /// </summary>
         /// <returns>A <see cref="Stream"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
@@ -99,7 +99,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.UpdateWindow
             return requestInfo;
         }
         /// <summary>
-        /// Opens the update window for updating the profile information: details, addresses, directors, owners, others.
+        /// &quot;Opens the update window for updating the profile information: details, addresses, directors, owners, others.&quot;
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>

@@ -33,7 +33,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string Id { get; set; }
 #endif
-        /// <summary>A currency formatted text that describe the primary amount of transaction.Value of this field is intended to have units in it and should not be treated as a numeric value.One example of primaryAmount would be: &quot;Topping up 100 USD balance with 80 GBP&quot;. In this case `100 USD` would be the primaryAmount of the activity.</summary>
+        /// <summary>&quot;A currency formatted text that describe the primary amount of transaction.Value of this field is intended to have units in it and should not be treated as a numeric value.One example of primaryAmount would be: \&quot;Topping up 100 USD balance with 80 GBP\&quot;. In this case `100 USD` would be the primaryAmount of the activity.&quot;</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? PrimaryAmount { get; set; }
@@ -44,12 +44,12 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The resource associated with the activity.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.Activity_resource? Resource { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.ActivityResource? Resource { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.Activity_resource Resource { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.ActivityResource Resource { get; set; }
 #endif
-        /// <summary>A currency formatted text that describe the secondary amount of transaction.Value of this field is intended to have units in it and should not be treated as a numeric value.Value can be empty if there is no good candidate as secondary amount.One example of secondaryAmount would be: &quot;Topping up 100 USD balance with 80 GBP&quot;. In this case `80 GBP` would be the secondaryAmount of the activity.</summary>
+        /// <summary>&quot;A currency formatted text that describe the secondary amount of transaction.Value of this field is intended to have units in it and should not be treated as a numeric value.Value can be empty if there is no good candidate as secondary amount.One example of secondaryAmount would be: \&quot;Topping up 100 USD balance with 80 GBP\&quot;. In this case `80 GBP` would be the secondaryAmount of the activity.&quot;</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? SecondaryAmount { get; set; }
@@ -57,9 +57,9 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string SecondaryAmount { get; set; }
 #endif
-        /// <summary>Status of the Activity.- `REQUIRES_ATTENTION` - Requires an end user attention.- `IN_PROGRESS` - Indicates that this activity has yet to be completed. (Example: In progress Top Up)- `UPCOMING` - Indicates that this activity is scheduled to happen in the future. By default these activities will only be shown 2 days before the date. (Example: A scheduled transfer)- `COMPLETED` - Indicates that this activity is at its end state. (Example: A completed Top Up)- `CANCELLED` - Indicates that this activity is cancelled. (Example: A Top Up is cancelled)</summary>
+        /// <summary>&quot;Status of the Activity.- `REQUIRES_ATTENTION` - Requires an end user attention.- `IN_PROGRESS` - Indicates that this activity has yet to be completed. (Example: In progress Top Up)- `UPCOMING` - Indicates that this activity is scheduled to happen in the future. By default these activities will only be shown 2 days before the date. (Example: A scheduled transfer)- `COMPLETED` - Indicates that this activity is at its end state. (Example: A completed Top Up)- `CANCELLED` - Indicates that this activity is cancelled. (Example: A Top Up is cancelled)&quot;</summary>
         public global::Soenneker.Wise.OpenApiClient.Models.ActivityStatus? Status { get; set; }
-        /// <summary>Title of the Activity.Value can be formatted with custom tags to put emphasis on important wordings.Supported custom tags:- `&lt;strong&gt;`: Indicates strong emphasis on words that the end user should pay attention to.- `&lt;positive&gt;`: Indicates a positive transaction (e.g., top up to balance is successful).- `&lt;negative&gt;`: Indicates a negative transaction (e.g., amount is deducted from a balance).- `&lt;strikethrough&gt;`: (Coming soon) Indicates the negation of an activity (e.g., transfer is cancelled).</summary>
+        /// <summary>&quot;Title of the Activity.Value can be formatted with custom tags to put emphasis on important wordings.Supported custom tags:- `&lt;strong&gt;`: Indicates strong emphasis on words that the end user should pay attention to.- `&lt;positive&gt;`: Indicates a positive transaction (e.g., top up to balance is successful).- `&lt;negative&gt;`: Indicates a negative transaction (e.g., amount is deducted from a balance).- `&lt;strikethrough&gt;`: (Coming soon) Indicates the negation of an activity (e.g., transfer is cancelled).&quot;</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Title { get; set; }
@@ -100,7 +100,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "description", n => { Description = n.GetStringValue(); } },
                 { "id", n => { Id = n.GetStringValue(); } },
                 { "primaryAmount", n => { PrimaryAmount = n.GetStringValue(); } },
-                { "resource", n => { Resource = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Activity_resource>(global::Soenneker.Wise.OpenApiClient.Models.Activity_resource.CreateFromDiscriminatorValue); } },
+                { "resource", n => { Resource = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.ActivityResource>(global::Soenneker.Wise.OpenApiClient.Models.ActivityResource.CreateFromDiscriminatorValue); } },
                 { "secondaryAmount", n => { SecondaryAmount = n.GetStringValue(); } },
                 { "status", n => { Status = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ActivityStatus>(); } },
                 { "title", n => { Title = n.GetStringValue(); } },
@@ -119,7 +119,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteStringValue("description", Description);
             writer.WriteStringValue("id", Id);
             writer.WriteStringValue("primaryAmount", PrimaryAmount);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Activity_resource>("resource", Resource);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.ActivityResource>("resource", Resource);
             writer.WriteStringValue("secondaryAmount", SecondaryAmount);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ActivityStatus>("status", Status);
             writer.WriteStringValue("title", Title);

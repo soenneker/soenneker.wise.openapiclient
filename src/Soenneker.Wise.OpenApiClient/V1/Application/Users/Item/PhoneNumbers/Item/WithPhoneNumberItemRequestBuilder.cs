@@ -36,16 +36,17 @@ namespace Soenneker.Wise.OpenApiClient.V1.Application.Users.Item.PhoneNumbers.It
         /// <summary>
         /// Delete a verified phone number for a user.{% admonition type=&quot;warning&quot; %}This endpoint is restricted and requires both a client credentials token and additional access to use. Please speak with your implementation manager if you would like to use this API.{% /admonition %}
         /// </summary>
+        /// <returns>A <see cref="Stream"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.WithPhoneNumber429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task DeleteAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<Stream?> DeleteAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task DeleteAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<Stream> DeleteAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             var requestInfo = ToDeleteRequestInformation(requestConfiguration);
@@ -53,35 +54,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Application.Users.Item.PhoneNumbers.It
             {
                 { "429", global::Soenneker.Wise.OpenApiClient.Models.WithPhoneNumber429Error.CreateFromDiscriminatorValue },
             };
-            await RequestAdapter.SendNoContentAsync(requestInfo, errorMapping, cancellationToken).ConfigureAwait(false);
-        }
-        /// <summary>
-        /// Update a verified phone number for a user.{% admonition type=&quot;warning&quot; %}This endpoint is restricted and requires both a client credentials token and additional access to use. Please speak with your implementation manager if you would like to use this API.{% /admonition %}
-        /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.PhoneNumber"/></returns>
-        /// <param name="body">The request body</param>
-        /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
-        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.V1.Application.Users.Item.PhoneNumbers.Item.PhoneNumber422Error">When receiving a 422 status code</exception>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.PhoneNumber429Error">When receiving a 429 status code</exception>
-        [Obsolete("")]
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.Models.PhoneNumber?> PutAsync(global::Soenneker.Wise.OpenApiClient.V1.Application.Users.Item.PhoneNumbers.Item.WithPhoneNumberPutRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#nullable restore
-#else
-        public async Task<global::Soenneker.Wise.OpenApiClient.Models.PhoneNumber> PutAsync(global::Soenneker.Wise.OpenApiClient.V1.Application.Users.Item.PhoneNumbers.Item.WithPhoneNumberPutRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#endif
-            if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
-            var requestInfo = ToPutRequestInformation(body, requestConfiguration);
-            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
-            {
-                { "422", global::Soenneker.Wise.OpenApiClient.V1.Application.Users.Item.PhoneNumbers.Item.PhoneNumber422Error.CreateFromDiscriminatorValue },
-                { "429", global::Soenneker.Wise.OpenApiClient.Models.PhoneNumber429Error.CreateFromDiscriminatorValue },
-            };
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.PhoneNumber>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.PhoneNumber.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
+            return await RequestAdapter.SendPrimitiveAsync<Stream>(requestInfo, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Delete a verified phone number for a user.{% admonition type=&quot;warning&quot; %}This endpoint is restricted and requires both a client credentials token and additional access to use. Please speak with your implementation manager if you would like to use this API.{% /admonition %}
@@ -100,29 +73,6 @@ namespace Soenneker.Wise.OpenApiClient.V1.Application.Users.Item.PhoneNumbers.It
             var requestInfo = new RequestInformation(Method.DELETE, UrlTemplate, PathParameters);
             requestInfo.Configure(requestConfiguration);
             requestInfo.Headers.TryAdd("Accept", "application/json");
-            return requestInfo;
-        }
-        /// <summary>
-        /// Update a verified phone number for a user.{% admonition type=&quot;warning&quot; %}This endpoint is restricted and requires both a client credentials token and additional access to use. Please speak with your implementation manager if you would like to use this API.{% /admonition %}
-        /// </summary>
-        /// <returns>A <see cref="RequestInformation"/></returns>
-        /// <param name="body">The request body</param>
-        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        [Obsolete("")]
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public RequestInformation ToPutRequestInformation(global::Soenneker.Wise.OpenApiClient.V1.Application.Users.Item.PhoneNumbers.Item.WithPhoneNumberPutRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
-        {
-#nullable restore
-#else
-        public RequestInformation ToPutRequestInformation(global::Soenneker.Wise.OpenApiClient.V1.Application.Users.Item.PhoneNumbers.Item.WithPhoneNumberPutRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
-        {
-#endif
-            if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
-            var requestInfo = new RequestInformation(Method.PUT, UrlTemplate, PathParameters);
-            requestInfo.Configure(requestConfiguration);
-            requestInfo.Headers.TryAdd("Accept", "application/json");
-            requestInfo.SetContentFromParsable(RequestAdapter, "application/json", body);
             return requestInfo;
         }
         /// <summary>

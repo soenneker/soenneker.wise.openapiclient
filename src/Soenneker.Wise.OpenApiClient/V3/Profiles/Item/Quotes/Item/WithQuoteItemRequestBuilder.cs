@@ -66,11 +66,11 @@ namespace Soenneker.Wise.OpenApiClient.V3.Profiles.Item.Quotes.Item
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Quote429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.Models.Quote?> PatchAsync(global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.Quotes.Item.WithQuotePatchRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.Quote?> PatchAsync(global::Soenneker.Wise.OpenApiClient.Models.QuoteUpdate body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.Models.Quote> PatchAsync(global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.Quotes.Item.WithQuotePatchRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.Quote> PatchAsync(global::Soenneker.Wise.OpenApiClient.Models.QuoteUpdate body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
@@ -108,11 +108,11 @@ namespace Soenneker.Wise.OpenApiClient.V3.Profiles.Item.Quotes.Item
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToPatchRequestInformation(global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.Quotes.Item.WithQuotePatchRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        public RequestInformation ToPatchRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.QuoteUpdate body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
         {
 #nullable restore
 #else
-        public RequestInformation ToPatchRequestInformation(global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.Quotes.Item.WithQuotePatchRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        public RequestInformation ToPatchRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.QuoteUpdate body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));

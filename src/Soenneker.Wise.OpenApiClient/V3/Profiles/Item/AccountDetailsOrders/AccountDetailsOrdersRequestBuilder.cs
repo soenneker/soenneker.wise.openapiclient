@@ -34,7 +34,7 @@ namespace Soenneker.Wise.OpenApiClient.V3.Profiles.Item.AccountDetailsOrders
         {
         }
         /// <summary>
-        /// Returns the bank account assignment requests for a profile and multi-currency account.The response includes bank-details orders in the following statuses: `PENDING_USER`, `PENDING_TW`, `REQUIREMENTS_FULFILLED`, `DONE`.
+        /// &quot;Returns the bank account assignment requests for a profile and multi-currency account.The response includes bank-details orders in the following statuses: `PENDING_USER`, `PENDING_TW`, `REQUIREMENTS_FULFILLED`, `DONE`.&quot;
         /// </summary>
         /// <returns>A List&lt;global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.AccountDetailsOrders.AccountDetailsOrders&gt;</returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
@@ -58,7 +58,7 @@ namespace Soenneker.Wise.OpenApiClient.V3.Profiles.Item.AccountDetailsOrders
             return collectionResult?.AsList();
         }
         /// <summary>
-        /// Returns the bank account assignment requests for a profile and multi-currency account.The response includes bank-details orders in the following statuses: `PENDING_USER`, `PENDING_TW`, `REQUIREMENTS_FULFILLED`, `DONE`.
+        /// &quot;Returns the bank account assignment requests for a profile and multi-currency account.The response includes bank-details orders in the following statuses: `PENDING_USER`, `PENDING_TW`, `REQUIREMENTS_FULFILLED`, `DONE`.&quot;
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
@@ -86,7 +86,7 @@ namespace Soenneker.Wise.OpenApiClient.V3.Profiles.Item.AccountDetailsOrders
             return new global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.AccountDetailsOrders.AccountDetailsOrdersRequestBuilder(rawUrl, RequestAdapter);
         }
         /// <summary>
-        /// Returns the bank account assignment requests for a profile and multi-currency account.The response includes bank-details orders in the following statuses: `PENDING_USER`, `PENDING_TW`, `REQUIREMENTS_FULFILLED`, `DONE`.
+        /// &quot;Returns the bank account assignment requests for a profile and multi-currency account.The response includes bank-details orders in the following statuses: `PENDING_USER`, `PENDING_TW`, `REQUIREMENTS_FULFILLED`, `DONE`.&quot;
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
         public partial class AccountDetailsOrdersRequestBuilderGetQueryParameters 

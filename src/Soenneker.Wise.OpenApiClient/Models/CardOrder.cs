@@ -17,10 +17,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Address set during card order. Fields vary by country. See the [card address validation guide](/guides/developer/api-guides/card-address-validation) for country-specific fields and validation rules.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.CardOrder_address? Address { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardOrderAddress? Address { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.CardOrder_address Address { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardOrderAddress Address { get; set; }
 #endif
         /// <summary>Name of the card holder.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -33,10 +33,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The card program associated with this card order. A Card Program is what Wise refers to all the cards that you will be issuing with us, grouped by product type and by issuing country.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.CardOrder_cardProgram? CardProgram { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardOrderCardProgram? CardProgram { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.CardOrder_cardProgram CardProgram { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardOrderCardProgram CardProgram { get; set; }
 #endif
         /// <summary>Token of the card associated with card order. Nullable.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -59,10 +59,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Delivery details of a physical card order. For virtual cards, this value is null.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.CardOrder_deliveryDetails? DeliveryDetails { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardOrderDeliveryDetails? DeliveryDetails { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.CardOrder_deliveryDetails DeliveryDetails { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardOrderDeliveryDetails DeliveryDetails { get; set; }
 #endif
         /// <summary>The estimated time when the card will be delivered. There are few scenarios to be mindful of:1. For virtual card the delivery estimate will be close to the creationTime, as it does not require delivery.2. For physical card in `PLACED` status, the delivery estimate is calculated assuming that the order requirements will be fulfilled today (refreshed daily).3. For physical card after `PLACED` status, we provide a best effort estimation, and it should not be used as delivery timing as we will have separate delivery tracking (subject to region availability) for physical card that is coming soon.</summary>
         public DateTimeOffset? DeliveryEstimate { get; set; }
@@ -117,13 +117,13 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "address", n => { Address = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardOrder_address>(global::Soenneker.Wise.OpenApiClient.Models.CardOrder_address.CreateFromDiscriminatorValue); } },
+                { "address", n => { Address = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardOrderAddress>(global::Soenneker.Wise.OpenApiClient.Models.CardOrderAddress.CreateFromDiscriminatorValue); } },
                 { "cardHolderName", n => { CardHolderName = n.GetStringValue(); } },
-                { "cardProgram", n => { CardProgram = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardOrder_cardProgram>(global::Soenneker.Wise.OpenApiClient.Models.CardOrder_cardProgram.CreateFromDiscriminatorValue); } },
+                { "cardProgram", n => { CardProgram = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardOrderCardProgram>(global::Soenneker.Wise.OpenApiClient.Models.CardOrderCardProgram.CreateFromDiscriminatorValue); } },
                 { "cardToken", n => { CardToken = n.GetStringValue(); } },
                 { "clientId", n => { ClientId = n.GetStringValue(); } },
                 { "creationTime", n => { CreationTime = n.GetDateTimeOffsetValue(); } },
-                { "deliveryDetails", n => { DeliveryDetails = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardOrder_deliveryDetails>(global::Soenneker.Wise.OpenApiClient.Models.CardOrder_deliveryDetails.CreateFromDiscriminatorValue); } },
+                { "deliveryDetails", n => { DeliveryDetails = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardOrderDeliveryDetails>(global::Soenneker.Wise.OpenApiClient.Models.CardOrderDeliveryDetails.CreateFromDiscriminatorValue); } },
                 { "deliveryEstimate", n => { DeliveryEstimate = n.GetDateTimeOffsetValue(); } },
                 { "id", n => { Id = n.GetLongValue(); } },
                 { "lifetimeLimit", n => { LifetimeLimit = n.GetDoubleValue(); } },
@@ -141,13 +141,13 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardOrder_address>("address", Address);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardOrderAddress>("address", Address);
             writer.WriteStringValue("cardHolderName", CardHolderName);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardOrder_cardProgram>("cardProgram", CardProgram);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardOrderCardProgram>("cardProgram", CardProgram);
             writer.WriteStringValue("cardToken", CardToken);
             writer.WriteStringValue("clientId", ClientId);
             writer.WriteDateTimeOffsetValue("creationTime", CreationTime);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardOrder_deliveryDetails>("deliveryDetails", DeliveryDetails);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardOrderDeliveryDetails>("deliveryDetails", DeliveryDetails);
             writer.WriteDateTimeOffsetValue("deliveryEstimate", DeliveryEstimate);
             writer.WriteLongValue("id", Id);
             writer.WriteDoubleValue("lifetimeLimit", LifetimeLimit);

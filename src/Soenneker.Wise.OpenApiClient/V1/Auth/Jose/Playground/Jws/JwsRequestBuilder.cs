@@ -37,20 +37,20 @@ namespace Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Playground.Jws
         /// Send test signed HTTP requests and receive signed responses. Signing is mandatory for this endpoint — any message that is not a JSON Web Signature (JWS) will be rejected.
         /// </summary>
         /// <returns>A <see cref="string"/></returns>
-        /// <param name="body">JWS-encoded string. The payload before signing should contain a `message` field with any text.Original payload:```json{&quot;message&quot;: &quot;This is an example from docs.wise.com&quot;}```Encoded (JWS):```eyJhbGciOiJFUzUxMiIsInR5cCI6IkpXVCIsInVybCI6Ii92MS9hdXRoL2pvc2UvcGxheWdyb3VuZC9qd3MifQ.eyJtZXNzYWdlIjoiVGhpcyBpcyBhbiBleGFtcGxlIGZyb20gZG9jcy53aXNlLmNvbSJ9.AS9QHdkWvUEn0LxQEMPRBzlceN78J-Le-Qm1XIkkSBpsGdc0WM0MZTIGFEAJEcWeUR2M-abtd5DRdar4hLzs9apPAQ-GT70SIDV6pX9-4UKfIfzJ4g305zCoHflTfn-ijvI7XrVR_yr7xO9GJo86bfBqAX_m5uuxyU7Jy9gM1epd8HcC```</param>
+        /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Jws429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<string?> PostAsync(string body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<string?> PostAsync(global::Soenneker.Wise.OpenApiClient.Models.JosePlaygroundJws body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<string> PostAsync(string body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<string> PostAsync(global::Soenneker.Wise.OpenApiClient.Models.JosePlaygroundJws body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
-            if(string.IsNullOrEmpty(body)) throw new ArgumentNullException(nameof(body));
+            if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
@@ -62,22 +62,22 @@ namespace Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Playground.Jws
         /// Send test signed HTTP requests and receive signed responses. Signing is mandatory for this endpoint — any message that is not a JSON Web Signature (JWS) will be rejected.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
-        /// <param name="body">JWS-encoded string. The payload before signing should contain a `message` field with any text.Original payload:```json{&quot;message&quot;: &quot;This is an example from docs.wise.com&quot;}```Encoded (JWS):```eyJhbGciOiJFUzUxMiIsInR5cCI6IkpXVCIsInVybCI6Ii92MS9hdXRoL2pvc2UvcGxheWdyb3VuZC9qd3MifQ.eyJtZXNzYWdlIjoiVGhpcyBpcyBhbiBleGFtcGxlIGZyb20gZG9jcy53aXNlLmNvbSJ9.AS9QHdkWvUEn0LxQEMPRBzlceN78J-Le-Qm1XIkkSBpsGdc0WM0MZTIGFEAJEcWeUR2M-abtd5DRdar4hLzs9apPAQ-GT70SIDV6pX9-4UKfIfzJ4g305zCoHflTfn-ijvI7XrVR_yr7xO9GJo86bfBqAX_m5uuxyU7Jy9gM1epd8HcC```</param>
+        /// <param name="body">The request body</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToPostRequestInformation(string body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.JosePlaygroundJws body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
         {
 #nullable restore
 #else
-        public RequestInformation ToPostRequestInformation(string body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.JosePlaygroundJws body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
         {
 #endif
-            if(string.IsNullOrEmpty(body)) throw new ArgumentNullException(nameof(body));
+            if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = new RequestInformation(Method.POST, UrlTemplate, PathParameters);
             requestInfo.Configure(requestConfiguration);
             requestInfo.Headers.TryAdd("Accept", "application/jose+json");
-            requestInfo.SetContentFromScalar(RequestAdapter, "application/jose+json", body);
+            requestInfo.SetContentFromParsable(RequestAdapter, "application/jose+json", body);
             return requestInfo;
         }
         /// <summary>

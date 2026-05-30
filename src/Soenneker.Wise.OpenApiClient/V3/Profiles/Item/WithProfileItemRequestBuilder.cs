@@ -3,7 +3,6 @@
 using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions;
 using Soenneker.Wise.OpenApiClient.V3.Profiles.Item.AccountDetailsOrders;
-using Soenneker.Wise.OpenApiClient.V3.Profiles.Item.AdditionalVerification;
 using Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BankDetails;
 using Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BatchGroups;
 using Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BatchPayments;
@@ -28,11 +27,6 @@ namespace Soenneker.Wise.OpenApiClient.V3.Profiles.Item
         public global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.AccountDetailsOrders.AccountDetailsOrdersRequestBuilder AccountDetailsOrders
         {
             get => new global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.AccountDetailsOrders.AccountDetailsOrdersRequestBuilder(PathParameters, RequestAdapter);
-        }
-        /// <summary>The additionalVerification property</summary>
-        public global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.AdditionalVerification.AdditionalVerificationRequestBuilder AdditionalVerification
-        {
-            get => new global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.AdditionalVerification.AdditionalVerificationRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The bankDetails property</summary>
         public global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BankDetails.BankDetailsRequestBuilder BankDetails

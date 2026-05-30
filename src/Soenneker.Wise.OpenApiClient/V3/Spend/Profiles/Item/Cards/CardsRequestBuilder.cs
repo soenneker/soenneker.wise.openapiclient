@@ -5,7 +5,6 @@ using Microsoft.Kiota.Abstractions.Serialization;
 using Microsoft.Kiota.Abstractions;
 using Soenneker.Wise.OpenApiClient.Models;
 using Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item;
-using Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Transactions;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -19,11 +18,6 @@ namespace Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class CardsRequestBuilder : BaseRequestBuilder
     {
-        /// <summary>The transactions property</summary>
-        public global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Transactions.TransactionsRequestBuilder Transactions
-        {
-            get => new global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Transactions.TransactionsRequestBuilder(PathParameters, RequestAdapter);
-        }
         /// <summary>Gets an item from the Soenneker.Wise.OpenApiClient.v3.spend.profiles.item.cards.item collection</summary>
         /// <param name="position">The unique token identifying the card.</param>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.WithCardTokenItemRequestBuilder"/></returns>

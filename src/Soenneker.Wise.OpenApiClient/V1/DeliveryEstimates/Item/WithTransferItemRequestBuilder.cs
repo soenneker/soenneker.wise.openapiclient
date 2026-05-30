@@ -36,25 +36,25 @@ namespace Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates.Item
         /// <summary>
         /// Get the live delivery estimate for a transfer by the transfer ID.The delivery estimate is the time at which we currently expect the transfer to arrive in the beneficiary&apos;s bank account. This is not a guaranteed time but we are working hard to make these estimates as accurate as possible.
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates.Item.WithTransferGetResponse"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.DeliveryEstimateGet200"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.WithTransfer429Error">When receiving a 429 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.DeliveryEstimateGet200429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates.Item.WithTransferGetResponse?> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates.Item.WithTransferItemRequestBuilder.WithTransferItemRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.DeliveryEstimateGet200?> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates.Item.WithTransferItemRequestBuilder.WithTransferItemRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates.Item.WithTransferGetResponse> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates.Item.WithTransferItemRequestBuilder.WithTransferItemRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.DeliveryEstimateGet200> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates.Item.WithTransferItemRequestBuilder.WithTransferItemRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
-                { "429", global::Soenneker.Wise.OpenApiClient.Models.WithTransfer429Error.CreateFromDiscriminatorValue },
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.DeliveryEstimateGet200429Error.CreateFromDiscriminatorValue },
             };
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates.Item.WithTransferGetResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates.Item.WithTransferGetResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.DeliveryEstimateGet200>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.DeliveryEstimateGet200.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Get the live delivery estimate for a transfer by the transfer ID.The delivery estimate is the time at which we currently expect the transfer to arrive in the beneficiary&apos;s bank account. This is not a guaranteed time but we are working hard to make these estimates as accurate as possible.

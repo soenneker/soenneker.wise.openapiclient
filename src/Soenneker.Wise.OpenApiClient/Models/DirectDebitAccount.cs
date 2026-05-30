@@ -25,10 +25,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Bank account details</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.DirectDebitAccount_details? Details { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.DirectDebitAccountDetails? Details { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.DirectDebitAccount_details Details { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.DirectDebitAccountDetails Details { get; set; }
 #endif
         /// <summary>Direct debit account ID</summary>
         public long? Id { get; set; }
@@ -60,7 +60,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "currency", n => { Currency = n.GetStringValue(); } },
-                { "details", n => { Details = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.DirectDebitAccount_details>(global::Soenneker.Wise.OpenApiClient.Models.DirectDebitAccount_details.CreateFromDiscriminatorValue); } },
+                { "details", n => { Details = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.DirectDebitAccountDetails>(global::Soenneker.Wise.OpenApiClient.Models.DirectDebitAccountDetails.CreateFromDiscriminatorValue); } },
                 { "id", n => { Id = n.GetLongValue(); } },
                 { "type", n => { Type = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.DirectDebitAccount_type>(); } },
             };
@@ -73,7 +73,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("currency", Currency);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.DirectDebitAccount_details>("details", Details);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.DirectDebitAccountDetails>("details", Details);
             writer.WriteLongValue("id", Id);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.DirectDebitAccount_type>("type", Type);
             writer.WriteAdditionalData(AdditionalData);

@@ -3,7 +3,6 @@
 using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions;
 using Soenneker.Wise.OpenApiClient.V3.Applications;
-using Soenneker.Wise.OpenApiClient.V3.Comparisons;
 using Soenneker.Wise.OpenApiClient.V3.Profiles;
 using Soenneker.Wise.OpenApiClient.V3.Quotes;
 using Soenneker.Wise.OpenApiClient.V3.Spend;
@@ -23,11 +22,6 @@ namespace Soenneker.Wise.OpenApiClient.V3
         public global::Soenneker.Wise.OpenApiClient.V3.Applications.ApplicationsRequestBuilder Applications
         {
             get => new global::Soenneker.Wise.OpenApiClient.V3.Applications.ApplicationsRequestBuilder(PathParameters, RequestAdapter);
-        }
-        /// <summary>The comparisons property</summary>
-        public global::Soenneker.Wise.OpenApiClient.V3.Comparisons.ComparisonsRequestBuilder Comparisons
-        {
-            get => new global::Soenneker.Wise.OpenApiClient.V3.Comparisons.ComparisonsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The profiles property</summary>
         public global::Soenneker.Wise.OpenApiClient.V3.Profiles.ProfilesRequestBuilder Profiles

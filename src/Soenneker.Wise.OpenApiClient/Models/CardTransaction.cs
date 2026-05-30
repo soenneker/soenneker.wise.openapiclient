@@ -50,10 +50,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Billing amount</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.CardTransaction_billingAmount? BillingAmount { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardTransactionBillingAmount? BillingAmount { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.CardTransaction_billingAmount BillingAmount { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardTransactionBillingAmount BillingAmount { get; set; }
 #endif
         /// <summary>Unique identifier of the card</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -110,10 +110,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Merchant information</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.CardTransaction_merchant? Merchant { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardTransactionMerchant? Merchant { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.CardTransaction_merchant Merchant { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardTransactionMerchant Merchant { get; set; }
 #endif
         /// <summary>When the transaction was last updated</summary>
         public DateTimeOffset? ModificationTime { get; set; }
@@ -124,28 +124,28 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Relayed authorisation response data, only available if the partner has opted in for [relayed authorisation](/guides/product/issue-cards/relayed-authorisation)</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.CardTransaction_relayAuthorisationData? RelayAuthorisationData { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardTransactionRelayAuthorisationData? RelayAuthorisationData { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.CardTransaction_relayAuthorisationData RelayAuthorisationData { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardTransactionRelayAuthorisationData RelayAuthorisationData { get; set; }
 #endif
         /// <summary>The current [state](/api-reference/card-transaction#card-transaction-state) of the transaction. One of:- `IN_PROGRESS`- `COMPLETED`- `DECLINED`- `CANCELLED`- `UNKNOWN`</summary>
         public global::Soenneker.Wise.OpenApiClient.Models.CardTransaction_state? State { get; set; }
         /// <summary>Transaction amount, including any embedded fees such as ATM fees that are not applied by Wise</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.CardTransaction_transactionAmount? TransactionAmount { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardTransactionTransactionAmount? TransactionAmount { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.CardTransaction_transactionAmount TransactionAmount { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardTransactionTransactionAmount TransactionAmount { get; set; }
 #endif
         /// <summary>Transaction amount including all fees</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.CardTransaction_transactionAmountWithFees? TransactionAmountWithFees { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardTransactionTransactionAmountWithFees? TransactionAmountWithFees { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.CardTransaction_transactionAmountWithFees TransactionAmountWithFees { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardTransactionTransactionAmountWithFees TransactionAmountWithFees { get; set; }
 #endif
         /// <summary>[Type](/api-reference/card-transaction#card-transaction-type) of the transaction. One of:- `ACCOUNT_CREDIT`- `ACCOUNT_FUNDING`- `CASH_ADVANCE`- `CASH_WITHDRAWAL`- `CHARGEBACK`- `CREDIT_TRANSACTION`- `ECOM_PURCHASE`- `POS_PURCHASE`- `REFUND`</summary>
         public global::Soenneker.Wise.OpenApiClient.Models.CardTransaction_type? Type { get; set; }
@@ -178,7 +178,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "arn", n => { Arn = n.GetStringValue(); } },
                 { "authorisationMethod", n => { AuthorisationMethod = n.GetStringValue(); } },
                 { "balanceChannelReferenceId", n => { BalanceChannelReferenceId = n.GetStringValue(); } },
-                { "billingAmount", n => { BillingAmount = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardTransaction_billingAmount>(global::Soenneker.Wise.OpenApiClient.Models.CardTransaction_billingAmount.CreateFromDiscriminatorValue); } },
+                { "billingAmount", n => { BillingAmount = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardTransactionBillingAmount>(global::Soenneker.Wise.OpenApiClient.Models.CardTransactionBillingAmount.CreateFromDiscriminatorValue); } },
                 { "cardToken", n => { CardToken = n.GetStringValue(); } },
                 { "creationTime", n => { CreationTime = n.GetDateTimeOffsetValue(); } },
                 { "credits", n => { Credits = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.CardTransaction_credits>(global::Soenneker.Wise.OpenApiClient.Models.CardTransaction_credits.CreateFromDiscriminatorValue)?.AsList(); } },
@@ -187,14 +187,14 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "detailedDeclineReason", n => { DetailedDeclineReason = n.GetStringValue(); } },
                 { "fees", n => { Fees = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.CardTransaction_fees>(global::Soenneker.Wise.OpenApiClient.Models.CardTransaction_fees.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "id", n => { Id = n.GetLongValue(); } },
-                { "merchant", n => { Merchant = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardTransaction_merchant>(global::Soenneker.Wise.OpenApiClient.Models.CardTransaction_merchant.CreateFromDiscriminatorValue); } },
+                { "merchant", n => { Merchant = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardTransactionMerchant>(global::Soenneker.Wise.OpenApiClient.Models.CardTransactionMerchant.CreateFromDiscriminatorValue); } },
                 { "modificationTime", n => { ModificationTime = n.GetDateTimeOffsetValue(); } },
                 { "pinValidationResult", n => { PinValidationResult = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CardTransaction_pinValidationResult>(); } },
                 { "purgeTime", n => { PurgeTime = n.GetDateTimeOffsetValue(); } },
-                { "relayAuthorisationData", n => { RelayAuthorisationData = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardTransaction_relayAuthorisationData>(global::Soenneker.Wise.OpenApiClient.Models.CardTransaction_relayAuthorisationData.CreateFromDiscriminatorValue); } },
+                { "relayAuthorisationData", n => { RelayAuthorisationData = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardTransactionRelayAuthorisationData>(global::Soenneker.Wise.OpenApiClient.Models.CardTransactionRelayAuthorisationData.CreateFromDiscriminatorValue); } },
                 { "state", n => { State = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CardTransaction_state>(); } },
-                { "transactionAmount", n => { TransactionAmount = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardTransaction_transactionAmount>(global::Soenneker.Wise.OpenApiClient.Models.CardTransaction_transactionAmount.CreateFromDiscriminatorValue); } },
-                { "transactionAmountWithFees", n => { TransactionAmountWithFees = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardTransaction_transactionAmountWithFees>(global::Soenneker.Wise.OpenApiClient.Models.CardTransaction_transactionAmountWithFees.CreateFromDiscriminatorValue); } },
+                { "transactionAmount", n => { TransactionAmount = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardTransactionTransactionAmount>(global::Soenneker.Wise.OpenApiClient.Models.CardTransactionTransactionAmount.CreateFromDiscriminatorValue); } },
+                { "transactionAmountWithFees", n => { TransactionAmountWithFees = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardTransactionTransactionAmountWithFees>(global::Soenneker.Wise.OpenApiClient.Models.CardTransactionTransactionAmountWithFees.CreateFromDiscriminatorValue); } },
                 { "type", n => { Type = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CardTransaction_type>(); } },
             };
         }
@@ -209,7 +209,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteStringValue("arn", Arn);
             writer.WriteStringValue("authorisationMethod", AuthorisationMethod);
             writer.WriteStringValue("balanceChannelReferenceId", BalanceChannelReferenceId);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardTransaction_billingAmount>("billingAmount", BillingAmount);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardTransactionBillingAmount>("billingAmount", BillingAmount);
             writer.WriteStringValue("cardToken", CardToken);
             writer.WriteDateTimeOffsetValue("creationTime", CreationTime);
             writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.CardTransaction_credits>("credits", Credits);
@@ -218,14 +218,14 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteStringValue("detailedDeclineReason", DetailedDeclineReason);
             writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.CardTransaction_fees>("fees", Fees);
             writer.WriteLongValue("id", Id);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardTransaction_merchant>("merchant", Merchant);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardTransactionMerchant>("merchant", Merchant);
             writer.WriteDateTimeOffsetValue("modificationTime", ModificationTime);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CardTransaction_pinValidationResult>("pinValidationResult", PinValidationResult);
             writer.WriteDateTimeOffsetValue("purgeTime", PurgeTime);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardTransaction_relayAuthorisationData>("relayAuthorisationData", RelayAuthorisationData);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardTransactionRelayAuthorisationData>("relayAuthorisationData", RelayAuthorisationData);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CardTransaction_state>("state", State);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardTransaction_transactionAmount>("transactionAmount", TransactionAmount);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardTransaction_transactionAmountWithFees>("transactionAmountWithFees", TransactionAmountWithFees);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardTransactionTransactionAmount>("transactionAmount", TransactionAmount);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardTransactionTransactionAmountWithFees>("transactionAmountWithFees", TransactionAmountWithFees);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CardTransaction_type>("type", Type);
             writer.WriteAdditionalData(AdditionalData);
         }

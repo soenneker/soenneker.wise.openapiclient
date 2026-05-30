@@ -19,18 +19,18 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The created_by property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.Subscription_created_by? CreatedBy { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.SubscriptionCreatedBy? CreatedBy { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.Subscription_created_by CreatedBy { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.SubscriptionCreatedBy CreatedBy { get; set; }
 #endif
         /// <summary>The delivery property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.Subscription_delivery? Delivery { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.SubscriptionDelivery? Delivery { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.Subscription_delivery Delivery { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.SubscriptionDelivery Delivery { get; set; }
 #endif
         /// <summary>UUID that uniquely identifies the subscription.</summary>
         public Guid? Id { get; set; }
@@ -45,10 +45,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The scope property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.Subscription_scope? Scope { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.SubscriptionScope? Scope { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.Subscription_scope Scope { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.SubscriptionScope Scope { get; set; }
 #endif
         /// <summary>The event type this subscription is listening for. [List of available events](/guides/developer/webhooks/event-types).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -84,11 +84,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "created_at", n => { CreatedAt = n.GetDateTimeOffsetValue(); } },
-                { "created_by", n => { CreatedBy = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Subscription_created_by>(global::Soenneker.Wise.OpenApiClient.Models.Subscription_created_by.CreateFromDiscriminatorValue); } },
-                { "delivery", n => { Delivery = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Subscription_delivery>(global::Soenneker.Wise.OpenApiClient.Models.Subscription_delivery.CreateFromDiscriminatorValue); } },
+                { "created_by", n => { CreatedBy = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.SubscriptionCreatedBy>(global::Soenneker.Wise.OpenApiClient.Models.SubscriptionCreatedBy.CreateFromDiscriminatorValue); } },
+                { "delivery", n => { Delivery = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.SubscriptionDelivery>(global::Soenneker.Wise.OpenApiClient.Models.SubscriptionDelivery.CreateFromDiscriminatorValue); } },
                 { "id", n => { Id = n.GetGuidValue(); } },
                 { "name", n => { Name = n.GetStringValue(); } },
-                { "scope", n => { Scope = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Subscription_scope>(global::Soenneker.Wise.OpenApiClient.Models.Subscription_scope.CreateFromDiscriminatorValue); } },
+                { "scope", n => { Scope = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.SubscriptionScope>(global::Soenneker.Wise.OpenApiClient.Models.SubscriptionScope.CreateFromDiscriminatorValue); } },
                 { "trigger_on", n => { TriggerOn = n.GetStringValue(); } },
             };
         }
@@ -100,11 +100,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteDateTimeOffsetValue("created_at", CreatedAt);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Subscription_created_by>("created_by", CreatedBy);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Subscription_delivery>("delivery", Delivery);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.SubscriptionCreatedBy>("created_by", CreatedBy);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.SubscriptionDelivery>("delivery", Delivery);
             writer.WriteGuidValue("id", Id);
             writer.WriteStringValue("name", Name);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Subscription_scope>("scope", Scope);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.SubscriptionScope>("scope", Scope);
             writer.WriteStringValue("trigger_on", TriggerOn);
             writer.WriteAdditionalData(AdditionalData);
         }

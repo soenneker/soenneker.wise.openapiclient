@@ -36,31 +36,31 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.AccountDetails.Payments.
         /// <summary>
         /// Creates a return for a payment received to bank account details.When you create a return, you must provide the ID of the payment you wish to return as well as the ID of the profile that received the payment. In addition, you can provide a `reason` for the return in the request body. When returning SWIFT payments, `reason` is a required field.
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.AccountDetails.Payments.Item.Returns.ReturnsPostResponse"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsReturnsCreate201"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.AccountDetails.Payments.Item.Returns.Returns400Error">When receiving a 400 status code</exception>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.AccountDetails.Payments.Item.Returns.Returns404Error">When receiving a 404 status code</exception>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Returns429Error">When receiving a 429 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsReturnsCreate400">When receiving a 400 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsReturnsCreate404">When receiving a 404 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsReturnsCreate201429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.AccountDetails.Payments.Item.Returns.ReturnsPostResponse?> PostAsync(global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.AccountDetails.Payments.Item.Returns.ReturnsPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsReturnsCreate201?> PostAsync(global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsReturnsCreate body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.AccountDetails.Payments.Item.Returns.ReturnsPostResponse> PostAsync(global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.AccountDetails.Payments.Item.Returns.ReturnsPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsReturnsCreate201> PostAsync(global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsReturnsCreate body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
-                { "400", global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.AccountDetails.Payments.Item.Returns.Returns400Error.CreateFromDiscriminatorValue },
-                { "404", global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.AccountDetails.Payments.Item.Returns.Returns404Error.CreateFromDiscriminatorValue },
-                { "429", global::Soenneker.Wise.OpenApiClient.Models.Returns429Error.CreateFromDiscriminatorValue },
+                { "400", global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsReturnsCreate400.CreateFromDiscriminatorValue },
+                { "404", global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsReturnsCreate404.CreateFromDiscriminatorValue },
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsReturnsCreate201429Error.CreateFromDiscriminatorValue },
             };
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.AccountDetails.Payments.Item.Returns.ReturnsPostResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.AccountDetails.Payments.Item.Returns.ReturnsPostResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsReturnsCreate201>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsReturnsCreate201.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Creates a return for a payment received to bank account details.When you create a return, you must provide the ID of the payment you wish to return as well as the ID of the profile that received the payment. In addition, you can provide a `reason` for the return in the request body. When returning SWIFT payments, `reason` is a required field.
@@ -70,11 +70,11 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.AccountDetails.Payments.
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.AccountDetails.Payments.Item.Returns.ReturnsPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsReturnsCreate body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
         {
 #nullable restore
 #else
-        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.AccountDetails.Payments.Item.Returns.ReturnsPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsReturnsCreate body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));

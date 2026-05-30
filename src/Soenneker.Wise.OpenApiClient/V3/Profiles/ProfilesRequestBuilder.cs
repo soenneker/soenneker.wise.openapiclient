@@ -22,7 +22,7 @@ namespace Soenneker.Wise.OpenApiClient.V3.Profiles
             get => new global::Soenneker.Wise.OpenApiClient.V3.Profiles.BusinessProfile.BusinessProfileRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Gets an item from the Soenneker.Wise.OpenApiClient.v3.profiles.item collection</summary>
-        /// <param name="position">The unique identifier of the profile.</param>
+        /// <param name="position">The profile ID (personal or business).</param>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.WithProfileItemRequestBuilder"/></returns>
         public global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.WithProfileItemRequestBuilder this[long position]
         {

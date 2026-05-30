@@ -91,7 +91,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Rates
         [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
         public partial class RatesRequestBuilderGetQueryParameters 
         {
-            /// <summary>Period start date/time to get exchange rate history. &lt;br&gt;Supports Timestamp (combined date and time) or Date (date only). &lt;br&gt;Supported examples: `2019-03-13T14:53:01` or `2019-03-13`.</summary>
+            /// <summary>&quot;Period start date/time to get exchange rate history. &lt;br&gt;Supports Timestamp (combined date and time) or Date (date only). &lt;br&gt;Supported examples: `2019-03-13T14:53:01` or `2019-03-13`.&quot;</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
             [QueryParameter("from")]
@@ -124,7 +124,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Rates
             [QueryParameter("target")]
             public string Target { get; set; }
 #endif
-            /// <summary>Timestamp to get historic exchange rate. &lt;br&gt;Supports only Timestamp (combined date and time). Timezone offset is supported but optional. &lt;br&gt;Supported examples: `2019-03-13T14:53:01` or `2019-03-13T14:53:01+0100`.</summary>
+            /// <summary>&quot;Timestamp to get historic exchange rate. &lt;br&gt;Supports only Timestamp (combined date and time). Timezone offset is supported but optional. &lt;br&gt;Supported examples: `2019-03-13T14:53:01` or `2019-03-13T14:53:01+0100`.&quot;</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
             [QueryParameter("time")]
@@ -134,7 +134,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Rates
             [QueryParameter("time")]
             public string Time { get; set; }
 #endif
-            /// <summary>Period end date/time to get exchange rate history. &lt;br&gt;Supports Timestamp (combined date and time) or Date (date only). &lt;br&gt;Timezone offset is supported but optional. &lt;br&gt;Supported examples: `2019-03-13T14:53:01+0100` or `2019-03-13+0100`.</summary>
+            /// <summary>&quot;Period end date/time to get exchange rate history. &lt;br&gt;Supports Timestamp (combined date and time) or Date (date only). &lt;br&gt;Timezone offset is supported but optional. &lt;br&gt;Supported examples: `2019-03-13T14:53:01+0100` or `2019-03-13+0100`.&quot;</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
             [QueryParameter("to")]

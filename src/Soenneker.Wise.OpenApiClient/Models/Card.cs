@@ -34,10 +34,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Card program details.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.Card_cardProgram? CardProgram { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardCardProgram? CardProgram { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.Card_cardProgram CardProgram { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardCardProgram CardProgram { get; set; }
 #endif
         /// <summary>Client ID of the partner that issued the card.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -74,10 +74,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Current status of the card.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.Card_status? Status { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardStatus? Status { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.Card_status Status { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardStatus Status { get; set; }
 #endif
         /// <summary>Unique identifier for the card.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -116,7 +116,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             {
                 { "bankIdentificationNumber", n => { BankIdentificationNumber = n.GetStringValue(); } },
                 { "cardHolderName", n => { CardHolderName = n.GetStringValue(); } },
-                { "cardProgram", n => { CardProgram = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Card_cardProgram>(global::Soenneker.Wise.OpenApiClient.Models.Card_cardProgram.CreateFromDiscriminatorValue); } },
+                { "cardProgram", n => { CardProgram = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardCardProgram>(global::Soenneker.Wise.OpenApiClient.Models.CardCardProgram.CreateFromDiscriminatorValue); } },
                 { "clientId", n => { ClientId = n.GetStringValue(); } },
                 { "creationTime", n => { CreationTime = n.GetDateTimeOffsetValue(); } },
                 { "expiryDate", n => { ExpiryDate = n.GetDateTimeOffsetValue(); } },
@@ -124,7 +124,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "modificationTime", n => { ModificationTime = n.GetDateTimeOffsetValue(); } },
                 { "phoneNumber", n => { PhoneNumber = n.GetStringValue(); } },
                 { "profileId", n => { ProfileId = n.GetLongValue(); } },
-                { "status", n => { Status = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Card_status>(global::Soenneker.Wise.OpenApiClient.Models.Card_status.CreateFromDiscriminatorValue); } },
+                { "status", n => { Status = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardStatus>(global::Soenneker.Wise.OpenApiClient.Models.CardStatus.CreateFromDiscriminatorValue); } },
                 { "token", n => { Token = n.GetStringValue(); } },
                 { "unlockSpendingPermissions", n => { UnlockSpendingPermissions = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.Card_unlockSpendingPermissions>(); } },
             };
@@ -138,7 +138,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("bankIdentificationNumber", BankIdentificationNumber);
             writer.WriteStringValue("cardHolderName", CardHolderName);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Card_cardProgram>("cardProgram", CardProgram);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardCardProgram>("cardProgram", CardProgram);
             writer.WriteStringValue("clientId", ClientId);
             writer.WriteDateTimeOffsetValue("creationTime", CreationTime);
             writer.WriteDateTimeOffsetValue("expiryDate", ExpiryDate);
@@ -146,7 +146,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteDateTimeOffsetValue("modificationTime", ModificationTime);
             writer.WriteStringValue("phoneNumber", PhoneNumber);
             writer.WriteLongValue("profileId", ProfileId);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Card_status>("status", Status);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardStatus>("status", Status);
             writer.WriteStringValue("token", Token);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.Card_unlockSpendingPermissions>("unlockSpendingPermissions", UnlockSpendingPermissions);
             writer.WriteAdditionalData(AdditionalData);

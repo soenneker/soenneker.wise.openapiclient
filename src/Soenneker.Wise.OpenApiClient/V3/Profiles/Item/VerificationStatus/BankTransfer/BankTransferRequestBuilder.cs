@@ -36,25 +36,25 @@ namespace Soenneker.Wise.OpenApiClient.V3.Profiles.Item.VerificationStatus.BankT
         /// <summary>
         /// You can check the verification status of a profile using this API. This is a profile-specific API resource which should be accessed using an access token acquired for the profile.We do not expose any finer details of customer verification.
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.VerificationStatus.BankTransfer.BankTransferPostResponse"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.ProfileVerificationStatusCheck200"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.BankTransfer429Error">When receiving a 429 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.ProfileVerificationStatusCheck200429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.VerificationStatus.BankTransfer.BankTransferPostResponse?> PostAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.VerificationStatus.BankTransfer.BankTransferRequestBuilder.BankTransferRequestBuilderPostQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.ProfileVerificationStatusCheck200?> PostAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.VerificationStatus.BankTransfer.BankTransferRequestBuilder.BankTransferRequestBuilderPostQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.VerificationStatus.BankTransfer.BankTransferPostResponse> PostAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.VerificationStatus.BankTransfer.BankTransferRequestBuilder.BankTransferRequestBuilderPostQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.ProfileVerificationStatusCheck200> PostAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.VerificationStatus.BankTransfer.BankTransferRequestBuilder.BankTransferRequestBuilderPostQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             var requestInfo = ToPostRequestInformation(requestConfiguration);
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
-                { "429", global::Soenneker.Wise.OpenApiClient.Models.BankTransfer429Error.CreateFromDiscriminatorValue },
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.ProfileVerificationStatusCheck200429Error.CreateFromDiscriminatorValue },
             };
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.VerificationStatus.BankTransfer.BankTransferPostResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.VerificationStatus.BankTransfer.BankTransferPostResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.ProfileVerificationStatusCheck200>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.ProfileVerificationStatusCheck200.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// You can check the verification status of a profile using this API. This is a profile-specific API resource which should be accessed using an access token acquired for the profile.We do not expose any finer details of customer verification.

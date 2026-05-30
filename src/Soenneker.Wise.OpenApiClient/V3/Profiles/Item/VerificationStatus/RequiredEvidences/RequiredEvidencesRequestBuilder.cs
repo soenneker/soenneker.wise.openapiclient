@@ -36,25 +36,25 @@ namespace Soenneker.Wise.OpenApiClient.V3.Profiles.Item.VerificationStatus.Requi
         /// <summary>
         /// Fetches the required evidences for a profile to complete additional customer verification.If one or more evidences are returned, the customer should submit those evidences using the upload-evidences endpoint.See the [Supported Evidences guide](/guides/product/kyc/partner-kyc/supported-evidences) for the list of possible evidence types and how to submit them.
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.VerificationStatus.RequiredEvidences.RequiredEvidencesGetResponse"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.VerificationGetRequiredEvidences200"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.RequiredEvidences429Error">When receiving a 429 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.VerificationGetRequiredEvidences200429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.VerificationStatus.RequiredEvidences.RequiredEvidencesGetResponse?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.VerificationGetRequiredEvidences200?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.VerificationStatus.RequiredEvidences.RequiredEvidencesGetResponse> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.VerificationGetRequiredEvidences200> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
-                { "429", global::Soenneker.Wise.OpenApiClient.Models.RequiredEvidences429Error.CreateFromDiscriminatorValue },
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.VerificationGetRequiredEvidences200429Error.CreateFromDiscriminatorValue },
             };
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.VerificationStatus.RequiredEvidences.RequiredEvidencesGetResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.VerificationStatus.RequiredEvidences.RequiredEvidencesGetResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.VerificationGetRequiredEvidences200>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.VerificationGetRequiredEvidences200.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Fetches the required evidences for a profile to complete additional customer verification.If one or more evidences are returned, the customer should submit those evidences using the upload-evidences endpoint.See the [Supported Evidences guide](/guides/product/kyc/partner-kyc/supported-evidences) for the list of possible evidence types and how to submit them.

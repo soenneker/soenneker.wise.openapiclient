@@ -17,10 +17,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Properties of the one time token.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.OttResponse_oneTimeTokenProperties? OneTimeTokenProperties { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenProperties? OneTimeTokenProperties { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.OttResponse_oneTimeTokenProperties OneTimeTokenProperties { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenProperties OneTimeTokenProperties { get; set; }
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.OttResponse"/> and sets the default values.
@@ -47,7 +47,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "oneTimeTokenProperties", n => { OneTimeTokenProperties = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.OttResponse_oneTimeTokenProperties>(global::Soenneker.Wise.OpenApiClient.Models.OttResponse_oneTimeTokenProperties.CreateFromDiscriminatorValue); } },
+                { "oneTimeTokenProperties", n => { OneTimeTokenProperties = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenProperties>(global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenProperties.CreateFromDiscriminatorValue); } },
             };
         }
         /// <summary>
@@ -57,7 +57,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.OttResponse_oneTimeTokenProperties>("oneTimeTokenProperties", OneTimeTokenProperties);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenProperties>("oneTimeTokenProperties", OneTimeTokenProperties);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

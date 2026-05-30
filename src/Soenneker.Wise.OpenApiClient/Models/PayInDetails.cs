@@ -36,10 +36,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Address for the receiving bank. Provided only when the currency route requires it.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.PayInDetails_bankAddress? BankAddress { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.PayInDetailsBankAddress? BankAddress { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.PayInDetails_bankAddress BankAddress { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.PayInDetailsBankAddress BankAddress { get; set; }
 #endif
         /// <summary>Bank identifier or routing number, depending on pay-in type and currency.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -140,10 +140,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Wise&apos;s address. Provided only when the currency route requires it.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.PayInDetails_transferWiseAddress? TransferWiseAddress { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.PayInDetailsTransferWiseAddress? TransferWiseAddress { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.PayInDetails_transferWiseAddress TransferWiseAddress { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.PayInDetailsTransferWiseAddress TransferWiseAddress { get; set; }
 #endif
         /// <summary>Branch Transit Number (5 digits). Provided only when the currency route requires it (such as CAD).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -183,7 +183,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "accountNumber", n => { AccountNumber = n.GetStringValue(); } },
                 { "accountType", n => { AccountType = n.GetStringValue(); } },
                 { "amount", n => { Amount = n.GetDecimalValue(); } },
-                { "bankAddress", n => { BankAddress = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.PayInDetails_bankAddress>(global::Soenneker.Wise.OpenApiClient.Models.PayInDetails_bankAddress.CreateFromDiscriminatorValue); } },
+                { "bankAddress", n => { BankAddress = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.PayInDetailsBankAddress>(global::Soenneker.Wise.OpenApiClient.Models.PayInDetailsBankAddress.CreateFromDiscriminatorValue); } },
                 { "bankCode", n => { BankCode = n.GetStringValue(); } },
                 { "bban", n => { Bban = n.GetStringValue(); } },
                 { "beneficiaryBankBIC", n => { BeneficiaryBankBIC = n.GetStringValue(); } },
@@ -196,7 +196,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "intermediaryBankBIC", n => { IntermediaryBankBIC = n.GetStringValue(); } },
                 { "name", n => { Name = n.GetStringValue(); } },
                 { "reference", n => { Reference = n.GetStringValue(); } },
-                { "transferWiseAddress", n => { TransferWiseAddress = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.PayInDetails_transferWiseAddress>(global::Soenneker.Wise.OpenApiClient.Models.PayInDetails_transferWiseAddress.CreateFromDiscriminatorValue); } },
+                { "transferWiseAddress", n => { TransferWiseAddress = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.PayInDetailsTransferWiseAddress>(global::Soenneker.Wise.OpenApiClient.Models.PayInDetailsTransferWiseAddress.CreateFromDiscriminatorValue); } },
                 { "transitNumber", n => { TransitNumber = n.GetStringValue(); } },
                 { "type", n => { Type = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PayInDetails_type>(); } },
             };
@@ -211,7 +211,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteStringValue("accountNumber", AccountNumber);
             writer.WriteStringValue("accountType", AccountType);
             writer.WriteDecimalValue("amount", Amount);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.PayInDetails_bankAddress>("bankAddress", BankAddress);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.PayInDetailsBankAddress>("bankAddress", BankAddress);
             writer.WriteStringValue("bankCode", BankCode);
             writer.WriteStringValue("bban", Bban);
             writer.WriteStringValue("beneficiaryBankBIC", BeneficiaryBankBIC);
@@ -224,7 +224,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteStringValue("intermediaryBankBIC", IntermediaryBankBIC);
             writer.WriteStringValue("name", Name);
             writer.WriteStringValue("reference", Reference);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.PayInDetails_transferWiseAddress>("transferWiseAddress", TransferWiseAddress);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.PayInDetailsTransferWiseAddress>("transferWiseAddress", TransferWiseAddress);
             writer.WriteStringValue("transitNumber", TransitNumber);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PayInDetails_type>("type", Type);
             writer.WriteAdditionalData(AdditionalData);

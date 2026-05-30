@@ -43,11 +43,11 @@ namespace Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.WithReason429Error">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.Step.Item.Item.WithReasonPostResponse?> PostAsync(global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.Step.Item.Item.WithReasonPostRequestBody body, Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.Step.Item.Item.WithReasonItemRequestBuilder.WithReasonItemRequestBuilderPostQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.Step.Item.Item.WithReasonPostResponse?> PostAsync(global::Soenneker.Wise.OpenApiClient.Models.DisputeDynamicFlowStep body, Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.Step.Item.Item.WithReasonItemRequestBuilder.WithReasonItemRequestBuilderPostQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.Step.Item.Item.WithReasonPostResponse> PostAsync(global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.Step.Item.Item.WithReasonPostRequestBody body, Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.Step.Item.Item.WithReasonItemRequestBuilder.WithReasonItemRequestBuilderPostQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.Step.Item.Item.WithReasonPostResponse> PostAsync(global::Soenneker.Wise.OpenApiClient.Models.DisputeDynamicFlowStep body, Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.Step.Item.Item.WithReasonItemRequestBuilder.WithReasonItemRequestBuilderPostQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
@@ -66,11 +66,11 @@ namespace Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.Step.Item.Item.WithReasonPostRequestBody body, Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.Step.Item.Item.WithReasonItemRequestBuilder.WithReasonItemRequestBuilderPostQueryParameters>>? requestConfiguration = default)
+        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.DisputeDynamicFlowStep body, Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.Step.Item.Item.WithReasonItemRequestBuilder.WithReasonItemRequestBuilderPostQueryParameters>>? requestConfiguration = default)
         {
 #nullable restore
 #else
-        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.Step.Item.Item.WithReasonPostRequestBody body, Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.Step.Item.Item.WithReasonItemRequestBuilder.WithReasonItemRequestBuilderPostQueryParameters>> requestConfiguration = default)
+        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.DisputeDynamicFlowStep body, Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.Step.Item.Item.WithReasonItemRequestBuilder.WithReasonItemRequestBuilderPostQueryParameters>> requestConfiguration = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
