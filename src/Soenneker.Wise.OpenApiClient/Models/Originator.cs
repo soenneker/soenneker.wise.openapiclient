@@ -8,26 +8,26 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Composed type wrapper for classes <see cref="global::Soenneker.Wise.OpenApiClient.Models.OriginatorBUSINESS"/>, <see cref="global::Soenneker.Wise.OpenApiClient.Models.OriginatorPRIVATE"/>
+    /// Composed type wrapper for classes <see cref="global::Soenneker.Wise.OpenApiClient.Models.OriginatorBusiness"/>, <see cref="global::Soenneker.Wise.OpenApiClient.Models.OriginatorPrivate"/>
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class Originator : IComposedTypeWrapper, IParsable
     {
-        /// <summary>Composed type representation for type <see cref="global::Soenneker.Wise.OpenApiClient.Models.OriginatorBUSINESS"/></summary>
+        /// <summary>Composed type representation for type <see cref="global::Soenneker.Wise.OpenApiClient.Models.OriginatorBusiness"/></summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.OriginatorBUSINESS? OriginatorBUSINESS { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.OriginatorBusiness? OriginatorBusiness { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.OriginatorBUSINESS OriginatorBUSINESS { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.OriginatorBusiness OriginatorBusiness { get; set; }
 #endif
-        /// <summary>Composed type representation for type <see cref="global::Soenneker.Wise.OpenApiClient.Models.OriginatorPRIVATE"/></summary>
+        /// <summary>Composed type representation for type <see cref="global::Soenneker.Wise.OpenApiClient.Models.OriginatorPrivate"/></summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.OriginatorPRIVATE? OriginatorPRIVATE { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.OriginatorPrivate? OriginatorPrivate { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.OriginatorPRIVATE OriginatorPRIVATE { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.OriginatorPrivate OriginatorPrivate { get; set; }
 #endif
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
@@ -41,11 +41,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
             var result = new global::Soenneker.Wise.OpenApiClient.Models.Originator();
             if("BUSINESS".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
             {
-                result.OriginatorBUSINESS = new global::Soenneker.Wise.OpenApiClient.Models.OriginatorBUSINESS();
+                result.OriginatorBusiness = new global::Soenneker.Wise.OpenApiClient.Models.OriginatorBusiness();
             }
-            else if("OriginatorPRIVATE".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+            else if("OriginatorPrivate".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
             {
-                result.OriginatorPRIVATE = new global::Soenneker.Wise.OpenApiClient.Models.OriginatorPRIVATE();
+                result.OriginatorPrivate = new global::Soenneker.Wise.OpenApiClient.Models.OriginatorPrivate();
             }
             return result;
         }
@@ -55,13 +55,13 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
         public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
         {
-            if(OriginatorBUSINESS != null)
+            if(OriginatorBusiness != null)
             {
-                return OriginatorBUSINESS.GetFieldDeserializers();
+                return OriginatorBusiness.GetFieldDeserializers();
             }
-            else if(OriginatorPRIVATE != null)
+            else if(OriginatorPrivate != null)
             {
-                return OriginatorPRIVATE.GetFieldDeserializers();
+                return OriginatorPrivate.GetFieldDeserializers();
             }
             return new Dictionary<string, Action<IParseNode>>();
         }
@@ -72,13 +72,13 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            if(OriginatorBUSINESS != null)
+            if(OriginatorBusiness != null)
             {
-                writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.OriginatorBUSINESS>(null, OriginatorBUSINESS);
+                writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.OriginatorBusiness>(null, OriginatorBusiness);
             }
-            else if(OriginatorPRIVATE != null)
+            else if(OriginatorPrivate != null)
             {
-                writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.OriginatorPRIVATE>(null, OriginatorPRIVATE);
+                writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.OriginatorPrivate>(null, OriginatorPrivate);
             }
         }
     }

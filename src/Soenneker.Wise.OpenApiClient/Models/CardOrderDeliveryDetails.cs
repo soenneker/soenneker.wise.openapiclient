@@ -16,7 +16,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The delivery option used on the card order.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.CardOrderDeliveryDetails_deliveryOption? DeliveryOption { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardOrderDeliveryDetailsDeliveryOption? DeliveryOption { get; set; }
         /// <summary>The name of the delivery vendor.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -66,7 +66,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "deliveryOption", n => { DeliveryOption = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CardOrderDeliveryDetails_deliveryOption>(); } },
+                { "deliveryOption", n => { DeliveryOption = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CardOrderDeliveryDetailsDeliveryOption>(); } },
                 { "deliveryVendor", n => { DeliveryVendor = n.GetStringValue(); } },
                 { "trackingNumber", n => { TrackingNumber = n.GetStringValue(); } },
                 { "trackingUrl", n => { TrackingUrl = n.GetStringValue(); } },
@@ -79,7 +79,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CardOrderDeliveryDetails_deliveryOption>("deliveryOption", DeliveryOption);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CardOrderDeliveryDetailsDeliveryOption>("deliveryOption", DeliveryOption);
             writer.WriteStringValue("deliveryVendor", DeliveryVendor);
             writer.WriteStringValue("trackingNumber", TrackingNumber);
             writer.WriteStringValue("trackingUrl", TrackingUrl);

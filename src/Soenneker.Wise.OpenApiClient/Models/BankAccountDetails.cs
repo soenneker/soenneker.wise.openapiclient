@@ -18,10 +18,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Features enabled on the account.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetails_bankFeatures>? BankFeatures { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsBankFeaturesItem>? BankFeatures { get; set; }
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetails_bankFeatures> BankFeatures { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsBankFeaturesItem> BankFeatures { get; set; }
 #endif
         /// <summary>Currency information for the bank account details.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -38,13 +38,13 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>&quot;Available receive options for the given currency:- `LOCAL`: Local bank details to receive money in the account currency- `INTERNATIONAL`: SWIFT bank details to receive money internationally&quot;</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetails_receiveOptions>? ReceiveOptions { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsReceiveOptionsItem>? ReceiveOptions { get; set; }
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetails_receiveOptions> ReceiveOptions { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsReceiveOptionsItem> ReceiveOptions { get; set; }
 #endif
         /// <summary>&quot;Account details status:- `AVAILABLE`: Account details do not exist for the user but may be created- `ACTIVE`: Account details are ready to be used by this user&quot;</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetails_status? Status { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsStatus? Status { get; set; }
         /// <summary>Account subtitle.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -86,12 +86,12 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "bankFeatures", n => { BankFeatures = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetails_bankFeatures>(global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetails_bankFeatures.CreateFromDiscriminatorValue)?.AsList(); } },
+                { "bankFeatures", n => { BankFeatures = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsBankFeaturesItem>(global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsBankFeaturesItem.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "currency", n => { Currency = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsCurrency>(global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsCurrency.CreateFromDiscriminatorValue); } },
                 { "deprecated", n => { Deprecated = n.GetBoolValue(); } },
                 { "id", n => { Id = n.GetLongValue(); } },
-                { "receiveOptions", n => { ReceiveOptions = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetails_receiveOptions>(global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetails_receiveOptions.CreateFromDiscriminatorValue)?.AsList(); } },
-                { "status", n => { Status = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetails_status>(); } },
+                { "receiveOptions", n => { ReceiveOptions = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsReceiveOptionsItem>(global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsReceiveOptionsItem.CreateFromDiscriminatorValue)?.AsList(); } },
+                { "status", n => { Status = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsStatus>(); } },
                 { "subtitle", n => { Subtitle = n.GetStringValue(); } },
                 { "title", n => { Title = n.GetStringValue(); } },
             };
@@ -103,12 +103,12 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetails_bankFeatures>("bankFeatures", BankFeatures);
+            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsBankFeaturesItem>("bankFeatures", BankFeatures);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsCurrency>("currency", Currency);
             writer.WriteBoolValue("deprecated", Deprecated);
             writer.WriteLongValue("id", Id);
-            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetails_receiveOptions>("receiveOptions", ReceiveOptions);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetails_status>("status", Status);
+            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsReceiveOptionsItem>("receiveOptions", ReceiveOptions);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsStatus>("status", Status);
             writer.WriteStringValue("subtitle", Subtitle);
             writer.WriteStringValue("title", Title);
             writer.WriteAdditionalData(AdditionalData);

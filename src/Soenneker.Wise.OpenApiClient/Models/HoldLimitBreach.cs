@@ -18,7 +18,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Amount value.</summary>
         public double? Amount { get; set; }
         /// <summary>Reason the breach was closed, null if state is `OPEN`.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreach_closingReason? ClosingReason { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreachClosingReason? ClosingReason { get; set; }
         /// <summary>Date when the hold limit breach was created.</summary>
         public DateTimeOffset? CreatedAt { get; set; }
         /// <summary>Currency code (ISO 4217 Alphabetic Code).</summary>
@@ -34,7 +34,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>ID of the profile that owns the hold limit breach</summary>
         public long? ProfileId { get; set; }
         /// <summary>Current state of the hold limit breach.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreach_state? State { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreachState? State { get; set; }
         /// <summary>Date when the hold limit breach was last modified.</summary>
         public DateTimeOffset? UpdatedAt { get; set; }
         /// <summary>
@@ -63,12 +63,12 @@ namespace Soenneker.Wise.OpenApiClient.Models
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "amount", n => { Amount = n.GetDoubleValue(); } },
-                { "closingReason", n => { ClosingReason = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreach_closingReason>(); } },
+                { "closingReason", n => { ClosingReason = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreachClosingReason>(); } },
                 { "createdAt", n => { CreatedAt = n.GetDateTimeOffsetValue(); } },
                 { "currency", n => { Currency = n.GetStringValue(); } },
                 { "id", n => { Id = n.GetLongValue(); } },
                 { "profileId", n => { ProfileId = n.GetLongValue(); } },
-                { "state", n => { State = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreach_state>(); } },
+                { "state", n => { State = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreachState>(); } },
                 { "updatedAt", n => { UpdatedAt = n.GetDateTimeOffsetValue(); } },
             };
         }
@@ -80,12 +80,12 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteDoubleValue("amount", Amount);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreach_closingReason>("closingReason", ClosingReason);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreachClosingReason>("closingReason", ClosingReason);
             writer.WriteDateTimeOffsetValue("createdAt", CreatedAt);
             writer.WriteStringValue("currency", Currency);
             writer.WriteLongValue("id", Id);
             writer.WriteLongValue("profileId", ProfileId);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreach_state>("state", State);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreachState>("state", State);
             writer.WriteDateTimeOffsetValue("updatedAt", UpdatedAt);
             writer.WriteAdditionalData(AdditionalData);
         }

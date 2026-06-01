@@ -52,9 +52,9 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Balances.HoldLimitBreach
         /// <returns>A List&lt;global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreach&gt;</returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreachList400">When receiving a 400 status code</exception>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreachList403">When receiving a 403 status code</exception>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreach429Error">When receiving a 429 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreachList400Response">When receiving a 400 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreachList403Response">When receiving a 403 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<List<global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreach>?> PostAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Balances.HoldLimitBreach.HoldLimitBreachRequestBuilder.HoldLimitBreachRequestBuilderPostQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -67,9 +67,9 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Balances.HoldLimitBreach
             var requestInfo = ToPostRequestInformation(requestConfiguration);
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
-                { "400", global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreachList400.CreateFromDiscriminatorValue },
-                { "403", global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreachList403.CreateFromDiscriminatorValue },
-                { "429", global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreach429Error.CreateFromDiscriminatorValue },
+                { "400", global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreachList400Response.CreateFromDiscriminatorValue },
+                { "403", global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreachList403Response.CreateFromDiscriminatorValue },
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
             };
             var collectionResult = await RequestAdapter.SendCollectionAsync<global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreach>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreach.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
             return collectionResult?.AsList();

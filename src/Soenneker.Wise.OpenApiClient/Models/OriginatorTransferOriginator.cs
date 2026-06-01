@@ -43,7 +43,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Payment originator date of birth</summary>
         public Date? DateOfBirth { get; set; }
         /// <summary>Payment originator legal type</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransferOriginator_legalEntityType? LegalEntityType { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransferOriginatorLegalEntityType? LegalEntityType { get; set; }
         /// <summary>The name property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -89,7 +89,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "address", n => { Address = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransferOriginatorAddress>(global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransferOriginatorAddress.CreateFromDiscriminatorValue); } },
                 { "businessRegistrationCode", n => { BusinessRegistrationCode = n.GetStringValue(); } },
                 { "dateOfBirth", n => { DateOfBirth = n.GetDateValue(); } },
-                { "legalEntityType", n => { LegalEntityType = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransferOriginator_legalEntityType>(); } },
+                { "legalEntityType", n => { LegalEntityType = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransferOriginatorLegalEntityType>(); } },
                 { "name", n => { Name = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransferOriginatorName>(global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransferOriginatorName.CreateFromDiscriminatorValue); } },
                 { "reference", n => { Reference = n.GetStringValue(); } },
             };
@@ -105,7 +105,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransferOriginatorAddress>("address", Address);
             writer.WriteStringValue("businessRegistrationCode", BusinessRegistrationCode);
             writer.WriteDateValue("dateOfBirth", DateOfBirth);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransferOriginator_legalEntityType>("legalEntityType", LegalEntityType);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransferOriginatorLegalEntityType>("legalEntityType", LegalEntityType);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransferOriginatorName>("name", Name);
             writer.WriteStringValue("reference", Reference);
             writer.WriteAdditionalData(AdditionalData);

@@ -36,25 +36,25 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.Transfers.Item.DepositDe
         /// <summary>
         /// &quot;Retrieve the bank details for the account that the customer should send funds to when paying for a Wise transfer via a bank transfer.`profileId` in the request URL refers to the profile that created the transfer. It can be either the personal profile ID, or the business profile ID.The `payinBankAccount` field allows the bank details to be displayed dynamically in a user interface, by displaying the label and value fields.Currently, this API supports the following currencies: AUD, BGN, BRL, CAD, CHF, CZK, DKK, EUR, GBP, HKD, HRK, HUF, IDR, INR, JPY, MYR, NOK, NZD, PLN, RON, SEK, SGD, TRY, USD.&quot;
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.PayinDepositDetailGet200"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.PayinDepositDetailGet200Response"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.PayinDepositDetailGet200429Error">When receiving a 429 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.Models.PayinDepositDetailGet200?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.PayinDepositDetailGet200Response?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.Models.PayinDepositDetailGet200> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.PayinDepositDetailGet200Response> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
-                { "429", global::Soenneker.Wise.OpenApiClient.Models.PayinDepositDetailGet200429Error.CreateFromDiscriminatorValue },
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
             };
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.PayinDepositDetailGet200>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.PayinDepositDetailGet200.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.PayinDepositDetailGet200Response>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.PayinDepositDetailGet200Response.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// &quot;Retrieve the bank details for the account that the customer should send funds to when paying for a Wise transfer via a bank transfer.`profileId` in the request URL refers to the profile that created the transfer. It can be either the personal profile ID, or the business profile ID.The `payinBankAccount` field allows the bank details to be displayed dynamically in a user interface, by displaying the label and value fields.Currently, this API supports the following currencies: AUD, BGN, BRL, CAD, CHF, CZK, DKK, EUR, GBP, HKD, HRK, HUF, IDR, INR, JPY, MYR, NOK, NZD, PLN, RON, SEK, SGD, TRY, USD.&quot;

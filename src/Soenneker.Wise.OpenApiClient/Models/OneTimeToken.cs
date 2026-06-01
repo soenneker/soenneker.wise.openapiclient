@@ -18,10 +18,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>An array of challenges.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.OneTimeToken_challenges>? Challenges { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.OneTimeTokenChallengesItem>? Challenges { get; set; }
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.OneTimeToken_challenges> Challenges { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.OneTimeTokenChallengesItem> Challenges { get; set; }
 #endif
         /// <summary>A one-time token unique identifier.</summary>
         public Guid? OneTimeTokenProp { get; set; }
@@ -52,7 +52,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "challenges", n => { Challenges = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.OneTimeToken_challenges>(global::Soenneker.Wise.OpenApiClient.Models.OneTimeToken_challenges.CreateFromDiscriminatorValue)?.AsList(); } },
+                { "challenges", n => { Challenges = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.OneTimeTokenChallengesItem>(global::Soenneker.Wise.OpenApiClient.Models.OneTimeTokenChallengesItem.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "oneTimeToken", n => { OneTimeTokenProp = n.GetGuidValue(); } },
                 { "validity", n => { Validity = n.GetIntValue(); } },
             };
@@ -64,7 +64,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.OneTimeToken_challenges>("challenges", Challenges);
+            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.OneTimeTokenChallengesItem>("challenges", Challenges);
             writer.WriteGuidValue("oneTimeToken", OneTimeTokenProp);
             writer.WriteIntValue("validity", Validity);
             writer.WriteAdditionalData(AdditionalData);

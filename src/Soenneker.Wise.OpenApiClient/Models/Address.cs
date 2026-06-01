@@ -8,63 +8,25 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Address associated with a profile.
+    /// Represents a physical address associated with a profile.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class Address : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>First line of the address.</summary>
+        /// <summary>Address details.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? AddressFirstLine { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.AddressDetails? Details { get; set; }
 #nullable restore
 #else
-        public string AddressFirstLine { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.AddressDetails Details { get; set; }
 #endif
-        /// <summary>City of the address.</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? City { get; set; }
-#nullable restore
-#else
-        public string City { get; set; }
-#endif
-        /// <summary>Two-letter ISO country code.</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? CountryIso2Code { get; set; }
-#nullable restore
-#else
-        public string CountryIso2Code { get; set; }
-#endif
-        /// <summary>Three-letter ISO country code.</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? CountryIso3Code { get; set; }
-#nullable restore
-#else
-        public string CountryIso3Code { get; set; }
-#endif
-        /// <summary>ID of the address.</summary>
+        /// <summary>Address ID.</summary>
         public long? Id { get; set; }
-        /// <summary>Postal code of the address.</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? PostCode { get; set; }
-#nullable restore
-#else
-        public string PostCode { get; set; }
-#endif
-        /// <summary>State code of the address (can be null for some countries).</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? StateCode { get; set; }
-#nullable restore
-#else
-        public string StateCode { get; set; }
-#endif
+        /// <summary>User profile ID.</summary>
+        public long? Profile { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.Address"/> and sets the default values.
         /// </summary>
@@ -90,13 +52,9 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "addressFirstLine", n => { AddressFirstLine = n.GetStringValue(); } },
-                { "city", n => { City = n.GetStringValue(); } },
-                { "countryIso2Code", n => { CountryIso2Code = n.GetStringValue(); } },
-                { "countryIso3Code", n => { CountryIso3Code = n.GetStringValue(); } },
+                { "details", n => { Details = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.AddressDetails>(global::Soenneker.Wise.OpenApiClient.Models.AddressDetails.CreateFromDiscriminatorValue); } },
                 { "id", n => { Id = n.GetLongValue(); } },
-                { "postCode", n => { PostCode = n.GetStringValue(); } },
-                { "stateCode", n => { StateCode = n.GetStringValue(); } },
+                { "profile", n => { Profile = n.GetLongValue(); } },
             };
         }
         /// <summary>
@@ -106,13 +64,9 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteStringValue("addressFirstLine", AddressFirstLine);
-            writer.WriteStringValue("city", City);
-            writer.WriteStringValue("countryIso2Code", CountryIso2Code);
-            writer.WriteStringValue("countryIso3Code", CountryIso3Code);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.AddressDetails>("details", Details);
             writer.WriteLongValue("id", Id);
-            writer.WriteStringValue("postCode", PostCode);
-            writer.WriteStringValue("stateCode", StateCode);
+            writer.WriteLongValue("profile", Profile);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

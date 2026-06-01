@@ -88,7 +88,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public string Token { get; set; }
 #endif
         /// <summary>Method with which physical card spending permissions can be unlocked. One of:- `WITH_PARTNER_API` - Unlock via Partner API- `WITH_FIRST_CHIP_AND_PIN_TRANSACTION` - Unlock with first chip and PIN transaction- `NONE` - Not applicable (for virtual cards)</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.Card_unlockSpendingPermissions? UnlockSpendingPermissions { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardUnlockSpendingPermissions? UnlockSpendingPermissions { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.Card"/> and sets the default values.
         /// </summary>
@@ -126,7 +126,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "profileId", n => { ProfileId = n.GetLongValue(); } },
                 { "status", n => { Status = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardStatus>(global::Soenneker.Wise.OpenApiClient.Models.CardStatus.CreateFromDiscriminatorValue); } },
                 { "token", n => { Token = n.GetStringValue(); } },
-                { "unlockSpendingPermissions", n => { UnlockSpendingPermissions = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.Card_unlockSpendingPermissions>(); } },
+                { "unlockSpendingPermissions", n => { UnlockSpendingPermissions = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CardUnlockSpendingPermissions>(); } },
             };
         }
         /// <summary>
@@ -148,7 +148,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteLongValue("profileId", ProfileId);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardStatus>("status", Status);
             writer.WriteStringValue("token", Token);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.Card_unlockSpendingPermissions>("unlockSpendingPermissions", UnlockSpendingPermissions);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CardUnlockSpendingPermissions>("unlockSpendingPermissions", UnlockSpendingPermissions);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

@@ -16,7 +16,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The type of the card:- `VIRTUAL_NON_UPGRADEABLE`- `PHYSICAL`</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.CardOrderCardProgram_cardType? CardType { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardOrderCardProgramCardType? CardType { get; set; }
         /// <summary>The default currency assigned to the card program.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -34,7 +34,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public string Name { get; set; }
 #endif
         /// <summary>The network of the card program:- `MASTERCARD`- `VISA`</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.CardOrderCardProgram_scheme? Scheme { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardOrderCardProgramScheme? Scheme { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.CardOrderCardProgram"/> and sets the default values.
         /// </summary>
@@ -60,10 +60,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "cardType", n => { CardType = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CardOrderCardProgram_cardType>(); } },
+                { "cardType", n => { CardType = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CardOrderCardProgramCardType>(); } },
                 { "defaultCurrency", n => { DefaultCurrency = n.GetStringValue(); } },
                 { "name", n => { Name = n.GetStringValue(); } },
-                { "scheme", n => { Scheme = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CardOrderCardProgram_scheme>(); } },
+                { "scheme", n => { Scheme = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CardOrderCardProgramScheme>(); } },
             };
         }
         /// <summary>
@@ -73,10 +73,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CardOrderCardProgram_cardType>("cardType", CardType);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CardOrderCardProgramCardType>("cardType", CardType);
             writer.WriteStringValue("defaultCurrency", DefaultCurrency);
             writer.WriteStringValue("name", Name);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CardOrderCardProgram_scheme>("scheme", Scheme);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CardOrderCardProgramScheme>("scheme", Scheme);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

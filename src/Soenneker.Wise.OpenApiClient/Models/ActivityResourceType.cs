@@ -9,95 +9,95 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         [EnumMember(Value = "ACCRUAL_CHARGE")]
         #pragma warning disable CS1591
-        ACCRUAL_CHARGE,
+        AccrualCharge,
         #pragma warning restore CS1591
         [EnumMember(Value = "ACQUIRING_PAYMENT")]
         #pragma warning disable CS1591
-        ACQUIRING_PAYMENT,
+        AcquiringPayment,
         #pragma warning restore CS1591
         [EnumMember(Value = "ASSETS_WITHDRAWAL")]
         #pragma warning disable CS1591
-        ASSETS_WITHDRAWAL,
+        AssetsWithdrawal,
         #pragma warning restore CS1591
         [EnumMember(Value = "BALANCE_CASHBACK")]
         #pragma warning disable CS1591
-        BALANCE_CASHBACK,
+        BalanceCashback,
         #pragma warning restore CS1591
         [EnumMember(Value = "BALANCE_INTEREST")]
         #pragma warning disable CS1591
-        BALANCE_INTEREST,
+        BalanceInterest,
         #pragma warning restore CS1591
         [EnumMember(Value = "BALANCE_TRANSACTION")]
         #pragma warning disable CS1591
-        BALANCE_TRANSACTION,
+        BalanceTransaction,
         #pragma warning restore CS1591
         [EnumMember(Value = "BANK_DETAILS_ORDER")]
         #pragma warning disable CS1591
-        BANK_DETAILS_ORDER,
+        BankDetailsOrder,
         #pragma warning restore CS1591
         [EnumMember(Value = "BATCH_TRANSFER")]
         #pragma warning disable CS1591
-        BATCH_TRANSFER,
+        BatchTransfer,
         #pragma warning restore CS1591
         [EnumMember(Value = "CARD_CASHBACK")]
         #pragma warning disable CS1591
-        CARD_CASHBACK,
+        CardCashback,
         #pragma warning restore CS1591
         [EnumMember(Value = "CARD_ORDER")]
         #pragma warning disable CS1591
-        CARD_ORDER,
+        CardOrder,
         #pragma warning restore CS1591
         [EnumMember(Value = "CARD_TRANSACTION")]
         #pragma warning disable CS1591
-        CARD_TRANSACTION,
+        CardTransaction,
         #pragma warning restore CS1591
         [EnumMember(Value = "DIRECT_DEBIT_INSTRUCTION")]
         #pragma warning disable CS1591
-        DIRECT_DEBIT_INSTRUCTION,
+        DirectDebitInstruction,
         #pragma warning restore CS1591
         [EnumMember(Value = "DIRECT_DEBIT_TRANSACTION")]
         #pragma warning disable CS1591
-        DIRECT_DEBIT_TRANSACTION,
+        DirectDebitTransaction,
         #pragma warning restore CS1591
         [EnumMember(Value = "FEE_REFUND")]
         #pragma warning disable CS1591
-        FEE_REFUND,
+        FeeRefund,
         #pragma warning restore CS1591
         [EnumMember(Value = "INCIDENT_REFUND")]
         #pragma warning disable CS1591
-        INCIDENT_REFUND,
+        IncidentRefund,
         #pragma warning restore CS1591
         [EnumMember(Value = "INCORPORATION_ORDER")]
         #pragma warning disable CS1591
-        INCORPORATION_ORDER,
+        IncorporationOrder,
         #pragma warning restore CS1591
         [EnumMember(Value = "OPERATIONAL_TRANSACTION")]
         #pragma warning disable CS1591
-        OPERATIONAL_TRANSACTION,
+        OperationalTransaction,
         #pragma warning restore CS1591
         [EnumMember(Value = "PAYMENT_REQUEST")]
         #pragma warning disable CS1591
-        PAYMENT_REQUEST,
+        PaymentRequest,
         #pragma warning restore CS1591
         [EnumMember(Value = "REWARD")]
         #pragma warning disable CS1591
-        REWARD,
+        Reward,
         #pragma warning restore CS1591
         [EnumMember(Value = "REWARDS_REDEMPTION")]
         #pragma warning disable CS1591
-        REWARDS_REDEMPTION,
+        RewardsRedemption,
         #pragma warning restore CS1591
         [EnumMember(Value = "SEND_ORDER")]
         #pragma warning disable CS1591
-        SEND_ORDER,
+        SendOrder,
         #pragma warning restore CS1591
         [EnumMember(Value = "SEND_ORDER_EXECUTION")]
         #pragma warning disable CS1591
-        SEND_ORDER_EXECUTION,
+        SendOrderExecution,
         #pragma warning restore CS1591
         [EnumMember(Value = "TRANSFER")]
         #pragma warning disable CS1591
-        TRANSFER,
+        Transfer,
         #pragma warning restore CS1591
     }
 }

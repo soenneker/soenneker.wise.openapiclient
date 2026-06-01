@@ -40,7 +40,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public string Name { get; set; }
 #endif
         /// <summary>Card network scheme.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.CardCardProgram_scheme? Scheme { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardCardProgramScheme? Scheme { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.CardCardProgram"/> and sets the default values.
         /// </summary>
@@ -69,7 +69,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "cardType", n => { CardType = n.GetStringValue(); } },
                 { "defaultCurrency", n => { DefaultCurrency = n.GetStringValue(); } },
                 { "name", n => { Name = n.GetStringValue(); } },
-                { "scheme", n => { Scheme = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CardCardProgram_scheme>(); } },
+                { "scheme", n => { Scheme = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CardCardProgramScheme>(); } },
             };
         }
         /// <summary>
@@ -82,7 +82,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteStringValue("cardType", CardType);
             writer.WriteStringValue("defaultCurrency", DefaultCurrency);
             writer.WriteStringValue("name", Name);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CardCardProgram_scheme>("scheme", Scheme);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CardCardProgramScheme>("scheme", Scheme);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

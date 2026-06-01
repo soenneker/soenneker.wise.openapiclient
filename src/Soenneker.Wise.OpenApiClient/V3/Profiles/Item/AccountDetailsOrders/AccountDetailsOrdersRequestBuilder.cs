@@ -36,25 +36,25 @@ namespace Soenneker.Wise.OpenApiClient.V3.Profiles.Item.AccountDetailsOrders
         /// <summary>
         /// &quot;Returns the bank account assignment requests for a profile and multi-currency account.The response includes bank-details orders in the following statuses: `PENDING_USER`, `PENDING_TW`, `REQUIREMENTS_FULFILLED`, `DONE`.&quot;
         /// </summary>
-        /// <returns>A List&lt;global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.AccountDetailsOrders.AccountDetailsOrders&gt;</returns>
+        /// <returns>A List&lt;global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsOrdersList200ResponseResponseJsonItem&gt;</returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.AccountDetailsOrders429Error">When receiving a 429 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<List<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.AccountDetailsOrders.AccountDetailsOrders>?> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.AccountDetailsOrders.AccountDetailsOrdersRequestBuilder.AccountDetailsOrdersRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<List<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsOrdersList200ResponseResponseJsonItem>?> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.AccountDetailsOrders.AccountDetailsOrdersRequestBuilder.AccountDetailsOrdersRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<List<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.AccountDetailsOrders.AccountDetailsOrders>> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.AccountDetailsOrders.AccountDetailsOrdersRequestBuilder.AccountDetailsOrdersRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<List<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsOrdersList200ResponseResponseJsonItem>> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.AccountDetailsOrders.AccountDetailsOrdersRequestBuilder.AccountDetailsOrdersRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
-                { "429", global::Soenneker.Wise.OpenApiClient.Models.AccountDetailsOrders429Error.CreateFromDiscriminatorValue },
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
             };
-            var collectionResult = await RequestAdapter.SendCollectionAsync<global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.AccountDetailsOrders.AccountDetailsOrders>(requestInfo, global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.AccountDetailsOrders.AccountDetailsOrders.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
+            var collectionResult = await RequestAdapter.SendCollectionAsync<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsOrdersList200ResponseResponseJsonItem>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsOrdersList200ResponseResponseJsonItem.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
             return collectionResult?.AsList();
         }
         /// <summary>

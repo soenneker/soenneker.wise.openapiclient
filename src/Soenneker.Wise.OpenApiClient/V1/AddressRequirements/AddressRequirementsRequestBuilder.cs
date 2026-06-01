@@ -39,7 +39,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.AddressRequirements
         /// <returns>A List&lt;global::Soenneker.Wise.OpenApiClient.Models.AddressRequirementsResponseItem&gt;</returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.AddressRequirements429Error">When receiving a 429 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<List<global::Soenneker.Wise.OpenApiClient.Models.AddressRequirementsResponseItem>?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -52,7 +52,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.AddressRequirements
             var requestInfo = ToGetRequestInformation(requestConfiguration);
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
-                { "429", global::Soenneker.Wise.OpenApiClient.Models.AddressRequirements429Error.CreateFromDiscriminatorValue },
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
             };
             var collectionResult = await RequestAdapter.SendCollectionAsync<global::Soenneker.Wise.OpenApiClient.Models.AddressRequirementsResponseItem>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.AddressRequirementsResponseItem.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
             return collectionResult?.AsList();
@@ -64,7 +64,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.AddressRequirements
         /// <param name="body">Request body for retrieving address requirements based on context.</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.AddressRequirements429Error">When receiving a 429 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<List<global::Soenneker.Wise.OpenApiClient.Models.AddressRequirementsResponseItem>?> PostAsync(global::Soenneker.Wise.OpenApiClient.Models.AddressRequirementsRequest body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -78,7 +78,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.AddressRequirements
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
-                { "429", global::Soenneker.Wise.OpenApiClient.Models.AddressRequirements429Error.CreateFromDiscriminatorValue },
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
             };
             var collectionResult = await RequestAdapter.SendCollectionAsync<global::Soenneker.Wise.OpenApiClient.Models.AddressRequirementsResponseItem>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.AddressRequirementsResponseItem.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
             return collectionResult?.AsList();

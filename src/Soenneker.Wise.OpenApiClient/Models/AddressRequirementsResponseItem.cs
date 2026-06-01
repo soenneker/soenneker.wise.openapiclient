@@ -17,10 +17,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>List of fields required for the address.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.AddressRequirementsResponseItem_fields>? Fields { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.AddressRequirementsResponseItemFieldsItem>? Fields { get; set; }
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.AddressRequirementsResponseItem_fields> Fields { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.AddressRequirementsResponseItemFieldsItem> Fields { get; set; }
 #endif
         /// <summary>Always &quot;address&quot;.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -55,7 +55,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "fields", n => { Fields = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.AddressRequirementsResponseItem_fields>(global::Soenneker.Wise.OpenApiClient.Models.AddressRequirementsResponseItem_fields.CreateFromDiscriminatorValue)?.AsList(); } },
+                { "fields", n => { Fields = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.AddressRequirementsResponseItemFieldsItem>(global::Soenneker.Wise.OpenApiClient.Models.AddressRequirementsResponseItemFieldsItem.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "type", n => { Type = n.GetStringValue(); } },
             };
         }
@@ -66,7 +66,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.AddressRequirementsResponseItem_fields>("fields", Fields);
+            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.AddressRequirementsResponseItemFieldsItem>("fields", Fields);
             writer.WriteStringValue("type", Type);
             writer.WriteAdditionalData(AdditionalData);
         }

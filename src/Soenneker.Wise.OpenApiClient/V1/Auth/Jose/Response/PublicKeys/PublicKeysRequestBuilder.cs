@@ -36,25 +36,25 @@ namespace Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys
         /// <summary>
         /// Returns a public key issued by Wise.Depending on the scope requested, the key will be used for verifying HTTP responses signed by Wise or for for encrypting the payload prior to sending it to Wise.For both signature verification and payload encryption, the process involves storing this public key after retrieval. In both cases, the stored public key should be used without calling this endpoint.If verification of the signed request fails or Wise is unable to decrypt your request payload, call this API to issue a fresh key from Wise and reattempt the operation again.{% admonition type=&quot;warning&quot; %}  This endpoint requires a client credentials token, not a user level access token. Make sure you use your client details to fetch a valid [client credentials token](/api-reference/oauth-token/oauthtokencreate) before performing this call.{% /admonition %}
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.JoseResponsePublicKeysGet200"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.JoseResponsePublicKeysGet200Response"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.JoseResponsePublicKeysGet200429Error">When receiving a 429 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.Models.JoseResponsePublicKeysGet200?> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys.PublicKeysRequestBuilder.PublicKeysRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.JoseResponsePublicKeysGet200Response?> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys.PublicKeysRequestBuilder.PublicKeysRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.Models.JoseResponsePublicKeysGet200> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys.PublicKeysRequestBuilder.PublicKeysRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.JoseResponsePublicKeysGet200Response> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys.PublicKeysRequestBuilder.PublicKeysRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
-                { "429", global::Soenneker.Wise.OpenApiClient.Models.JoseResponsePublicKeysGet200429Error.CreateFromDiscriminatorValue },
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
             };
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.JoseResponsePublicKeysGet200>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.JoseResponsePublicKeysGet200.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.JoseResponsePublicKeysGet200Response>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.JoseResponsePublicKeysGet200Response.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Returns a public key issued by Wise.Depending on the scope requested, the key will be used for verifying HTTP responses signed by Wise or for for encrypting the payload prior to sending it to Wise.For both signature verification and payload encryption, the process involves storing this public key after retrieval. In both cases, the stored public key should be used without calling this endpoint.If verification of the signed request fails or Wise is unable to decrypt your request payload, call this API to issue a fresh key from Wise and reattempt the operation again.{% admonition type=&quot;warning&quot; %}  This endpoint requires a client credentials token, not a user level access token. Make sure you use your client details to fetch a valid [client credentials token](/api-reference/oauth-token/oauthtokencreate) before performing this call.{% /admonition %}
@@ -92,10 +92,10 @@ namespace Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys
         {
             /// <summary>&quot;Algorithm to be used for signature verification or payload encryption. This must match the algorithm used during request.- Signature verification (Scope: `PAYLOAD_SIGNING`): `ES256`, `ES384`, `ES512`, `PS256`, `PS384`, `PS512`- Payload encryption (Scope: `PAYLOAD_ENCRYPTION`): `RSA_OAEP_256`&quot;</summary>
             [QueryParameter("algorithm")]
-            public global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys.GetAlgorithmQueryParameterType? Algorithm { get; set; }
+            public global::Soenneker.Wise.OpenApiClient.Models.JoseResponsePublicKeysGetAlgorithmParameter? Algorithm { get; set; }
             /// <summary>Scope of the key. Must be `PAYLOAD_SIGNING` or `PAYLOAD_ENCRYPTION`.</summary>
             [QueryParameter("scope")]
-            public global::Soenneker.Wise.OpenApiClient.V1.Auth.Jose.Response.PublicKeys.GetScopeQueryParameterType? Scope { get; set; }
+            public global::Soenneker.Wise.OpenApiClient.Models.JoseResponsePublicKeysGetScopeParameter? Scope { get; set; }
             /// <summary>Fetch a specific public key version. If omitted the most recent public key is provided.</summary>
             [QueryParameter("version")]
             public int? Version { get; set; }

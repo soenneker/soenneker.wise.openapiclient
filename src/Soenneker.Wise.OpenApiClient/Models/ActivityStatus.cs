@@ -9,23 +9,23 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         [EnumMember(Value = "REQUIRES_ATTENTION")]
         #pragma warning disable CS1591
-        REQUIRES_ATTENTION,
+        RequiresAttention,
         #pragma warning restore CS1591
         [EnumMember(Value = "IN_PROGRESS")]
         #pragma warning disable CS1591
-        IN_PROGRESS,
+        InProgress,
         #pragma warning restore CS1591
         [EnumMember(Value = "UPCOMING")]
         #pragma warning disable CS1591
-        UPCOMING,
+        Upcoming,
         #pragma warning restore CS1591
         [EnumMember(Value = "COMPLETED")]
         #pragma warning disable CS1591
-        COMPLETED,
+        Completed,
         #pragma warning restore CS1591
         [EnumMember(Value = "CANCELLED")]
         #pragma warning disable CS1591
-        CANCELLED,
+        Cancelled,
         #pragma warning restore CS1591
     }
 }

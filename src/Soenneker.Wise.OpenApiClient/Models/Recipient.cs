@@ -28,10 +28,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Map of key lookup fields on the account.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.Recipient_commonFieldMap? CommonFieldMap { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.RecipientCommonFieldMapProperty? CommonFieldMap { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.Recipient_commonFieldMap CommonFieldMap { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.RecipientCommonFieldMapProperty CommonFieldMap { get; set; }
 #endif
         /// <summary>Verification results for the recipient&apos;s details. Only populated for currencies with recipient verification enabled (CNY, KRW, INR, IDR, EUR). See the [Recipient verification guides](/guides/product/send-money/recipient-verification) for how to handle these.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -70,10 +70,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Lookup fields (key/label/value) for rendering a UI.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.Recipient_displayFields>? DisplayFields { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.RecipientDisplayFieldsItem>? DisplayFields { get; set; }
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.Recipient_displayFields> DisplayFields { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.RecipientDisplayFieldsItem> DisplayFields { get; set; }
 #endif
         /// <summary>Account hash for change tracking.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -150,13 +150,13 @@ namespace Soenneker.Wise.OpenApiClient.Models
             {
                 { "accountSummary", n => { AccountSummary = n.GetStringValue(); } },
                 { "active", n => { Active = n.GetBoolValue(); } },
-                { "commonFieldMap", n => { CommonFieldMap = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Recipient_commonFieldMap>(global::Soenneker.Wise.OpenApiClient.Models.Recipient_commonFieldMap.CreateFromDiscriminatorValue); } },
+                { "commonFieldMap", n => { CommonFieldMap = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.RecipientCommonFieldMapProperty>(global::Soenneker.Wise.OpenApiClient.Models.RecipientCommonFieldMapProperty.CreateFromDiscriminatorValue); } },
                 { "confirmations", n => { Confirmations = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.RecipientConfirmations>(global::Soenneker.Wise.OpenApiClient.Models.RecipientConfirmations.CreateFromDiscriminatorValue); } },
                 { "country", n => { Country = n.GetStringValue(); } },
                 { "creatorId", n => { CreatorId = n.GetLongValue(); } },
                 { "currency", n => { Currency = n.GetStringValue(); } },
                 { "details", n => { Details = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.RecipientDetails>(global::Soenneker.Wise.OpenApiClient.Models.RecipientDetails.CreateFromDiscriminatorValue); } },
-                { "displayFields", n => { DisplayFields = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.Recipient_displayFields>(global::Soenneker.Wise.OpenApiClient.Models.Recipient_displayFields.CreateFromDiscriminatorValue)?.AsList(); } },
+                { "displayFields", n => { DisplayFields = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.RecipientDisplayFieldsItem>(global::Soenneker.Wise.OpenApiClient.Models.RecipientDisplayFieldsItem.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "hash", n => { Hash = n.GetStringValue(); } },
                 { "id", n => { Id = n.GetLongValue(); } },
                 { "isInternal", n => { IsInternal = n.GetBoolValue(); } },
@@ -177,13 +177,13 @@ namespace Soenneker.Wise.OpenApiClient.Models
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("accountSummary", AccountSummary);
             writer.WriteBoolValue("active", Active);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Recipient_commonFieldMap>("commonFieldMap", CommonFieldMap);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.RecipientCommonFieldMapProperty>("commonFieldMap", CommonFieldMap);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.RecipientConfirmations>("confirmations", Confirmations);
             writer.WriteStringValue("country", Country);
             writer.WriteLongValue("creatorId", CreatorId);
             writer.WriteStringValue("currency", Currency);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.RecipientDetails>("details", Details);
-            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.Recipient_displayFields>("displayFields", DisplayFields);
+            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.RecipientDisplayFieldsItem>("displayFields", DisplayFields);
             writer.WriteStringValue("hash", Hash);
             writer.WriteLongValue("id", Id);
             writer.WriteBoolValue("isInternal", IsInternal);

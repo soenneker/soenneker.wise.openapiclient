@@ -47,7 +47,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public string Reason { get; set; }
 #endif
         /// <summary>Dispute overall status.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.Dispute_status? Status { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.DisputeStatus? Status { get; set; }
         /// <summary>Explanation for `subStatus`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -57,7 +57,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public string StatusMessage { get; set; }
 #endif
         /// <summary>Dispute detailed status.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.Dispute_subStatus? SubStatus { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.DisputeSubStatus? SubStatus { get; set; }
         /// <summary>Card transaction ID.</summary>
         public long? TransactionId { get; set; }
         /// <summary>
@@ -92,9 +92,9 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "lastUpdatedAt", n => { LastUpdatedAt = n.GetDateTimeOffsetValue(); } },
                 { "profileId", n => { ProfileId = n.GetLongValue(); } },
                 { "reason", n => { Reason = n.GetStringValue(); } },
-                { "status", n => { Status = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.Dispute_status>(); } },
+                { "status", n => { Status = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.DisputeStatus>(); } },
                 { "statusMessage", n => { StatusMessage = n.GetStringValue(); } },
-                { "subStatus", n => { SubStatus = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.Dispute_subStatus>(); } },
+                { "subStatus", n => { SubStatus = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.DisputeSubStatus>(); } },
                 { "transactionId", n => { TransactionId = n.GetLongValue(); } },
             };
         }
@@ -112,9 +112,9 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteDateTimeOffsetValue("lastUpdatedAt", LastUpdatedAt);
             writer.WriteLongValue("profileId", ProfileId);
             writer.WriteStringValue("reason", Reason);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.Dispute_status>("status", Status);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.DisputeStatus>("status", Status);
             writer.WriteStringValue("statusMessage", StatusMessage);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.Dispute_subStatus>("subStatus", SubStatus);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.DisputeSubStatus>("subStatus", SubStatus);
             writer.WriteLongValue("transactionId", TransactionId);
             writer.WriteAdditionalData(AdditionalData);
         }

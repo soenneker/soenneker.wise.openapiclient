@@ -39,7 +39,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Quotes.Item.AccountRequirements
         /// <returns>A List&lt;global::Soenneker.Wise.OpenApiClient.Models.AccountRequirementsResponseItem&gt;</returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.AccountRequirements429Error">When receiving a 429 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<List<global::Soenneker.Wise.OpenApiClient.Models.AccountRequirementsResponseItem>?> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.Quotes.Item.AccountRequirements.AccountRequirementsRequestBuilder.AccountRequirementsRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -52,7 +52,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Quotes.Item.AccountRequirements
             var requestInfo = ToGetRequestInformation(requestConfiguration);
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
-                { "429", global::Soenneker.Wise.OpenApiClient.Models.AccountRequirements429Error.CreateFromDiscriminatorValue },
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
             };
             var collectionResult = await RequestAdapter.SendCollectionAsync<global::Soenneker.Wise.OpenApiClient.Models.AccountRequirementsResponseItem>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.AccountRequirementsResponseItem.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
             return collectionResult?.AsList();
@@ -64,7 +64,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Quotes.Item.AccountRequirements
         /// <param name="body">Create a recipient (beneficiary) account request for POST /v1/accounts. The required fields inside `details` depend on currency/route; use the account-requirements endpoints (e.g. /v1/quotes/{quoteId}/account-requirements) to discover the exact required fields.</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.AccountRequirements429Error">When receiving a 429 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<List<global::Soenneker.Wise.OpenApiClient.Models.AccountRequirementsResponseItem>?> PostAsync(global::Soenneker.Wise.OpenApiClient.Models.RecipientCreateRequest body, Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.Quotes.Item.AccountRequirements.AccountRequirementsRequestBuilder.AccountRequirementsRequestBuilderPostQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -78,7 +78,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Quotes.Item.AccountRequirements
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
-                { "429", global::Soenneker.Wise.OpenApiClient.Models.AccountRequirements429Error.CreateFromDiscriminatorValue },
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
             };
             var collectionResult = await RequestAdapter.SendCollectionAsync<global::Soenneker.Wise.OpenApiClient.Models.AccountRequirementsResponseItem>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.AccountRequirementsResponseItem.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
             return collectionResult?.AsList();
@@ -144,7 +144,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Quotes.Item.AccountRequirements
             public bool? AddressRequired { get; set; }
             /// <summary>Legal entity type override for the actual sender.</summary>
             [QueryParameter("originatorLegalEntityType")]
-            public global::Soenneker.Wise.OpenApiClient.V1.Quotes.Item.AccountRequirements.GetOriginatorLegalEntityTypeQueryParameterType? OriginatorLegalEntityType { get; set; }
+            public global::Soenneker.Wise.OpenApiClient.Models.RecipientAccountRequirementsGetOriginatorLegalEntityTypeParameter? OriginatorLegalEntityType { get; set; }
         }
         /// <summary>
         /// POST the same recipient account payload that you will POST to `/v1/accounts`.Use this endpoint after setting any field that has `refreshRequirementsOnChange=true` in the GET response,to discover any additional required fields.See the [GET endpoint](/api-reference/recipient/recipientaccountrequirementsget) for a full overview of how the account requirements flow works.
@@ -154,7 +154,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Quotes.Item.AccountRequirements
         {
             /// <summary>Legal entity type override for the actual sender.</summary>
             [QueryParameter("originatorLegalEntityType")]
-            public global::Soenneker.Wise.OpenApiClient.V1.Quotes.Item.AccountRequirements.PostOriginatorLegalEntityTypeQueryParameterType? OriginatorLegalEntityType { get; set; }
+            public global::Soenneker.Wise.OpenApiClient.Models.RecipientAccountRequirementsPostOriginatorLegalEntityTypeParameter? OriginatorLegalEntityType { get; set; }
         }
     }
 }

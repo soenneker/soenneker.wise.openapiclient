@@ -40,21 +40,21 @@ namespace Soenneker.Wise.OpenApiClient.V2.Accounts.Item.Confirmations
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Recipient429Error">When receiving a 429 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.Models.Recipient?> PatchAsync(global::Soenneker.Wise.OpenApiClient.Models.RecipientConfirmationsAccept body, Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V2.Accounts.Item.Confirmations.ConfirmationsRequestBuilder.ConfirmationsRequestBuilderPatchQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.Recipient?> PatchAsync(global::Soenneker.Wise.OpenApiClient.Models.RecipientConfirmationsAcceptRequest body, Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V2.Accounts.Item.Confirmations.ConfirmationsRequestBuilder.ConfirmationsRequestBuilderPatchQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.Models.Recipient> PatchAsync(global::Soenneker.Wise.OpenApiClient.Models.RecipientConfirmationsAccept body, Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V2.Accounts.Item.Confirmations.ConfirmationsRequestBuilder.ConfirmationsRequestBuilderPatchQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.Recipient> PatchAsync(global::Soenneker.Wise.OpenApiClient.Models.RecipientConfirmationsAcceptRequest body, Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V2.Accounts.Item.Confirmations.ConfirmationsRequestBuilder.ConfirmationsRequestBuilderPatchQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPatchRequestInformation(body, requestConfiguration);
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
-                { "429", global::Soenneker.Wise.OpenApiClient.Models.Recipient429Error.CreateFromDiscriminatorValue },
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
             };
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.Recipient>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.Recipient.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
@@ -66,11 +66,11 @@ namespace Soenneker.Wise.OpenApiClient.V2.Accounts.Item.Confirmations
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToPatchRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.RecipientConfirmationsAccept body, Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V2.Accounts.Item.Confirmations.ConfirmationsRequestBuilder.ConfirmationsRequestBuilderPatchQueryParameters>>? requestConfiguration = default)
+        public RequestInformation ToPatchRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.RecipientConfirmationsAcceptRequest body, Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V2.Accounts.Item.Confirmations.ConfirmationsRequestBuilder.ConfirmationsRequestBuilderPatchQueryParameters>>? requestConfiguration = default)
         {
 #nullable restore
 #else
-        public RequestInformation ToPatchRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.RecipientConfirmationsAccept body, Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V2.Accounts.Item.Confirmations.ConfirmationsRequestBuilder.ConfirmationsRequestBuilderPatchQueryParameters>> requestConfiguration = default)
+        public RequestInformation ToPatchRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.RecipientConfirmationsAcceptRequest body, Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V2.Accounts.Item.Confirmations.ConfirmationsRequestBuilder.ConfirmationsRequestBuilderPatchQueryParameters>> requestConfiguration = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));

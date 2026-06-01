@@ -15,7 +15,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>OAuth 2.0 grant type.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.RefreshTokenGrant_grant_type? GrantType { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.RefreshTokenGrantGrantType? GrantType { get; set; }
         /// <summary>Refresh token obtained from a `registration_code` or `authorization_code` grant.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -49,7 +49,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "grant_type", n => { GrantType = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.RefreshTokenGrant_grant_type>(); } },
+                { "grant_type", n => { GrantType = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.RefreshTokenGrantGrantType>(); } },
                 { "refresh_token", n => { RefreshToken = n.GetStringValue(); } },
             };
         }
@@ -60,7 +60,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.RefreshTokenGrant_grant_type>("grant_type", GrantType);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.RefreshTokenGrantGrantType>("grant_type", GrantType);
             writer.WriteStringValue("refresh_token", RefreshToken);
             writer.WriteAdditionalData(AdditionalData);
         }

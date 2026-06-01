@@ -42,10 +42,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>User occupations. Required for CA, IN, JP, ID, IL, MX, and within the US for state NM.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.AddressRequestDetails_occupations>? Occupations { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.AddressRequestDetailsOccupationsItem>? Occupations { get; set; }
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.AddressRequestDetails_occupations> Occupations { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.AddressRequestDetailsOccupationsItem> Occupations { get; set; }
 #endif
         /// <summary>Postal / zip code (max 30 characters).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -91,7 +91,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "city", n => { City = n.GetStringValue(); } },
                 { "country", n => { Country = n.GetStringValue(); } },
                 { "firstLine", n => { FirstLine = n.GetStringValue(); } },
-                { "occupations", n => { Occupations = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.AddressRequestDetails_occupations>(global::Soenneker.Wise.OpenApiClient.Models.AddressRequestDetails_occupations.CreateFromDiscriminatorValue)?.AsList(); } },
+                { "occupations", n => { Occupations = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.AddressRequestDetailsOccupationsItem>(global::Soenneker.Wise.OpenApiClient.Models.AddressRequestDetailsOccupationsItem.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "postCode", n => { PostCode = n.GetStringValue(); } },
                 { "state", n => { State = n.GetStringValue(); } },
             };
@@ -106,7 +106,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteStringValue("city", City);
             writer.WriteStringValue("country", Country);
             writer.WriteStringValue("firstLine", FirstLine);
-            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.AddressRequestDetails_occupations>("occupations", Occupations);
+            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.AddressRequestDetailsOccupationsItem>("occupations", Occupations);
             writer.WriteStringValue("postCode", PostCode);
             writer.WriteStringValue("state", State);
             writer.WriteAdditionalData(AdditionalData);

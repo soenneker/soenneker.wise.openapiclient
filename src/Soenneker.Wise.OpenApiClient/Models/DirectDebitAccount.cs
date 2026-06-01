@@ -33,7 +33,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Direct debit account ID</summary>
         public long? Id { get; set; }
         /// <summary>Payment type for which the account is used.- `ACH` — US direct debit (USD)- `EFT` — CA direct debit (CAD)</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.DirectDebitAccount_type? Type { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.DirectDebitAccountType? Type { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.DirectDebitAccount"/> and sets the default values.
         /// </summary>
@@ -62,7 +62,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "currency", n => { Currency = n.GetStringValue(); } },
                 { "details", n => { Details = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.DirectDebitAccountDetails>(global::Soenneker.Wise.OpenApiClient.Models.DirectDebitAccountDetails.CreateFromDiscriminatorValue); } },
                 { "id", n => { Id = n.GetLongValue(); } },
-                { "type", n => { Type = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.DirectDebitAccount_type>(); } },
+                { "type", n => { Type = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.DirectDebitAccountType>(); } },
             };
         }
         /// <summary>
@@ -75,7 +75,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteStringValue("currency", Currency);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.DirectDebitAccountDetails>("details", Details);
             writer.WriteLongValue("id", Id);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.DirectDebitAccount_type>("type", Type);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.DirectDebitAccountType>("type", Type);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

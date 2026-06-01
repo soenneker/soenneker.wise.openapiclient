@@ -91,7 +91,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public string ReplacesCard { get; set; }
 #endif
         /// <summary>Status of the card order. See [card order status flow](/api-reference/card-order#card-order-status-flow) for details.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.CardOrder_status? Status { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardOrderStatus? Status { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.CardOrder"/> and sets the default values.
         /// </summary>
@@ -131,7 +131,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "phoneNumber", n => { PhoneNumber = n.GetStringValue(); } },
                 { "profileId", n => { ProfileId = n.GetLongValue(); } },
                 { "replacesCard", n => { ReplacesCard = n.GetStringValue(); } },
-                { "status", n => { Status = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CardOrder_status>(); } },
+                { "status", n => { Status = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CardOrderStatus>(); } },
             };
         }
         /// <summary>
@@ -155,7 +155,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteStringValue("phoneNumber", PhoneNumber);
             writer.WriteLongValue("profileId", ProfileId);
             writer.WriteStringValue("replacesCard", ReplacesCard);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CardOrder_status>("status", Status);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CardOrderStatus>("status", Status);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

@@ -31,7 +31,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public string Email { get; set; }
 #endif
         /// <summary>OAuth 2.0 grant type.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.RegistrationCodeGrant_grant_type? GrantType { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.RegistrationCodeGrantGrantType? GrantType { get; set; }
         /// <summary>Registration code obtained when creating the user via `POST /v1/user/signup/registration_code`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -67,7 +67,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             {
                 { "client_id", n => { ClientId = n.GetStringValue(); } },
                 { "email", n => { Email = n.GetStringValue(); } },
-                { "grant_type", n => { GrantType = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.RegistrationCodeGrant_grant_type>(); } },
+                { "grant_type", n => { GrantType = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.RegistrationCodeGrantGrantType>(); } },
                 { "registration_code", n => { RegistrationCode = n.GetStringValue(); } },
             };
         }
@@ -80,7 +80,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("client_id", ClientId);
             writer.WriteStringValue("email", Email);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.RegistrationCodeGrant_grant_type>("grant_type", GrantType);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.RegistrationCodeGrantGrantType>("grant_type", GrantType);
             writer.WriteStringValue("registration_code", RegistrationCode);
             writer.WriteAdditionalData(AdditionalData);
         }

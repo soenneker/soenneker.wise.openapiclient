@@ -23,7 +23,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public global::Soenneker.Wise.OpenApiClient.Models.ProfileLimitsAggregateWindow AggregateWindow { get; set; }
 #endif
         /// <summary>The type of transaction. `PURCHASE` is a combined limit that applies to contactless, magnetic, online purchase, chip and PIN/mobile wallet transactions.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.ProfileLimits_type? Type { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.ProfileLimitsType? Type { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.ProfileLimits"/> and sets the default values.
         /// </summary>
@@ -50,7 +50,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "aggregateWindow", n => { AggregateWindow = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileLimitsAggregateWindow>(global::Soenneker.Wise.OpenApiClient.Models.ProfileLimitsAggregateWindow.CreateFromDiscriminatorValue); } },
-                { "type", n => { Type = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileLimits_type>(); } },
+                { "type", n => { Type = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileLimitsType>(); } },
             };
         }
         /// <summary>
@@ -61,7 +61,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileLimitsAggregateWindow>("aggregateWindow", AggregateWindow);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileLimits_type>("type", Type);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileLimitsType>("type", Type);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

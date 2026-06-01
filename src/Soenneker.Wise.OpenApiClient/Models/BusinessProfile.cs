@@ -17,10 +17,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Address associated with a profile.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.Address? Address { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.Address2? Address { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.Address Address { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.Address2 Address { get; set; }
 #endif
         /// <summary>Free-form description of the business activities.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -39,7 +39,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public string BusinessName { get; set; }
 #endif
         /// <summary>Role of the person managing the business profile.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.BusinessProfile_companyRole? CompanyRole { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.BusinessProfileCompanyRole? CompanyRole { get; set; }
         /// <summary>Type of company.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -59,7 +59,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Timestamp when the profile was created (ISO 8601 format).</summary>
         public DateTimeOffset? CreatedAt { get; set; }
         /// <summary>Current status of this profile.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.BusinessProfile_currentState? CurrentState { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.BusinessProfileCurrentState? CurrentState { get; set; }
         /// <summary>Brief description of the business.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -97,10 +97,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>An array of operational addresses for the business.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.Address>? OperationalAddresses { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.Address2>? OperationalAddresses { get; set; }
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.Address> OperationalAddresses { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.Address2> OperationalAddresses { get; set; }
 #endif
         /// <summary>Publicly accessible identifier for the profile.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -127,7 +127,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public string SecondLevelCategory { get; set; }
 #endif
         /// <summary>Type of profile.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.BusinessProfile_type? Type { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.BusinessProfileType? Type { get; set; }
         /// <summary>Timestamp when the profile was last updated (ISO 8601 format).</summary>
         public DateTimeOffset? UpdatedAt { get; set; }
         /// <summary>The ID of the user associated with this profile.</summary>
@@ -165,24 +165,24 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "address", n => { Address = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Address>(global::Soenneker.Wise.OpenApiClient.Models.Address.CreateFromDiscriminatorValue); } },
+                { "address", n => { Address = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Address2>(global::Soenneker.Wise.OpenApiClient.Models.Address2.CreateFromDiscriminatorValue); } },
                 { "businessFreeFormDescription", n => { BusinessFreeFormDescription = n.GetStringValue(); } },
                 { "businessName", n => { BusinessName = n.GetStringValue(); } },
-                { "companyRole", n => { CompanyRole = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BusinessProfile_companyRole>(); } },
+                { "companyRole", n => { CompanyRole = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BusinessProfileCompanyRole>(); } },
                 { "companyType", n => { CompanyType = n.GetStringValue(); } },
                 { "contactDetails", n => { ContactDetails = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.BusinessProfileContactDetails>(global::Soenneker.Wise.OpenApiClient.Models.BusinessProfileContactDetails.CreateFromDiscriminatorValue); } },
                 { "createdAt", n => { CreatedAt = n.GetDateTimeOffsetValue(); } },
-                { "currentState", n => { CurrentState = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BusinessProfile_currentState>(); } },
+                { "currentState", n => { CurrentState = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BusinessProfileCurrentState>(); } },
                 { "descriptionOfBusiness", n => { DescriptionOfBusiness = n.GetStringValue(); } },
                 { "email", n => { Email = n.GetStringValue(); } },
                 { "firstLevelCategory", n => { FirstLevelCategory = n.GetStringValue(); } },
                 { "fullName", n => { FullName = n.GetStringValue(); } },
                 { "id", n => { Id = n.GetLongValue(); } },
-                { "operationalAddresses", n => { OperationalAddresses = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.Address>(global::Soenneker.Wise.OpenApiClient.Models.Address.CreateFromDiscriminatorValue)?.AsList(); } },
+                { "operationalAddresses", n => { OperationalAddresses = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.Address2>(global::Soenneker.Wise.OpenApiClient.Models.Address2.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "publicId", n => { PublicId = n.GetStringValue(); } },
                 { "registrationNumber", n => { RegistrationNumber = n.GetStringValue(); } },
                 { "secondLevelCategory", n => { SecondLevelCategory = n.GetStringValue(); } },
-                { "type", n => { Type = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BusinessProfile_type>(); } },
+                { "type", n => { Type = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BusinessProfileType>(); } },
                 { "updatedAt", n => { UpdatedAt = n.GetDateTimeOffsetValue(); } },
                 { "userId", n => { UserId = n.GetLongValue(); } },
                 { "webpage", n => { Webpage = n.GetStringValue(); } },
@@ -195,24 +195,24 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Address>("address", Address);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Address2>("address", Address);
             writer.WriteStringValue("businessFreeFormDescription", BusinessFreeFormDescription);
             writer.WriteStringValue("businessName", BusinessName);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BusinessProfile_companyRole>("companyRole", CompanyRole);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BusinessProfileCompanyRole>("companyRole", CompanyRole);
             writer.WriteStringValue("companyType", CompanyType);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.BusinessProfileContactDetails>("contactDetails", ContactDetails);
             writer.WriteDateTimeOffsetValue("createdAt", CreatedAt);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BusinessProfile_currentState>("currentState", CurrentState);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BusinessProfileCurrentState>("currentState", CurrentState);
             writer.WriteStringValue("descriptionOfBusiness", DescriptionOfBusiness);
             writer.WriteStringValue("email", Email);
             writer.WriteStringValue("firstLevelCategory", FirstLevelCategory);
             writer.WriteStringValue("fullName", FullName);
             writer.WriteLongValue("id", Id);
-            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.Address>("operationalAddresses", OperationalAddresses);
+            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.Address2>("operationalAddresses", OperationalAddresses);
             writer.WriteStringValue("publicId", PublicId);
             writer.WriteStringValue("registrationNumber", RegistrationNumber);
             writer.WriteStringValue("secondLevelCategory", SecondLevelCategory);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BusinessProfile_type>("type", Type);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BusinessProfileType>("type", Type);
             writer.WriteDateTimeOffsetValue("updatedAt", UpdatedAt);
             writer.WriteLongValue("userId", UserId);
             writer.WriteStringValue("webpage", Webpage);

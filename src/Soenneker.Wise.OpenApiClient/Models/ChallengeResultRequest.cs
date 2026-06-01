@@ -15,7 +15,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The customer&apos;s response to the 3DS challenge.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.ChallengeResultRequest_challengeStatus? ChallengeStatus { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.ChallengeResultRequestChallengeStatus? ChallengeStatus { get; set; }
         /// <summary>Transaction reference as received in the 3DS challenge webhook event.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -49,7 +49,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "challengeStatus", n => { ChallengeStatus = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ChallengeResultRequest_challengeStatus>(); } },
+                { "challengeStatus", n => { ChallengeStatus = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ChallengeResultRequestChallengeStatus>(); } },
                 { "transactionReference", n => { TransactionReference = n.GetStringValue(); } },
             };
         }
@@ -60,7 +60,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ChallengeResultRequest_challengeStatus>("challengeStatus", ChallengeStatus);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ChallengeResultRequestChallengeStatus>("challengeStatus", ChallengeStatus);
             writer.WriteStringValue("transactionReference", TransactionReference);
             writer.WriteAdditionalData(AdditionalData);
         }

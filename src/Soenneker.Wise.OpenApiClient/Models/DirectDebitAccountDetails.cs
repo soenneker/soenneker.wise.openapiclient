@@ -22,7 +22,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public string AccountNumber { get; set; }
 #endif
         /// <summary>Bank account type.- `CHECKING` — Checking account (USD, CAD)- `SAVINGS` — Savings account (USD, CAD)</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.DirectDebitAccountDetails_accountType? AccountType { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.DirectDebitAccountDetailsAccountType? AccountType { get; set; }
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>A valid ABA routing number. For CAD direct debits, the routing number is a combination of an institution number + transit number</summary>
@@ -59,7 +59,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "accountNumber", n => { AccountNumber = n.GetStringValue(); } },
-                { "accountType", n => { AccountType = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.DirectDebitAccountDetails_accountType>(); } },
+                { "accountType", n => { AccountType = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.DirectDebitAccountDetailsAccountType>(); } },
                 { "routingNumber", n => { RoutingNumber = n.GetStringValue(); } },
             };
         }
@@ -71,7 +71,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("accountNumber", AccountNumber);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.DirectDebitAccountDetails_accountType>("accountType", AccountType);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.DirectDebitAccountDetailsAccountType>("accountType", AccountType);
             writer.WriteStringValue("routingNumber", RoutingNumber);
             writer.WriteAdditionalData(AdditionalData);
         }

@@ -36,25 +36,25 @@ namespace Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.Cards.Item.Transac
         /// <summary>
         /// Retrieve a list of card transactions for a specific card. Transactions are ordered by transaction ID in descending order.Use in conjunction with the [card transaction state change webhook](/guides/developer/webhooks/event-types#cards-transaction-state-change) for versions V2.1.0 and later.{% admonition type=&quot;warning&quot; %}Only transactions created in the past 90 days can be accessed. A 422 error code will be returned otherwise.{% /admonition %}The `debits` and `credits` fields are not included in list responses. Use the [Get card transaction](/api-reference/card-transaction/cardtransactionget) endpoint to retrieve these fields.
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.Cards.Item.Transactions.TransactionsGetResponse"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.CardTransactionList200Response"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Transactions429Error">When receiving a 429 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.Cards.Item.Transactions.TransactionsGetResponse?> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.Cards.Item.Transactions.TransactionsRequestBuilder.TransactionsRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.CardTransactionList200Response?> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.Cards.Item.Transactions.TransactionsRequestBuilder.TransactionsRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.Cards.Item.Transactions.TransactionsGetResponse> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.Cards.Item.Transactions.TransactionsRequestBuilder.TransactionsRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.CardTransactionList200Response> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.Cards.Item.Transactions.TransactionsRequestBuilder.TransactionsRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
-                { "429", global::Soenneker.Wise.OpenApiClient.Models.Transactions429Error.CreateFromDiscriminatorValue },
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
             };
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.Cards.Item.Transactions.TransactionsGetResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V4.Spend.Profiles.Item.Cards.Item.Transactions.TransactionsGetResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.CardTransactionList200Response>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.CardTransactionList200Response.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Retrieve a list of card transactions for a specific card. Transactions are ordered by transaction ID in descending order.Use in conjunction with the [card transaction state change webhook](/guides/developer/webhooks/event-types#cards-transaction-state-change) for versions V2.1.0 and later.{% admonition type=&quot;warning&quot; %}Only transactions created in the past 90 days can be accessed. A 422 error code will be returned otherwise.{% /admonition %}The `debits` and `credits` fields are not included in list responses. Use the [Get card transaction](/api-reference/card-transaction/cardtransactionget) endpoint to retrieve these fields.

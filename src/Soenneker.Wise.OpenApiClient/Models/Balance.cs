@@ -52,7 +52,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Balance ID.</summary>
         public long? Id { get; set; }
         /// <summary>Investment state of the balance.- `NOT_INVESTED` - Balance is not invested.- `INVESTED` - Balance is invested in assets.- `INVESTING` - Balance is being invested into assets.- `DIVESTING` - Balance is being divested from assets.- `UNKNOWN` - Investment state is unknown.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.Balance_investmentState? InvestmentState { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.BalanceInvestmentState? InvestmentState { get; set; }
         /// <summary>Date when the balance was last modified.</summary>
         public DateTimeOffset? ModificationTime { get; set; }
         /// <summary>Name of the balance. Required for SAVINGS balances.</summary>
@@ -114,7 +114,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "currency", n => { Currency = n.GetStringValue(); } },
                 { "icon", n => { Icon = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.BalanceIcon>(global::Soenneker.Wise.OpenApiClient.Models.BalanceIcon.CreateFromDiscriminatorValue); } },
                 { "id", n => { Id = n.GetLongValue(); } },
-                { "investmentState", n => { InvestmentState = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.Balance_investmentState>(); } },
+                { "investmentState", n => { InvestmentState = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BalanceInvestmentState>(); } },
                 { "modificationTime", n => { ModificationTime = n.GetDateTimeOffsetValue(); } },
                 { "name", n => { Name = n.GetStringValue(); } },
                 { "reservedAmount", n => { ReservedAmount = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.BalanceReservedAmount>(global::Soenneker.Wise.OpenApiClient.Models.BalanceReservedAmount.CreateFromDiscriminatorValue); } },
@@ -136,7 +136,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteStringValue("currency", Currency);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.BalanceIcon>("icon", Icon);
             writer.WriteLongValue("id", Id);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.Balance_investmentState>("investmentState", InvestmentState);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BalanceInvestmentState>("investmentState", InvestmentState);
             writer.WriteDateTimeOffsetValue("modificationTime", ModificationTime);
             writer.WriteStringValue("name", Name);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.BalanceReservedAmount>("reservedAmount", ReservedAmount);

@@ -9,11 +9,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         [EnumMember(Value = "STANDARD")]
         #pragma warning disable CS1591
-        STANDARD,
+        Standard,
         #pragma warning restore CS1591
         [EnumMember(Value = "SAVINGS")]
         #pragma warning disable CS1591
-        SAVINGS,
+        Savings,
         #pragma warning restore CS1591
     }
 }

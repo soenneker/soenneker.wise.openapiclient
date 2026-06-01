@@ -25,9 +25,9 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The unique ID for the authorisation rule.</summary>
         public long? Id { get; set; }
         /// <summary>Determines whether the transactions should be allowed or blocked.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.Rule_operation? Operation { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.RuleOperation? Operation { get; set; }
         /// <summary>The type of authorisation rule.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.Rule_type? Type { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.RuleType? Type { get; set; }
         /// <summary>A list of values based on the `type` of rule configured.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -63,8 +63,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
             {
                 { "description", n => { Description = n.GetStringValue(); } },
                 { "id", n => { Id = n.GetLongValue(); } },
-                { "operation", n => { Operation = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.Rule_operation>(); } },
-                { "type", n => { Type = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.Rule_type>(); } },
+                { "operation", n => { Operation = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.RuleOperation>(); } },
+                { "type", n => { Type = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.RuleType>(); } },
                 { "values", n => { Values = n.GetCollectionOfPrimitiveValues<string>()?.AsList(); } },
             };
         }
@@ -77,8 +77,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("description", Description);
             writer.WriteLongValue("id", Id);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.Rule_operation>("operation", Operation);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.Rule_type>("type", Type);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.RuleOperation>("operation", Operation);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.RuleType>("type", Type);
             writer.WriteCollectionOfPrimitiveValues<string>("values", Values);
             writer.WriteAdditionalData(AdditionalData);
         }

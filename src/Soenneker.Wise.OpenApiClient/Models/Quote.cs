@@ -27,18 +27,18 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Array of messages to display to the user. May be empty (`[]`) if there are no messages.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.Quote_notices>? Notices { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.QuoteNoticesItem>? Notices { get; set; }
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.Quote_notices> Notices { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.QuoteNoticesItem> Notices { get; set; }
 #endif
         /// <summary>List of the methods a user can pay for the transfer.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.Quote_paymentOptions>? PaymentOptions { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItem>? PaymentOptions { get; set; }
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.Quote_paymentOptions> PaymentOptions { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItem> PaymentOptions { get; set; }
 #endif
         /// <summary>Mechanism we use to deliver the transfer. Not usually of interest to the user.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -67,13 +67,13 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Personal or business profile ID.</summary>
         public long? Profile { get; set; }
         /// <summary>Whether the quote was created as source or target.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.Quote_providedAmountType? ProvidedAmountType { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.QuoteProvidedAmountType? ProvidedAmountType { get; set; }
         /// <summary>Exchange rate value used for the conversion.</summary>
         public double? Rate { get; set; }
         /// <summary>Time the locked rate will expire.</summary>
         public DateTimeOffset? RateExpirationTime { get; set; }
         /// <summary>Whether the rate is fixed or floating.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.Quote_rateType? RateType { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.QuoteRateType? RateType { get; set; }
         /// <summary>Amount in source currency to send.</summary>
         public double? SourceAmount { get; set; }
         /// <summary>Source (sending) currency code.</summary>
@@ -85,7 +85,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public string SourceCurrency { get; set; }
 #endif
         /// <summary>Current status of this quote.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.Quote_status? Status { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.QuoteStatus? Status { get; set; }
         /// <summary>Amount in target currency to be received by the recipient.</summary>
         public double? TargetAmount { get; set; }
         /// <summary>Whether target amount is allowed.</summary>
@@ -130,19 +130,19 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "guaranteedTargetAmount", n => { GuaranteedTargetAmount = n.GetBoolValue(); } },
                 { "guaranteedTargetAmountAllowed", n => { GuaranteedTargetAmountAllowed = n.GetBoolValue(); } },
                 { "id", n => { Id = n.GetGuidValue(); } },
-                { "notices", n => { Notices = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.Quote_notices>(global::Soenneker.Wise.OpenApiClient.Models.Quote_notices.CreateFromDiscriminatorValue)?.AsList(); } },
+                { "notices", n => { Notices = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.QuoteNoticesItem>(global::Soenneker.Wise.OpenApiClient.Models.QuoteNoticesItem.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "payOut", n => { PayOut = n.GetStringValue(); } },
-                { "paymentOptions", n => { PaymentOptions = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.Quote_paymentOptions>(global::Soenneker.Wise.OpenApiClient.Models.Quote_paymentOptions.CreateFromDiscriminatorValue)?.AsList(); } },
+                { "paymentOptions", n => { PaymentOptions = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItem>(global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItem.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "preferredPayIn", n => { PreferredPayIn = n.GetStringValue(); } },
                 { "pricingConfiguration", n => { PricingConfiguration = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.QuotePricingConfiguration>(global::Soenneker.Wise.OpenApiClient.Models.QuotePricingConfiguration.CreateFromDiscriminatorValue); } },
                 { "profile", n => { Profile = n.GetLongValue(); } },
-                { "providedAmountType", n => { ProvidedAmountType = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.Quote_providedAmountType>(); } },
+                { "providedAmountType", n => { ProvidedAmountType = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.QuoteProvidedAmountType>(); } },
                 { "rate", n => { Rate = n.GetDoubleValue(); } },
                 { "rateExpirationTime", n => { RateExpirationTime = n.GetDateTimeOffsetValue(); } },
-                { "rateType", n => { RateType = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.Quote_rateType>(); } },
+                { "rateType", n => { RateType = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.QuoteRateType>(); } },
                 { "sourceAmount", n => { SourceAmount = n.GetDoubleValue(); } },
                 { "sourceCurrency", n => { SourceCurrency = n.GetStringValue(); } },
-                { "status", n => { Status = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.Quote_status>(); } },
+                { "status", n => { Status = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.QuoteStatus>(); } },
                 { "targetAmount", n => { TargetAmount = n.GetDoubleValue(); } },
                 { "targetAmountAllowed", n => { TargetAmountAllowed = n.GetBoolValue(); } },
                 { "targetCurrency", n => { TargetCurrency = n.GetStringValue(); } },
@@ -161,19 +161,19 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteBoolValue("guaranteedTargetAmount", GuaranteedTargetAmount);
             writer.WriteBoolValue("guaranteedTargetAmountAllowed", GuaranteedTargetAmountAllowed);
             writer.WriteGuidValue("id", Id);
-            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.Quote_notices>("notices", Notices);
-            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.Quote_paymentOptions>("paymentOptions", PaymentOptions);
+            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.QuoteNoticesItem>("notices", Notices);
+            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItem>("paymentOptions", PaymentOptions);
             writer.WriteStringValue("payOut", PayOut);
             writer.WriteStringValue("preferredPayIn", PreferredPayIn);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.QuotePricingConfiguration>("pricingConfiguration", PricingConfiguration);
             writer.WriteLongValue("profile", Profile);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.Quote_providedAmountType>("providedAmountType", ProvidedAmountType);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.QuoteProvidedAmountType>("providedAmountType", ProvidedAmountType);
             writer.WriteDoubleValue("rate", Rate);
             writer.WriteDateTimeOffsetValue("rateExpirationTime", RateExpirationTime);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.Quote_rateType>("rateType", RateType);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.QuoteRateType>("rateType", RateType);
             writer.WriteDoubleValue("sourceAmount", SourceAmount);
             writer.WriteStringValue("sourceCurrency", SourceCurrency);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.Quote_status>("status", Status);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.QuoteStatus>("status", Status);
             writer.WriteDoubleValue("targetAmount", TargetAmount);
             writer.WriteBoolValue("targetAmountAllowed", TargetAmountAllowed);
             writer.WriteStringValue("targetCurrency", TargetCurrency);

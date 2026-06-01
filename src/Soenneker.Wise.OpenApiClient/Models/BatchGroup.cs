@@ -41,7 +41,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public string SourceCurrency { get; set; }
 #endif
         /// <summary>&quot;Current batch group status:- `NEW` — New batch group with zero or more transfers. Able to have more transfers added to it. Transfers in a `NEW` group cannot yet be funded and paid out.- `COMPLETED` — The batch group has had all desired transfers added and is now closed to further changes. Transfers in the group can now be funded and paid out. Note: `COMPLETED` does not imply payouts have been successfully completed.- `MARKED_FOR_CANCELLATION` — Cancellation of the transfers in the batch group was requested.- `PROCESSING_CANCEL` — Transfers in the group are being cancelled.- `CANCELLED` — Transfers in the group have been cancelled.&quot;</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.BatchGroup_status? Status { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.BatchGroupStatus? Status { get; set; }
         /// <summary>The IDs of all transfers successfully added to the group.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -81,7 +81,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "name", n => { Name = n.GetStringValue(); } },
                 { "payInDetails", n => { PayInDetails = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.PayInDetails>(global::Soenneker.Wise.OpenApiClient.Models.PayInDetails.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "sourceCurrency", n => { SourceCurrency = n.GetStringValue(); } },
-                { "status", n => { Status = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BatchGroup_status>(); } },
+                { "status", n => { Status = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BatchGroupStatus>(); } },
                 { "transferIds", n => { TransferIds = n.GetCollectionOfPrimitiveValues<long?>()?.AsList(); } },
                 { "version", n => { Version = n.GetLongValue(); } },
             };
@@ -97,7 +97,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteStringValue("name", Name);
             writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.PayInDetails>("payInDetails", PayInDetails);
             writer.WriteStringValue("sourceCurrency", SourceCurrency);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BatchGroup_status>("status", Status);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BatchGroupStatus>("status", Status);
             writer.WriteCollectionOfPrimitiveValues<long?>("transferIds", TransferIds);
             writer.WriteLongValue("version", Version);
             writer.WriteAdditionalData(AdditionalData);

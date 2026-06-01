@@ -17,10 +17,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The fields property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.TransferRequirement_fields>? Fields { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.TransferRequirementFieldsItem>? Fields { get; set; }
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.TransferRequirement_fields> Fields { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.TransferRequirementFieldsItem> Fields { get; set; }
 #endif
         /// <summary>Resource type</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -55,7 +55,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "fields", n => { Fields = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.TransferRequirement_fields>(global::Soenneker.Wise.OpenApiClient.Models.TransferRequirement_fields.CreateFromDiscriminatorValue)?.AsList(); } },
+                { "fields", n => { Fields = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.TransferRequirementFieldsItem>(global::Soenneker.Wise.OpenApiClient.Models.TransferRequirementFieldsItem.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "type", n => { Type = n.GetStringValue(); } },
             };
         }
@@ -66,7 +66,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.TransferRequirement_fields>("fields", Fields);
+            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.TransferRequirementFieldsItem>("fields", Fields);
             writer.WriteStringValue("type", Type);
             writer.WriteAdditionalData(AdditionalData);
         }

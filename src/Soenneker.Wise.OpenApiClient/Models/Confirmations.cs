@@ -22,10 +22,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Array of confirmation outcomes. At the moment it is safe to assume that there is only one element in the outcomes list.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.Confirmations_outcomes>? Outcomes { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.ConfirmationsOutcomesItem>? Outcomes { get; set; }
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.Confirmations_outcomes> Outcomes { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.ConfirmationsOutcomesItem> Outcomes { get; set; }
 #endif
         /// <summary>If the confirmation check was run as part of a quote compatibility check, then the `quoteId` will be on the result. If `quoteId` is present, then the outcome acceptance will need the `quoteId` to be specified as well.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -62,7 +62,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             {
                 { "acceptedAt", n => { AcceptedAt = n.GetDateTimeOffsetValue(); } },
                 { "acceptedOutcomes", n => { AcceptedOutcomes = n.GetBoolValue(); } },
-                { "outcomes", n => { Outcomes = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.Confirmations_outcomes>(global::Soenneker.Wise.OpenApiClient.Models.Confirmations_outcomes.CreateFromDiscriminatorValue)?.AsList(); } },
+                { "outcomes", n => { Outcomes = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.ConfirmationsOutcomesItem>(global::Soenneker.Wise.OpenApiClient.Models.ConfirmationsOutcomesItem.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "quoteId", n => { QuoteId = n.GetStringValue(); } },
             };
         }
@@ -75,7 +75,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteDateTimeOffsetValue("acceptedAt", AcceptedAt);
             writer.WriteBoolValue("acceptedOutcomes", AcceptedOutcomes);
-            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.Confirmations_outcomes>("outcomes", Outcomes);
+            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.ConfirmationsOutcomesItem>("outcomes", Outcomes);
             writer.WriteStringValue("quoteId", QuoteId);
             writer.WriteAdditionalData(AdditionalData);
         }

@@ -18,7 +18,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Indicating whether there was a fallback applied by Wise</summary>
         public bool? Fallback { get; set; }
         /// <summary>[ResponseCode](/guides/product/issue-cards/relayed-authorisation#authorisation-response) of the relayed authorisation. One of:- `APPROVED`- `PROCESSING_ERROR`- `NON_SUPPORTED_CURRENCY`- `NON_SUPPORTED_MCC_FOR_COUNTRY`- `BLOCKED_COUNTRY`- `TRANSACTION_TYPE_NOT_SUPPORTED`- `SUSPECTED_FRAUD`</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.CardTransactionRelayAuthorisationData_responseCode? ResponseCode { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardTransactionRelayAuthorisationDataResponseCode? ResponseCode { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.CardTransactionRelayAuthorisationData"/> and sets the default values.
         /// </summary>
@@ -45,7 +45,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "fallback", n => { Fallback = n.GetBoolValue(); } },
-                { "responseCode", n => { ResponseCode = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CardTransactionRelayAuthorisationData_responseCode>(); } },
+                { "responseCode", n => { ResponseCode = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CardTransactionRelayAuthorisationDataResponseCode>(); } },
             };
         }
         /// <summary>
@@ -56,7 +56,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteBoolValue("fallback", Fallback);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CardTransactionRelayAuthorisationData_responseCode>("responseCode", ResponseCode);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CardTransactionRelayAuthorisationDataResponseCode>("responseCode", ResponseCode);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

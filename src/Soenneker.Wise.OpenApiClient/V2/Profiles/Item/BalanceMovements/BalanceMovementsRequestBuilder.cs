@@ -36,27 +36,27 @@ namespace Soenneker.Wise.OpenApiClient.V2.Profiles.Item.BalanceMovements
         /// <summary>
         /// &quot;This endpoint allows conversion and movement of funds between balance accounts.**Convert across balance accounts:**Convert funds between two `STANDARD` balance accounts in different currencies. Requires a quote created with `\&quot;payOut\&quot;: \&quot;BALANCE\&quot;`.**Move money between balances:**- Add money to a same-currency jar (move from `STANDARD` to `SAVINGS` without conversion)- Add money to another-currency jar (convert money using a quote)- Withdraw money from a jar (move from `SAVINGS` to `STANDARD` without conversion)Either `amount` or `quoteId` is required. Use `quoteId` for cross-currency movements.&quot;
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.BalanceMovement201"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.BalanceMovement201Response"/></returns>
         /// <param name="body">Request body for balance movements (conversion or transfer).</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.BalanceMovement201429Error">When receiving a 429 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.Models.BalanceMovement201?> PostAsync(global::Soenneker.Wise.OpenApiClient.Models.BalanceMovement body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.BalanceMovement201Response?> PostAsync(global::Soenneker.Wise.OpenApiClient.Models.BalanceMovementRequest body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.Models.BalanceMovement201> PostAsync(global::Soenneker.Wise.OpenApiClient.Models.BalanceMovement body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.BalanceMovement201Response> PostAsync(global::Soenneker.Wise.OpenApiClient.Models.BalanceMovementRequest body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
-                { "429", global::Soenneker.Wise.OpenApiClient.Models.BalanceMovement201429Error.CreateFromDiscriminatorValue },
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
             };
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.BalanceMovement201>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.BalanceMovement201.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.BalanceMovement201Response>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.BalanceMovement201Response.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// &quot;This endpoint allows conversion and movement of funds between balance accounts.**Convert across balance accounts:**Convert funds between two `STANDARD` balance accounts in different currencies. Requires a quote created with `\&quot;payOut\&quot;: \&quot;BALANCE\&quot;`.**Move money between balances:**- Add money to a same-currency jar (move from `STANDARD` to `SAVINGS` without conversion)- Add money to another-currency jar (convert money using a quote)- Withdraw money from a jar (move from `SAVINGS` to `STANDARD` without conversion)Either `amount` or `quoteId` is required. Use `quoteId` for cross-currency movements.&quot;
@@ -66,11 +66,11 @@ namespace Soenneker.Wise.OpenApiClient.V2.Profiles.Item.BalanceMovements
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.BalanceMovement body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.BalanceMovementRequest body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
         {
 #nullable restore
 #else
-        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.BalanceMovement body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.BalanceMovementRequest body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));

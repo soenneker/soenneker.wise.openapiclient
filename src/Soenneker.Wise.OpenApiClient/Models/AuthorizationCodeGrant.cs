@@ -31,7 +31,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public string Code { get; set; }
 #endif
         /// <summary>OAuth 2.0 grant type.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.AuthorizationCodeGrant_grant_type? GrantType { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.AuthorizationCodeGrantGrantType? GrantType { get; set; }
         /// <summary>Registered redirect URL coordinated with Wise during onboarding.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -67,7 +67,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             {
                 { "client_id", n => { ClientId = n.GetStringValue(); } },
                 { "code", n => { Code = n.GetStringValue(); } },
-                { "grant_type", n => { GrantType = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.AuthorizationCodeGrant_grant_type>(); } },
+                { "grant_type", n => { GrantType = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.AuthorizationCodeGrantGrantType>(); } },
                 { "redirect_uri", n => { RedirectUri = n.GetStringValue(); } },
             };
         }
@@ -80,7 +80,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("client_id", ClientId);
             writer.WriteStringValue("code", Code);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.AuthorizationCodeGrant_grant_type>("grant_type", GrantType);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.AuthorizationCodeGrantGrantType>("grant_type", GrantType);
             writer.WriteStringValue("redirect_uri", RedirectUri);
             writer.WriteAdditionalData(AdditionalData);
         }

@@ -39,7 +39,7 @@ namespace Soenneker.Wise.OpenApiClient.V4.Comparisons
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.Comparison"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Comparison429Error">When receiving a 429 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::Soenneker.Wise.OpenApiClient.Models.Comparison?> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V4.Comparisons.ComparisonsRequestBuilder.ComparisonsRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -52,7 +52,7 @@ namespace Soenneker.Wise.OpenApiClient.V4.Comparisons
             var requestInfo = ToGetRequestInformation(requestConfiguration);
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
-                { "429", global::Soenneker.Wise.OpenApiClient.Models.Comparison429Error.CreateFromDiscriminatorValue },
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
             };
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.Comparison>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.Comparison.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
@@ -95,7 +95,7 @@ namespace Soenneker.Wise.OpenApiClient.V4.Comparisons
             public bool? ExcludePartners { get; set; }
             /// <summary>Filter by most popular competitors</summary>
             [QueryParameter("filter")]
-            public global::Soenneker.Wise.OpenApiClient.V4.Comparisons.GetFilterQueryParameterType? Filter { get; set; }
+            public global::Soenneker.Wise.OpenApiClient.Models.ComparisonGetFilterParameter? Filter { get; set; }
             /// <summary>Overrides filters to ensure Wise data is returned, even if exclusionary filters are applied</summary>
             [QueryParameter("includeWise")]
             public bool? IncludeWise { get; set; }
@@ -139,11 +139,11 @@ namespace Soenneker.Wise.OpenApiClient.V4.Comparisons
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
             [QueryParameter("providerTypes")]
-            public global::Soenneker.Wise.OpenApiClient.V4.Comparisons.GetProviderTypesQueryParameterType[]? ProviderTypes { get; set; }
+            public global::Soenneker.Wise.OpenApiClient.Models.ComparisonGetProviderTypesParameterItem[]? ProviderTypes { get; set; }
 #nullable restore
 #else
             [QueryParameter("providerTypes")]
-            public global::Soenneker.Wise.OpenApiClient.V4.Comparisons.GetProviderTypesQueryParameterType[] ProviderTypes { get; set; }
+            public global::Soenneker.Wise.OpenApiClient.Models.ComparisonGetProviderTypesParameterItem[] ProviderTypes { get; set; }
 #endif
             /// <summary>Amount to be received in target currency. Must provide either `sendAmount` or `recipientGetsAmount`.</summary>
             [QueryParameter("recipientGetsAmount")]

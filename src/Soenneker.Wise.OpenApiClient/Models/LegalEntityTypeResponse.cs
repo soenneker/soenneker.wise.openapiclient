@@ -10,11 +10,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         [EnumMember(Value = "PRIVATE")]
         #pragma warning disable CS1591
-        PRIVATE,
+        PrivateValue,
         #pragma warning restore CS1591
         [EnumMember(Value = "BUSINESS")]
         #pragma warning disable CS1591
-        BUSINESS,
+        Business,
         #pragma warning restore CS1591
     }
 }

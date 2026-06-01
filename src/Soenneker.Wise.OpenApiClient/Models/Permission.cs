@@ -20,7 +20,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Indicates if this permission is locked. If locked, the permission cannot be enabled.</summary>
         public bool? IsLocked { get; set; }
         /// <summary>The type of transaction this permission controls:- `ECOM` - Online transactions- `POS_CHIP` - Physical point-of-sale transactions with chip- `POS_MAGSTRIPE` - Physical point-of-sale transactions with magnetic stripe- `POS_CONTACTLESS` - Physical point-of-sale contactless transactions- `ATM_WITHDRAWAL` - ATM withdrawals- `MOBILE_WALLETS` - Digital wallet payments (Apple Pay, Google Pay)</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.Permission_type? Type { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.PermissionType? Type { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.Permission"/> and sets the default values.
         /// </summary>
@@ -48,7 +48,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             {
                 { "isEnabled", n => { IsEnabled = n.GetBoolValue(); } },
                 { "isLocked", n => { IsLocked = n.GetBoolValue(); } },
-                { "type", n => { Type = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.Permission_type>(); } },
+                { "type", n => { Type = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PermissionType>(); } },
             };
         }
         /// <summary>
@@ -60,7 +60,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteBoolValue("isEnabled", IsEnabled);
             writer.WriteBoolValue("isLocked", IsLocked);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.Permission_type>("type", Type);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PermissionType>("type", Type);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

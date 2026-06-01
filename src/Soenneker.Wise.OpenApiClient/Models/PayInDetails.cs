@@ -154,7 +154,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public string TransitNumber { get; set; }
 #endif
         /// <summary>Method of payment.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.PayInDetails_type? Type { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.PayInDetailsType? Type { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.PayInDetails"/> and sets the default values.
         /// </summary>
@@ -198,7 +198,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "reference", n => { Reference = n.GetStringValue(); } },
                 { "transferWiseAddress", n => { TransferWiseAddress = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.PayInDetailsTransferWiseAddress>(global::Soenneker.Wise.OpenApiClient.Models.PayInDetailsTransferWiseAddress.CreateFromDiscriminatorValue); } },
                 { "transitNumber", n => { TransitNumber = n.GetStringValue(); } },
-                { "type", n => { Type = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PayInDetails_type>(); } },
+                { "type", n => { Type = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PayInDetailsType>(); } },
             };
         }
         /// <summary>
@@ -226,7 +226,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteStringValue("reference", Reference);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.PayInDetailsTransferWiseAddress>("transferWiseAddress", TransferWiseAddress);
             writer.WriteStringValue("transitNumber", TransitNumber);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PayInDetails_type>("type", Type);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PayInDetailsType>("type", Type);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

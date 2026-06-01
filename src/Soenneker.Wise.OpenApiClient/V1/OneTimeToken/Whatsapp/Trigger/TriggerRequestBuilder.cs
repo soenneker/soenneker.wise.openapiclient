@@ -36,25 +36,25 @@ namespace Soenneker.Wise.OpenApiClient.V1.OneTimeToken.Whatsapp.Trigger
         /// <summary>
         /// To trigger a WhatsApp challenge by sending WhatsApp message to user verified [phone number](/api-reference/user-security/usersecurityphonenumberlist) containing a 6 digit one time password (**OTP**).This **OTP** code can be used to clear a WHATSAPP challenge by using the [Verify WhatsApp endpoint](/api-reference/sca-otp/ottwhatsappverify).
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.OttWhatsappTrigger200"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.OttWhatsappTrigger200Response"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.OttWhatsappTrigger200429Error">When receiving a 429 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.Models.OttWhatsappTrigger200?> PostAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.OttWhatsappTrigger200Response?> PostAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.Models.OttWhatsappTrigger200> PostAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.OttWhatsappTrigger200Response> PostAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             var requestInfo = ToPostRequestInformation(requestConfiguration);
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
-                { "429", global::Soenneker.Wise.OpenApiClient.Models.OttWhatsappTrigger200429Error.CreateFromDiscriminatorValue },
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
             };
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.OttWhatsappTrigger200>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.OttWhatsappTrigger200.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.OttWhatsappTrigger200Response>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.OttWhatsappTrigger200Response.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// To trigger a WhatsApp challenge by sending WhatsApp message to user verified [phone number](/api-reference/user-security/usersecurityphonenumberlist) containing a 6 digit one time password (**OTP**).This **OTP** code can be used to clear a WHATSAPP challenge by using the [Verify WhatsApp endpoint](/api-reference/sca-otp/ottwhatsappverify).

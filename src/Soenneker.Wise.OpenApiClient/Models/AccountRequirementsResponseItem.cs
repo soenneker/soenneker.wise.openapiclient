@@ -18,10 +18,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>List of UI field groups to collect required data.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.AccountRequirementsResponseItem_fields>? Fields { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.AccountRequirementsResponseItemFieldsItem>? Fields { get; set; }
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.AccountRequirementsResponseItem_fields> Fields { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.AccountRequirementsResponseItemFieldsItem> Fields { get; set; }
 #endif
         /// <summary>Human-readable title for the requirement group.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -72,7 +72,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "fields", n => { Fields = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.AccountRequirementsResponseItem_fields>(global::Soenneker.Wise.OpenApiClient.Models.AccountRequirementsResponseItem_fields.CreateFromDiscriminatorValue)?.AsList(); } },
+                { "fields", n => { Fields = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.AccountRequirementsResponseItemFieldsItem>(global::Soenneker.Wise.OpenApiClient.Models.AccountRequirementsResponseItemFieldsItem.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "title", n => { Title = n.GetStringValue(); } },
                 { "type", n => { Type = n.GetStringValue(); } },
                 { "usageInfo", n => { UsageInfo = n.GetStringValue(); } },
@@ -85,7 +85,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.AccountRequirementsResponseItem_fields>("fields", Fields);
+            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.AccountRequirementsResponseItemFieldsItem>("fields", Fields);
             writer.WriteStringValue("title", Title);
             writer.WriteStringValue("type", Type);
             writer.WriteStringValue("usageInfo", UsageInfo);

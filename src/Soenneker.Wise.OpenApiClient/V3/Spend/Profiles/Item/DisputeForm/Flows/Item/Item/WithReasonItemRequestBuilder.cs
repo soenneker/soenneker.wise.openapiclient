@@ -36,27 +36,27 @@ namespace Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.
         /// <summary>
         /// Submit a dispute for a card transaction.The request body structure varies per dispute reason code. All reasons share a common structure with `transaction`, `form`, `disclaimer`, and `files` objects, but the fields within `form` and `files` differ per reason.For per-reason request body details, see the [disputes via API guide](/guides/product/issue-cards/card-disputes-api#reason-examples).
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.Item.Item.WithReasonPostResponse"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.DisputeSubmit200ResponseResponseJson"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.WithReason429Error">When receiving a 429 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.Item.Item.WithReasonPostResponse?> PostAsync(global::Soenneker.Wise.OpenApiClient.Models.DisputeSubmit body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.DisputeSubmit200ResponseResponseJson?> PostAsync(global::Soenneker.Wise.OpenApiClient.Models.DisputeSubmitRequest body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.Item.Item.WithReasonPostResponse> PostAsync(global::Soenneker.Wise.OpenApiClient.Models.DisputeSubmit body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.DisputeSubmit200ResponseResponseJson> PostAsync(global::Soenneker.Wise.OpenApiClient.Models.DisputeSubmitRequest body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
-                { "429", global::Soenneker.Wise.OpenApiClient.Models.WithReason429Error.CreateFromDiscriminatorValue },
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
             };
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.Item.Item.WithReasonPostResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.Item.Item.WithReasonPostResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.DisputeSubmit200ResponseResponseJson>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.DisputeSubmit200ResponseResponseJson.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Submit a dispute for a card transaction.The request body structure varies per dispute reason code. All reasons share a common structure with `transaction`, `form`, `disclaimer`, and `files` objects, but the fields within `form` and `files` differ per reason.For per-reason request body details, see the [disputes via API guide](/guides/product/issue-cards/card-disputes-api#reason-examples).
@@ -66,11 +66,11 @@ namespace Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.DisputeForm.Flows.
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.DisputeSubmit body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.DisputeSubmitRequest body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
         {
 #nullable restore
 #else
-        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.DisputeSubmit body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.DisputeSubmitRequest body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));

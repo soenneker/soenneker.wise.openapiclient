@@ -36,25 +36,25 @@ namespace Soenneker.Wise.OpenApiClient.V1.Rates
         /// <summary>
         /// {% admonition type=&quot;warning&quot; %}The `from`, `to`, and `group` parameters are not testable in our Sandbox environment at this time.{% /admonition %}`GET /v1/rates`&lt;br&gt;Fetch latest exchange rates of all currencies.`GET /v1/rates?source=EUR&amp;target=USD`&lt;br&gt;Fetch latest exchange rate of one currency pair.`GET /v1/rates?source=EUR&amp;target=USD&amp;time=2019-02-13T14:53:01`&lt;br&gt;Fetch exchange rate of specific historical timestamp.`GET /v1/rates?source=EUR&amp;target=USD&amp;from=2019-02-13T14:53:01&amp;to=2019-03-13T14:53:01&amp;group=day`&lt;br&gt;Fetch exchange rate history over period of time with daily interval.`GET /v1/rates?source=EUR&amp;target=USD&amp;from=2019-02-13T14:53:01&amp;to=2019-03-13T14:53:01&amp;group=hour`&lt;br&gt;Fetch exchange rate history over period of time with hourly interval.`GET /v1/rates?source=EUR&amp;target=USD&amp;from=2019-02-13T14:53:01&amp;to=2019-03-13T14:53:01&amp;group=minute`&lt;br&gt;Fetch exchange rate history over period of time with 1 minute interval.{% admonition type=&quot;warning&quot; %}This endpoint only supports Bearer authentication for non-Affiliate partners.{% /admonition %}
         /// </summary>
-        /// <returns>A List&lt;global::Soenneker.Wise.OpenApiClient.V1.Rates.Rates&gt;</returns>
+        /// <returns>A List&lt;global::Soenneker.Wise.OpenApiClient.Models.RateGet200ResponseResponseJsonItem&gt;</returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Rates429Error">When receiving a 429 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<List<global::Soenneker.Wise.OpenApiClient.V1.Rates.Rates>?> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.Rates.RatesRequestBuilder.RatesRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<List<global::Soenneker.Wise.OpenApiClient.Models.RateGet200ResponseResponseJsonItem>?> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.Rates.RatesRequestBuilder.RatesRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<List<global::Soenneker.Wise.OpenApiClient.V1.Rates.Rates>> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.Rates.RatesRequestBuilder.RatesRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<List<global::Soenneker.Wise.OpenApiClient.Models.RateGet200ResponseResponseJsonItem>> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.Rates.RatesRequestBuilder.RatesRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
-                { "429", global::Soenneker.Wise.OpenApiClient.Models.Rates429Error.CreateFromDiscriminatorValue },
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
             };
-            var collectionResult = await RequestAdapter.SendCollectionAsync<global::Soenneker.Wise.OpenApiClient.V1.Rates.Rates>(requestInfo, global::Soenneker.Wise.OpenApiClient.V1.Rates.Rates.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
+            var collectionResult = await RequestAdapter.SendCollectionAsync<global::Soenneker.Wise.OpenApiClient.Models.RateGet200ResponseResponseJsonItem>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.RateGet200ResponseResponseJsonItem.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
             return collectionResult?.AsList();
         }
         /// <summary>
@@ -103,7 +103,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Rates
 #endif
             /// <summary>Interval for history grouping.</summary>
             [QueryParameter("group")]
-            public global::Soenneker.Wise.OpenApiClient.V1.Rates.GetGroupQueryParameterType? Group { get; set; }
+            public global::Soenneker.Wise.OpenApiClient.Models.RateGetGroupParameter? Group { get; set; }
             /// <summary>Source (send) currency code.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable

@@ -36,27 +36,27 @@ namespace Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BankDetails
         /// <summary>
         /// Creates and assigns a pair of local account details and international account details (where available) that are linked to the target balance specified in the request.{% admonition type=&quot;warning&quot; %}Please reach out to our Support Team for access to this endpoint.{% /admonition %}
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsBankDetailsCreate200"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsBankDetailsCreate200Response"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsBankDetailsCreate200429Error">When receiving a 429 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsBankDetailsCreate200?> PostAsync(global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsBankDetailsCreate body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsBankDetailsCreate200Response?> PostAsync(global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsBankDetailsCreateRequest body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsBankDetailsCreate200> PostAsync(global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsBankDetailsCreate body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsBankDetailsCreate200Response> PostAsync(global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsBankDetailsCreateRequest body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
-                { "429", global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsBankDetailsCreate200429Error.CreateFromDiscriminatorValue },
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
             };
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsBankDetailsCreate200>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsBankDetailsCreate200.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsBankDetailsCreate200Response>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsBankDetailsCreate200Response.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Creates and assigns a pair of local account details and international account details (where available) that are linked to the target balance specified in the request.{% admonition type=&quot;warning&quot; %}Please reach out to our Support Team for access to this endpoint.{% /admonition %}
@@ -66,11 +66,11 @@ namespace Soenneker.Wise.OpenApiClient.V3.Profiles.Item.BankDetails
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsBankDetailsCreate body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsBankDetailsCreateRequest body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
         {
 #nullable restore
 #else
-        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsBankDetailsCreate body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsBankDetailsCreateRequest body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));

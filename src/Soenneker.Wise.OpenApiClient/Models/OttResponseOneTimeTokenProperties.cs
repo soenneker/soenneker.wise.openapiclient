@@ -26,10 +26,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Array of challenge objects.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenProperties_challenges>? Challenges { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenPropertiesChallengesItem>? Challenges { get; set; }
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenProperties_challenges> Challenges { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenPropertiesChallengesItem> Challenges { get; set; }
 #endif
         /// <summary>Unique identifier of a one time token.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -69,7 +69,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "actionType", n => { ActionType = n.GetStringValue(); } },
-                { "challenges", n => { Challenges = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenProperties_challenges>(global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenProperties_challenges.CreateFromDiscriminatorValue)?.AsList(); } },
+                { "challenges", n => { Challenges = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenPropertiesChallengesItem>(global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenPropertiesChallengesItem.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "oneTimeToken", n => { OneTimeToken = n.GetStringValue(); } },
                 { "userId", n => { UserId = n.GetLongValue(); } },
                 { "validity", n => { Validity = n.GetLongValue(); } },
@@ -83,7 +83,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("actionType", ActionType);
-            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenProperties_challenges>("challenges", Challenges);
+            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenPropertiesChallengesItem>("challenges", Challenges);
             writer.WriteStringValue("oneTimeToken", OneTimeToken);
             writer.WriteLongValue("userId", UserId);
             writer.WriteLongValue("validity", Validity);

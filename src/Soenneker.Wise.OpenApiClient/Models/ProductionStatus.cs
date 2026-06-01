@@ -45,7 +45,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Time when the card production request has been sent to the kiosk machine (ISO 8601 format).</summary>
         public DateTimeOffset? OccurredAt { get; set; }
         /// <summary>Current production status:- `READY` - Card is ready for production- `IN_PROGRESS` - Card is in production at the kiosk machine- `PRODUCED` - Card is produced and collected. This is a final state- `PRODUCTION_ERROR` - Card production failed- `REQUEST_ERROR` - Card production request failed</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.ProductionStatus_status? Status { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.ProductionStatusStatus? Status { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.ProductionStatus"/> and sets the default values.
         /// </summary>
@@ -75,7 +75,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "errorCode", n => { ErrorCode = n.GetStringValue(); } },
                 { "kioskId", n => { KioskId = n.GetStringValue(); } },
                 { "occurredAt", n => { OccurredAt = n.GetDateTimeOffsetValue(); } },
-                { "status", n => { Status = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ProductionStatus_status>(); } },
+                { "status", n => { Status = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ProductionStatusStatus>(); } },
             };
         }
         /// <summary>
@@ -89,7 +89,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteStringValue("errorCode", ErrorCode);
             writer.WriteStringValue("kioskId", KioskId);
             writer.WriteDateTimeOffsetValue("occurredAt", OccurredAt);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ProductionStatus_status>("status", Status);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ProductionStatusStatus>("status", Status);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

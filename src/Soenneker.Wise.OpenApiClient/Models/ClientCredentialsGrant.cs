@@ -15,7 +15,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>OAuth 2.0 grant type.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.ClientCredentialsGrant_grant_type? GrantType { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.ClientCredentialsGrantGrantType? GrantType { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.ClientCredentialsGrant"/> and sets the default values.
         /// </summary>
@@ -41,7 +41,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "grant_type", n => { GrantType = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ClientCredentialsGrant_grant_type>(); } },
+                { "grant_type", n => { GrantType = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ClientCredentialsGrantGrantType>(); } },
             };
         }
         /// <summary>
@@ -51,7 +51,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ClientCredentialsGrant_grant_type>("grant_type", GrantType);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ClientCredentialsGrantGrantType>("grant_type", GrantType);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

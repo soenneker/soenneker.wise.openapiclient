@@ -46,14 +46,14 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public UntypedNode Requirements { get; set; }
 #endif
         /// <summary>Aggregated state of the underlying requirement set. Any of the states below could move into any other state.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.KycReviewWithLink_status? Status { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.KycReviewWithLinkStatus? Status { get; set; }
         /// <summary>List of trigger reference objects.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.KycReviewWithLink_triggerReferences>? TriggerReferences { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.KycReviewWithLinkTriggerReferencesItem>? TriggerReferences { get; set; }
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.KycReviewWithLink_triggerReferences> TriggerReferences { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.KycReviewWithLinkTriggerReferencesItem> TriggerReferences { get; set; }
 #endif
         /// <summary>Timestamp marking the last update of the KYC Review.</summary>
         public DateTimeOffset? UpdatedAt { get; set; }
@@ -88,8 +88,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "redirectUrl", n => { RedirectUrl = n.GetStringValue(); } },
                 { "requiredBy", n => { RequiredBy = n.GetDateTimeOffsetValue(); } },
                 { "requirements", n => { Requirements = n.GetObjectValue<UntypedNode>(UntypedNode.CreateFromDiscriminatorValue); } },
-                { "status", n => { Status = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.KycReviewWithLink_status>(); } },
-                { "triggerReferences", n => { TriggerReferences = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.KycReviewWithLink_triggerReferences>(global::Soenneker.Wise.OpenApiClient.Models.KycReviewWithLink_triggerReferences.CreateFromDiscriminatorValue)?.AsList(); } },
+                { "status", n => { Status = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.KycReviewWithLinkStatus>(); } },
+                { "triggerReferences", n => { TriggerReferences = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.KycReviewWithLinkTriggerReferencesItem>(global::Soenneker.Wise.OpenApiClient.Models.KycReviewWithLinkTriggerReferencesItem.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "updatedAt", n => { UpdatedAt = n.GetDateTimeOffsetValue(); } },
             };
         }
@@ -106,8 +106,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteStringValue("redirectUrl", RedirectUrl);
             writer.WriteDateTimeOffsetValue("requiredBy", RequiredBy);
             writer.WriteObjectValue<UntypedNode>("requirements", Requirements);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.KycReviewWithLink_status>("status", Status);
-            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.KycReviewWithLink_triggerReferences>("triggerReferences", TriggerReferences);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.KycReviewWithLinkStatus>("status", Status);
+            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.KycReviewWithLinkTriggerReferencesItem>("triggerReferences", TriggerReferences);
             writer.WriteDateTimeOffsetValue("updatedAt", UpdatedAt);
             writer.WriteAdditionalData(AdditionalData);
         }

@@ -36,29 +36,29 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.PayinSessions.Item.Payno
         /// <summary>
         /// Creates the encoded QR code and details for the payin session so the user can fund a transfer or balance top-up via a PayNow transaction.This operation supports the SGD currency only.
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.PaynowCreate200"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.PaynowCreate200Response"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.PaynowCreate400">When receiving a 400 status code</exception>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.PaynowCreate422">When receiving a 422 status code</exception>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.PaynowCreate200429Error">When receiving a 429 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.PaynowCreate400Response">When receiving a 400 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.PaynowCreate422Response">When receiving a 422 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.Models.PaynowCreate200?> PostAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.PaynowCreate200Response?> PostAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.Models.PaynowCreate200> PostAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.PaynowCreate200Response> PostAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             var requestInfo = ToPostRequestInformation(requestConfiguration);
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
-                { "400", global::Soenneker.Wise.OpenApiClient.Models.PaynowCreate400.CreateFromDiscriminatorValue },
-                { "422", global::Soenneker.Wise.OpenApiClient.Models.PaynowCreate422.CreateFromDiscriminatorValue },
-                { "429", global::Soenneker.Wise.OpenApiClient.Models.PaynowCreate200429Error.CreateFromDiscriminatorValue },
+                { "400", global::Soenneker.Wise.OpenApiClient.Models.PaynowCreate400Response.CreateFromDiscriminatorValue },
+                { "422", global::Soenneker.Wise.OpenApiClient.Models.PaynowCreate422Response.CreateFromDiscriminatorValue },
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
             };
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.PaynowCreate200>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.PaynowCreate200.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.PaynowCreate200Response>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.PaynowCreate200Response.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Creates the encoded QR code and details for the payin session so the user can fund a transfer or balance top-up via a PayNow transaction.This operation supports the SGD currency only.

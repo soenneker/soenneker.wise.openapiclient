@@ -39,7 +39,7 @@ namespace Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.Product
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.ProductionStatus"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.ProductionStatus429Error">When receiving a 429 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::Soenneker.Wise.OpenApiClient.Models.ProductionStatus?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -52,7 +52,7 @@ namespace Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.Product
             var requestInfo = ToGetRequestInformation(requestConfiguration);
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
-                { "429", global::Soenneker.Wise.OpenApiClient.Models.ProductionStatus429Error.CreateFromDiscriminatorValue },
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
             };
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.ProductionStatus>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.ProductionStatus.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
@@ -64,14 +64,14 @@ namespace Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.Product
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.ProductionStatus">When receiving a 422 status code</exception>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.ProductionStatus429Error">When receiving a 429 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.Models.ProductionStatus?> PutAsync(global::Soenneker.Wise.OpenApiClient.Models.CardKioskCollectionProduce body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.ProductionStatus?> PutAsync(global::Soenneker.Wise.OpenApiClient.Models.CardKioskCollectionProduceRequest body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.Models.ProductionStatus> PutAsync(global::Soenneker.Wise.OpenApiClient.Models.CardKioskCollectionProduce body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.ProductionStatus> PutAsync(global::Soenneker.Wise.OpenApiClient.Models.CardKioskCollectionProduceRequest body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
@@ -79,7 +79,7 @@ namespace Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.Product
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
                 { "422", global::Soenneker.Wise.OpenApiClient.Models.ProductionStatus.CreateFromDiscriminatorValue },
-                { "429", global::Soenneker.Wise.OpenApiClient.Models.ProductionStatus429Error.CreateFromDiscriminatorValue },
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
             };
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.ProductionStatus>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.ProductionStatus.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
@@ -110,11 +110,11 @@ namespace Soenneker.Wise.OpenApiClient.V3.Spend.Profiles.Item.Cards.Item.Product
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToPutRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.CardKioskCollectionProduce body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        public RequestInformation ToPutRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.CardKioskCollectionProduceRequest body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
         {
 #nullable restore
 #else
-        public RequestInformation ToPutRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.CardKioskCollectionProduce body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        public RequestInformation ToPutRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.CardKioskCollectionProduceRequest body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));

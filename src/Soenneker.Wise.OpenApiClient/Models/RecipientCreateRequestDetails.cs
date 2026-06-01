@@ -32,7 +32,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public string DateOfBirth { get; set; }
 #endif
         /// <summary>Recipient legal type (when applicable).</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.RecipientCreateRequestDetails_legalType? LegalType { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.RecipientCreateRequestDetailsLegalType? LegalType { get; set; }
         /// <summary>Sort code (GBP example).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -68,7 +68,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             {
                 { "accountNumber", n => { AccountNumber = n.GetStringValue(); } },
                 { "dateOfBirth", n => { DateOfBirth = n.GetStringValue(); } },
-                { "legalType", n => { LegalType = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.RecipientCreateRequestDetails_legalType>(); } },
+                { "legalType", n => { LegalType = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.RecipientCreateRequestDetailsLegalType>(); } },
                 { "sortCode", n => { SortCode = n.GetStringValue(); } },
             };
         }
@@ -81,7 +81,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("accountNumber", AccountNumber);
             writer.WriteStringValue("dateOfBirth", DateOfBirth);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.RecipientCreateRequestDetails_legalType>("legalType", LegalType);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.RecipientCreateRequestDetailsLegalType>("legalType", LegalType);
             writer.WriteStringValue("sortCode", SortCode);
             writer.WriteAdditionalData(AdditionalData);
         }

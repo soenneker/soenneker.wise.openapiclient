@@ -34,11 +34,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public string Reference { get; set; }
 #endif
         /// <summary>Payment initiation status:- `NEW` — Payment initiation created- `PROCESSING` — Payment is being processed- `COMPLETED` — Payment completed successfully- `FAILED` — Payment failed- `CHARGED_BACK` — Payment was charged back</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiation_status? Status { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationStatus? Status { get; set; }
         /// <summary>Transfer ID of the direct debit payment. Present only after the direct debit is initiated.</summary>
         public long? TransferId { get; set; }
         /// <summary>Payment type.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiation_type? Type { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationType? Type { get; set; }
         /// <summary>The ID of the user who initiated this payment.</summary>
         public long? UserId { get; set; }
         /// <summary>
@@ -72,9 +72,9 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "id", n => { Id = n.GetLongValue(); } },
                 { "profileId", n => { ProfileId = n.GetLongValue(); } },
                 { "reference", n => { Reference = n.GetStringValue(); } },
-                { "status", n => { Status = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiation_status>(); } },
+                { "status", n => { Status = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationStatus>(); } },
                 { "transferId", n => { TransferId = n.GetLongValue(); } },
-                { "type", n => { Type = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiation_type>(); } },
+                { "type", n => { Type = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationType>(); } },
                 { "userId", n => { UserId = n.GetLongValue(); } },
             };
         }
@@ -91,9 +91,9 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteLongValue("id", Id);
             writer.WriteLongValue("profileId", ProfileId);
             writer.WriteStringValue("reference", Reference);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiation_status>("status", Status);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationStatus>("status", Status);
             writer.WriteLongValue("transferId", TransferId);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiation_type>("type", Type);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationType>("type", Type);
             writer.WriteLongValue("userId", UserId);
             writer.WriteAdditionalData(AdditionalData);
         }

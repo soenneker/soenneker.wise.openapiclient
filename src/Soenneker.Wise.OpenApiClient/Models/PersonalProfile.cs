@@ -17,10 +17,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Address associated with a profile.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.Address? Address { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.Address2? Address { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.Address Address { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.Address2 Address { get; set; }
 #endif
         /// <summary>Link to person avatar image.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -41,7 +41,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Timestamp when the profile was created (ISO 8601 format).</summary>
         public DateTimeOffset? CreatedAt { get; set; }
         /// <summary>Current status of this profile.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.PersonalProfile_currentState? CurrentState { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.PersonalProfileCurrentState? CurrentState { get; set; }
         /// <summary>Date of birth of the profile holder.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -111,13 +111,13 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>An array of secondary addresses associated with the profile.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.Address>? SecondaryAddresses { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.Address2>? SecondaryAddresses { get; set; }
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.Address> SecondaryAddresses { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.Address2> SecondaryAddresses { get; set; }
 #endif
         /// <summary>Type of profile.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.PersonalProfile_type? Type { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.PersonalProfileType? Type { get; set; }
         /// <summary>Timestamp when the profile was last updated (ISO 8601 format).</summary>
         public DateTimeOffset? UpdatedAt { get; set; }
         /// <summary>The ID of the user associated with this profile.</summary>
@@ -147,11 +147,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "address", n => { Address = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Address>(global::Soenneker.Wise.OpenApiClient.Models.Address.CreateFromDiscriminatorValue); } },
+                { "address", n => { Address = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Address2>(global::Soenneker.Wise.OpenApiClient.Models.Address2.CreateFromDiscriminatorValue); } },
                 { "avatar", n => { Avatar = n.GetStringValue(); } },
                 { "contactDetails", n => { ContactDetails = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.PersonalProfileContactDetails>(global::Soenneker.Wise.OpenApiClient.Models.PersonalProfileContactDetails.CreateFromDiscriminatorValue); } },
                 { "createdAt", n => { CreatedAt = n.GetDateTimeOffsetValue(); } },
-                { "currentState", n => { CurrentState = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PersonalProfile_currentState>(); } },
+                { "currentState", n => { CurrentState = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PersonalProfileCurrentState>(); } },
                 { "dateOfBirth", n => { DateOfBirth = n.GetStringValue(); } },
                 { "email", n => { Email = n.GetStringValue(); } },
                 { "firstName", n => { FirstName = n.GetStringValue(); } },
@@ -161,8 +161,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "phoneNumber", n => { PhoneNumber = n.GetStringValue(); } },
                 { "preferredName", n => { PreferredName = n.GetStringValue(); } },
                 { "publicId", n => { PublicId = n.GetStringValue(); } },
-                { "secondaryAddresses", n => { SecondaryAddresses = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.Address>(global::Soenneker.Wise.OpenApiClient.Models.Address.CreateFromDiscriminatorValue)?.AsList(); } },
-                { "type", n => { Type = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PersonalProfile_type>(); } },
+                { "secondaryAddresses", n => { SecondaryAddresses = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.Address2>(global::Soenneker.Wise.OpenApiClient.Models.Address2.CreateFromDiscriminatorValue)?.AsList(); } },
+                { "type", n => { Type = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PersonalProfileType>(); } },
                 { "updatedAt", n => { UpdatedAt = n.GetDateTimeOffsetValue(); } },
                 { "userId", n => { UserId = n.GetLongValue(); } },
             };
@@ -174,11 +174,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Address>("address", Address);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Address2>("address", Address);
             writer.WriteStringValue("avatar", Avatar);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.PersonalProfileContactDetails>("contactDetails", ContactDetails);
             writer.WriteDateTimeOffsetValue("createdAt", CreatedAt);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PersonalProfile_currentState>("currentState", CurrentState);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PersonalProfileCurrentState>("currentState", CurrentState);
             writer.WriteStringValue("dateOfBirth", DateOfBirth);
             writer.WriteStringValue("email", Email);
             writer.WriteStringValue("firstName", FirstName);
@@ -188,8 +188,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteStringValue("phoneNumber", PhoneNumber);
             writer.WriteStringValue("preferredName", PreferredName);
             writer.WriteStringValue("publicId", PublicId);
-            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.Address>("secondaryAddresses", SecondaryAddresses);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PersonalProfile_type>("type", Type);
+            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.Address2>("secondaryAddresses", SecondaryAddresses);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PersonalProfileType>("type", Type);
             writer.WriteDateTimeOffsetValue("updatedAt", UpdatedAt);
             writer.WriteLongValue("userId", UserId);
             writer.WriteAdditionalData(AdditionalData);

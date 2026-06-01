@@ -36,10 +36,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>List of providers with their estimated quotes</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.Comparison_providers>? Providers { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItem>? Providers { get; set; }
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.Comparison_providers> Providers { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItem> Providers { get; set; }
 #endif
         /// <summary>List of provider types included in the response</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -110,7 +110,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "amountType", n => { AmountType = n.GetStringValue(); } },
                 { "providerCountry", n => { ProviderCountry = n.GetStringValue(); } },
                 { "providerTypes", n => { ProviderTypes = n.GetCollectionOfPrimitiveValues<string>()?.AsList(); } },
-                { "providers", n => { Providers = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.Comparison_providers>(global::Soenneker.Wise.OpenApiClient.Models.Comparison_providers.CreateFromDiscriminatorValue)?.AsList(); } },
+                { "providers", n => { Providers = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItem>(global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItem.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "sourceCountry", n => { SourceCountry = n.GetStringValue(); } },
                 { "sourceCurrency", n => { SourceCurrency = n.GetStringValue(); } },
                 { "targetCountry", n => { TargetCountry = n.GetStringValue(); } },
@@ -127,7 +127,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteDoubleValue("amount", Amount);
             writer.WriteStringValue("amountType", AmountType);
             writer.WriteStringValue("providerCountry", ProviderCountry);
-            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.Comparison_providers>("providers", Providers);
+            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItem>("providers", Providers);
             writer.WriteCollectionOfPrimitiveValues<string>("providerTypes", ProviderTypes);
             writer.WriteStringValue("sourceCountry", SourceCountry);
             writer.WriteStringValue("sourceCurrency", SourceCurrency);
