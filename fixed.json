@@ -19720,6 +19720,35 @@
             "type": "string",
             "description": "ID of the webhook subscription that triggered this event",
             "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef"
+          },
+          "event_type": {
+            "type": "string",
+            "description": "Event type identifier",
+            "example": "swift#message-received"
+          },
+          "sent_at": {
+            "type": "string",
+            "description": "Timestamp when the event was sent",
+            "format": "date-time",
+            "example": "2025-10-21T12:34:58.123Z"
+          },
+          "data": {
+            "$ref": "#/components/schemas/V40019Data"
+          }
+        }
+      },
+      "V40020": {
+        "title": "Schema version 4.0.0",
+        "type": "object",
+        "properties": {
+          "schema_version": {
+            "$ref": "#/components/schemas/V40020SchemaVersion"
+          },
+          "subscription_id": {
+            "type": "string",
+            "description": "ID of the webhook subscription that triggered this event",
+            "format": "uuid",
             "example": "7bb32a11-74ad-43b6-9505-3f5facbc87ed"
           },
           "event_type": {
@@ -19734,7 +19763,7 @@
             "example": "2024-04-18T06:36:17.123Z"
           },
           "data": {
-            "$ref": "#/components/schemas/V40019Data"
+            "$ref": "#/components/schemas/V40020Data"
           }
         }
       },
@@ -19767,12 +19796,12 @@
           }
         }
       },
-      "V40020": {
+      "V40021": {
         "title": "Schema version 4.0.0",
         "type": "object",
         "properties": {
           "schema_version": {
-            "$ref": "#/components/schemas/V40020SchemaVersion"
+            "$ref": "#/components/schemas/V40021SchemaVersion"
           },
           "subscription_id": {
             "type": "string",
@@ -19792,7 +19821,7 @@
             "example": "2024-04-18T06:36:17.123Z"
           },
           "data": {
-            "$ref": "#/components/schemas/V40020Data"
+            "$ref": "#/components/schemas/V40021Data"
           }
         }
       },
@@ -22380,8 +22409,25 @@
       "V40019Data": {
         "type": "object",
         "properties": {
+          "action": {
+            "$ref": "#/components/schemas/V40019DataAction"
+          },
+          "occurred_at": {
+            "type": "string",
+            "description": "Date and time at which the Swift message was processed by Wise. Time in UTC.",
+            "format": "date-time",
+            "example": "2025-10-21T12:34:56.789Z"
+          },
           "resource": {
             "$ref": "#/components/schemas/V40019DataResource"
+          }
+        }
+      },
+      "V40020Data": {
+        "type": "object",
+        "properties": {
+          "resource": {
+            "$ref": "#/components/schemas/V40020DataResource"
           },
           "reason": {
             "type": "string",
@@ -22389,7 +22435,7 @@
             "example": "WRONG_AMOUNT"
           },
           "status": {
-            "$ref": "#/components/schemas/V40019DataStatus"
+            "$ref": "#/components/schemas/V40020DataStatus"
           },
           "sub_status": {
             "type": "string",
@@ -22473,11 +22519,11 @@
           }
         }
       },
-      "V40020Data": {
+      "V40021Data": {
         "type": "object",
         "properties": {
           "resource": {
-            "$ref": "#/components/schemas/V40020DataResource"
+            "$ref": "#/components/schemas/V40021DataResource"
           },
           "occurred_at": {
             "type": "string",
@@ -24639,7 +24685,55 @@
           }
         }
       },
+      "V40019DataAction": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "The transfer ID of the incoming payment.",
+            "format": "int64",
+            "example": 12345
+          },
+          "profile_id": {
+            "type": "integer",
+            "description": "The profile ID of the incoming payment.",
+            "format": "int64",
+            "example": 222
+          },
+          "account_id": {
+            "type": "integer",
+            "description": "The balance account ID where funds will be deposited.",
+            "format": "int64",
+            "example": 333
+          }
+        }
+      },
       "V40019DataResource": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Identifier of the Swift message.",
+            "example": "a1b2c3d4e5f6"
+          },
+          "message_type": {
+            "type": "string",
+            "description": "Type of Swift message contained in the content field (e.g. \u0060pacs.008.001.08\u0060). Extensible for future message types.",
+            "example": "pacs.008.001.08"
+          },
+          "content": {
+            "type": "string",
+            "description": "The raw Swift message data, encoded as specified by \u0060content_encoding\u0060.",
+            "example": "PD94bWwgdmVyc2lvbj0iMS4wIj8\u002B..."
+          },
+          "content_encoding": {
+            "type": "string",
+            "description": "The encoding applied to the content field. Always \u0060base64\u0060.",
+            "example": "base64"
+          }
+        }
+      },
+      "V40020DataResource": {
         "type": "object",
         "properties": {
           "id": {
@@ -24693,7 +24787,7 @@
           }
         }
       },
-      "V40020DataResource": {
+      "V40021DataResource": {
         "type": "object",
         "properties": {
           "settlement_reference": {
@@ -35059,6 +35153,25 @@
           ]
         }
       },
+      "V40020SchemaVersion": {
+        "enum": [
+          "4.0.0"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Version of the event schema. Determined by the \u0060schema_version\u0060 on your [webhook subscription](/api-reference/webhook).",
+        "example": "4.0.0",
+        "x-ms-enum": {
+          "name": "V40020SchemaVersion",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "4.0.0",
+              "name": "Value400"
+            }
+          ]
+        }
+      },
       "V20019SchemaVersion": {
         "enum": [
           "2.0.0"
@@ -35078,7 +35191,7 @@
           ]
         }
       },
-      "V40020SchemaVersion": {
+      "V40021SchemaVersion": {
         "enum": [
           "4.0.0"
         ],
@@ -35087,7 +35200,7 @@
         "description": "Version of the event schema. Determined by the \u0060schema_version\u0060 on your [webhook subscription](/api-reference/webhook).",
         "example": "4.0.0",
         "x-ms-enum": {
-          "name": "V40020SchemaVersion",
+          "name": "V40021SchemaVersion",
           "modelAsString": false,
           "values": [
             {
@@ -36332,7 +36445,7 @@
           ]
         }
       },
-      "V40019DataStatus": {
+      "V40020DataStatus": {
         "enum": [
           "ACTIVE",
           "CLOSED"
@@ -36342,7 +36455,7 @@
         "description": "Dispute overall status",
         "example": "CLOSED",
         "x-ms-enum": {
-          "name": "V40019DataStatus",
+          "name": "V40020DataStatus",
           "modelAsString": false,
           "values": [
             {

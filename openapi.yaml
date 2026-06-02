@@ -27147,6 +27147,59 @@ webhooks:
                     type: string
                     example: ok
           description: Return any `2xx` status to acknowledge receipt of the event.
+  swift#message-received:
+    post:
+      operationId: eventSwiftMessageReceived
+      summary: Swift message received
+      description: >
+        Triggered when a Swift message (e.g.
+        [pacs.008](/guides/product/receive-money/subscribe-to-swift-message-received#example-pacs008-message-content))
+        is received and processed by Wise on behalf of a partner.
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
+
+
+        Events may not be delivered in the order they occurred. Use
+        `data.occurred_at` to reconcile the order.
+
+        See the [Event Ordering](/guides/developer/webhooks/event-ordering)
+        guide for details.
+
+
+        * Event type: `swift#message-received`
+
+        * Profile level subscriptions: Supported
+
+        * Application level subscriptions: Supported
+      tags:
+        - webhook-event
+      parameters:
+        - $ref: '#/components/parameters/x-signature-sha256'
+        - $ref: '#/components/parameters/x-delivery-id'
+        - $ref: '#/components/parameters/x-test-notification'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: Swift Message Received Event
+              discriminator:
+                propertyName: schema_version
+                mapping:
+                  4.0.0: '#/components/schemas/v4.0.0-19'
+              oneOf:
+                - $ref: '#/components/schemas/v4.0.0-19'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+          description: Return any `2xx` status to acknowledge receipt of the event.
   transaction-disputes#update:
     post:
       operationId: eventTransactionDisputesUpdate
@@ -27194,10 +27247,10 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-19'
+                  4.0.0: '#/components/schemas/v4.0.0-20'
                   2.0.0: '#/components/schemas/v2.0.0-19'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-19'
+                - $ref: '#/components/schemas/v4.0.0-20'
                 - $ref: '#/components/schemas/v2.0.0-19'
       responses:
         '200':
@@ -27259,11 +27312,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-20'
+                  4.0.0: '#/components/schemas/v4.0.0-21'
                   3.0.0: '#/components/schemas/v3.0.0'
                   2.0.0: '#/components/schemas/v2.0.0-20'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-20'
+                - $ref: '#/components/schemas/v4.0.0-21'
                 - $ref: '#/components/schemas/v3.0.0'
                 - $ref: '#/components/schemas/v2.0.0-20'
       responses:
@@ -37042,6 +37095,83 @@ components:
           type: string
           format: uuid
           description: ID of the webhook subscription that triggered this event
+          example: 01234567-89ab-cdef-0123-456789abcdef
+        event_type:
+          type: string
+          description: Event type identifier
+          example: swift#message-received
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2025-10-21T12:34:58.123Z'
+        data:
+          type: object
+          properties:
+            action:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  format: int64
+                  description: The transfer ID of the incoming payment.
+                  example: 12345
+                profile_id:
+                  type: integer
+                  format: int64
+                  description: The profile ID of the incoming payment.
+                  example: 222
+                account_id:
+                  type: integer
+                  format: int64
+                  description: The balance account ID where funds will be deposited.
+                  example: 333
+            occurred_at:
+              type: string
+              format: date-time
+              description: >-
+                Date and time at which the Swift message was processed by Wise.
+                Time in UTC.
+              example: '2025-10-21T12:34:56.789Z'
+            resource:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: Identifier of the Swift message.
+                  example: a1b2c3d4e5f6
+                message_type:
+                  type: string
+                  description: >-
+                    Type of Swift message contained in the content field (e.g.
+                    `pacs.008.001.08`). Extensible for future message types.
+                  example: pacs.008.001.08
+                content:
+                  type: string
+                  description: >-
+                    The raw Swift message data, encoded as specified by
+                    `content_encoding`.
+                  example: PD94bWwgdmVyc2lvbj0iMS4wIj8+...
+                content_encoding:
+                  type: string
+                  description: The encoding applied to the content field. Always `base64`.
+                  example: base64
+    v4.0.0-20:
+      title: Schema version 4.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 4.0.0
+          example: 4.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
           example: 7bb32a11-74ad-43b6-9505-3f5facbc87ed
         event_type:
           type: string
@@ -37208,7 +37338,7 @@ components:
               format: date-time
               description: When the dispute updates occurred
               example: '2024-04-18T06:36:15Z'
-    v4.0.0-20:
+    v4.0.0-21:
       title: Schema version 4.0.0
       type: object
       properties:
