@@ -35,7 +35,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Transfers
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public TransfersRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/v1/transfers{?createdDateEnd*,createdDateStart*,limit*,offset*,profile*,sourceCurrency*,status*,targetCurrency*}", pathParameters)
+        public TransfersRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "", pathParameters)
         {
         }
         /// <summary>
@@ -43,7 +43,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Transfers
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public TransfersRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/v1/transfers{?createdDateEnd*,createdDateStart*,limit*,offset*,profile*,sourceCurrency*,status*,targetCurrency*}", rawUrl)
+        public TransfersRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "", rawUrl)
         {
         }
         /// <summary>
