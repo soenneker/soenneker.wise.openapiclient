@@ -97,7 +97,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Quotes.Item.AccountRequirements
         public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.Quotes.Item.AccountRequirements.AccountRequirementsRequestBuilder.AccountRequirementsRequestBuilderGetQueryParameters>> requestConfiguration = default)
         {
 #endif
-            var requestInfo = new RequestInformation(Method.GET, UrlTemplate, PathParameters);
+            var requestInfo = new RequestInformation(Method.GET, "{+baseurl}/v1/quotes/{quoteId}/account-requirements{?addressRequired*,originatorLegalEntityType*}", PathParameters);
             requestInfo.Configure(requestConfiguration);
             requestInfo.Headers.TryAdd("Accept", "application/json");
             return requestInfo;
@@ -118,7 +118,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Quotes.Item.AccountRequirements
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
-            var requestInfo = new RequestInformation(Method.POST, UrlTemplate, PathParameters);
+            var requestInfo = new RequestInformation(Method.POST, "{+baseurl}/v1/quotes/{quoteId}/account-requirements{?originatorLegalEntityType*}", PathParameters);
             requestInfo.Configure(requestConfiguration);
             requestInfo.Headers.TryAdd("Accept", "application/json");
             requestInfo.SetContentFromParsable(RequestAdapter, "application/json", body);

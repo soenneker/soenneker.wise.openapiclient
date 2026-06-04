@@ -34,7 +34,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Simulation.Profiles.Item.SwiftIn
         {
         }
         /// <summary>
-        /// Simulates an incoming Swift transfer into a profile&apos;s account details. This will create a payment into the user&apos;s account details and balance for the specified amount and currency. Using sandbox, you can test the initial tech build for webhook subscriptions, balance statements, and sweeping funds.If the request is successful the transfer is logged in our back office, which triggers a [swift-in#credit](/guides/developer/webhooks/event-types#swift-in-credit) event and results in a balance update.{% admonition type=&quot;info&quot; %}While most fields are optional, default values will be provided as needed.{% /admonition %}
+        /// Simulates an incoming Swift transfer into a profile&apos;s account details. This will create a payment into the user&apos;s account details and balance for the specified amount and currency. Using sandbox, you can test the initial tech build for webhook subscriptions, balance statements, and sweeping funds.If the request is successful the transfer is logged in our back office, which triggers a [swift-in#credit](/api-reference/webhook-event/eventswiftincredit) event and results in a balance update.{% admonition type=&quot;info&quot; %}While most fields are optional, default values will be provided as needed.{% /admonition %}
         /// </summary>
         /// <returns>A <see cref="Stream"/></returns>
         /// <param name="body">The request body</param>
@@ -59,7 +59,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Simulation.Profiles.Item.SwiftIn
             return await RequestAdapter.SendPrimitiveAsync<Stream>(requestInfo, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Simulates an incoming Swift transfer into a profile&apos;s account details. This will create a payment into the user&apos;s account details and balance for the specified amount and currency. Using sandbox, you can test the initial tech build for webhook subscriptions, balance statements, and sweeping funds.If the request is successful the transfer is logged in our back office, which triggers a [swift-in#credit](/guides/developer/webhooks/event-types#swift-in-credit) event and results in a balance update.{% admonition type=&quot;info&quot; %}While most fields are optional, default values will be provided as needed.{% /admonition %}
+        /// Simulates an incoming Swift transfer into a profile&apos;s account details. This will create a payment into the user&apos;s account details and balance for the specified amount and currency. Using sandbox, you can test the initial tech build for webhook subscriptions, balance statements, and sweeping funds.If the request is successful the transfer is logged in our back office, which triggers a [swift-in#credit](/api-reference/webhook-event/eventswiftincredit) event and results in a balance update.{% admonition type=&quot;info&quot; %}While most fields are optional, default values will be provided as needed.{% /admonition %}
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>

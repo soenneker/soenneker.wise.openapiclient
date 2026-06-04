@@ -11587,7 +11587,7 @@
           "simulation"
         ],
         "summary": "Simulate incoming Swift payment",
-        "description": "Simulates an incoming Swift transfer into a profile\u0027s account details. This will create a payment into the user\u0027s account details and balance for the specified amount and currency. Using sandbox, you can test the initial tech build for webhook subscriptions, balance statements, and sweeping funds.\n\nIf the request is successful the transfer is logged in our back office, which triggers a [swift-in#credit](/guides/developer/webhooks/event-types#swift-in-credit) event and results in a balance update.\n\n{% admonition type=\u0022info\u0022 %}\nWhile most fields are optional, default values will be provided as needed.\n{% /admonition %}\n",
+        "description": "Simulates an incoming Swift transfer into a profile\u0027s account details. This will create a payment into the user\u0027s account details and balance for the specified amount and currency. Using sandbox, you can test the initial tech build for webhook subscriptions, balance statements, and sweeping funds.\n\nIf the request is successful the transfer is logged in our back office, which triggers a [swift-in#credit](/api-reference/webhook-event/eventswiftincredit) event and results in a balance update.\n\n{% admonition type=\u0022info\u0022 %}\nWhile most fields are optional, default values will be provided as needed.\n{% /admonition %}\n",
         "operationId": "SimulationSwiftIn",
         "parameters": [
           {
@@ -19725,16 +19725,45 @@
           "event_type": {
             "type": "string",
             "description": "Event type identifier",
-            "example": "swift#message-received"
+            "example": "swift-in#credit"
           },
           "sent_at": {
             "type": "string",
             "description": "Timestamp when the event was sent",
             "format": "date-time",
-            "example": "2025-10-21T12:34:58.123Z"
+            "example": "2023-08-21T12:34:58.123Z"
           },
           "data": {
             "$ref": "#/components/schemas/V40019Data"
+          }
+        }
+      },
+      "V300": {
+        "title": "Schema version 3.0.0",
+        "type": "object",
+        "properties": {
+          "schema_version": {
+            "$ref": "#/components/schemas/V300SchemaVersion"
+          },
+          "subscription_id": {
+            "type": "string",
+            "description": "ID of the webhook subscription that triggered this event",
+            "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef"
+          },
+          "event_type": {
+            "type": "string",
+            "description": "Event type identifier",
+            "example": "swift-in#credit"
+          },
+          "sent_at": {
+            "type": "string",
+            "description": "Timestamp when the event was sent",
+            "format": "date-time",
+            "example": "2023-08-21T12:34:58Z"
+          },
+          "data": {
+            "$ref": "#/components/schemas/V300Data"
           }
         }
       },
@@ -19744,6 +19773,35 @@
         "properties": {
           "schema_version": {
             "$ref": "#/components/schemas/V40020SchemaVersion"
+          },
+          "subscription_id": {
+            "type": "string",
+            "description": "ID of the webhook subscription that triggered this event",
+            "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef"
+          },
+          "event_type": {
+            "type": "string",
+            "description": "Event type identifier",
+            "example": "swift#message-received"
+          },
+          "sent_at": {
+            "type": "string",
+            "description": "Timestamp when the event was sent",
+            "format": "date-time",
+            "example": "2025-10-21T12:34:58.123Z"
+          },
+          "data": {
+            "$ref": "#/components/schemas/V40020Data"
+          }
+        }
+      },
+      "V40021": {
+        "title": "Schema version 4.0.0",
+        "type": "object",
+        "properties": {
+          "schema_version": {
+            "$ref": "#/components/schemas/V40021SchemaVersion"
           },
           "subscription_id": {
             "type": "string",
@@ -19763,7 +19821,7 @@
             "example": "2024-04-18T06:36:17.123Z"
           },
           "data": {
-            "$ref": "#/components/schemas/V40020Data"
+            "$ref": "#/components/schemas/V40021Data"
           }
         }
       },
@@ -19796,12 +19854,12 @@
           }
         }
       },
-      "V40021": {
+      "V40022": {
         "title": "Schema version 4.0.0",
         "type": "object",
         "properties": {
           "schema_version": {
-            "$ref": "#/components/schemas/V40021SchemaVersion"
+            "$ref": "#/components/schemas/V40022SchemaVersion"
           },
           "subscription_id": {
             "type": "string",
@@ -19821,16 +19879,16 @@
             "example": "2024-04-18T06:36:17.123Z"
           },
           "data": {
-            "$ref": "#/components/schemas/V40021Data"
+            "$ref": "#/components/schemas/V40022Data"
           }
         }
       },
-      "V300": {
+      "V3002": {
         "title": "Schema version 3.0.0",
         "type": "object",
         "properties": {
           "schema_version": {
-            "$ref": "#/components/schemas/V300SchemaVersion"
+            "$ref": "#/components/schemas/V3002SchemaVersion"
           },
           "subscription_id": {
             "type": "string",
@@ -19850,7 +19908,7 @@
             "example": "2024-04-18T06:36:17Z"
           },
           "data": {
-            "$ref": "#/components/schemas/V300Data"
+            "$ref": "#/components/schemas/V3002Data"
           }
         }
       },
@@ -22407,10 +22465,54 @@
         }
       },
       "V40019Data": {
+        "required": [
+          "action",
+          "resource",
+          "occurred_at"
+        ],
         "type": "object",
         "properties": {
           "action": {
             "$ref": "#/components/schemas/V40019DataAction"
+          },
+          "resource": {
+            "$ref": "#/components/schemas/V40019DataResource"
+          },
+          "occurred_at": {
+            "type": "string",
+            "description": "\u0022Date and time at which the amount was credited to the balance account. Time in UTC.\nFormat: \u0060YYYY\u0060-\u0060MM\u0060-\u0060DD\u0060T\u0060HH\u0060:\u0060MM\u0060:\u0060SS\u0060.\u0060mmm\u0060Z\n\u0022",
+            "format": "date-time",
+            "example": "2023-08-21T12:34:56.789Z"
+          }
+        }
+      },
+      "V300Data": {
+        "required": [
+          "action",
+          "resource",
+          "occurred_at"
+        ],
+        "type": "object",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/V300DataAction"
+          },
+          "resource": {
+            "$ref": "#/components/schemas/V300DataResource"
+          },
+          "occurred_at": {
+            "type": "string",
+            "description": "\u0022Date and time at which the amount was credited to the balance account. Time in UTC.\nFormat: \u0060YYYY\u0060-\u0060MM\u0060-\u0060DD\u0060T\u0060HH\u0060:\u0060MM\u0060:\u0060SS\u0060Z\n\u0022",
+            "format": "date-time",
+            "example": "2023-08-21T12:34:56Z"
+          }
+        }
+      },
+      "V40020Data": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/V40020DataAction"
           },
           "occurred_at": {
             "type": "string",
@@ -22419,15 +22521,15 @@
             "example": "2025-10-21T12:34:56.789Z"
           },
           "resource": {
-            "$ref": "#/components/schemas/V40019DataResource"
+            "$ref": "#/components/schemas/V40020DataResource"
           }
         }
       },
-      "V40020Data": {
+      "V40021Data": {
         "type": "object",
         "properties": {
           "resource": {
-            "$ref": "#/components/schemas/V40020DataResource"
+            "$ref": "#/components/schemas/V40021DataResource"
           },
           "reason": {
             "type": "string",
@@ -22435,7 +22537,7 @@
             "example": "WRONG_AMOUNT"
           },
           "status": {
-            "$ref": "#/components/schemas/V40020DataStatus"
+            "$ref": "#/components/schemas/V40021DataStatus"
           },
           "sub_status": {
             "type": "string",
@@ -22519,11 +22621,11 @@
           }
         }
       },
-      "V40021Data": {
+      "V40022Data": {
         "type": "object",
         "properties": {
           "resource": {
-            "$ref": "#/components/schemas/V40021DataResource"
+            "$ref": "#/components/schemas/V40022DataResource"
           },
           "occurred_at": {
             "type": "string",
@@ -22533,11 +22635,11 @@
           }
         }
       },
-      "V300Data": {
+      "V3002Data": {
         "type": "object",
         "properties": {
           "resource": {
-            "$ref": "#/components/schemas/V300DataResource"
+            "$ref": "#/components/schemas/V3002DataResource"
           },
           "occurred_at": {
             "type": "string",
@@ -24686,6 +24788,195 @@
         }
       },
       "V40019DataAction": {
+        "required": [
+          "type",
+          "id",
+          "profile_id",
+          "account_id"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Type of action. Always \u0060credit\u0060.",
+            "example": "credit"
+          },
+          "id": {
+            "type": "integer",
+            "description": "TransferID of the credit.",
+            "format": "int64",
+            "example": 12345
+          },
+          "profile_id": {
+            "type": "integer",
+            "description": "ProfileID for the transfer.",
+            "format": "int64",
+            "example": 222
+          },
+          "account_id": {
+            "type": "integer",
+            "description": "AccountID for the transfer.",
+            "format": "int64",
+            "example": 333
+          }
+        }
+      },
+      "V40019DataResource": {
+        "required": [
+          "id",
+          "uetr",
+          "exchange_rate",
+          "settled_amount",
+          "transaction_time"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "ID of the webhook.",
+            "example": 55555
+          },
+          "uetr": {
+            "type": "string",
+            "description": "Unique identifier created by the scheme for each payment and passed through the scheme to Wise.",
+            "format": "guid",
+            "example": "f875814b-7d44-4d1b-a499-123456789abcde"
+          },
+          "reference": {
+            "maxLength": 140,
+            "minLength": 0,
+            "type": "string",
+            "description": "Reference provided by the ultimate sender for the payment.",
+            "example": "/RFB/BET072"
+          },
+          "recipient": {
+            "$ref": "#/components/schemas/V40019DataResourceRecipient"
+          },
+          "sender": {
+            "$ref": "#/components/schemas/V40019DataResourceSender"
+          },
+          "exchange_rate": {
+            "type": "number",
+            "description": "In case the originally instructed amount was converted by Wise or any other intermediary agent, this field contains the exchange rate used. If no conversion took place, the exchange rate will be \u00601.0\u0060.\n",
+            "format": "double",
+            "example": 0.8
+          },
+          "instructed_amount": {
+            "$ref": "#/components/schemas/V40019DataResourceInstructedAmount"
+          },
+          "settled_amount": {
+            "$ref": "#/components/schemas/V40019DataResourceSettledAmount"
+          },
+          "fee": {
+            "$ref": "#/components/schemas/V40019DataResourceFee"
+          },
+          "transaction_time": {
+            "type": "string",
+            "description": "\u0022Date and time at which the associated transaction was created. Time in UTC.\nFormat: \u0060YYYY\u0060-\u0060MM\u0060-\u0060DD\u0060T\u0060HH\u0060:\u0060MM\u0060:\u0060SS\u0060.\u0060mmm\u0060Z\n\u0022",
+            "format": "date-time",
+            "example": "2023-08-21T12:34:56.456Z"
+          },
+          "previous_instructing_agents": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/V40019DataResourcePreviousInstructingAgentsItem"
+            },
+            "description": "List of previous instructing agents in the payment chain (ordered from first to last)."
+          }
+        }
+      },
+      "V300DataAction": {
+        "required": [
+          "type",
+          "id",
+          "profile_id",
+          "account_id"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Type of action. Always \u0060credit\u0060.",
+            "example": "credit"
+          },
+          "id": {
+            "type": "integer",
+            "description": "TransferID of the credit.",
+            "format": "int64",
+            "example": 12345
+          },
+          "profile_id": {
+            "type": "integer",
+            "description": "ProfileID for the transfer.",
+            "format": "int64",
+            "example": 222
+          },
+          "account_id": {
+            "type": "integer",
+            "description": "AccountID for the transfer.",
+            "format": "int64",
+            "example": 333
+          }
+        }
+      },
+      "V300DataResource": {
+        "required": [
+          "id",
+          "uetr",
+          "exchange_rate",
+          "settled_amount",
+          "transaction_time"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "ID of the webhook.",
+            "example": 55555
+          },
+          "uetr": {
+            "type": "string",
+            "description": "Unique identifier created by the scheme for each payment and passed through the scheme to Wise.",
+            "format": "guid",
+            "example": "f875814b-7d44-4d1b-a499-123456789abcde"
+          },
+          "reference": {
+            "maxLength": 140,
+            "minLength": 0,
+            "type": "string",
+            "description": "Reference provided by the ultimate sender for the payment.",
+            "example": "/RFB/BET072"
+          },
+          "recipient": {
+            "$ref": "#/components/schemas/V300DataResourceRecipient"
+          },
+          "sender": {
+            "$ref": "#/components/schemas/V300DataResourceSender"
+          },
+          "exchange_rate": {
+            "type": "number",
+            "description": "In case the originally instructed amount was converted by Wise or any other intermediary agent, this field contains the exchange rate used. If no conversion took place, the exchange rate will be \u00601.0\u0060.\n",
+            "format": "double",
+            "example": 0.8
+          },
+          "instructed_amount": {
+            "$ref": "#/components/schemas/V300DataResourceInstructedAmount"
+          },
+          "settled_amount": {
+            "$ref": "#/components/schemas/V300DataResourceSettledAmount"
+          },
+          "fee": {
+            "$ref": "#/components/schemas/V300DataResourceFee"
+          },
+          "transaction_time": {
+            "type": "string",
+            "description": "\u0022Date and time at which the associated transaction was created. Time in UTC.\nFormat: \u0060YYYY\u0060-\u0060MM\u0060-\u0060DD\u0060T\u0060HH\u0060:\u0060MM\u0060:\u0060SS\u0060Z\n\u0022",
+            "format": "date-time",
+            "example": "2023-08-21T12:34:56Z"
+          }
+        }
+      },
+      "V40020DataAction": {
         "type": "object",
         "properties": {
           "id": {
@@ -24708,7 +24999,7 @@
           }
         }
       },
-      "V40019DataResource": {
+      "V40020DataResource": {
         "type": "object",
         "properties": {
           "id": {
@@ -24733,7 +25024,7 @@
           }
         }
       },
-      "V40020DataResource": {
+      "V40021DataResource": {
         "type": "object",
         "properties": {
           "id": {
@@ -24787,7 +25078,7 @@
           }
         }
       },
-      "V40021DataResource": {
+      "V40022DataResource": {
         "type": "object",
         "properties": {
           "settlement_reference": {
@@ -24819,7 +25110,7 @@
           }
         }
       },
-      "V300DataResource": {
+      "V3002DataResource": {
         "type": "object",
         "properties": {
           "settlement_reference": {
@@ -25456,6 +25747,255 @@
           }
         }
       },
+      "V40019DataResourceRecipient": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "maxLength": 140,
+            "minLength": 1,
+            "type": "string",
+            "description": "Name of the ultimate recipient.",
+            "example": "JOHN SMITH"
+          },
+          "address": {
+            "$ref": "#/components/schemas/V40019DataResourceRecipientAddress"
+          },
+          "account": {
+            "maxLength": 36,
+            "minLength": 1,
+            "type": "string",
+            "description": "This can be either an IBAN, BBAN, AccountId or a Descriptor (another kind of identifier).",
+            "example": "BE1234567891234"
+          },
+          "bank_details": {
+            "$ref": "#/components/schemas/V40019DataResourceRecipientBankDetails"
+          }
+        }
+      },
+      "V40019DataResourceSender": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "maxLength": 140,
+            "minLength": 1,
+            "type": "string",
+            "description": "Name of the ultimate sender.",
+            "example": "GEORGE SMITH"
+          },
+          "address": {
+            "$ref": "#/components/schemas/V40019DataResourceSenderAddress"
+          },
+          "account": {
+            "maxLength": 36,
+            "minLength": 1,
+            "type": "string",
+            "description": "This can be either an IBAN, BBAN, AccountId or a Descriptor (another kind of identifier).",
+            "example": "EE947700771111111111"
+          },
+          "bank_details": {
+            "$ref": "#/components/schemas/V40019DataResourceSenderBankDetails"
+          }
+        }
+      },
+      "V40019DataResourceInstructedAmount": {
+        "required": [
+          "value",
+          "currency"
+        ],
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "number",
+            "description": "Value of the amount originally instructed by the ultimate sender.",
+            "format": "double",
+            "example": 1000
+          },
+          "currency": {
+            "type": "string",
+            "description": "Currency of the amount originally instructed by the ultimate sender. 3-letter ISO currency code.",
+            "example": "USD"
+          }
+        },
+        "description": "Amount originally instructed by the ultimate sender."
+      },
+      "V40019DataResourceSettledAmount": {
+        "required": [
+          "value",
+          "currency"
+        ],
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "number",
+            "description": "Value of the amount settled to the balance account.",
+            "format": "double",
+            "example": 786.54
+          },
+          "currency": {
+            "type": "string",
+            "description": "Currency of the amount settled to the balance account. 3-letter ISO currency code.",
+            "example": "GBP"
+          }
+        }
+      },
+      "V40019DataResourceFee": {
+        "type": "object",
+        "properties": {
+          "wise": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/V40019DataResourceFeeWiseItem"
+            },
+            "description": "List of fees applied by Wise (e.g., conversion fee). If this list is empty, no fees were applied by Wise."
+          },
+          "correspondent": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/V40019DataResourceFeeCorrespondentItem"
+            },
+            "description": "List of fees declared by correspondents (e.g., handling fee). If this list is empty, no fees were declared by correspondents."
+          }
+        }
+      },
+      "V40019DataResourcePreviousInstructingAgentsItem": {
+        "type": "object",
+        "properties": {
+          "bic": {
+            "type": "string",
+            "description": "Previous instructing agent BIC.",
+            "example": "SAMPUS33"
+          },
+          "name": {
+            "type": "string",
+            "description": "Previous instructing agent bank name.",
+            "example": "SAMPLE BANK USA"
+          },
+          "address": {
+            "$ref": "#/components/schemas/V40019DataResourcePreviousInstructingAgentsItemAddress"
+          }
+        }
+      },
+      "V300DataResourceRecipient": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "maxLength": 140,
+            "minLength": 1,
+            "type": "string",
+            "description": "Name of the ultimate recipient.",
+            "example": "JOHN SMITH"
+          },
+          "address": {
+            "maxLength": 140,
+            "minLength": 1,
+            "type": "string",
+            "description": "Address of the ultimate recipient.",
+            "example": "EVERGREEN AVE, 6, BRUSSELS, BE"
+          },
+          "account": {
+            "maxLength": 36,
+            "minLength": 1,
+            "type": "string",
+            "description": "This can be either an IBAN, BBAN, AccountId or a Descriptor (another kind of identifier).",
+            "example": "BE1234567891234"
+          },
+          "bank_details": {
+            "$ref": "#/components/schemas/V300DataResourceRecipientBankDetails"
+          }
+        }
+      },
+      "V300DataResourceSender": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "maxLength": 140,
+            "minLength": 1,
+            "type": "string",
+            "description": "Name of the ultimate sender.",
+            "example": "GEORGE SMITH"
+          },
+          "address": {
+            "maxLength": 140,
+            "minLength": 1,
+            "type": "string",
+            "description": "Address of the ultimate sender.",
+            "example": "EVERGREEN STREET, 10, BRUSSELS, BE"
+          },
+          "account": {
+            "maxLength": 36,
+            "minLength": 1,
+            "type": "string",
+            "description": "This can be either an IBAN, BBAN, AccountId or a Descriptor (another kind of identifier).",
+            "example": "EE947700771111111111"
+          },
+          "bank_details": {
+            "$ref": "#/components/schemas/V300DataResourceSenderBankDetails"
+          },
+          "bank_code": {
+            "$ref": "#/components/schemas/V300DataResourceSenderBankCode"
+          }
+        }
+      },
+      "V300DataResourceInstructedAmount": {
+        "required": [
+          "value",
+          "currency"
+        ],
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "number",
+            "description": "Value of the amount originally instructed by the ultimate sender.",
+            "format": "double",
+            "example": 1000
+          },
+          "currency": {
+            "type": "string",
+            "description": "Currency of the amount originally instructed by the ultimate sender. 3-letter ISO currency code.",
+            "example": "USD"
+          }
+        },
+        "description": "Amount originally instructed by the ultimate sender."
+      },
+      "V300DataResourceSettledAmount": {
+        "required": [
+          "value",
+          "currency"
+        ],
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "number",
+            "description": "Value of the amount settled to the balance account.",
+            "format": "double",
+            "example": 786.54
+          },
+          "currency": {
+            "type": "string",
+            "description": "Currency of the amount settled to the balance account. 3-letter ISO currency code.",
+            "example": "GBP"
+          }
+        }
+      },
+      "V300DataResourceFee": {
+        "type": "object",
+        "properties": {
+          "wise": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/V300DataResourceFeeWiseItem"
+            },
+            "description": "List of fees applied by Wise (e.g., conversion fee). If this list is empty, no fees were applied by Wise."
+          },
+          "correspondent": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/V300DataResourceFeeCorrespondentItem"
+            },
+            "description": "List of fees declared by correspondents (e.g., handling fee). If this list is empty, no fees were declared by correspondents."
+          }
+        }
+      },
       "AddressRequirementsResponseItemFieldsItemGroupItemValuesAllowedItem": {
         "type": "object",
         "properties": {
@@ -25610,6 +26150,390 @@
           }
         },
         "description": "The amount, unrounded, that fees were calculated on and built up from."
+      },
+      "V40019DataResourceRecipientAddress": {
+        "type": "object",
+        "properties": {
+          "first_line": {
+            "type": "string",
+            "description": "Address first line."
+          },
+          "street_name": {
+            "type": "string",
+            "description": "Street name.",
+            "example": "Evergreen Ave"
+          },
+          "building_number": {
+            "type": "string",
+            "description": "Building number.",
+            "example": 6
+          },
+          "town_name": {
+            "type": "string",
+            "description": "Town (city) name.",
+            "example": "BRUSSELS"
+          },
+          "postal_code": {
+            "type": "string",
+            "description": "Postal code.",
+            "example": 1000
+          },
+          "country_sub_division": {
+            "type": "string",
+            "description": "Country subdivision such as a state, province, or region."
+          },
+          "country_code": {
+            "type": "string",
+            "description": "Country code. 2-letter ISO country code.",
+            "example": "BE"
+          }
+        },
+        "description": "Structured address of the ultimate recipient."
+      },
+      "V40019DataResourceRecipientBankDetails": {
+        "type": "object",
+        "properties": {
+          "bic": {
+            "type": "string",
+            "description": "Recipient bank BIC.",
+            "example": "EXMPBEBB"
+          },
+          "name": {
+            "type": "string",
+            "description": "Recipient bank name.",
+            "example": "EXAMPLE BANK BELGIUM"
+          },
+          "address": {
+            "$ref": "#/components/schemas/V40019DataResourceRecipientBankDetailsAddress"
+          }
+        },
+        "description": "Recipient bank details."
+      },
+      "V40019DataResourceSenderAddress": {
+        "type": "object",
+        "properties": {
+          "first_line": {
+            "type": "string",
+            "description": "Address first line."
+          },
+          "street_name": {
+            "type": "string",
+            "description": "Street name.",
+            "example": "Evergreen Street"
+          },
+          "building_number": {
+            "type": "string",
+            "description": "Building number.",
+            "example": 10
+          },
+          "town_name": {
+            "type": "string",
+            "description": "Town (city) name.",
+            "example": "BRUSSELS"
+          },
+          "postal_code": {
+            "type": "string",
+            "description": "Postal code.",
+            "example": 1000
+          },
+          "country_sub_division": {
+            "type": "string",
+            "description": "Country subdivision such as a state, province, or region."
+          },
+          "country_code": {
+            "type": "string",
+            "description": "Country code. 2-letter ISO country code.",
+            "example": "BE"
+          }
+        },
+        "description": "Structured address of the ultimate sender."
+      },
+      "V40019DataResourceSenderBankDetails": {
+        "type": "object",
+        "properties": {
+          "bic": {
+            "type": "string",
+            "description": "Sender bank BIC.",
+            "example": "TESTDEFF"
+          },
+          "name": {
+            "type": "string",
+            "description": "Sender bank name.",
+            "example": "TEST BANK AG"
+          },
+          "address": {
+            "$ref": "#/components/schemas/V40019DataResourceSenderBankDetailsAddress"
+          }
+        },
+        "description": "Sender bank details."
+      },
+      "V40019DataResourceFeeWiseItem": {
+        "required": [
+          "type",
+          "value",
+          "currency"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Type of fee.",
+            "example": "conversion"
+          },
+          "value": {
+            "type": "number",
+            "description": "Value of fee.",
+            "format": "double",
+            "example": 2.76
+          },
+          "currency": {
+            "type": "string",
+            "description": "Currency of fee. 3-letter ISO currency code.",
+            "example": "GBP"
+          }
+        }
+      },
+      "V40019DataResourceFeeCorrespondentItem": {
+        "required": [
+          "value",
+          "currency"
+        ],
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "number",
+            "description": "Value of fee.",
+            "format": "double",
+            "example": 4.5
+          },
+          "currency": {
+            "type": "string",
+            "description": "Currency of fee. 3-letter ISO currency code.",
+            "example": "USD"
+          }
+        }
+      },
+      "V40019DataResourcePreviousInstructingAgentsItemAddress": {
+        "type": "object",
+        "properties": {
+          "first_line": {
+            "type": "string",
+            "description": "Address first line."
+          },
+          "street_name": {
+            "type": "string",
+            "description": "Street name.",
+            "example": "Fictional Avenue"
+          },
+          "building_number": {
+            "type": "string",
+            "description": "Building number.",
+            "example": 100
+          },
+          "town_name": {
+            "type": "string",
+            "description": "Town (city) name.",
+            "example": "NEW YORK"
+          },
+          "postal_code": {
+            "type": "string",
+            "description": "Postal code.",
+            "example": 10001
+          },
+          "country_sub_division": {
+            "type": "string",
+            "description": "Country subdivision such as a state, province, or region.",
+            "example": "NY"
+          },
+          "country_code": {
+            "type": "string",
+            "description": "Country code. 2-letter ISO country code.",
+            "example": "US"
+          }
+        },
+        "description": "Previous instructing agent bank address (same structure as \u0060recipient.address\u0060)."
+      },
+      "V300DataResourceRecipientBankDetails": {
+        "type": "object",
+        "properties": {
+          "bic": {
+            "type": "string",
+            "description": "Recipient bank BIC.",
+            "example": "EXMPBEBB"
+          },
+          "name": {
+            "type": "string",
+            "description": "Recipient bank name.",
+            "example": "EXAMPLE BANK BELGIUM"
+          },
+          "address": {
+            "type": "string",
+            "description": "Recipient bank address.",
+            "example": "Rue de l\u0027Exemple, BRUSSELS"
+          }
+        },
+        "description": "Recipient bank details."
+      },
+      "V300DataResourceSenderBankDetails": {
+        "type": "object",
+        "properties": {
+          "bic": {
+            "type": "string",
+            "description": "Sender bank BIC.",
+            "example": "TESTDEFF"
+          },
+          "name": {
+            "type": "string",
+            "description": "Sender bank name.",
+            "example": "TEST BANK AG"
+          },
+          "address": {
+            "type": "string",
+            "description": "Sender bank address.",
+            "example": "Musterstrasse, FRANKFURT"
+          }
+        },
+        "description": "Sender bank details."
+      },
+      "V300DataResourceSenderBankCode": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "Value of the ultimate sender\u0027s bank code. This can be either a BIC code, bank institution name, clearing system member code or LEI.",
+            "example": "ABNABE2AIDJ"
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of the ultimate sender\u0027s bank code. This can be either \u0060BIC\u0060, \u0060BANK_CODE\u0060 or \u0060BANK_NAME\u0060.",
+            "example": "BIC"
+          }
+        },
+        "description": "Ultimate sender\u0027s bank code."
+      },
+      "V300DataResourceFeeWiseItem": {
+        "required": [
+          "type",
+          "value",
+          "currency"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Type of fee.",
+            "example": "conversion"
+          },
+          "value": {
+            "type": "number",
+            "description": "Value of fee.",
+            "format": "double",
+            "example": 2.76
+          },
+          "currency": {
+            "type": "string",
+            "description": "Currency of fee. 3-letter ISO currency code.",
+            "example": "GBP"
+          }
+        }
+      },
+      "V300DataResourceFeeCorrespondentItem": {
+        "required": [
+          "value",
+          "currency"
+        ],
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "number",
+            "description": "Value of fee.",
+            "format": "double",
+            "example": 4.5
+          },
+          "currency": {
+            "type": "string",
+            "description": "Currency of fee. 3-letter ISO currency code.",
+            "example": "USD"
+          }
+        }
+      },
+      "V40019DataResourceRecipientBankDetailsAddress": {
+        "type": "object",
+        "properties": {
+          "first_line": {
+            "type": "string",
+            "description": "Address first line."
+          },
+          "street_name": {
+            "type": "string",
+            "description": "Street name.",
+            "example": "Rue de l\u0027Exemple"
+          },
+          "building_number": {
+            "type": "string",
+            "description": "Building number.",
+            "example": 1
+          },
+          "town_name": {
+            "type": "string",
+            "description": "Town (city) name.",
+            "example": "BRUSSELS"
+          },
+          "postal_code": {
+            "type": "string",
+            "description": "Postal code.",
+            "example": 1000
+          },
+          "country_sub_division": {
+            "type": "string",
+            "description": "Country subdivision such as a state, province, or region."
+          },
+          "country_code": {
+            "type": "string",
+            "description": "Country code. 2-letter ISO country code.",
+            "example": "BE"
+          }
+        },
+        "description": "Recipient bank address (same structure as \u0060recipient.address\u0060)."
+      },
+      "V40019DataResourceSenderBankDetailsAddress": {
+        "type": "object",
+        "properties": {
+          "first_line": {
+            "type": "string",
+            "description": "Address first line."
+          },
+          "street_name": {
+            "type": "string",
+            "description": "Street name.",
+            "example": "Musterstrasse"
+          },
+          "building_number": {
+            "type": "string",
+            "description": "Building number.",
+            "example": 99
+          },
+          "town_name": {
+            "type": "string",
+            "description": "Town (city) name.",
+            "example": "FRANKFURT"
+          },
+          "postal_code": {
+            "type": "string",
+            "description": "Postal code.",
+            "example": 60311
+          },
+          "country_sub_division": {
+            "type": "string",
+            "description": "Country subdivision such as a state, province, or region."
+          },
+          "country_code": {
+            "type": "string",
+            "description": "Country code. 2-letter ISO country code.",
+            "example": "DE"
+          }
+        },
+        "description": "Sender bank address (same structure as \u0060recipient.address\u0060)."
       },
       "VerificationUploadEvidencesRequest": {
         "required": [
@@ -35153,6 +36077,25 @@
           ]
         }
       },
+      "V300SchemaVersion": {
+        "enum": [
+          "3.0.0"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Version of the event schema. Determined by the \u0060schema_version\u0060 on your [webhook subscription](/api-reference/webhook).",
+        "example": "3.0.0",
+        "x-ms-enum": {
+          "name": "V300SchemaVersion",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "3.0.0",
+              "name": "Value300"
+            }
+          ]
+        }
+      },
       "V40020SchemaVersion": {
         "enum": [
           "4.0.0"
@@ -35163,6 +36106,25 @@
         "example": "4.0.0",
         "x-ms-enum": {
           "name": "V40020SchemaVersion",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "4.0.0",
+              "name": "Value400"
+            }
+          ]
+        }
+      },
+      "V40021SchemaVersion": {
+        "enum": [
+          "4.0.0"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Version of the event schema. Determined by the \u0060schema_version\u0060 on your [webhook subscription](/api-reference/webhook).",
+        "example": "4.0.0",
+        "x-ms-enum": {
+          "name": "V40021SchemaVersion",
           "modelAsString": false,
           "values": [
             {
@@ -35191,7 +36153,7 @@
           ]
         }
       },
-      "V40021SchemaVersion": {
+      "V40022SchemaVersion": {
         "enum": [
           "4.0.0"
         ],
@@ -35200,7 +36162,7 @@
         "description": "Version of the event schema. Determined by the \u0060schema_version\u0060 on your [webhook subscription](/api-reference/webhook).",
         "example": "4.0.0",
         "x-ms-enum": {
-          "name": "V40021SchemaVersion",
+          "name": "V40022SchemaVersion",
           "modelAsString": false,
           "values": [
             {
@@ -35210,7 +36172,7 @@
           ]
         }
       },
-      "V300SchemaVersion": {
+      "V3002SchemaVersion": {
         "enum": [
           "3.0.0"
         ],
@@ -35219,7 +36181,7 @@
         "description": "Version of the event schema. Determined by the \u0060schema_version\u0060 on your [webhook subscription](/api-reference/webhook).",
         "example": "3.0.0",
         "x-ms-enum": {
-          "name": "V300SchemaVersion",
+          "name": "V3002SchemaVersion",
           "modelAsString": false,
           "values": [
             {
@@ -36445,7 +37407,7 @@
           ]
         }
       },
-      "V40020DataStatus": {
+      "V40021DataStatus": {
         "enum": [
           "ACTIVE",
           "CLOSED"
@@ -36455,7 +37417,7 @@
         "description": "Dispute overall status",
         "example": "CLOSED",
         "x-ms-enum": {
-          "name": "V40020DataStatus",
+          "name": "V40021DataStatus",
           "modelAsString": false,
           "values": [
             {

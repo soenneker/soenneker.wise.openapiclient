@@ -109,7 +109,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.KycReviews
         public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.V1.Profiles.Item.KycReviews.KycReviewsRequestBuilder.KycReviewsRequestBuilderGetQueryParameters>> requestConfiguration = default)
         {
 #endif
-            var requestInfo = new RequestInformation(Method.GET, UrlTemplate, PathParameters);
+            var requestInfo = new RequestInformation(Method.GET, "{+baseurl}/v1/profiles/{profileId}/kyc-reviews{?pageNumber*,pageSize*}", PathParameters);
             requestInfo.Configure(requestConfiguration);
             requestInfo.Headers.TryAdd("Accept", "application/json");
             return requestInfo;
@@ -130,7 +130,7 @@ namespace Soenneker.Wise.OpenApiClient.V1.Profiles.Item.KycReviews
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
-            var requestInfo = new RequestInformation(Method.POST, UrlTemplate, PathParameters);
+            var requestInfo = new RequestInformation(Method.POST, "{+baseurl}/v1/profiles/{profileId}/kyc-reviews", PathParameters);
             requestInfo.Configure(requestConfiguration);
             requestInfo.Headers.TryAdd("Accept", "application/json");
             requestInfo.SetContentFromParsable(RequestAdapter, "application/json", body);

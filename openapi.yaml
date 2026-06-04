@@ -21272,8 +21272,8 @@ paths:
 
         If the request is successful the transfer is logged in our back office,
         which triggers a
-        [swift-in#credit](/guides/developer/webhooks/event-types#swift-in-credit)
-        event and results in a balance update.
+        [swift-in#credit](/api-reference/webhook-event/eventswiftincredit) event
+        and results in a balance update.
 
 
         {% admonition type="info" %}
@@ -27147,6 +27147,66 @@ webhooks:
                     type: string
                     example: ok
           description: Return any `2xx` status to acknowledge receipt of the event.
+  swift-in#credit:
+    post:
+      operationId: eventSwiftInCredit
+      summary: Swift receive credit
+      description: >
+        Triggered every time a Swift message is received and a credit is
+        deposited into a balance account.
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
+
+
+        Events may not be delivered in the order they occurred. Use
+        `data.occurred_at` to reconcile the order.
+
+        See the [Event Ordering](/guides/developer/webhooks/event-ordering)
+        guide for details.
+
+
+        If you also subscribe to `balances#credit` or `transfers#state-change`
+        on the same profile or application you may experience some duplication
+        of webhook events. You should make allowances for this and handle it in
+        your implementation.
+
+
+        * Event type: `swift-in#credit`
+
+        * Profile level subscriptions: Supported
+
+        * Application level subscriptions: Supported
+      tags:
+        - webhook-event
+      parameters:
+        - $ref: '#/components/parameters/x-signature-sha256'
+        - $ref: '#/components/parameters/x-delivery-id'
+        - $ref: '#/components/parameters/x-test-notification'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: Swift In Credit Event
+              discriminator:
+                propertyName: schema_version
+                mapping:
+                  4.0.0: '#/components/schemas/v4.0.0-19'
+                  3.0.0: '#/components/schemas/v3.0.0'
+              oneOf:
+                - $ref: '#/components/schemas/v4.0.0-19'
+                - $ref: '#/components/schemas/v3.0.0'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+          description: Return any `2xx` status to acknowledge receipt of the event.
   swift#message-received:
     post:
       operationId: eventSwiftMessageReceived
@@ -27186,9 +27246,9 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-19'
+                  4.0.0: '#/components/schemas/v4.0.0-20'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-19'
+                - $ref: '#/components/schemas/v4.0.0-20'
       responses:
         '200':
           content:
@@ -27247,10 +27307,10 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-20'
+                  4.0.0: '#/components/schemas/v4.0.0-21'
                   2.0.0: '#/components/schemas/v2.0.0-19'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-20'
+                - $ref: '#/components/schemas/v4.0.0-21'
                 - $ref: '#/components/schemas/v2.0.0-19'
       responses:
         '200':
@@ -27312,12 +27372,12 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-21'
-                  3.0.0: '#/components/schemas/v3.0.0'
+                  4.0.0: '#/components/schemas/v4.0.0-22'
+                  3.0.0: '#/components/schemas/v3.0.0-2'
                   2.0.0: '#/components/schemas/v2.0.0-20'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-21'
-                - $ref: '#/components/schemas/v3.0.0'
+                - $ref: '#/components/schemas/v4.0.0-22'
+                - $ref: '#/components/schemas/v3.0.0-2'
                 - $ref: '#/components/schemas/v2.0.0-20'
       responses:
         '200':
@@ -37099,6 +37159,740 @@ components:
         event_type:
           type: string
           description: Event type identifier
+          example: swift-in#credit
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2023-08-21T12:34:58.123Z'
+        data:
+          type: object
+          required:
+            - action
+            - resource
+            - occurred_at
+          properties:
+            action:
+              type: object
+              required:
+                - type
+                - id
+                - profile_id
+                - account_id
+              properties:
+                type:
+                  type: string
+                  description: Type of action. Always `credit`.
+                  example: credit
+                id:
+                  type: integer
+                  format: int64
+                  description: TransferID of the credit.
+                  example: 12345
+                profile_id:
+                  type: integer
+                  format: int64
+                  description: ProfileID for the transfer.
+                  example: 222
+                account_id:
+                  type: integer
+                  format: int64
+                  description: AccountID for the transfer.
+                  example: 333
+            resource:
+              type: object
+              required:
+                - id
+                - uetr
+                - exchange_rate
+                - settled_amount
+                - transaction_time
+              properties:
+                id:
+                  type: string
+                  description: ID of the webhook.
+                  example: '55555'
+                uetr:
+                  type: string
+                  format: guid
+                  description: >-
+                    Unique identifier created by the scheme for each payment and
+                    passed through the scheme to Wise.
+                  example: f875814b-7d44-4d1b-a499-123456789abcde
+                reference:
+                  type: string
+                  description: Reference provided by the ultimate sender for the payment.
+                  minLength: 0
+                  maxLength: 140
+                  example: /RFB/BET072
+                recipient:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: Name of the ultimate recipient.
+                      minLength: 1
+                      maxLength: 140
+                      example: JOHN SMITH
+                    address:
+                      type: object
+                      description: Structured address of the ultimate recipient.
+                      properties:
+                        first_line:
+                          type: string
+                          description: Address first line.
+                        street_name:
+                          type: string
+                          description: Street name.
+                          example: Evergreen Ave
+                        building_number:
+                          type: string
+                          description: Building number.
+                          example: '6'
+                        town_name:
+                          type: string
+                          description: Town (city) name.
+                          example: BRUSSELS
+                        postal_code:
+                          type: string
+                          description: Postal code.
+                          example: '1000'
+                        country_sub_division:
+                          type: string
+                          description: >-
+                            Country subdivision such as a state, province, or
+                            region.
+                        country_code:
+                          type: string
+                          description: Country code. 2-letter ISO country code.
+                          example: BE
+                    account:
+                      type: string
+                      description: >-
+                        This can be either an IBAN, BBAN, AccountId or a
+                        Descriptor (another kind of identifier).
+                      minLength: 1
+                      maxLength: 36
+                      example: BE1234567891234
+                    bank_details:
+                      type: object
+                      description: Recipient bank details.
+                      properties:
+                        bic:
+                          type: string
+                          description: Recipient bank BIC.
+                          example: EXMPBEBB
+                        name:
+                          type: string
+                          description: Recipient bank name.
+                          example: EXAMPLE BANK BELGIUM
+                        address:
+                          type: object
+                          description: >-
+                            Recipient bank address (same structure as
+                            `recipient.address`).
+                          properties:
+                            first_line:
+                              type: string
+                              description: Address first line.
+                            street_name:
+                              type: string
+                              description: Street name.
+                              example: Rue de l'Exemple
+                            building_number:
+                              type: string
+                              description: Building number.
+                              example: '1'
+                            town_name:
+                              type: string
+                              description: Town (city) name.
+                              example: BRUSSELS
+                            postal_code:
+                              type: string
+                              description: Postal code.
+                              example: '1000'
+                            country_sub_division:
+                              type: string
+                              description: >-
+                                Country subdivision such as a state, province,
+                                or region.
+                            country_code:
+                              type: string
+                              description: Country code. 2-letter ISO country code.
+                              example: BE
+                sender:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: Name of the ultimate sender.
+                      minLength: 1
+                      maxLength: 140
+                      example: GEORGE SMITH
+                    address:
+                      type: object
+                      description: Structured address of the ultimate sender.
+                      properties:
+                        first_line:
+                          type: string
+                          description: Address first line.
+                        street_name:
+                          type: string
+                          description: Street name.
+                          example: Evergreen Street
+                        building_number:
+                          type: string
+                          description: Building number.
+                          example: '10'
+                        town_name:
+                          type: string
+                          description: Town (city) name.
+                          example: BRUSSELS
+                        postal_code:
+                          type: string
+                          description: Postal code.
+                          example: '1000'
+                        country_sub_division:
+                          type: string
+                          description: >-
+                            Country subdivision such as a state, province, or
+                            region.
+                        country_code:
+                          type: string
+                          description: Country code. 2-letter ISO country code.
+                          example: BE
+                    account:
+                      type: string
+                      description: >-
+                        This can be either an IBAN, BBAN, AccountId or a
+                        Descriptor (another kind of identifier).
+                      minLength: 1
+                      maxLength: 36
+                      example: EE947700771111111111
+                    bank_details:
+                      type: object
+                      description: Sender bank details.
+                      properties:
+                        bic:
+                          type: string
+                          description: Sender bank BIC.
+                          example: TESTDEFF
+                        name:
+                          type: string
+                          description: Sender bank name.
+                          example: TEST BANK AG
+                        address:
+                          type: object
+                          description: >-
+                            Sender bank address (same structure as
+                            `recipient.address`).
+                          properties:
+                            first_line:
+                              type: string
+                              description: Address first line.
+                            street_name:
+                              type: string
+                              description: Street name.
+                              example: Musterstrasse
+                            building_number:
+                              type: string
+                              description: Building number.
+                              example: '99'
+                            town_name:
+                              type: string
+                              description: Town (city) name.
+                              example: FRANKFURT
+                            postal_code:
+                              type: string
+                              description: Postal code.
+                              example: '60311'
+                            country_sub_division:
+                              type: string
+                              description: >-
+                                Country subdivision such as a state, province,
+                                or region.
+                            country_code:
+                              type: string
+                              description: Country code. 2-letter ISO country code.
+                              example: DE
+                exchange_rate:
+                  type: number
+                  format: double
+                  description: >
+                    In case the originally instructed amount was converted by
+                    Wise or any other intermediary agent, this field contains
+                    the exchange rate used. If no conversion took place, the
+                    exchange rate will be `1.0`.
+                  example: 0.8
+                instructed_amount:
+                  type: object
+                  description: Amount originally instructed by the ultimate sender.
+                  required:
+                    - value
+                    - currency
+                  properties:
+                    value:
+                      type: number
+                      format: double
+                      description: >-
+                        Value of the amount originally instructed by the
+                        ultimate sender.
+                      example: 1000
+                    currency:
+                      type: string
+                      description: >-
+                        Currency of the amount originally instructed by the
+                        ultimate sender. 3-letter ISO currency code.
+                      example: USD
+                settled_amount:
+                  type: object
+                  required:
+                    - value
+                    - currency
+                  properties:
+                    value:
+                      type: number
+                      format: double
+                      description: Value of the amount settled to the balance account.
+                      example: 786.54
+                    currency:
+                      type: string
+                      description: >-
+                        Currency of the amount settled to the balance account.
+                        3-letter ISO currency code.
+                      example: GBP
+                fee:
+                  type: object
+                  properties:
+                    wise:
+                      type: array
+                      description: >-
+                        List of fees applied by Wise (e.g., conversion fee). If
+                        this list is empty, no fees were applied by Wise.
+                      items:
+                        type: object
+                        required:
+                          - type
+                          - value
+                          - currency
+                        properties:
+                          type:
+                            type: string
+                            description: Type of fee.
+                            example: conversion
+                          value:
+                            type: number
+                            format: double
+                            description: Value of fee.
+                            example: 2.76
+                          currency:
+                            type: string
+                            description: Currency of fee. 3-letter ISO currency code.
+                            example: GBP
+                    correspondent:
+                      type: array
+                      description: >-
+                        List of fees declared by correspondents (e.g., handling
+                        fee). If this list is empty, no fees were declared by
+                        correspondents.
+                      items:
+                        type: object
+                        required:
+                          - value
+                          - currency
+                        properties:
+                          value:
+                            type: number
+                            format: double
+                            description: Value of fee.
+                            example: 4.5
+                          currency:
+                            type: string
+                            description: Currency of fee. 3-letter ISO currency code.
+                            example: USD
+                transaction_time:
+                  type: string
+                  format: date-time
+                  description: >
+                    Date and time at which the associated transaction was
+                    created. Time in UTC.
+
+                    Format: `YYYY`-`MM`-`DD`T`HH`:`MM`:`SS`.`mmm`Z
+                  example: '2023-08-21T12:34:56.456Z'
+                previous_instructing_agents:
+                  type: array
+                  description: >-
+                    List of previous instructing agents in the payment chain
+                    (ordered from first to last).
+                  items:
+                    type: object
+                    properties:
+                      bic:
+                        type: string
+                        description: Previous instructing agent BIC.
+                        example: SAMPUS33
+                      name:
+                        type: string
+                        description: Previous instructing agent bank name.
+                        example: SAMPLE BANK USA
+                      address:
+                        type: object
+                        description: >-
+                          Previous instructing agent bank address (same
+                          structure as `recipient.address`).
+                        properties:
+                          first_line:
+                            type: string
+                            description: Address first line.
+                          street_name:
+                            type: string
+                            description: Street name.
+                            example: Fictional Avenue
+                          building_number:
+                            type: string
+                            description: Building number.
+                            example: '100'
+                          town_name:
+                            type: string
+                            description: Town (city) name.
+                            example: NEW YORK
+                          postal_code:
+                            type: string
+                            description: Postal code.
+                            example: '10001'
+                          country_sub_division:
+                            type: string
+                            description: >-
+                              Country subdivision such as a state, province, or
+                              region.
+                            example: NY
+                          country_code:
+                            type: string
+                            description: Country code. 2-letter ISO country code.
+                            example: US
+            occurred_at:
+              type: string
+              format: date-time
+              description: >
+                Date and time at which the amount was credited to the balance
+                account. Time in UTC.
+
+                Format: `YYYY`-`MM`-`DD`T`HH`:`MM`:`SS`.`mmm`Z
+              example: '2023-08-21T12:34:56.789Z'
+    v3.0.0:
+      title: Schema version 3.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 3.0.0
+          example: 3.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: 01234567-89ab-cdef-0123-456789abcdef
+        event_type:
+          type: string
+          description: Event type identifier
+          example: swift-in#credit
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2023-08-21T12:34:58Z'
+        data:
+          type: object
+          required:
+            - action
+            - resource
+            - occurred_at
+          properties:
+            action:
+              type: object
+              required:
+                - type
+                - id
+                - profile_id
+                - account_id
+              properties:
+                type:
+                  type: string
+                  description: Type of action. Always `credit`.
+                  example: credit
+                id:
+                  type: integer
+                  format: int64
+                  description: TransferID of the credit.
+                  example: 12345
+                profile_id:
+                  type: integer
+                  format: int64
+                  description: ProfileID for the transfer.
+                  example: 222
+                account_id:
+                  type: integer
+                  format: int64
+                  description: AccountID for the transfer.
+                  example: 333
+            resource:
+              type: object
+              required:
+                - id
+                - uetr
+                - exchange_rate
+                - settled_amount
+                - transaction_time
+              properties:
+                id:
+                  type: string
+                  description: ID of the webhook.
+                  example: '55555'
+                uetr:
+                  type: string
+                  format: guid
+                  description: >-
+                    Unique identifier created by the scheme for each payment and
+                    passed through the scheme to Wise.
+                  example: f875814b-7d44-4d1b-a499-123456789abcde
+                reference:
+                  type: string
+                  description: Reference provided by the ultimate sender for the payment.
+                  minLength: 0
+                  maxLength: 140
+                  example: /RFB/BET072
+                recipient:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: Name of the ultimate recipient.
+                      minLength: 1
+                      maxLength: 140
+                      example: JOHN SMITH
+                    address:
+                      type: string
+                      description: Address of the ultimate recipient.
+                      minLength: 1
+                      maxLength: 140
+                      example: EVERGREEN AVE, 6, BRUSSELS, BE
+                    account:
+                      type: string
+                      description: >-
+                        This can be either an IBAN, BBAN, AccountId or a
+                        Descriptor (another kind of identifier).
+                      minLength: 1
+                      maxLength: 36
+                      example: BE1234567891234
+                    bank_details:
+                      type: object
+                      description: Recipient bank details.
+                      properties:
+                        bic:
+                          type: string
+                          description: Recipient bank BIC.
+                          example: EXMPBEBB
+                        name:
+                          type: string
+                          description: Recipient bank name.
+                          example: EXAMPLE BANK BELGIUM
+                        address:
+                          type: string
+                          description: Recipient bank address.
+                          example: Rue de l'Exemple, BRUSSELS
+                sender:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: Name of the ultimate sender.
+                      minLength: 1
+                      maxLength: 140
+                      example: GEORGE SMITH
+                    address:
+                      type: string
+                      description: Address of the ultimate sender.
+                      minLength: 1
+                      maxLength: 140
+                      example: EVERGREEN STREET, 10, BRUSSELS, BE
+                    account:
+                      type: string
+                      description: >-
+                        This can be either an IBAN, BBAN, AccountId or a
+                        Descriptor (another kind of identifier).
+                      minLength: 1
+                      maxLength: 36
+                      example: EE947700771111111111
+                    bank_details:
+                      type: object
+                      description: Sender bank details.
+                      properties:
+                        bic:
+                          type: string
+                          description: Sender bank BIC.
+                          example: TESTDEFF
+                        name:
+                          type: string
+                          description: Sender bank name.
+                          example: TEST BANK AG
+                        address:
+                          type: string
+                          description: Sender bank address.
+                          example: Musterstrasse, FRANKFURT
+                    bank_code:
+                      type: object
+                      description: Ultimate sender's bank code.
+                      properties:
+                        value:
+                          type: string
+                          description: >-
+                            Value of the ultimate sender's bank code. This can
+                            be either a BIC code, bank institution name,
+                            clearing system member code or LEI.
+                          example: ABNABE2AIDJ
+                        type:
+                          type: string
+                          description: >-
+                            Type of the ultimate sender's bank code. This can be
+                            either `BIC`, `BANK_CODE` or `BANK_NAME`.
+                          example: BIC
+                exchange_rate:
+                  type: number
+                  format: double
+                  description: >
+                    In case the originally instructed amount was converted by
+                    Wise or any other intermediary agent, this field contains
+                    the exchange rate used. If no conversion took place, the
+                    exchange rate will be `1.0`.
+                  example: 0.8
+                instructed_amount:
+                  type: object
+                  description: Amount originally instructed by the ultimate sender.
+                  required:
+                    - value
+                    - currency
+                  properties:
+                    value:
+                      type: number
+                      format: double
+                      description: >-
+                        Value of the amount originally instructed by the
+                        ultimate sender.
+                      example: 1000
+                    currency:
+                      type: string
+                      description: >-
+                        Currency of the amount originally instructed by the
+                        ultimate sender. 3-letter ISO currency code.
+                      example: USD
+                settled_amount:
+                  type: object
+                  required:
+                    - value
+                    - currency
+                  properties:
+                    value:
+                      type: number
+                      format: double
+                      description: Value of the amount settled to the balance account.
+                      example: 786.54
+                    currency:
+                      type: string
+                      description: >-
+                        Currency of the amount settled to the balance account.
+                        3-letter ISO currency code.
+                      example: GBP
+                fee:
+                  type: object
+                  properties:
+                    wise:
+                      type: array
+                      description: >-
+                        List of fees applied by Wise (e.g., conversion fee). If
+                        this list is empty, no fees were applied by Wise.
+                      items:
+                        type: object
+                        required:
+                          - type
+                          - value
+                          - currency
+                        properties:
+                          type:
+                            type: string
+                            description: Type of fee.
+                            example: conversion
+                          value:
+                            type: number
+                            format: double
+                            description: Value of fee.
+                            example: 2.76
+                          currency:
+                            type: string
+                            description: Currency of fee. 3-letter ISO currency code.
+                            example: GBP
+                    correspondent:
+                      type: array
+                      description: >-
+                        List of fees declared by correspondents (e.g., handling
+                        fee). If this list is empty, no fees were declared by
+                        correspondents.
+                      items:
+                        type: object
+                        required:
+                          - value
+                          - currency
+                        properties:
+                          value:
+                            type: number
+                            format: double
+                            description: Value of fee.
+                            example: 4.5
+                          currency:
+                            type: string
+                            description: Currency of fee. 3-letter ISO currency code.
+                            example: USD
+                transaction_time:
+                  type: string
+                  format: date-time
+                  description: >
+                    Date and time at which the associated transaction was
+                    created. Time in UTC.
+
+                    Format: `YYYY`-`MM`-`DD`T`HH`:`MM`:`SS`Z
+                  example: '2023-08-21T12:34:56Z'
+            occurred_at:
+              type: string
+              format: date-time
+              description: >
+                Date and time at which the amount was credited to the balance
+                account. Time in UTC.
+
+                Format: `YYYY`-`MM`-`DD`T`HH`:`MM`:`SS`Z
+              example: '2023-08-21T12:34:56Z'
+    v4.0.0-20:
+      title: Schema version 4.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 4.0.0
+          example: 4.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: 01234567-89ab-cdef-0123-456789abcdef
+        event_type:
+          type: string
+          description: Event type identifier
           example: swift#message-received
         sent_at:
           type: string
@@ -37156,7 +37950,7 @@ components:
                   type: string
                   description: The encoding applied to the content field. Always `base64`.
                   example: base64
-    v4.0.0-20:
+    v4.0.0-21:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -37338,7 +38132,7 @@ components:
               format: date-time
               description: When the dispute updates occurred
               example: '2024-04-18T06:36:15Z'
-    v4.0.0-21:
+    v4.0.0-22:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -37397,7 +38191,7 @@ components:
               format: date-time
               description: When the settlement fund was received
               example: '2024-04-18T06:36:15.789Z'
-    v3.0.0:
+    v3.0.0-2:
       title: Schema version 3.0.0
       type: object
       properties:
