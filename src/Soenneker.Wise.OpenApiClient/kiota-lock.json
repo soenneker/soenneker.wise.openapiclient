@@ -1,8 +1,8 @@
 {
-  "descriptionHash": "A7583A9FCE718A0B8AA0B5B031D84FE3B74409DDF5B4B49663C0739C9BF0369C3968F01D4DBDAC259824C37D42450358FA2B0290BE489E0D79010261C8ED2595",
+  "descriptionHash": "BB0414502DFC8B76256F61946BD614DB52E638016C735AC05E1624171D2D22CCD310AAB5F0E1130822AF9AB84F07AEB6CB152272C71A39FCFFBCE7F60C704E0F",
   "descriptionLocation": "../../fixed.json",
   "lockFileVersion": "1.0.0",
-  "kiotaVersion": "1.32.1",
+  "kiotaVersion": "1.32.2",
   "clientClassName": "WiseOpenApiClient",
   "typeAccessModifier": "Public",
   "clientNamespaceName": "Soenneker.Wise.OpenApiClient",

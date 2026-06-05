@@ -18797,13 +18797,13 @@
           "event_type": {
             "type": "string",
             "description": "Event type identifier",
-            "example": "transfers#state-change"
+            "example": "transfers#payout-failure"
           },
           "sent_at": {
             "type": "string",
             "description": "Timestamp when the event was sent",
             "format": "date-time",
-            "example": "2020-01-01T12:34:56.123Z"
+            "example": "2023-08-10T10:17:28.123Z"
           },
           "data": {
             "$ref": "#/components/schemas/V4003Data"
@@ -18826,13 +18826,13 @@
           "event_type": {
             "type": "string",
             "description": "Event type identifier",
-            "example": "transfers#state-change"
+            "example": "transfers#payout-failure"
           },
           "sent_at": {
             "type": "string",
             "description": "Timestamp when the event was sent",
             "format": "date-time",
-            "example": "2020-01-01T12:34:56Z"
+            "example": "2023-08-10T10:17:28Z"
           },
           "data": {
             "$ref": "#/components/schemas/V2003Data"
@@ -18845,6 +18845,64 @@
         "properties": {
           "schema_version": {
             "$ref": "#/components/schemas/V4004SchemaVersion"
+          },
+          "subscription_id": {
+            "type": "string",
+            "description": "ID of the webhook subscription that triggered this event",
+            "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef"
+          },
+          "event_type": {
+            "type": "string",
+            "description": "Event type identifier",
+            "example": "transfers#state-change"
+          },
+          "sent_at": {
+            "type": "string",
+            "description": "Timestamp when the event was sent",
+            "format": "date-time",
+            "example": "2020-01-01T12:34:56.123Z"
+          },
+          "data": {
+            "$ref": "#/components/schemas/V4004Data"
+          }
+        }
+      },
+      "V2004": {
+        "title": "Schema version 2.0.0",
+        "type": "object",
+        "properties": {
+          "schema_version": {
+            "$ref": "#/components/schemas/V2004SchemaVersion"
+          },
+          "subscription_id": {
+            "type": "string",
+            "description": "ID of the webhook subscription that triggered this event",
+            "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef"
+          },
+          "event_type": {
+            "type": "string",
+            "description": "Event type identifier",
+            "example": "transfers#state-change"
+          },
+          "sent_at": {
+            "type": "string",
+            "description": "Timestamp when the event was sent",
+            "format": "date-time",
+            "example": "2020-01-01T12:34:56Z"
+          },
+          "data": {
+            "$ref": "#/components/schemas/V2004Data"
+          }
+        }
+      },
+      "V4005": {
+        "title": "Schema version 4.0.0",
+        "type": "object",
+        "properties": {
+          "schema_version": {
+            "$ref": "#/components/schemas/V4005SchemaVersion"
           },
           "subscription_id": {
             "type": "string",
@@ -18864,16 +18922,16 @@
             "example": "2025-08-08T07:49:31.123Z"
           },
           "data": {
-            "$ref": "#/components/schemas/V4004Data"
+            "$ref": "#/components/schemas/V4005Data"
           }
         }
       },
-      "V2004": {
+      "V2005": {
         "title": "Schema version 2.0.0",
         "type": "object",
         "properties": {
           "schema_version": {
-            "$ref": "#/components/schemas/V2004SchemaVersion"
+            "$ref": "#/components/schemas/V2005SchemaVersion"
           },
           "subscription_id": {
             "type": "string",
@@ -18893,16 +18951,16 @@
             "example": "2025-08-08T07:49:31Z"
           },
           "data": {
-            "$ref": "#/components/schemas/V2004Data"
+            "$ref": "#/components/schemas/V2005Data"
           }
         }
       },
-      "V4005": {
+      "V4006": {
         "title": "Schema version 4.0.0",
         "type": "object",
         "properties": {
           "schema_version": {
-            "$ref": "#/components/schemas/V4005SchemaVersion"
+            "$ref": "#/components/schemas/V4006SchemaVersion"
           },
           "subscription_id": {
             "type": "string",
@@ -18922,16 +18980,16 @@
             "example": "2024-01-01T12:34:56.123Z"
           },
           "data": {
-            "$ref": "#/components/schemas/V4005Data"
+            "$ref": "#/components/schemas/V4006Data"
           }
         }
       },
-      "V2005": {
+      "V2006": {
         "title": "Schema version 2.0.0",
         "type": "object",
         "properties": {
           "schema_version": {
-            "$ref": "#/components/schemas/V2005SchemaVersion"
+            "$ref": "#/components/schemas/V2006SchemaVersion"
           },
           "subscription_id": {
             "type": "string",
@@ -18951,16 +19009,16 @@
             "example": "2024-01-01T12:34:56Z"
           },
           "data": {
-            "$ref": "#/components/schemas/V2005Data"
+            "$ref": "#/components/schemas/V2006Data"
           }
         }
       },
-      "V4006": {
+      "V4007": {
         "title": "Schema version 4.0.0",
         "type": "object",
         "properties": {
           "schema_version": {
-            "$ref": "#/components/schemas/V4006SchemaVersion"
+            "$ref": "#/components/schemas/V4007SchemaVersion"
           },
           "subscription_id": {
             "type": "string",
@@ -18980,16 +19038,16 @@
             "example": "2022-08-22T07:59:50.123Z"
           },
           "data": {
-            "$ref": "#/components/schemas/V4006Data"
+            "$ref": "#/components/schemas/V4007Data"
           }
         }
       },
-      "V2006": {
+      "V2007": {
         "title": "Schema version 2.0.0",
         "type": "object",
         "properties": {
           "schema_version": {
-            "$ref": "#/components/schemas/V2006SchemaVersion"
+            "$ref": "#/components/schemas/V2007SchemaVersion"
           },
           "subscription_id": {
             "type": "string",
@@ -19009,16 +19067,16 @@
             "example": "2022-08-22T07:59:50Z"
           },
           "data": {
-            "$ref": "#/components/schemas/V2006Data"
+            "$ref": "#/components/schemas/V2007Data"
           }
         }
       },
-      "V4007": {
+      "V4008": {
         "title": "Schema version 4.0.0",
         "type": "object",
         "properties": {
           "schema_version": {
-            "$ref": "#/components/schemas/V4007SchemaVersion"
+            "$ref": "#/components/schemas/V4008SchemaVersion"
           },
           "subscription_id": {
             "type": "string",
@@ -19038,16 +19096,16 @@
             "example": "2024-01-01T12:34:56.123Z"
           },
           "data": {
-            "$ref": "#/components/schemas/V4007Data"
+            "$ref": "#/components/schemas/V4008Data"
           }
         }
       },
-      "V2007": {
+      "V2008": {
         "title": "Schema version 2.0.0",
         "type": "object",
         "properties": {
           "schema_version": {
-            "$ref": "#/components/schemas/V2007SchemaVersion"
+            "$ref": "#/components/schemas/V2008SchemaVersion"
           },
           "subscription_id": {
             "type": "string",
@@ -19067,16 +19125,16 @@
             "example": "2024-01-01T12:34:56Z"
           },
           "data": {
-            "$ref": "#/components/schemas/V2007Data"
+            "$ref": "#/components/schemas/V2008Data"
           }
         }
       },
-      "V4008": {
+      "V4009": {
         "title": "Schema version 4.0.0",
         "type": "object",
         "properties": {
           "schema_version": {
-            "$ref": "#/components/schemas/V4008SchemaVersion"
+            "$ref": "#/components/schemas/V4009SchemaVersion"
           },
           "subscription_id": {
             "type": "string",
@@ -19096,16 +19154,16 @@
             "example": "2024-09-05T06:47:15.123Z"
           },
           "data": {
-            "$ref": "#/components/schemas/V4008Data"
+            "$ref": "#/components/schemas/V4009Data"
           }
         }
       },
-      "V2008": {
+      "V2009": {
         "title": "Schema version 2.0.0",
         "type": "object",
         "properties": {
           "schema_version": {
-            "$ref": "#/components/schemas/V2008SchemaVersion"
+            "$ref": "#/components/schemas/V2009SchemaVersion"
           },
           "subscription_id": {
             "type": "string",
@@ -19125,94 +19183,7 @@
             "example": "2024-09-05T06:47:15Z"
           },
           "data": {
-            "$ref": "#/components/schemas/V2008Data"
-          }
-        }
-      },
-      "V4009": {
-        "title": "Schema version 4.0.0",
-        "type": "object",
-        "properties": {
-          "schema_version": {
-            "$ref": "#/components/schemas/V4009SchemaVersion"
-          },
-          "subscription_id": {
-            "type": "string",
-            "description": "ID of the webhook subscription that triggered this event",
-            "format": "uuid",
-            "example": "01234567-89ab-cdef-0123-456789abcdef"
-          },
-          "event_type": {
-            "type": "string",
-            "description": "Event type identifier",
-            "example": "cards#card-order-status-change"
-          },
-          "sent_at": {
-            "type": "string",
-            "description": "Timestamp when the event was sent",
-            "format": "date-time",
-            "example": "2023-01-01T12:34:56.123Z"
-          },
-          "data": {
-            "$ref": "#/components/schemas/V4009Data"
-          }
-        }
-      },
-      "V2009": {
-        "title": "Schema version 2.0.0",
-        "type": "object",
-        "properties": {
-          "schema_version": {
-            "$ref": "#/components/schemas/V2009SchemaVersion"
-          },
-          "subscription_id": {
-            "type": "string",
-            "description": "ID of the webhook subscription that triggered this event",
-            "format": "uuid",
-            "example": "01234567-89ab-cdef-0123-456789abcdef"
-          },
-          "event_type": {
-            "type": "string",
-            "description": "Event type identifier",
-            "example": "cards#card-order-status-change"
-          },
-          "sent_at": {
-            "type": "string",
-            "description": "Timestamp when the event was sent",
-            "format": "date-time",
-            "example": "2023-01-01T12:34:56Z"
-          },
-          "data": {
             "$ref": "#/components/schemas/V2009Data"
-          }
-        }
-      },
-      "V20010": {
-        "title": "Schema version 2.0.0",
-        "type": "object",
-        "properties": {
-          "schema_version": {
-            "$ref": "#/components/schemas/V20010SchemaVersion"
-          },
-          "subscription_id": {
-            "type": "string",
-            "description": "ID of the webhook subscription that triggered this event",
-            "format": "uuid",
-            "example": "5281e333-a4d9-4960-aec3-553267a9a8aa"
-          },
-          "event_type": {
-            "type": "string",
-            "description": "Event type identifier",
-            "example": "cards#manual-provisioning-verification"
-          },
-          "sent_at": {
-            "type": "string",
-            "description": "Timestamp when the event was sent",
-            "format": "date-time",
-            "example": "2026-03-09T05:52:37Z"
-          },
-          "data": {
-            "$ref": "#/components/schemas/V20010Data"
           }
         }
       },
@@ -19232,16 +19203,74 @@
           "event_type": {
             "type": "string",
             "description": "Event type identifier",
-            "example": "hold-limit-breach#update"
+            "example": "cards#card-order-status-change"
           },
           "sent_at": {
             "type": "string",
             "description": "Timestamp when the event was sent",
             "format": "date-time",
-            "example": "2024-06-01T08:00:00Z"
+            "example": "2023-01-01T12:34:56.123Z"
           },
           "data": {
             "$ref": "#/components/schemas/V40010Data"
+          }
+        }
+      },
+      "V20010": {
+        "title": "Schema version 2.0.0",
+        "type": "object",
+        "properties": {
+          "schema_version": {
+            "$ref": "#/components/schemas/V20010SchemaVersion"
+          },
+          "subscription_id": {
+            "type": "string",
+            "description": "ID of the webhook subscription that triggered this event",
+            "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef"
+          },
+          "event_type": {
+            "type": "string",
+            "description": "Event type identifier",
+            "example": "cards#card-order-status-change"
+          },
+          "sent_at": {
+            "type": "string",
+            "description": "Timestamp when the event was sent",
+            "format": "date-time",
+            "example": "2023-01-01T12:34:56Z"
+          },
+          "data": {
+            "$ref": "#/components/schemas/V20010Data"
+          }
+        }
+      },
+      "V20011": {
+        "title": "Schema version 2.0.0",
+        "type": "object",
+        "properties": {
+          "schema_version": {
+            "$ref": "#/components/schemas/V20011SchemaVersion"
+          },
+          "subscription_id": {
+            "type": "string",
+            "description": "ID of the webhook subscription that triggered this event",
+            "format": "uuid",
+            "example": "5281e333-a4d9-4960-aec3-553267a9a8aa"
+          },
+          "event_type": {
+            "type": "string",
+            "description": "Event type identifier",
+            "example": "cards#manual-provisioning-verification"
+          },
+          "sent_at": {
+            "type": "string",
+            "description": "Timestamp when the event was sent",
+            "format": "date-time",
+            "example": "2026-03-09T05:52:37Z"
+          },
+          "data": {
+            "$ref": "#/components/schemas/V20011Data"
           }
         }
       },
@@ -19261,45 +19290,16 @@
           "event_type": {
             "type": "string",
             "description": "Event type identifier",
-            "example": "profiles#overdraft-limit-threshold"
+            "example": "hold-limit-breach#update"
           },
           "sent_at": {
             "type": "string",
             "description": "Timestamp when the event was sent",
             "format": "date-time",
-            "example": "2020-01-01T12:34:56.123Z"
+            "example": "2024-06-01T08:00:00Z"
           },
           "data": {
             "$ref": "#/components/schemas/V40011Data"
-          }
-        }
-      },
-      "V20011": {
-        "title": "Schema version 2.0.0",
-        "type": "object",
-        "properties": {
-          "schema_version": {
-            "$ref": "#/components/schemas/V20011SchemaVersion"
-          },
-          "subscription_id": {
-            "type": "string",
-            "description": "ID of the webhook subscription that triggered this event",
-            "format": "uuid",
-            "example": "01234567-89ab-cdef-0123-456789abcdef"
-          },
-          "event_type": {
-            "type": "string",
-            "description": "Event type identifier",
-            "example": "profiles#overdraft-limit-threshold"
-          },
-          "sent_at": {
-            "type": "string",
-            "description": "Timestamp when the event was sent",
-            "format": "date-time",
-            "example": "2020-01-01T12:34:56Z"
-          },
-          "data": {
-            "$ref": "#/components/schemas/V20011Data"
           }
         }
       },
@@ -19314,12 +19314,12 @@
             "type": "string",
             "description": "ID of the webhook subscription that triggered this event",
             "format": "uuid",
-            "example": "f5b51f77-e14a-433b-9f7c-fc2834ffcff5"
+            "example": "01234567-89ab-cdef-0123-456789abcdef"
           },
           "event_type": {
             "type": "string",
             "description": "Event type identifier",
-            "example": "profiles#state-change"
+            "example": "profiles#overdraft-limit-threshold"
           },
           "sent_at": {
             "type": "string",
@@ -19343,12 +19343,12 @@
             "type": "string",
             "description": "ID of the webhook subscription that triggered this event",
             "format": "uuid",
-            "example": "f5b51f77-e14a-433b-9f7c-fc2834ffcff5"
+            "example": "01234567-89ab-cdef-0123-456789abcdef"
           },
           "event_type": {
             "type": "string",
             "description": "Event type identifier",
-            "example": "profiles#state-change"
+            "example": "profiles#overdraft-limit-threshold"
           },
           "sent_at": {
             "type": "string",
@@ -19372,12 +19372,12 @@
             "type": "string",
             "description": "ID of the webhook subscription that triggered this event",
             "format": "uuid",
-            "example": "01234567-89ab-cdef-0123-456789abcdef"
+            "example": "f5b51f77-e14a-433b-9f7c-fc2834ffcff5"
           },
           "event_type": {
             "type": "string",
             "description": "Event type identifier",
-            "example": "profiles#verification-state-change"
+            "example": "profiles#state-change"
           },
           "sent_at": {
             "type": "string",
@@ -19401,12 +19401,12 @@
             "type": "string",
             "description": "ID of the webhook subscription that triggered this event",
             "format": "uuid",
-            "example": "01234567-89ab-cdef-0123-456789abcdef"
+            "example": "f5b51f77-e14a-433b-9f7c-fc2834ffcff5"
           },
           "event_type": {
             "type": "string",
             "description": "Event type identifier",
-            "example": "profiles#verification-state-change"
+            "example": "profiles#state-change"
           },
           "sent_at": {
             "type": "string",
@@ -19430,12 +19430,12 @@
             "type": "string",
             "description": "ID of the webhook subscription that triggered this event",
             "format": "uuid",
-            "example": "f5b51f77-e14a-433b-9f7c-fc2834ffcff5"
+            "example": "01234567-89ab-cdef-0123-456789abcdef"
           },
           "event_type": {
             "type": "string",
             "description": "Event type identifier",
-            "example": "users#state-change"
+            "example": "profiles#verification-state-change"
           },
           "sent_at": {
             "type": "string",
@@ -19459,12 +19459,12 @@
             "type": "string",
             "description": "ID of the webhook subscription that triggered this event",
             "format": "uuid",
-            "example": "f5b51f77-e14a-433b-9f7c-fc2834ffcff5"
+            "example": "01234567-89ab-cdef-0123-456789abcdef"
           },
           "event_type": {
             "type": "string",
             "description": "Event type identifier",
-            "example": "users#state-change"
+            "example": "profiles#verification-state-change"
           },
           "sent_at": {
             "type": "string",
@@ -19488,12 +19488,12 @@
             "type": "string",
             "description": "ID of the webhook subscription that triggered this event",
             "format": "uuid",
-            "example": "01234567-89ab-cdef-0123-456789abcdef"
+            "example": "f5b51f77-e14a-433b-9f7c-fc2834ffcff5"
           },
           "event_type": {
             "type": "string",
             "description": "Event type identifier",
-            "example": "balances#account-state-change"
+            "example": "users#state-change"
           },
           "sent_at": {
             "type": "string",
@@ -19517,12 +19517,12 @@
             "type": "string",
             "description": "ID of the webhook subscription that triggered this event",
             "format": "uuid",
-            "example": "01234567-89ab-cdef-0123-456789abcdef"
+            "example": "f5b51f77-e14a-433b-9f7c-fc2834ffcff5"
           },
           "event_type": {
             "type": "string",
             "description": "Event type identifier",
-            "example": "balances#account-state-change"
+            "example": "users#state-change"
           },
           "sent_at": {
             "type": "string",
@@ -19551,7 +19551,7 @@
           "event_type": {
             "type": "string",
             "description": "Event type identifier",
-            "example": "balances#credit"
+            "example": "balances#account-state-change"
           },
           "sent_at": {
             "type": "string",
@@ -19580,7 +19580,7 @@
           "event_type": {
             "type": "string",
             "description": "Event type identifier",
-            "example": "balances#credit"
+            "example": "balances#account-state-change"
           },
           "sent_at": {
             "type": "string",
@@ -19609,7 +19609,7 @@
           "event_type": {
             "type": "string",
             "description": "Event type identifier",
-            "example": "batch-payment-initiations#state-change"
+            "example": "balances#credit"
           },
           "sent_at": {
             "type": "string",
@@ -19638,7 +19638,7 @@
           "event_type": {
             "type": "string",
             "description": "Event type identifier",
-            "example": "batch-payment-initiations#state-change"
+            "example": "balances#credit"
           },
           "sent_at": {
             "type": "string",
@@ -19662,6 +19662,64 @@
             "type": "string",
             "description": "ID of the webhook subscription that triggered this event",
             "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef"
+          },
+          "event_type": {
+            "type": "string",
+            "description": "Event type identifier",
+            "example": "batch-payment-initiations#state-change"
+          },
+          "sent_at": {
+            "type": "string",
+            "description": "Timestamp when the event was sent",
+            "format": "date-time",
+            "example": "2020-01-01T12:34:56.123Z"
+          },
+          "data": {
+            "$ref": "#/components/schemas/V40018Data"
+          }
+        }
+      },
+      "V20018": {
+        "title": "Schema version 2.0.0",
+        "type": "object",
+        "properties": {
+          "schema_version": {
+            "$ref": "#/components/schemas/V20018SchemaVersion"
+          },
+          "subscription_id": {
+            "type": "string",
+            "description": "ID of the webhook subscription that triggered this event",
+            "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef"
+          },
+          "event_type": {
+            "type": "string",
+            "description": "Event type identifier",
+            "example": "batch-payment-initiations#state-change"
+          },
+          "sent_at": {
+            "type": "string",
+            "description": "Timestamp when the event was sent",
+            "format": "date-time",
+            "example": "2020-01-01T12:34:56Z"
+          },
+          "data": {
+            "$ref": "#/components/schemas/V20018Data"
+          }
+        }
+      },
+      "V40019": {
+        "title": "Schema version 4.0.0",
+        "type": "object",
+        "properties": {
+          "schema_version": {
+            "$ref": "#/components/schemas/V40019SchemaVersion"
+          },
+          "subscription_id": {
+            "type": "string",
+            "description": "ID of the webhook subscription that triggered this event",
+            "format": "uuid",
             "example": "017631af-326c-4a69-93f3-bd1ce987a743"
           },
           "event_type": {
@@ -19676,16 +19734,16 @@
             "example": "2023-06-23T09:45:36.123Z"
           },
           "data": {
-            "$ref": "#/components/schemas/V40018Data"
+            "$ref": "#/components/schemas/V40019Data"
           }
         }
       },
-      "V20018": {
+      "V20019": {
         "title": "Schema version 2.0.0",
         "type": "object",
         "properties": {
           "schema_version": {
-            "$ref": "#/components/schemas/V20018SchemaVersion"
+            "$ref": "#/components/schemas/V20019SchemaVersion"
           },
           "subscription_id": {
             "type": "string",
@@ -19705,16 +19763,16 @@
             "example": "2023-06-23T09:45:36Z"
           },
           "data": {
-            "$ref": "#/components/schemas/V20018Data"
+            "$ref": "#/components/schemas/V20019Data"
           }
         }
       },
-      "V40019": {
+      "V40020": {
         "title": "Schema version 4.0.0",
         "type": "object",
         "properties": {
           "schema_version": {
-            "$ref": "#/components/schemas/V40019SchemaVersion"
+            "$ref": "#/components/schemas/V40020SchemaVersion"
           },
           "subscription_id": {
             "type": "string",
@@ -19734,7 +19792,7 @@
             "example": "2023-08-21T12:34:58.123Z"
           },
           "data": {
-            "$ref": "#/components/schemas/V40019Data"
+            "$ref": "#/components/schemas/V40020Data"
           }
         }
       },
@@ -19767,12 +19825,12 @@
           }
         }
       },
-      "V40020": {
+      "V40021": {
         "title": "Schema version 4.0.0",
         "type": "object",
         "properties": {
           "schema_version": {
-            "$ref": "#/components/schemas/V40020SchemaVersion"
+            "$ref": "#/components/schemas/V40021SchemaVersion"
           },
           "subscription_id": {
             "type": "string",
@@ -19792,16 +19850,16 @@
             "example": "2025-10-21T12:34:58.123Z"
           },
           "data": {
-            "$ref": "#/components/schemas/V40020Data"
+            "$ref": "#/components/schemas/V40021Data"
           }
         }
       },
-      "V40021": {
+      "V40022": {
         "title": "Schema version 4.0.0",
         "type": "object",
         "properties": {
           "schema_version": {
-            "$ref": "#/components/schemas/V40021SchemaVersion"
+            "$ref": "#/components/schemas/V40022SchemaVersion"
           },
           "subscription_id": {
             "type": "string",
@@ -19821,16 +19879,16 @@
             "example": "2024-04-18T06:36:17.123Z"
           },
           "data": {
-            "$ref": "#/components/schemas/V40021Data"
+            "$ref": "#/components/schemas/V40022Data"
           }
         }
       },
-      "V20019": {
+      "V20020": {
         "title": "Schema version 2.0.0",
         "type": "object",
         "properties": {
           "schema_version": {
-            "$ref": "#/components/schemas/V20019SchemaVersion"
+            "$ref": "#/components/schemas/V20020SchemaVersion"
           },
           "subscription_id": {
             "type": "string",
@@ -19850,16 +19908,16 @@
             "example": "2024-04-18T06:36:17Z"
           },
           "data": {
-            "$ref": "#/components/schemas/V20019Data"
+            "$ref": "#/components/schemas/V20020Data"
           }
         }
       },
-      "V40022": {
+      "V40023": {
         "title": "Schema version 4.0.0",
         "type": "object",
         "properties": {
           "schema_version": {
-            "$ref": "#/components/schemas/V40022SchemaVersion"
+            "$ref": "#/components/schemas/V40023SchemaVersion"
           },
           "subscription_id": {
             "type": "string",
@@ -19879,7 +19937,7 @@
             "example": "2024-04-18T06:36:17.123Z"
           },
           "data": {
-            "$ref": "#/components/schemas/V40022Data"
+            "$ref": "#/components/schemas/V40023Data"
           }
         }
       },
@@ -21609,8 +21667,74 @@
       "V4003Data": {
         "type": "object",
         "properties": {
+          "transfer_id": {
+            "type": "integer",
+            "description": "ID of the transfer",
+            "format": "int64",
+            "example": 111
+          },
+          "profile_id": {
+            "type": "integer",
+            "description": "ID of the profile that initiated the transfer",
+            "format": "int64",
+            "example": 222
+          },
+          "failure_reason_code": {
+            "type": "string",
+            "description": "Code of the failure error. See [Payout failures](/guides/product/send-money/tracking/payout-failures) for available codes.",
+            "example": "WRONG_ID_NUMBER"
+          },
+          "failure_description": {
+            "type": "string",
+            "description": "Description of the failure code. See [Payout failures](/guides/product/send-money/tracking/payout-failures) for available descriptions.",
+            "example": "Invalid recipient\u0027s ID document number"
+          },
+          "occurred_at": {
+            "type": "string",
+            "description": "When the state change occurred",
+            "format": "date-time",
+            "example": "2023-08-10T10:17:23.123Z"
+          }
+        }
+      },
+      "V2003Data": {
+        "type": "object",
+        "properties": {
+          "transfer_id": {
+            "type": "integer",
+            "description": "ID of the transfer",
+            "format": "int64",
+            "example": 111
+          },
+          "profile_id": {
+            "type": "integer",
+            "description": "ID of the profile that initiated the transfer",
+            "format": "int64",
+            "example": 222
+          },
+          "failure_reason_code": {
+            "type": "string",
+            "description": "Code of the failure error. See [Payout failures](/guides/product/send-money/tracking/payout-failures) for available codes.",
+            "example": "WRONG_ID_NUMBER"
+          },
+          "failure_description": {
+            "type": "string",
+            "description": "Description of the failure code. See [Payout failures](/guides/product/send-money/tracking/payout-failures) for available descriptions.",
+            "example": "Invalid recipient\u0027s ID document number"
+          },
+          "occurred_at": {
+            "type": "string",
+            "description": "When the state change occurred",
+            "format": "date-time",
+            "example": "2023-08-10T10:17:23.000\u002B00:00"
+          }
+        }
+      },
+      "V4004Data": {
+        "type": "object",
+        "properties": {
           "resource": {
-            "$ref": "#/components/schemas/V4003DataResource"
+            "$ref": "#/components/schemas/V4004DataResource"
           },
           "current_state": {
             "type": "string",
@@ -21630,11 +21754,11 @@
           }
         }
       },
-      "V2003Data": {
+      "V2004Data": {
         "type": "object",
         "properties": {
           "resource": {
-            "$ref": "#/components/schemas/V2003DataResource"
+            "$ref": "#/components/schemas/V2004DataResource"
           },
           "current_state": {
             "type": "string",
@@ -21654,7 +21778,7 @@
           }
         }
       },
-      "V4004Data": {
+      "V4005Data": {
         "type": "object",
         "properties": {
           "creation_time": {
@@ -21685,7 +21809,7 @@
             "example": "01989c58-45e4-71dd-9373-7d999e992f99"
           },
           "order_status": {
-            "$ref": "#/components/schemas/V4004DataOrderStatus"
+            "$ref": "#/components/schemas/V4005DataOrderStatus"
           },
           "profile_id": {
             "type": "integer",
@@ -21696,13 +21820,13 @@
           "requirements": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/V4004DataRequirementsItem"
+              "$ref": "#/components/schemas/V4005DataRequirementsItem"
             },
             "description": "List of requirements for this order"
           }
         }
       },
-      "V2004Data": {
+      "V2005Data": {
         "type": "object",
         "properties": {
           "creation_time": {
@@ -21733,7 +21857,7 @@
             "example": "01989c58-45e4-71dd-9373-7d999e992f99"
           },
           "order_status": {
-            "$ref": "#/components/schemas/V2004DataOrderStatus"
+            "$ref": "#/components/schemas/V2005DataOrderStatus"
           },
           "profile_id": {
             "type": "integer",
@@ -21744,17 +21868,17 @@
           "requirements": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/V2004DataRequirementsItem"
+              "$ref": "#/components/schemas/V2005DataRequirementsItem"
             },
             "description": "List of requirements for this order"
           }
         }
       },
-      "V4005Data": {
+      "V4006Data": {
         "type": "object",
         "properties": {
           "resource": {
-            "$ref": "#/components/schemas/V4005DataResource"
+            "$ref": "#/components/schemas/V4006DataResource"
           },
           "account_details_id": {
             "type": "string",
@@ -21767,16 +21891,16 @@
             "example": 12345
           },
           "transfer": {
-            "$ref": "#/components/schemas/V4005DataTransfer"
+            "$ref": "#/components/schemas/V4006DataTransfer"
           },
           "sender": {
-            "$ref": "#/components/schemas/V4005DataSender"
+            "$ref": "#/components/schemas/V4006DataSender"
           },
           "current_state": {
-            "$ref": "#/components/schemas/V4005DataCurrentState"
+            "$ref": "#/components/schemas/V4006DataCurrentState"
           },
           "previous_state": {
-            "$ref": "#/components/schemas/V4005DataPreviousState"
+            "$ref": "#/components/schemas/V4006DataPreviousState"
           },
           "occurred_at": {
             "type": "string",
@@ -21786,11 +21910,11 @@
           }
         }
       },
-      "V2005Data": {
+      "V2006Data": {
         "type": "object",
         "properties": {
           "resource": {
-            "$ref": "#/components/schemas/V2005DataResource"
+            "$ref": "#/components/schemas/V2006DataResource"
           },
           "account_details_id": {
             "type": "string",
@@ -21803,16 +21927,16 @@
             "example": 12345
           },
           "transfer": {
-            "$ref": "#/components/schemas/V2005DataTransfer"
+            "$ref": "#/components/schemas/V2006DataTransfer"
           },
           "sender": {
-            "$ref": "#/components/schemas/V2005DataSender"
+            "$ref": "#/components/schemas/V2006DataSender"
           },
           "current_state": {
-            "$ref": "#/components/schemas/V2005DataCurrentState"
+            "$ref": "#/components/schemas/V2006DataCurrentState"
           },
           "previous_state": {
-            "$ref": "#/components/schemas/V2005DataPreviousState"
+            "$ref": "#/components/schemas/V2006DataPreviousState"
           },
           "occurred_at": {
             "type": "string",
@@ -21822,11 +21946,11 @@
           }
         }
       },
-      "V4006Data": {
+      "V4007Data": {
         "type": "object",
         "properties": {
           "resource": {
-            "$ref": "#/components/schemas/V4006DataResource"
+            "$ref": "#/components/schemas/V4007DataResource"
           },
           "card_status": {
             "type": "string",
@@ -21846,11 +21970,11 @@
           }
         }
       },
-      "V2006Data": {
+      "V2007Data": {
         "type": "object",
         "properties": {
           "resource": {
-            "$ref": "#/components/schemas/V2006DataResource"
+            "$ref": "#/components/schemas/V2007DataResource"
           },
           "card_status": {
             "type": "string",
@@ -21870,11 +21994,11 @@
           }
         }
       },
-      "V4007Data": {
+      "V4008Data": {
         "type": "object",
         "properties": {
           "resource": {
-            "$ref": "#/components/schemas/V4007DataResource"
+            "$ref": "#/components/schemas/V4008DataResource"
           },
           "status": {
             "type": "string",
@@ -21904,11 +22028,11 @@
           }
         }
       },
-      "V2007Data": {
+      "V2008Data": {
         "type": "object",
         "properties": {
           "resource": {
-            "$ref": "#/components/schemas/V2007DataResource"
+            "$ref": "#/components/schemas/V2008DataResource"
           },
           "status": {
             "type": "string",
@@ -21938,11 +22062,11 @@
           }
         }
       },
-      "V4008Data": {
+      "V4009Data": {
         "type": "object",
         "properties": {
           "resource": {
-            "$ref": "#/components/schemas/V4008DataResource"
+            "$ref": "#/components/schemas/V4009DataResource"
           },
           "challenge_expires_after": {
             "type": "integer",
@@ -21962,15 +22086,15 @@
             "example": "PUSH"
           },
           "transaction": {
-            "$ref": "#/components/schemas/V4008DataTransaction"
+            "$ref": "#/components/schemas/V4009DataTransaction"
           }
         }
       },
-      "V2008Data": {
+      "V2009Data": {
         "type": "object",
         "properties": {
           "resource": {
-            "$ref": "#/components/schemas/V2008DataResource"
+            "$ref": "#/components/schemas/V2009DataResource"
           },
           "challenge_expires_after": {
             "type": "integer",
@@ -21990,15 +22114,15 @@
             "example": "PUSH"
           },
           "transaction": {
-            "$ref": "#/components/schemas/V2008DataTransaction"
+            "$ref": "#/components/schemas/V2009DataTransaction"
           }
         }
       },
-      "V4009Data": {
+      "V40010Data": {
         "type": "object",
         "properties": {
           "resource": {
-            "$ref": "#/components/schemas/V4009DataResource"
+            "$ref": "#/components/schemas/V40010DataResource"
           },
           "order_id": {
             "type": "string",
@@ -22006,7 +22130,7 @@
             "example": "1001L"
           },
           "order_status": {
-            "$ref": "#/components/schemas/V4009DataOrderStatus"
+            "$ref": "#/components/schemas/V40010DataOrderStatus"
           },
           "delivery_vendor": {
             "type": "string",
@@ -22021,11 +22145,11 @@
           }
         }
       },
-      "V2009Data": {
+      "V20010Data": {
         "type": "object",
         "properties": {
           "resource": {
-            "$ref": "#/components/schemas/V2009DataResource"
+            "$ref": "#/components/schemas/V20010DataResource"
           },
           "order_id": {
             "type": "string",
@@ -22033,7 +22157,7 @@
             "example": "1001L"
           },
           "order_status": {
-            "$ref": "#/components/schemas/V2009DataOrderStatus"
+            "$ref": "#/components/schemas/V20010DataOrderStatus"
           },
           "delivery_vendor": {
             "type": "string",
@@ -22048,11 +22172,11 @@
           }
         }
       },
-      "V20010Data": {
+      "V20011Data": {
         "type": "object",
         "properties": {
           "resource": {
-            "$ref": "#/components/schemas/V20010DataResource"
+            "$ref": "#/components/schemas/V20011DataResource"
           },
           "payment_token_unique_reference": {
             "type": "string",
@@ -22077,11 +22201,11 @@
           }
         }
       },
-      "V40010Data": {
+      "V40011Data": {
         "type": "object",
         "properties": {
           "resource": {
-            "$ref": "#/components/schemas/V40010DataResource"
+            "$ref": "#/components/schemas/V40011DataResource"
           },
           "amount": {
             "type": "number",
@@ -22095,10 +22219,10 @@
             "example": "SGD"
           },
           "state": {
-            "$ref": "#/components/schemas/V40010DataState"
+            "$ref": "#/components/schemas/V40011DataState"
           },
           "closing_reason": {
-            "$ref": "#/components/schemas/V40010DataClosingReason"
+            "$ref": "#/components/schemas/V40011DataClosingReason"
           },
           "created_at": {
             "type": "string",
@@ -22120,33 +22244,33 @@
           }
         }
       },
-      "V40011Data": {
-        "type": "object",
-        "properties": {
-          "resource": {
-            "$ref": "#/components/schemas/V40011DataResource"
-          },
-          "overdraft": {
-            "$ref": "#/components/schemas/V40011DataOverdraft"
-          }
-        }
-      },
-      "V20011Data": {
-        "type": "object",
-        "properties": {
-          "resource": {
-            "$ref": "#/components/schemas/V20011DataResource"
-          },
-          "overdraft": {
-            "$ref": "#/components/schemas/V20011DataOverdraft"
-          }
-        }
-      },
       "V40012Data": {
         "type": "object",
         "properties": {
           "resource": {
             "$ref": "#/components/schemas/V40012DataResource"
+          },
+          "overdraft": {
+            "$ref": "#/components/schemas/V40012DataOverdraft"
+          }
+        }
+      },
+      "V20012Data": {
+        "type": "object",
+        "properties": {
+          "resource": {
+            "$ref": "#/components/schemas/V20012DataResource"
+          },
+          "overdraft": {
+            "$ref": "#/components/schemas/V20012DataOverdraft"
+          }
+        }
+      },
+      "V40013Data": {
+        "type": "object",
+        "properties": {
+          "resource": {
+            "$ref": "#/components/schemas/V40013DataResource"
           },
           "current_state": {
             "type": "string",
@@ -22166,11 +22290,11 @@
           }
         }
       },
-      "V20012Data": {
+      "V20013Data": {
         "type": "object",
         "properties": {
           "resource": {
-            "$ref": "#/components/schemas/V20012DataResource"
+            "$ref": "#/components/schemas/V20013DataResource"
           },
           "current_state": {
             "type": "string",
@@ -22190,63 +22314,18 @@
           }
         }
       },
-      "V40013Data": {
-        "type": "object",
-        "properties": {
-          "resource": {
-            "$ref": "#/components/schemas/V40013DataResource"
-          },
-          "current_state": {
-            "$ref": "#/components/schemas/V40013DataCurrentState"
-          },
-          "occurred_at": {
-            "type": "string",
-            "description": "When the verification state change occurred",
-            "format": "date-time",
-            "example": "2020-01-01T12:34:56.789Z"
-          }
-        }
-      },
-      "V20013Data": {
-        "type": "object",
-        "properties": {
-          "resource": {
-            "$ref": "#/components/schemas/V20013DataResource"
-          },
-          "current_state": {
-            "$ref": "#/components/schemas/V20013DataCurrentState"
-          },
-          "occurred_at": {
-            "type": "string",
-            "description": "When the verification state change occurred",
-            "format": "date-time",
-            "example": "2020-01-01T12:34:56Z"
-          }
-        }
-      },
       "V40014Data": {
         "type": "object",
         "properties": {
           "resource": {
             "$ref": "#/components/schemas/V40014DataResource"
           },
-          "previous_state": {
-            "$ref": "#/components/schemas/V40014DataPreviousState"
-          },
           "current_state": {
             "$ref": "#/components/schemas/V40014DataCurrentState"
           },
-          "deactivation_type": {
-            "$ref": "#/components/schemas/V40014DataDeactivationType"
-          },
-          "deactivation_reason": {
-            "type": "string",
-            "description": "The reason for deactivation",
-            "example": "REQUESTED_BY_CUSTOMER_CS"
-          },
           "occurred_at": {
             "type": "string",
-            "description": "When the user state change occurred",
+            "description": "When the verification state change occurred",
             "format": "date-time",
             "example": "2020-01-01T12:34:56.789Z"
           }
@@ -22258,14 +22337,59 @@
           "resource": {
             "$ref": "#/components/schemas/V20014DataResource"
           },
-          "previous_state": {
-            "$ref": "#/components/schemas/V20014DataPreviousState"
-          },
           "current_state": {
             "$ref": "#/components/schemas/V20014DataCurrentState"
           },
+          "occurred_at": {
+            "type": "string",
+            "description": "When the verification state change occurred",
+            "format": "date-time",
+            "example": "2020-01-01T12:34:56Z"
+          }
+        }
+      },
+      "V40015Data": {
+        "type": "object",
+        "properties": {
+          "resource": {
+            "$ref": "#/components/schemas/V40015DataResource"
+          },
+          "previous_state": {
+            "$ref": "#/components/schemas/V40015DataPreviousState"
+          },
+          "current_state": {
+            "$ref": "#/components/schemas/V40015DataCurrentState"
+          },
           "deactivation_type": {
-            "$ref": "#/components/schemas/V20014DataDeactivationType"
+            "$ref": "#/components/schemas/V40015DataDeactivationType"
+          },
+          "deactivation_reason": {
+            "type": "string",
+            "description": "The reason for deactivation",
+            "example": "REQUESTED_BY_CUSTOMER_CS"
+          },
+          "occurred_at": {
+            "type": "string",
+            "description": "When the user state change occurred",
+            "format": "date-time",
+            "example": "2020-01-01T12:34:56.789Z"
+          }
+        }
+      },
+      "V20015Data": {
+        "type": "object",
+        "properties": {
+          "resource": {
+            "$ref": "#/components/schemas/V20015DataResource"
+          },
+          "previous_state": {
+            "$ref": "#/components/schemas/V20015DataPreviousState"
+          },
+          "current_state": {
+            "$ref": "#/components/schemas/V20015DataCurrentState"
+          },
+          "deactivation_type": {
+            "$ref": "#/components/schemas/V20015DataDeactivationType"
           },
           "deactivation_reason": {
             "type": "string",
@@ -22280,65 +22404,15 @@
           }
         }
       },
-      "V40015Data": {
-        "type": "object",
-        "properties": {
-          "resource": {
-            "$ref": "#/components/schemas/V40015DataResource"
-          },
-          "occurred_at": {
-            "type": "string",
-            "description": "Timestamp when the event occurred",
-            "format": "date-time",
-            "example": "2020-01-01T12:34:56.789Z"
-          }
-        }
-      },
-      "V20015Data": {
-        "type": "object",
-        "properties": {
-          "resource": {
-            "$ref": "#/components/schemas/V20015DataResource"
-          },
-          "occurred_at": {
-            "type": "string",
-            "description": "Timestamp when the event occurred",
-            "format": "date-time",
-            "example": "2020-01-01T12:34:56Z"
-          }
-        }
-      },
       "V40016Data": {
         "type": "object",
         "properties": {
           "resource": {
             "$ref": "#/components/schemas/V40016DataResource"
           },
-          "transaction_type": {
-            "type": "string",
-            "description": "Always \u0060credit\u0060",
-            "example": "credit"
-          },
-          "amount": {
-            "type": "number",
-            "description": "Deposited amount",
-            "format": "decimal",
-            "example": 1.23
-          },
-          "currency": {
-            "type": "string",
-            "description": "Currency code",
-            "example": "EUR"
-          },
-          "post_transaction_balance_amount": {
-            "type": "number",
-            "description": "Balance after the credit was applied",
-            "format": "decimal",
-            "example": 2.34
-          },
           "occurred_at": {
             "type": "string",
-            "description": "When the credit occurred",
+            "description": "Timestamp when the event occurred",
             "format": "date-time",
             "example": "2020-01-01T12:34:56.789Z"
           }
@@ -22350,6 +22424,56 @@
           "resource": {
             "$ref": "#/components/schemas/V20016DataResource"
           },
+          "occurred_at": {
+            "type": "string",
+            "description": "Timestamp when the event occurred",
+            "format": "date-time",
+            "example": "2020-01-01T12:34:56Z"
+          }
+        }
+      },
+      "V40017Data": {
+        "type": "object",
+        "properties": {
+          "resource": {
+            "$ref": "#/components/schemas/V40017DataResource"
+          },
+          "transaction_type": {
+            "type": "string",
+            "description": "Always \u0060credit\u0060",
+            "example": "credit"
+          },
+          "amount": {
+            "type": "number",
+            "description": "Deposited amount",
+            "format": "decimal",
+            "example": 1.23
+          },
+          "currency": {
+            "type": "string",
+            "description": "Currency code",
+            "example": "EUR"
+          },
+          "post_transaction_balance_amount": {
+            "type": "number",
+            "description": "Balance after the credit was applied",
+            "format": "decimal",
+            "example": 2.34
+          },
+          "occurred_at": {
+            "type": "string",
+            "description": "When the credit occurred",
+            "format": "date-time",
+            "example": "2020-01-01T12:34:56.789Z"
+          }
+        }
+      },
+      "V20017Data": {
+        "type": "object",
+        "properties": {
+          "resource": {
+            "$ref": "#/components/schemas/V20017DataResource"
+          },
           "transaction_type": {
             "type": "string",
             "description": "Always \u0060credit\u0060",
@@ -22380,17 +22504,17 @@
           }
         }
       },
-      "V40017Data": {
+      "V40018Data": {
         "type": "object",
         "properties": {
           "resource": {
-            "$ref": "#/components/schemas/V40017DataResource"
+            "$ref": "#/components/schemas/V40018DataResource"
           },
           "previous_status": {
-            "$ref": "#/components/schemas/V40017DataPreviousStatus"
+            "$ref": "#/components/schemas/V40018DataPreviousStatus"
           },
           "current_status": {
-            "$ref": "#/components/schemas/V40017DataCurrentStatus"
+            "$ref": "#/components/schemas/V40018DataCurrentStatus"
           },
           "occurred_at": {
             "type": "string",
@@ -22405,17 +22529,17 @@
           }
         }
       },
-      "V20017Data": {
+      "V20018Data": {
         "type": "object",
         "properties": {
           "resource": {
-            "$ref": "#/components/schemas/V20017DataResource"
+            "$ref": "#/components/schemas/V20018DataResource"
           },
           "previousStatus": {
-            "$ref": "#/components/schemas/V20017DataPreviousStatus"
+            "$ref": "#/components/schemas/V20018DataPreviousStatus"
           },
           "currentStatus": {
-            "$ref": "#/components/schemas/V20017DataCurrentStatus"
+            "$ref": "#/components/schemas/V20018DataCurrentStatus"
           },
           "occurredAt": {
             "type": "string",
@@ -22430,14 +22554,14 @@
           }
         }
       },
-      "V40018Data": {
+      "V40019Data": {
         "type": "object",
         "properties": {
           "resource": {
-            "$ref": "#/components/schemas/V40018DataResource"
+            "$ref": "#/components/schemas/V40019DataResource"
           },
           "type": {
-            "$ref": "#/components/schemas/V40018DataType"
+            "$ref": "#/components/schemas/V40019DataType"
           },
           "occurred_at": {
             "type": "string",
@@ -22447,14 +22571,14 @@
           }
         }
       },
-      "V20018Data": {
+      "V20019Data": {
         "type": "object",
         "properties": {
           "resource": {
-            "$ref": "#/components/schemas/V20018DataResource"
+            "$ref": "#/components/schemas/V20019DataResource"
           },
           "type": {
-            "$ref": "#/components/schemas/V20018DataType"
+            "$ref": "#/components/schemas/V20019DataType"
           },
           "occurred_at": {
             "type": "string",
@@ -22464,7 +22588,7 @@
           }
         }
       },
-      "V40019Data": {
+      "V40020Data": {
         "required": [
           "action",
           "resource",
@@ -22473,10 +22597,10 @@
         "type": "object",
         "properties": {
           "action": {
-            "$ref": "#/components/schemas/V40019DataAction"
+            "$ref": "#/components/schemas/V40020DataAction"
           },
           "resource": {
-            "$ref": "#/components/schemas/V40019DataResource"
+            "$ref": "#/components/schemas/V40020DataResource"
           },
           "occurred_at": {
             "type": "string",
@@ -22508,11 +22632,11 @@
           }
         }
       },
-      "V40020Data": {
+      "V40021Data": {
         "type": "object",
         "properties": {
           "action": {
-            "$ref": "#/components/schemas/V40020DataAction"
+            "$ref": "#/components/schemas/V40021DataAction"
           },
           "occurred_at": {
             "type": "string",
@@ -22521,15 +22645,15 @@
             "example": "2025-10-21T12:34:56.789Z"
           },
           "resource": {
-            "$ref": "#/components/schemas/V40020DataResource"
+            "$ref": "#/components/schemas/V40021DataResource"
           }
         }
       },
-      "V40021Data": {
+      "V40022Data": {
         "type": "object",
         "properties": {
           "resource": {
-            "$ref": "#/components/schemas/V40021DataResource"
+            "$ref": "#/components/schemas/V40022DataResource"
           },
           "reason": {
             "type": "string",
@@ -22537,7 +22661,7 @@
             "example": "WRONG_AMOUNT"
           },
           "status": {
-            "$ref": "#/components/schemas/V40021DataStatus"
+            "$ref": "#/components/schemas/V40022DataStatus"
           },
           "sub_status": {
             "type": "string",
@@ -22573,11 +22697,11 @@
           }
         }
       },
-      "V20019Data": {
+      "V20020Data": {
         "type": "object",
         "properties": {
           "resource": {
-            "$ref": "#/components/schemas/V20019DataResource"
+            "$ref": "#/components/schemas/V20020DataResource"
           },
           "reason": {
             "type": "string",
@@ -22585,7 +22709,7 @@
             "example": "WRONG_AMOUNT"
           },
           "status": {
-            "$ref": "#/components/schemas/V20019DataStatus"
+            "$ref": "#/components/schemas/V20020DataStatus"
           },
           "sub_status": {
             "type": "string",
@@ -22621,11 +22745,11 @@
           }
         }
       },
-      "V40022Data": {
+      "V40023Data": {
         "type": "object",
         "properties": {
           "resource": {
-            "$ref": "#/components/schemas/V40022DataResource"
+            "$ref": "#/components/schemas/V40023DataResource"
           },
           "occurred_at": {
             "type": "string",
@@ -23881,7 +24005,7 @@
           }
         }
       },
-      "V4003DataResource": {
+      "V4004DataResource": {
         "type": "object",
         "properties": {
           "type": {
@@ -23909,7 +24033,7 @@
           }
         }
       },
-      "V2003DataResource": {
+      "V2004DataResource": {
         "type": "object",
         "properties": {
           "type": {
@@ -23937,7 +24061,7 @@
           }
         }
       },
-      "V4004DataRequirementsItem": {
+      "V4005DataRequirementsItem": {
         "type": "object",
         "properties": {
           "status": {
@@ -23952,7 +24076,7 @@
           }
         }
       },
-      "V2004DataRequirementsItem": {
+      "V2005DataRequirementsItem": {
         "type": "object",
         "properties": {
           "status": {
@@ -23964,206 +24088,154 @@
             "type": "string",
             "description": "Type of requirement (\u0060\u0022VERIFICATION\u0022\u0060)",
             "example": "VERIFICATION"
-          }
-        }
-      },
-      "V4005DataResource": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "description": "Balance ID which is linked to the account detail",
-            "format": "int64",
-            "example": 12345
-          },
-          "profile_id": {
-            "type": "integer",
-            "description": "ID of the profile that owns the payment",
-            "format": "int64",
-            "example": 1
-          },
-          "type": {
-            "type": "string",
-            "description": "Type of the resource",
-            "example": "balance-account"
-          }
-        }
-      },
-      "V4005DataTransfer": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "description": "ID of the incoming transfer",
-            "format": "int64",
-            "example": 36454
-          },
-          "type": {
-            "type": "string",
-            "description": "Type of the transfer",
-            "example": "credit"
-          },
-          "amount": {
-            "type": "number",
-            "description": "Transfer amount",
-            "format": "decimal",
-            "example": 120
-          },
-          "currency": {
-            "type": "string",
-            "description": "Currency code",
-            "example": "EUR"
-          }
-        }
-      },
-      "V4005DataSender": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "description": "Sender name",
-            "example": "Test Sender"
-          },
-          "account_number": {
-            "type": "string",
-            "description": "Sender account number",
-            "example": 12345678
-          },
-          "bank_code": {
-            "type": "string",
-            "description": "Sender bank code",
-            "example": "TESTBANK"
-          },
-          "address": {
-            "type": "string",
-            "description": "Sender address",
-            "example": "Test Address"
-          }
-        }
-      },
-      "V2005DataResource": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "description": "Balance ID which is linked to the account detail",
-            "format": "int64",
-            "example": 12345
-          },
-          "profile_id": {
-            "type": "integer",
-            "description": "ID of the profile that owns the payment",
-            "format": "int64",
-            "example": 1
-          },
-          "type": {
-            "type": "string",
-            "description": "Type of the resource",
-            "example": "balance-account"
-          }
-        }
-      },
-      "V2005DataTransfer": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "description": "ID of the incoming transfer",
-            "format": "int64",
-            "example": 36454
-          },
-          "type": {
-            "type": "string",
-            "description": "Type of the transfer",
-            "example": "credit"
-          },
-          "amount": {
-            "type": "number",
-            "description": "Transfer amount",
-            "format": "decimal",
-            "example": 120
-          },
-          "currency": {
-            "type": "string",
-            "description": "Currency code",
-            "example": "EUR"
-          }
-        }
-      },
-      "V2005DataSender": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "description": "Sender name",
-            "example": "Test Sender"
-          },
-          "account_number": {
-            "type": "string",
-            "description": "Sender account number",
-            "example": 12345678
-          },
-          "bank_code": {
-            "type": "string",
-            "description": "Sender bank code",
-            "example": "TESTBANK"
-          },
-          "address": {
-            "type": "string",
-            "description": "Sender address",
-            "example": "Test Address"
           }
         }
       },
       "V4006DataResource": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Balance ID which is linked to the account detail",
+            "format": "int64",
+            "example": 12345
+          },
           "profile_id": {
             "type": "integer",
-            "description": "ID of the profile that owns the card",
+            "description": "ID of the profile that owns the payment",
             "format": "int64",
-            "example": 123456
-          },
-          "client_id": {
-            "type": "string",
-            "description": "Your api_client_id",
-            "example": "your-bank"
-          },
-          "card_token": {
-            "type": "string",
-            "description": "Unique identifier of the card",
-            "example": "ABCD-1234-ABCD-1234-ABCD"
+            "example": 1
           },
           "type": {
             "type": "string",
-            "description": "Resource type (always \u0060card\u0060)",
-            "example": "card"
+            "description": "Type of the resource",
+            "example": "balance-account"
+          }
+        }
+      },
+      "V4006DataTransfer": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "ID of the incoming transfer",
+            "format": "int64",
+            "example": 36454
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of the transfer",
+            "example": "credit"
+          },
+          "amount": {
+            "type": "number",
+            "description": "Transfer amount",
+            "format": "decimal",
+            "example": 120
+          },
+          "currency": {
+            "type": "string",
+            "description": "Currency code",
+            "example": "EUR"
+          }
+        }
+      },
+      "V4006DataSender": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Sender name",
+            "example": "Test Sender"
+          },
+          "account_number": {
+            "type": "string",
+            "description": "Sender account number",
+            "example": 12345678
+          },
+          "bank_code": {
+            "type": "string",
+            "description": "Sender bank code",
+            "example": "TESTBANK"
+          },
+          "address": {
+            "type": "string",
+            "description": "Sender address",
+            "example": "Test Address"
           }
         }
       },
       "V2006DataResource": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Balance ID which is linked to the account detail",
+            "format": "int64",
+            "example": 12345
+          },
           "profile_id": {
             "type": "integer",
-            "description": "ID of the profile that owns the card",
+            "description": "ID of the profile that owns the payment",
             "format": "int64",
-            "example": 123456
-          },
-          "client_id": {
-            "type": "string",
-            "description": "Your api_client_id",
-            "example": "your-bank"
-          },
-          "card_token": {
-            "type": "string",
-            "description": "Unique identifier of the card",
-            "example": "ABCD-1234-ABCD-1234-ABCD"
+            "example": 1
           },
           "type": {
             "type": "string",
-            "description": "Resource type (always \u0060card\u0060)",
-            "example": "card"
+            "description": "Type of the resource",
+            "example": "balance-account"
+          }
+        }
+      },
+      "V2006DataTransfer": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "ID of the incoming transfer",
+            "format": "int64",
+            "example": 36454
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of the transfer",
+            "example": "credit"
+          },
+          "amount": {
+            "type": "number",
+            "description": "Transfer amount",
+            "format": "decimal",
+            "example": 120
+          },
+          "currency": {
+            "type": "string",
+            "description": "Currency code",
+            "example": "EUR"
+          }
+        }
+      },
+      "V2006DataSender": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Sender name",
+            "example": "Test Sender"
+          },
+          "account_number": {
+            "type": "string",
+            "description": "Sender account number",
+            "example": 12345678
+          },
+          "bank_code": {
+            "type": "string",
+            "description": "Sender bank code",
+            "example": "TESTBANK"
+          },
+          "address": {
+            "type": "string",
+            "description": "Sender address",
+            "example": "Test Address"
           }
         }
       },
@@ -24176,20 +24248,20 @@
             "format": "int64",
             "example": 123456
           },
-          "type": {
-            "type": "string",
-            "description": "Webhook notification of type \u0027card\u0027",
-            "example": "card"
-          },
           "client_id": {
             "type": "string",
-            "description": "API client_id",
+            "description": "Your api_client_id",
             "example": "your-bank"
           },
           "card_token": {
             "type": "string",
             "description": "Unique identifier of the card",
-            "example": "35050a4a-9521-426e-8109-1396e3687a3e"
+            "example": "ABCD-1234-ABCD-1234-ABCD"
+          },
+          "type": {
+            "type": "string",
+            "description": "Resource type (always \u0060card\u0060)",
+            "example": "card"
           }
         }
       },
@@ -24202,6 +24274,32 @@
             "format": "int64",
             "example": 123456
           },
+          "client_id": {
+            "type": "string",
+            "description": "Your api_client_id",
+            "example": "your-bank"
+          },
+          "card_token": {
+            "type": "string",
+            "description": "Unique identifier of the card",
+            "example": "ABCD-1234-ABCD-1234-ABCD"
+          },
+          "type": {
+            "type": "string",
+            "description": "Resource type (always \u0060card\u0060)",
+            "example": "card"
+          }
+        }
+      },
+      "V4008DataResource": {
+        "type": "object",
+        "properties": {
+          "profile_id": {
+            "type": "integer",
+            "description": "ID of the profile that owns the card",
+            "format": "int64",
+            "example": 123456
+          },
           "type": {
             "type": "string",
             "description": "Webhook notification of type \u0027card\u0027",
@@ -24219,101 +24317,7 @@
           }
         }
       },
-      "V4008DataResource": {
-        "type": "object",
-        "properties": {
-          "client_id": {
-            "type": "string",
-            "description": "Your api_client_id",
-            "example": "tw-test-card-issuance"
-          },
-          "card_token": {
-            "type": "string",
-            "description": "Card token",
-            "example": "3ab81206-d258-4caf-cea5-60067ba82404"
-          },
-          "profile_id": {
-            "type": "integer",
-            "description": "Profile ID",
-            "format": "int64",
-            "example": 29751964
-          },
-          "type": {
-            "type": "string",
-            "description": "Resource type (always \u0060card\u0060)",
-            "example": "card"
-          }
-        }
-      },
-      "V4008DataTransaction": {
-        "type": "object",
-        "properties": {
-          "reference": {
-            "type": "string",
-            "description": "Transaction reference, you should use this field when notifying us of the challenge result.",
-            "example": 148990660
-          },
-          "channel": {
-            "type": "string",
-            "description": "User agent (usually \u0060browser\u0060 or \u0060app\u0060)",
-            "example": "browser"
-          },
-          "merchant": {
-            "$ref": "#/components/schemas/V4008DataTransactionMerchant"
-          },
-          "money_value": {
-            "$ref": "#/components/schemas/V4008DataTransactionMoneyValue"
-          }
-        }
-      },
       "V2008DataResource": {
-        "type": "object",
-        "properties": {
-          "client_id": {
-            "type": "string",
-            "description": "Your api_client_id",
-            "example": "tw-test-card-issuance"
-          },
-          "card_token": {
-            "type": "string",
-            "description": "Card token",
-            "example": "3ab81206-d258-4caf-cea5-60067ba82404"
-          },
-          "profile_id": {
-            "type": "integer",
-            "description": "Profile ID",
-            "format": "int64",
-            "example": 29751964
-          },
-          "type": {
-            "type": "string",
-            "description": "Resource type (always \u0060card\u0060)",
-            "example": "card"
-          }
-        }
-      },
-      "V2008DataTransaction": {
-        "type": "object",
-        "properties": {
-          "reference": {
-            "type": "string",
-            "description": "Transaction reference, you should use this field when notifying us of the challenge result.",
-            "example": 148990660
-          },
-          "channel": {
-            "type": "string",
-            "description": "User agent (usually \u0060browser\u0060 or \u0060app\u0060)",
-            "example": "browser"
-          },
-          "merchant": {
-            "$ref": "#/components/schemas/V2008DataTransactionMerchant"
-          },
-          "money_value": {
-            "$ref": "#/components/schemas/V2008DataTransactionMoneyValue"
-          }
-        }
-      },
-      "V4009DataResource": {
         "type": "object",
         "properties": {
           "profile_id": {
@@ -24329,22 +24333,111 @@
           },
           "client_id": {
             "type": "string",
-            "description": "Api client_id",
+            "description": "API client_id",
             "example": "your-bank"
           },
           "card_token": {
             "type": "string",
             "description": "Unique identifier of the card",
             "example": "35050a4a-9521-426e-8109-1396e3687a3e"
-          },
-          "card_program": {
+          }
+        }
+      },
+      "V4009DataResource": {
+        "type": "object",
+        "properties": {
+          "client_id": {
             "type": "string",
-            "description": "The card program associated with this card order. A Card Program is what Wise refers to all the cards that you will be issuing with us, grouped by product type and by issuing country.",
-            "example": "VISA_DEBIT_CONSUMER_UK_1_PHYSICAL_CARDS_API"
+            "description": "Your api_client_id",
+            "example": "tw-test-card-issuance"
+          },
+          "card_token": {
+            "type": "string",
+            "description": "Card token",
+            "example": "3ab81206-d258-4caf-cea5-60067ba82404"
+          },
+          "profile_id": {
+            "type": "integer",
+            "description": "Profile ID",
+            "format": "int64",
+            "example": 29751964
+          },
+          "type": {
+            "type": "string",
+            "description": "Resource type (always \u0060card\u0060)",
+            "example": "card"
+          }
+        }
+      },
+      "V4009DataTransaction": {
+        "type": "object",
+        "properties": {
+          "reference": {
+            "type": "string",
+            "description": "Transaction reference, you should use this field when notifying us of the challenge result.",
+            "example": 148990660
+          },
+          "channel": {
+            "type": "string",
+            "description": "User agent (usually \u0060browser\u0060 or \u0060app\u0060)",
+            "example": "browser"
+          },
+          "merchant": {
+            "$ref": "#/components/schemas/V4009DataTransactionMerchant"
+          },
+          "money_value": {
+            "$ref": "#/components/schemas/V4009DataTransactionMoneyValue"
           }
         }
       },
       "V2009DataResource": {
+        "type": "object",
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "description": "Your api_client_id",
+            "example": "tw-test-card-issuance"
+          },
+          "card_token": {
+            "type": "string",
+            "description": "Card token",
+            "example": "3ab81206-d258-4caf-cea5-60067ba82404"
+          },
+          "profile_id": {
+            "type": "integer",
+            "description": "Profile ID",
+            "format": "int64",
+            "example": 29751964
+          },
+          "type": {
+            "type": "string",
+            "description": "Resource type (always \u0060card\u0060)",
+            "example": "card"
+          }
+        }
+      },
+      "V2009DataTransaction": {
+        "type": "object",
+        "properties": {
+          "reference": {
+            "type": "string",
+            "description": "Transaction reference, you should use this field when notifying us of the challenge result.",
+            "example": 148990660
+          },
+          "channel": {
+            "type": "string",
+            "description": "User agent (usually \u0060browser\u0060 or \u0060app\u0060)",
+            "example": "browser"
+          },
+          "merchant": {
+            "$ref": "#/components/schemas/V2009DataTransactionMerchant"
+          },
+          "money_value": {
+            "$ref": "#/components/schemas/V2009DataTransactionMoneyValue"
+          }
+        }
+      },
+      "V40010DataResource": {
         "type": "object",
         "properties": {
           "profile_id": {
@@ -24382,6 +24475,37 @@
             "type": "integer",
             "description": "ID of the profile that owns the card",
             "format": "int64",
+            "example": 123456
+          },
+          "type": {
+            "type": "string",
+            "description": "Webhook notification of type \u0027card\u0027",
+            "example": "card"
+          },
+          "client_id": {
+            "type": "string",
+            "description": "Api client_id",
+            "example": "your-bank"
+          },
+          "card_token": {
+            "type": "string",
+            "description": "Unique identifier of the card",
+            "example": "35050a4a-9521-426e-8109-1396e3687a3e"
+          },
+          "card_program": {
+            "type": "string",
+            "description": "The card program associated with this card order. A Card Program is what Wise refers to all the cards that you will be issuing with us, grouped by product type and by issuing country.",
+            "example": "VISA_DEBIT_CONSUMER_UK_1_PHYSICAL_CARDS_API"
+          }
+        }
+      },
+      "V20011DataResource": {
+        "type": "object",
+        "properties": {
+          "profile_id": {
+            "type": "integer",
+            "description": "ID of the profile that owns the card",
+            "format": "int64",
             "example": 9953556
           },
           "client_id": {
@@ -24401,7 +24525,7 @@
           }
         }
       },
-      "V40010DataResource": {
+      "V40011DataResource": {
         "type": "object",
         "properties": {
           "type": {
@@ -24423,133 +24547,117 @@
           }
         }
       },
-      "V40011DataResource": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "type": "string",
-            "description": "Profile resource type (always \u0060profile\u0060)",
-            "example": "profile"
-          },
-          "id": {
-            "type": "integer",
-            "description": "ID of the profile",
-            "format": "int64",
-            "example": 111
-          }
-        }
-      },
-      "V40011DataOverdraft": {
-        "type": "object",
-        "properties": {
-          "used": {
-            "type": "number",
-            "description": "Overdraft limit used",
-            "format": "decimal",
-            "example": 12000
-          },
-          "limit": {
-            "type": "number",
-            "description": "Overdraft limit approved",
-            "format": "decimal",
-            "example": 20000
-          },
-          "currency": {
-            "type": "string",
-            "description": "Currency in which the amounts are expressed in",
-            "example": "EUR"
-          }
-        }
-      },
-      "V20011DataResource": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "type": "string",
-            "description": "Profile resource type (always \u0060profile\u0060)",
-            "example": "profile"
-          },
-          "id": {
-            "type": "integer",
-            "description": "ID of the profile",
-            "format": "int64",
-            "example": 111
-          }
-        }
-      },
-      "V20011DataOverdraft": {
-        "type": "object",
-        "properties": {
-          "used": {
-            "type": "number",
-            "description": "Overdraft limit used",
-            "format": "decimal",
-            "example": 12000
-          },
-          "limit": {
-            "type": "number",
-            "description": "Overdraft limit approved",
-            "format": "decimal",
-            "example": 20000
-          },
-          "currency": {
-            "type": "string",
-            "description": "Currency in which the amounts are expressed in",
-            "example": "EUR"
-          }
-        }
-      },
       "V40012DataResource": {
         "type": "object",
         "properties": {
+          "type": {
+            "type": "string",
+            "description": "Profile resource type (always \u0060profile\u0060)",
+            "example": "profile"
+          },
           "id": {
             "type": "integer",
             "description": "ID of the profile",
             "format": "int64",
-            "example": 1234
+            "example": 111
+          }
+        }
+      },
+      "V40012DataOverdraft": {
+        "type": "object",
+        "properties": {
+          "used": {
+            "type": "number",
+            "description": "Overdraft limit used",
+            "format": "decimal",
+            "example": 12000
           },
-          "type": {
+          "limit": {
+            "type": "number",
+            "description": "Overdraft limit approved",
+            "format": "decimal",
+            "example": 20000
+          },
+          "currency": {
             "type": "string",
-            "description": "Resource type (always \u0060profile\u0060)",
-            "example": "profile"
+            "description": "Currency in which the amounts are expressed in",
+            "example": "EUR"
           }
         }
       },
       "V20012DataResource": {
         "type": "object",
         "properties": {
+          "type": {
+            "type": "string",
+            "description": "Profile resource type (always \u0060profile\u0060)",
+            "example": "profile"
+          },
           "id": {
             "type": "integer",
             "description": "ID of the profile",
             "format": "int64",
-            "example": 1234
+            "example": 111
+          }
+        }
+      },
+      "V20012DataOverdraft": {
+        "type": "object",
+        "properties": {
+          "used": {
+            "type": "number",
+            "description": "Overdraft limit used",
+            "format": "decimal",
+            "example": 12000
           },
-          "type": {
+          "limit": {
+            "type": "number",
+            "description": "Overdraft limit approved",
+            "format": "decimal",
+            "example": 20000
+          },
+          "currency": {
             "type": "string",
-            "description": "Resource type (always \u0060profile\u0060)",
-            "example": "profile"
+            "description": "Currency in which the amounts are expressed in",
+            "example": "EUR"
           }
         }
       },
       "V40013DataResource": {
         "type": "object",
         "properties": {
-          "type": {
-            "type": "string",
-            "description": "Resource type (always \u0060profile\u0060)",
-            "example": "profile"
-          },
           "id": {
             "type": "integer",
             "description": "ID of the profile",
             "format": "int64",
-            "example": 111
+            "example": 1234
+          },
+          "type": {
+            "type": "string",
+            "description": "Resource type (always \u0060profile\u0060)",
+            "example": "profile"
           }
         }
       },
       "V20013DataResource": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "integer",
+            "description": "ID of the profile",
+            "format": "int64",
+            "example": 1234
+          },
+          "type": {
+            "type": "string",
+            "description": "Resource type (always \u0060profile\u0060)",
+            "example": "profile"
+          }
+        }
+      },
+      "V40014DataResource": {
+        "type": "object",
+        "properties": {
           "type": {
             "type": "string",
             "description": "Resource type (always \u0060profile\u0060)",
@@ -24563,85 +24671,51 @@
           }
         }
       },
-      "V40014DataResource": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "description": "ID of the user",
-            "format": "int64",
-            "example": 1234
-          },
-          "type": {
-            "type": "string",
-            "description": "Resource type (always \u0060user\u0060)",
-            "example": "user"
-          }
-        }
-      },
       "V20014DataResource": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "integer",
-            "description": "ID of the user",
-            "format": "int64",
-            "example": 1234
-          },
           "type": {
             "type": "string",
-            "description": "Resource type (always \u0060user\u0060)",
-            "example": "user"
+            "description": "Resource type (always \u0060profile\u0060)",
+            "example": "profile"
+          },
+          "id": {
+            "type": "integer",
+            "description": "ID of the profile",
+            "format": "int64",
+            "example": 111
           }
         }
       },
       "V40015DataResource": {
         "type": "object",
         "properties": {
-          "type": {
-            "type": "string",
-            "description": "Resource type (always \u0060balance-account\u0060)",
-            "example": "balance-account"
-          },
           "id": {
             "type": "integer",
-            "description": "ID of the account",
+            "description": "ID of the user",
             "format": "int64",
-            "example": 123
+            "example": 1234
           },
-          "profile_id": {
-            "type": "integer",
-            "description": "ID of the profile that owns the account",
-            "format": "int64",
-            "example": 555
-          },
-          "state": {
-            "$ref": "#/components/schemas/V40015DataResourceState"
+          "type": {
+            "type": "string",
+            "description": "Resource type (always \u0060user\u0060)",
+            "example": "user"
           }
         }
       },
       "V20015DataResource": {
         "type": "object",
         "properties": {
-          "type": {
-            "type": "string",
-            "description": "Resource type (always \u0060balance-account\u0060)",
-            "example": "balance-account"
-          },
           "id": {
             "type": "integer",
-            "description": "ID of the account",
+            "description": "ID of the user",
             "format": "int64",
-            "example": 123
+            "example": 1234
           },
-          "profile_id": {
-            "type": "integer",
-            "description": "ID of the profile that owns the account",
-            "format": "int64",
-            "example": 555
-          },
-          "state": {
-            "$ref": "#/components/schemas/V20015DataResourceState"
+          "type": {
+            "type": "string",
+            "description": "Resource type (always \u0060user\u0060)",
+            "example": "user"
           }
         }
       },
@@ -24657,17 +24731,45 @@
             "type": "integer",
             "description": "ID of the account",
             "format": "int64",
-            "example": 111
+            "example": 123
           },
           "profile_id": {
             "type": "integer",
             "description": "ID of the profile that owns the account",
             "format": "int64",
-            "example": 222
+            "example": 555
+          },
+          "state": {
+            "$ref": "#/components/schemas/V40016DataResourceState"
           }
         }
       },
       "V20016DataResource": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Resource type (always \u0060balance-account\u0060)",
+            "example": "balance-account"
+          },
+          "id": {
+            "type": "integer",
+            "description": "ID of the account",
+            "format": "int64",
+            "example": 123
+          },
+          "profile_id": {
+            "type": "integer",
+            "description": "ID of the profile that owns the account",
+            "format": "int64",
+            "example": 555
+          },
+          "state": {
+            "$ref": "#/components/schemas/V20016DataResourceState"
+          }
+        }
+      },
+      "V40017DataResource": {
         "type": "object",
         "properties": {
           "type": {
@@ -24689,7 +24791,29 @@
           }
         }
       },
-      "V40017DataResource": {
+      "V20017DataResource": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Resource type (always \u0060balance-account\u0060)",
+            "example": "balance-account"
+          },
+          "id": {
+            "type": "integer",
+            "description": "ID of the account",
+            "format": "int64",
+            "example": 111
+          },
+          "profile_id": {
+            "type": "integer",
+            "description": "ID of the profile that owns the account",
+            "format": "int64",
+            "example": 222
+          }
+        }
+      },
+      "V40018DataResource": {
         "type": "object",
         "properties": {
           "id": {
@@ -24711,7 +24835,7 @@
           }
         }
       },
-      "V20017DataResource": {
+      "V20018DataResource": {
         "type": "object",
         "properties": {
           "id": {
@@ -24733,7 +24857,7 @@
           }
         }
       },
-      "V40018DataResource": {
+      "V40019DataResource": {
         "type": "object",
         "properties": {
           "type": {
@@ -24753,14 +24877,14 @@
             "example": "GENERAL_ENQUIRY"
           },
           "details": {
-            "$ref": "#/components/schemas/V40018DataResourceDetails"
+            "$ref": "#/components/schemas/V40019DataResourceDetails"
           },
           "status": {
-            "$ref": "#/components/schemas/V40018DataResourceStatus"
+            "$ref": "#/components/schemas/V40019DataResourceStatus"
           }
         }
       },
-      "V20018DataResource": {
+      "V20019DataResource": {
         "type": "object",
         "properties": {
           "type": {
@@ -24780,14 +24904,14 @@
             "example": "GENERAL_ENQUIRY"
           },
           "details": {
-            "$ref": "#/components/schemas/V20018DataResourceDetails"
+            "$ref": "#/components/schemas/V20019DataResourceDetails"
           },
           "status": {
-            "$ref": "#/components/schemas/V20018DataResourceStatus"
+            "$ref": "#/components/schemas/V20019DataResourceStatus"
           }
         }
       },
-      "V40019DataAction": {
+      "V40020DataAction": {
         "required": [
           "type",
           "id",
@@ -24821,7 +24945,7 @@
           }
         }
       },
-      "V40019DataResource": {
+      "V40020DataResource": {
         "required": [
           "id",
           "uetr",
@@ -24850,10 +24974,10 @@
             "example": "/RFB/BET072"
           },
           "recipient": {
-            "$ref": "#/components/schemas/V40019DataResourceRecipient"
+            "$ref": "#/components/schemas/V40020DataResourceRecipient"
           },
           "sender": {
-            "$ref": "#/components/schemas/V40019DataResourceSender"
+            "$ref": "#/components/schemas/V40020DataResourceSender"
           },
           "exchange_rate": {
             "type": "number",
@@ -24862,13 +24986,13 @@
             "example": 0.8
           },
           "instructed_amount": {
-            "$ref": "#/components/schemas/V40019DataResourceInstructedAmount"
+            "$ref": "#/components/schemas/V40020DataResourceInstructedAmount"
           },
           "settled_amount": {
-            "$ref": "#/components/schemas/V40019DataResourceSettledAmount"
+            "$ref": "#/components/schemas/V40020DataResourceSettledAmount"
           },
           "fee": {
-            "$ref": "#/components/schemas/V40019DataResourceFee"
+            "$ref": "#/components/schemas/V40020DataResourceFee"
           },
           "transaction_time": {
             "type": "string",
@@ -24879,7 +25003,7 @@
           "previous_instructing_agents": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/V40019DataResourcePreviousInstructingAgentsItem"
+              "$ref": "#/components/schemas/V40020DataResourcePreviousInstructingAgentsItem"
             },
             "description": "List of previous instructing agents in the payment chain (ordered from first to last)."
           }
@@ -24976,7 +25100,7 @@
           }
         }
       },
-      "V40020DataAction": {
+      "V40021DataAction": {
         "type": "object",
         "properties": {
           "id": {
@@ -24999,7 +25123,7 @@
           }
         }
       },
-      "V40020DataResource": {
+      "V40021DataResource": {
         "type": "object",
         "properties": {
           "id": {
@@ -25024,61 +25148,61 @@
           }
         }
       },
-      "V40021DataResource": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "Unique ID of the dispute",
-            "example": "39f893e3-4b0c-4850-9c5c-8cb8f4798a43"
-          },
-          "profile_id": {
-            "type": "integer",
-            "description": "ID of the profile that owns the card",
-            "format": "int64",
-            "example": 16605997
-          },
-          "transaction_id": {
-            "type": "integer",
-            "description": "ID of the card transaction",
-            "format": "int64",
-            "example": 4337
-          },
-          "type": {
-            "type": "string",
-            "description": "Resource type (always \u0060transaction-dispute\u0060)",
-            "example": "transaction-dispute"
-          }
-        }
-      },
-      "V20019DataResource": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "Unique ID of the dispute",
-            "example": "39f893e3-4b0c-4850-9c5c-8cb8f4798a43"
-          },
-          "profile_id": {
-            "type": "integer",
-            "description": "ID of the profile that owns the card",
-            "format": "int64",
-            "example": 16605997
-          },
-          "transaction_id": {
-            "type": "integer",
-            "description": "ID of the card transaction",
-            "format": "int64",
-            "example": 4337
-          },
-          "type": {
-            "type": "string",
-            "description": "Resource type (always \u0060transaction-dispute\u0060)",
-            "example": "transaction-dispute"
-          }
-        }
-      },
       "V40022DataResource": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique ID of the dispute",
+            "example": "39f893e3-4b0c-4850-9c5c-8cb8f4798a43"
+          },
+          "profile_id": {
+            "type": "integer",
+            "description": "ID of the profile that owns the card",
+            "format": "int64",
+            "example": 16605997
+          },
+          "transaction_id": {
+            "type": "integer",
+            "description": "ID of the card transaction",
+            "format": "int64",
+            "example": 4337
+          },
+          "type": {
+            "type": "string",
+            "description": "Resource type (always \u0060transaction-dispute\u0060)",
+            "example": "transaction-dispute"
+          }
+        }
+      },
+      "V20020DataResource": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique ID of the dispute",
+            "example": "39f893e3-4b0c-4850-9c5c-8cb8f4798a43"
+          },
+          "profile_id": {
+            "type": "integer",
+            "description": "ID of the profile that owns the card",
+            "format": "int64",
+            "example": 16605997
+          },
+          "transaction_id": {
+            "type": "integer",
+            "description": "ID of the card transaction",
+            "format": "int64",
+            "example": 4337
+          },
+          "type": {
+            "type": "string",
+            "description": "Resource type (always \u0060transaction-dispute\u0060)",
+            "example": "transaction-dispute"
+          }
+        }
+      },
+      "V40023DataResource": {
         "type": "object",
         "properties": {
           "settlement_reference": {
@@ -25619,7 +25743,7 @@
           }
         }
       },
-      "V4008DataTransactionMerchant": {
+      "V4009DataTransactionMerchant": {
         "type": "object",
         "properties": {
           "category": {
@@ -25644,7 +25768,7 @@
           }
         }
       },
-      "V4008DataTransactionMoneyValue": {
+      "V4009DataTransactionMoneyValue": {
         "type": "object",
         "properties": {
           "value": {
@@ -25660,7 +25784,7 @@
           }
         }
       },
-      "V2008DataTransactionMerchant": {
+      "V2009DataTransactionMerchant": {
         "type": "object",
         "properties": {
           "category": {
@@ -25685,7 +25809,7 @@
           }
         }
       },
-      "V2008DataTransactionMoneyValue": {
+      "V2009DataTransactionMoneyValue": {
         "type": "object",
         "properties": {
           "value": {
@@ -25701,7 +25825,7 @@
           }
         }
       },
-      "V40018DataResourceDetails": {
+      "V40019DataResourceDetails": {
         "type": "object",
         "properties": {
           "transfer_id": {
@@ -25724,7 +25848,7 @@
           }
         }
       },
-      "V20018DataResourceDetails": {
+      "V20019DataResourceDetails": {
         "type": "object",
         "properties": {
           "transfer_id": {
@@ -25747,7 +25871,7 @@
           }
         }
       },
-      "V40019DataResourceRecipient": {
+      "V40020DataResourceRecipient": {
         "type": "object",
         "properties": {
           "name": {
@@ -25758,7 +25882,7 @@
             "example": "JOHN SMITH"
           },
           "address": {
-            "$ref": "#/components/schemas/V40019DataResourceRecipientAddress"
+            "$ref": "#/components/schemas/V40020DataResourceRecipientAddress"
           },
           "account": {
             "maxLength": 36,
@@ -25768,11 +25892,11 @@
             "example": "BE1234567891234"
           },
           "bank_details": {
-            "$ref": "#/components/schemas/V40019DataResourceRecipientBankDetails"
+            "$ref": "#/components/schemas/V40020DataResourceRecipientBankDetails"
           }
         }
       },
-      "V40019DataResourceSender": {
+      "V40020DataResourceSender": {
         "type": "object",
         "properties": {
           "name": {
@@ -25783,7 +25907,7 @@
             "example": "GEORGE SMITH"
           },
           "address": {
-            "$ref": "#/components/schemas/V40019DataResourceSenderAddress"
+            "$ref": "#/components/schemas/V40020DataResourceSenderAddress"
           },
           "account": {
             "maxLength": 36,
@@ -25793,11 +25917,11 @@
             "example": "EE947700771111111111"
           },
           "bank_details": {
-            "$ref": "#/components/schemas/V40019DataResourceSenderBankDetails"
+            "$ref": "#/components/schemas/V40020DataResourceSenderBankDetails"
           }
         }
       },
-      "V40019DataResourceInstructedAmount": {
+      "V40020DataResourceInstructedAmount": {
         "required": [
           "value",
           "currency"
@@ -25818,7 +25942,7 @@
         },
         "description": "Amount originally instructed by the ultimate sender."
       },
-      "V40019DataResourceSettledAmount": {
+      "V40020DataResourceSettledAmount": {
         "required": [
           "value",
           "currency"
@@ -25838,26 +25962,26 @@
           }
         }
       },
-      "V40019DataResourceFee": {
+      "V40020DataResourceFee": {
         "type": "object",
         "properties": {
           "wise": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/V40019DataResourceFeeWiseItem"
+              "$ref": "#/components/schemas/V40020DataResourceFeeWiseItem"
             },
             "description": "List of fees applied by Wise (e.g., conversion fee). If this list is empty, no fees were applied by Wise."
           },
           "correspondent": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/V40019DataResourceFeeCorrespondentItem"
+              "$ref": "#/components/schemas/V40020DataResourceFeeCorrespondentItem"
             },
             "description": "List of fees declared by correspondents (e.g., handling fee). If this list is empty, no fees were declared by correspondents."
           }
         }
       },
-      "V40019DataResourcePreviousInstructingAgentsItem": {
+      "V40020DataResourcePreviousInstructingAgentsItem": {
         "type": "object",
         "properties": {
           "bic": {
@@ -25871,7 +25995,7 @@
             "example": "SAMPLE BANK USA"
           },
           "address": {
-            "$ref": "#/components/schemas/V40019DataResourcePreviousInstructingAgentsItemAddress"
+            "$ref": "#/components/schemas/V40020DataResourcePreviousInstructingAgentsItemAddress"
           }
         }
       },
@@ -26151,7 +26275,7 @@
         },
         "description": "The amount, unrounded, that fees were calculated on and built up from."
       },
-      "V40019DataResourceRecipientAddress": {
+      "V40020DataResourceRecipientAddress": {
         "type": "object",
         "properties": {
           "first_line": {
@@ -26190,7 +26314,7 @@
         },
         "description": "Structured address of the ultimate recipient."
       },
-      "V40019DataResourceRecipientBankDetails": {
+      "V40020DataResourceRecipientBankDetails": {
         "type": "object",
         "properties": {
           "bic": {
@@ -26204,12 +26328,12 @@
             "example": "EXAMPLE BANK BELGIUM"
           },
           "address": {
-            "$ref": "#/components/schemas/V40019DataResourceRecipientBankDetailsAddress"
+            "$ref": "#/components/schemas/V40020DataResourceRecipientBankDetailsAddress"
           }
         },
         "description": "Recipient bank details."
       },
-      "V40019DataResourceSenderAddress": {
+      "V40020DataResourceSenderAddress": {
         "type": "object",
         "properties": {
           "first_line": {
@@ -26248,7 +26372,7 @@
         },
         "description": "Structured address of the ultimate sender."
       },
-      "V40019DataResourceSenderBankDetails": {
+      "V40020DataResourceSenderBankDetails": {
         "type": "object",
         "properties": {
           "bic": {
@@ -26262,12 +26386,12 @@
             "example": "TEST BANK AG"
           },
           "address": {
-            "$ref": "#/components/schemas/V40019DataResourceSenderBankDetailsAddress"
+            "$ref": "#/components/schemas/V40020DataResourceSenderBankDetailsAddress"
           }
         },
         "description": "Sender bank details."
       },
-      "V40019DataResourceFeeWiseItem": {
+      "V40020DataResourceFeeWiseItem": {
         "required": [
           "type",
           "value",
@@ -26293,7 +26417,7 @@
           }
         }
       },
-      "V40019DataResourceFeeCorrespondentItem": {
+      "V40020DataResourceFeeCorrespondentItem": {
         "required": [
           "value",
           "currency"
@@ -26313,7 +26437,7 @@
           }
         }
       },
-      "V40019DataResourcePreviousInstructingAgentsItemAddress": {
+      "V40020DataResourcePreviousInstructingAgentsItemAddress": {
         "type": "object",
         "properties": {
           "first_line": {
@@ -26457,7 +26581,7 @@
           }
         }
       },
-      "V40019DataResourceRecipientBankDetailsAddress": {
+      "V40020DataResourceRecipientBankDetailsAddress": {
         "type": "object",
         "properties": {
           "first_line": {
@@ -26496,7 +26620,7 @@
         },
         "description": "Recipient bank address (same structure as \u0060recipient.address\u0060)."
       },
-      "V40019DataResourceSenderBankDetailsAddress": {
+      "V40020DataResourceSenderBankDetailsAddress": {
         "type": "object",
         "properties": {
           "first_line": {
@@ -35716,25 +35840,6 @@
           ]
         }
       },
-      "V20010SchemaVersion": {
-        "enum": [
-          "2.0.0"
-        ],
-        "type": "string",
-        "additionalProperties": false,
-        "description": "Version of the event schema. Determined by the \u0060schema_version\u0060 on your [webhook subscription](/api-reference/webhook).",
-        "example": "2.0.0",
-        "x-ms-enum": {
-          "name": "V20010SchemaVersion",
-          "modelAsString": false,
-          "values": [
-            {
-              "value": "2.0.0",
-              "name": "Value200"
-            }
-          ]
-        }
-      },
       "V40010SchemaVersion": {
         "enum": [
           "4.0.0"
@@ -35754,21 +35859,21 @@
           ]
         }
       },
-      "V40011SchemaVersion": {
+      "V20010SchemaVersion": {
         "enum": [
-          "4.0.0"
+          "2.0.0"
         ],
         "type": "string",
         "additionalProperties": false,
         "description": "Version of the event schema. Determined by the \u0060schema_version\u0060 on your [webhook subscription](/api-reference/webhook).",
-        "example": "4.0.0",
+        "example": "2.0.0",
         "x-ms-enum": {
-          "name": "V40011SchemaVersion",
+          "name": "V20010SchemaVersion",
           "modelAsString": false,
           "values": [
             {
-              "value": "4.0.0",
-              "name": "Value400"
+              "value": "2.0.0",
+              "name": "Value200"
             }
           ]
         }
@@ -35788,6 +35893,25 @@
             {
               "value": "2.0.0",
               "name": "Value200"
+            }
+          ]
+        }
+      },
+      "V40011SchemaVersion": {
+        "enum": [
+          "4.0.0"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Version of the event schema. Determined by the \u0060schema_version\u0060 on your [webhook subscription](/api-reference/webhook).",
+        "example": "4.0.0",
+        "x-ms-enum": {
+          "name": "V40011SchemaVersion",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "4.0.0",
+              "name": "Value400"
             }
           ]
         }
@@ -36077,21 +36201,21 @@
           ]
         }
       },
-      "V300SchemaVersion": {
+      "V20019SchemaVersion": {
         "enum": [
-          "3.0.0"
+          "2.0.0"
         ],
         "type": "string",
         "additionalProperties": false,
         "description": "Version of the event schema. Determined by the \u0060schema_version\u0060 on your [webhook subscription](/api-reference/webhook).",
-        "example": "3.0.0",
+        "example": "2.0.0",
         "x-ms-enum": {
-          "name": "V300SchemaVersion",
+          "name": "V20019SchemaVersion",
           "modelAsString": false,
           "values": [
             {
-              "value": "3.0.0",
-              "name": "Value300"
+              "value": "2.0.0",
+              "name": "Value200"
             }
           ]
         }
@@ -36115,6 +36239,25 @@
           ]
         }
       },
+      "V300SchemaVersion": {
+        "enum": [
+          "3.0.0"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Version of the event schema. Determined by the \u0060schema_version\u0060 on your [webhook subscription](/api-reference/webhook).",
+        "example": "3.0.0",
+        "x-ms-enum": {
+          "name": "V300SchemaVersion",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "3.0.0",
+              "name": "Value300"
+            }
+          ]
+        }
+      },
       "V40021SchemaVersion": {
         "enum": [
           "4.0.0"
@@ -36134,25 +36277,6 @@
           ]
         }
       },
-      "V20019SchemaVersion": {
-        "enum": [
-          "2.0.0"
-        ],
-        "type": "string",
-        "additionalProperties": false,
-        "description": "Version of the event schema. Determined by the \u0060schema_version\u0060 on your [webhook subscription](/api-reference/webhook).",
-        "example": "2.0.0",
-        "x-ms-enum": {
-          "name": "V20019SchemaVersion",
-          "modelAsString": false,
-          "values": [
-            {
-              "value": "2.0.0",
-              "name": "Value200"
-            }
-          ]
-        }
-      },
       "V40022SchemaVersion": {
         "enum": [
           "4.0.0"
@@ -36163,6 +36287,44 @@
         "example": "4.0.0",
         "x-ms-enum": {
           "name": "V40022SchemaVersion",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "4.0.0",
+              "name": "Value400"
+            }
+          ]
+        }
+      },
+      "V20020SchemaVersion": {
+        "enum": [
+          "2.0.0"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Version of the event schema. Determined by the \u0060schema_version\u0060 on your [webhook subscription](/api-reference/webhook).",
+        "example": "2.0.0",
+        "x-ms-enum": {
+          "name": "V20020SchemaVersion",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "2.0.0",
+              "name": "Value200"
+            }
+          ]
+        }
+      },
+      "V40023SchemaVersion": {
+        "enum": [
+          "4.0.0"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Version of the event schema. Determined by the \u0060schema_version\u0060 on your [webhook subscription](/api-reference/webhook).",
+        "example": "4.0.0",
+        "x-ms-enum": {
+          "name": "V40023SchemaVersion",
           "modelAsString": false,
           "values": [
             {
@@ -36633,7 +36795,7 @@
           ]
         }
       },
-      "V4004DataOrderStatus": {
+      "V4005DataOrderStatus": {
         "enum": [
           "PENDING_USER",
           "PENDING_TW",
@@ -36645,7 +36807,7 @@
         "description": "Current status of the order",
         "example": "REQUIREMENTS_FULFILLED",
         "x-ms-enum": {
-          "name": "V4004DataOrderStatus",
+          "name": "V4005DataOrderStatus",
           "modelAsString": false,
           "values": [
             {
@@ -36667,7 +36829,7 @@
           ]
         }
       },
-      "V2004DataOrderStatus": {
+      "V2005DataOrderStatus": {
         "enum": [
           "PENDING_USER",
           "PENDING_TW",
@@ -36679,7 +36841,7 @@
         "description": "Current status of the order",
         "example": "REQUIREMENTS_FULFILLED",
         "x-ms-enum": {
-          "name": "V2004DataOrderStatus",
+          "name": "V2005DataOrderStatus",
           "modelAsString": false,
           "values": [
             {
@@ -36701,7 +36863,7 @@
           ]
         }
       },
-      "V4005DataCurrentState": {
+      "V4006DataCurrentState": {
         "enum": [
           "PROCESSING",
           "COMPLETED",
@@ -36713,7 +36875,7 @@
         "description": "Current state of the payment",
         "example": "COMPLETED",
         "x-ms-enum": {
-          "name": "V4005DataCurrentState",
+          "name": "V4006DataCurrentState",
           "modelAsString": false,
           "values": [
             {
@@ -36735,7 +36897,7 @@
           ]
         }
       },
-      "V4005DataPreviousState": {
+      "V4006DataPreviousState": {
         "enum": [
           "PROCESSING",
           "COMPLETED",
@@ -36747,7 +36909,7 @@
         "description": "Previous state of the payment",
         "example": "PROCESSING",
         "x-ms-enum": {
-          "name": "V4005DataPreviousState",
+          "name": "V4006DataPreviousState",
           "modelAsString": false,
           "values": [
             {
@@ -36769,7 +36931,7 @@
           ]
         }
       },
-      "V2005DataCurrentState": {
+      "V2006DataCurrentState": {
         "enum": [
           "PROCESSING",
           "COMPLETED",
@@ -36781,7 +36943,7 @@
         "description": "Current state of the payment",
         "example": "COMPLETED",
         "x-ms-enum": {
-          "name": "V2005DataCurrentState",
+          "name": "V2006DataCurrentState",
           "modelAsString": false,
           "values": [
             {
@@ -36803,7 +36965,7 @@
           ]
         }
       },
-      "V2005DataPreviousState": {
+      "V2006DataPreviousState": {
         "enum": [
           "PROCESSING",
           "COMPLETED",
@@ -36815,7 +36977,7 @@
         "description": "Previous state of the payment",
         "example": "PROCESSING",
         "x-ms-enum": {
-          "name": "V2005DataPreviousState",
+          "name": "V2006DataPreviousState",
           "modelAsString": false,
           "values": [
             {
@@ -36837,7 +36999,7 @@
           ]
         }
       },
-      "V4009DataOrderStatus": {
+      "V40010DataOrderStatus": {
         "enum": [
           "PLACED",
           "REQUIREMENTS_FULFILLED",
@@ -36852,7 +37014,7 @@
         "description": "Updated card order status",
         "example": "PRODUCED",
         "x-ms-enum": {
-          "name": "V4009DataOrderStatus",
+          "name": "V40010DataOrderStatus",
           "modelAsString": false,
           "values": [
             {
@@ -36886,7 +37048,7 @@
           ]
         }
       },
-      "V2009DataOrderStatus": {
+      "V20010DataOrderStatus": {
         "enum": [
           "PLACED",
           "REQUIREMENTS_FULFILLED",
@@ -36901,7 +37063,7 @@
         "description": "Updated card order status",
         "example": "PRODUCED",
         "x-ms-enum": {
-          "name": "V2009DataOrderStatus",
+          "name": "V20010DataOrderStatus",
           "modelAsString": false,
           "values": [
             {
@@ -36935,7 +37097,7 @@
           ]
         }
       },
-      "V40010DataState": {
+      "V40011DataState": {
         "enum": [
           "OPEN",
           "CLOSED"
@@ -36945,7 +37107,7 @@
         "description": "Current state of the breach",
         "example": "CLOSED",
         "x-ms-enum": {
-          "name": "V40010DataState",
+          "name": "V40011DataState",
           "modelAsString": false,
           "values": [
             {
@@ -36959,7 +37121,7 @@
           ]
         }
       },
-      "V40010DataClosingReason": {
+      "V40011DataClosingReason": {
         "enum": [
           "AUTOMATICALLY_RESOLVED",
           "MANUALLY_RESOLVED"
@@ -36969,7 +37131,7 @@
         "description": "Reason the breach was closed. Null if state is \u0060OPEN\u0060",
         "example": "MANUALLY_RESOLVED",
         "x-ms-enum": {
-          "name": "V40010DataClosingReason",
+          "name": "V40011DataClosingReason",
           "modelAsString": false,
           "values": [
             {
@@ -36983,175 +37145,65 @@
           ]
         }
       },
-      "V40013DataCurrentState": {
-        "enum": [
-          "verified",
-          "not_verified"
-        ],
-        "type": "string",
-        "additionalProperties": false,
-        "description": "Current verification state of the profile",
-        "example": "verified",
-        "x-ms-enum": {
-          "name": "V40013DataCurrentState",
-          "modelAsString": false,
-          "values": [
-            {
-              "value": "verified",
-              "name": "Verified"
-            },
-            {
-              "value": "not_verified",
-              "name": "NotVerified"
-            }
-          ]
-        }
-      },
-      "V20013DataCurrentState": {
-        "enum": [
-          "verified",
-          "not_verified"
-        ],
-        "type": "string",
-        "additionalProperties": false,
-        "description": "Current verification state of the profile",
-        "example": "verified",
-        "x-ms-enum": {
-          "name": "V20013DataCurrentState",
-          "modelAsString": false,
-          "values": [
-            {
-              "value": "verified",
-              "name": "Verified"
-            },
-            {
-              "value": "not_verified",
-              "name": "NotVerified"
-            }
-          ]
-        }
-      },
-      "V40014DataPreviousState": {
-        "enum": [
-          "ACTIVE",
-          "WITHDRAW_ONLY",
-          "DEACTIVATED"
-        ],
-        "type": "string",
-        "additionalProperties": false,
-        "example": "ACTIVE",
-        "x-ms-enum": {
-          "name": "V40014DataPreviousState",
-          "modelAsString": false,
-          "values": [
-            {
-              "value": "ACTIVE",
-              "name": "Active"
-            },
-            {
-              "value": "WITHDRAW_ONLY",
-              "name": "WithdrawOnly"
-            },
-            {
-              "value": "DEACTIVATED",
-              "name": "Deactivated"
-            }
-          ]
-        }
-      },
       "V40014DataCurrentState": {
         "enum": [
-          "ACTIVE",
-          "WITHDRAW_ONLY",
-          "DEACTIVATED"
+          "verified",
+          "not_verified"
         ],
         "type": "string",
         "additionalProperties": false,
-        "description": "The current state of the user",
-        "example": "WITHDRAW_ONLY",
+        "description": "Current verification state of the profile",
+        "example": "verified",
         "x-ms-enum": {
           "name": "V40014DataCurrentState",
           "modelAsString": false,
           "values": [
             {
-              "value": "ACTIVE",
-              "name": "Active"
+              "value": "verified",
+              "name": "Verified"
             },
             {
-              "value": "WITHDRAW_ONLY",
-              "name": "WithdrawOnly"
-            },
-            {
-              "value": "DEACTIVATED",
-              "name": "Deactivated"
-            }
-          ]
-        }
-      },
-      "V40014DataDeactivationType": {
-        "enum": [
-          "ACCOUNT_SUSPENSION",
-          "ACCOUNT_CLOSURE"
-        ],
-        "type": "string",
-        "additionalProperties": false,
-        "description": "If the type is \u0060ACCOUNT_SUSPENSION\u0060, it is possible for your customer support teams to appeal the deactivation by reaching out to Wise.",
-        "example": "ACCOUNT_SUSPENSION",
-        "x-ms-enum": {
-          "name": "V40014DataDeactivationType",
-          "modelAsString": false,
-          "values": [
-            {
-              "value": "ACCOUNT_SUSPENSION",
-              "name": "AccountSuspension"
-            },
-            {
-              "value": "ACCOUNT_CLOSURE",
-              "name": "AccountClosure"
-            }
-          ]
-        }
-      },
-      "V20014DataPreviousState": {
-        "enum": [
-          "ACTIVE",
-          "WITHDRAW_ONLY",
-          "DEACTIVATED"
-        ],
-        "type": "string",
-        "additionalProperties": false,
-        "example": "ACTIVE",
-        "x-ms-enum": {
-          "name": "V20014DataPreviousState",
-          "modelAsString": false,
-          "values": [
-            {
-              "value": "ACTIVE",
-              "name": "Active"
-            },
-            {
-              "value": "WITHDRAW_ONLY",
-              "name": "WithdrawOnly"
-            },
-            {
-              "value": "DEACTIVATED",
-              "name": "Deactivated"
+              "value": "not_verified",
+              "name": "NotVerified"
             }
           ]
         }
       },
       "V20014DataCurrentState": {
         "enum": [
+          "verified",
+          "not_verified"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Current verification state of the profile",
+        "example": "verified",
+        "x-ms-enum": {
+          "name": "V20014DataCurrentState",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "verified",
+              "name": "Verified"
+            },
+            {
+              "value": "not_verified",
+              "name": "NotVerified"
+            }
+          ]
+        }
+      },
+      "V40015DataPreviousState": {
+        "enum": [
           "ACTIVE",
           "WITHDRAW_ONLY",
           "DEACTIVATED"
         ],
         "type": "string",
         "additionalProperties": false,
-        "description": "The current state of the user",
-        "example": "WITHDRAW_ONLY",
+        "example": "ACTIVE",
         "x-ms-enum": {
-          "name": "V20014DataCurrentState",
+          "name": "V40015DataPreviousState",
           "modelAsString": false,
           "values": [
             {
@@ -37169,7 +37221,36 @@
           ]
         }
       },
-      "V20014DataDeactivationType": {
+      "V40015DataCurrentState": {
+        "enum": [
+          "ACTIVE",
+          "WITHDRAW_ONLY",
+          "DEACTIVATED"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "The current state of the user",
+        "example": "WITHDRAW_ONLY",
+        "x-ms-enum": {
+          "name": "V40015DataCurrentState",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "ACTIVE",
+              "name": "Active"
+            },
+            {
+              "value": "WITHDRAW_ONLY",
+              "name": "WithdrawOnly"
+            },
+            {
+              "value": "DEACTIVATED",
+              "name": "Deactivated"
+            }
+          ]
+        }
+      },
+      "V40015DataDeactivationType": {
         "enum": [
           "ACCOUNT_SUSPENSION",
           "ACCOUNT_CLOSURE"
@@ -37179,7 +37260,7 @@
         "description": "If the type is \u0060ACCOUNT_SUSPENSION\u0060, it is possible for your customer support teams to appeal the deactivation by reaching out to Wise.",
         "example": "ACCOUNT_SUSPENSION",
         "x-ms-enum": {
-          "name": "V20014DataDeactivationType",
+          "name": "V40015DataDeactivationType",
           "modelAsString": false,
           "values": [
             {
@@ -37193,7 +37274,88 @@
           ]
         }
       },
-      "V40017DataPreviousStatus": {
+      "V20015DataPreviousState": {
+        "enum": [
+          "ACTIVE",
+          "WITHDRAW_ONLY",
+          "DEACTIVATED"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "example": "ACTIVE",
+        "x-ms-enum": {
+          "name": "V20015DataPreviousState",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "ACTIVE",
+              "name": "Active"
+            },
+            {
+              "value": "WITHDRAW_ONLY",
+              "name": "WithdrawOnly"
+            },
+            {
+              "value": "DEACTIVATED",
+              "name": "Deactivated"
+            }
+          ]
+        }
+      },
+      "V20015DataCurrentState": {
+        "enum": [
+          "ACTIVE",
+          "WITHDRAW_ONLY",
+          "DEACTIVATED"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "The current state of the user",
+        "example": "WITHDRAW_ONLY",
+        "x-ms-enum": {
+          "name": "V20015DataCurrentState",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "ACTIVE",
+              "name": "Active"
+            },
+            {
+              "value": "WITHDRAW_ONLY",
+              "name": "WithdrawOnly"
+            },
+            {
+              "value": "DEACTIVATED",
+              "name": "Deactivated"
+            }
+          ]
+        }
+      },
+      "V20015DataDeactivationType": {
+        "enum": [
+          "ACCOUNT_SUSPENSION",
+          "ACCOUNT_CLOSURE"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "If the type is \u0060ACCOUNT_SUSPENSION\u0060, it is possible for your customer support teams to appeal the deactivation by reaching out to Wise.",
+        "example": "ACCOUNT_SUSPENSION",
+        "x-ms-enum": {
+          "name": "V20015DataDeactivationType",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "ACCOUNT_SUSPENSION",
+              "name": "AccountSuspension"
+            },
+            {
+              "value": "ACCOUNT_CLOSURE",
+              "name": "AccountClosure"
+            }
+          ]
+        }
+      },
+      "V40018DataPreviousStatus": {
         "enum": [
           "NEW",
           "PROCESSING",
@@ -37206,7 +37368,7 @@
         "description": "Previous payment initiation state",
         "example": "NEW",
         "x-ms-enum": {
-          "name": "V40017DataPreviousStatus",
+          "name": "V40018DataPreviousStatus",
           "modelAsString": false,
           "values": [
             {
@@ -37232,7 +37394,7 @@
           ]
         }
       },
-      "V40017DataCurrentStatus": {
+      "V40018DataCurrentStatus": {
         "enum": [
           "NEW",
           "PROCESSING",
@@ -37245,7 +37407,7 @@
         "description": "Current payment initiation state",
         "example": "PROCESSING",
         "x-ms-enum": {
-          "name": "V40017DataCurrentStatus",
+          "name": "V40018DataCurrentStatus",
           "modelAsString": false,
           "values": [
             {
@@ -37271,7 +37433,7 @@
           ]
         }
       },
-      "V20017DataPreviousStatus": {
+      "V20018DataPreviousStatus": {
         "enum": [
           "NEW",
           "PROCESSING",
@@ -37284,7 +37446,7 @@
         "description": "Previous payment initiation state",
         "example": "NEW",
         "x-ms-enum": {
-          "name": "V20017DataPreviousStatus",
+          "name": "V20018DataPreviousStatus",
           "modelAsString": false,
           "values": [
             {
@@ -37310,7 +37472,7 @@
           ]
         }
       },
-      "V20017DataCurrentStatus": {
+      "V20018DataCurrentStatus": {
         "enum": [
           "NEW",
           "PROCESSING",
@@ -37323,7 +37485,7 @@
         "description": "Current payment initiation state",
         "example": "PROCESSING",
         "x-ms-enum": {
-          "name": "V20017DataCurrentStatus",
+          "name": "V20018DataCurrentStatus",
           "modelAsString": false,
           "values": [
             {
@@ -37349,7 +37511,7 @@
           ]
         }
       },
-      "V40018DataType": {
+      "V40019DataType": {
         "enum": [
           "STATUS_UPDATED",
           "NEW_COMMENT",
@@ -37360,7 +37522,7 @@
         "description": "The type of the webhook being sent.",
         "example": "NEW_CASE",
         "x-ms-enum": {
-          "name": "V40018DataType",
+          "name": "V40019DataType",
           "modelAsString": false,
           "values": [
             {
@@ -37378,7 +37540,7 @@
           ]
         }
       },
-      "V20018DataType": {
+      "V20019DataType": {
         "enum": [
           "STATUS_UPDATED",
           "NEW_COMMENT",
@@ -37389,7 +37551,7 @@
         "description": "The type of the webhook being sent.",
         "example": "NEW_CASE",
         "x-ms-enum": {
-          "name": "V20018DataType",
+          "name": "V20019DataType",
           "modelAsString": false,
           "values": [
             {
@@ -37407,7 +37569,7 @@
           ]
         }
       },
-      "V40021DataStatus": {
+      "V40022DataStatus": {
         "enum": [
           "ACTIVE",
           "CLOSED"
@@ -37417,7 +37579,7 @@
         "description": "Dispute overall status",
         "example": "CLOSED",
         "x-ms-enum": {
-          "name": "V40021DataStatus",
+          "name": "V40022DataStatus",
           "modelAsString": false,
           "values": [
             {
@@ -37431,7 +37593,7 @@
           ]
         }
       },
-      "V20019DataStatus": {
+      "V20020DataStatus": {
         "enum": [
           "ACTIVE",
           "CLOSED"
@@ -37441,7 +37603,7 @@
         "description": "Dispute overall status",
         "example": "CLOSED",
         "x-ms-enum": {
-          "name": "V20019DataStatus",
+          "name": "V20020DataStatus",
           "modelAsString": false,
           "values": [
             {
@@ -37639,7 +37801,7 @@
           ]
         }
       },
-      "V40015DataResourceState": {
+      "V40016DataResourceState": {
         "enum": [
           "ACTIVE",
           "INACTIVE"
@@ -37649,7 +37811,7 @@
         "description": "State of the account.",
         "example": "INACTIVE",
         "x-ms-enum": {
-          "name": "V40015DataResourceState",
+          "name": "V40016DataResourceState",
           "modelAsString": false,
           "values": [
             {
@@ -37663,7 +37825,7 @@
           ]
         }
       },
-      "V20015DataResourceState": {
+      "V20016DataResourceState": {
         "enum": [
           "ACTIVE",
           "INACTIVE"
@@ -37673,7 +37835,7 @@
         "description": "State of the account.",
         "example": "INACTIVE",
         "x-ms-enum": {
-          "name": "V20015DataResourceState",
+          "name": "V20016DataResourceState",
           "modelAsString": false,
           "values": [
             {
@@ -37687,7 +37849,7 @@
           ]
         }
       },
-      "V40018DataResourceStatus": {
+      "V40019DataResourceStatus": {
         "enum": [
           "OPEN",
           "PENDING",
@@ -37699,7 +37861,7 @@
         "description": "Status of the case.",
         "example": "PENDING",
         "x-ms-enum": {
-          "name": "V40018DataResourceStatus",
+          "name": "V40019DataResourceStatus",
           "modelAsString": false,
           "values": [
             {
@@ -37721,7 +37883,7 @@
           ]
         }
       },
-      "V20018DataResourceStatus": {
+      "V20019DataResourceStatus": {
         "enum": [
           "OPEN",
           "PENDING",
@@ -37733,7 +37895,7 @@
         "description": "Status of the case.",
         "example": "PENDING",
         "x-ms-enum": {
-          "name": "V20018DataResourceStatus",
+          "name": "V20019DataResourceStatus",
           "modelAsString": false,
           "values": [
             {
