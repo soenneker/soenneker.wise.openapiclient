@@ -26738,6 +26738,138 @@ webhooks:
                     type: string
                     example: ok
           description: Return any `2xx` status to acknowledge receipt of the event.
+  profiles#cdd-check-state-change:
+    post:
+      operationId: eventProfilesCddCheckStateChange
+      summary: Additional verification state change
+      description: >
+        This event pushes updates for the [Additional Customer
+        Verification](/guides/product/kyc/partner-kyc/additional-verification)
+        process.
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
+
+
+        Events may not be delivered in the order they occurred. Use
+        `data.occurred_at` to reconcile the order.
+
+        See the [Event Ordering](/guides/developer/webhooks/event-ordering)
+        guide for details.
+
+
+        * Event type: `profiles#cdd-check-state-change`
+
+        * Profile level subscriptions: Not Supported
+
+        * Application level subscriptions: Supported
+
+
+        ### Verification state values
+
+        | Code                  |
+        Description                                                                 
+        |
+
+        |-----------------------|------------------------------------------------------------------------------|
+
+        | `VERIFIED`            | Additional verification check has
+        passed                                     |
+
+        | `EVIDENCE_REQUIRED`   | Additional verification check has failed,
+        evidences are required             |
+
+
+        ### Review outcome values
+
+        | Code                                     |
+        Description                                                                 
+        |
+
+        |------------------------------------------|------------------------------------------------------------------------------|
+
+        | `DOCUMENT_POOR_QUALITY`                    | Document quality
+        poor                                                        |
+
+        | `DOCUMENT_OUT_OF_DATE`                     | Document out of
+        date                                                         |
+
+        | `DOCUMENT_NAME_MISMATCH`                   | Name on document does not
+        match records                                      |
+
+        | `DOCUMENT_MISSING_NAME`                    | Name on document
+        missing                                                     |
+
+        | `DOCUMENT_MISSING_ISSUE_DATE`              | Document issue date
+        missing                                                  |
+
+        | `DOCUMENT_MISSING_COMPANY_LOGO_LETTERHEAD` | Company logo or
+        letterhead missing from document                             |
+
+        | `DOCUMENT_NOT_COMPLETE`                    | Document is partially
+        cut-off and does not contain full information          |
+
+        | `DOCUMENT_MISSING_SIGNATURE`               | Document missing
+        signature                                                   |
+
+        | `DOCUMENT_MISSING_INCOME`                  | Document missing income
+        information or income is not clear from the document |
+
+        | `DOCUMENT_TYPE_UNACCEPTABLE`               | Submitted document type
+        is not acceptable                                    |
+
+        | `INVOICE_UNACCEPTABLE`                     | Invoice is not an
+        accepted document                                          |
+
+        | `PHOTO_ID_UNACCEPTABLE`                    | Photo ID is not an
+        accepted document                                         |
+
+        | `TRANSACTION_UNACCEPTABLE`                 | Transaction (or a
+        screenshot of a transaction) is not accepted               |
+
+        | `PHOTO_UNACCEPTABLE`                       | Photos (or computer
+        screenshots) are not acceptable                          |
+
+        | `OTHER`                                    | Reason
+        unknown                                                               |
+
+
+        ### Required evidence values
+
+        Go to the [list of
+        evidences](/guides/product/kyc/partner-kyc/supported-evidences) to find
+        all possible values.
+      tags:
+        - webhook-event
+        - verification
+      parameters:
+        - $ref: '#/components/parameters/x-signature-sha256'
+        - $ref: '#/components/parameters/x-delivery-id'
+        - $ref: '#/components/parameters/x-test-notification'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: Additional Verification State Change Event
+              discriminator:
+                propertyName: schema_version
+                mapping:
+                  4.0.0: '#/components/schemas/v4.0.0-12'
+                  2.0.0: '#/components/schemas/v2.0.0-12'
+              oneOf:
+                - $ref: '#/components/schemas/v4.0.0-12'
+                - $ref: '#/components/schemas/v2.0.0-12'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+          description: Return any `2xx` status to acknowledge receipt of the event.
   profiles#overdraft-limit-threshold:
     post:
       operationId: eventProfilesOverdraftLimitThreshold
@@ -26771,11 +26903,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-12'
-                  2.0.0: '#/components/schemas/v2.0.0-12'
+                  4.0.0: '#/components/schemas/v4.0.0-13'
+                  2.0.0: '#/components/schemas/v2.0.0-13'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-12'
-                - $ref: '#/components/schemas/v2.0.0-12'
+                - $ref: '#/components/schemas/v4.0.0-13'
+                - $ref: '#/components/schemas/v2.0.0-13'
       responses:
         '200':
           content:
@@ -26825,11 +26957,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-13'
-                  2.0.0: '#/components/schemas/v2.0.0-13'
+                  4.0.0: '#/components/schemas/v4.0.0-14'
+                  2.0.0: '#/components/schemas/v2.0.0-14'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-13'
-                - $ref: '#/components/schemas/v2.0.0-13'
+                - $ref: '#/components/schemas/v4.0.0-14'
+                - $ref: '#/components/schemas/v2.0.0-14'
       responses:
         '200':
           content:
@@ -26891,11 +27023,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-14'
-                  2.0.0: '#/components/schemas/v2.0.0-14'
+                  4.0.0: '#/components/schemas/v4.0.0-15'
+                  2.0.0: '#/components/schemas/v2.0.0-15'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-14'
-                - $ref: '#/components/schemas/v2.0.0-14'
+                - $ref: '#/components/schemas/v4.0.0-15'
+                - $ref: '#/components/schemas/v2.0.0-15'
       responses:
         '200':
           content:
@@ -26970,11 +27102,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-15'
-                  2.0.0: '#/components/schemas/v2.0.0-15'
+                  4.0.0: '#/components/schemas/v4.0.0-16'
+                  2.0.0: '#/components/schemas/v2.0.0-16'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-15'
-                - $ref: '#/components/schemas/v2.0.0-15'
+                - $ref: '#/components/schemas/v4.0.0-16'
+                - $ref: '#/components/schemas/v2.0.0-16'
       responses:
         '200':
           content:
@@ -27028,12 +27160,12 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-16'
+                  4.0.0: '#/components/schemas/v4.0.0-17'
                   3.0.0: '#/components/schemas/v3.0.0'
                   2.2.0: '#/components/schemas/v2.2.0'
                   2.1.0: '#/components/schemas/v2.1.0'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-16'
+                - $ref: '#/components/schemas/v4.0.0-17'
                 - $ref: '#/components/schemas/v3.0.0'
                 - $ref: '#/components/schemas/v2.2.0'
                 - $ref: '#/components/schemas/v2.1.0'
@@ -27086,11 +27218,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-17'
-                  2.0.0: '#/components/schemas/v2.0.0-16'
+                  4.0.0: '#/components/schemas/v4.0.0-18'
+                  2.0.0: '#/components/schemas/v2.0.0-17'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-17'
-                - $ref: '#/components/schemas/v2.0.0-16'
+                - $ref: '#/components/schemas/v4.0.0-18'
+                - $ref: '#/components/schemas/v2.0.0-17'
       responses:
         '200':
           content:
@@ -27157,11 +27289,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-18'
-                  2.0.0: '#/components/schemas/v2.0.0-17'
+                  4.0.0: '#/components/schemas/v4.0.0-19'
+                  2.0.0: '#/components/schemas/v2.0.0-18'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-18'
-                - $ref: '#/components/schemas/v2.0.0-17'
+                - $ref: '#/components/schemas/v4.0.0-19'
+                - $ref: '#/components/schemas/v2.0.0-18'
       responses:
         '200':
           content:
@@ -27217,11 +27349,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-19'
-                  2.0.0: '#/components/schemas/v2.0.0-18'
+                  4.0.0: '#/components/schemas/v4.0.0-20'
+                  2.0.0: '#/components/schemas/v2.0.0-19'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-19'
-                - $ref: '#/components/schemas/v2.0.0-18'
+                - $ref: '#/components/schemas/v4.0.0-20'
+                - $ref: '#/components/schemas/v2.0.0-19'
       responses:
         '200':
           content:
@@ -27285,11 +27417,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-20'
-                  2.0.0: '#/components/schemas/v2.0.0-19'
+                  4.0.0: '#/components/schemas/v4.0.0-21'
+                  2.0.0: '#/components/schemas/v2.0.0-20'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-20'
-                - $ref: '#/components/schemas/v2.0.0-19'
+                - $ref: '#/components/schemas/v4.0.0-21'
+                - $ref: '#/components/schemas/v2.0.0-20'
       responses:
         '200':
           content:
@@ -27345,10 +27477,10 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-21'
+                  4.0.0: '#/components/schemas/v4.0.0-22'
                   3.0.0: '#/components/schemas/v3.0.0-2'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-21'
+                - $ref: '#/components/schemas/v4.0.0-22'
                 - $ref: '#/components/schemas/v3.0.0-2'
       responses:
         '200':
@@ -27400,9 +27532,9 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-22'
+                  4.0.0: '#/components/schemas/v4.0.0-23'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-22'
+                - $ref: '#/components/schemas/v4.0.0-23'
       responses:
         '200':
           content:
@@ -27461,11 +27593,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-23'
-                  2.0.0: '#/components/schemas/v2.0.0-20'
+                  4.0.0: '#/components/schemas/v4.0.0-24'
+                  2.0.0: '#/components/schemas/v2.0.0-21'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-23'
-                - $ref: '#/components/schemas/v2.0.0-20'
+                - $ref: '#/components/schemas/v4.0.0-24'
+                - $ref: '#/components/schemas/v2.0.0-21'
       responses:
         '200':
           content:
@@ -27526,13 +27658,13 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-24'
+                  4.0.0: '#/components/schemas/v4.0.0-25'
                   3.0.0: '#/components/schemas/v3.0.0-3'
-                  2.0.0: '#/components/schemas/v2.0.0-21'
+                  2.0.0: '#/components/schemas/v2.0.0-22'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-24'
+                - $ref: '#/components/schemas/v4.0.0-25'
                 - $ref: '#/components/schemas/v3.0.0-3'
-                - $ref: '#/components/schemas/v2.0.0-21'
+                - $ref: '#/components/schemas/v2.0.0-22'
       responses:
         '200':
           content:
@@ -36297,6 +36429,190 @@ components:
         event_type:
           type: string
           description: Event type identifier
+          example: profiles#cdd-check-state-change
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2020-01-01T12:34:56.123Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: Profile resource type (always set to `profile`)
+                  example: profile
+                id:
+                  type: integer
+                  format: int64
+                  description: ID of the profile
+                  example: 111
+            current_state:
+              type: string
+              description: Current verification state of the profile (see table above).
+              example: VERIFIED
+            review_outcome:
+              type: string
+              description: |
+                *Optional*
+
+                Reason the verification review did not pass.
+                Refer to the table above for descriptions of these reasons.
+              example: DOCUMENT_OUT_OF_DATE
+            required_evidences:
+              type: array
+              items:
+                type: string
+              description: >
+                List of required evidences for verification. Go to the [list of
+                evidences](/guides/product/kyc/partner-kyc/supported-evidences)
+                to find all possible values.
+              example:
+                - SOURCE_OF_INCOME
+            occurred_at:
+              type: string
+              format: date-time
+              description: When the CDD check state change occurred
+              example: '2020-01-01T12:34:56.789Z'
+            source_of_income:
+              type: string
+              description: >
+                *Optional*
+
+
+                Source of income for a personal profile submitted via the
+                [/upload-evidences
+                API](/api-reference/verification/verificationuploadevidences).
+
+                Use this to upload the correct Source of Wealth document.
+              example: INVESTMENTS
+            source_of_funding:
+              type: string
+              description: >
+                *Optional*
+
+
+                Source of funding for a business profile submitted via the
+                [/upload-evidences
+                API](/api-reference/verification/verificationuploadevidences).
+
+                Use this to upload the correct Source of Wealth document.
+              example: REVENUE
+    v2.0.0-12:
+      title: Schema version 2.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 2.0.0
+          example: 2.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: 01234567-89ab-cdef-0123-456789abcdef
+        event_type:
+          type: string
+          description: Event type identifier
+          example: profiles#cdd-check-state-change
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2020-01-01T12:34:56Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: Profile resource type (always set to `profile`)
+                  example: profile
+                id:
+                  type: integer
+                  format: int64
+                  description: ID of the profile
+                  example: 111
+            current_state:
+              type: string
+              description: Current verification state of the profile (see table above).
+              example: VERIFIED
+            review_outcome:
+              type: string
+              description: |
+                *Optional*
+
+                Reason the verification review did not pass.
+                Refer to the table above for descriptions of these reasons.
+              example: DOCUMENT_POOR_QUALITY
+            required_evidences:
+              type: array
+              items:
+                type: string
+              description: >
+                List of required evidences for verification. Go to the [list of
+                evidences](/guides/product/kyc/partner-kyc/supported-evidences)
+                to find all possible values.
+              example:
+                - SOURCE_OF_INCOME
+            occurred_at:
+              type: string
+              format: date-time
+              description: When the CDD check state change occurred
+              example: '2020-01-01T12:34:56Z'
+            source_of_income:
+              type: string
+              description: >
+                *Optional*
+
+
+                Source of income for a personal profile submitted via the
+                [/upload-evidences
+                API](/api-reference/verification/verificationuploadevidences).
+
+                Use this to upload the correct Source of Wealth document.
+              example: INVESTMENTS
+            source_of_funding:
+              type: string
+              description: >
+                *Optional*
+
+
+                Source of funding for a business profile submitted via the
+                [/upload-evidences
+                API](/api-reference/verification/verificationuploadevidences).
+
+                Use this to upload the correct Source of Wealth document.
+              example: REVENUE
+    v4.0.0-13:
+      title: Schema version 4.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 4.0.0
+          example: 4.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: 01234567-89ab-cdef-0123-456789abcdef
+        event_type:
+          type: string
+          description: Event type identifier
           example: profiles#overdraft-limit-threshold
         sent_at:
           type: string
@@ -36335,7 +36651,7 @@ components:
                   type: string
                   description: Currency in which the amounts are expressed in
                   example: EUR
-    v2.0.0-12:
+    v2.0.0-13:
       title: Schema version 2.0.0
       type: object
       properties:
@@ -36393,7 +36709,7 @@ components:
                   type: string
                   description: Currency in which the amounts are expressed in
                   example: EUR
-    v4.0.0-13:
+    v4.0.0-14:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -36474,7 +36790,7 @@ components:
                 Whether the state change was requested by the customer. Not
                 applicable for `current_state` in `ACTIVE`.
               example: false
-    v2.0.0-13:
+    v2.0.0-14:
       title: Schema version 2.0.0
       type: object
       properties:
@@ -36555,112 +36871,6 @@ components:
                 Whether the state change was requested by the customer. Not
                 applicable for `current_state` in `ACTIVE`.
               example: false
-    v4.0.0-14:
-      title: Schema version 4.0.0
-      type: object
-      properties:
-        schema_version:
-          type: string
-          description: >-
-            Version of the event schema. Determined by the `schema_version` on
-            your [webhook subscription](/api-reference/webhook).
-          enum:
-            - 4.0.0
-          example: 4.0.0
-        subscription_id:
-          type: string
-          format: uuid
-          description: ID of the webhook subscription that triggered this event
-          example: 01234567-89ab-cdef-0123-456789abcdef
-        event_type:
-          type: string
-          description: Event type identifier
-          example: profiles#verification-state-change
-        sent_at:
-          type: string
-          format: date-time
-          description: Timestamp when the event was sent
-          example: '2020-01-01T12:34:56.123Z'
-        data:
-          type: object
-          properties:
-            resource:
-              type: object
-              properties:
-                type:
-                  type: string
-                  description: Resource type (always `profile`)
-                  example: profile
-                id:
-                  type: integer
-                  format: int64
-                  description: ID of the profile
-                  example: 111
-            current_state:
-              type: string
-              description: Current verification state of the profile
-              enum:
-                - verified
-                - not_verified
-              example: verified
-            occurred_at:
-              type: string
-              format: date-time
-              description: When the verification state change occurred
-              example: '2020-01-01T12:34:56.789Z'
-    v2.0.0-14:
-      title: Schema version 2.0.0
-      type: object
-      properties:
-        schema_version:
-          type: string
-          description: >-
-            Version of the event schema. Determined by the `schema_version` on
-            your [webhook subscription](/api-reference/webhook).
-          enum:
-            - 2.0.0
-          example: 2.0.0
-        subscription_id:
-          type: string
-          format: uuid
-          description: ID of the webhook subscription that triggered this event
-          example: 01234567-89ab-cdef-0123-456789abcdef
-        event_type:
-          type: string
-          description: Event type identifier
-          example: profiles#verification-state-change
-        sent_at:
-          type: string
-          format: date-time
-          description: Timestamp when the event was sent
-          example: '2020-01-01T12:34:56Z'
-        data:
-          type: object
-          properties:
-            resource:
-              type: object
-              properties:
-                type:
-                  type: string
-                  description: Resource type (always `profile`)
-                  example: profile
-                id:
-                  type: integer
-                  format: int64
-                  description: ID of the profile
-                  example: 111
-            current_state:
-              type: string
-              description: Current verification state of the profile
-              enum:
-                - verified
-                - not_verified
-              example: verified
-            occurred_at:
-              type: string
-              format: date-time
-              description: When the verification state change occurred
-              example: '2020-01-01T12:34:56Z'
     v4.0.0-15:
       title: Schema version 4.0.0
       type: object
@@ -36677,11 +36887,11 @@ components:
           type: string
           format: uuid
           description: ID of the webhook subscription that triggered this event
-          example: f5b51f77-e14a-433b-9f7c-fc2834ffcff5
+          example: 01234567-89ab-cdef-0123-456789abcdef
         event_type:
           type: string
           description: Event type identifier
-          example: users#state-change
+          example: profiles#verification-state-change
         sent_at:
           type: string
           format: date-time
@@ -36693,48 +36903,26 @@ components:
             resource:
               type: object
               properties:
+                type:
+                  type: string
+                  description: Resource type (always `profile`)
+                  example: profile
                 id:
                   type: integer
                   format: int64
-                  description: ID of the user
-                  example: 1234
-                type:
-                  type: string
-                  description: Resource type (always `user`)
-                  example: user
-            previous_state:
-              type: string
-              enum:
-                - ACTIVE
-                - WITHDRAW_ONLY
-                - DEACTIVATED
-              example: ACTIVE
+                  description: ID of the profile
+                  example: 111
             current_state:
               type: string
-              description: The current state of the user
+              description: Current verification state of the profile
               enum:
-                - ACTIVE
-                - WITHDRAW_ONLY
-                - DEACTIVATED
-              example: WITHDRAW_ONLY
-            deactivation_type:
-              type: string
-              description: >-
-                If the type is `ACCOUNT_SUSPENSION`, it is possible for your
-                customer support teams to appeal the deactivation by reaching
-                out to Wise.
-              enum:
-                - ACCOUNT_SUSPENSION
-                - ACCOUNT_CLOSURE
-              example: ACCOUNT_SUSPENSION
-            deactivation_reason:
-              type: string
-              description: The reason for deactivation
-              example: REQUESTED_BY_CUSTOMER_CS
+                - verified
+                - not_verified
+              example: verified
             occurred_at:
               type: string
               format: date-time
-              description: When the user state change occurred
+              description: When the verification state change occurred
               example: '2020-01-01T12:34:56.789Z'
     v2.0.0-15:
       title: Schema version 2.0.0
@@ -36752,6 +36940,134 @@ components:
           type: string
           format: uuid
           description: ID of the webhook subscription that triggered this event
+          example: 01234567-89ab-cdef-0123-456789abcdef
+        event_type:
+          type: string
+          description: Event type identifier
+          example: profiles#verification-state-change
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2020-01-01T12:34:56Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: Resource type (always `profile`)
+                  example: profile
+                id:
+                  type: integer
+                  format: int64
+                  description: ID of the profile
+                  example: 111
+            current_state:
+              type: string
+              description: Current verification state of the profile
+              enum:
+                - verified
+                - not_verified
+              example: verified
+            occurred_at:
+              type: string
+              format: date-time
+              description: When the verification state change occurred
+              example: '2020-01-01T12:34:56Z'
+    v4.0.0-16:
+      title: Schema version 4.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 4.0.0
+          example: 4.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: f5b51f77-e14a-433b-9f7c-fc2834ffcff5
+        event_type:
+          type: string
+          description: Event type identifier
+          example: users#state-change
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2020-01-01T12:34:56.123Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  format: int64
+                  description: ID of the user
+                  example: 1234
+                type:
+                  type: string
+                  description: Resource type (always `user`)
+                  example: user
+            previous_state:
+              type: string
+              enum:
+                - ACTIVE
+                - WITHDRAW_ONLY
+                - DEACTIVATED
+              example: ACTIVE
+            current_state:
+              type: string
+              description: The current state of the user
+              enum:
+                - ACTIVE
+                - WITHDRAW_ONLY
+                - DEACTIVATED
+              example: WITHDRAW_ONLY
+            deactivation_type:
+              type: string
+              description: >-
+                If the type is `ACCOUNT_SUSPENSION`, it is possible for your
+                customer support teams to appeal the deactivation by reaching
+                out to Wise.
+              enum:
+                - ACCOUNT_SUSPENSION
+                - ACCOUNT_CLOSURE
+              example: ACCOUNT_SUSPENSION
+            deactivation_reason:
+              type: string
+              description: The reason for deactivation
+              example: REQUESTED_BY_CUSTOMER_CS
+            occurred_at:
+              type: string
+              format: date-time
+              description: When the user state change occurred
+              example: '2020-01-01T12:34:56.789Z'
+    v2.0.0-16:
+      title: Schema version 2.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 2.0.0
+          example: 2.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
           example: f5b51f77-e14a-433b-9f7c-fc2834ffcff5
         event_type:
           type: string
@@ -36811,7 +37127,7 @@ components:
               format: date-time
               description: When the user state change occurred
               example: '2020-01-01T12:34:56Z'
-    v4.0.0-16:
+    v4.0.0-17:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -37134,122 +37450,6 @@ components:
               type: string
               description: Transfer category
               example: TRANSFER
-    v4.0.0-17:
-      title: Schema version 4.0.0
-      type: object
-      properties:
-        schema_version:
-          type: string
-          description: >-
-            Version of the event schema. Determined by the `schema_version` on
-            your [webhook subscription](/api-reference/webhook).
-          enum:
-            - 4.0.0
-          example: 4.0.0
-        subscription_id:
-          type: string
-          format: uuid
-          description: ID of the webhook subscription that triggered this event
-          example: 01234567-89ab-cdef-0123-456789abcdef
-        event_type:
-          type: string
-          description: Event type identifier
-          example: balances#account-state-change
-        sent_at:
-          type: string
-          format: date-time
-          description: Timestamp when the event was sent
-          example: '2020-01-01T12:34:56.123Z'
-        data:
-          type: object
-          properties:
-            resource:
-              type: object
-              properties:
-                type:
-                  type: string
-                  description: Resource type (always `balance-account`)
-                  example: balance-account
-                id:
-                  type: integer
-                  format: int64
-                  description: ID of the account
-                  example: 123
-                profile_id:
-                  type: integer
-                  format: int64
-                  description: ID of the profile that owns the account
-                  example: 555
-                state:
-                  type: string
-                  description: State of the account.
-                  enum:
-                    - ACTIVE
-                    - INACTIVE
-                  example: INACTIVE
-            occurred_at:
-              type: string
-              format: date-time
-              description: Timestamp when the event occurred
-              example: '2020-01-01T12:34:56.789Z'
-    v2.0.0-16:
-      title: Schema version 2.0.0
-      type: object
-      properties:
-        schema_version:
-          type: string
-          description: >-
-            Version of the event schema. Determined by the `schema_version` on
-            your [webhook subscription](/api-reference/webhook).
-          enum:
-            - 2.0.0
-          example: 2.0.0
-        subscription_id:
-          type: string
-          format: uuid
-          description: ID of the webhook subscription that triggered this event
-          example: 01234567-89ab-cdef-0123-456789abcdef
-        event_type:
-          type: string
-          description: Event type identifier
-          example: balances#account-state-change
-        sent_at:
-          type: string
-          format: date-time
-          description: Timestamp when the event was sent
-          example: '2020-01-01T12:34:56Z'
-        data:
-          type: object
-          properties:
-            resource:
-              type: object
-              properties:
-                type:
-                  type: string
-                  description: Resource type (always `balance-account`)
-                  example: balance-account
-                id:
-                  type: integer
-                  format: int64
-                  description: ID of the account
-                  example: 123
-                profile_id:
-                  type: integer
-                  format: int64
-                  description: ID of the profile that owns the account
-                  example: 555
-                state:
-                  type: string
-                  description: State of the account.
-                  enum:
-                    - ACTIVE
-                    - INACTIVE
-                  example: INACTIVE
-            occurred_at:
-              type: string
-              format: date-time
-              description: Timestamp when the event occurred
-              example: '2020-01-01T12:34:56Z'
     v4.0.0-18:
       title: Schema version 4.0.0
       type: object
@@ -37270,7 +37470,7 @@ components:
         event_type:
           type: string
           description: Event type identifier
-          example: balances#credit
+          example: balances#account-state-change
         sent_at:
           type: string
           format: date-time
@@ -37290,34 +37490,23 @@ components:
                   type: integer
                   format: int64
                   description: ID of the account
-                  example: 111
+                  example: 123
                 profile_id:
                   type: integer
                   format: int64
                   description: ID of the profile that owns the account
-                  example: 222
-            transaction_type:
-              type: string
-              description: Always `credit`
-              example: credit
-            amount:
-              type: number
-              format: decimal
-              description: Deposited amount
-              example: 1.23
-            currency:
-              type: string
-              description: Currency code
-              example: EUR
-            post_transaction_balance_amount:
-              type: number
-              format: decimal
-              description: Balance after the credit was applied
-              example: 2.34
+                  example: 555
+                state:
+                  type: string
+                  description: State of the account.
+                  enum:
+                    - ACTIVE
+                    - INACTIVE
+                  example: INACTIVE
             occurred_at:
               type: string
               format: date-time
-              description: When the credit occurred
+              description: Timestamp when the event occurred
               example: '2020-01-01T12:34:56.789Z'
     v2.0.0-17:
       title: Schema version 2.0.0
@@ -37339,6 +37528,133 @@ components:
         event_type:
           type: string
           description: Event type identifier
+          example: balances#account-state-change
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2020-01-01T12:34:56Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: Resource type (always `balance-account`)
+                  example: balance-account
+                id:
+                  type: integer
+                  format: int64
+                  description: ID of the account
+                  example: 123
+                profile_id:
+                  type: integer
+                  format: int64
+                  description: ID of the profile that owns the account
+                  example: 555
+                state:
+                  type: string
+                  description: State of the account.
+                  enum:
+                    - ACTIVE
+                    - INACTIVE
+                  example: INACTIVE
+            occurred_at:
+              type: string
+              format: date-time
+              description: Timestamp when the event occurred
+              example: '2020-01-01T12:34:56Z'
+    v4.0.0-19:
+      title: Schema version 4.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 4.0.0
+          example: 4.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: 01234567-89ab-cdef-0123-456789abcdef
+        event_type:
+          type: string
+          description: Event type identifier
+          example: balances#credit
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2020-01-01T12:34:56.123Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: Resource type (always `balance-account`)
+                  example: balance-account
+                id:
+                  type: integer
+                  format: int64
+                  description: ID of the account
+                  example: 111
+                profile_id:
+                  type: integer
+                  format: int64
+                  description: ID of the profile that owns the account
+                  example: 222
+            transaction_type:
+              type: string
+              description: Always `credit`
+              example: credit
+            amount:
+              type: number
+              format: decimal
+              description: Deposited amount
+              example: 1.23
+            currency:
+              type: string
+              description: Currency code
+              example: EUR
+            post_transaction_balance_amount:
+              type: number
+              format: decimal
+              description: Balance after the credit was applied
+              example: 2.34
+            occurred_at:
+              type: string
+              format: date-time
+              description: When the credit occurred
+              example: '2020-01-01T12:34:56.789Z'
+    v2.0.0-18:
+      title: Schema version 2.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 2.0.0
+          example: 2.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: 01234567-89ab-cdef-0123-456789abcdef
+        event_type:
+          type: string
+          description: Event type identifier
           example: balances#credit
         sent_at:
           type: string
@@ -37388,7 +37704,7 @@ components:
               format: date-time
               description: When the credit occurred
               example: '2020-01-01T12:34:56Z'
-    v4.0.0-19:
+    v4.0.0-20:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -37463,7 +37779,7 @@ components:
               type: string
               description: Return code of the underlying payment system
               example: '200'
-    v2.0.0-18:
+    v2.0.0-19:
       title: Schema version 2.0.0
       type: object
       properties:
@@ -37538,7 +37854,7 @@ components:
               type: string
               description: Return code of the underlying payment system
               example: '200'
-    v4.0.0-20:
+    v4.0.0-21:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -37635,7 +37951,7 @@ components:
               format: date-time
               description: When the partner case update occurred.
               example: '2023-06-23T09:45:34.789Z'
-    v2.0.0-19:
+    v2.0.0-20:
       title: Schema version 2.0.0
       type: object
       properties:
@@ -37732,7 +38048,7 @@ components:
               format: date-time
               description: When the partner case update occurred.
               example: '2023-06-23T09:45:34Z'
-    v4.0.0-21:
+    v4.0.0-22:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -38466,7 +38782,7 @@ components:
 
                 Format: `YYYY`-`MM`-`DD`T`HH`:`MM`:`SS`Z
               example: '2023-08-21T12:34:56Z'
-    v4.0.0-22:
+    v4.0.0-23:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -38543,7 +38859,7 @@ components:
                   type: string
                   description: The encoding applied to the content field. Always `base64`.
                   example: base64
-    v4.0.0-23:
+    v4.0.0-24:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -38634,7 +38950,7 @@ components:
               format: date-time
               description: When the dispute updates occurred
               example: '2024-04-18T06:36:15.789Z'
-    v2.0.0-20:
+    v2.0.0-21:
       title: Schema version 2.0.0
       type: object
       properties:
@@ -38725,7 +39041,7 @@ components:
               format: date-time
               description: When the dispute updates occurred
               example: '2024-04-18T06:36:15Z'
-    v4.0.0-24:
+    v4.0.0-25:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -38843,7 +39159,7 @@ components:
               format: date-time
               description: When the settlement fund was received
               example: '2024-04-18T06:36:15Z'
-    v2.0.0-21:
+    v2.0.0-22:
       title: Schema version 2.0.0
       deprecated: true
       type: object
