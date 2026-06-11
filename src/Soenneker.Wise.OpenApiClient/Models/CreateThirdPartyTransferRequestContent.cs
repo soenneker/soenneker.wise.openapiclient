@@ -46,6 +46,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string Quote { get; set; }
 #endif
+        /// <summary>Refund recipient account ID.</summary>
+        public long? SourceAccount { get; set; }
         /// <summary>Recipient account ID.</summary>
         public long? TargetAccount { get; set; }
         /// <summary>
@@ -77,6 +79,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "originalTransferId", n => { OriginalTransferId = n.GetStringValue(); } },
                 { "originator", n => { Originator = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Originator>(global::Soenneker.Wise.OpenApiClient.Models.Originator.CreateFromDiscriminatorValue); } },
                 { "quote", n => { Quote = n.GetStringValue(); } },
+                { "sourceAccount", n => { SourceAccount = n.GetLongValue(); } },
                 { "targetAccount", n => { TargetAccount = n.GetLongValue(); } },
             };
         }
@@ -91,6 +94,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteStringValue("originalTransferId", OriginalTransferId);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Originator>("originator", Originator);
             writer.WriteStringValue("quote", Quote);
+            writer.WriteLongValue("sourceAccount", SourceAccount);
             writer.WriteLongValue("targetAccount", TargetAccount);
             writer.WriteAdditionalData(AdditionalData);
         }
