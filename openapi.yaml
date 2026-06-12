@@ -26605,6 +26605,79 @@ webhooks:
                     type: string
                     example: ok
           description: Return any `2xx` status to acknowledge receipt of the event.
+  cards#transaction-state-change:
+    post:
+      operationId: eventCardsTransactionStateChange
+      summary: Card transaction state change
+      description: >
+        Triggered whenever a new card transaction occurs or is modified.
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
+
+
+        Events may not be delivered in the order they occurred. Use
+        `data.occurred_at` to reconcile the order.
+
+        See the [Event Ordering](/guides/developer/webhooks/event-ordering)
+        guide for details.
+
+
+        * Event type: `cards#transaction-state-change`
+
+        * Profile level subscriptions: Not Supported
+
+        * Application level subscriptions: Supported
+
+
+        #### Transaction categorisation
+
+
+        Transactions can be categorized based on the guidelines below, though
+        the results may not always be consistent.
+
+
+        * Active card check – `transaction_amount` is 0 or 1 and
+        `merchant.category.code` does not equal `6011`
+
+        * ATM balance check – `transaction_amount` is 0 and
+        `merchant.category.code` equals `6011`
+
+        * Pre-Authorisation – `is_amount_confirmed` is false and
+        `transaction_state` equals `IN_PROGRESS`
+      tags:
+        - webhook-event
+        - card-transaction
+      parameters:
+        - $ref: '#/components/parameters/x-signature-sha256'
+        - $ref: '#/components/parameters/x-delivery-id'
+        - $ref: '#/components/parameters/x-test-notification'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: Card Transaction State Change Event
+              discriminator:
+                propertyName: schema_version
+                mapping:
+                  4.0.0: '#/components/schemas/v4.0.0-11'
+                  2.1.0: '#/components/schemas/v2.1.0'
+                  2.0.0: '#/components/schemas/v2.0.0-11'
+              oneOf:
+                - $ref: '#/components/schemas/v4.0.0-11'
+                - $ref: '#/components/schemas/v2.1.0'
+                - $ref: '#/components/schemas/v2.0.0-11'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+          description: Return any `2xx` status to acknowledge receipt of the event.
   cards#manual-provisioning-verification:
     post:
       operationId: eventCardsManualProvisioningVerification
@@ -26634,7 +26707,7 @@ webhooks:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/v2.0.0-11'
+              $ref: '#/components/schemas/v2.0.0-12'
       responses:
         '200':
           content:
@@ -26687,7 +26760,7 @@ webhooks:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/v4.0.0-11'
+              $ref: '#/components/schemas/v4.0.0-12'
             examples:
               breachOpened:
                 summary: Breach opened
@@ -26854,11 +26927,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-12'
-                  2.0.0: '#/components/schemas/v2.0.0-12'
+                  4.0.0: '#/components/schemas/v4.0.0-13'
+                  2.0.0: '#/components/schemas/v2.0.0-13'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-12'
-                - $ref: '#/components/schemas/v2.0.0-12'
+                - $ref: '#/components/schemas/v4.0.0-13'
+                - $ref: '#/components/schemas/v2.0.0-13'
       responses:
         '200':
           content:
@@ -26903,11 +26976,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-13'
-                  2.0.0: '#/components/schemas/v2.0.0-13'
+                  4.0.0: '#/components/schemas/v4.0.0-14'
+                  2.0.0: '#/components/schemas/v2.0.0-14'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-13'
-                - $ref: '#/components/schemas/v2.0.0-13'
+                - $ref: '#/components/schemas/v4.0.0-14'
+                - $ref: '#/components/schemas/v2.0.0-14'
       responses:
         '200':
           content:
@@ -26957,11 +27030,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-14'
-                  2.0.0: '#/components/schemas/v2.0.0-14'
+                  4.0.0: '#/components/schemas/v4.0.0-15'
+                  2.0.0: '#/components/schemas/v2.0.0-15'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-14'
-                - $ref: '#/components/schemas/v2.0.0-14'
+                - $ref: '#/components/schemas/v4.0.0-15'
+                - $ref: '#/components/schemas/v2.0.0-15'
       responses:
         '200':
           content:
@@ -27023,11 +27096,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-15'
-                  2.0.0: '#/components/schemas/v2.0.0-15'
+                  4.0.0: '#/components/schemas/v4.0.0-16'
+                  2.0.0: '#/components/schemas/v2.0.0-16'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-15'
-                - $ref: '#/components/schemas/v2.0.0-15'
+                - $ref: '#/components/schemas/v4.0.0-16'
+                - $ref: '#/components/schemas/v2.0.0-16'
       responses:
         '200':
           content:
@@ -27102,11 +27175,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-16'
-                  2.0.0: '#/components/schemas/v2.0.0-16'
+                  4.0.0: '#/components/schemas/v4.0.0-17'
+                  2.0.0: '#/components/schemas/v2.0.0-17'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-16'
-                - $ref: '#/components/schemas/v2.0.0-16'
+                - $ref: '#/components/schemas/v4.0.0-17'
+                - $ref: '#/components/schemas/v2.0.0-17'
       responses:
         '200':
           content:
@@ -27160,15 +27233,15 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-17'
+                  4.0.0: '#/components/schemas/v4.0.0-18'
                   3.0.0: '#/components/schemas/v3.0.0'
                   2.2.0: '#/components/schemas/v2.2.0'
-                  2.1.0: '#/components/schemas/v2.1.0'
+                  2.1.0: '#/components/schemas/v2.1.0-2'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-17'
+                - $ref: '#/components/schemas/v4.0.0-18'
                 - $ref: '#/components/schemas/v3.0.0'
                 - $ref: '#/components/schemas/v2.2.0'
-                - $ref: '#/components/schemas/v2.1.0'
+                - $ref: '#/components/schemas/v2.1.0-2'
       responses:
         '200':
           content:
@@ -27218,11 +27291,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-18'
-                  2.0.0: '#/components/schemas/v2.0.0-17'
+                  4.0.0: '#/components/schemas/v4.0.0-19'
+                  2.0.0: '#/components/schemas/v2.0.0-18'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-18'
-                - $ref: '#/components/schemas/v2.0.0-17'
+                - $ref: '#/components/schemas/v4.0.0-19'
+                - $ref: '#/components/schemas/v2.0.0-18'
       responses:
         '200':
           content:
@@ -27289,11 +27362,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-19'
-                  2.0.0: '#/components/schemas/v2.0.0-18'
+                  4.0.0: '#/components/schemas/v4.0.0-20'
+                  2.0.0: '#/components/schemas/v2.0.0-19'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-19'
-                - $ref: '#/components/schemas/v2.0.0-18'
+                - $ref: '#/components/schemas/v4.0.0-20'
+                - $ref: '#/components/schemas/v2.0.0-19'
       responses:
         '200':
           content:
@@ -27349,11 +27422,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-20'
-                  2.0.0: '#/components/schemas/v2.0.0-19'
+                  4.0.0: '#/components/schemas/v4.0.0-21'
+                  2.0.0: '#/components/schemas/v2.0.0-20'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-20'
-                - $ref: '#/components/schemas/v2.0.0-19'
+                - $ref: '#/components/schemas/v4.0.0-21'
+                - $ref: '#/components/schemas/v2.0.0-20'
       responses:
         '200':
           content:
@@ -27417,11 +27490,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-21'
-                  2.0.0: '#/components/schemas/v2.0.0-20'
+                  4.0.0: '#/components/schemas/v4.0.0-22'
+                  2.0.0: '#/components/schemas/v2.0.0-21'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-21'
-                - $ref: '#/components/schemas/v2.0.0-20'
+                - $ref: '#/components/schemas/v4.0.0-22'
+                - $ref: '#/components/schemas/v2.0.0-21'
       responses:
         '200':
           content:
@@ -27477,10 +27550,10 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-22'
+                  4.0.0: '#/components/schemas/v4.0.0-23'
                   3.0.0: '#/components/schemas/v3.0.0-2'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-22'
+                - $ref: '#/components/schemas/v4.0.0-23'
                 - $ref: '#/components/schemas/v3.0.0-2'
       responses:
         '200':
@@ -27532,9 +27605,9 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-23'
+                  4.0.0: '#/components/schemas/v4.0.0-24'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-23'
+                - $ref: '#/components/schemas/v4.0.0-24'
       responses:
         '200':
           content:
@@ -27593,11 +27666,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-24'
-                  2.0.0: '#/components/schemas/v2.0.0-21'
+                  4.0.0: '#/components/schemas/v4.0.0-25'
+                  2.0.0: '#/components/schemas/v2.0.0-22'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-24'
-                - $ref: '#/components/schemas/v2.0.0-21'
+                - $ref: '#/components/schemas/v4.0.0-25'
+                - $ref: '#/components/schemas/v2.0.0-22'
       responses:
         '200':
           content:
@@ -27658,13 +27731,13 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-25'
+                  4.0.0: '#/components/schemas/v4.0.0-26'
                   3.0.0: '#/components/schemas/v3.0.0-3'
-                  2.0.0: '#/components/schemas/v2.0.0-22'
+                  2.0.0: '#/components/schemas/v2.0.0-23'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-25'
+                - $ref: '#/components/schemas/v4.0.0-26'
                 - $ref: '#/components/schemas/v3.0.0-3'
-                - $ref: '#/components/schemas/v2.0.0-22'
+                - $ref: '#/components/schemas/v2.0.0-23'
       responses:
         '200':
           content:
@@ -35674,9 +35747,9 @@ components:
 
                 - `EXPIRED` - Card is expired
 
-                - `PURGED` - The cardhoder data (e.g. PAN, PIN) have been purged
-                after exceeds the retention period (555 days after the card's
-                expiry date)
+                - `PURGED` - The cardholder data (e.g. PAN, PIN) have been
+                purged after exceeds the retention period (555 days after the
+                card's expiry date)
               example: FROZEN
             changed_by:
               type: string
@@ -36257,7 +36330,1183 @@ components:
               format: date-time
               description: When the card order status change occurred
               example: '2023-01-01T12:24:56Z'
+    v4.0.0-11:
+      title: Schema version 4.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 4.0.0
+          example: 4.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: 568da36b-7335-4608-ad1b-e5c2d32273b6
+        event_type:
+          type: string
+          description: Event type identifier
+          example: cards#transaction-state-change
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2022-08-15T11:10:46.123Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                profile_id:
+                  type: integer
+                  format: int64
+                  description: ID of the profile that owns the card
+                  example: 123456
+                client_id:
+                  type: string
+                  description: Your api_client_id
+                  example: your-bank
+                card_token:
+                  type: string
+                  description: Unique identifier of the card
+                  example: 136b29e4-7eab-4dac-a017-438d494ef6cb
+                card_last_digits:
+                  type: string
+                  description: Last 4 digits of the card
+                  example: '1234'
+                type:
+                  type: string
+                  description: Resource type (always `card`)
+                  example: card
+            transaction_id:
+              type: integer
+              format: int64
+              description: ID of the transaction
+              example: 12345
+            transaction_type:
+              type: string
+              description: >
+                Type of the transaction. Possible values:
+
+                - `ACCOUNT_CREDIT` - Receiving money on the card, excluding Visa
+                OCT or Mastercard MoneySend
+
+                - `ACCOUNT_FUNDING` - Sending money to another card or e-wallet
+
+                - `CASH_ADVANCE` - Cash disbursement
+
+                - `CASH_WITHDRAWAL` - ATM withdrawal
+
+                - `CHARGEBACK` - Currently unused. Reserved for future use.
+
+                - `CREDIT_TRANSACTION` - Visa OCT and Mastercard MoneySend
+
+                - `ECOM_PURCHASE` - Online purchase
+
+                - `POS_PURCHASE` - Purchase via a POS Terminal
+
+                - `REFUND` - Partial or full refund of an existing card
+                transaction
+              example: CASH_WITHDRAWAL
+            transaction_step_type:
+              type: string
+              description: >
+                Step type of the transaction. Possible values:
+
+                - `AUTH` - Transaction authorization which is usually the first
+                step
+
+                - `PARTIAL_REVERSAL` - Transaction has been partially reversed
+
+                - `FULL_REVERSAL` - Transaction has been fully reversed
+
+                - `CAPTURE` - Transaction has been captured
+
+                - `SETTLE` - Currently unused. Reserved for future use.
+
+                - `REFUND` - Currently unused. Reserved for future use.
+
+                - `RECONCILIATION` - Currently unused. Reserved for future use.
+              example: CAPTURE
+            transaction_state:
+              type: string
+              description: |
+                The current state of the transaction. Possible values:
+                - `IN_PROGRESS` - The transaction is still in progress
+                - `COMPLETED` - The transaction is completed
+                - `DECLINED` - The transaction has been declined
+                - `CANCELLED` - The transaction has been cancelled
+                - `UNKNOWN` - Default fallback status
+              example: COMPLETED
+            decline_reason:
+              type:
+                - string
+                - 'null'
+              description: Code of the decline reason if applicable
+              example: null
+            detailed_decline_reason:
+              type:
+                - string
+                - 'null'
+              description: >
+                Code of the detailed decline reason if applicable. List of
+                available options is available
+                [here](/api-reference/card-transaction#card-transaction-detailed-decline-reasons).
+              example: null
+            creation_time:
+              type: string
+              format: date-time
+              description: When the transaction was created
+              example: '2022-08-15T11:10:41.456Z'
+            occurred_at:
+              type: string
+              format: date-time
+              description: When the transaction state change occurred
+              example: '2022-08-15T11:10:41.789Z'
+            purge_time:
+              type:
+                - string
+                - 'null'
+              format: date-time
+              description: >-
+                Time at which reserved funds will be released after the
+                authorisation hold expires
+              example: '2022-08-22T11:10:41.123Z'
+            transaction_amount:
+              type: object
+              properties:
+                value:
+                  type: number
+                  format: decimal
+                  description: >-
+                    Transaction amount, excluding all embedded fees such as ATM
+                    fees that are not applied by Wise
+                  example: 100
+                currency:
+                  type: string
+                  description: Currency code
+                  example: EUR
+            fees:
+              type: array
+              description: Array of fees
+              items:
+                type: object
+                properties:
+                  amount:
+                    type: number
+                    format: decimal
+                    description: Fee amount
+                    example: 1
+                  currency:
+                    type: string
+                    description: Currency code
+                    example: EUR
+                  fee_type:
+                    type: string
+                    description: |
+                      Fee type. Possible values:
+                      - `ATM_WITHDRAWAL` - Fee charged by Wise
+                      - `ATM_MACHINE` - Fee charged by the ATM owner
+                    example: ATM_WITHDRAWAL
+            transaction_amount_with_fees:
+              type: object
+              properties:
+                value:
+                  type: number
+                  format: decimal
+                  description: Transaction amount including all fees
+                  example: 101
+                currency:
+                  type: string
+                  description: Currency code
+                  example: EUR
+            billing_amount:
+              type: object
+              properties:
+                value:
+                  type: number
+                  format: decimal
+                  description: Billing amount
+                  example: 100
+                currency:
+                  type: string
+                  description: Currency code
+                  example: EUR
+            merchant:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Name of the merchant
+                  example: Test Payment
+                location:
+                  type: object
+                  properties:
+                    country:
+                      type: string
+                      description: Country where merchant is located
+                      example: France
+                    city:
+                      type: string
+                      description: City where merchant is located
+                      example: Rouen
+                    postCode:
+                      type:
+                        - string
+                        - 'null'
+                      description: Post code where merchant is located
+                      example: '00000'
+                    state:
+                      type:
+                        - string
+                        - 'null'
+                      description: State where merchant is located
+                      example: null
+                category:
+                  type: object
+                  properties:
+                    code:
+                      type: string
+                      description: Merchant category code
+                      example: '5999'
+                    description:
+                      type: string
+                      description: Merchant category description
+                      example: 5999 R Miscellaneous and Special
+            authorisation_method:
+              type: string
+              description: Authorisation method
+              example: MANUAL_ENTRY
+            approval_code:
+              type: string
+              description: >-
+                Also called authorization code. This can be used to prove
+                ownership of a customer's card/account to a merchant
+              example: '913647'
+            arn:
+              type:
+                - string
+                - 'null'
+              description: Acquirer reference number
+              example: '04300014127798385983852'
+            pin_validation_result:
+              type: string
+              description: |
+                PIN validation result. Possible values:
+                - `ONLINE_PIN_VALIDATED`
+                - `ONLINE_PIN_INVALID`
+                - `OFFLINE_PIN_VALIDATED`
+                - `OFFLINE_PIN_INVALID`
+                - `NOT_RECEIVED`
+              example: ONLINE_PIN_VALIDATED
+            balance_channel_reference_id:
+              type: string
+              description: >-
+                Balance channel reference ID associated with the card
+                transaction
+              example: 6e71018d-2f4d-4fc3-6711-f517f4664712
+            debits:
+              type: array
+              description: >
+                Array of debits. Note that the debits list is a non-aggregated
+                list of debit movements, meaning that the `balance_id` is not
+                unique in the list. For example, a cancelled transaction may
+                have a list of 2 debits where the absolute values of
+                `debited_amount.value`, `for_amount.value` and `fee.value` are
+                the same, but one is the negation of the other due to a
+                reservation (first debit) which was then released (second debit
+                with negated amounts). In this case, you can choose to perform
+                the aggregation in your system or display the full list of
+                debits to the end customer.
+              items:
+                type: object
+                properties:
+                  balance_id:
+                    type: integer
+                    format: int64
+                    description: Balance ID
+                    example: 123
+                  debited_amount:
+                    type: object
+                    properties:
+                      value:
+                        type: number
+                        format: decimal
+                        description: Amount taken from the balance
+                        example: 165.96
+                      currency:
+                        type: string
+                        description: Currency code
+                        example: AUD
+                  for_amount:
+                    type: object
+                    properties:
+                      value:
+                        type: number
+                        format: decimal
+                        description: Amount converted to
+                        example: 101
+                      currency:
+                        type: string
+                        description: Currency code
+                        example: EUR
+                  rate:
+                    type: number
+                    format: decimal
+                    description: Exchange rate
+                    example: 0.61223252
+                  fee:
+                    type: object
+                    properties:
+                      value:
+                        type: number
+                        format: decimal
+                        description: Conversion fee amount
+                        example: 0.99
+                      currency:
+                        type: string
+                        description: Currency code
+                        example: AUD
+                  creation_time:
+                    type: string
+                    format: date-time
+                    description: Time of balance debit creation
+                    example: '2022-08-15T11:10:41.456Z'
+            credits:
+              type: array
+              description: Array of credits
+              items:
+                type: object
+                properties:
+                  balance_id:
+                    type: integer
+                    format: int64
+                    description: Balance ID
+                    example: 123
+                  credited_amount:
+                    type: object
+                    properties:
+                      value:
+                        type: number
+                        format: decimal
+                        description: Amount credited to the balance
+                        example: 100
+                      currency:
+                        type: string
+                        description: Currency code
+                        example: EUR
+            relay_authorisation_data:
+              type: object
+              properties:
+                response_code:
+                  type: string
+                  description: >-
+                    Relayed authorisation [response
+                    code](/guides/product/issue-cards/relayed-authorisation#authorisation-response)
+                  example: APPROVED
+                fallback:
+                  type: boolean
+                  description: Whether there was a fallback applied by Wise
+                  example: true
+    v2.1.0:
+      title: Schema version 2.1.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 2.1.0
+          example: 2.1.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: 568da36b-7335-4608-ad1b-e5c2d32273b6
+        event_type:
+          type: string
+          description: Event type identifier
+          example: cards#transaction-state-change
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2026-02-02T11:05:20Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                profile_id:
+                  type: integer
+                  format: int64
+                  description: ID of the profile that owns the card
+                  example: 123456
+                client_id:
+                  type: string
+                  description: Your api_client_id
+                  example: your-bank
+                card_token:
+                  type: string
+                  description: Unique identifier of the card
+                  example: 136b29e4-7eab-4dac-a017-438d494ef6cb
+                card_last_digits:
+                  type: string
+                  description: Last 4 digits of the card
+                  example: '1234'
+                type:
+                  type: string
+                  description: Resource type (always `card`)
+                  example: card
+            transaction_id:
+              type: integer
+              format: int64
+              description: ID of the transaction
+              example: 712893
+            transaction_type:
+              type: string
+              description: >
+                Type of the transaction. Possible values:
+
+                - `ACCOUNT_CREDIT` - Receiving money on the card, excluding Visa
+                OCT or Mastercard MoneySend
+
+                - `ACCOUNT_FUNDING` - Sending money to another card or e-wallet
+
+                - `CASH_ADVANCE` - Cash disbursement
+
+                - `CASH_WITHDRAWAL` - ATM withdrawal
+
+                - `CHARGEBACK` - Currently unused. Reserved for future use.
+
+                - `CREDIT_TRANSACTION` - Visa OCT and Mastercard MoneySend
+
+                - `ECOM_PURCHASE` - Online purchase
+
+                - `POS_PURCHASE` - Purchase via a POS Terminal
+
+                - `REFUND` - Partial or full refund of an existing card
+                transaction
+              example: POS_PURCHASE
+            transaction_step_type:
+              type: string
+              description: >
+                Step type of the transaction. Possible values:
+
+                - `AUTH` - Transaction authorization which is usually the first
+                step
+
+                - `PARTIAL_REVERSAL` - Transaction has been partially reversed
+
+                - `FULL_REVERSAL` - Transaction has been fully reversed
+
+                - `CAPTURE` - Transaction has been captured
+
+                - `SETTLE` - Currently unused. Reserved for future use.
+
+                - `REFUND` - Currently unused. Reserved for future use.
+
+                - `RECONCILIATION` - Currently unused. Reserved for future use.
+              example: FULL_REVERSAL
+            transaction_state:
+              type: string
+              description: |
+                The current state of the transaction. Possible values:
+                - `IN_PROGRESS` - The transaction is still in progress
+                - `COMPLETED` - The transaction is completed
+                - `DECLINED` - The transaction has been declined
+                - `CANCELLED` - The transaction has been cancelled
+                - `UNKNOWN` - Default fallback status
+              example: CANCELLED
+            decline_reason:
+              type:
+                - string
+                - 'null'
+              description: Code of the decline reason if applicable
+              example: null
+            detailed_decline_reason:
+              type:
+                - string
+                - 'null'
+              description: >
+                Code of the detailed decline reason if applicable. List of
+                available options is available
+                [here](/api-reference/card-transaction#card-transaction-detailed-decline-reasons).
+              example: null
+            creation_time:
+              type: string
+              format: date-time
+              description: When the transaction was created
+              example: '2026-02-02T11:04:41Z'
+            occurred_at:
+              type: string
+              format: date-time
+              description: When the transaction state change occurred
+              example: '2026-02-02T11:05:19Z'
+            purge_time:
+              type:
+                - string
+                - 'null'
+              format: date-time
+              description: >-
+                Time at which reserved funds will be released after the
+                authorisation hold expires
+              example: null
+            transaction_amount:
+              type: object
+              properties:
+                value:
+                  type: number
+                  format: decimal
+                  description: >-
+                    Transaction amount, excluding all embedded fees such as ATM
+                    fees that are not applied by Wise
+                  example: 10
+                currency:
+                  type: string
+                  description: Currency code
+                  example: EUR
+            fees:
+              type: array
+              description: Array of fees
+              items:
+                type: object
+                properties:
+                  amount:
+                    type: number
+                    format: decimal
+                    description: Fee amount
+                    example: 1
+                  currency:
+                    type: string
+                    description: Currency code
+                    example: EUR
+                  fee_type:
+                    type: string
+                    description: |
+                      Fee type. Possible values:
+                      - `ATM_WITHDRAWAL` - Fee charged by Wise
+                      - `ATM_MACHINE` - Fee charged by the ATM owner
+                    example: ATM_WITHDRAWAL
+            transaction_amount_with_fees:
+              type: object
+              properties:
+                value:
+                  type: number
+                  format: decimal
+                  description: Transaction amount including all fees
+                  example: 10
+                currency:
+                  type: string
+                  description: Currency code
+                  example: EUR
+            billing_amount:
+              type: object
+              properties:
+                value:
+                  type: number
+                  format: decimal
+                  description: Billing amount
+                  example: 10
+                currency:
+                  type: string
+                  description: Currency code
+                  example: EUR
+            merchant:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Name of the merchant
+                  example: Acquirer Name
+                location:
+                  type: object
+                  properties:
+                    country:
+                      type: string
+                      description: Country where merchant is located
+                      example: GB
+                    city:
+                      type: string
+                      description: City where merchant is located
+                      example: CITY NAME
+                    postCode:
+                      type:
+                        - string
+                        - 'null'
+                      description: Post code where merchant is located
+                      example: '00000'
+                    state:
+                      type:
+                        - string
+                        - 'null'
+                      description: State where merchant is located
+                      example: null
+                category:
+                  type: object
+                  properties:
+                    code:
+                      type: string
+                      description: Merchant category code
+                      example: '5499'
+                    description:
+                      type: string
+                      description: Merchant category description
+                      example: Miscellaneous Food Stores Conven
+            authorisation_method:
+              type: string
+              description: Authorisation method
+              example: CONTACTLESS
+            approval_code:
+              type: string
+              description: >-
+                Also called authorization code. This can be used to prove
+                ownership of a customer's card/account to a merchant
+              example: '723647'
+            arn:
+              type:
+                - string
+                - 'null'
+              description: Acquirer reference number
+              example: null
+            pin_validation_result:
+              type: string
+              description: |
+                PIN validation result. Possible values:
+                - `ONLINE_PIN_VALIDATED`
+                - `ONLINE_PIN_INVALID`
+                - `OFFLINE_PIN_VALIDATED`
+                - `OFFLINE_PIN_INVALID`
+                - `NOT_RECEIVED`
+              example: NOT_RECEIVED
+            balance_channel_reference_id:
+              type: string
+              description: >-
+                Balance channel reference ID associated with the card
+                transaction
+              example: 70781abe-9098-42f0-fb1f-6cf428b5068e
+            debits:
+              type: array
+              description: >
+                Array of debits. Note that the debits list is a non-aggregated
+                list of debit movements, meaning that the `balance_id` is not
+                unique in the list. For example, a cancelled transaction may
+                have a list of 2 debits where the absolute values of
+                `debited_amount.value`, `for_amount.value` and `fee.value` are
+                the same, but one is the negation of the other due to a
+                reservation (first debit) which was then released (second debit
+                with negated amounts). In this case, you can choose to perform
+                the aggregation in your system or display the full list of
+                debits to the end customer.
+              items:
+                type: object
+                properties:
+                  balance_id:
+                    type: integer
+                    format: int64
+                    description: Balance ID
+                    example: 4176832
+                  debited_amount:
+                    type: object
+                    properties:
+                      value:
+                        type: number
+                        format: decimal
+                        description: Amount taken from the balance
+                        example: -10
+                      currency:
+                        type: string
+                        description: Currency code
+                        example: EUR
+                  for_amount:
+                    type: object
+                    properties:
+                      value:
+                        type: number
+                        format: decimal
+                        description: Amount converted to
+                        example: -10
+                      currency:
+                        type: string
+                        description: Currency code
+                        example: EUR
+                  rate:
+                    type: number
+                    format: decimal
+                    description: Exchange rate
+                    example: 1
+                  fee:
+                    type: object
+                    properties:
+                      value:
+                        type: number
+                        format: decimal
+                        description: Conversion fee amount
+                        example: 0
+                      currency:
+                        type: string
+                        description: Currency code
+                        example: EUR
+                  creation_time:
+                    type: string
+                    format: date-time
+                    description: Time of balance debit creation
+                    example: '2026-02-02T11:05:19Z'
+            credits:
+              type: array
+              description: Array of credits
+              items:
+                type: object
+                properties:
+                  balance_id:
+                    type: integer
+                    format: int64
+                    description: Balance ID
+                    example: 123
+                  credited_amount:
+                    type: object
+                    properties:
+                      value:
+                        type: number
+                        format: decimal
+                        description: Amount credited to the balance
+                        example: 100
+                      currency:
+                        type: string
+                        description: Currency code
+                        example: EUR
+            relay_authorisation_data:
+              type: object
+              properties:
+                response_code:
+                  type: string
+                  description: >-
+                    Relayed authorisation [response
+                    code](/guides/product/issue-cards/relayed-authorisation#authorisation-response)
+                  example: APPROVED
+                fallback:
+                  type: boolean
+                  description: Whether there was a fallback applied by Wise
+                  example: true
     v2.0.0-11:
+      title: Schema version 2.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 2.0.0
+          example: 2.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: 568da36b-7335-4608-ad1b-e5c2d32273b6
+        event_type:
+          type: string
+          description: Event type identifier
+          example: cards#transaction-state-change
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2022-08-15T11:10:46Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                profile_id:
+                  type: integer
+                  format: int64
+                  description: ID of the profile that owns the card
+                  example: 123456
+                client_id:
+                  type: string
+                  description: Your api_client_id
+                  example: your-bank
+                card_token:
+                  type: string
+                  description: Unique identifier of the card
+                  example: 136b29e4-7eab-4dac-a017-438d494ef6cb
+                card_last_digits:
+                  type: string
+                  description: Last 4 digits of the card
+                  example: '1234'
+                type:
+                  type: string
+                  description: Resource type (always `card`)
+                  example: card
+            transaction_id:
+              type: integer
+              format: int64
+              description: ID of the transaction
+              example: 12345
+            transaction_type:
+              type: string
+              description: >
+                Type of the transaction. Possible values:
+
+                - `ACCOUNT_CREDIT` - Receiving money on the card, excluding Visa
+                OCT or Mastercard MoneySend
+
+                - `ACCOUNT_FUNDING` - Sending money to another card or e-wallet
+
+                - `CASH_ADVANCE` - Cash disbursement
+
+                - `CASH_WITHDRAWAL` - ATM withdrawal
+
+                - `CHARGEBACK` - Currently unused. Reserved for future use.
+
+                - `CREDIT_TRANSACTION` - Visa OCT and Mastercard MoneySend
+
+                - `ECOM_PURCHASE` - Online purchase
+
+                - `POS_PURCHASE` - Purchase via a POS Terminal
+
+                - `REFUND` - Partial or full refund of an existing card
+                transaction
+              example: CASH_WITHDRAWAL
+            is_debit:
+              type: boolean
+              deprecated: true
+              description: >
+                Indicates whether the transaction type is a debit. This field is
+                deprecated, use `data.transaction_amount.value` to determine if
+                the transaction is a debit (positive) or a credit into the
+                balance (negative).
+              example: true
+            transaction_step_type:
+              type: string
+              description: >
+                Step type of the transaction. Possible values:
+
+                - `AUTH` - Transaction authorization which is usually the first
+                step
+
+                - `PARTIAL_REVERSAL` - Transaction has been partially reversed
+
+                - `FULL_REVERSAL` - Transaction has been fully reversed
+
+                - `CAPTURE` - Transaction has been captured
+
+                - `SETTLE` - Currently unused. Reserved for future use.
+
+                - `REFUND` - Currently unused. Reserved for future use.
+
+                - `RECONCILIATION` - Currently unused. Reserved for future use.
+              example: CAPTURE
+            decline_reason:
+              type:
+                - string
+                - 'null'
+              description: Code of the decline reason if applicable
+              example: null
+            detailed_decline_reason:
+              type:
+                - string
+                - 'null'
+              description: >
+                Code of the detailed decline reason if applicable. List of
+                available options is available
+                [here](/api-reference/card-transaction#card-transaction-detailed-decline-reasons).
+              example: null
+            transaction_state:
+              type: string
+              description: |
+                The current state of the transaction. Possible values:
+                - `IN_PROGRESS` - The transaction is still in progress
+                - `COMPLETED` - The transaction is completed
+                - `DECLINED` - The transaction has been declined
+                - `CANCELLED` - The transaction has been cancelled
+                - `UNKNOWN` - Default fallback status
+              example: COMPLETED
+            transaction_amount:
+              type: object
+              properties:
+                value:
+                  type: number
+                  format: decimal
+                  description: >-
+                    Transaction amount, excluding all embedded fees such as ATM
+                    fees that are not applied by Wise
+                  example: 100
+                currency:
+                  type: string
+                  description: Currency code
+                  example: EUR
+            is_amount_confirmed:
+              type: boolean
+              description: Whether the transaction amount is confirmed
+              example: true
+            fees:
+              type: array
+              description: Array of fees
+              items:
+                type: object
+                properties:
+                  amount:
+                    type: number
+                    format: decimal
+                    description: Fee amount
+                    example: 1
+                  currency:
+                    type: string
+                    description: Currency code
+                    example: EUR
+                  fee_type:
+                    type: string
+                    description: |
+                      Fee type. Possible values:
+                      - `ATM_WITHDRAWAL` - Fee charged by Wise
+                      - `ATM_MACHINE` - Fee charged by the ATM owner
+                    example: ATM_WITHDRAWAL
+            transaction_amount_with_fees:
+              type: object
+              properties:
+                value:
+                  type: number
+                  format: decimal
+                  description: Transaction amount including fees
+                  example: 101
+                currency:
+                  type: string
+                  description: Currency code
+                  example: EUR
+            billing_amount:
+              type: object
+              properties:
+                value:
+                  type: number
+                  format: decimal
+                  description: Billing amount
+                  example: 100
+                currency:
+                  type: string
+                  description: Currency code
+                  example: EUR
+            authorisation_method:
+              type: string
+              description: Authorisation method
+              example: CHIP_AND_PIN
+            pin_validation_result:
+              type: string
+              description: |
+                PIN validation result. Possible values:
+                - `ONLINE_PIN_VALIDATED`
+                - `ONLINE_PIN_INVALID`
+                - `OFFLINE_PIN_VALIDATED`
+                - `OFFLINE_PIN_INVALID`
+                - `NOT_RECEIVED`
+              example: ONLINE_PIN_VALIDATED
+            approval_code:
+              type: string
+              description: >-
+                Also called authorization code. This can be used to prove
+                ownership of a customer's card/account to a merchant
+              example: '913647'
+            purge_time:
+              type:
+                - string
+                - 'null'
+              format: date-time
+              description: >-
+                Time at which reserved funds will be released after the
+                authorisation hold expires
+              example: '2022-08-22T11:10:41Z'
+            balance_transaction_id:
+              type: integer
+              format: int64
+              description: Associated balance transaction id if applicable
+              example: 12345
+            balance_movements:
+              type: array
+              description: Array of balance movements
+              items:
+                type: object
+                properties:
+                  creation_time:
+                    type: string
+                    format: date-time
+                    description: When the balance movement occurred
+                    example: '2024-12-02T04:17:40Z'
+                  balance_id:
+                    type: string
+                    description: ID of the balance credited or debited
+                    example: '123'
+                  type:
+                    type: string
+                    description: '`credit` or `debit`'
+                    example: debit
+                  amount:
+                    type: object
+                    properties:
+                      value:
+                        type: number
+                        format: decimal
+                        description: Credited or debited amount
+                        example: 165.96
+                      currency:
+                        type: string
+                        description: Currency code
+                        example: AUD
+            debits:
+              type: array
+              description: Array of debits
+              items:
+                type: object
+                properties:
+                  balance_id:
+                    type: integer
+                    format: int64
+                    description: Balance ID
+                    example: 123
+                  debited_amount:
+                    type: object
+                    properties:
+                      value:
+                        type: number
+                        format: decimal
+                        description: Amount taken from the balance
+                        example: 165.96
+                      currency:
+                        type: string
+                        description: Currency code
+                        example: AUD
+                  for_amount:
+                    type: object
+                    properties:
+                      value:
+                        type: number
+                        format: decimal
+                        description: Amount converted to
+                        example: 101
+                      currency:
+                        type: string
+                        description: Currency code
+                        example: EUR
+                  rate:
+                    type: number
+                    format: decimal
+                    description: Exchange rate
+                    example: 0.61223252
+                  fee:
+                    type: object
+                    properties:
+                      value:
+                        type: number
+                        format: decimal
+                        description: Conversion fee amount
+                        example: 0.99
+                      currency:
+                        type: string
+                        description: Currency code
+                        example: AUD
+            credit:
+              type:
+                - object
+                - 'null'
+              properties:
+                balance_id:
+                  type: integer
+                  format: int64
+                  description: Balance ID
+                  example: 123
+                credited_amount:
+                  type: object
+                  properties:
+                    value:
+                      type: number
+                      format: decimal
+                      description: Amount credited to the balance
+                      example: 100
+                    currency:
+                      type: string
+                      description: Currency code
+                      example: EUR
+            merchant:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Name of the merchant
+                  example: Test Payment
+                location:
+                  type: object
+                  properties:
+                    country:
+                      type: string
+                      description: Country where merchant is located
+                      example: France
+                    city:
+                      type: string
+                      description: City where merchant is located
+                      example: Rouen
+                    postCode:
+                      type:
+                        - string
+                        - 'null'
+                      description: Post code where merchant is located
+                      example: '00000'
+                    state:
+                      type:
+                        - string
+                        - 'null'
+                      description: State where merchant is located
+                      example: null
+                category:
+                  type: object
+                  properties:
+                    code:
+                      type: string
+                      description: Merchant category code
+                      example: '6011'
+                    description:
+                      type: string
+                      description: Merchant category description
+                      example: 6011 Z Member Financial Institution
+            arn:
+              type:
+                - string
+                - 'null'
+              description: Acquirer reference number
+              example: '04300014127798385983852'
+            creation_time:
+              type: string
+              format: date-time
+              description: When transaction was created
+              example: '2022-08-15T11:10:41Z'
+            occurred_at:
+              type: string
+              format: date-time
+              description: When transaction or transaction state change occurred
+              example: '2022-08-15T11:10:41Z'
+            relay_authorisation_data:
+              type: object
+              properties:
+                response_code:
+                  type: string
+                  description: >-
+                    Relayed authorisation [response
+                    code](/guides/product/issue-cards/relayed-authorisation#authorisation-response)
+                  example: APPROVED
+                fallback:
+                  type: boolean
+                  description: Whether there was a fallback applied by Wise
+                  example: true
+    v2.0.0-12:
       title: Schema version 2.0.0
       type: object
       properties:
@@ -36325,7 +37574,7 @@ components:
                 The wallet provider used to provision the card such as "Google
                 Pay" or "Apple Pay"
               example: Google Pay
-    v4.0.0-11:
+    v4.0.0-12:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -36414,7 +37663,7 @@ components:
                 Timestamp when the event occurred (ISO 8601). Use this field to
                 reconcile out-of-order events
               example: '2024-06-01T08:00:00Z'
-    v4.0.0-12:
+    v4.0.0-13:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -36506,7 +37755,7 @@ components:
 
                 Use this to upload the correct Source of Wealth document.
               example: REVENUE
-    v2.0.0-12:
+    v2.0.0-13:
       title: Schema version 2.0.0
       type: object
       properties:
@@ -36598,7 +37847,7 @@ components:
 
                 Use this to upload the correct Source of Wealth document.
               example: REVENUE
-    v4.0.0-13:
+    v4.0.0-14:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -36656,7 +37905,7 @@ components:
                   type: string
                   description: Currency in which the amounts are expressed in
                   example: EUR
-    v2.0.0-13:
+    v2.0.0-14:
       title: Schema version 2.0.0
       type: object
       properties:
@@ -36714,7 +37963,7 @@ components:
                   type: string
                   description: Currency in which the amounts are expressed in
                   example: EUR
-    v4.0.0-14:
+    v4.0.0-15:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -36795,7 +38044,7 @@ components:
                 Whether the state change was requested by the customer. Not
                 applicable for `current_state` in `ACTIVE`.
               example: false
-    v2.0.0-14:
+    v2.0.0-15:
       title: Schema version 2.0.0
       type: object
       properties:
@@ -36876,112 +38125,6 @@ components:
                 Whether the state change was requested by the customer. Not
                 applicable for `current_state` in `ACTIVE`.
               example: false
-    v4.0.0-15:
-      title: Schema version 4.0.0
-      type: object
-      properties:
-        schema_version:
-          type: string
-          description: >-
-            Version of the event schema. Determined by the `schema_version` on
-            your [webhook subscription](/api-reference/webhook).
-          enum:
-            - 4.0.0
-          example: 4.0.0
-        subscription_id:
-          type: string
-          format: uuid
-          description: ID of the webhook subscription that triggered this event
-          example: 01234567-89ab-cdef-0123-456789abcdef
-        event_type:
-          type: string
-          description: Event type identifier
-          example: profiles#verification-state-change
-        sent_at:
-          type: string
-          format: date-time
-          description: Timestamp when the event was sent
-          example: '2020-01-01T12:34:56.123Z'
-        data:
-          type: object
-          properties:
-            resource:
-              type: object
-              properties:
-                type:
-                  type: string
-                  description: Resource type (always `profile`)
-                  example: profile
-                id:
-                  type: integer
-                  format: int64
-                  description: ID of the profile
-                  example: 111
-            current_state:
-              type: string
-              description: Current verification state of the profile
-              enum:
-                - verified
-                - not_verified
-              example: verified
-            occurred_at:
-              type: string
-              format: date-time
-              description: When the verification state change occurred
-              example: '2020-01-01T12:34:56.789Z'
-    v2.0.0-15:
-      title: Schema version 2.0.0
-      type: object
-      properties:
-        schema_version:
-          type: string
-          description: >-
-            Version of the event schema. Determined by the `schema_version` on
-            your [webhook subscription](/api-reference/webhook).
-          enum:
-            - 2.0.0
-          example: 2.0.0
-        subscription_id:
-          type: string
-          format: uuid
-          description: ID of the webhook subscription that triggered this event
-          example: 01234567-89ab-cdef-0123-456789abcdef
-        event_type:
-          type: string
-          description: Event type identifier
-          example: profiles#verification-state-change
-        sent_at:
-          type: string
-          format: date-time
-          description: Timestamp when the event was sent
-          example: '2020-01-01T12:34:56Z'
-        data:
-          type: object
-          properties:
-            resource:
-              type: object
-              properties:
-                type:
-                  type: string
-                  description: Resource type (always `profile`)
-                  example: profile
-                id:
-                  type: integer
-                  format: int64
-                  description: ID of the profile
-                  example: 111
-            current_state:
-              type: string
-              description: Current verification state of the profile
-              enum:
-                - verified
-                - not_verified
-              example: verified
-            occurred_at:
-              type: string
-              format: date-time
-              description: When the verification state change occurred
-              example: '2020-01-01T12:34:56Z'
     v4.0.0-16:
       title: Schema version 4.0.0
       type: object
@@ -36998,11 +38141,11 @@ components:
           type: string
           format: uuid
           description: ID of the webhook subscription that triggered this event
-          example: f5b51f77-e14a-433b-9f7c-fc2834ffcff5
+          example: 01234567-89ab-cdef-0123-456789abcdef
         event_type:
           type: string
           description: Event type identifier
-          example: users#state-change
+          example: profiles#verification-state-change
         sent_at:
           type: string
           format: date-time
@@ -37014,48 +38157,26 @@ components:
             resource:
               type: object
               properties:
+                type:
+                  type: string
+                  description: Resource type (always `profile`)
+                  example: profile
                 id:
                   type: integer
                   format: int64
-                  description: ID of the user
-                  example: 1234
-                type:
-                  type: string
-                  description: Resource type (always `user`)
-                  example: user
-            previous_state:
-              type: string
-              enum:
-                - ACTIVE
-                - WITHDRAW_ONLY
-                - DEACTIVATED
-              example: ACTIVE
+                  description: ID of the profile
+                  example: 111
             current_state:
               type: string
-              description: The current state of the user
+              description: Current verification state of the profile
               enum:
-                - ACTIVE
-                - WITHDRAW_ONLY
-                - DEACTIVATED
-              example: WITHDRAW_ONLY
-            deactivation_type:
-              type: string
-              description: >-
-                If the type is `ACCOUNT_SUSPENSION`, it is possible for your
-                customer support teams to appeal the deactivation by reaching
-                out to Wise.
-              enum:
-                - ACCOUNT_SUSPENSION
-                - ACCOUNT_CLOSURE
-              example: ACCOUNT_SUSPENSION
-            deactivation_reason:
-              type: string
-              description: The reason for deactivation
-              example: REQUESTED_BY_CUSTOMER_CS
+                - verified
+                - not_verified
+              example: verified
             occurred_at:
               type: string
               format: date-time
-              description: When the user state change occurred
+              description: When the verification state change occurred
               example: '2020-01-01T12:34:56.789Z'
     v2.0.0-16:
       title: Schema version 2.0.0
@@ -37073,6 +38194,134 @@ components:
           type: string
           format: uuid
           description: ID of the webhook subscription that triggered this event
+          example: 01234567-89ab-cdef-0123-456789abcdef
+        event_type:
+          type: string
+          description: Event type identifier
+          example: profiles#verification-state-change
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2020-01-01T12:34:56Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: Resource type (always `profile`)
+                  example: profile
+                id:
+                  type: integer
+                  format: int64
+                  description: ID of the profile
+                  example: 111
+            current_state:
+              type: string
+              description: Current verification state of the profile
+              enum:
+                - verified
+                - not_verified
+              example: verified
+            occurred_at:
+              type: string
+              format: date-time
+              description: When the verification state change occurred
+              example: '2020-01-01T12:34:56Z'
+    v4.0.0-17:
+      title: Schema version 4.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 4.0.0
+          example: 4.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: f5b51f77-e14a-433b-9f7c-fc2834ffcff5
+        event_type:
+          type: string
+          description: Event type identifier
+          example: users#state-change
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2020-01-01T12:34:56.123Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  format: int64
+                  description: ID of the user
+                  example: 1234
+                type:
+                  type: string
+                  description: Resource type (always `user`)
+                  example: user
+            previous_state:
+              type: string
+              enum:
+                - ACTIVE
+                - WITHDRAW_ONLY
+                - DEACTIVATED
+              example: ACTIVE
+            current_state:
+              type: string
+              description: The current state of the user
+              enum:
+                - ACTIVE
+                - WITHDRAW_ONLY
+                - DEACTIVATED
+              example: WITHDRAW_ONLY
+            deactivation_type:
+              type: string
+              description: >-
+                If the type is `ACCOUNT_SUSPENSION`, it is possible for your
+                customer support teams to appeal the deactivation by reaching
+                out to Wise.
+              enum:
+                - ACCOUNT_SUSPENSION
+                - ACCOUNT_CLOSURE
+              example: ACCOUNT_SUSPENSION
+            deactivation_reason:
+              type: string
+              description: The reason for deactivation
+              example: REQUESTED_BY_CUSTOMER_CS
+            occurred_at:
+              type: string
+              format: date-time
+              description: When the user state change occurred
+              example: '2020-01-01T12:34:56.789Z'
+    v2.0.0-17:
+      title: Schema version 2.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 2.0.0
+          example: 2.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
           example: f5b51f77-e14a-433b-9f7c-fc2834ffcff5
         event_type:
           type: string
@@ -37132,7 +38381,7 @@ components:
               format: date-time
               description: When the user state change occurred
               example: '2020-01-01T12:34:56Z'
-    v4.0.0-17:
+    v4.0.0-18:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -37383,7 +38632,7 @@ components:
               type: string
               description: Transfer category
               example: TRANSFER
-    v2.1.0:
+    v2.1.0-2:
       title: Schema version 2.1.0
       type: object
       properties:
@@ -37455,122 +38704,6 @@ components:
               type: string
               description: Transfer category
               example: TRANSFER
-    v4.0.0-18:
-      title: Schema version 4.0.0
-      type: object
-      properties:
-        schema_version:
-          type: string
-          description: >-
-            Version of the event schema. Determined by the `schema_version` on
-            your [webhook subscription](/api-reference/webhook).
-          enum:
-            - 4.0.0
-          example: 4.0.0
-        subscription_id:
-          type: string
-          format: uuid
-          description: ID of the webhook subscription that triggered this event
-          example: 01234567-89ab-cdef-0123-456789abcdef
-        event_type:
-          type: string
-          description: Event type identifier
-          example: balances#account-state-change
-        sent_at:
-          type: string
-          format: date-time
-          description: Timestamp when the event was sent
-          example: '2020-01-01T12:34:56.123Z'
-        data:
-          type: object
-          properties:
-            resource:
-              type: object
-              properties:
-                type:
-                  type: string
-                  description: Resource type (always `balance-account`)
-                  example: balance-account
-                id:
-                  type: integer
-                  format: int64
-                  description: ID of the account
-                  example: 123
-                profile_id:
-                  type: integer
-                  format: int64
-                  description: ID of the profile that owns the account
-                  example: 555
-                state:
-                  type: string
-                  description: State of the account.
-                  enum:
-                    - ACTIVE
-                    - INACTIVE
-                  example: INACTIVE
-            occurred_at:
-              type: string
-              format: date-time
-              description: Timestamp when the event occurred
-              example: '2020-01-01T12:34:56.789Z'
-    v2.0.0-17:
-      title: Schema version 2.0.0
-      type: object
-      properties:
-        schema_version:
-          type: string
-          description: >-
-            Version of the event schema. Determined by the `schema_version` on
-            your [webhook subscription](/api-reference/webhook).
-          enum:
-            - 2.0.0
-          example: 2.0.0
-        subscription_id:
-          type: string
-          format: uuid
-          description: ID of the webhook subscription that triggered this event
-          example: 01234567-89ab-cdef-0123-456789abcdef
-        event_type:
-          type: string
-          description: Event type identifier
-          example: balances#account-state-change
-        sent_at:
-          type: string
-          format: date-time
-          description: Timestamp when the event was sent
-          example: '2020-01-01T12:34:56Z'
-        data:
-          type: object
-          properties:
-            resource:
-              type: object
-              properties:
-                type:
-                  type: string
-                  description: Resource type (always `balance-account`)
-                  example: balance-account
-                id:
-                  type: integer
-                  format: int64
-                  description: ID of the account
-                  example: 123
-                profile_id:
-                  type: integer
-                  format: int64
-                  description: ID of the profile that owns the account
-                  example: 555
-                state:
-                  type: string
-                  description: State of the account.
-                  enum:
-                    - ACTIVE
-                    - INACTIVE
-                  example: INACTIVE
-            occurred_at:
-              type: string
-              format: date-time
-              description: Timestamp when the event occurred
-              example: '2020-01-01T12:34:56Z'
     v4.0.0-19:
       title: Schema version 4.0.0
       type: object
@@ -37591,7 +38724,7 @@ components:
         event_type:
           type: string
           description: Event type identifier
-          example: balances#credit
+          example: balances#account-state-change
         sent_at:
           type: string
           format: date-time
@@ -37611,34 +38744,23 @@ components:
                   type: integer
                   format: int64
                   description: ID of the account
-                  example: 111
+                  example: 123
                 profile_id:
                   type: integer
                   format: int64
                   description: ID of the profile that owns the account
-                  example: 222
-            transaction_type:
-              type: string
-              description: Always `credit`
-              example: credit
-            amount:
-              type: number
-              format: decimal
-              description: Deposited amount
-              example: 1.23
-            currency:
-              type: string
-              description: Currency code
-              example: EUR
-            post_transaction_balance_amount:
-              type: number
-              format: decimal
-              description: Balance after the credit was applied
-              example: 2.34
+                  example: 555
+                state:
+                  type: string
+                  description: State of the account.
+                  enum:
+                    - ACTIVE
+                    - INACTIVE
+                  example: INACTIVE
             occurred_at:
               type: string
               format: date-time
-              description: When the credit occurred
+              description: Timestamp when the event occurred
               example: '2020-01-01T12:34:56.789Z'
     v2.0.0-18:
       title: Schema version 2.0.0
@@ -37660,6 +38782,133 @@ components:
         event_type:
           type: string
           description: Event type identifier
+          example: balances#account-state-change
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2020-01-01T12:34:56Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: Resource type (always `balance-account`)
+                  example: balance-account
+                id:
+                  type: integer
+                  format: int64
+                  description: ID of the account
+                  example: 123
+                profile_id:
+                  type: integer
+                  format: int64
+                  description: ID of the profile that owns the account
+                  example: 555
+                state:
+                  type: string
+                  description: State of the account.
+                  enum:
+                    - ACTIVE
+                    - INACTIVE
+                  example: INACTIVE
+            occurred_at:
+              type: string
+              format: date-time
+              description: Timestamp when the event occurred
+              example: '2020-01-01T12:34:56Z'
+    v4.0.0-20:
+      title: Schema version 4.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 4.0.0
+          example: 4.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: 01234567-89ab-cdef-0123-456789abcdef
+        event_type:
+          type: string
+          description: Event type identifier
+          example: balances#credit
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2020-01-01T12:34:56.123Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: Resource type (always `balance-account`)
+                  example: balance-account
+                id:
+                  type: integer
+                  format: int64
+                  description: ID of the account
+                  example: 111
+                profile_id:
+                  type: integer
+                  format: int64
+                  description: ID of the profile that owns the account
+                  example: 222
+            transaction_type:
+              type: string
+              description: Always `credit`
+              example: credit
+            amount:
+              type: number
+              format: decimal
+              description: Deposited amount
+              example: 1.23
+            currency:
+              type: string
+              description: Currency code
+              example: EUR
+            post_transaction_balance_amount:
+              type: number
+              format: decimal
+              description: Balance after the credit was applied
+              example: 2.34
+            occurred_at:
+              type: string
+              format: date-time
+              description: When the credit occurred
+              example: '2020-01-01T12:34:56.789Z'
+    v2.0.0-19:
+      title: Schema version 2.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 2.0.0
+          example: 2.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: 01234567-89ab-cdef-0123-456789abcdef
+        event_type:
+          type: string
+          description: Event type identifier
           example: balances#credit
         sent_at:
           type: string
@@ -37709,7 +38958,7 @@ components:
               format: date-time
               description: When the credit occurred
               example: '2020-01-01T12:34:56Z'
-    v4.0.0-20:
+    v4.0.0-21:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -37784,7 +39033,7 @@ components:
               type: string
               description: Return code of the underlying payment system
               example: '200'
-    v2.0.0-19:
+    v2.0.0-20:
       title: Schema version 2.0.0
       type: object
       properties:
@@ -37859,7 +39108,7 @@ components:
               type: string
               description: Return code of the underlying payment system
               example: '200'
-    v4.0.0-21:
+    v4.0.0-22:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -37956,7 +39205,7 @@ components:
               format: date-time
               description: When the partner case update occurred.
               example: '2023-06-23T09:45:34.789Z'
-    v2.0.0-20:
+    v2.0.0-21:
       title: Schema version 2.0.0
       type: object
       properties:
@@ -38053,7 +39302,7 @@ components:
               format: date-time
               description: When the partner case update occurred.
               example: '2023-06-23T09:45:34Z'
-    v4.0.0-22:
+    v4.0.0-23:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -38787,7 +40036,7 @@ components:
 
                 Format: `YYYY`-`MM`-`DD`T`HH`:`MM`:`SS`Z
               example: '2023-08-21T12:34:56Z'
-    v4.0.0-23:
+    v4.0.0-24:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -38864,7 +40113,7 @@ components:
                   type: string
                   description: The encoding applied to the content field. Always `base64`.
                   example: base64
-    v4.0.0-24:
+    v4.0.0-25:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -38955,7 +40204,7 @@ components:
               format: date-time
               description: When the dispute updates occurred
               example: '2024-04-18T06:36:15.789Z'
-    v2.0.0-21:
+    v2.0.0-22:
       title: Schema version 2.0.0
       type: object
       properties:
@@ -39046,7 +40295,7 @@ components:
               format: date-time
               description: When the dispute updates occurred
               example: '2024-04-18T06:36:15Z'
-    v4.0.0-25:
+    v4.0.0-26:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -39164,7 +40413,7 @@ components:
               format: date-time
               description: When the settlement fund was received
               example: '2024-04-18T06:36:15Z'
-    v2.0.0-22:
+    v2.0.0-23:
       title: Schema version 2.0.0
       deprecated: true
       type: object
