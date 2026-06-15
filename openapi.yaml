@@ -256,7 +256,7 @@ tags:
 
       During the printing process, you will be notified via webhook about any
       [card production status
-      change](/guides/developer/webhooks/event-types#cards-card-production-status-change).
+      change](/api-reference/webhook-event/eventcardscardproductionstatuschange).
 
 
       Before using these APIs, make sure to read the guide on [kiosk
