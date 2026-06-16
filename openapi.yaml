@@ -1430,15 +1430,6 @@ tags:
 
       See the [Webhooks guide](/guides/developer/webhooks) for setup
       instructions, signature verification, and best practices.
-
-
-      {% admonition type="info" %}
-
-      We're migrating event type documentation to this section. For a complete
-      list of available event types, see the [Event
-      Types](/guides/developer/webhooks/event-types) guide.
-
-      {% /admonition %}
 x-tagGroups:
   - name: Authentication
     tags:
@@ -7645,7 +7636,7 @@ paths:
 
 
         Use in conjunction with the [V2.0.0 card transaction state change
-        webhook](/guides/developer/webhooks/event-types#cards-transaction-state-change).
+        webhook](/api-reference/webhook-event/eventcardstransactionstatechange).
 
 
         When a refund happens, a separate transaction will be added with a
@@ -7694,7 +7685,7 @@ paths:
 
 
         Use in conjunction with the [card transaction state change
-        webhook](/guides/developer/webhooks/event-types#cards-transaction-state-change)
+        webhook](/api-reference/webhook-event/eventcardstransactionstatechange)
         for versions V2.1.0 and later.
 
 
@@ -7754,7 +7745,7 @@ paths:
 
 
         Use in conjunction with the [card transaction state change
-        webhook](/guides/developer/webhooks/event-types#cards-transaction-state-change)
+        webhook](/api-reference/webhook-event/eventcardstransactionstatechange)
         for versions V2.1.0 and later.
 
 
@@ -27112,6 +27103,66 @@ webhooks:
                     type: string
                     example: ok
           description: Return any `2xx` status to acknowledge receipt of the event.
+  kyc-reviews#state-change:
+    post:
+      operationId: eventKycReviewsStateChange
+      summary: KYC review state change
+      description: >
+        Triggered when a KYC Review state has changed.
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
+
+
+        {% admonition type="info" %}
+
+        In previous versions, this event fired only when the overall KYC Review
+        state changed. In **v5.0.0**, it fires on every requirement or
+        additional requirement state change, which may result in more events
+        being received. See `data.resource.prevState` and
+        `data.resource.requirementChanges` for details on what changed.
+
+        {% /admonition %}
+
+
+        * Event type: `kyc-reviews#state-change`
+
+        * Profile level subscriptions: Not Supported
+
+        * Application level subscriptions: Supported
+      tags:
+        - webhook-event
+        - kyc-review
+      parameters:
+        - $ref: '#/components/parameters/x-signature-sha256'
+        - $ref: '#/components/parameters/x-delivery-id'
+        - $ref: '#/components/parameters/x-test-notification'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: KYC Review State Change Event
+              discriminator:
+                propertyName: schema_version
+                mapping:
+                  5.0.0: '#/components/schemas/v5.0.0'
+                  4.0.0: '#/components/schemas/v4.0.0-17'
+                  2.0.0: '#/components/schemas/v2.0.0-17'
+              oneOf:
+                - $ref: '#/components/schemas/v5.0.0'
+                - $ref: '#/components/schemas/v4.0.0-17'
+                - $ref: '#/components/schemas/v2.0.0-17'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+          description: Return any `2xx` status to acknowledge receipt of the event.
   users#state-change:
     post:
       operationId: eventUsersStateChange
@@ -27175,11 +27226,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-17'
-                  2.0.0: '#/components/schemas/v2.0.0-17'
+                  4.0.0: '#/components/schemas/v4.0.0-18'
+                  2.0.0: '#/components/schemas/v2.0.0-18'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-17'
-                - $ref: '#/components/schemas/v2.0.0-17'
+                - $ref: '#/components/schemas/v4.0.0-18'
+                - $ref: '#/components/schemas/v2.0.0-18'
       responses:
         '200':
           content:
@@ -27233,12 +27284,12 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-18'
+                  4.0.0: '#/components/schemas/v4.0.0-19'
                   3.0.0: '#/components/schemas/v3.0.0'
                   2.2.0: '#/components/schemas/v2.2.0'
                   2.1.0: '#/components/schemas/v2.1.0-2'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-18'
+                - $ref: '#/components/schemas/v4.0.0-19'
                 - $ref: '#/components/schemas/v3.0.0'
                 - $ref: '#/components/schemas/v2.2.0'
                 - $ref: '#/components/schemas/v2.1.0-2'
@@ -27291,11 +27342,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-19'
-                  2.0.0: '#/components/schemas/v2.0.0-18'
+                  4.0.0: '#/components/schemas/v4.0.0-20'
+                  2.0.0: '#/components/schemas/v2.0.0-19'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-19'
-                - $ref: '#/components/schemas/v2.0.0-18'
+                - $ref: '#/components/schemas/v4.0.0-20'
+                - $ref: '#/components/schemas/v2.0.0-19'
       responses:
         '200':
           content:
@@ -27362,11 +27413,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-20'
-                  2.0.0: '#/components/schemas/v2.0.0-19'
+                  4.0.0: '#/components/schemas/v4.0.0-21'
+                  2.0.0: '#/components/schemas/v2.0.0-20'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-20'
-                - $ref: '#/components/schemas/v2.0.0-19'
+                - $ref: '#/components/schemas/v4.0.0-21'
+                - $ref: '#/components/schemas/v2.0.0-20'
       responses:
         '200':
           content:
@@ -27422,11 +27473,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-21'
-                  2.0.0: '#/components/schemas/v2.0.0-20'
+                  4.0.0: '#/components/schemas/v4.0.0-22'
+                  2.0.0: '#/components/schemas/v2.0.0-21'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-21'
-                - $ref: '#/components/schemas/v2.0.0-20'
+                - $ref: '#/components/schemas/v4.0.0-22'
+                - $ref: '#/components/schemas/v2.0.0-21'
       responses:
         '200':
           content:
@@ -27490,11 +27541,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-22'
-                  2.0.0: '#/components/schemas/v2.0.0-21'
+                  4.0.0: '#/components/schemas/v4.0.0-23'
+                  2.0.0: '#/components/schemas/v2.0.0-22'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-22'
-                - $ref: '#/components/schemas/v2.0.0-21'
+                - $ref: '#/components/schemas/v4.0.0-23'
+                - $ref: '#/components/schemas/v2.0.0-22'
       responses:
         '200':
           content:
@@ -27550,10 +27601,10 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-23'
+                  4.0.0: '#/components/schemas/v4.0.0-24'
                   3.0.0: '#/components/schemas/v3.0.0-2'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-23'
+                - $ref: '#/components/schemas/v4.0.0-24'
                 - $ref: '#/components/schemas/v3.0.0-2'
       responses:
         '200':
@@ -27605,9 +27656,9 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-24'
+                  4.0.0: '#/components/schemas/v4.0.0-25'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-24'
+                - $ref: '#/components/schemas/v4.0.0-25'
       responses:
         '200':
           content:
@@ -27666,11 +27717,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-25'
-                  2.0.0: '#/components/schemas/v2.0.0-22'
+                  4.0.0: '#/components/schemas/v4.0.0-26'
+                  2.0.0: '#/components/schemas/v2.0.0-23'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-25'
-                - $ref: '#/components/schemas/v2.0.0-22'
+                - $ref: '#/components/schemas/v4.0.0-26'
+                - $ref: '#/components/schemas/v2.0.0-23'
       responses:
         '200':
           content:
@@ -27731,13 +27782,13 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-26'
+                  4.0.0: '#/components/schemas/v4.0.0-27'
                   3.0.0: '#/components/schemas/v3.0.0-3'
-                  2.0.0: '#/components/schemas/v2.0.0-23'
+                  2.0.0: '#/components/schemas/v2.0.0-24'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-26'
+                - $ref: '#/components/schemas/v4.0.0-27'
                 - $ref: '#/components/schemas/v3.0.0-3'
-                - $ref: '#/components/schemas/v2.0.0-23'
+                - $ref: '#/components/schemas/v2.0.0-24'
       responses:
         '200':
           content:
@@ -30987,7 +31038,7 @@ components:
       title: KYC Requirement
       description: >-
         An object returned as part of the [KYC
-        Review](api-reference/kyc-review/kyc-review) object, which includes
+        Review](/api-reference/kyc-review/kyc-review) object, which includes
         information about a required evidence, its state, and any additional
         information that might be required.
       x-tags:
@@ -31006,7 +31057,8 @@ components:
             The state of the KYC requirement.
 
             - `NOT_PROVIDED` — the information is pending. Either the Hosted KYC
-            flow or [KYC Requirement Submit](kycreviewrequirementsubmit)
+            flow or [KYC Requirement
+            Submit](/api-reference/kyc-review/kycreviewrequirementsubmit)
             endpoint should be used to fulfil the requirement.
 
             - `IN_REVIEW` — the required information has been retrieved and the
@@ -31023,8 +31075,10 @@ components:
           type: boolean
           description: >
             Indicates if the requirement can be provided via the [KYC
-            Requirement Submit](kycreviewrequirementsubmit) endpoint. If
-            `false`, the requirement should be provided via the Hosted KYC flow.
+            Requirement
+            Submit](/api-reference/kyc-review/kycreviewrequirementsubmit)
+            endpoint. If `false`, the requirement should be provided via the
+            Hosted KYC flow.
           example: true
         additionalRequirements:
           type:
@@ -31066,8 +31120,8 @@ components:
 
                   - `NOT_PROVIDED` — the information is pending. Either the
                   Hosted KYC flow or [KYC Requirement
-                  Submit](kycreviewrequirementsubmit) endpoint should be used to
-                  fulfil the additional requirement.
+                  Submit](/api-reference/kyc-review/kycreviewrequirementsubmit)
+                  endpoint should be used to fulfil the additional requirement.
 
                   - `IN_REVIEW` — the required information has been retrieved
                   and the additional requirement is being reviewed. No action is
@@ -34592,7 +34646,7 @@ components:
           type: string
           description: >
             The event type this subscription is listening for. [List of
-            available events](/guides/developer/webhooks/event-types).
+            available events](/api-reference/webhook-event).
           example: transfers#state-change
         delivery:
           type: object
@@ -34648,7 +34702,7 @@ components:
           type: string
           description: >
             [Choose from a list of available
-            events](/guides/developer/webhooks/event-types).
+            events](/api-reference/webhook-event).
           example: transfers#state-change
         delivery:
           type: object
@@ -38231,7 +38285,607 @@ components:
               format: date-time
               description: When the verification state change occurred
               example: '2020-01-01T12:34:56Z'
+    v5.0.0:
+      title: Schema version 5.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 5.0.0
+          example: 5.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: 8df95817-8085-40aa-9bda-e3bf46e7a21a
+        event_type:
+          type: string
+          description: Event type identifier
+          example: kyc-reviews#state-change
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2024-09-03T16:29:42.123Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                  description: ID of the KYC Review.
+                  example: 46e1a5c4-4a9b-4563-39d3-18174d3ac0f8
+                state:
+                  type: string
+                  description: >
+                    Status of the KYC Review. See [KYC Review
+                    Status](/guides/product/kyc/wise-kyc/hosted-kyc/kyc-review-status.md)
+                    for possible values.
+                  example: WAITING_CUSTOMER_INPUT
+                prevState:
+                  type: string
+                  description: >
+                    Previous status of the KYC Review. See [KYC Review
+                    Status](/guides/product/kyc/wise-kyc/hosted-kyc/kyc-review-status.md)
+                    for possible values.
+                  example: WAITING_CUSTOMER_INPUT
+                profileId:
+                  type: integer
+                  format: int64
+                  description: ID of the profile KYC Review belongs to.
+                  example: 22016766
+                requiredBy:
+                  type: string
+                  format: date-time
+                  description: >
+                    Timestamp by which the underlying requirement set needs to
+                    be verified to not block the customer.
+
+                    Only relevant if the status is `PASSED_WITH_REQUIREMENTS`.
+                  example: '2024-09-03T16:22:02.258Z'
+                createdAt:
+                  type: string
+                  format: date-time
+                  description: Timestamp marking the creation of the KYC Review.
+                  example: '2024-09-03T16:22:02.258Z'
+                updatedAt:
+                  type: string
+                  format: date-time
+                  description: Timestamp marking the last update of the KYC Review.
+                  example: '2024-09-03T16:29:41.148Z'
+                triggerReferences:
+                  type: array
+                  description: List of trigger references for this KYC Review.
+                  items:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        description: >
+                          Type of the underlying action/process this KYC Review
+                          is for. Usually a reference to which product
+
+                          this KYC Review is for (like `QUOTE` or `TRANSFER`) or
+                          a reference to a KYC process on the profile
+
+                          that isn't related to a specific product (like
+                          `REFRESH_CYCLE` or `REPAPERING`).
+                        enum:
+                          - QUOTE
+                          - TRANSFER
+                          - PROACTIVE_SEND_MONEY
+                          - ADD_MONEY
+                          - CARD
+                          - BANK_ACCOUNT_DETAILS
+                          - INFO_REQUEST
+                        example: QUOTE
+                      triggerData:
+                        type: object
+                        description: >
+                          Key-value Object containing metadata of the underlying
+                          product object that triggered the KYC Review.
+
+                          For `"QUOTE"`, `"TRANSFER"` and `"ADD_MONEY"` types,
+                          triggerData contains an `"id"` field that refers to
+                          their respective IDs.
+
+                          For `"BANK_ACCOUNT_DETAILS"`, triggerData has a field
+                          called `"currencies"` which contains a list of
+                          currencies (i.e USD, SGD, EUR) that
+
+                          the bank details have been created for.
+
+
+                          | triggerReference.type | field       | type          
+                          |
+
+                          |-----------------------|-------------|----------------|
+
+                          | `QUOTE`                 | id          |
+                          uuid           |
+
+                          | `TRANSFER`              | id          |
+                          long           |
+
+                          | `ADD_MONEY`             | id          |
+                          long           |
+
+                          | `BANK_ACCOUNT_DETAILS`  | currencies  | list of
+                          string |
+
+
+                          This ID might be null if underlying action is a
+                          process like `REPAPERING`.
+                        additionalProperties: true
+                        example:
+                          id: ba83s43a-f623-46f0-956d-196c13e2ab01
+                requirements:
+                  type: array
+                  description: >
+                    Nested list of [KYC
+                    Requirement](/api-reference/kyc-review/kyc-requirement)
+                    objects in `[[Requirement]]` format, where each inner list
+                    represents a combination of possible requirements to be
+                    provided. To fulfil the whole KYC Review, at least one item
+                    from each inner list should be provided.
+
+
+                    For example, if the requirements are `[[a, b], [c, d]]` then
+                    it should be read as `(a or b) and (c or d)`.
+
+
+                    Please refer to the [KYC
+                    Requirement](/api-reference/kyc-review/kyc-requirement)
+                    documentation for full examples of the schema.
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/kyc-requirement'
+                requirementChanges:
+                  type: array
+                  description: List of requirement changes that triggered this event.
+                  items:
+                    type: object
+                    properties:
+                      key:
+                        type: string
+                        description: >-
+                          The
+                          [key](/api-reference/kyc-review/kyc-requirement#path=key)
+                          of the requirement which has changed.
+                        example: ID_DOCUMENT
+                      newState:
+                        type: string
+                        description: >-
+                          The new
+                          [state](/api-reference/kyc-review/kyc-requirement#path=state)
+                          of the requirement which has changed.
+                        example: IN_REVIEW
+                      prevState:
+                        type: string
+                        description: >
+                          *Not provided when requirement is new.*
+
+                          The previous
+                          [state](/api-reference/kyc-review/kyc-requirement#path=state)
+                          of the requirement which has changed. In case only an
+                          [additional
+                          requirement](/api-reference/kyc-review/kyc-requirement#path=additionalRequirements)
+                          has changed, this state can be equal to `newState`.
+                        example: NOT_PROVIDED
+                      additionalRequirements:
+                        type: array
+                        description: >-
+                          A list of additional requirements that have changed.
+                          Not shown if empty.
+                        items:
+                          type: object
+                          properties:
+                            additionalRequirementId:
+                              type: string
+                              format: uuid
+                              description: >-
+                                The
+                                [UUID](/api-reference/kyc-review/kyc-requirement#path=additionalRequirements/additionalRequirementId)
+                                of the additional requirement which has changed.
+                              example: 8b789c45-60ae-475d-b667-c8714db9a6a4
+                            newState:
+                              type: string
+                              description: >-
+                                The new
+                                [state](/api-reference/kyc-review/kyc-requirement#path=additionalRequirements/state)
+                                of the additional requirement which has changed.
+                              example: IN_REVIEW
+                            prevState:
+                              type: string
+                              description: >
+                                *Not provided when additional requirement is
+                                new.*
+
+                                The previous
+                                [state](/api-reference/kyc-review/kyc-requirement#path=additionalRequirements/state)
+                                of the additional requirement which has changed.
+                              example: NOT_PROVIDED
     v4.0.0-17:
+      title: Schema version 4.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 4.0.0
+          example: 4.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: 8df95817-8085-40aa-9bda-e3bf46e7a21a
+        event_type:
+          type: string
+          description: Event type identifier
+          example: kyc-reviews#state-change
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2024-09-03T16:29:42.123Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                  description: ID of the KYC Review.
+                  example: 46e1a5c4-4a9b-4563-39d3-18174d3ac0f8
+                state:
+                  type: string
+                  description: >
+                    Status of the KYC Review. See [KYC Review
+                    Status](/guides/product/kyc/wise-kyc/hosted-kyc/kyc-review-status.md)
+                    for possible values.
+                  example: WAITING_CUSTOMER_INPUT
+                profileId:
+                  type: integer
+                  format: int64
+                  description: ID of the profile KYC Review belongs to.
+                  example: 22016766
+                requiredBy:
+                  type: string
+                  format: date-time
+                  description: >
+                    Timestamp by which the underlying requirement set needs to
+                    be verified to not block the customer.
+
+                    Only relevant if the status is `PASSED_WITH_REQUIREMENTS`.
+                  example: '2024-09-03T16:22:02.258Z'
+                createdAt:
+                  type: string
+                  format: date-time
+                  description: Timestamp marking the creation of the KYC Review.
+                  example: '2024-09-03T16:22:02.258Z'
+                updatedAt:
+                  type: string
+                  format: date-time
+                  description: Timestamp marking the last update of the KYC Review.
+                  example: '2024-09-03T16:29:41.148Z'
+                triggerReferences:
+                  type: array
+                  description: List of trigger references for this KYC Review.
+                  items:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        description: >
+                          Type of the underlying action/process this KYC Review
+                          is for. Usually a reference to which product
+
+                          this KYC Review is for (like `QUOTE` or `TRANSFER`) or
+                          a reference to a KYC process on the profile
+
+                          that isn't related to a specific product (like
+                          `REFRESH_CYCLE` or `REPAPERING`).
+                        enum:
+                          - QUOTE
+                          - TRANSFER
+                          - PROACTIVE_SEND_MONEY
+                          - ADD_MONEY
+                          - CARD
+                          - BANK_ACCOUNT_DETAILS
+                        example: QUOTE
+                      triggerData:
+                        type: object
+                        description: >
+                          Key-value Object containing metadata of the underlying
+                          product object that triggered the KYC Review.
+
+                          For `"QUOTE"`, `"TRANSFER"` and `"ADD_MONEY"` types,
+                          triggerData contains an `"id"` field that refers to
+                          their respective IDs.
+
+                          For `"BANK_ACCOUNT_DETAILS"`, triggerData has a field
+                          called `"currencies"` which contains a list of
+                          currencies (i.e USD, SGD, EUR) that
+
+                          the bank details have been created for.
+
+
+                          | triggerReference.type | field       | type          
+                          |
+
+                          |-----------------------|-------------|----------------|
+
+                          | `QUOTE`                 | id          |
+                          uuid           |
+
+                          | `TRANSFER`              | id          |
+                          long           |
+
+                          | `ADD_MONEY`             | id          |
+                          long           |
+
+                          | `BANK_ACCOUNT_DETAILS`  | currencies  | list of
+                          string |
+
+
+                          This ID might be null if underlying action is a
+                          process like `REPAPERING`.
+                        additionalProperties: true
+                        example:
+                          id: ba83s43a-f623-46f0-956d-196c13e2ab01
+                requirements:
+                  type: array
+                  description: Nested list of KYC requirement objects.
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        key:
+                          type: string
+                          description: The unique identifier of the KYC requirement.
+                          example: BUSINESS_USE_CASES
+                        state:
+                          type: string
+                          description: >
+                            The status of the KYC requirement. Either
+
+
+                            `NOT_PROVIDED`: requires information
+
+
+                            `IN_REVIEW`: requires internal review of the
+                            requirement
+                          example: NOT_PROVIDED
+                        apiCollectionSupported:
+                          type: boolean
+                          description: >
+                            A boolean value to indicate if the API collection is
+                            available for this evidence. To submit the evidence,
+                            refer to
+
+                            [KYC Requirement Submit
+                            endpoint](/api-reference/kyc-review/kycreviewrequirementsubmit).
+                          example: true
+                        versions:
+                          type: array
+                          description: >-
+                            Available versions to be submitted for the
+                            requirement.
+                          items:
+                            type: object
+                            properties:
+                              version:
+                                type: string
+                                description: >-
+                                  Available version identifier to be submitted
+                                  for the requirement.
+                                example: V1
+                              validUntil:
+                                type: string
+                                description: >-
+                                  An optional field that indicates a valid until
+                                  date.
+    v2.0.0-17:
+      title: Schema version 2.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 2.0.0
+          example: 2.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: 8df95817-8085-40aa-9bda-e3bf46e7a21a
+        event_type:
+          type: string
+          description: Event type identifier
+          example: kyc-reviews#state-change
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2024-09-03T16:29:42Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                  description: ID of the KYC Review.
+                  example: 46e1a5c4-4a9b-4563-39d3-18174d3ac0f8
+                state:
+                  type: string
+                  description: >
+                    Status of the KYC Review. See [KYC Review
+                    Status](/guides/product/kyc/wise-kyc/hosted-kyc/kyc-review-status.md)
+                    for possible values.
+                  example: WAITING_CUSTOMER_INPUT
+                profileId:
+                  type: integer
+                  format: int64
+                  description: ID of the profile KYC Review belongs to.
+                  example: 22016766
+                requiredBy:
+                  type: string
+                  format: date-time
+                  description: >
+                    Timestamp by which the underlying requirement set needs to
+                    be verified to not block the customer.
+
+                    Only relevant if the status is `PASSED_WITH_REQUIREMENTS`.
+                  example: '2024-09-03T16:22:02.257725'
+                createdAt:
+                  type: string
+                  format: date-time
+                  description: Timestamp marking the creation of the KYC Review.
+                  example: '2024-09-03T16:22:02.257725'
+                updatedAt:
+                  type: string
+                  format: date-time
+                  description: Timestamp marking the last update of the KYC Review.
+                  example: '2024-09-03T16:29:41.147522'
+                triggerReferences:
+                  type: array
+                  description: List of trigger references for this KYC Review.
+                  items:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        description: >
+                          Type of the underlying action/process this KYC Review
+                          is for. Usually a reference to which product
+
+                          this KYC Review is for (like `QUOTE` or `TRANSFER`) or
+                          a reference to a KYC process on the profile
+
+                          that isn't related to a specific product (like
+                          `REFRESH_CYCLE` or `REPAPERING`).
+                        enum:
+                          - QUOTE
+                          - TRANSFER
+                          - PROACTIVE_SEND_MONEY
+                          - ADD_MONEY
+                          - CARD
+                          - BANK_ACCOUNT_DETAILS
+                        example: QUOTE
+                      triggerData:
+                        type: object
+                        description: >
+                          Key-value Object containing metadata of the underlying
+                          product object that triggered the KYC Review.
+
+                          For `"QUOTE"`, `"TRANSFER"` and `"ADD_MONEY"` types,
+                          triggerData contains an `"id"` field that refers to
+                          their respective IDs.
+
+                          For `"BANK_ACCOUNT_DETAILS"`, triggerData has a field
+                          called `"currencies"` which contains a list of
+                          currencies (i.e USD, SGD, EUR) that
+
+                          the bank details have been created for.
+
+
+                          | triggerReference.type | field       | type          
+                          |
+
+                          |-----------------------|-------------|----------------|
+
+                          | `QUOTE`                 | id          |
+                          uuid           |
+
+                          | `TRANSFER`              | id          |
+                          long           |
+
+                          | `ADD_MONEY`             | id          |
+                          long           |
+
+                          | `BANK_ACCOUNT_DETAILS`  | currencies  | list of
+                          string |
+
+
+                          This ID might be null if underlying action is a
+                          process like `REPAPERING`.
+                        additionalProperties: true
+                        example:
+                          id: ba83s43a-f623-46f0-956d-196c13e2ab01
+                requirements:
+                  type: array
+                  description: Nested list of KYC requirement objects.
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        key:
+                          type: string
+                          description: The unique identifier of the KYC requirement.
+                          example: BUSINESS_USE_CASES
+                        state:
+                          type: string
+                          description: >
+                            The status of the KYC requirement. Either
+
+
+                            `NOT_PROVIDED`: requires information
+
+
+                            `IN_REVIEW`: requires internal review of the
+                            requirement
+                          example: NOT_PROVIDED
+                        apiCollectionSupported:
+                          type: boolean
+                          description: >
+                            A boolean value to indicate if the API collection is
+                            available for this evidence. To submit the evidence,
+                            refer to
+
+                            [KYC Requirement Submit
+                            endpoint](/api-reference/kyc-review/kycreviewrequirementsubmit).
+                          example: true
+                        versions:
+                          type: array
+                          description: >-
+                            Available versions to be submitted for the
+                            requirement.
+                          items:
+                            type: object
+                            properties:
+                              version:
+                                type: string
+                                description: >-
+                                  Available version identifier to be submitted
+                                  for the requirement.
+                                example: V1
+                              validUntil:
+                                type: string
+                                description: >-
+                                  An optional field that indicates a valid until
+                                  date.
+    v4.0.0-18:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -38306,7 +38960,7 @@ components:
               format: date-time
               description: When the user state change occurred
               example: '2020-01-01T12:34:56.789Z'
-    v2.0.0-17:
+    v2.0.0-18:
       title: Schema version 2.0.0
       type: object
       properties:
@@ -38381,7 +39035,7 @@ components:
               format: date-time
               description: When the user state change occurred
               example: '2020-01-01T12:34:56Z'
-    v4.0.0-18:
+    v4.0.0-19:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -38704,122 +39358,6 @@ components:
               type: string
               description: Transfer category
               example: TRANSFER
-    v4.0.0-19:
-      title: Schema version 4.0.0
-      type: object
-      properties:
-        schema_version:
-          type: string
-          description: >-
-            Version of the event schema. Determined by the `schema_version` on
-            your [webhook subscription](/api-reference/webhook).
-          enum:
-            - 4.0.0
-          example: 4.0.0
-        subscription_id:
-          type: string
-          format: uuid
-          description: ID of the webhook subscription that triggered this event
-          example: 01234567-89ab-cdef-0123-456789abcdef
-        event_type:
-          type: string
-          description: Event type identifier
-          example: balances#account-state-change
-        sent_at:
-          type: string
-          format: date-time
-          description: Timestamp when the event was sent
-          example: '2020-01-01T12:34:56.123Z'
-        data:
-          type: object
-          properties:
-            resource:
-              type: object
-              properties:
-                type:
-                  type: string
-                  description: Resource type (always `balance-account`)
-                  example: balance-account
-                id:
-                  type: integer
-                  format: int64
-                  description: ID of the account
-                  example: 123
-                profile_id:
-                  type: integer
-                  format: int64
-                  description: ID of the profile that owns the account
-                  example: 555
-                state:
-                  type: string
-                  description: State of the account.
-                  enum:
-                    - ACTIVE
-                    - INACTIVE
-                  example: INACTIVE
-            occurred_at:
-              type: string
-              format: date-time
-              description: Timestamp when the event occurred
-              example: '2020-01-01T12:34:56.789Z'
-    v2.0.0-18:
-      title: Schema version 2.0.0
-      type: object
-      properties:
-        schema_version:
-          type: string
-          description: >-
-            Version of the event schema. Determined by the `schema_version` on
-            your [webhook subscription](/api-reference/webhook).
-          enum:
-            - 2.0.0
-          example: 2.0.0
-        subscription_id:
-          type: string
-          format: uuid
-          description: ID of the webhook subscription that triggered this event
-          example: 01234567-89ab-cdef-0123-456789abcdef
-        event_type:
-          type: string
-          description: Event type identifier
-          example: balances#account-state-change
-        sent_at:
-          type: string
-          format: date-time
-          description: Timestamp when the event was sent
-          example: '2020-01-01T12:34:56Z'
-        data:
-          type: object
-          properties:
-            resource:
-              type: object
-              properties:
-                type:
-                  type: string
-                  description: Resource type (always `balance-account`)
-                  example: balance-account
-                id:
-                  type: integer
-                  format: int64
-                  description: ID of the account
-                  example: 123
-                profile_id:
-                  type: integer
-                  format: int64
-                  description: ID of the profile that owns the account
-                  example: 555
-                state:
-                  type: string
-                  description: State of the account.
-                  enum:
-                    - ACTIVE
-                    - INACTIVE
-                  example: INACTIVE
-            occurred_at:
-              type: string
-              format: date-time
-              description: Timestamp when the event occurred
-              example: '2020-01-01T12:34:56Z'
     v4.0.0-20:
       title: Schema version 4.0.0
       type: object
@@ -38840,7 +39378,7 @@ components:
         event_type:
           type: string
           description: Event type identifier
-          example: balances#credit
+          example: balances#account-state-change
         sent_at:
           type: string
           format: date-time
@@ -38860,34 +39398,23 @@ components:
                   type: integer
                   format: int64
                   description: ID of the account
-                  example: 111
+                  example: 123
                 profile_id:
                   type: integer
                   format: int64
                   description: ID of the profile that owns the account
-                  example: 222
-            transaction_type:
-              type: string
-              description: Always `credit`
-              example: credit
-            amount:
-              type: number
-              format: decimal
-              description: Deposited amount
-              example: 1.23
-            currency:
-              type: string
-              description: Currency code
-              example: EUR
-            post_transaction_balance_amount:
-              type: number
-              format: decimal
-              description: Balance after the credit was applied
-              example: 2.34
+                  example: 555
+                state:
+                  type: string
+                  description: State of the account.
+                  enum:
+                    - ACTIVE
+                    - INACTIVE
+                  example: INACTIVE
             occurred_at:
               type: string
               format: date-time
-              description: When the credit occurred
+              description: Timestamp when the event occurred
               example: '2020-01-01T12:34:56.789Z'
     v2.0.0-19:
       title: Schema version 2.0.0
@@ -38909,6 +39436,133 @@ components:
         event_type:
           type: string
           description: Event type identifier
+          example: balances#account-state-change
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2020-01-01T12:34:56Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: Resource type (always `balance-account`)
+                  example: balance-account
+                id:
+                  type: integer
+                  format: int64
+                  description: ID of the account
+                  example: 123
+                profile_id:
+                  type: integer
+                  format: int64
+                  description: ID of the profile that owns the account
+                  example: 555
+                state:
+                  type: string
+                  description: State of the account.
+                  enum:
+                    - ACTIVE
+                    - INACTIVE
+                  example: INACTIVE
+            occurred_at:
+              type: string
+              format: date-time
+              description: Timestamp when the event occurred
+              example: '2020-01-01T12:34:56Z'
+    v4.0.0-21:
+      title: Schema version 4.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 4.0.0
+          example: 4.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: 01234567-89ab-cdef-0123-456789abcdef
+        event_type:
+          type: string
+          description: Event type identifier
+          example: balances#credit
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2020-01-01T12:34:56.123Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: Resource type (always `balance-account`)
+                  example: balance-account
+                id:
+                  type: integer
+                  format: int64
+                  description: ID of the account
+                  example: 111
+                profile_id:
+                  type: integer
+                  format: int64
+                  description: ID of the profile that owns the account
+                  example: 222
+            transaction_type:
+              type: string
+              description: Always `credit`
+              example: credit
+            amount:
+              type: number
+              format: decimal
+              description: Deposited amount
+              example: 1.23
+            currency:
+              type: string
+              description: Currency code
+              example: EUR
+            post_transaction_balance_amount:
+              type: number
+              format: decimal
+              description: Balance after the credit was applied
+              example: 2.34
+            occurred_at:
+              type: string
+              format: date-time
+              description: When the credit occurred
+              example: '2020-01-01T12:34:56.789Z'
+    v2.0.0-20:
+      title: Schema version 2.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 2.0.0
+          example: 2.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: 01234567-89ab-cdef-0123-456789abcdef
+        event_type:
+          type: string
+          description: Event type identifier
           example: balances#credit
         sent_at:
           type: string
@@ -38958,7 +39612,7 @@ components:
               format: date-time
               description: When the credit occurred
               example: '2020-01-01T12:34:56Z'
-    v4.0.0-21:
+    v4.0.0-22:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -39033,7 +39687,7 @@ components:
               type: string
               description: Return code of the underlying payment system
               example: '200'
-    v2.0.0-20:
+    v2.0.0-21:
       title: Schema version 2.0.0
       type: object
       properties:
@@ -39108,7 +39762,7 @@ components:
               type: string
               description: Return code of the underlying payment system
               example: '200'
-    v4.0.0-22:
+    v4.0.0-23:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -39205,7 +39859,7 @@ components:
               format: date-time
               description: When the partner case update occurred.
               example: '2023-06-23T09:45:34.789Z'
-    v2.0.0-21:
+    v2.0.0-22:
       title: Schema version 2.0.0
       type: object
       properties:
@@ -39302,7 +39956,7 @@ components:
               format: date-time
               description: When the partner case update occurred.
               example: '2023-06-23T09:45:34Z'
-    v4.0.0-23:
+    v4.0.0-24:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -40036,7 +40690,7 @@ components:
 
                 Format: `YYYY`-`MM`-`DD`T`HH`:`MM`:`SS`Z
               example: '2023-08-21T12:34:56Z'
-    v4.0.0-24:
+    v4.0.0-25:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -40113,7 +40767,7 @@ components:
                   type: string
                   description: The encoding applied to the content field. Always `base64`.
                   example: base64
-    v4.0.0-25:
+    v4.0.0-26:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -40204,7 +40858,7 @@ components:
               format: date-time
               description: When the dispute updates occurred
               example: '2024-04-18T06:36:15.789Z'
-    v2.0.0-22:
+    v2.0.0-23:
       title: Schema version 2.0.0
       type: object
       properties:
@@ -40295,7 +40949,7 @@ components:
               format: date-time
               description: When the dispute updates occurred
               example: '2024-04-18T06:36:15Z'
-    v4.0.0-26:
+    v4.0.0-27:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -40413,7 +41067,7 @@ components:
               format: date-time
               description: When the settlement fund was received
               example: '2024-04-18T06:36:15Z'
-    v2.0.0-23:
+    v2.0.0-24:
       title: Schema version 2.0.0
       deprecated: true
       type: object

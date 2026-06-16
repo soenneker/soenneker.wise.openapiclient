@@ -3566,7 +3566,7 @@
           "card-transaction"
         ],
         "summary": "Get card transaction",
-        "description": "Retrieve a card transaction by its ID.\n\nUse in conjunction with the [card transaction state change webhook](/guides/developer/webhooks/event-types#cards-transaction-state-change) for versions V2.1.0 and later.\n\n{% admonition type=\u0022warning\u0022 %}\nOnly transactions created in the past 90 days can be accessed. A 422 error code will be returned otherwise.\n{% /admonition %}\n\nWhen a refund happens, a separate transaction will be added with a \u0060REFUND\u0060 transaction type.\n",
+        "description": "Retrieve a card transaction by its ID.\n\nUse in conjunction with the [card transaction state change webhook](/api-reference/webhook-event/eventcardstransactionstatechange) for versions V2.1.0 and later.\n\n{% admonition type=\u0022warning\u0022 %}\nOnly transactions created in the past 90 days can be accessed. A 422 error code will be returned otherwise.\n{% /admonition %}\n\nWhen a refund happens, a separate transaction will be added with a \u0060REFUND\u0060 transaction type.\n",
         "operationId": "CardTransactionGet",
         "parameters": [
           {
@@ -3623,7 +3623,7 @@
           "card-transaction"
         ],
         "summary": "List card transactions",
-        "description": "Retrieve a list of card transactions for a specific card. Transactions are ordered by transaction ID in descending order.\n\nUse in conjunction with the [card transaction state change webhook](/guides/developer/webhooks/event-types#cards-transaction-state-change) for versions V2.1.0 and later.\n\n{% admonition type=\u0022warning\u0022 %}\nOnly transactions created in the past 90 days can be accessed. A 422 error code will be returned otherwise.\n{% /admonition %}\n\nThe \u0060debits\u0060 and \u0060credits\u0060 fields are not included in list responses. Use the [Get card transaction](/api-reference/card-transaction/cardtransactionget) endpoint to retrieve these fields.\n",
+        "description": "Retrieve a list of card transactions for a specific card. Transactions are ordered by transaction ID in descending order.\n\nUse in conjunction with the [card transaction state change webhook](/api-reference/webhook-event/eventcardstransactionstatechange) for versions V2.1.0 and later.\n\n{% admonition type=\u0022warning\u0022 %}\nOnly transactions created in the past 90 days can be accessed. A 422 error code will be returned otherwise.\n{% /admonition %}\n\nThe \u0060debits\u0060 and \u0060credits\u0060 fields are not included in list responses. Use the [Get card transaction](/api-reference/card-transaction/cardtransactionget) endpoint to retrieve these fields.\n",
         "operationId": "CardTransactionList",
         "parameters": [
           {
@@ -16460,7 +16460,7 @@
           },
           "apiCollectionSupported": {
             "type": "boolean",
-            "description": "Indicates if the requirement can be provided via the [KYC Requirement Submit](kycreviewrequirementsubmit) endpoint. If \u0060false\u0060, the requirement should be provided via the Hosted KYC flow.\n",
+            "description": "Indicates if the requirement can be provided via the [KYC Requirement Submit](/api-reference/kyc-review/kycreviewrequirementsubmit) endpoint. If \u0060false\u0060, the requirement should be provided via the Hosted KYC flow.\n",
             "example": true
           },
           "additionalRequirements": {
@@ -16478,7 +16478,7 @@
             "description": "**Conditional:** Only present when \u0060apiCollectionSupported\u0060 is \u0060true\u0060. Lists the available versions and their validity.\n"
           }
         },
-        "description": "An object returned as part of the [KYC Review](api-reference/kyc-review/kyc-review) object, which includes information about a required evidence, its state, and any additional information that might be required.",
+        "description": "An object returned as part of the [KYC Review](/api-reference/kyc-review/kyc-review) object, which includes information about a required evidence, its state, and any additional information that might be required.",
         "x-tags": [
           "kyc-review"
         ]
@@ -18609,7 +18609,7 @@
           },
           "trigger_on": {
             "type": "string",
-            "description": "The event type this subscription is listening for. [List of available events](/guides/developer/webhooks/event-types).\n",
+            "description": "The event type this subscription is listening for. [List of available events](/api-reference/webhook-event).\n",
             "example": "transfers#state-change"
           },
           "delivery": {
@@ -18645,7 +18645,7 @@
           },
           "trigger_on": {
             "type": "string",
-            "description": "[Choose from a list of available events](/guides/developer/webhooks/event-types).\n",
+            "description": "[Choose from a list of available events](/api-reference/webhook-event).\n",
             "example": "transfers#state-change"
           },
           "delivery": {
@@ -19628,12 +19628,99 @@
           }
         }
       },
+      "V500": {
+        "title": "Schema version 5.0.0",
+        "type": "object",
+        "properties": {
+          "schema_version": {
+            "$ref": "#/components/schemas/V500SchemaVersion"
+          },
+          "subscription_id": {
+            "type": "string",
+            "description": "ID of the webhook subscription that triggered this event",
+            "format": "uuid",
+            "example": "8df95817-8085-40aa-9bda-e3bf46e7a21a"
+          },
+          "event_type": {
+            "type": "string",
+            "description": "Event type identifier",
+            "example": "kyc-reviews#state-change"
+          },
+          "sent_at": {
+            "type": "string",
+            "description": "Timestamp when the event was sent",
+            "format": "date-time",
+            "example": "2024-09-03T16:29:42.123Z"
+          },
+          "data": {
+            "$ref": "#/components/schemas/V500Data"
+          }
+        }
+      },
       "V40017": {
         "title": "Schema version 4.0.0",
         "type": "object",
         "properties": {
           "schema_version": {
             "$ref": "#/components/schemas/V40017SchemaVersion"
+          },
+          "subscription_id": {
+            "type": "string",
+            "description": "ID of the webhook subscription that triggered this event",
+            "format": "uuid",
+            "example": "8df95817-8085-40aa-9bda-e3bf46e7a21a"
+          },
+          "event_type": {
+            "type": "string",
+            "description": "Event type identifier",
+            "example": "kyc-reviews#state-change"
+          },
+          "sent_at": {
+            "type": "string",
+            "description": "Timestamp when the event was sent",
+            "format": "date-time",
+            "example": "2024-09-03T16:29:42.123Z"
+          },
+          "data": {
+            "$ref": "#/components/schemas/V40017Data"
+          }
+        }
+      },
+      "V20017": {
+        "title": "Schema version 2.0.0",
+        "type": "object",
+        "properties": {
+          "schema_version": {
+            "$ref": "#/components/schemas/V20017SchemaVersion"
+          },
+          "subscription_id": {
+            "type": "string",
+            "description": "ID of the webhook subscription that triggered this event",
+            "format": "uuid",
+            "example": "8df95817-8085-40aa-9bda-e3bf46e7a21a"
+          },
+          "event_type": {
+            "type": "string",
+            "description": "Event type identifier",
+            "example": "kyc-reviews#state-change"
+          },
+          "sent_at": {
+            "type": "string",
+            "description": "Timestamp when the event was sent",
+            "format": "date-time",
+            "example": "2024-09-03T16:29:42Z"
+          },
+          "data": {
+            "$ref": "#/components/schemas/V20017Data"
+          }
+        }
+      },
+      "V40018": {
+        "title": "Schema version 4.0.0",
+        "type": "object",
+        "properties": {
+          "schema_version": {
+            "$ref": "#/components/schemas/V40018SchemaVersion"
           },
           "subscription_id": {
             "type": "string",
@@ -19653,16 +19740,16 @@
             "example": "2020-01-01T12:34:56.123Z"
           },
           "data": {
-            "$ref": "#/components/schemas/V40017Data"
+            "$ref": "#/components/schemas/V40018Data"
           }
         }
       },
-      "V20017": {
+      "V20018": {
         "title": "Schema version 2.0.0",
         "type": "object",
         "properties": {
           "schema_version": {
-            "$ref": "#/components/schemas/V20017SchemaVersion"
+            "$ref": "#/components/schemas/V20018SchemaVersion"
           },
           "subscription_id": {
             "type": "string",
@@ -19682,16 +19769,16 @@
             "example": "2020-01-01T12:34:56Z"
           },
           "data": {
-            "$ref": "#/components/schemas/V20017Data"
+            "$ref": "#/components/schemas/V20018Data"
           }
         }
       },
-      "V40018": {
+      "V40019": {
         "title": "Schema version 4.0.0",
         "type": "object",
         "properties": {
           "schema_version": {
-            "$ref": "#/components/schemas/V40018SchemaVersion"
+            "$ref": "#/components/schemas/V40019SchemaVersion"
           },
           "subscription_id": {
             "type": "string",
@@ -19711,7 +19798,7 @@
             "example": "2023-03-08T14:55:39.456Z"
           },
           "data": {
-            "$ref": "#/components/schemas/V40018Data"
+            "$ref": "#/components/schemas/V40019Data"
           }
         }
       },
@@ -19802,64 +19889,6 @@
           }
         }
       },
-      "V40019": {
-        "title": "Schema version 4.0.0",
-        "type": "object",
-        "properties": {
-          "schema_version": {
-            "$ref": "#/components/schemas/V40019SchemaVersion"
-          },
-          "subscription_id": {
-            "type": "string",
-            "description": "ID of the webhook subscription that triggered this event",
-            "format": "uuid",
-            "example": "01234567-89ab-cdef-0123-456789abcdef"
-          },
-          "event_type": {
-            "type": "string",
-            "description": "Event type identifier",
-            "example": "balances#account-state-change"
-          },
-          "sent_at": {
-            "type": "string",
-            "description": "Timestamp when the event was sent",
-            "format": "date-time",
-            "example": "2020-01-01T12:34:56.123Z"
-          },
-          "data": {
-            "$ref": "#/components/schemas/V40019Data"
-          }
-        }
-      },
-      "V20018": {
-        "title": "Schema version 2.0.0",
-        "type": "object",
-        "properties": {
-          "schema_version": {
-            "$ref": "#/components/schemas/V20018SchemaVersion"
-          },
-          "subscription_id": {
-            "type": "string",
-            "description": "ID of the webhook subscription that triggered this event",
-            "format": "uuid",
-            "example": "01234567-89ab-cdef-0123-456789abcdef"
-          },
-          "event_type": {
-            "type": "string",
-            "description": "Event type identifier",
-            "example": "balances#account-state-change"
-          },
-          "sent_at": {
-            "type": "string",
-            "description": "Timestamp when the event was sent",
-            "format": "date-time",
-            "example": "2020-01-01T12:34:56Z"
-          },
-          "data": {
-            "$ref": "#/components/schemas/V20018Data"
-          }
-        }
-      },
       "V40020": {
         "title": "Schema version 4.0.0",
         "type": "object",
@@ -19876,7 +19905,7 @@
           "event_type": {
             "type": "string",
             "description": "Event type identifier",
-            "example": "balances#credit"
+            "example": "balances#account-state-change"
           },
           "sent_at": {
             "type": "string",
@@ -19905,7 +19934,7 @@
           "event_type": {
             "type": "string",
             "description": "Event type identifier",
-            "example": "balances#credit"
+            "example": "balances#account-state-change"
           },
           "sent_at": {
             "type": "string",
@@ -19934,7 +19963,7 @@
           "event_type": {
             "type": "string",
             "description": "Event type identifier",
-            "example": "batch-payment-initiations#state-change"
+            "example": "balances#credit"
           },
           "sent_at": {
             "type": "string",
@@ -19963,7 +19992,7 @@
           "event_type": {
             "type": "string",
             "description": "Event type identifier",
-            "example": "batch-payment-initiations#state-change"
+            "example": "balances#credit"
           },
           "sent_at": {
             "type": "string",
@@ -19987,6 +20016,64 @@
             "type": "string",
             "description": "ID of the webhook subscription that triggered this event",
             "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef"
+          },
+          "event_type": {
+            "type": "string",
+            "description": "Event type identifier",
+            "example": "batch-payment-initiations#state-change"
+          },
+          "sent_at": {
+            "type": "string",
+            "description": "Timestamp when the event was sent",
+            "format": "date-time",
+            "example": "2020-01-01T12:34:56.123Z"
+          },
+          "data": {
+            "$ref": "#/components/schemas/V40022Data"
+          }
+        }
+      },
+      "V20021": {
+        "title": "Schema version 2.0.0",
+        "type": "object",
+        "properties": {
+          "schema_version": {
+            "$ref": "#/components/schemas/V20021SchemaVersion"
+          },
+          "subscription_id": {
+            "type": "string",
+            "description": "ID of the webhook subscription that triggered this event",
+            "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef"
+          },
+          "event_type": {
+            "type": "string",
+            "description": "Event type identifier",
+            "example": "batch-payment-initiations#state-change"
+          },
+          "sent_at": {
+            "type": "string",
+            "description": "Timestamp when the event was sent",
+            "format": "date-time",
+            "example": "2020-01-01T12:34:56Z"
+          },
+          "data": {
+            "$ref": "#/components/schemas/V20021Data"
+          }
+        }
+      },
+      "V40023": {
+        "title": "Schema version 4.0.0",
+        "type": "object",
+        "properties": {
+          "schema_version": {
+            "$ref": "#/components/schemas/V40023SchemaVersion"
+          },
+          "subscription_id": {
+            "type": "string",
+            "description": "ID of the webhook subscription that triggered this event",
+            "format": "uuid",
             "example": "017631af-326c-4a69-93f3-bd1ce987a743"
           },
           "event_type": {
@@ -20001,16 +20088,16 @@
             "example": "2023-06-23T09:45:36.123Z"
           },
           "data": {
-            "$ref": "#/components/schemas/V40022Data"
+            "$ref": "#/components/schemas/V40023Data"
           }
         }
       },
-      "V20021": {
+      "V20022": {
         "title": "Schema version 2.0.0",
         "type": "object",
         "properties": {
           "schema_version": {
-            "$ref": "#/components/schemas/V20021SchemaVersion"
+            "$ref": "#/components/schemas/V20022SchemaVersion"
           },
           "subscription_id": {
             "type": "string",
@@ -20030,16 +20117,16 @@
             "example": "2023-06-23T09:45:36Z"
           },
           "data": {
-            "$ref": "#/components/schemas/V20021Data"
+            "$ref": "#/components/schemas/V20022Data"
           }
         }
       },
-      "V40023": {
+      "V40024": {
         "title": "Schema version 4.0.0",
         "type": "object",
         "properties": {
           "schema_version": {
-            "$ref": "#/components/schemas/V40023SchemaVersion"
+            "$ref": "#/components/schemas/V40024SchemaVersion"
           },
           "subscription_id": {
             "type": "string",
@@ -20059,7 +20146,7 @@
             "example": "2023-08-21T12:34:58.123Z"
           },
           "data": {
-            "$ref": "#/components/schemas/V40023Data"
+            "$ref": "#/components/schemas/V40024Data"
           }
         }
       },
@@ -20092,12 +20179,12 @@
           }
         }
       },
-      "V40024": {
+      "V40025": {
         "title": "Schema version 4.0.0",
         "type": "object",
         "properties": {
           "schema_version": {
-            "$ref": "#/components/schemas/V40024SchemaVersion"
+            "$ref": "#/components/schemas/V40025SchemaVersion"
           },
           "subscription_id": {
             "type": "string",
@@ -20117,16 +20204,16 @@
             "example": "2025-10-21T12:34:58.123Z"
           },
           "data": {
-            "$ref": "#/components/schemas/V40024Data"
+            "$ref": "#/components/schemas/V40025Data"
           }
         }
       },
-      "V40025": {
+      "V40026": {
         "title": "Schema version 4.0.0",
         "type": "object",
         "properties": {
           "schema_version": {
-            "$ref": "#/components/schemas/V40025SchemaVersion"
+            "$ref": "#/components/schemas/V40026SchemaVersion"
           },
           "subscription_id": {
             "type": "string",
@@ -20146,16 +20233,16 @@
             "example": "2024-04-18T06:36:17.123Z"
           },
           "data": {
-            "$ref": "#/components/schemas/V40025Data"
+            "$ref": "#/components/schemas/V40026Data"
           }
         }
       },
-      "V20022": {
+      "V20023": {
         "title": "Schema version 2.0.0",
         "type": "object",
         "properties": {
           "schema_version": {
-            "$ref": "#/components/schemas/V20022SchemaVersion"
+            "$ref": "#/components/schemas/V20023SchemaVersion"
           },
           "subscription_id": {
             "type": "string",
@@ -20175,16 +20262,16 @@
             "example": "2024-04-18T06:36:17Z"
           },
           "data": {
-            "$ref": "#/components/schemas/V20022Data"
+            "$ref": "#/components/schemas/V20023Data"
           }
         }
       },
-      "V40026": {
+      "V40027": {
         "title": "Schema version 4.0.0",
         "type": "object",
         "properties": {
           "schema_version": {
-            "$ref": "#/components/schemas/V40026SchemaVersion"
+            "$ref": "#/components/schemas/V40027SchemaVersion"
           },
           "subscription_id": {
             "type": "string",
@@ -20204,7 +20291,7 @@
             "example": "2024-04-18T06:36:17.123Z"
           },
           "data": {
-            "$ref": "#/components/schemas/V40026Data"
+            "$ref": "#/components/schemas/V40027Data"
           }
         }
       },
@@ -23066,20 +23153,44 @@
           }
         }
       },
+      "V500Data": {
+        "type": "object",
+        "properties": {
+          "resource": {
+            "$ref": "#/components/schemas/V500DataResource"
+          }
+        }
+      },
       "V40017Data": {
         "type": "object",
         "properties": {
           "resource": {
             "$ref": "#/components/schemas/V40017DataResource"
+          }
+        }
+      },
+      "V20017Data": {
+        "type": "object",
+        "properties": {
+          "resource": {
+            "$ref": "#/components/schemas/V20017DataResource"
+          }
+        }
+      },
+      "V40018Data": {
+        "type": "object",
+        "properties": {
+          "resource": {
+            "$ref": "#/components/schemas/V40018DataResource"
           },
           "previous_state": {
-            "$ref": "#/components/schemas/V40017DataPreviousState"
+            "$ref": "#/components/schemas/V40018DataPreviousState"
           },
           "current_state": {
-            "$ref": "#/components/schemas/V40017DataCurrentState"
+            "$ref": "#/components/schemas/V40018DataCurrentState"
           },
           "deactivation_type": {
-            "$ref": "#/components/schemas/V40017DataDeactivationType"
+            "$ref": "#/components/schemas/V40018DataDeactivationType"
           },
           "deactivation_reason": {
             "type": "string",
@@ -23094,20 +23205,20 @@
           }
         }
       },
-      "V20017Data": {
+      "V20018Data": {
         "type": "object",
         "properties": {
           "resource": {
-            "$ref": "#/components/schemas/V20017DataResource"
+            "$ref": "#/components/schemas/V20018DataResource"
           },
           "previous_state": {
-            "$ref": "#/components/schemas/V20017DataPreviousState"
+            "$ref": "#/components/schemas/V20018DataPreviousState"
           },
           "current_state": {
-            "$ref": "#/components/schemas/V20017DataCurrentState"
+            "$ref": "#/components/schemas/V20018DataCurrentState"
           },
           "deactivation_type": {
-            "$ref": "#/components/schemas/V20017DataDeactivationType"
+            "$ref": "#/components/schemas/V20018DataDeactivationType"
           },
           "deactivation_reason": {
             "type": "string",
@@ -23122,11 +23233,11 @@
           }
         }
       },
-      "V40018Data": {
+      "V40019Data": {
         "type": "object",
         "properties": {
           "resource": {
-            "$ref": "#/components/schemas/V40018DataResource"
+            "$ref": "#/components/schemas/V40019DataResource"
           },
           "amount": {
             "type": "number",
@@ -23324,65 +23435,15 @@
           }
         }
       },
-      "V40019Data": {
-        "type": "object",
-        "properties": {
-          "resource": {
-            "$ref": "#/components/schemas/V40019DataResource"
-          },
-          "occurred_at": {
-            "type": "string",
-            "description": "Timestamp when the event occurred",
-            "format": "date-time",
-            "example": "2020-01-01T12:34:56.789Z"
-          }
-        }
-      },
-      "V20018Data": {
-        "type": "object",
-        "properties": {
-          "resource": {
-            "$ref": "#/components/schemas/V20018DataResource"
-          },
-          "occurred_at": {
-            "type": "string",
-            "description": "Timestamp when the event occurred",
-            "format": "date-time",
-            "example": "2020-01-01T12:34:56Z"
-          }
-        }
-      },
       "V40020Data": {
         "type": "object",
         "properties": {
           "resource": {
             "$ref": "#/components/schemas/V40020DataResource"
           },
-          "transaction_type": {
-            "type": "string",
-            "description": "Always \u0060credit\u0060",
-            "example": "credit"
-          },
-          "amount": {
-            "type": "number",
-            "description": "Deposited amount",
-            "format": "decimal",
-            "example": 1.23
-          },
-          "currency": {
-            "type": "string",
-            "description": "Currency code",
-            "example": "EUR"
-          },
-          "post_transaction_balance_amount": {
-            "type": "number",
-            "description": "Balance after the credit was applied",
-            "format": "decimal",
-            "example": 2.34
-          },
           "occurred_at": {
             "type": "string",
-            "description": "When the credit occurred",
+            "description": "Timestamp when the event occurred",
             "format": "date-time",
             "example": "2020-01-01T12:34:56.789Z"
           }
@@ -23394,6 +23455,56 @@
           "resource": {
             "$ref": "#/components/schemas/V20019DataResource"
           },
+          "occurred_at": {
+            "type": "string",
+            "description": "Timestamp when the event occurred",
+            "format": "date-time",
+            "example": "2020-01-01T12:34:56Z"
+          }
+        }
+      },
+      "V40021Data": {
+        "type": "object",
+        "properties": {
+          "resource": {
+            "$ref": "#/components/schemas/V40021DataResource"
+          },
+          "transaction_type": {
+            "type": "string",
+            "description": "Always \u0060credit\u0060",
+            "example": "credit"
+          },
+          "amount": {
+            "type": "number",
+            "description": "Deposited amount",
+            "format": "decimal",
+            "example": 1.23
+          },
+          "currency": {
+            "type": "string",
+            "description": "Currency code",
+            "example": "EUR"
+          },
+          "post_transaction_balance_amount": {
+            "type": "number",
+            "description": "Balance after the credit was applied",
+            "format": "decimal",
+            "example": 2.34
+          },
+          "occurred_at": {
+            "type": "string",
+            "description": "When the credit occurred",
+            "format": "date-time",
+            "example": "2020-01-01T12:34:56.789Z"
+          }
+        }
+      },
+      "V20020Data": {
+        "type": "object",
+        "properties": {
+          "resource": {
+            "$ref": "#/components/schemas/V20020DataResource"
+          },
           "transaction_type": {
             "type": "string",
             "description": "Always \u0060credit\u0060",
@@ -23424,17 +23535,17 @@
           }
         }
       },
-      "V40021Data": {
+      "V40022Data": {
         "type": "object",
         "properties": {
           "resource": {
-            "$ref": "#/components/schemas/V40021DataResource"
+            "$ref": "#/components/schemas/V40022DataResource"
           },
           "previous_status": {
-            "$ref": "#/components/schemas/V40021DataPreviousStatus"
+            "$ref": "#/components/schemas/V40022DataPreviousStatus"
           },
           "current_status": {
-            "$ref": "#/components/schemas/V40021DataCurrentStatus"
+            "$ref": "#/components/schemas/V40022DataCurrentStatus"
           },
           "occurred_at": {
             "type": "string",
@@ -23449,17 +23560,17 @@
           }
         }
       },
-      "V20020Data": {
+      "V20021Data": {
         "type": "object",
         "properties": {
           "resource": {
-            "$ref": "#/components/schemas/V20020DataResource"
+            "$ref": "#/components/schemas/V20021DataResource"
           },
           "previousStatus": {
-            "$ref": "#/components/schemas/V20020DataPreviousStatus"
+            "$ref": "#/components/schemas/V20021DataPreviousStatus"
           },
           "currentStatus": {
-            "$ref": "#/components/schemas/V20020DataCurrentStatus"
+            "$ref": "#/components/schemas/V20021DataCurrentStatus"
           },
           "occurredAt": {
             "type": "string",
@@ -23474,14 +23585,14 @@
           }
         }
       },
-      "V40022Data": {
+      "V40023Data": {
         "type": "object",
         "properties": {
           "resource": {
-            "$ref": "#/components/schemas/V40022DataResource"
+            "$ref": "#/components/schemas/V40023DataResource"
           },
           "type": {
-            "$ref": "#/components/schemas/V40022DataType"
+            "$ref": "#/components/schemas/V40023DataType"
           },
           "occurred_at": {
             "type": "string",
@@ -23491,14 +23602,14 @@
           }
         }
       },
-      "V20021Data": {
+      "V20022Data": {
         "type": "object",
         "properties": {
           "resource": {
-            "$ref": "#/components/schemas/V20021DataResource"
+            "$ref": "#/components/schemas/V20022DataResource"
           },
           "type": {
-            "$ref": "#/components/schemas/V20021DataType"
+            "$ref": "#/components/schemas/V20022DataType"
           },
           "occurred_at": {
             "type": "string",
@@ -23508,7 +23619,7 @@
           }
         }
       },
-      "V40023Data": {
+      "V40024Data": {
         "required": [
           "action",
           "resource",
@@ -23517,10 +23628,10 @@
         "type": "object",
         "properties": {
           "action": {
-            "$ref": "#/components/schemas/V40023DataAction"
+            "$ref": "#/components/schemas/V40024DataAction"
           },
           "resource": {
-            "$ref": "#/components/schemas/V40023DataResource"
+            "$ref": "#/components/schemas/V40024DataResource"
           },
           "occurred_at": {
             "type": "string",
@@ -23552,11 +23663,11 @@
           }
         }
       },
-      "V40024Data": {
+      "V40025Data": {
         "type": "object",
         "properties": {
           "action": {
-            "$ref": "#/components/schemas/V40024DataAction"
+            "$ref": "#/components/schemas/V40025DataAction"
           },
           "occurred_at": {
             "type": "string",
@@ -23565,15 +23676,15 @@
             "example": "2025-10-21T12:34:56.789Z"
           },
           "resource": {
-            "$ref": "#/components/schemas/V40024DataResource"
+            "$ref": "#/components/schemas/V40025DataResource"
           }
         }
       },
-      "V40025Data": {
+      "V40026Data": {
         "type": "object",
         "properties": {
           "resource": {
-            "$ref": "#/components/schemas/V40025DataResource"
+            "$ref": "#/components/schemas/V40026DataResource"
           },
           "reason": {
             "type": "string",
@@ -23581,7 +23692,7 @@
             "example": "WRONG_AMOUNT"
           },
           "status": {
-            "$ref": "#/components/schemas/V40025DataStatus"
+            "$ref": "#/components/schemas/V40026DataStatus"
           },
           "sub_status": {
             "type": "string",
@@ -23617,11 +23728,11 @@
           }
         }
       },
-      "V20022Data": {
+      "V20023Data": {
         "type": "object",
         "properties": {
           "resource": {
-            "$ref": "#/components/schemas/V20022DataResource"
+            "$ref": "#/components/schemas/V20023DataResource"
           },
           "reason": {
             "type": "string",
@@ -23629,7 +23740,7 @@
             "example": "WRONG_AMOUNT"
           },
           "status": {
-            "$ref": "#/components/schemas/V20022DataStatus"
+            "$ref": "#/components/schemas/V20023DataStatus"
           },
           "sub_status": {
             "type": "string",
@@ -23665,11 +23776,11 @@
           }
         }
       },
-      "V40026Data": {
+      "V40027Data": {
         "type": "object",
         "properties": {
           "resource": {
-            "$ref": "#/components/schemas/V40026DataResource"
+            "$ref": "#/components/schemas/V40027DataResource"
           },
           "occurred_at": {
             "type": "string",
@@ -26188,19 +26299,164 @@
           }
         }
       },
+      "V500DataResource": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "ID of the KYC Review.",
+            "format": "uuid",
+            "example": "46e1a5c4-4a9b-4563-39d3-18174d3ac0f8"
+          },
+          "state": {
+            "type": "string",
+            "description": "Status of the KYC Review. See [KYC Review Status](/guides/product/kyc/wise-kyc/hosted-kyc/kyc-review-status.md) for possible values.\n",
+            "example": "WAITING_CUSTOMER_INPUT"
+          },
+          "prevState": {
+            "type": "string",
+            "description": "Previous status of the KYC Review. See [KYC Review Status](/guides/product/kyc/wise-kyc/hosted-kyc/kyc-review-status.md) for possible values.\n",
+            "example": "WAITING_CUSTOMER_INPUT"
+          },
+          "profileId": {
+            "type": "integer",
+            "description": "ID of the profile KYC Review belongs to.",
+            "format": "int64",
+            "example": 22016766
+          },
+          "requiredBy": {
+            "type": "string",
+            "description": "Timestamp by which the underlying requirement set needs to be verified to not block the customer.\nOnly relevant if the status is \u0060PASSED_WITH_REQUIREMENTS\u0060.\n",
+            "format": "date-time",
+            "example": "2024-09-03T16:22:02.258Z"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Timestamp marking the creation of the KYC Review.",
+            "format": "date-time",
+            "example": "2024-09-03T16:22:02.258Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Timestamp marking the last update of the KYC Review.",
+            "format": "date-time",
+            "example": "2024-09-03T16:29:41.148Z"
+          },
+          "triggerReferences": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/V500DataResourceTriggerReferencesItem"
+            },
+            "description": "List of trigger references for this KYC Review."
+          },
+          "requirements": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/KycRequirement"
+              }
+            },
+            "description": "Nested list of [KYC Requirement](/api-reference/kyc-review/kyc-requirement) objects in \u0060[[Requirement]]\u0060 format, where each inner list represents a combination of possible requirements to be provided. To fulfil the whole KYC Review, at least one item from each inner list should be provided.\n\nFor example, if the requirements are \u0060[[a, b], [c, d]]\u0060 then it should be read as \u0060(a or b) and (c or d)\u0060.\n\nPlease refer to the [KYC Requirement](/api-reference/kyc-review/kyc-requirement) documentation for full examples of the schema.\n"
+          },
+          "requirementChanges": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/V500DataResourceRequirementChangesItem"
+            },
+            "description": "List of requirement changes that triggered this event."
+          }
+        }
+      },
       "V40017DataResource": {
         "type": "object",
         "properties": {
           "id": {
-            "type": "integer",
-            "description": "ID of the user",
-            "format": "int64",
-            "example": 1234
-          },
-          "type": {
             "type": "string",
-            "description": "Resource type (always \u0060user\u0060)",
-            "example": "user"
+            "description": "ID of the KYC Review.",
+            "format": "uuid",
+            "example": "46e1a5c4-4a9b-4563-39d3-18174d3ac0f8"
+          },
+          "state": {
+            "type": "string",
+            "description": "Status of the KYC Review. See [KYC Review Status](/guides/product/kyc/wise-kyc/hosted-kyc/kyc-review-status.md) for possible values.\n",
+            "example": "WAITING_CUSTOMER_INPUT"
+          },
+          "profileId": {
+            "type": "integer",
+            "description": "ID of the profile KYC Review belongs to.",
+            "format": "int64",
+            "example": 22016766
+          },
+          "requiredBy": {
+            "type": "string",
+            "description": "Timestamp by which the underlying requirement set needs to be verified to not block the customer.\nOnly relevant if the status is \u0060PASSED_WITH_REQUIREMENTS\u0060.\n",
+            "format": "date-time",
+            "example": "2024-09-03T16:22:02.258Z"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Timestamp marking the creation of the KYC Review.",
+            "format": "date-time",
+            "example": "2024-09-03T16:22:02.258Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Timestamp marking the last update of the KYC Review.",
+            "format": "date-time",
+            "example": "2024-09-03T16:29:41.148Z"
+          },
+          "triggerReferences": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/V40017DataResourceTriggerReferencesItem"
+            },
+            "description": "List of trigger references for this KYC Review."
+          },
+          "requirements": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "key": {
+                    "type": "string",
+                    "description": "The unique identifier of the KYC requirement.",
+                    "example": "BUSINESS_USE_CASES"
+                  },
+                  "state": {
+                    "type": "string",
+                    "description": "\u0022The status of the KYC requirement. Either\n\n\u0060NOT_PROVIDED\u0060: requires information\n\n\u0060IN_REVIEW\u0060: requires internal review of the requirement\n\u0022",
+                    "example": "NOT_PROVIDED"
+                  },
+                  "apiCollectionSupported": {
+                    "type": "boolean",
+                    "description": "A boolean value to indicate if the API collection is available for this evidence. To submit the evidence, refer to\n[KYC Requirement Submit endpoint](/api-reference/kyc-review/kycreviewrequirementsubmit).\n",
+                    "example": true
+                  },
+                  "versions": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "version": {
+                          "type": "string",
+                          "description": "Available version identifier to be submitted for the requirement.",
+                          "example": "V1"
+                        },
+                        "validUntil": {
+                          "type": "string",
+                          "description": "An optional field that indicates a valid until date."
+                        }
+                      }
+                    },
+                    "description": "Available versions to be submitted for the requirement."
+                  }
+                }
+              }
+            },
+            "description": "Nested list of KYC requirement objects."
           }
         }
       },
@@ -26208,6 +26464,98 @@
         "type": "object",
         "properties": {
           "id": {
+            "type": "string",
+            "description": "ID of the KYC Review.",
+            "format": "uuid",
+            "example": "46e1a5c4-4a9b-4563-39d3-18174d3ac0f8"
+          },
+          "state": {
+            "type": "string",
+            "description": "Status of the KYC Review. See [KYC Review Status](/guides/product/kyc/wise-kyc/hosted-kyc/kyc-review-status.md) for possible values.\n",
+            "example": "WAITING_CUSTOMER_INPUT"
+          },
+          "profileId": {
+            "type": "integer",
+            "description": "ID of the profile KYC Review belongs to.",
+            "format": "int64",
+            "example": 22016766
+          },
+          "requiredBy": {
+            "type": "string",
+            "description": "Timestamp by which the underlying requirement set needs to be verified to not block the customer.\nOnly relevant if the status is \u0060PASSED_WITH_REQUIREMENTS\u0060.\n",
+            "format": "date-time",
+            "example": "2024-09-03T16:22:02.257725"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Timestamp marking the creation of the KYC Review.",
+            "format": "date-time",
+            "example": "2024-09-03T16:22:02.257725"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Timestamp marking the last update of the KYC Review.",
+            "format": "date-time",
+            "example": "2024-09-03T16:29:41.147522"
+          },
+          "triggerReferences": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/V20017DataResourceTriggerReferencesItem"
+            },
+            "description": "List of trigger references for this KYC Review."
+          },
+          "requirements": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "key": {
+                    "type": "string",
+                    "description": "The unique identifier of the KYC requirement.",
+                    "example": "BUSINESS_USE_CASES"
+                  },
+                  "state": {
+                    "type": "string",
+                    "description": "\u0022The status of the KYC requirement. Either\n\n\u0060NOT_PROVIDED\u0060: requires information\n\n\u0060IN_REVIEW\u0060: requires internal review of the requirement\n\u0022",
+                    "example": "NOT_PROVIDED"
+                  },
+                  "apiCollectionSupported": {
+                    "type": "boolean",
+                    "description": "A boolean value to indicate if the API collection is available for this evidence. To submit the evidence, refer to\n[KYC Requirement Submit endpoint](/api-reference/kyc-review/kycreviewrequirementsubmit).\n",
+                    "example": true
+                  },
+                  "versions": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "version": {
+                          "type": "string",
+                          "description": "Available version identifier to be submitted for the requirement.",
+                          "example": "V1"
+                        },
+                        "validUntil": {
+                          "type": "string",
+                          "description": "An optional field that indicates a valid until date."
+                        }
+                      }
+                    },
+                    "description": "Available versions to be submitted for the requirement."
+                  }
+                }
+              }
+            },
+            "description": "Nested list of KYC requirement objects."
+          }
+        }
+      },
+      "V40018DataResource": {
+        "type": "object",
+        "properties": {
+          "id": {
             "type": "integer",
             "description": "ID of the user",
             "format": "int64",
@@ -26220,7 +26568,23 @@
           }
         }
       },
-      "V40018DataResource": {
+      "V20018DataResource": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "ID of the user",
+            "format": "int64",
+            "example": 1234
+          },
+          "type": {
+            "type": "string",
+            "description": "Resource type (always \u0060user\u0060)",
+            "example": "user"
+          }
+        }
+      },
+      "V40019DataResource": {
         "type": "object",
         "properties": {
           "type": {
@@ -26308,56 +26672,6 @@
           }
         }
       },
-      "V40019DataResource": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "type": "string",
-            "description": "Resource type (always \u0060balance-account\u0060)",
-            "example": "balance-account"
-          },
-          "id": {
-            "type": "integer",
-            "description": "ID of the account",
-            "format": "int64",
-            "example": 123
-          },
-          "profile_id": {
-            "type": "integer",
-            "description": "ID of the profile that owns the account",
-            "format": "int64",
-            "example": 555
-          },
-          "state": {
-            "$ref": "#/components/schemas/V40019DataResourceState"
-          }
-        }
-      },
-      "V20018DataResource": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "type": "string",
-            "description": "Resource type (always \u0060balance-account\u0060)",
-            "example": "balance-account"
-          },
-          "id": {
-            "type": "integer",
-            "description": "ID of the account",
-            "format": "int64",
-            "example": 123
-          },
-          "profile_id": {
-            "type": "integer",
-            "description": "ID of the profile that owns the account",
-            "format": "int64",
-            "example": 555
-          },
-          "state": {
-            "$ref": "#/components/schemas/V20018DataResourceState"
-          }
-        }
-      },
       "V40020DataResource": {
         "type": "object",
         "properties": {
@@ -26370,13 +26684,16 @@
             "type": "integer",
             "description": "ID of the account",
             "format": "int64",
-            "example": 111
+            "example": 123
           },
           "profile_id": {
             "type": "integer",
             "description": "ID of the profile that owns the account",
             "format": "int64",
-            "example": 222
+            "example": 555
+          },
+          "state": {
+            "$ref": "#/components/schemas/V40020DataResourceState"
           }
         }
       },
@@ -26392,6 +26709,31 @@
             "type": "integer",
             "description": "ID of the account",
             "format": "int64",
+            "example": 123
+          },
+          "profile_id": {
+            "type": "integer",
+            "description": "ID of the profile that owns the account",
+            "format": "int64",
+            "example": 555
+          },
+          "state": {
+            "$ref": "#/components/schemas/V20019DataResourceState"
+          }
+        }
+      },
+      "V40021DataResource": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Resource type (always \u0060balance-account\u0060)",
+            "example": "balance-account"
+          },
+          "id": {
+            "type": "integer",
+            "description": "ID of the account",
+            "format": "int64",
             "example": 111
           },
           "profile_id": {
@@ -26402,7 +26744,29 @@
           }
         }
       },
-      "V40021DataResource": {
+      "V20020DataResource": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Resource type (always \u0060balance-account\u0060)",
+            "example": "balance-account"
+          },
+          "id": {
+            "type": "integer",
+            "description": "ID of the account",
+            "format": "int64",
+            "example": 111
+          },
+          "profile_id": {
+            "type": "integer",
+            "description": "ID of the profile that owns the account",
+            "format": "int64",
+            "example": 222
+          }
+        }
+      },
+      "V40022DataResource": {
         "type": "object",
         "properties": {
           "id": {
@@ -26424,7 +26788,7 @@
           }
         }
       },
-      "V20020DataResource": {
+      "V20021DataResource": {
         "type": "object",
         "properties": {
           "id": {
@@ -26446,7 +26810,7 @@
           }
         }
       },
-      "V40022DataResource": {
+      "V40023DataResource": {
         "type": "object",
         "properties": {
           "type": {
@@ -26466,14 +26830,14 @@
             "example": "GENERAL_ENQUIRY"
           },
           "details": {
-            "$ref": "#/components/schemas/V40022DataResourceDetails"
+            "$ref": "#/components/schemas/V40023DataResourceDetails"
           },
           "status": {
-            "$ref": "#/components/schemas/V40022DataResourceStatus"
+            "$ref": "#/components/schemas/V40023DataResourceStatus"
           }
         }
       },
-      "V20021DataResource": {
+      "V20022DataResource": {
         "type": "object",
         "properties": {
           "type": {
@@ -26493,14 +26857,14 @@
             "example": "GENERAL_ENQUIRY"
           },
           "details": {
-            "$ref": "#/components/schemas/V20021DataResourceDetails"
+            "$ref": "#/components/schemas/V20022DataResourceDetails"
           },
           "status": {
-            "$ref": "#/components/schemas/V20021DataResourceStatus"
+            "$ref": "#/components/schemas/V20022DataResourceStatus"
           }
         }
       },
-      "V40023DataAction": {
+      "V40024DataAction": {
         "required": [
           "type",
           "id",
@@ -26534,7 +26898,7 @@
           }
         }
       },
-      "V40023DataResource": {
+      "V40024DataResource": {
         "required": [
           "id",
           "uetr",
@@ -26563,10 +26927,10 @@
             "example": "/RFB/BET072"
           },
           "recipient": {
-            "$ref": "#/components/schemas/V40023DataResourceRecipient"
+            "$ref": "#/components/schemas/V40024DataResourceRecipient"
           },
           "sender": {
-            "$ref": "#/components/schemas/V40023DataResourceSender"
+            "$ref": "#/components/schemas/V40024DataResourceSender"
           },
           "exchange_rate": {
             "type": "number",
@@ -26575,13 +26939,13 @@
             "example": 0.8
           },
           "instructed_amount": {
-            "$ref": "#/components/schemas/V40023DataResourceInstructedAmount"
+            "$ref": "#/components/schemas/V40024DataResourceInstructedAmount"
           },
           "settled_amount": {
-            "$ref": "#/components/schemas/V40023DataResourceSettledAmount"
+            "$ref": "#/components/schemas/V40024DataResourceSettledAmount"
           },
           "fee": {
-            "$ref": "#/components/schemas/V40023DataResourceFee"
+            "$ref": "#/components/schemas/V40024DataResourceFee"
           },
           "transaction_time": {
             "type": "string",
@@ -26592,7 +26956,7 @@
           "previous_instructing_agents": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/V40023DataResourcePreviousInstructingAgentsItem"
+              "$ref": "#/components/schemas/V40024DataResourcePreviousInstructingAgentsItem"
             },
             "description": "List of previous instructing agents in the payment chain (ordered from first to last)."
           }
@@ -26689,7 +27053,7 @@
           }
         }
       },
-      "V40024DataAction": {
+      "V40025DataAction": {
         "type": "object",
         "properties": {
           "id": {
@@ -26712,7 +27076,7 @@
           }
         }
       },
-      "V40024DataResource": {
+      "V40025DataResource": {
         "type": "object",
         "properties": {
           "id": {
@@ -26737,61 +27101,61 @@
           }
         }
       },
-      "V40025DataResource": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "Unique ID of the dispute",
-            "example": "39f893e3-4b0c-4850-9c5c-8cb8f4798a43"
-          },
-          "profile_id": {
-            "type": "integer",
-            "description": "ID of the profile that owns the card",
-            "format": "int64",
-            "example": 16605997
-          },
-          "transaction_id": {
-            "type": "integer",
-            "description": "ID of the card transaction",
-            "format": "int64",
-            "example": 4337
-          },
-          "type": {
-            "type": "string",
-            "description": "Resource type (always \u0060transaction-dispute\u0060)",
-            "example": "transaction-dispute"
-          }
-        }
-      },
-      "V20022DataResource": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "Unique ID of the dispute",
-            "example": "39f893e3-4b0c-4850-9c5c-8cb8f4798a43"
-          },
-          "profile_id": {
-            "type": "integer",
-            "description": "ID of the profile that owns the card",
-            "format": "int64",
-            "example": 16605997
-          },
-          "transaction_id": {
-            "type": "integer",
-            "description": "ID of the card transaction",
-            "format": "int64",
-            "example": 4337
-          },
-          "type": {
-            "type": "string",
-            "description": "Resource type (always \u0060transaction-dispute\u0060)",
-            "example": "transaction-dispute"
-          }
-        }
-      },
       "V40026DataResource": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique ID of the dispute",
+            "example": "39f893e3-4b0c-4850-9c5c-8cb8f4798a43"
+          },
+          "profile_id": {
+            "type": "integer",
+            "description": "ID of the profile that owns the card",
+            "format": "int64",
+            "example": 16605997
+          },
+          "transaction_id": {
+            "type": "integer",
+            "description": "ID of the card transaction",
+            "format": "int64",
+            "example": 4337
+          },
+          "type": {
+            "type": "string",
+            "description": "Resource type (always \u0060transaction-dispute\u0060)",
+            "example": "transaction-dispute"
+          }
+        }
+      },
+      "V20023DataResource": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique ID of the dispute",
+            "example": "39f893e3-4b0c-4850-9c5c-8cb8f4798a43"
+          },
+          "profile_id": {
+            "type": "integer",
+            "description": "ID of the profile that owns the card",
+            "format": "int64",
+            "example": 16605997
+          },
+          "transaction_id": {
+            "type": "integer",
+            "description": "ID of the card transaction",
+            "format": "int64",
+            "example": 4337
+          },
+          "type": {
+            "type": "string",
+            "description": "Resource type (always \u0060transaction-dispute\u0060)",
+            "example": "transaction-dispute"
+          }
+        }
+      },
+      "V40027DataResource": {
         "type": "object",
         "properties": {
           "settlement_reference": {
@@ -27742,7 +28106,67 @@
           }
         }
       },
-      "V40022DataResourceDetails": {
+      "V500DataResourceTriggerReferencesItem": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/V500DataResourceTriggerReferencesItemType"
+          },
+          "triggerData": {
+            "$ref": "#/components/schemas/V500DataResourceTriggerReferencesItemTriggerDataProperty"
+          }
+        }
+      },
+      "V500DataResourceRequirementChangesItem": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "The [key](/api-reference/kyc-review/kyc-requirement#path=key) of the requirement which has changed.",
+            "example": "ID_DOCUMENT"
+          },
+          "newState": {
+            "type": "string",
+            "description": "The new [state](/api-reference/kyc-review/kyc-requirement#path=state) of the requirement which has changed.",
+            "example": "IN_REVIEW"
+          },
+          "prevState": {
+            "type": "string",
+            "description": "*Not provided when requirement is new.*\nThe previous [state](/api-reference/kyc-review/kyc-requirement#path=state) of the requirement which has changed. In case only an [additional requirement](/api-reference/kyc-review/kyc-requirement#path=additionalRequirements) has changed, this state can be equal to \u0060newState\u0060.\n",
+            "example": "NOT_PROVIDED"
+          },
+          "additionalRequirements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/V500DataResourceRequirementChangesItemAdditionalRequirementsItem"
+            },
+            "description": "A list of additional requirements that have changed. Not shown if empty."
+          }
+        }
+      },
+      "V40017DataResourceTriggerReferencesItem": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/V40017DataResourceTriggerReferencesItemType"
+          },
+          "triggerData": {
+            "$ref": "#/components/schemas/V40017DataResourceTriggerReferencesItemTriggerDataProperty"
+          }
+        }
+      },
+      "V20017DataResourceTriggerReferencesItem": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/V20017DataResourceTriggerReferencesItemType"
+          },
+          "triggerData": {
+            "$ref": "#/components/schemas/V20017DataResourceTriggerReferencesItemTriggerDataProperty"
+          }
+        }
+      },
+      "V40023DataResourceDetails": {
         "type": "object",
         "properties": {
           "transfer_id": {
@@ -27765,7 +28189,7 @@
           }
         }
       },
-      "V20021DataResourceDetails": {
+      "V20022DataResourceDetails": {
         "type": "object",
         "properties": {
           "transfer_id": {
@@ -27788,7 +28212,7 @@
           }
         }
       },
-      "V40023DataResourceRecipient": {
+      "V40024DataResourceRecipient": {
         "type": "object",
         "properties": {
           "name": {
@@ -27799,7 +28223,7 @@
             "example": "JOHN SMITH"
           },
           "address": {
-            "$ref": "#/components/schemas/V40023DataResourceRecipientAddress"
+            "$ref": "#/components/schemas/V40024DataResourceRecipientAddress"
           },
           "account": {
             "maxLength": 36,
@@ -27809,11 +28233,11 @@
             "example": "BE1234567891234"
           },
           "bank_details": {
-            "$ref": "#/components/schemas/V40023DataResourceRecipientBankDetails"
+            "$ref": "#/components/schemas/V40024DataResourceRecipientBankDetails"
           }
         }
       },
-      "V40023DataResourceSender": {
+      "V40024DataResourceSender": {
         "type": "object",
         "properties": {
           "name": {
@@ -27824,7 +28248,7 @@
             "example": "GEORGE SMITH"
           },
           "address": {
-            "$ref": "#/components/schemas/V40023DataResourceSenderAddress"
+            "$ref": "#/components/schemas/V40024DataResourceSenderAddress"
           },
           "account": {
             "maxLength": 36,
@@ -27834,11 +28258,11 @@
             "example": "EE947700771111111111"
           },
           "bank_details": {
-            "$ref": "#/components/schemas/V40023DataResourceSenderBankDetails"
+            "$ref": "#/components/schemas/V40024DataResourceSenderBankDetails"
           }
         }
       },
-      "V40023DataResourceInstructedAmount": {
+      "V40024DataResourceInstructedAmount": {
         "required": [
           "value",
           "currency"
@@ -27859,7 +28283,7 @@
         },
         "description": "Amount originally instructed by the ultimate sender."
       },
-      "V40023DataResourceSettledAmount": {
+      "V40024DataResourceSettledAmount": {
         "required": [
           "value",
           "currency"
@@ -27879,26 +28303,26 @@
           }
         }
       },
-      "V40023DataResourceFee": {
+      "V40024DataResourceFee": {
         "type": "object",
         "properties": {
           "wise": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/V40023DataResourceFeeWiseItem"
+              "$ref": "#/components/schemas/V40024DataResourceFeeWiseItem"
             },
             "description": "List of fees applied by Wise (e.g., conversion fee). If this list is empty, no fees were applied by Wise."
           },
           "correspondent": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/V40023DataResourceFeeCorrespondentItem"
+              "$ref": "#/components/schemas/V40024DataResourceFeeCorrespondentItem"
             },
             "description": "List of fees declared by correspondents (e.g., handling fee). If this list is empty, no fees were declared by correspondents."
           }
         }
       },
-      "V40023DataResourcePreviousInstructingAgentsItem": {
+      "V40024DataResourcePreviousInstructingAgentsItem": {
         "type": "object",
         "properties": {
           "bic": {
@@ -27912,7 +28336,7 @@
             "example": "SAMPLE BANK USA"
           },
           "address": {
-            "$ref": "#/components/schemas/V40023DataResourcePreviousInstructingAgentsItemAddress"
+            "$ref": "#/components/schemas/V40024DataResourcePreviousInstructingAgentsItemAddress"
           }
         }
       },
@@ -28192,7 +28616,49 @@
         },
         "description": "The amount, unrounded, that fees were calculated on and built up from."
       },
-      "V40023DataResourceRecipientAddress": {
+      "V500DataResourceTriggerReferencesItemTriggerData": {
+        "type": "object",
+        "description": "Key-value Object containing metadata of the underlying product object that triggered the KYC Review.\nFor \u0060\u0022QUOTE\u0022\u0060, \u0060\u0022TRANSFER\u0022\u0060 and \u0060\u0022ADD_MONEY\u0022\u0060 types, triggerData contains an \u0060\u0022id\u0022\u0060 field that refers to their respective IDs.\nFor \u0060\u0022BANK_ACCOUNT_DETAILS\u0022\u0060, triggerData has a field called \u0060\u0022currencies\u0022\u0060 which contains a list of currencies (i.e USD, SGD, EUR) that\nthe bank details have been created for.\n\n| triggerReference.type | field       | type           |\n|-----------------------|-------------|----------------|\n| \u0060QUOTE\u0060                 | id          | uuid           |\n| \u0060TRANSFER\u0060              | id          | long           |\n| \u0060ADD_MONEY\u0060             | id          | long           |\n| \u0060BANK_ACCOUNT_DETAILS\u0060  | currencies  | list of string |\n\nThis ID might be null if underlying action is a process like \u0060REPAPERING\u0060.\n",
+        "example": {
+          "id": "ba83s43a-f623-46f0-956d-196c13e2ab01"
+        }
+      },
+      "V500DataResourceRequirementChangesItemAdditionalRequirementsItem": {
+        "type": "object",
+        "properties": {
+          "additionalRequirementId": {
+            "type": "string",
+            "description": "The [UUID](/api-reference/kyc-review/kyc-requirement#path=additionalRequirements/additionalRequirementId) of the additional requirement which has changed.",
+            "format": "uuid",
+            "example": "8b789c45-60ae-475d-b667-c8714db9a6a4"
+          },
+          "newState": {
+            "type": "string",
+            "description": "The new [state](/api-reference/kyc-review/kyc-requirement#path=additionalRequirements/state) of the additional requirement which has changed.",
+            "example": "IN_REVIEW"
+          },
+          "prevState": {
+            "type": "string",
+            "description": "*Not provided when additional requirement is new.*\nThe previous [state](/api-reference/kyc-review/kyc-requirement#path=additionalRequirements/state) of the additional requirement which has changed.\n",
+            "example": "NOT_PROVIDED"
+          }
+        }
+      },
+      "V40017DataResourceTriggerReferencesItemTriggerData": {
+        "type": "object",
+        "description": "Key-value Object containing metadata of the underlying product object that triggered the KYC Review.\nFor \u0060\u0022QUOTE\u0022\u0060, \u0060\u0022TRANSFER\u0022\u0060 and \u0060\u0022ADD_MONEY\u0022\u0060 types, triggerData contains an \u0060\u0022id\u0022\u0060 field that refers to their respective IDs.\nFor \u0060\u0022BANK_ACCOUNT_DETAILS\u0022\u0060, triggerData has a field called \u0060\u0022currencies\u0022\u0060 which contains a list of currencies (i.e USD, SGD, EUR) that\nthe bank details have been created for.\n\n| triggerReference.type | field       | type           |\n|-----------------------|-------------|----------------|\n| \u0060QUOTE\u0060                 | id          | uuid           |\n| \u0060TRANSFER\u0060              | id          | long           |\n| \u0060ADD_MONEY\u0060             | id          | long           |\n| \u0060BANK_ACCOUNT_DETAILS\u0060  | currencies  | list of string |\n\nThis ID might be null if underlying action is a process like \u0060REPAPERING\u0060.\n",
+        "example": {
+          "id": "ba83s43a-f623-46f0-956d-196c13e2ab01"
+        }
+      },
+      "V20017DataResourceTriggerReferencesItemTriggerData": {
+        "type": "object",
+        "description": "Key-value Object containing metadata of the underlying product object that triggered the KYC Review.\nFor \u0060\u0022QUOTE\u0022\u0060, \u0060\u0022TRANSFER\u0022\u0060 and \u0060\u0022ADD_MONEY\u0022\u0060 types, triggerData contains an \u0060\u0022id\u0022\u0060 field that refers to their respective IDs.\nFor \u0060\u0022BANK_ACCOUNT_DETAILS\u0022\u0060, triggerData has a field called \u0060\u0022currencies\u0022\u0060 which contains a list of currencies (i.e USD, SGD, EUR) that\nthe bank details have been created for.\n\n| triggerReference.type | field       | type           |\n|-----------------------|-------------|----------------|\n| \u0060QUOTE\u0060                 | id          | uuid           |\n| \u0060TRANSFER\u0060              | id          | long           |\n| \u0060ADD_MONEY\u0060             | id          | long           |\n| \u0060BANK_ACCOUNT_DETAILS\u0060  | currencies  | list of string |\n\nThis ID might be null if underlying action is a process like \u0060REPAPERING\u0060.\n",
+        "example": {
+          "id": "ba83s43a-f623-46f0-956d-196c13e2ab01"
+        }
+      },
+      "V40024DataResourceRecipientAddress": {
         "type": "object",
         "properties": {
           "first_line": {
@@ -28231,7 +28697,7 @@
         },
         "description": "Structured address of the ultimate recipient."
       },
-      "V40023DataResourceRecipientBankDetails": {
+      "V40024DataResourceRecipientBankDetails": {
         "type": "object",
         "properties": {
           "bic": {
@@ -28245,12 +28711,12 @@
             "example": "EXAMPLE BANK BELGIUM"
           },
           "address": {
-            "$ref": "#/components/schemas/V40023DataResourceRecipientBankDetailsAddress"
+            "$ref": "#/components/schemas/V40024DataResourceRecipientBankDetailsAddress"
           }
         },
         "description": "Recipient bank details."
       },
-      "V40023DataResourceSenderAddress": {
+      "V40024DataResourceSenderAddress": {
         "type": "object",
         "properties": {
           "first_line": {
@@ -28289,7 +28755,7 @@
         },
         "description": "Structured address of the ultimate sender."
       },
-      "V40023DataResourceSenderBankDetails": {
+      "V40024DataResourceSenderBankDetails": {
         "type": "object",
         "properties": {
           "bic": {
@@ -28303,12 +28769,12 @@
             "example": "TEST BANK AG"
           },
           "address": {
-            "$ref": "#/components/schemas/V40023DataResourceSenderBankDetailsAddress"
+            "$ref": "#/components/schemas/V40024DataResourceSenderBankDetailsAddress"
           }
         },
         "description": "Sender bank details."
       },
-      "V40023DataResourceFeeWiseItem": {
+      "V40024DataResourceFeeWiseItem": {
         "required": [
           "type",
           "value",
@@ -28334,7 +28800,7 @@
           }
         }
       },
-      "V40023DataResourceFeeCorrespondentItem": {
+      "V40024DataResourceFeeCorrespondentItem": {
         "required": [
           "value",
           "currency"
@@ -28354,7 +28820,7 @@
           }
         }
       },
-      "V40023DataResourcePreviousInstructingAgentsItemAddress": {
+      "V40024DataResourcePreviousInstructingAgentsItemAddress": {
         "type": "object",
         "properties": {
           "first_line": {
@@ -28498,7 +28964,7 @@
           }
         }
       },
-      "V40023DataResourceRecipientBankDetailsAddress": {
+      "V40024DataResourceRecipientBankDetailsAddress": {
         "type": "object",
         "properties": {
           "first_line": {
@@ -28537,7 +29003,7 @@
         },
         "description": "Recipient bank address (same structure as \u0060recipient.address\u0060)."
       },
-      "V40023DataResourceSenderBankDetailsAddress": {
+      "V40024DataResourceSenderBankDetailsAddress": {
         "type": "object",
         "properties": {
           "first_line": {
@@ -32952,6 +33418,18 @@
         "type": "object",
         "description": "Object element giving more details about the price."
       },
+      "V500DataResourceTriggerReferencesItemTriggerDataProperty": {
+        "type": "object",
+        "description": "Key-value Object containing metadata of the underlying product object that triggered the KYC Review.\nFor \u0060\u0022QUOTE\u0022\u0060, \u0060\u0022TRANSFER\u0022\u0060 and \u0060\u0022ADD_MONEY\u0022\u0060 types, triggerData contains an \u0060\u0022id\u0022\u0060 field that refers to their respective IDs.\nFor \u0060\u0022BANK_ACCOUNT_DETAILS\u0022\u0060, triggerData has a field called \u0060\u0022currencies\u0022\u0060 which contains a list of currencies (i.e USD, SGD, EUR) that\nthe bank details have been created for.\n\n| triggerReference.type | field       | type           |\n|-----------------------|-------------|----------------|\n| \u0060QUOTE\u0060                 | id          | uuid           |\n| \u0060TRANSFER\u0060              | id          | long           |\n| \u0060ADD_MONEY\u0060             | id          | long           |\n| \u0060BANK_ACCOUNT_DETAILS\u0060  | currencies  | list of string |\n\nThis ID might be null if underlying action is a process like \u0060REPAPERING\u0060.\n"
+      },
+      "V40017DataResourceTriggerReferencesItemTriggerDataProperty": {
+        "type": "object",
+        "description": "Key-value Object containing metadata of the underlying product object that triggered the KYC Review.\nFor \u0060\u0022QUOTE\u0022\u0060, \u0060\u0022TRANSFER\u0022\u0060 and \u0060\u0022ADD_MONEY\u0022\u0060 types, triggerData contains an \u0060\u0022id\u0022\u0060 field that refers to their respective IDs.\nFor \u0060\u0022BANK_ACCOUNT_DETAILS\u0022\u0060, triggerData has a field called \u0060\u0022currencies\u0022\u0060 which contains a list of currencies (i.e USD, SGD, EUR) that\nthe bank details have been created for.\n\n| triggerReference.type | field       | type           |\n|-----------------------|-------------|----------------|\n| \u0060QUOTE\u0060                 | id          | uuid           |\n| \u0060TRANSFER\u0060              | id          | long           |\n| \u0060ADD_MONEY\u0060             | id          | long           |\n| \u0060BANK_ACCOUNT_DETAILS\u0060  | currencies  | list of string |\n\nThis ID might be null if underlying action is a process like \u0060REPAPERING\u0060.\n"
+      },
+      "V20017DataResourceTriggerReferencesItemTriggerDataProperty": {
+        "type": "object",
+        "description": "Key-value Object containing metadata of the underlying product object that triggered the KYC Review.\nFor \u0060\u0022QUOTE\u0022\u0060, \u0060\u0022TRANSFER\u0022\u0060 and \u0060\u0022ADD_MONEY\u0022\u0060 types, triggerData contains an \u0060\u0022id\u0022\u0060 field that refers to their respective IDs.\nFor \u0060\u0022BANK_ACCOUNT_DETAILS\u0022\u0060, triggerData has a field called \u0060\u0022currencies\u0022\u0060 which contains a list of currencies (i.e USD, SGD, EUR) that\nthe bank details have been created for.\n\n| triggerReference.type | field       | type           |\n|-----------------------|-------------|----------------|\n| \u0060QUOTE\u0060                 | id          | uuid           |\n| \u0060TRANSFER\u0060              | id          | long           |\n| \u0060ADD_MONEY\u0060             | id          | long           |\n| \u0060BANK_ACCOUNT_DETAILS\u0060  | currencies  | list of string |\n\nThis ID might be null if underlying action is a process like \u0060REPAPERING\u0060.\n"
+      },
       "VerificationUploadEvidences207ResponseResultsItem": {
         "type": "object",
         "properties": {
@@ -36906,7 +37384,7 @@
         ],
         "type": "string",
         "additionalProperties": false,
-        "description": "The state of the KYC requirement.\n- \u0060NOT_PROVIDED\u0060 \u2014 the information is pending. Either the Hosted KYC flow or [KYC Requirement Submit](kycreviewrequirementsubmit) endpoint should be used to fulfil the requirement.\n- \u0060IN_REVIEW\u0060 \u2014 the required information has been retrieved and the KYC requirement is being reviewed. No action is needed.\n- \u0060VERIFIED\u0060 \u2014 the required information has been received and verified on our side. No action is needed.\n",
+        "description": "The state of the KYC requirement.\n- \u0060NOT_PROVIDED\u0060 \u2014 the information is pending. Either the Hosted KYC flow or [KYC Requirement Submit](/api-reference/kyc-review/kycreviewrequirementsubmit) endpoint should be used to fulfil the requirement.\n- \u0060IN_REVIEW\u0060 \u2014 the required information has been retrieved and the KYC requirement is being reviewed. No action is needed.\n- \u0060VERIFIED\u0060 \u2014 the required information has been received and verified on our side. No action is needed.\n",
         "example": "NOT_PROVIDED",
         "x-ms-enum": {
           "name": "KycRequirementState",
@@ -38042,6 +38520,25 @@
           ]
         }
       },
+      "V500SchemaVersion": {
+        "enum": [
+          "5.0.0"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Version of the event schema. Determined by the \u0060schema_version\u0060 on your [webhook subscription](/api-reference/webhook).",
+        "example": "5.0.0",
+        "x-ms-enum": {
+          "name": "V500SchemaVersion",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "5.0.0",
+              "name": "Value500"
+            }
+          ]
+        }
+      },
       "V40017SchemaVersion": {
         "enum": [
           "4.0.0"
@@ -38090,6 +38587,44 @@
         "example": "4.0.0",
         "x-ms-enum": {
           "name": "V40018SchemaVersion",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "4.0.0",
+              "name": "Value400"
+            }
+          ]
+        }
+      },
+      "V20018SchemaVersion": {
+        "enum": [
+          "2.0.0"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Version of the event schema. Determined by the \u0060schema_version\u0060 on your [webhook subscription](/api-reference/webhook).",
+        "example": "2.0.0",
+        "x-ms-enum": {
+          "name": "V20018SchemaVersion",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "2.0.0",
+              "name": "Value200"
+            }
+          ]
+        }
+      },
+      "V40019SchemaVersion": {
+        "enum": [
+          "4.0.0"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Version of the event schema. Determined by the \u0060schema_version\u0060 on your [webhook subscription](/api-reference/webhook).",
+        "example": "4.0.0",
+        "x-ms-enum": {
+          "name": "V40019SchemaVersion",
           "modelAsString": false,
           "values": [
             {
@@ -38152,44 +38687,6 @@
             {
               "value": "2.1.0",
               "name": "Value210"
-            }
-          ]
-        }
-      },
-      "V40019SchemaVersion": {
-        "enum": [
-          "4.0.0"
-        ],
-        "type": "string",
-        "additionalProperties": false,
-        "description": "Version of the event schema. Determined by the \u0060schema_version\u0060 on your [webhook subscription](/api-reference/webhook).",
-        "example": "4.0.0",
-        "x-ms-enum": {
-          "name": "V40019SchemaVersion",
-          "modelAsString": false,
-          "values": [
-            {
-              "value": "4.0.0",
-              "name": "Value400"
-            }
-          ]
-        }
-      },
-      "V20018SchemaVersion": {
-        "enum": [
-          "2.0.0"
-        ],
-        "type": "string",
-        "additionalProperties": false,
-        "description": "Version of the event schema. Determined by the \u0060schema_version\u0060 on your [webhook subscription](/api-reference/webhook).",
-        "example": "2.0.0",
-        "x-ms-enum": {
-          "name": "V20018SchemaVersion",
-          "modelAsString": false,
-          "values": [
-            {
-              "value": "2.0.0",
-              "name": "Value200"
             }
           ]
         }
@@ -38327,21 +38824,21 @@
           ]
         }
       },
-      "V3002SchemaVersion": {
+      "V20022SchemaVersion": {
         "enum": [
-          "3.0.0"
+          "2.0.0"
         ],
         "type": "string",
         "additionalProperties": false,
         "description": "Version of the event schema. Determined by the \u0060schema_version\u0060 on your [webhook subscription](/api-reference/webhook).",
-        "example": "3.0.0",
+        "example": "2.0.0",
         "x-ms-enum": {
-          "name": "V3002SchemaVersion",
+          "name": "V20022SchemaVersion",
           "modelAsString": false,
           "values": [
             {
-              "value": "3.0.0",
-              "name": "Value300"
+              "value": "2.0.0",
+              "name": "Value200"
             }
           ]
         }
@@ -38365,6 +38862,25 @@
           ]
         }
       },
+      "V3002SchemaVersion": {
+        "enum": [
+          "3.0.0"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Version of the event schema. Determined by the \u0060schema_version\u0060 on your [webhook subscription](/api-reference/webhook).",
+        "example": "3.0.0",
+        "x-ms-enum": {
+          "name": "V3002SchemaVersion",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "3.0.0",
+              "name": "Value300"
+            }
+          ]
+        }
+      },
       "V40025SchemaVersion": {
         "enum": [
           "4.0.0"
@@ -38384,25 +38900,6 @@
           ]
         }
       },
-      "V20022SchemaVersion": {
-        "enum": [
-          "2.0.0"
-        ],
-        "type": "string",
-        "additionalProperties": false,
-        "description": "Version of the event schema. Determined by the \u0060schema_version\u0060 on your [webhook subscription](/api-reference/webhook).",
-        "example": "2.0.0",
-        "x-ms-enum": {
-          "name": "V20022SchemaVersion",
-          "modelAsString": false,
-          "values": [
-            {
-              "value": "2.0.0",
-              "name": "Value200"
-            }
-          ]
-        }
-      },
       "V40026SchemaVersion": {
         "enum": [
           "4.0.0"
@@ -38413,6 +38910,44 @@
         "example": "4.0.0",
         "x-ms-enum": {
           "name": "V40026SchemaVersion",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "4.0.0",
+              "name": "Value400"
+            }
+          ]
+        }
+      },
+      "V20023SchemaVersion": {
+        "enum": [
+          "2.0.0"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Version of the event schema. Determined by the \u0060schema_version\u0060 on your [webhook subscription](/api-reference/webhook).",
+        "example": "2.0.0",
+        "x-ms-enum": {
+          "name": "V20023SchemaVersion",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "2.0.0",
+              "name": "Value200"
+            }
+          ]
+        }
+      },
+      "V40027SchemaVersion": {
+        "enum": [
+          "4.0.0"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Version of the event schema. Determined by the \u0060schema_version\u0060 on your [webhook subscription](/api-reference/webhook).",
+        "example": "4.0.0",
+        "x-ms-enum": {
+          "name": "V40027SchemaVersion",
           "modelAsString": false,
           "values": [
             {
@@ -38763,7 +39298,7 @@
         ],
         "type": "string",
         "additionalProperties": false,
-        "description": "The state of the additional requirement. This state should be treated as independent of the parent KYC Requirement\u0027s state. They can, but don\u0027t have to, change together.\n- \u0060NOT_PROVIDED\u0060 \u2014 the information is pending. Either the Hosted KYC flow or [KYC Requirement Submit](kycreviewrequirementsubmit) endpoint should be used to fulfil the additional requirement.\n- \u0060IN_REVIEW\u0060 \u2014 the required information has been retrieved and the additional requirement is being reviewed. No action is needed.\n- \u0060VERIFIED\u0060 \u2014 the required information has been received and verified on our side. No action is needed.\n",
+        "description": "The state of the additional requirement. This state should be treated as independent of the parent KYC Requirement\u0027s state. They can, but don\u0027t have to, change together.\n- \u0060NOT_PROVIDED\u0060 \u2014 the information is pending. Either the Hosted KYC flow or [KYC Requirement Submit](/api-reference/kyc-review/kycreviewrequirementsubmit) endpoint should be used to fulfil the additional requirement.\n- \u0060IN_REVIEW\u0060 \u2014 the required information has been retrieved and the additional requirement is being reviewed. No action is needed.\n- \u0060VERIFIED\u0060 \u2014 the required information has been received and verified on our side. No action is needed.\n",
         "example": "NOT_PROVIDED",
         "x-ms-enum": {
           "name": "KycRequirementAdditionalRequirementsItemState",
@@ -39281,7 +39816,7 @@
           ]
         }
       },
-      "V40017DataPreviousState": {
+      "V40018DataPreviousState": {
         "enum": [
           "ACTIVE",
           "WITHDRAW_ONLY",
@@ -39291,7 +39826,7 @@
         "additionalProperties": false,
         "example": "ACTIVE",
         "x-ms-enum": {
-          "name": "V40017DataPreviousState",
+          "name": "V40018DataPreviousState",
           "modelAsString": false,
           "values": [
             {
@@ -39309,7 +39844,7 @@
           ]
         }
       },
-      "V40017DataCurrentState": {
+      "V40018DataCurrentState": {
         "enum": [
           "ACTIVE",
           "WITHDRAW_ONLY",
@@ -39320,7 +39855,7 @@
         "description": "The current state of the user",
         "example": "WITHDRAW_ONLY",
         "x-ms-enum": {
-          "name": "V40017DataCurrentState",
+          "name": "V40018DataCurrentState",
           "modelAsString": false,
           "values": [
             {
@@ -39338,7 +39873,7 @@
           ]
         }
       },
-      "V40017DataDeactivationType": {
+      "V40018DataDeactivationType": {
         "enum": [
           "ACCOUNT_SUSPENSION",
           "ACCOUNT_CLOSURE"
@@ -39348,7 +39883,7 @@
         "description": "If the type is \u0060ACCOUNT_SUSPENSION\u0060, it is possible for your customer support teams to appeal the deactivation by reaching out to Wise.",
         "example": "ACCOUNT_SUSPENSION",
         "x-ms-enum": {
-          "name": "V40017DataDeactivationType",
+          "name": "V40018DataDeactivationType",
           "modelAsString": false,
           "values": [
             {
@@ -39362,7 +39897,7 @@
           ]
         }
       },
-      "V20017DataPreviousState": {
+      "V20018DataPreviousState": {
         "enum": [
           "ACTIVE",
           "WITHDRAW_ONLY",
@@ -39372,7 +39907,7 @@
         "additionalProperties": false,
         "example": "ACTIVE",
         "x-ms-enum": {
-          "name": "V20017DataPreviousState",
+          "name": "V20018DataPreviousState",
           "modelAsString": false,
           "values": [
             {
@@ -39390,7 +39925,7 @@
           ]
         }
       },
-      "V20017DataCurrentState": {
+      "V20018DataCurrentState": {
         "enum": [
           "ACTIVE",
           "WITHDRAW_ONLY",
@@ -39401,7 +39936,7 @@
         "description": "The current state of the user",
         "example": "WITHDRAW_ONLY",
         "x-ms-enum": {
-          "name": "V20017DataCurrentState",
+          "name": "V20018DataCurrentState",
           "modelAsString": false,
           "values": [
             {
@@ -39419,7 +39954,7 @@
           ]
         }
       },
-      "V20017DataDeactivationType": {
+      "V20018DataDeactivationType": {
         "enum": [
           "ACCOUNT_SUSPENSION",
           "ACCOUNT_CLOSURE"
@@ -39429,7 +39964,7 @@
         "description": "If the type is \u0060ACCOUNT_SUSPENSION\u0060, it is possible for your customer support teams to appeal the deactivation by reaching out to Wise.",
         "example": "ACCOUNT_SUSPENSION",
         "x-ms-enum": {
-          "name": "V20017DataDeactivationType",
+          "name": "V20018DataDeactivationType",
           "modelAsString": false,
           "values": [
             {
@@ -39443,7 +39978,7 @@
           ]
         }
       },
-      "V40021DataPreviousStatus": {
+      "V40022DataPreviousStatus": {
         "enum": [
           "NEW",
           "PROCESSING",
@@ -39456,7 +39991,7 @@
         "description": "Previous payment initiation state",
         "example": "NEW",
         "x-ms-enum": {
-          "name": "V40021DataPreviousStatus",
+          "name": "V40022DataPreviousStatus",
           "modelAsString": false,
           "values": [
             {
@@ -39482,7 +40017,7 @@
           ]
         }
       },
-      "V40021DataCurrentStatus": {
+      "V40022DataCurrentStatus": {
         "enum": [
           "NEW",
           "PROCESSING",
@@ -39495,7 +40030,7 @@
         "description": "Current payment initiation state",
         "example": "PROCESSING",
         "x-ms-enum": {
-          "name": "V40021DataCurrentStatus",
+          "name": "V40022DataCurrentStatus",
           "modelAsString": false,
           "values": [
             {
@@ -39521,7 +40056,7 @@
           ]
         }
       },
-      "V20020DataPreviousStatus": {
+      "V20021DataPreviousStatus": {
         "enum": [
           "NEW",
           "PROCESSING",
@@ -39534,7 +40069,7 @@
         "description": "Previous payment initiation state",
         "example": "NEW",
         "x-ms-enum": {
-          "name": "V20020DataPreviousStatus",
+          "name": "V20021DataPreviousStatus",
           "modelAsString": false,
           "values": [
             {
@@ -39560,7 +40095,7 @@
           ]
         }
       },
-      "V20020DataCurrentStatus": {
+      "V20021DataCurrentStatus": {
         "enum": [
           "NEW",
           "PROCESSING",
@@ -39573,7 +40108,7 @@
         "description": "Current payment initiation state",
         "example": "PROCESSING",
         "x-ms-enum": {
-          "name": "V20020DataCurrentStatus",
+          "name": "V20021DataCurrentStatus",
           "modelAsString": false,
           "values": [
             {
@@ -39599,7 +40134,7 @@
           ]
         }
       },
-      "V40022DataType": {
+      "V40023DataType": {
         "enum": [
           "STATUS_UPDATED",
           "NEW_COMMENT",
@@ -39610,7 +40145,7 @@
         "description": "The type of the webhook being sent.",
         "example": "NEW_CASE",
         "x-ms-enum": {
-          "name": "V40022DataType",
+          "name": "V40023DataType",
           "modelAsString": false,
           "values": [
             {
@@ -39628,7 +40163,7 @@
           ]
         }
       },
-      "V20021DataType": {
+      "V20022DataType": {
         "enum": [
           "STATUS_UPDATED",
           "NEW_COMMENT",
@@ -39639,7 +40174,7 @@
         "description": "The type of the webhook being sent.",
         "example": "NEW_CASE",
         "x-ms-enum": {
-          "name": "V20021DataType",
+          "name": "V20022DataType",
           "modelAsString": false,
           "values": [
             {
@@ -39657,7 +40192,7 @@
           ]
         }
       },
-      "V40025DataStatus": {
+      "V40026DataStatus": {
         "enum": [
           "ACTIVE",
           "CLOSED"
@@ -39667,7 +40202,7 @@
         "description": "Dispute overall status",
         "example": "CLOSED",
         "x-ms-enum": {
-          "name": "V40025DataStatus",
+          "name": "V40026DataStatus",
           "modelAsString": false,
           "values": [
             {
@@ -39681,7 +40216,7 @@
           ]
         }
       },
-      "V20022DataStatus": {
+      "V20023DataStatus": {
         "enum": [
           "ACTIVE",
           "CLOSED"
@@ -39691,7 +40226,7 @@
         "description": "Dispute overall status",
         "example": "CLOSED",
         "x-ms-enum": {
-          "name": "V20022DataStatus",
+          "name": "V20023DataStatus",
           "modelAsString": false,
           "values": [
             {
@@ -39889,7 +40424,7 @@
           ]
         }
       },
-      "V40019DataResourceState": {
+      "V40020DataResourceState": {
         "enum": [
           "ACTIVE",
           "INACTIVE"
@@ -39899,7 +40434,7 @@
         "description": "State of the account.",
         "example": "INACTIVE",
         "x-ms-enum": {
-          "name": "V40019DataResourceState",
+          "name": "V40020DataResourceState",
           "modelAsString": false,
           "values": [
             {
@@ -39913,7 +40448,7 @@
           ]
         }
       },
-      "V20018DataResourceState": {
+      "V20019DataResourceState": {
         "enum": [
           "ACTIVE",
           "INACTIVE"
@@ -39923,7 +40458,7 @@
         "description": "State of the account.",
         "example": "INACTIVE",
         "x-ms-enum": {
-          "name": "V20018DataResourceState",
+          "name": "V20019DataResourceState",
           "modelAsString": false,
           "values": [
             {
@@ -39937,7 +40472,7 @@
           ]
         }
       },
-      "V40022DataResourceStatus": {
+      "V40023DataResourceStatus": {
         "enum": [
           "OPEN",
           "PENDING",
@@ -39949,7 +40484,7 @@
         "description": "Status of the case.",
         "example": "PENDING",
         "x-ms-enum": {
-          "name": "V40022DataResourceStatus",
+          "name": "V40023DataResourceStatus",
           "modelAsString": false,
           "values": [
             {
@@ -39971,7 +40506,7 @@
           ]
         }
       },
-      "V20021DataResourceStatus": {
+      "V20022DataResourceStatus": {
         "enum": [
           "OPEN",
           "PENDING",
@@ -39983,7 +40518,7 @@
         "description": "Status of the case.",
         "example": "PENDING",
         "x-ms-enum": {
-          "name": "V20021DataResourceStatus",
+          "name": "V20022DataResourceStatus",
           "modelAsString": false,
           "values": [
             {
@@ -40054,6 +40589,143 @@
             {
               "value": "SAME DAY",
               "name": "SameDay"
+            }
+          ]
+        }
+      },
+      "V500DataResourceTriggerReferencesItemType": {
+        "enum": [
+          "QUOTE",
+          "TRANSFER",
+          "PROACTIVE_SEND_MONEY",
+          "ADD_MONEY",
+          "CARD",
+          "BANK_ACCOUNT_DETAILS",
+          "INFO_REQUEST"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Type of the underlying action/process this KYC Review is for. Usually a reference to which product\nthis KYC Review is for (like \u0060QUOTE\u0060 or \u0060TRANSFER\u0060) or a reference to a KYC process on the profile\nthat isn\u0027t related to a specific product (like \u0060REFRESH_CYCLE\u0060 or \u0060REPAPERING\u0060).\n",
+        "example": "QUOTE",
+        "x-ms-enum": {
+          "name": "V500DataResourceTriggerReferencesItemType",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "QUOTE",
+              "name": "Quote"
+            },
+            {
+              "value": "TRANSFER",
+              "name": "Transfer"
+            },
+            {
+              "value": "PROACTIVE_SEND_MONEY",
+              "name": "ProactiveSendMoney"
+            },
+            {
+              "value": "ADD_MONEY",
+              "name": "AddMoney"
+            },
+            {
+              "value": "CARD",
+              "name": "Card"
+            },
+            {
+              "value": "BANK_ACCOUNT_DETAILS",
+              "name": "BankAccountDetails"
+            },
+            {
+              "value": "INFO_REQUEST",
+              "name": "InfoRequest"
+            }
+          ]
+        }
+      },
+      "V40017DataResourceTriggerReferencesItemType": {
+        "enum": [
+          "QUOTE",
+          "TRANSFER",
+          "PROACTIVE_SEND_MONEY",
+          "ADD_MONEY",
+          "CARD",
+          "BANK_ACCOUNT_DETAILS"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Type of the underlying action/process this KYC Review is for. Usually a reference to which product\nthis KYC Review is for (like \u0060QUOTE\u0060 or \u0060TRANSFER\u0060) or a reference to a KYC process on the profile\nthat isn\u0027t related to a specific product (like \u0060REFRESH_CYCLE\u0060 or \u0060REPAPERING\u0060).\n",
+        "example": "QUOTE",
+        "x-ms-enum": {
+          "name": "V40017DataResourceTriggerReferencesItemType",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "QUOTE",
+              "name": "Quote"
+            },
+            {
+              "value": "TRANSFER",
+              "name": "Transfer"
+            },
+            {
+              "value": "PROACTIVE_SEND_MONEY",
+              "name": "ProactiveSendMoney"
+            },
+            {
+              "value": "ADD_MONEY",
+              "name": "AddMoney"
+            },
+            {
+              "value": "CARD",
+              "name": "Card"
+            },
+            {
+              "value": "BANK_ACCOUNT_DETAILS",
+              "name": "BankAccountDetails"
+            }
+          ]
+        }
+      },
+      "V20017DataResourceTriggerReferencesItemType": {
+        "enum": [
+          "QUOTE",
+          "TRANSFER",
+          "PROACTIVE_SEND_MONEY",
+          "ADD_MONEY",
+          "CARD",
+          "BANK_ACCOUNT_DETAILS"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Type of the underlying action/process this KYC Review is for. Usually a reference to which product\nthis KYC Review is for (like \u0060QUOTE\u0060 or \u0060TRANSFER\u0060) or a reference to a KYC process on the profile\nthat isn\u0027t related to a specific product (like \u0060REFRESH_CYCLE\u0060 or \u0060REPAPERING\u0060).\n",
+        "example": "QUOTE",
+        "x-ms-enum": {
+          "name": "V20017DataResourceTriggerReferencesItemType",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "QUOTE",
+              "name": "Quote"
+            },
+            {
+              "value": "TRANSFER",
+              "name": "Transfer"
+            },
+            {
+              "value": "PROACTIVE_SEND_MONEY",
+              "name": "ProactiveSendMoney"
+            },
+            {
+              "value": "ADD_MONEY",
+              "name": "AddMoney"
+            },
+            {
+              "value": "CARD",
+              "name": "Card"
+            },
+            {
+              "value": "BANK_ACCOUNT_DETAILS",
+              "name": "BankAccountDetails"
             }
           ]
         }
@@ -43704,7 +44376,7 @@
     },
     {
       "name": "webhook-event",
-      "description": "Webhook events are notifications sent by Wise to your server when specific actions occur. Subscribe to events using the [Webhook](/api-reference/webhook) endpoints at the application or profile level.\n\nSee the [Webhooks guide](/guides/developer/webhooks) for setup instructions, signature verification, and best practices.\n\n{% admonition type=\u0022info\u0022 %}\nWe\u0027re migrating event type documentation to this section. For a complete list of available event types, see the [Event Types](/guides/developer/webhooks/event-types) guide.\n{% /admonition %}\n",
+      "description": "Webhook events are notifications sent by Wise to your server when specific actions occur. Subscribe to events using the [Webhook](/api-reference/webhook) endpoints at the application or profile level.\n\nSee the [Webhooks guide](/guides/developer/webhooks) for setup instructions, signature verification, and best practices.\n",
       "x-displayName": "Events"
     }
   ]

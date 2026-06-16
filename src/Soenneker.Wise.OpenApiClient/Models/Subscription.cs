@@ -50,7 +50,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public global::Soenneker.Wise.OpenApiClient.Models.SubscriptionScope Scope { get; set; }
 #endif
-        /// <summary>The event type this subscription is listening for. [List of available events](/guides/developer/webhooks/event-types).</summary>
+        /// <summary>The event type this subscription is listening for. [List of available events](/api-reference/webhook-event).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? TriggerOn { get; set; }

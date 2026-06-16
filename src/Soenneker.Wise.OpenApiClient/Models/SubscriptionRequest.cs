@@ -30,7 +30,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string Name { get; set; }
 #endif
-        /// <summary>[Choose from a list of available events](/guides/developer/webhooks/event-types).</summary>
+        /// <summary>[Choose from a list of available events](/api-reference/webhook-event).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? TriggerOn { get; set; }
