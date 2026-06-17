@@ -13447,7 +13447,7 @@
         ],
         "summary": "Create a third party transfer",
         "description": "    When creating a transfer on behalf of a third party, you must take note that:\n\n    * The \u0060originator\u0060 datablock is **required**. This details the ultimate sender of funds in the transfer.\n    * Depending on the legal entity type of the originator (\u0060PRIVATE\u0060 or \u0060BUSINESS\u0060), the required fields vary. Please refer the sample request examples.\n    * \u0060OriginalTransferId\u0060 field must be used. This is your own ID for the transfer.\n\n    You need to save the transfer ID for tracking its status later via webhooks.\n\n    #### Avoiding duplicate transfers\n\n    The \u0060originalTransferId\u0060 field is used to avoid duplicate transfer requests. If your initial call fails (error or timeout), retry the call using the same \u0060originalTransferId\u0060 value. Subsequent retry messages are treated as repeat messages and will not create duplicate transfers.\n",
-        "operationId": "CreateThirdPartyTransfer",
+        "operationId": "Createthirdpartytransfer",
         "parameters": [
           {
             "name": "profileId",
@@ -13650,7 +13650,7 @@
         ],
         "summary": "Get a third party transfer by ID",
         "description": "    Get third party transfer info by ID. To receive dynamic updates as the state of the transfer changes, see the [webhooks documentation](https://docs.wise.com/api-reference/webhook).\n",
-        "operationId": "GetThirdPartyTransfer",
+        "operationId": "Getthirdpartytransfer",
         "parameters": [
           {
             "name": "profileId",
@@ -13788,28 +13788,28 @@
         "tags": [
           "transfer"
         ],
-        "summary": "Fund a transfer",
-        "description": "{% admonition type=\u0022warning\u0022 %}\nThis endpoint is SCA protected when it applies. If your profile is registered within the UK and/or EEA, SCA most likely applies to you.\nPlease read more about [implementing SCA](/guides/developer/auth-and-security/sca-and-2fa).\n{% /admonition %}\n\nThis API call is the final step for executing payouts when using a balance with Wise. Upon calling the endpoint, Wise will begin the processing of the transfer, depending on the status of funds.\n\nWhen using the transfer by transfer settlement model, the following funding type(s) must be used:\n\n- **BALANCE** \u2014 Funds are pulled from a multi-currency account held with Wise.\n- **BANK_TRANSFER** \u2014 Manually send funds from your business bank account to pay for any transfers. Only applicable when using the [Batch Group API](/api-reference/batch-group/).\n\nWhen funding through the Bulk Settlement model, the following funding type(s) must be used:\n\n- **TRUSTED_PRE_FUND_BULK** \u2014 Funds for the transfer will be settled through a bulk payment at a later date. This method is not applicable for First Party partner account transfers.\n\nIf funding from \u0060BALANCE\u0060, and your multi-currency account does not have the required funds to complete the action, then this call will fail with an \u0022insufficient funds\u0022 error. Once funds are added and available, you must call this endpoint again.\n",
-        "operationId": "TransferFund",
+        "summary": "Fund a Transfer",
+        "description": "    {% admonition type=\u0022warning\u0022 %}\n      This endpoint is SCA protected when it applies. If your profile is registered within the UK and/or EEA, SCA most likely applies to you.\n      Please read more about [implementing SCA](/guides/developer/auth-and-security/sca-and-2fa).\n    {% /admonition %}\n\n    This API call is the final step for executing payouts when using a balance with Wise. Upon calling the endpoint, Wise will begin the processing of the transfer, depending on the status of funds.\n\n    When using the transfer by transfer settlement model, the following funding type(s) must be used:\n\n    * **BALANCE** \u2014 Funds are pulled from a multi-currency account held with Wise.\n\n    When funding through the Bulk Settlement model, the following funding type(s) must be used:\n\n    * **TRUSTED_PRE_FUND_BULK** \u2014 Funds for the transfer will be settled through a bulk payment at a later date. This method is not applicable for First Party partner account transfers.\n\n    If funding from \u0060BALANCE\u0060, and your multi-currency account does not have the required funds to complete the action, then this call will fail with an \u0022insufficient funds\u0022 error. Once funds are added and available, you must call this endpoint again.\n    ",
+        "operationId": "Transferfund",
         "parameters": [
           {
             "name": "profileId",
             "in": "path",
-            "description": "The profile ID that created the transfer. Can be either your personal or business profile ID",
             "required": true,
             "schema": {
               "type": "integer",
-              "format": "int64"
+              "format": "int64",
+              "example": 123456789
             }
           },
           {
             "name": "transferId",
             "in": "path",
-            "description": "The transfer ID",
             "required": true,
             "schema": {
               "type": "integer",
-              "format": "int64"
+              "format": "int64",
+              "example": 16521632
             }
           },
           {
@@ -13820,42 +13820,133 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TransferFundRequest"
+                "$ref": "#/components/schemas/FundingRequest"
+              },
+              "examples": {
+                "fund-transfer-balance": {
+                  "summary": "BALANCE - Fund from a Wise balance (Pre-Funded Wise Balance)",
+                  "value": {
+                    "type": "BALANCE",
+                    "balanceId": 45678901
+                  }
+                },
+                "fund-transfer-trusted-pre-fund-bulk": {
+                  "summary": "TRUSTED_PRE_FUND_BULK - Cross Currency Bulk Settlement",
+                  "value": {
+                    "type": "TRUSTED_PRE_FUND_BULK",
+                    "partnerReference": "PARTNER-REF-4711"
+                  }
+                },
+                "fund-transfer-trusted-pre-fund-tx": {
+                  "summary": "TRUSTED_PRE_FUND_TX - Per-transaction trusted pre-fund",
+                  "value": {
+                    "type": "TRUSTED_PRE_FUND_TX",
+                    "partnerReference": "PARTNER-REF-4711"
+                  }
+                }
               }
             }
           }
         },
         "responses": {
-          "200": {
-            "description": "Transfer funding result.",
+          "201": {
+            "description": "FundTransfer 201 response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/TransferFund200Response"
+                  "$ref": "#/components/schemas/FundingResponse"
                 },
                 "examples": {
-                  "completed": {
-                    "summary": "Balance - Completed",
+                  "fund-transfer-balance-completed": {
+                    "summary": "BALANCE - completed",
                     "value": {
                       "type": "BALANCE",
                       "status": "COMPLETED",
-                      "errorCode": null
+                      "balanceTransactionId": 987654321
                     }
                   },
-                  "insufficient-funds": {
-                    "summary": "Balance - Insufficient Funds",
+                  "fund-transfer-balance-rejected-insufficient-funds": {
+                    "summary": "BALANCE - rejected (insufficient funds)",
                     "value": {
                       "type": "BALANCE",
                       "status": "REJECTED",
-                      "errorCode": "transfer.insufficient_funds"
+                      "errorCode": "balance.insufficient-funds"
+                    }
+                  },
+                  "fund-transfer-trusted-pre-fund-bulk-completed": {
+                    "summary": "TRUSTED_PRE_FUND_BULK - completed",
+                    "value": {
+                      "type": "TRUSTED_PRE_FUND_BULK",
+                      "status": "COMPLETED",
+                      "partnerReference": "PARTNER-REF-4711"
                     }
                   }
                 }
               }
             }
           },
+          "400": {
+            "description": "InvalidRequestError 400 response",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Transferfund400ResponseResponsePlain"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "UnauthorisedAccessError 403 response",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Transferfund403ResponseResponsePlain"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "EntityNotFoundError 404 response",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Transferfund404ResponseResponsePlain"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "PaymentAlreadyExistsError 409 response",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Transferfund409ResponseResponsePlain"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "UnsupportedOperationError 422 response",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Transferfund422ResponseResponsePlain"
+                }
+              }
+            }
+          },
           "429": {
             "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "description": "UnexpectedError 500 response",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Transferfund500ResponseResponsePlain"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -14944,36 +15035,35 @@
   },
   "components": {
     "schemas": {
-      "Value429Response": {
-        "type": "object"
+      "BalanceAmount": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "number",
+            "description": "Amount value.",
+            "example": 310.86
+          },
+          "currency": {
+            "type": "string",
+            "description": "Currency code (ISO 4217 Alphabetic Code).",
+            "example": "EUR"
+          }
+        },
+        "description": "Available balance that can be used to fund transfers."
       },
-      "AccountRequirementsResponseItem": {
+      "BalanceIcon": {
         "type": "object",
         "properties": {
           "type": {
-            "type": "string",
-            "description": "Requirement group identifier (route/payout-method specific).",
-            "example": "south_korean_paygate"
+            "$ref": "#/components/schemas/BalanceIconType"
           },
-          "title": {
+          "value": {
             "type": "string",
-            "description": "Human-readable title for the requirement group.",
-            "example": "PayGate"
-          },
-          "usageInfo": {
-            "type": "string",
-            "description": "Optional usage/help text.",
-            "example": null
-          },
-          "fields": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/AccountRequirementsResponseItemFieldsItem"
-            },
-            "description": "List of UI field groups to collect required data."
+            "description": "Icon value (e.g., emoji character)."
           }
         },
-        "description": "A requirement group for a specific payout method / route."
+        "description": "Icon for the balance.",
+        "example": null
       },
       "ChallengeResultRequest": {
         "required": [
@@ -18514,6 +18604,590 @@
         },
         "description": "Returns the originator transfer object."
       },
+      "BalanceRequest": {
+        "type": "object",
+        "properties": {
+          "balanceId": {
+            "type": "integer",
+            "description": "ID of the balance to debit.",
+            "format": "int64",
+            "example": 45678901
+          },
+          "balanceTransactionId": {
+            "type": "integer",
+            "description": "ID of an existing pending balance transaction to settle.",
+            "format": "int64",
+            "example": 987654321
+          }
+        }
+      },
+      "FundingRequestMixin": {
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          }
+        }
+      },
+      "FundingRequestBalance": {
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "balanceId": {
+            "type": "integer",
+            "description": "ID of the balance to debit.",
+            "format": "int64",
+            "example": 45678901
+          },
+          "balanceTransactionId": {
+            "type": "integer",
+            "description": "ID of an existing pending balance transaction to settle.",
+            "format": "int64",
+            "example": 987654321
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      },
+      "TrustedPreFundRequest": {
+        "type": "object",
+        "properties": {
+          "partnerReference": {
+            "type": "string",
+            "description": "The transaction/payment identifier in your system. Required for the Cross Currency Bulk Settlement model.",
+            "example": "PARTNER-REF-4711"
+          },
+          "status": {
+            "type": "string",
+            "description": "Internal status field."
+          }
+        }
+      },
+      "FundingRequestTrustedPreFundBulk": {
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "partnerReference": {
+            "type": "string",
+            "description": "The transaction/payment identifier in your system. Required for the Cross Currency Bulk Settlement model.",
+            "example": "PARTNER-REF-4711"
+          },
+          "status": {
+            "type": "string",
+            "description": "Internal status field."
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      },
+      "FundingRequestTrustedPreFund": {
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "partnerReference": {
+            "type": "string",
+            "description": "The transaction/payment identifier in your system. Required for the Cross Currency Bulk Settlement model.",
+            "example": "PARTNER-REF-4711"
+          },
+          "status": {
+            "type": "string",
+            "description": "Internal status field."
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      },
+      "FundingRequest": {
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/FundingRequestBalance"
+          },
+          {
+            "$ref": "#/components/schemas/FundingRequestTrustedPreFundBulk"
+          },
+          {
+            "$ref": "#/components/schemas/FundingRequestTrustedPreFund"
+          }
+        ],
+        "properties": {
+          "type": {
+            "title": "type",
+            "type": "string",
+            "description": "Union discriminator"
+          }
+        },
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "BALANCE": "#/components/schemas/FundingRequestBalance",
+            "TRUSTED_PRE_FUND_BULK": "#/components/schemas/FundingRequestTrustedPreFundBulk",
+            "TRUSTED_PRE_FUND_TX": "#/components/schemas/FundingRequestTrustedPreFund",
+            "FundingRequestBalance": "#/components/schemas/FundingRequestBalance",
+            "FundingRequestTrustedPreFundBulk": "#/components/schemas/FundingRequestTrustedPreFundBulk",
+            "FundingRequestTrustedPreFund": "#/components/schemas/FundingRequestTrustedPreFund"
+          }
+        }
+      },
+      "FundingStatus": {
+        "enum": [
+          "CREATED",
+          "COMPLETED",
+          "REJECTED"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Outcome of a funding attempt.",
+        "x-ms-enum": {
+          "name": "FundingStatus",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "CREATED",
+              "name": "Created"
+            },
+            {
+              "value": "COMPLETED",
+              "name": "Completed"
+            },
+            {
+              "value": "REJECTED",
+              "name": "Rejected"
+            }
+          ]
+        }
+      },
+      "FundingErrorCode": {
+        "enum": [
+          "transfer.not-found",
+          "transfer.invalid-state",
+          "payment.exists",
+          "transfer.not-accessible-for-user",
+          "balance.unauthorised.missing-security-role",
+          "payment.not-found",
+          "invalid.request",
+          "unexpected.error",
+          "payment.option-unavailable",
+          "balance.payment-option-unavailable",
+          "balance.account-not-found",
+          "balance.account-inactive",
+          "balance.insufficient-funds",
+          "balance.no-balance-for-currency",
+          "balance.currency-unsupported",
+          "trustedprefundbulk.payment-option-unavailable",
+          "trustedprefundtx.payment-option-unavailable"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "\u0022Machine-readable error code returned with \u0060status: REJECTED\u0060. Each member\u0027s documentation notes the \u0060type\u0060 values that can produce it and the underlying HTTP status.\n\n    This is the complete set of error codes the API can return today. Consumers should treat unknown codes defensively (new codes may be added); a wildcard fallback to a generic \u0027funding failed\u0027 UI is recommended.\u0022",
+        "x-ms-enum": {
+          "name": "FundingErrorCode",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "transfer.not-found",
+              "name": "TransferNotFound"
+            },
+            {
+              "value": "transfer.invalid-state",
+              "name": "TransferInvalidState"
+            },
+            {
+              "value": "payment.exists",
+              "name": "PaymentExists"
+            },
+            {
+              "value": "transfer.not-accessible-for-user",
+              "name": "TransferNotAccessibleForUser"
+            },
+            {
+              "value": "balance.unauthorised.missing-security-role",
+              "name": "BalanceUnauthorisedMissingSecurityRole"
+            },
+            {
+              "value": "payment.not-found",
+              "name": "PaymentNotFound"
+            },
+            {
+              "value": "invalid.request",
+              "name": "InvalidRequest"
+            },
+            {
+              "value": "unexpected.error",
+              "name": "UnexpectedError"
+            },
+            {
+              "value": "payment.option-unavailable",
+              "name": "PaymentOptionUnavailable"
+            },
+            {
+              "value": "balance.payment-option-unavailable",
+              "name": "BalancePaymentOptionUnavailable"
+            },
+            {
+              "value": "balance.account-not-found",
+              "name": "BalanceAccountNotFound"
+            },
+            {
+              "value": "balance.account-inactive",
+              "name": "BalanceAccountInactive"
+            },
+            {
+              "value": "balance.insufficient-funds",
+              "name": "BalanceInsufficientFunds"
+            },
+            {
+              "value": "balance.no-balance-for-currency",
+              "name": "BalanceNoBalanceForCurrency"
+            },
+            {
+              "value": "balance.currency-unsupported",
+              "name": "BalanceCurrencyUnsupported"
+            },
+            {
+              "value": "trustedprefundbulk.payment-option-unavailable",
+              "name": "TrustedprefundbulkPaymentOptionUnavailable"
+            },
+            {
+              "value": "trustedprefundtx.payment-option-unavailable",
+              "name": "TrustedprefundtxPaymentOptionUnavailable"
+            }
+          ]
+        }
+      },
+      "BalanceResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/FundingStatus"
+          },
+          "errorCode": {
+            "$ref": "#/components/schemas/FundingErrorCode"
+          },
+          "errorMessage": {
+            "type": "string",
+            "description": "Free-form human-readable explanation of a \u0060REJECTED\u0060 outcome. Suitable for logging and developer-facing tools; not localised and not safe to surface to end users. May be absent."
+          },
+          "balanceTransactionId": {
+            "type": "integer",
+            "description": "ID of the balance transaction created to settle the transfer.",
+            "format": "int64",
+            "example": 987654321
+          }
+        }
+      },
+      "FundingResponseMixin": {
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          }
+        }
+      },
+      "FundingResponseBalance": {
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/FundingStatus"
+          },
+          "errorCode": {
+            "$ref": "#/components/schemas/FundingErrorCode"
+          },
+          "errorMessage": {
+            "type": "string",
+            "description": "Free-form human-readable explanation of a \u0060REJECTED\u0060 outcome. Suitable for logging and developer-facing tools; not localised and not safe to surface to end users. May be absent."
+          },
+          "balanceTransactionId": {
+            "type": "integer",
+            "description": "ID of the balance transaction created to settle the transfer.",
+            "format": "int64",
+            "example": 987654321
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      },
+      "TrustedPreFundResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/FundingStatus"
+          },
+          "errorCode": {
+            "$ref": "#/components/schemas/FundingErrorCode"
+          },
+          "errorMessage": {
+            "type": "string",
+            "description": "Free-form human-readable explanation of a \u0060REJECTED\u0060 outcome. Suitable for logging and developer-facing tools; not localised and not safe to surface to end users. May be absent."
+          },
+          "partnerReference": {
+            "type": "string",
+            "description": "Partner-supplied reference echoed back.",
+            "example": "PARTNER-REF-4711"
+          }
+        }
+      },
+      "FundingResponseTrustedPreFundBulk": {
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/FundingStatus"
+          },
+          "errorCode": {
+            "$ref": "#/components/schemas/FundingErrorCode"
+          },
+          "errorMessage": {
+            "type": "string",
+            "description": "Free-form human-readable explanation of a \u0060REJECTED\u0060 outcome. Suitable for logging and developer-facing tools; not localised and not safe to surface to end users. May be absent."
+          },
+          "partnerReference": {
+            "type": "string",
+            "description": "Partner-supplied reference echoed back.",
+            "example": "PARTNER-REF-4711"
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      },
+      "FundingResponseTrustedPreFund": {
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/FundingStatus"
+          },
+          "errorCode": {
+            "$ref": "#/components/schemas/FundingErrorCode"
+          },
+          "errorMessage": {
+            "type": "string",
+            "description": "Free-form human-readable explanation of a \u0060REJECTED\u0060 outcome. Suitable for logging and developer-facing tools; not localised and not safe to surface to end users. May be absent."
+          },
+          "partnerReference": {
+            "type": "string",
+            "description": "Partner-supplied reference echoed back.",
+            "example": "PARTNER-REF-4711"
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      },
+      "FundingResponse": {
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/FundingResponseBalance"
+          },
+          {
+            "$ref": "#/components/schemas/FundingResponseTrustedPreFundBulk"
+          },
+          {
+            "$ref": "#/components/schemas/FundingResponseTrustedPreFund"
+          }
+        ],
+        "properties": {
+          "type": {
+            "title": "type",
+            "type": "string",
+            "description": "Union discriminator"
+          }
+        },
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "BALANCE": "#/components/schemas/FundingResponseBalance",
+            "TRUSTED_PRE_FUND_BULK": "#/components/schemas/FundingResponseTrustedPreFundBulk",
+            "TRUSTED_PRE_FUND_TX": "#/components/schemas/FundingResponseTrustedPreFund",
+            "FundingResponseBalance": "#/components/schemas/FundingResponseBalance",
+            "FundingResponseTrustedPreFundBulk": "#/components/schemas/FundingResponseTrustedPreFundBulk",
+            "FundingResponseTrustedPreFund": "#/components/schemas/FundingResponseTrustedPreFund"
+          }
+        }
+      },
+      "AddressRequirementsRequestDetails": {
+        "required": [
+          "country"
+        ],
+        "type": "object",
+        "properties": {
+          "country": {
+            "type": "string",
+            "description": "Country code (ISO 3166-2 Country Code).",
+            "example": "US"
+          },
+          "state": {
+            "type": "string",
+            "description": "State code. Provide to discover state-dependent fields.",
+            "example": "AZ"
+          }
+        },
+        "additionalProperties": {
+          "type": "string",
+          "description": "Any other properties to provide context for the requirements lookup."
+        },
+        "description": "Address details to provide context for requirements lookup. Additional fields beyond those listed are accepted."
+      },
+      "AddressRequestDetails": {
+        "required": [
+          "country",
+          "firstLine",
+          "postCode",
+          "city"
+        ],
+        "type": "object",
+        "properties": {
+          "country": {
+            "type": "string",
+            "description": "Country code (ISO 3166-1 alpha-2).",
+            "example": "US"
+          },
+          "firstLine": {
+            "type": "string",
+            "description": "\u0022Address line: street, house, apartment.\u0022",
+            "example": "50 Sunflower Ave"
+          },
+          "postCode": {
+            "maxLength": 30,
+            "type": "string",
+            "description": "Postal / zip code (max 30 characters).",
+            "example": 10025
+          },
+          "city": {
+            "type": "string",
+            "description": "City name.",
+            "example": "Phoenix"
+          },
+          "state": {
+            "type": "string",
+            "description": "State code. Required if country is US, CA, BR, or AU.",
+            "example": "AZ"
+          },
+          "occupations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AddressRequestDetailsOccupationsItem"
+            },
+            "description": "User occupations. Required for CA, IN, JP, ID, IL, MX, and within the US for state NM."
+          }
+        },
+        "description": "Address details."
+      },
+      "AddressDetails": {
+        "type": "object",
+        "properties": {
+          "country": {
+            "type": "string",
+            "description": "Country code (ISO 3166-2 Country Code).",
+            "example": "US"
+          },
+          "firstLine": {
+            "type": "string",
+            "description": "\u0022Address line: street, house, apartment.\u0022",
+            "example": "50 Sunflower Ave"
+          },
+          "postCode": {
+            "maxLength": 30,
+            "type": "string",
+            "description": "Postal or zip code (max 30 characters).",
+            "example": 10025
+          },
+          "city": {
+            "type": "string",
+            "description": "City name.",
+            "example": "Phoenix"
+          },
+          "state": {
+            "type": "string",
+            "description": "State code. Required if country is US, CA, BR, or AU.",
+            "example": "AZ"
+          },
+          "occupations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AddressDetailsOccupationsItem"
+            },
+            "description": "User occupations. Required for CA, IN, JP, ID, IL, MX, and within the US for state NM."
+          }
+        },
+        "description": "Address details."
+      },
+      "ActivityResource": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/ActivityResourceType"
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique identifier of the resource.",
+            "example": 343049
+          }
+        },
+        "description": "The resource associated with the activity."
+      },
+      "Value429Response": {
+        "type": "object"
+      },
+      "AccountRequirementsResponseItem": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Requirement group identifier (route/payout-method specific).",
+            "example": "south_korean_paygate"
+          },
+          "title": {
+            "type": "string",
+            "description": "Human-readable title for the requirement group.",
+            "example": "PayGate"
+          },
+          "usageInfo": {
+            "type": "string",
+            "description": "Optional usage/help text.",
+            "example": null
+          },
+          "fields": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AccountRequirementsResponseItemFieldsItem"
+            },
+            "description": "List of UI field groups to collect required data."
+          }
+        },
+        "description": "A requirement group for a specific payout method / route."
+      },
       "Payment": {
         "title": "Payment",
         "type": "object",
@@ -20341,175 +21015,6 @@
           }
         }
       },
-      "AccountRequirementsResponseItemFieldsItem": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "description": "Display name of this group.",
-            "example": "E-mail"
-          },
-          "group": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/AccountRequirementsResponseItemFieldsItemGroupItem"
-            },
-            "description": "The actual fields within this group."
-          }
-        },
-        "description": "Group of related fields shown together in UI."
-      },
-      "ActivityResource": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "$ref": "#/components/schemas/ActivityResourceType"
-          },
-          "id": {
-            "type": "string",
-            "description": "The unique identifier of the resource.",
-            "example": 343049
-          }
-        },
-        "description": "The resource associated with the activity."
-      },
-      "AddressDetails": {
-        "type": "object",
-        "properties": {
-          "country": {
-            "type": "string",
-            "description": "Country code (ISO 3166-2 Country Code).",
-            "example": "US"
-          },
-          "firstLine": {
-            "type": "string",
-            "description": "\u0022Address line: street, house, apartment.\u0022",
-            "example": "50 Sunflower Ave"
-          },
-          "postCode": {
-            "maxLength": 30,
-            "type": "string",
-            "description": "Postal or zip code (max 30 characters).",
-            "example": 10025
-          },
-          "city": {
-            "type": "string",
-            "description": "City name.",
-            "example": "Phoenix"
-          },
-          "state": {
-            "type": "string",
-            "description": "State code. Required if country is US, CA, BR, or AU.",
-            "example": "AZ"
-          },
-          "occupations": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/AddressDetailsOccupationsItem"
-            },
-            "description": "User occupations. Required for CA, IN, JP, ID, IL, MX, and within the US for state NM."
-          }
-        },
-        "description": "Address details."
-      },
-      "AddressRequestDetails": {
-        "required": [
-          "country",
-          "firstLine",
-          "postCode",
-          "city"
-        ],
-        "type": "object",
-        "properties": {
-          "country": {
-            "type": "string",
-            "description": "Country code (ISO 3166-1 alpha-2).",
-            "example": "US"
-          },
-          "firstLine": {
-            "type": "string",
-            "description": "\u0022Address line: street, house, apartment.\u0022",
-            "example": "50 Sunflower Ave"
-          },
-          "postCode": {
-            "maxLength": 30,
-            "type": "string",
-            "description": "Postal / zip code (max 30 characters).",
-            "example": 10025
-          },
-          "city": {
-            "type": "string",
-            "description": "City name.",
-            "example": "Phoenix"
-          },
-          "state": {
-            "type": "string",
-            "description": "State code. Required if country is US, CA, BR, or AU.",
-            "example": "AZ"
-          },
-          "occupations": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/AddressRequestDetailsOccupationsItem"
-            },
-            "description": "User occupations. Required for CA, IN, JP, ID, IL, MX, and within the US for state NM."
-          }
-        },
-        "description": "Address details."
-      },
-      "AddressRequirementsRequestDetails": {
-        "required": [
-          "country"
-        ],
-        "type": "object",
-        "properties": {
-          "country": {
-            "type": "string",
-            "description": "Country code (ISO 3166-2 Country Code).",
-            "example": "US"
-          },
-          "state": {
-            "type": "string",
-            "description": "State code. Provide to discover state-dependent fields.",
-            "example": "AZ"
-          }
-        },
-        "additionalProperties": {
-          "type": "string",
-          "description": "Any other properties to provide context for the requirements lookup."
-        },
-        "description": "Address details to provide context for requirements lookup. Additional fields beyond those listed are accepted."
-      },
-      "BalanceIcon": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "$ref": "#/components/schemas/BalanceIconType"
-          },
-          "value": {
-            "type": "string",
-            "description": "Icon value (e.g., emoji character)."
-          }
-        },
-        "description": "Icon for the balance.",
-        "example": null
-      },
-      "BalanceAmount": {
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "number",
-            "description": "Amount value.",
-            "example": 310.86
-          },
-          "currency": {
-            "type": "string",
-            "description": "Currency code (ISO 4217 Alphabetic Code).",
-            "example": "EUR"
-          }
-        },
-        "description": "Available balance that can be used to fund transfers."
-      },
       "BalanceReservedAmount": {
         "type": "object",
         "properties": {
@@ -21850,6 +22355,24 @@
             }
           }
         }
+      },
+      "AccountRequirementsResponseItemFieldsItem": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Display name of this group.",
+            "example": "E-mail"
+          },
+          "group": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AccountRequirementsResponseItemFieldsItemGroupItem"
+            },
+            "description": "The actual fields within this group."
+          }
+        },
+        "description": "Group of related fields shown together in UI."
       },
       "UserDetails": {
         "type": "object",
@@ -23820,74 +24343,18 @@
           }
         }
       },
-      "AccountRequirementsResponseItemFieldsItemGroupItem": {
+      "AddressRequestDetailsOccupationsItem": {
         "type": "object",
         "properties": {
-          "key": {
+          "code": {
             "type": "string",
-            "description": "Key to include in JSON when submitting recipient details.",
-            "example": "email"
+            "description": "User occupation - any value permitted.",
+            "example": "Software Engineer"
           },
-          "name": {
-            "type": "string",
-            "description": "Human-readable label.",
-            "example": "E-mail"
-          },
-          "type": {
-            "type": "string",
-            "description": "UI field type.",
-            "example": "text"
-          },
-          "refreshRequirementsOnChange": {
-            "type": "boolean",
-            "description": "If true, changing this field can alter requirements; call the POST account-requirements endpoint with updated data to refresh requirements.\n",
-            "example": false
-          },
-          "required": {
-            "type": "boolean",
-            "description": "Indicates whether this field is mandatory.",
-            "example": true
-          },
-          "displayFormat": {
-            "type": "string",
-            "description": "Optional display formatting hint.",
-            "example": null
-          },
-          "example": {
-            "type": "string",
-            "description": "Example value for the field (may be empty string).",
-            "example": "example@example.ex"
-          },
-          "minLength": {
-            "type": "integer",
-            "description": "Minimum allowed length, when applicable.",
-            "example": null
-          },
-          "maxLength": {
-            "type": "integer",
-            "description": "Maximum allowed length, when applicable.",
-            "example": null
-          },
-          "validationRegexp": {
-            "type": "string",
-            "description": "Regex pattern for validation, when applicable.",
-            "example": "^[^\\s]\u002B@[^\\s]\u002B\\.[^\\s]{2,}$"
-          },
-          "validationAsync": {
-            "type": "string",
-            "description": "Deprecated. This validation will instead be performed when submitting the request.",
-            "example": null,
-            "deprecated": true
-          },
-          "valuesAllowed": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/AccountRequirementsResponseItemFieldsItemGroupItemValuesAllowedItem"
-            },
-            "description": "Allowed values for select/radio inputs; null for free-text/date inputs."
+          "format": {
+            "$ref": "#/components/schemas/AddressRequestDetailsOccupationsItemFormat"
           }
-        },
-        "description": "A single field descriptor."
+        }
       },
       "AddressDetailsOccupationsItem": {
         "type": "object",
@@ -23899,19 +24366,6 @@
           },
           "format": {
             "$ref": "#/components/schemas/AddressDetailsOccupationsItemFormat"
-          }
-        }
-      },
-      "AddressRequestDetailsOccupationsItem": {
-        "type": "object",
-        "properties": {
-          "code": {
-            "type": "string",
-            "description": "User occupation - any value permitted.",
-            "example": "Software Engineer"
-          },
-          "format": {
-            "$ref": "#/components/schemas/AddressRequestDetailsOccupationsItemFormat"
           }
         }
       },
@@ -24867,6 +25321,75 @@
             "description": "List of allowed values"
           }
         }
+      },
+      "AccountRequirementsResponseItemFieldsItemGroupItem": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "Key to include in JSON when submitting recipient details.",
+            "example": "email"
+          },
+          "name": {
+            "type": "string",
+            "description": "Human-readable label.",
+            "example": "E-mail"
+          },
+          "type": {
+            "type": "string",
+            "description": "UI field type.",
+            "example": "text"
+          },
+          "refreshRequirementsOnChange": {
+            "type": "boolean",
+            "description": "If true, changing this field can alter requirements; call the POST account-requirements endpoint with updated data to refresh requirements.\n",
+            "example": false
+          },
+          "required": {
+            "type": "boolean",
+            "description": "Indicates whether this field is mandatory.",
+            "example": true
+          },
+          "displayFormat": {
+            "type": "string",
+            "description": "Optional display formatting hint.",
+            "example": null
+          },
+          "example": {
+            "type": "string",
+            "description": "Example value for the field (may be empty string).",
+            "example": "example@example.ex"
+          },
+          "minLength": {
+            "type": "integer",
+            "description": "Minimum allowed length, when applicable.",
+            "example": null
+          },
+          "maxLength": {
+            "type": "integer",
+            "description": "Maximum allowed length, when applicable.",
+            "example": null
+          },
+          "validationRegexp": {
+            "type": "string",
+            "description": "Regex pattern for validation, when applicable.",
+            "example": "^[^\\s]\u002B@[^\\s]\u002B\\.[^\\s]{2,}$"
+          },
+          "validationAsync": {
+            "type": "string",
+            "description": "Deprecated. This validation will instead be performed when submitting the request.",
+            "example": null,
+            "deprecated": true
+          },
+          "valuesAllowed": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AccountRequirementsResponseItemFieldsItemGroupItemValuesAllowedItem"
+            },
+            "description": "Allowed values for select/radio inputs; null for free-text/date inputs."
+          }
+        },
+        "description": "A single field descriptor."
       },
       "UserDetailsAddress": {
         "type": "object",
@@ -27282,21 +27805,6 @@
           }
         }
       },
-      "AccountRequirementsResponseItemFieldsItemGroupItemValuesAllowedItem": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "description": "Machine-readable value.",
-            "example": "PRIVATE"
-          },
-          "name": {
-            "type": "string",
-            "description": "Human-readable value label.",
-            "example": "Person"
-          }
-        }
-      },
       "BankAccountDetailsReceiveOptionsItemDescriptionCta": {
         "type": "object",
         "properties": {
@@ -27693,6 +28201,21 @@
           "name": {
             "type": "string",
             "description": "Value name"
+          }
+        }
+      },
+      "AccountRequirementsResponseItemFieldsItemGroupItemValuesAllowedItem": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "Machine-readable value.",
+            "example": "PRIVATE"
+          },
+          "name": {
+            "type": "string",
+            "description": "Human-readable value label.",
+            "example": "Person"
           }
         }
       },
@@ -32638,40 +33161,23 @@
           "$ref": "#/components/schemas/TransferRequirement"
         }
       },
-      "TransferFundRequest": {
-        "required": [
-          "type"
-        ],
-        "type": "object",
-        "properties": {
-          "type": {
-            "type": "string",
-            "description": "The type of funding to apply to the transfer",
-            "example": "BALANCE"
-          },
-          "partnerReference": {
-            "type": "string",
-            "description": "The transaction/payment identifier in your system, uniquely identifies the transfer in your platform. Required for the Cross Currency Bulk Settlement model"
-          }
-        }
+      "Transferfund400Response": {
+        "type": "string"
       },
-      "TransferFund200Response": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "type": "string",
-            "description": "The type of funding applied to the transfer",
-            "example": "BALANCE"
-          },
-          "status": {
-            "$ref": "#/components/schemas/TransferFund200ResponseStatus"
-          },
-          "errorCode": {
-            "type": "string",
-            "description": "Failure reason",
-            "example": null
-          }
-        }
+      "Transferfund403Response": {
+        "type": "string"
+      },
+      "Transferfund404Response": {
+        "type": "string"
+      },
+      "Transferfund409Response": {
+        "type": "string"
+      },
+      "Transferfund422Response": {
+        "type": "string"
+      },
+      "Transferfund500Response": {
+        "type": "string"
       },
       "TransferPaymentsList200Response": {
         "type": "array",
@@ -33258,6 +33764,24 @@
         "items": {
           "$ref": "#/components/schemas/TransferRequirement"
         }
+      },
+      "Transferfund400ResponseResponsePlain": {
+        "type": "string"
+      },
+      "Transferfund403ResponseResponsePlain": {
+        "type": "string"
+      },
+      "Transferfund404ResponseResponsePlain": {
+        "type": "string"
+      },
+      "Transferfund409ResponseResponsePlain": {
+        "type": "string"
+      },
+      "Transferfund422ResponseResponsePlain": {
+        "type": "string"
+      },
+      "Transferfund500ResponseResponsePlain": {
+        "type": "string"
       },
       "TransferPaymentsList200ResponseResponseJson": {
         "type": "array",
@@ -36614,6 +37138,24 @@
         },
         "description": "The amount allowed to be spent monthly."
       },
+      "BalanceIconType": {
+        "enum": [
+          "EMOJI"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Icon type.",
+        "x-ms-enum": {
+          "name": "BalanceIconType",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "EMOJI",
+              "name": "Emoji"
+            }
+          ]
+        }
+      },
       "ChallengeResultRequestChallengeStatus": {
         "enum": [
           "APPROVED",
@@ -38976,24 +39518,6 @@
           ]
         }
       },
-      "BalanceIconType": {
-        "enum": [
-          "EMOJI"
-        ],
-        "type": "string",
-        "additionalProperties": false,
-        "description": "Icon type.",
-        "x-ms-enum": {
-          "name": "BalanceIconType",
-          "modelAsString": false,
-          "values": [
-            {
-              "value": "EMOJI",
-              "name": "Emoji"
-            }
-          ]
-        }
-      },
       "BankAccountDetailsReceiveOptionsItemType": {
         "enum": [
           "LOCAL",
@@ -40240,25 +40764,6 @@
           ]
         }
       },
-      "AddressDetailsOccupationsItemFormat": {
-        "enum": [
-          "FREE_FORM"
-        ],
-        "type": "string",
-        "additionalProperties": false,
-        "description": "Occupation type - always \u0060FREE_FORM\u0060.",
-        "example": "FREE_FORM",
-        "x-ms-enum": {
-          "name": "AddressDetailsOccupationsItemFormat",
-          "modelAsString": false,
-          "values": [
-            {
-              "value": "FREE_FORM",
-              "name": "FreeForm"
-            }
-          ]
-        }
-      },
       "AddressRequestDetailsOccupationsItemFormat": {
         "enum": [
           "FREE_FORM"
@@ -40269,6 +40774,25 @@
         "example": "FREE_FORM",
         "x-ms-enum": {
           "name": "AddressRequestDetailsOccupationsItemFormat",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "FREE_FORM",
+              "name": "FreeForm"
+            }
+          ]
+        }
+      },
+      "AddressDetailsOccupationsItemFormat": {
+        "enum": [
+          "FREE_FORM"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Occupation type - always \u0060FREE_FORM\u0060.",
+        "example": "FREE_FORM",
+        "x-ms-enum": {
+          "name": "AddressDetailsOccupationsItemFormat",
           "modelAsString": false,
           "values": [
             {
@@ -42195,30 +42719,6 @@
             {
               "value": "BUSINESS",
               "name": "Business"
-            }
-          ]
-        }
-      },
-      "TransferFund200ResponseStatus": {
-        "enum": [
-          "COMPLETED",
-          "REJECTED"
-        ],
-        "type": "string",
-        "additionalProperties": false,
-        "description": "Funding status",
-        "example": "COMPLETED",
-        "x-ms-enum": {
-          "name": "TransferFund200ResponseStatus",
-          "modelAsString": false,
-          "values": [
-            {
-              "value": "COMPLETED",
-              "name": "Completed"
-            },
-            {
-              "value": "REJECTED",
-              "name": "Rejected"
             }
           ]
         }

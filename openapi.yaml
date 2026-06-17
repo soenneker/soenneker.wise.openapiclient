@@ -23625,7 +23625,7 @@ paths:
 
             The `originalTransferId` field is used to avoid duplicate transfer requests. If your initial call fails (error or timeout), retry the call using the same `originalTransferId` value. Subsequent retry messages are treated as repeat messages and will not create duplicate transfers.
       summary: Create a third party transfer
-      operationId: CreateThirdPartyTransfer
+      operationId: createthirdpartytransfer
       requestBody:
         content:
           application/json:
@@ -23846,7 +23846,7 @@ paths:
 
             Get third party transfer info by ID. To receive dynamic updates as the state of the transfer changes, see the [webhooks documentation](https://docs.wise.com/api-reference/webhook).
       summary: Get a third party transfer by ID
-      operationId: GetThirdPartyTransfer
+      operationId: getthirdpartytransfer
       parameters:
         - name: profileId
           in: path
@@ -23961,137 +23961,145 @@ paths:
         - third-party-transfer
   /v3/profiles/{profileId}/transfers/{transferId}/payments:
     post:
-      operationId: transferFund
-      summary: Fund a transfer
-      description: >
-        {% admonition type="warning" %}
+      description: |2-
 
-        This endpoint is SCA protected when it applies. If your profile is
-        registered within the UK and/or EEA, SCA most likely applies to you.
+            {% admonition type="warning" %}
+              This endpoint is SCA protected when it applies. If your profile is registered within the UK and/or EEA, SCA most likely applies to you.
+              Please read more about [implementing SCA](/guides/developer/auth-and-security/sca-and-2fa).
+            {% /admonition %}
 
-        Please read more about [implementing
-        SCA](/guides/developer/auth-and-security/sca-and-2fa).
+            This API call is the final step for executing payouts when using a balance with Wise. Upon calling the endpoint, Wise will begin the processing of the transfer, depending on the status of funds.
 
-        {% /admonition %}
+            When using the transfer by transfer settlement model, the following funding type(s) must be used:
 
+            * **BALANCE** — Funds are pulled from a multi-currency account held with Wise.
 
-        This API call is the final step for executing payouts when using a
-        balance with Wise. Upon calling the endpoint, Wise will begin the
-        processing of the transfer, depending on the status of funds.
+            When funding through the Bulk Settlement model, the following funding type(s) must be used:
 
+            * **TRUSTED_PRE_FUND_BULK** — Funds for the transfer will be settled through a bulk payment at a later date. This method is not applicable for First Party partner account transfers.
 
-        When using the transfer by transfer settlement model, the following
-        funding type(s) must be used:
-
-
-        - **BALANCE** — Funds are pulled from a multi-currency account held with
-        Wise.
-
-        - **BANK_TRANSFER** — Manually send funds from your business bank
-        account to pay for any transfers. Only applicable when using the [Batch
-        Group API](/api-reference/batch-group/).
-
-
-        When funding through the Bulk Settlement model, the following funding
-        type(s) must be used:
-
-
-        - **TRUSTED_PRE_FUND_BULK** — Funds for the transfer will be settled
-        through a bulk payment at a later date. This method is not applicable
-        for First Party partner account transfers.
-
-
-        If funding from `BALANCE`, and your multi-currency account does not have
-        the required funds to complete the action, then this call will fail with
-        an "insufficient funds" error. Once funds are added and available, you
-        must call this endpoint again.
-      tags:
-        - transfer
-      security:
-        - UserToken: []
-        - PersonalToken: []
-      parameters:
-        - name: profileId
-          in: path
-          required: true
-          description: >-
-            The profile ID that created the transfer. Can be either your
-            personal or business profile ID
-          schema:
-            type: integer
-            format: int64
-        - name: transferId
-          in: path
-          required: true
-          description: The transfer ID
-          schema:
-            type: integer
-            format: int64
-        - $ref: '#/components/parameters/X-External-Correlation-Id'
+            If funding from `BALANCE`, and your multi-currency account does not have the required funds to complete the action, then this call will fail with an "insufficient funds" error. Once funds are added and available, you must call this endpoint again.
+            
+      summary: Fund a Transfer
+      operationId: transferfund
       requestBody:
-        required: true
         content:
           application/json:
             schema:
-              type: object
-              required:
-                - type
-              properties:
-                type:
-                  type: string
-                  description: The type of funding to apply to the transfer
-                  example: BALANCE
-                partnerReference:
-                  type: string
-                  description: >-
-                    The transaction/payment identifier in your system, uniquely
-                    identifies the transfer in your platform. Required for the
-                    Cross Currency Bulk Settlement model
+              $ref: '#/components/schemas/FundingRequest'
+            examples:
+              fund-transfer-balance:
+                summary: BALANCE - Fund from a Wise balance (Pre-Funded Wise Balance)
+                value:
+                  type: BALANCE
+                  balanceId: 45678901
+              fund-transfer-trusted-pre-fund-bulk:
+                summary: TRUSTED_PRE_FUND_BULK - Cross Currency Bulk Settlement
+                value:
+                  type: TRUSTED_PRE_FUND_BULK
+                  partnerReference: PARTNER-REF-4711
+              fund-transfer-trusted-pre-fund-tx:
+                summary: TRUSTED_PRE_FUND_TX - Per-transaction trusted pre-fund
+                value:
+                  type: TRUSTED_PRE_FUND_TX
+                  partnerReference: PARTNER-REF-4711
+      parameters:
+        - name: profileId
+          in: path
+          schema:
+            type: integer
+            format: int64
+            example: 123456789
+          required: true
+        - name: transferId
+          in: path
+          schema:
+            type: integer
+            format: int64
+            example: 16521632
+          required: true
+        - $ref: '#/components/parameters/X-External-Correlation-Id'
       responses:
-        '200':
-          description: Transfer funding result.
+        '201':
+          description: FundTransfer 201 response
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  type:
-                    type: string
-                    description: The type of funding applied to the transfer
-                    example: BALANCE
-                  status:
-                    type: string
-                    enum:
-                      - COMPLETED
-                      - REJECTED
-                    description: Funding status
-                    example: COMPLETED
-                  errorCode:
-                    type:
-                      - string
-                      - 'null'
-                    description: Failure reason
-                    example: null
+                $ref: '#/components/schemas/FundingResponse'
               examples:
-                completed:
-                  summary: Balance - Completed
+                fund-transfer-balance-completed:
+                  summary: BALANCE - completed
                   value:
                     type: BALANCE
                     status: COMPLETED
-                    errorCode: null
-                insufficient-funds:
-                  summary: Balance - Insufficient Funds
+                    balanceTransactionId: 987654321
+                fund-transfer-balance-rejected-insufficient-funds:
+                  summary: BALANCE - rejected (insufficient funds)
                   value:
                     type: BALANCE
                     status: REJECTED
-                    errorCode: transfer.insufficient_funds
+                    errorCode: balance.insufficient-funds
+                fund-transfer-trusted-pre-fund-bulk-completed:
+                  summary: TRUSTED_PRE_FUND_BULK - completed
+                  value:
+                    type: TRUSTED_PRE_FUND_BULK
+                    status: COMPLETED
+                    partnerReference: PARTNER-REF-4711
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '400':
+          description: InvalidRequestError 400 response
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/InvalidRequestErrorErrorPayload'
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '403':
+          description: UnauthorisedAccessError 403 response
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/UnauthorisedAccessErrorErrorPayload'
           headers:
             X-External-Correlation-Id:
               $ref: '#/components/headers/X-External-Correlation-Id'
             x-trace-id:
               $ref: '#/components/headers/x-trace-id'
         '404':
-          description: Transfer not found.
+          description: EntityNotFoundError 404 response
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/EntityNotFoundErrorErrorPayload'
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '409':
+          description: PaymentAlreadyExistsError 409 response
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PaymentAlreadyExistsErrorErrorPayload'
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '422':
+          description: UnsupportedOperationError 422 response
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/UnsupportedOperationErrorErrorPayload'
           headers:
             X-External-Correlation-Id:
               $ref: '#/components/headers/X-External-Correlation-Id'
@@ -24099,6 +24107,22 @@ paths:
               $ref: '#/components/headers/x-trace-id'
         '429':
           $ref: '#/components/responses/429'
+        '500':
+          description: UnexpectedError 500 response
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/UnexpectedErrorErrorPayload'
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+      security:
+        - UserToken: []
+        - PersonalToken: []
+      tags:
+        - transfer
   /v1/transfers/{transferId}/payments:
     get:
       operationId: transferPaymentsList
@@ -34497,6 +34521,177 @@ components:
           description: Timestamp when transfer was created.
           format: date-time
           example: '2025-10-29T12:28:16.000Z'
+    BalanceRequest:
+      type: object
+      properties:
+        balanceId:
+          type: integer
+          description: ID of the balance to debit.
+          format: int64
+          example: 45678901
+        balanceTransactionId:
+          type: integer
+          description: ID of an existing pending balance transaction to settle.
+          format: int64
+          example: 987654321
+    FundingRequestMixin:
+      type: object
+      properties:
+        type:
+          type: string
+      required:
+        - type
+    FundingRequestBalance:
+      allOf:
+        - $ref: '#/components/schemas/BalanceRequest'
+        - $ref: '#/components/schemas/FundingRequestMixin'
+    TrustedPreFundRequest:
+      type: object
+      properties:
+        partnerReference:
+          type: string
+          description: >-
+            The transaction/payment identifier in your system. Required for the
+            Cross Currency Bulk Settlement model.
+          example: PARTNER-REF-4711
+        status:
+          type: string
+          description: Internal status field.
+    FundingRequestTrustedPreFundBulk:
+      allOf:
+        - $ref: '#/components/schemas/TrustedPreFundRequest'
+        - $ref: '#/components/schemas/FundingRequestMixin'
+    FundingRequestTrustedPreFund:
+      allOf:
+        - $ref: '#/components/schemas/TrustedPreFundRequest'
+        - $ref: '#/components/schemas/FundingRequestMixin'
+    FundingRequest:
+      oneOf:
+        - $ref: '#/components/schemas/FundingRequestBalance'
+        - $ref: '#/components/schemas/FundingRequestTrustedPreFundBulk'
+        - $ref: '#/components/schemas/FundingRequestTrustedPreFund'
+      discriminator:
+        propertyName: type
+        mapping:
+          BALANCE: '#/components/schemas/FundingRequestBalance'
+          TRUSTED_PRE_FUND_BULK: '#/components/schemas/FundingRequestTrustedPreFundBulk'
+          TRUSTED_PRE_FUND_TX: '#/components/schemas/FundingRequestTrustedPreFund'
+    FundingStatus:
+      type: string
+      description: Outcome of a funding attempt.
+      enum:
+        - CREATED
+        - COMPLETED
+        - REJECTED
+    FundingErrorCode:
+      type: string
+      description: >-
+        Machine-readable error code returned with `status: REJECTED`. Each
+        member's documentation notes the `type` values that can produce it and
+        the underlying HTTP status.
+
+            This is the complete set of error codes the API can return today. Consumers should treat unknown codes defensively (new codes may be added); a wildcard fallback to a generic 'funding failed' UI is recommended.
+      enum:
+        - transfer.not-found
+        - transfer.invalid-state
+        - payment.exists
+        - transfer.not-accessible-for-user
+        - balance.unauthorised.missing-security-role
+        - payment.not-found
+        - invalid.request
+        - unexpected.error
+        - payment.option-unavailable
+        - balance.payment-option-unavailable
+        - balance.account-not-found
+        - balance.account-inactive
+        - balance.insufficient-funds
+        - balance.no-balance-for-currency
+        - balance.currency-unsupported
+        - trustedprefundbulk.payment-option-unavailable
+        - trustedprefundtx.payment-option-unavailable
+    BalanceResponse:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/FundingStatus'
+        errorCode:
+          $ref: '#/components/schemas/FundingErrorCode'
+        errorMessage:
+          type: string
+          description: >-
+            Free-form human-readable explanation of a `REJECTED` outcome.
+            Suitable for logging and developer-facing tools; not localised and
+            not safe to surface to end users. May be absent.
+        balanceTransactionId:
+          type: integer
+          description: ID of the balance transaction created to settle the transfer.
+          format: int64
+          example: 987654321
+    FundingResponseMixin:
+      type: object
+      properties:
+        type:
+          type: string
+      required:
+        - type
+    FundingResponseBalance:
+      allOf:
+        - $ref: '#/components/schemas/BalanceResponse'
+        - $ref: '#/components/schemas/FundingResponseMixin'
+    TrustedPreFundResponse:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/FundingStatus'
+        errorCode:
+          $ref: '#/components/schemas/FundingErrorCode'
+        errorMessage:
+          type: string
+          description: >-
+            Free-form human-readable explanation of a `REJECTED` outcome.
+            Suitable for logging and developer-facing tools; not localised and
+            not safe to surface to end users. May be absent.
+        partnerReference:
+          type: string
+          description: Partner-supplied reference echoed back.
+          example: PARTNER-REF-4711
+    FundingResponseTrustedPreFundBulk:
+      allOf:
+        - $ref: '#/components/schemas/TrustedPreFundResponse'
+        - $ref: '#/components/schemas/FundingResponseMixin'
+    FundingResponseTrustedPreFund:
+      allOf:
+        - $ref: '#/components/schemas/TrustedPreFundResponse'
+        - $ref: '#/components/schemas/FundingResponseMixin'
+    FundingResponse:
+      oneOf:
+        - $ref: '#/components/schemas/FundingResponseBalance'
+        - $ref: '#/components/schemas/FundingResponseTrustedPreFundBulk'
+        - $ref: '#/components/schemas/FundingResponseTrustedPreFund'
+      discriminator:
+        propertyName: type
+        mapping:
+          BALANCE: '#/components/schemas/FundingResponseBalance'
+          TRUSTED_PRE_FUND_BULK: '#/components/schemas/FundingResponseTrustedPreFundBulk'
+          TRUSTED_PRE_FUND_TX: '#/components/schemas/FundingResponseTrustedPreFund'
+    InvalidRequestErrorErrorPayload:
+      type: string
+      example: transfer.not-found
+    UnauthorisedAccessErrorErrorPayload:
+      type: string
+      example: transfer.not-found
+    EntityNotFoundErrorErrorPayload:
+      type: string
+      example: transfer.not-found
+    PaymentAlreadyExistsErrorErrorPayload:
+      type: string
+      example: transfer.not-found
+    UnsupportedOperationErrorErrorPayload:
+      type: string
+      example: transfer.not-found
+    UnexpectedErrorErrorPayload:
+      type: string
+      example: transfer.not-found
     payment:
       title: Payment
       type: object

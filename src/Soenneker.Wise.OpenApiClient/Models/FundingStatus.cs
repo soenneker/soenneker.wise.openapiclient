@@ -3,10 +3,14 @@ using System.Runtime.Serialization;
 using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
-    /// <summary>Funding status</summary>
+    /// <summary>Outcome of a funding attempt.</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    public enum TransferFund200ResponseStatus
+    public enum FundingStatus
     {
+        [EnumMember(Value = "CREATED")]
+        #pragma warning disable CS1591
+        Created,
+        #pragma warning restore CS1591
         [EnumMember(Value = "COMPLETED")]
         #pragma warning disable CS1591
         Completed,
