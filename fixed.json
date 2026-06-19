@@ -14206,6 +14206,51 @@
         ]
       }
     },
+    "/v1/incoming-transfers/{incomingTransferId}": {
+      "get": {
+        "tags": [
+          "incoming-transfer"
+        ],
+        "summary": "Get an incoming transfer by ID",
+        "description": "Retrieves an incoming transfer by id. You can pull the incoming-transfer ID from the webhook payload.\n",
+        "operationId": "GetIncomingTransfer",
+        "parameters": [
+          {
+            "name": "incomingTransferId",
+            "in": "path",
+            "description": "Unique incoming transfer identifier.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/X-External-Correlation-Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The incoming transfer.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IncomingTransfer"
+                }
+              }
+            }
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          }
+        },
+        "security": [
+          {
+            "UserToken": []
+          }
+        ]
+      }
+    },
     "/v1/me": {
       "get": {
         "tags": [
@@ -19232,6 +19277,473 @@
           }
         }
       },
+      "Scheme": {
+        "title": "Scheme",
+        "enum": [
+          "SWIFT",
+          "SEPA",
+          "ACH",
+          "FASTER_PAYMENTS",
+          "WISE_NETWORK"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "The payment scheme through which the incoming transfer was received.\nThese are not necessarily clearing systems as we also include SWIFT here.\n",
+        "example": "SWIFT",
+        "x-ms-enum": {
+          "name": "Scheme",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "SWIFT",
+              "name": "Swift"
+            },
+            {
+              "value": "SEPA",
+              "name": "Sepa"
+            },
+            {
+              "value": "ACH",
+              "name": "Ach"
+            },
+            {
+              "value": "FASTER_PAYMENTS",
+              "name": "FasterPayments"
+            },
+            {
+              "value": "WISE_NETWORK",
+              "name": "WiseNetwork"
+            }
+          ]
+        }
+      },
+      "Address23": {
+        "title": "Address",
+        "type": "object",
+        "properties": {
+          "firstLine": {
+            "type": "string",
+            "description": "First line of the address (unstructured).",
+            "example": "6 Evergreen Ave"
+          },
+          "streetName": {
+            "type": "string",
+            "description": "Street name.",
+            "example": "Evergreen Ave"
+          },
+          "buildingNumber": {
+            "type": "string",
+            "description": "Building number.",
+            "example": 6
+          },
+          "townName": {
+            "type": "string",
+            "description": "City or town.",
+            "example": "BERLIN"
+          },
+          "postalCode": {
+            "type": "string",
+            "description": "Postal or ZIP code.",
+            "example": 10115
+          },
+          "countrySubDivision": {
+            "type": "string",
+            "description": "State, province, or region."
+          },
+          "countryCode": {
+            "maxLength": 2,
+            "minLength": 2,
+            "type": "string",
+            "description": "ISO 3166-1 alpha-2 country code.",
+            "example": "DE"
+          }
+        },
+        "description": "Structured postal address. Fields are optional and populated based on\nwhat the payment rail provides.\n"
+      },
+      "Account": {
+        "title": "Account",
+        "required": [
+          "number"
+        ],
+        "type": "object",
+        "properties": {
+          "number": {
+            "maxLength": 36,
+            "type": "string",
+            "description": "Account identifier \u2014 IBAN, BBAN, or other scheme-specific\naccount number.\n",
+            "example": "DE89370400440532013000"
+          }
+        },
+        "description": "Account identifier for a payment participant.\n"
+      },
+      "NationalCodeType": {
+        "title": "NationalCodeType",
+        "enum": [
+          "ABA",
+          "SORT_CODE"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Identifies the domestic clearing system the \u0060nationalCode\u0060 belongs to.\n",
+        "example": "SORT_CODE",
+        "x-ms-enum": {
+          "name": "NationalCodeType",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "ABA",
+              "name": "Aba"
+            },
+            {
+              "value": "SORT_CODE",
+              "name": "SortCode"
+            }
+          ]
+        }
+      },
+      "FinancialInstitution": {
+        "title": "FinancialInstitution",
+        "minProperties": 1,
+        "type": "object",
+        "properties": {
+          "bic": {
+            "maxLength": 11,
+            "minLength": 8,
+            "type": "string",
+            "description": "SWIFT BIC (Business Identifier Code) of the financial institution.\n",
+            "example": "SMBCJPJT"
+          },
+          "nationalCode": {
+            "type": "string",
+            "description": "Domestic clearing system membership identifier (e.g. UK sort code,\nUS ABA routing number).\n",
+            "example": 40004
+          },
+          "nationalCodeType": {
+            "$ref": "#/components/schemas/NationalCodeType"
+          },
+          "name": {
+            "maxLength": 140,
+            "type": "string",
+            "description": "Name of the financial institution.",
+            "example": "Sumitomo Mitsui Banking Corporation"
+          },
+          "address": {
+            "$ref": "#/components/schemas/Address23"
+          }
+        },
+        "description": "Financial institution (bank) associated with a payment participant.\nAt least one of \u0060bic\u0060, \u0060nationalCode\u0060, or \u0060name\u0060 will be present.\n"
+      },
+      "Debtor": {
+        "title": "Debtor",
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "maxLength": 140,
+            "type": "string",
+            "description": "Full name of the debtor.\n",
+            "example": "KENJI TANAKA"
+          },
+          "address": {
+            "$ref": "#/components/schemas/Address23"
+          },
+          "account": {
+            "$ref": "#/components/schemas/Account"
+          },
+          "agent": {
+            "$ref": "#/components/schemas/FinancialInstitution"
+          }
+        },
+        "description": "The debtor (ordering party) of the incoming transfer.\n"
+      },
+      "Creditor": {
+        "title": "Creditor",
+        "required": [
+          "name",
+          "account"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "maxLength": 140,
+            "type": "string",
+            "description": "Full name of the creditor.\n",
+            "example": "WISE PAYMENTS LIMITED"
+          },
+          "address": {
+            "$ref": "#/components/schemas/Address23"
+          },
+          "account": {
+            "$ref": "#/components/schemas/Account"
+          },
+          "agent": {
+            "$ref": "#/components/schemas/FinancialInstitution"
+          }
+        },
+        "description": "The creditor (beneficiary) of the incoming transfer.\n"
+      },
+      "MoneyAmount": {
+        "title": "MoneyAmount",
+        "required": [
+          "value",
+          "currency"
+        ],
+        "type": "object",
+        "properties": {
+          "value": {
+            "pattern": "^-?\\d\u002B(\\.\\d\u002B)?$",
+            "type": "string",
+            "description": "Decimal amount value, scaled to the currency\u0027s minor unit.",
+            "example": 1000
+          },
+          "currency": {
+            "maxLength": 3,
+            "minLength": 3,
+            "type": "string",
+            "description": "ISO 4217 three-letter currency code.",
+            "example": "USD"
+          }
+        },
+        "description": "An amount with its currency."
+      },
+      "Amounts": {
+        "title": "Amounts",
+        "required": [
+          "instructed",
+          "interbankSettlement",
+          "credited"
+        ],
+        "type": "object",
+        "properties": {
+          "instructed": {
+            "$ref": "#/components/schemas/MoneyAmount"
+          },
+          "interbankSettlement": {
+            "$ref": "#/components/schemas/MoneyAmount"
+          },
+          "credited": {
+            "$ref": "#/components/schemas/MoneyAmount"
+          }
+        },
+        "description": "Payment amount waterfall representing the flow of funds:\n\u0060instructed\u0060 \u2192 \u0060interbankSettlement\u0060 \u2192 \u0060credited\u0060.\n"
+      },
+      "ChargeBearer": {
+        "title": "ChargeBearer",
+        "enum": [
+          "DEBTOR",
+          "CREDITOR",
+          "SHARED",
+          "SERVICE_LEVEL"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Charge bearer code indicating who pays the transaction fees. Omitted\nif not specified in the payment message.\n",
+        "example": "SHARED",
+        "x-ms-enum": {
+          "name": "ChargeBearer",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "DEBTOR",
+              "name": "Debtor"
+            },
+            {
+              "value": "CREDITOR",
+              "name": "Creditor"
+            },
+            {
+              "value": "SHARED",
+              "name": "Shared"
+            },
+            {
+              "value": "SERVICE_LEVEL",
+              "name": "ServiceLevel"
+            }
+          ]
+        }
+      },
+      "WiseFee": {
+        "title": "WiseFee",
+        "required": [
+          "type",
+          "value",
+          "currency"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/WiseFeeType"
+          },
+          "value": {
+            "type": "string",
+            "description": "Decimal fee amount.",
+            "example": 7.25
+          },
+          "currency": {
+            "maxLength": 3,
+            "minLength": 3,
+            "type": "string",
+            "description": "ISO 4217 currency code.",
+            "example": "EUR"
+          }
+        }
+      },
+      "CorrespondentFee": {
+        "title": "CorrespondentFee",
+        "required": [
+          "value",
+          "currency"
+        ],
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "Decimal fee amount deducted by the correspondent bank.",
+            "example": 15
+          },
+          "currency": {
+            "maxLength": 3,
+            "minLength": 3,
+            "type": "string",
+            "description": "ISO 4217 currency code.",
+            "example": "USD"
+          },
+          "agent": {
+            "$ref": "#/components/schemas/FinancialInstitution"
+          }
+        },
+        "description": "A fee deducted by a correspondent or intermediary bank.\n"
+      },
+      "Fees": {
+        "title": "Fees",
+        "required": [
+          "wise",
+          "correspondent"
+        ],
+        "type": "object",
+        "properties": {
+          "wise": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WiseFee"
+            },
+            "description": "Fees charged by Wise (e.g. conversion fee, handling fee). Empty\narray when no Wise fees apply.\n"
+          },
+          "correspondent": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CorrespondentFee"
+            },
+            "description": "Fees deducted by correspondent or intermediary banks before the\nfunds reached Wise. Each entry includes the charging agent when\navailable in the pacs message. Array is empty where there are no charges.\n"
+          }
+        },
+        "description": "Breakdown of fees applied to the incoming transfer. Contains both\nWise fees and correspondent/intermediary bank fees.\n"
+      },
+      "IncomingTransfer": {
+        "title": "IncomingTransfer",
+        "required": [
+          "id",
+          "profileId",
+          "balanceId",
+          "state",
+          "scheme",
+          "creditedTime",
+          "debtor",
+          "creditor",
+          "amounts",
+          "fees",
+          "exchangeRate",
+          "previousInstructingAgents"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the incoming transfer.",
+            "format": "uuid",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          },
+          "profileId": {
+            "type": "integer",
+            "description": "Profile ID of the balance owner.\n",
+            "format": "int64",
+            "example": 12345678
+          },
+          "balanceId": {
+            "type": "integer",
+            "description": "Balance ID associated with the incoming transfer. This is the\nbalance that was credited.\n",
+            "format": "int64",
+            "example": 555555
+          },
+          "accountDetailsId": {
+            "type": "integer",
+            "description": "Account details ID that received the incoming transfer. A balance\nmay have multiple account details (e.g. multiple IBANs). This\nidentifies the specific one that was credited. Omitted when the\npayment was received via correspondent model.\n",
+            "format": "int64",
+            "example": 987654
+          },
+          "state": {
+            "$ref": "#/components/schemas/IncomingTransferState"
+          },
+          "scheme": {
+            "$ref": "#/components/schemas/Scheme"
+          },
+          "endToEndId": {
+            "maxLength": 35,
+            "type": "string",
+            "description": "End-to-end identifier assigned by the debtor for reconciliation\npurposes. Omitted when not provided by the debtor.\n",
+            "example": "INVOICE-2026-998"
+          },
+          "uetr": {
+            "type": "string",
+            "description": "Universal End-to-End Transaction Reference. A globally unique\nidentifier (UUID v4) assigned by the debtor agent to track the\npayment across the entire chain.\n",
+            "format": "uuid",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          },
+          "unstructuredReference": {
+            "maxLength": 140,
+            "type": "string",
+            "description": "Unstructured remittance information provided by the debtor.\nFree-text field carried through the payment rail.\n",
+            "example": "/RFB/INV-2025-001"
+          },
+          "creditedTime": {
+            "type": "string",
+            "description": "Timestamp when the incoming transfer was credited to the balance.",
+            "format": "date-time",
+            "example": "2025-08-21T12:34:56.000Z"
+          },
+          "debtor": {
+            "$ref": "#/components/schemas/Debtor"
+          },
+          "creditor": {
+            "$ref": "#/components/schemas/Creditor"
+          },
+          "amounts": {
+            "$ref": "#/components/schemas/Amounts"
+          },
+          "exchangeRate": {
+            "pattern": "^\\d\u002B(\\.\\d\u002B)?$",
+            "type": "string",
+            "description": "Wise\u0027s effective FX rate applied to this incoming transfer\n(source currency \u2192 target balance currency) as a decimal string.\n\u00221\u0022 when no conversion was needed.\n",
+            "example": 0.6325
+          },
+          "chargeBearer": {
+            "$ref": "#/components/schemas/ChargeBearer"
+          },
+          "previousInstructingAgents": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FinancialInstitution"
+            },
+            "description": "Financial institutions that previously instructed this payment\n(the historical chain the payment passed through before reaching\nWise). Ordered by position in the chain.\n"
+          },
+          "fees": {
+            "$ref": "#/components/schemas/Fees"
+          }
+        },
+        "description": "An incoming transfer credited to a Wise balance.\n"
+      },
       "User": {
         "title": "User",
         "type": "object",
@@ -21012,6 +21524,35 @@
               "$ref": "#/components/schemas/AddressRequirementsResponseItemFieldsItem"
             },
             "description": "List of fields required for the address."
+          }
+        }
+      },
+      "V40028": {
+        "title": "Schema version 4.0.0",
+        "type": "object",
+        "properties": {
+          "schema_version": {
+            "$ref": "#/components/schemas/V40028SchemaVersion"
+          },
+          "subscription_id": {
+            "type": "string",
+            "description": "ID of the webhook subscription that triggered this event",
+            "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef"
+          },
+          "event_type": {
+            "type": "string",
+            "description": "Event type identifier",
+            "example": "incoming-transfer#credited"
+          },
+          "sent_at": {
+            "type": "string",
+            "description": "Timestamp when the event was sent",
+            "format": "date-time",
+            "example": "2025-10-21T12:34:58.123Z"
+          },
+          "data": {
+            "$ref": "#/components/schemas/V40028Data"
           }
         }
       },
@@ -24340,6 +24881,27 @@
             "items": {
               "$ref": "#/components/schemas/AddressRequirementsResponseItemFieldsItemGroupItem"
             }
+          }
+        }
+      },
+      "V40028Data": {
+        "required": [
+          "incoming_transfer_id",
+          "occurred_at"
+        ],
+        "type": "object",
+        "properties": {
+          "incoming_transfer_id": {
+            "type": "string",
+            "description": "Incoming Transfer ID",
+            "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef"
+          },
+          "occurred_at": {
+            "type": "string",
+            "description": "\u0022Date and time at which the amount was credited to the balance account. Time in UTC.\nFormat: \u0060YYYY\u0060-\u0060MM\u0060-\u0060DD\u0060T\u0060HH\u0060:\u0060MM\u0060:\u0060SS\u0060.\u0060mmm\u0060Z\n\u0022",
+            "format": "date-time",
+            "example": "2023-08-21T12:34:56.789Z"
           }
         }
       },
@@ -38435,6 +38997,44 @@
           ]
         }
       },
+      "WiseFeeType": {
+        "enum": [
+          "OTHER"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Category of the Wise fee. Additional fee types will be added in future versions.\n",
+        "example": "OTHER",
+        "x-ms-enum": {
+          "name": "WiseFeeType",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "OTHER",
+              "name": "Other"
+            }
+          ]
+        }
+      },
+      "IncomingTransferState": {
+        "enum": [
+          "CREDITED"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Current state of the incoming transfer. Additional states will be added \nin the future.\n",
+        "example": "CREDITED",
+        "x-ms-enum": {
+          "name": "IncomingTransferState",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "CREDITED",
+              "name": "Credited"
+            }
+          ]
+        }
+      },
       "V400SchemaVersion": {
         "enum": [
           "4.0.0"
@@ -39514,6 +40114,25 @@
             {
               "value": "3.0.0",
               "name": "Value300"
+            }
+          ]
+        }
+      },
+      "V40028SchemaVersion": {
+        "enum": [
+          "4.0.0"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Version of the event schema. Determined by the \u0060schema_version\u0060 on your [webhook subscription](/api-reference/webhook).",
+        "example": "4.0.0",
+        "x-ms-enum": {
+          "name": "V40028SchemaVersion",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "4.0.0",
+              "name": "Value400"
             }
           ]
         }
@@ -44858,6 +45477,11 @@
       "name": "third-party-transfer",
       "description": "Create and manage transfers over API on behalf of your customers, under your own financial license.",
       "x-displayName": "Third Party Transfers"
+    },
+    {
+      "name": "incoming-transfer",
+      "description": "{% admonition type=\u0022info\u0022 %}\nIncoming transfers are not publicly available. To get access, contact your Wise implementation manager.\n{% /admonition %}\n\nAn incoming transfer represents a payment received into a Wise balance via a supported payment rail (SWIFT, SEPA, Faster Payments, ACH, or the Wise network).",
+      "x-displayName": "Incoming Transfers"
     },
     {
       "name": "user",

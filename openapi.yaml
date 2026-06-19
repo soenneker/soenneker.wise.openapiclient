@@ -1374,6 +1374,20 @@ tags:
     description: >-
       Create and manage transfers over API on behalf of your customers, under
       your own financial license.
+  - name: incoming-transfer
+    x-displayName: Incoming Transfers
+    description: >-
+      {% admonition type="info" %}
+
+      Incoming transfers are not publicly available. To get access, contact your
+      Wise implementation manager.
+
+      {% /admonition %}
+
+
+      An incoming transfer represents a payment received into a Wise balance via
+      a supported payment rail (SWIFT, SEPA, Faster Payments, ACH, or the Wise
+      network).
   - name: user
     x-displayName: Users
     description: >
@@ -1495,6 +1509,9 @@ x-tagGroups:
       - delivery-estimate
       - currencies
       - batch-group
+  - name: Incoming Transfers
+    tags:
+      - incoming-transfer
   - name: Funding
     tags:
       - payin-deposit-detail
@@ -24680,6 +24697,61 @@ paths:
               $ref: '#/components/headers/x-trace-id'
         '429':
           $ref: '#/components/responses/429'
+  /v1/incoming-transfers/{incomingTransferId}:
+    get:
+      operationId: getIncomingTransfer
+      summary: Get an incoming transfer by ID
+      description: >
+        Retrieves an incoming transfer by id. You can pull the incoming-transfer
+        ID from the webhook payload.
+      security:
+        - UserToken: []
+      tags:
+        - incoming-transfer
+      parameters:
+        - name: incomingTransferId
+          in: path
+          required: true
+          description: Unique incoming transfer identifier.
+          schema:
+            type: string
+            format: uuid
+        - $ref: '#/components/parameters/X-External-Correlation-Id'
+      responses:
+        '200':
+          description: The incoming transfer.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/incoming-transfer'
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '401':
+          description: Missing or invalid authentication.
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '403':
+          description: Insufficient permissions.
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '404':
+          description: Resource not found.
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '429':
+          $ref: '#/components/responses/429'
   /v1/me:
     get:
       tags:
@@ -27824,6 +27896,68 @@ webhooks:
                     type: string
                     example: ok
           description: Return any `2xx` status to acknowledge receipt of the event.
+  incoming-transfer#credited:
+    post:
+      operationId: eventIncomingTransferCredited
+      summary: Incoming transfer credited
+      description: >
+        Triggered when an incoming transfer is credited to a Wise balance.
+
+
+        This is a thin event, containing just the `incoming_transfer_id`. You
+        can fetch the full resource via the 
+
+        [Incoming Transfer API](/api-reference/incoming-transfer)
+
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
+
+
+        Events may not be delivered in the order they occurred. Use
+        `data.occurred_at` to reconcile the order.
+
+        See the [Event ordering
+        guide](/guides/developer/webhooks/event-ordering) for details.
+
+
+        * Event type: `incoming-transfer#credited`
+
+        * Profile level subscriptions: Supported
+
+        * Application level subscriptions: Supported
+      tags:
+        - webhook-event
+        - incoming-transfer
+      parameters:
+        - $ref: '#/components/parameters/x-signature-sha256'
+        - $ref: '#/components/parameters/x-delivery-id'
+        - $ref: '#/components/parameters/x-test-notification'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: Incoming Transfer Credited Event
+              discriminator:
+                propertyName: schema_version
+                mapping:
+                  4.0.0: '#/components/schemas/v4.0.0-28'
+              oneOf:
+                - $ref: '#/components/schemas/v4.0.0-28'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+          description: >-
+            Return any `2xx` status to acknowledge receipt of the event.
+            Returning other statuses will not change the incoming transfer's
+            state.
 components:
   parameters:
     X-External-Correlation-Id:
@@ -34732,6 +34866,424 @@ components:
           format: date-time
           description: Date of when payment was updated
           example: '2020-01-01T12:30:15.000Z'
+    scheme:
+      title: Scheme
+      type: string
+      description: >
+        The payment scheme through which the incoming transfer was received.
+
+        These are not necessarily clearing systems as we also include SWIFT
+        here.
+      enum:
+        - SWIFT
+        - SEPA
+        - ACH
+        - FASTER_PAYMENTS
+        - WISE_NETWORK
+      example: SWIFT
+    address-2:
+      title: Address
+      type: object
+      description: |
+        Structured postal address. Fields are optional and populated based on
+        what the payment rail provides.
+      properties:
+        firstLine:
+          type: string
+          description: First line of the address (unstructured).
+          example: 6 Evergreen Ave
+        streetName:
+          type: string
+          description: Street name.
+          example: Evergreen Ave
+        buildingNumber:
+          type: string
+          description: Building number.
+          example: '6'
+        townName:
+          type: string
+          description: City or town.
+          example: BERLIN
+        postalCode:
+          type: string
+          description: Postal or ZIP code.
+          example: '10115'
+        countrySubDivision:
+          type: string
+          description: State, province, or region.
+        countryCode:
+          type: string
+          minLength: 2
+          maxLength: 2
+          description: ISO 3166-1 alpha-2 country code.
+          example: DE
+    account:
+      title: Account
+      type: object
+      description: |
+        Account identifier for a payment participant.
+      required:
+        - number
+      properties:
+        number:
+          type: string
+          maxLength: 36
+          description: |
+            Account identifier — IBAN, BBAN, or other scheme-specific
+            account number.
+          example: DE89370400440532013000
+    national-code-type:
+      title: NationalCodeType
+      type: string
+      description: |
+        Identifies the domestic clearing system the `nationalCode` belongs to.
+      enum:
+        - ABA
+        - SORT_CODE
+      example: SORT_CODE
+    financial-institution:
+      title: FinancialInstitution
+      type: object
+      description: |
+        Financial institution (bank) associated with a payment participant.
+        At least one of `bic`, `nationalCode`, or `name` will be present.
+      minProperties: 1
+      properties:
+        bic:
+          type: string
+          minLength: 8
+          maxLength: 11
+          description: |
+            SWIFT BIC (Business Identifier Code) of the financial institution.
+          example: SMBCJPJT
+        nationalCode:
+          type: string
+          description: |
+            Domestic clearing system membership identifier (e.g. UK sort code,
+            US ABA routing number).
+          example: '040004'
+        nationalCodeType:
+          $ref: '#/components/schemas/national-code-type'
+        name:
+          type: string
+          maxLength: 140
+          description: Name of the financial institution.
+          example: Sumitomo Mitsui Banking Corporation
+        address:
+          $ref: '#/components/schemas/address-2'
+    debtor:
+      title: Debtor
+      type: object
+      description: |
+        The debtor (ordering party) of the incoming transfer.
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          maxLength: 140
+          description: |
+            Full name of the debtor.
+          example: KENJI TANAKA
+        address:
+          $ref: '#/components/schemas/address-2'
+          description: |
+            Postal address of the debtor.
+        account:
+          $ref: '#/components/schemas/account'
+          description: |
+            Debtor's account.
+        agent:
+          $ref: '#/components/schemas/financial-institution'
+          description: >
+            Financial institution routing on behalf of the debtor. May be
+            omitted 
+
+            in the case of institution to institution transfers, as the debtor
+            is the agent.
+    creditor:
+      title: Creditor
+      type: object
+      description: |
+        The creditor (beneficiary) of the incoming transfer.
+      required:
+        - name
+        - account
+      properties:
+        name:
+          type: string
+          maxLength: 140
+          description: |
+            Full name of the creditor.
+          example: WISE PAYMENTS LIMITED
+        address:
+          $ref: '#/components/schemas/address-2'
+          description: |
+            Postal address of the creditor.
+        account:
+          $ref: '#/components/schemas/account'
+          description: |
+            Creditor's account that received the payment.
+        agent:
+          $ref: '#/components/schemas/financial-institution'
+          description: >
+            Financial institution routing on behalf of the creditor. May be
+            omitted 
+
+            in the case of institution to institution transfers, as the creditor
+            is the agent.
+    money-amount:
+      title: MoneyAmount
+      type: object
+      description: An amount with its currency.
+      required:
+        - value
+        - currency
+      properties:
+        value:
+          type: string
+          pattern: ^-?\d+(\.\d+)?$
+          description: Decimal amount value, scaled to the currency's minor unit.
+          example: '1000.00'
+        currency:
+          type: string
+          minLength: 3
+          maxLength: 3
+          description: ISO 4217 three-letter currency code.
+          example: USD
+    amounts:
+      title: Amounts
+      type: object
+      description: |
+        Payment amount waterfall representing the flow of funds:
+        `instructed` → `interbankSettlement` → `credited`.
+      required:
+        - instructed
+        - interbankSettlement
+        - credited
+      properties:
+        instructed:
+          $ref: '#/components/schemas/money-amount'
+          description: >
+            The original amount instructed by the debtor. When not specified by
+            scheme, it
+
+            equals `interbankSettlement`.
+        interbankSettlement:
+          $ref: '#/components/schemas/money-amount'
+          description: |
+            The amount settled between the instructing and instructed agent on
+            the final interbank leg (i.e. the amount that arrived at Wise's
+            correspondent bank).
+        credited:
+          $ref: '#/components/schemas/money-amount'
+          description: |
+            The amount credited to the creditor's Wise balance. Computed as
+            `interbankSettlement` minus Wise fees, converted at
+            `exchangeRate` if applicable.
+    charge-bearer:
+      title: ChargeBearer
+      type: string
+      description: |
+        Charge bearer code indicating who pays the transaction fees. Omitted
+        if not specified in the payment message.
+      enum:
+        - DEBTOR
+        - CREDITOR
+        - SHARED
+        - SERVICE_LEVEL
+      example: SHARED
+    wise-fee:
+      title: WiseFee
+      type: object
+      required:
+        - type
+        - value
+        - currency
+      properties:
+        type:
+          type: string
+          description: >
+            Category of the Wise fee. Additional fee types will be added in
+            future versions.
+          enum:
+            - OTHER
+          example: OTHER
+        value:
+          type: string
+          description: Decimal fee amount.
+          example: '7.25'
+        currency:
+          type: string
+          minLength: 3
+          maxLength: 3
+          description: ISO 4217 currency code.
+          example: EUR
+    correspondent-fee:
+      title: CorrespondentFee
+      type: object
+      description: |
+        A fee deducted by a correspondent or intermediary bank.
+      required:
+        - value
+        - currency
+      properties:
+        value:
+          type: string
+          description: Decimal fee amount deducted by the correspondent bank.
+          example: '15.00'
+        currency:
+          type: string
+          minLength: 3
+          maxLength: 3
+          description: ISO 4217 currency code.
+          example: USD
+        agent:
+          $ref: '#/components/schemas/financial-institution'
+          description: >
+            The financial institution that deducted this fee. Omitted when the
+            charging agent is not
+
+            identified in the payment message.
+    fees:
+      title: Fees
+      type: object
+      description: |
+        Breakdown of fees applied to the incoming transfer. Contains both
+        Wise fees and correspondent/intermediary bank fees.
+      required:
+        - wise
+        - correspondent
+      properties:
+        wise:
+          type: array
+          description: |
+            Fees charged by Wise (e.g. conversion fee, handling fee). Empty
+            array when no Wise fees apply.
+          items:
+            $ref: '#/components/schemas/wise-fee'
+        correspondent:
+          type: array
+          description: >
+            Fees deducted by correspondent or intermediary banks before the
+
+            funds reached Wise. Each entry includes the charging agent when
+
+            available in the pacs message. Array is empty where there are no
+            charges.
+          items:
+            $ref: '#/components/schemas/correspondent-fee'
+    incoming-transfer:
+      title: IncomingTransfer
+      type: object
+      description: |
+        An incoming transfer credited to a Wise balance.
+      required:
+        - id
+        - profileId
+        - balanceId
+        - state
+        - scheme
+        - creditedTime
+        - debtor
+        - creditor
+        - amounts
+        - fees
+        - exchangeRate
+        - previousInstructingAgents
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the incoming transfer.
+          example: 123e4567-e89b-12d3-a456-426614174000
+        profileId:
+          type: integer
+          format: int64
+          description: |
+            Profile ID of the balance owner.
+          example: 12345678
+        balanceId:
+          type: integer
+          format: int64
+          description: |
+            Balance ID associated with the incoming transfer. This is the
+            balance that was credited.
+          example: 555555
+        accountDetailsId:
+          type: integer
+          format: int64
+          description: |
+            Account details ID that received the incoming transfer. A balance
+            may have multiple account details (e.g. multiple IBANs). This
+            identifies the specific one that was credited. Omitted when the
+            payment was received via correspondent model.
+          example: 987654
+        state:
+          type: string
+          description: >
+            Current state of the incoming transfer. Additional states will be
+            added 
+
+            in the future.
+          enum:
+            - CREDITED
+          example: CREDITED
+        scheme:
+          $ref: '#/components/schemas/scheme'
+        endToEndId:
+          type: string
+          maxLength: 35
+          description: |
+            End-to-end identifier assigned by the debtor for reconciliation
+            purposes. Omitted when not provided by the debtor.
+          example: INVOICE-2026-998
+        uetr:
+          type: string
+          format: uuid
+          description: |
+            Universal End-to-End Transaction Reference. A globally unique
+            identifier (UUID v4) assigned by the debtor agent to track the
+            payment across the entire chain.
+          example: 123e4567-e89b-12d3-a456-426614174000
+        unstructuredReference:
+          type: string
+          maxLength: 140
+          description: |
+            Unstructured remittance information provided by the debtor.
+            Free-text field carried through the payment rail.
+          example: /RFB/INV-2025-001
+        creditedTime:
+          type: string
+          format: date-time
+          description: Timestamp when the incoming transfer was credited to the balance.
+          example: '2025-08-21T12:34:56.000Z'
+        debtor:
+          $ref: '#/components/schemas/debtor'
+        creditor:
+          $ref: '#/components/schemas/creditor'
+        amounts:
+          $ref: '#/components/schemas/amounts'
+        exchangeRate:
+          type: string
+          pattern: ^\d+(\.\d+)?$
+          description: |
+            Wise's effective FX rate applied to this incoming transfer
+            (source currency → target balance currency) as a decimal string.
+            "1" when no conversion was needed.
+          example: '0.6325'
+        chargeBearer:
+          $ref: '#/components/schemas/charge-bearer'
+        previousInstructingAgents:
+          type: array
+          description: |
+            Financial institutions that previously instructed this payment
+            (the historical chain the payment passed through before reaching
+            Wise). Ordered by position in the chain.
+          items:
+            $ref: '#/components/schemas/financial-institution'
+        fees:
+          $ref: '#/components/schemas/fees'
     user:
       title: User
       type: object
@@ -41331,6 +41883,52 @@ components:
               format: date-time
               description: When the settlement fund was received
               example: '2024-04-18T06:36:15Z'
+    v4.0.0-28:
+      title: Schema version 4.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 4.0.0
+          example: 4.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event
+          example: 01234567-89ab-cdef-0123-456789abcdef
+        event_type:
+          type: string
+          description: Event type identifier
+          example: incoming-transfer#credited
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent
+          example: '2025-10-21T12:34:58.123Z'
+        data:
+          type: object
+          required:
+            - incoming_transfer_id
+            - occurred_at
+          properties:
+            incoming_transfer_id:
+              type: string
+              format: uuid
+              description: Incoming Transfer ID
+              example: 01234567-89ab-cdef-0123-456789abcdef
+            occurred_at:
+              type: string
+              format: date-time
+              description: >
+                Date and time at which the amount was credited to the balance
+                account. Time in UTC.
+
+                Format: `YYYY`-`MM`-`DD`T`HH`:`MM`:`SS`.`mmm`Z
+              example: '2023-08-21T12:34:56.789Z'
   securitySchemes:
     UserToken:
       type: http

@@ -11,6 +11,7 @@ using Soenneker.Wise.OpenApiClient.V1.Cases;
 using Soenneker.Wise.OpenApiClient.V1.Currencies;
 using Soenneker.Wise.OpenApiClient.V1.DeliveryEstimates;
 using Soenneker.Wise.OpenApiClient.V1.Facetec;
+using Soenneker.Wise.OpenApiClient.V1.IncomingTransfers;
 using Soenneker.Wise.OpenApiClient.V1.Me;
 using Soenneker.Wise.OpenApiClient.V1.OneTimeToken;
 using Soenneker.Wise.OpenApiClient.V1.Profiles;
@@ -78,6 +79,11 @@ namespace Soenneker.Wise.OpenApiClient.V1
         public global::Soenneker.Wise.OpenApiClient.V1.Facetec.FacetecRequestBuilder Facetec
         {
             get => new global::Soenneker.Wise.OpenApiClient.V1.Facetec.FacetecRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The incomingTransfers property</summary>
+        public global::Soenneker.Wise.OpenApiClient.V1.IncomingTransfers.IncomingTransfersRequestBuilder IncomingTransfers
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.V1.IncomingTransfers.IncomingTransfersRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The me property</summary>
         public global::Soenneker.Wise.OpenApiClient.V1.Me.MeRequestBuilder Me
