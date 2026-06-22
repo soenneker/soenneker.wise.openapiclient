@@ -6932,7 +6932,6 @@ paths:
               required:
                 - program
                 - cardHolderName
-                - address
               properties:
                 program:
                   type: string
@@ -6962,7 +6961,9 @@ paths:
                 address:
                   type: object
                   description: >-
-                    The cardholder's billing address or delivery address. Fields
+                    The cardholder's billing address or delivery address.
+                    **Required** for physical cards. **Optional** for virtual
+                    cards (defaults to the profile address, if omitted). Fields
                     vary by country. See the [card address validation
                     guide](/guides/developer/api-guides/card-address-validation).
                   additionalProperties: true
@@ -7453,13 +7454,17 @@ paths:
         guide](/guides/developer/api-guides/card-address-validation).
 
 
-        For virtual cards, the address field will be used as a billing address.
-        It will be used for AVS checks in countries where it is required.
+        For card creation, the `address` requirement depends on the card type:
 
 
-        For physical cards, the address field will be used as a delivery
-        address. It will be used to deliver your card and for AVS checks in
-        countries where it is required.
+        - **Physical Cards (Required)**: Used as the delivery address to ship
+        the card and for AVS checks in countries where required.
+
+
+        - **Virtual Cards (Optional)**: If provided, this acts as the billing
+        address. If omitted, the profile address is used as the fallback. In
+        either scenario, the address is used for AVS checks in countries where
+        required.
 
 
         {% admonition type="warning" %}
@@ -29655,8 +29660,9 @@ components:
         address:
           type: object
           description: >-
-            Address set during card order. Fields vary by country. See the [card
-            address validation
+            Address set during card order. **Required** for physical cards.
+            **Optional** for virtual cards (defaults to the profile address, if
+            omitted). Fields vary by country. See the [card address validation
             guide](/guides/developer/api-guides/card-address-validation) for
             country-specific fields and validation rules.
           additionalProperties: true

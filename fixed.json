@@ -3442,7 +3442,7 @@
           "card-order"
         ],
         "summary": "Validate an address",
-        "description": "Validates the format of an address for a card order. Make sure to follow country-specific address fields and validation as described in the [card address validation guide](/guides/developer/api-guides/card-address-validation).\n\nFor virtual cards, the address field will be used as a billing address. It will be used for AVS checks in countries where it is required.\n\nFor physical cards, the address field will be used as a delivery address. It will be used to deliver your card and for AVS checks in countries where it is required.\n\n{% admonition type=\u0022warning\u0022 %}\nWe do not support PO BOX addresses.\n{% /admonition %}\n",
+        "description": "\u0022Validates the format of an address for a card order. Make sure to follow country-specific address fields and validation as described in the [card address validation guide](/guides/developer/api-guides/card-address-validation).\n\nFor card creation, the \u0060address\u0060 requirement depends on the card type:\n\n- **Physical Cards (Required)**: Used as the delivery address to ship the card and for AVS checks in countries where required.\n\n- **Virtual Cards (Optional)**: If provided, this acts as the billing address. If omitted, the profile address is used as the fallback. In either scenario, the address is used for AVS checks in countries where required.\n\n{% admonition type=\\\u0022warning\\\u0022 %}\nWe do not support PO BOX addresses.\n{% /admonition %}\n\u0022",
         "operationId": "CardOrderValidateAddress",
         "parameters": [
           {
@@ -21829,7 +21829,7 @@
             "example": "GB"
           }
         },
-        "description": "Address set during card order. Fields vary by country. See the [card address validation guide](/guides/developer/api-guides/card-address-validation) for country-specific fields and validation rules."
+        "description": "Address set during card order. **Required** for physical cards. **Optional** for virtual cards (defaults to the profile address, if omitted). Fields vary by country. See the [card address validation guide](/guides/developer/api-guides/card-address-validation) for country-specific fields and validation rules."
       },
       "CardOrderDeliveryDetails": {
         "type": "object",
@@ -31090,8 +31090,7 @@
       "CardOrderCreateRequest": {
         "required": [
           "program",
-          "cardHolderName",
-          "address"
+          "cardHolderName"
         ],
         "type": "object",
         "properties": {
@@ -35204,7 +35203,7 @@
             "example": "GB"
           }
         },
-        "description": "The cardholder\u0027s billing address or delivery address. Fields vary by country. See the [card address validation guide](/guides/developer/api-guides/card-address-validation)."
+        "description": "The cardholder\u0027s billing address or delivery address. **Required** for physical cards. **Optional** for virtual cards (defaults to the profile address, if omitted). Fields vary by country. See the [card address validation guide](/guides/developer/api-guides/card-address-validation)."
       },
       "CardOrderCreateRequestReplacementDetails": {
         "type": "object",

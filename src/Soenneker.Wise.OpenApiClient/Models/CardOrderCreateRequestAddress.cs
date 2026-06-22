@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// The cardholder&apos;s billing address or delivery address. Fields vary by country. See the [card address validation guide](/guides/developer/api-guides/card-address-validation).
+    /// The cardholder&apos;s billing address or delivery address. **Required** for physical cards. **Optional** for virtual cards (defaults to the profile address, if omitted). Fields vary by country. See the [card address validation guide](/guides/developer/api-guides/card-address-validation).
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class CardOrderCreateRequestAddress : IAdditionalDataHolder, IParsable

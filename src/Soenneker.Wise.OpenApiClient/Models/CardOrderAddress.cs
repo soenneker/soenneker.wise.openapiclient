@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Address set during card order. Fields vary by country. See the [card address validation guide](/guides/developer/api-guides/card-address-validation) for country-specific fields and validation rules.
+    /// Address set during card order. **Required** for physical cards. **Optional** for virtual cards (defaults to the profile address, if omitted). Fields vary by country. See the [card address validation guide](/guides/developer/api-guides/card-address-validation) for country-specific fields and validation rules.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class CardOrderAddress : IAdditionalDataHolder, IParsable
