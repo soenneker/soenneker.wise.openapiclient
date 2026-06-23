@@ -1436,7 +1436,7 @@ tags:
   - name: webhook-event
     x-displayName: Events
     description: >
-      Webhook events are notifications sent by Wise to your server when specific
+      Webhook events are notifications Wise sends to your server when specific
       actions occur. Subscribe to events using the
       [Webhook](/api-reference/webhook) endpoints at the application or profile
       level.
@@ -1744,9 +1744,9 @@ paths:
                     intendedCountries:
                       - deu
                       - esp
-                    yearlyAnticipatedVolume: '0_2350'
+                    yearlyAnticipatedVolume: 0_2350
                     mainSourceOfIncome: SALARY
-                    annualIncome: '0_11500'
+                    annualIncome: 0_11500
                   properties:
                     accountPurpose:
                       type: string
@@ -1778,11 +1778,11 @@ paths:
                       type: string
                       description: Expected yearly transaction volume in Euros.
                       enum:
-                        - '0_2350'
-                        - '2351_6000'
-                        - '6001_11500'
-                        - '11501_60000'
-                        - '60001_175000'
+                        - 0_2350
+                        - 2351_6000
+                        - 6001_11500
+                        - 11501_60000
+                        - 60001_175000
                         - 175001_+
                     mainSourceOfIncome:
                       type: string
@@ -1802,11 +1802,11 @@ paths:
                         Expected annual income in Euros. Must be submitted with
                         mainSourceOfIncome.
                       enum:
-                        - '0_11500'
-                        - '11501_19000'
-                        - '19001_28500'
-                        - '28501_47500'
-                        - '47501_75000'
+                        - 0_11500
+                        - 11501_19000
+                        - 19001_28500
+                        - 28501_47500
+                        - 47501_75000
                         - 75001_+
                     incomeExplanation:
                       type: string
@@ -1823,7 +1823,7 @@ paths:
                     intendedCountries:
                       - deu
                       - esp
-                    monthlyAnticipatedVolume: '0_1200'
+                    monthlyAnticipatedVolume: 0_1200
                     mainSourceOfFunding: BUSINESS_LOAN
                   properties:
                     businessUseCase:
@@ -1868,16 +1868,16 @@ paths:
                       type: string
                       description: Expected monthly transaction volume in Euros.
                       enum:
-                        - '0_1200'
-                        - '1201_6000'
-                        - '6001_12000'
-                        - '12001_60000'
-                        - '60001_120000'
-                        - '120001_235000'
-                        - '235001_600000'
-                        - '600001_1200000'
-                        - '1200001_6000000'
-                        - '6000001_12000000'
+                        - 0_1200
+                        - 1201_6000
+                        - 6001_12000
+                        - 12001_60000
+                        - 60001_120000
+                        - 120001_235000
+                        - 235001_600000
+                        - 600001_1200000
+                        - 1200001_6000000
+                        - 6000001_12000000
                         - 12000001_+
       responses:
         '204':
@@ -1961,9 +1961,9 @@ paths:
                     intendedCountries:
                       - deu
                       - esp
-                    yearlyAnticipatedVolume: '0_2350'
+                    yearlyAnticipatedVolume: 0_2350
                     mainSourceOfIncome: SALARY
-                    annualIncome: '0_11500'
+                    annualIncome: 0_11500
                   properties:
                     accountPurpose:
                       type: string
@@ -1995,11 +1995,11 @@ paths:
                       type: string
                       description: Expected yearly transaction volume in Euros.
                       enum:
-                        - '0_2350'
-                        - '2351_6000'
-                        - '6001_11500'
-                        - '11501_60000'
-                        - '60001_175000'
+                        - 0_2350
+                        - 2351_6000
+                        - 6001_11500
+                        - 11501_60000
+                        - 60001_175000
                         - 175001_+
                     mainSourceOfIncome:
                       type: string
@@ -2019,11 +2019,11 @@ paths:
                         Expected annual income in Euros. Must be submitted with
                         mainSourceOfIncome.
                       enum:
-                        - '0_11500'
-                        - '11501_19000'
-                        - '19001_28500'
-                        - '28501_47500'
-                        - '47501_75000'
+                        - 0_11500
+                        - 11501_19000
+                        - 19001_28500
+                        - 28501_47500
+                        - 47501_75000
                         - 75001_+
                     incomeExplanation:
                       type: string
@@ -2040,7 +2040,7 @@ paths:
                     intendedCountries:
                       - deu
                       - esp
-                    monthlyAnticipatedVolume: '0_1200'
+                    monthlyAnticipatedVolume: 0_1200
                     mainSourceOfFunding: BUSINESS_LOAN
                   properties:
                     businessUseCase:
@@ -2085,16 +2085,16 @@ paths:
                       type: string
                       description: Expected monthly transaction volume in Euros.
                       enum:
-                        - '0_1200'
-                        - '1201_6000'
-                        - '6001_12000'
-                        - '12001_60000'
-                        - '60001_120000'
-                        - '120001_235000'
-                        - '235001_600000'
-                        - '600001_1200000'
-                        - '1200001_6000000'
-                        - '6000001_12000000'
+                        - 0_1200
+                        - 1201_6000
+                        - 6001_12000
+                        - 12001_60000
+                        - 60001_120000
+                        - 120001_235000
+                        - 235001_600000
+                        - 600001_1200000
+                        - 1200001_6000000
+                        - 6000001_12000000
                         - 12000001_+
       responses:
         '207':
@@ -26028,15 +26028,16 @@ webhooks:
 
         Active cases indicate potential problems with transfer processing.
 
-        See the [Webhooks guide](/guides/developer/webhooks) for setup
-        instructions, signature verification, and best practices.
-
 
         * Event type: `transfers#active-cases`
 
         * Profile level subscriptions: Supported
 
         * Application level subscriptions: Supported
+
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
       tags:
         - webhook-event
         - transfer
@@ -26073,29 +26074,15 @@ webhooks:
       operationId: eventTransfersRefund
       summary: Transfer refund
       description: >
-        Triggered every time a transfer's status becomes `funds_refunded`. Each
-        event contains a timestamp.
-
-
-        Events may not be delivered in the order they occurred. Use
-        `data.occurred_at` to reconcile the order.
-
-        See the [Event Ordering](/guides/developer/webhooks/event-ordering)
-        guide for details.
-
-
-        See the [Webhooks guide](/guides/developer/webhooks) for setup
-        instructions, signature verification, and best practices.
-
-
         This event provides information about refund amount and currency.
-
-
+        Triggered every time a transfer's status becomes `funds_refunded`. 
+            
         * Event type: `transfers#refund`
 
         * Profile level subscriptions: Supported
 
         * Application level subscriptions: Supported
+
 
         {% admonition type="info" %}
 
@@ -26103,9 +26090,20 @@ webhooks:
         reflect the amount in account balances or the sandbox UI. See [Simulate
         transfer state
         change](/api-reference/simulation/simulationtransferstatechange#sandbox-refund)
-        for details on sandbox refund behaviour.
+        for details about sandbox refund behaviour.
 
         {% /admonition %}
+
+
+        Each event contains a timestamp. Events may not be delivered in the
+        order they occurred. Use `data.occurred_at` to reconcile the order.
+
+        See the [Event ordering
+        guide](/guides/developer/webhooks/event-ordering) for details.
+
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
       tags:
         - webhook-event
         - transfer
@@ -26145,16 +26143,6 @@ webhooks:
         Triggered every time a payout fails. Use this event to get further
         information about a failed payment.
 
-        See the [Webhooks guide](/guides/developer/webhooks) for setup
-        instructions, signature verification, and best practices.
-
-
-        Events may not be delivered in the order they occurred. Use
-        `data.occurred_at` to reconcile the order.
-
-        See the [Event Ordering](/guides/developer/webhooks/event-ordering)
-        guide for details.
-
 
         * Event type: `transfers#payout-failure`
 
@@ -26163,41 +26151,50 @@ webhooks:
         * Application level subscriptions: Supported
 
 
+        **Additional info**:
+
+
         The
         [transfers#state-change](/api-reference/webhook-event/eventtransfersstatechange)
-        event provides high level information about the state of transfers. But
+        event provides high level information about the state of transfers, but
         it doesn't provide details about payout failures.
 
 
-        While the `transfers#state-change` event is in `outgoing_payment_sent`
-        state, the payout could fail for certain reasons.
+        While a transfer is in `outgoing_payment_sent` state, the payout could
+        fail for certain reasons. Additionally, not every payout failure will
+        trigger a change in transfer state. For example a payout might fail with
+        `MANDATE_NOT_FILLED_IN`, but the corresponding transfer might stay in
+        the same state.
 
 
-        Please note that not every payout failure will trigger a
-        `transfers#state-change`. For example a payout might fail with
-        `MANDATE_NOT_FILLED_IN` code but the corresponding transfer might stay
-        in the same state.
-
-
-        We recommend to process both event types(`transfers#payout-failure` and
+        We recommend processing both event types(`transfers#payout-failure` and
         `transfers#state-change`) separate from each other.
+
+
+        For available failure reason codes and descriptions, see the [Payout
+        failures guide](/guides/product/send-money/tracking/payout-failures).
+        Note that Wise can add new failure codes so your system should be able
+        to handle the events even if the failure reason code is not recognised.
 
 
         {% admonition type="info" %}
 
-        To simulate payout failure in Sandbox, use the [payout failure
+        To simulate payout failure in sandbox, use the [payout failure
         simulation
         endpoint](/api-reference/simulation/simulationtransferpayoutfailure).
 
         {% /admonition %}
 
 
-        For available failure reason codes and descriptions, see the [Payout
-        failures guide](/guides/product/send-money/tracking/payout-failures).
+        Events may not be delivered in the order they occurred. Use
+        `data.occurred_at` to reconcile the order.
+
+        See the [Event ordering
+        guide](/guides/developer/webhooks/event-ordering) for details.
 
 
-        Wise could add new failure codes and your system should be able to
-        handle the events even if the failure reason code is not recognised.
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
       tags:
         - webhook-event
         - transfer
@@ -26236,32 +26233,33 @@ webhooks:
       description: >
         Triggered every time a transfer's status is updated.
 
-        See the [Webhooks guide](/guides/developer/webhooks) for setup
-        instructions, signature verification, and best practices.
-
-
-        Events may not be delivered in the order they occurred. Use
-        `data.occurred_at` to reconcile the order.
-
-        See the [Event Ordering](/guides/developer/webhooks/event-ordering)
-        guide for details.
-
-
-        {% admonition type="warning" %}
-
-        For topup-to-balance transfers, `transfers#state-change` events will
-        **not** be triggered.
-
-        To listen to these, subscribe to the `balances#update` event instead.
-
-        {% /admonition %}
-
 
         * Event type: `transfers#state-change`
 
         * Profile level subscriptions: Supported
 
         * Application level subscriptions: Supported
+
+
+        {% admonition type="warning" %}
+
+        For topup-to-balance transfers, `transfers#state-change` events are
+        **not** triggered.
+
+        To listen to these, subscribe to the `balances#update` event instead.
+
+        {% /admonition %}
+
+
+        Events may not be delivered in the order they occurred. Use
+        `data.occurred_at` to reconcile the order.
+
+        See the [Event ordering
+        guide](/guides/developer/webhooks/event-ordering) for details.
+
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
       tags:
         - webhook-event
         - transfer
@@ -26298,19 +26296,9 @@ webhooks:
       operationId: eventAccountDetailsOrderStateChange
       summary: Account details order state change
       description: >
-        Triggered when there is a change in the state of an account details
-        order. The event contains information about the order state and
-        requirement state.
-
-        See the [Webhooks guide](/guides/developer/webhooks) for setup
-        instructions, signature verification, and best practices.
-
-
-        Events may not be delivered in the order they occurred. Use
-        `data.modification_time` to reconcile the order.
-
-        See the [Event Ordering](/guides/developer/webhooks/event-ordering)
-        guide for details.
+        The event contains information about the order state and requirement
+        state. Triggered when there is a change in the state of an account
+        details order. 
 
 
         * Event type: `account-details-order#order-state-change`
@@ -26320,7 +26308,7 @@ webhooks:
         * Application level subscriptions: Supported
 
 
-        The possible values for an order are:
+        Possible values for an order:
 
 
         - `PENDING_USER`: One or more requirements has some pending action from
@@ -26342,11 +26330,22 @@ webhooks:
         /%}
 
 
-        The more common requirements are:
+        Most common requirements:
 
 
         - `VERIFICATION`: The user needs to be fully verified before completing
         this requirement.
+
+
+        Events may not be delivered in the order they occurred. Use
+        `data.modification_time` to reconcile the order.
+
+        See the [Event ordering
+        guide](/guides/developer/webhooks/event-ordering) for details.
+
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
       tags:
         - webhook-event
         - bank-account-details
@@ -26384,17 +26383,7 @@ webhooks:
       summary: Account details payment state change
       description: >
         Triggered every time a pay-in is made into the specified account
-        details.
-
-        See the [Webhooks guide](/guides/developer/webhooks) for setup
-        instructions, signature verification, and best practices.
-
-
-        Events may not be delivered in the order they occurred. Use
-        `data.occurred_at` to reconcile the order.
-
-        See the [Event Ordering](/guides/developer/webhooks/event-ordering)
-        guide for details.
+        details.    
 
 
         * Event type: `account-details-payment#state-change`
@@ -26402,6 +26391,17 @@ webhooks:
         * Profile level subscriptions: Supported
 
         * Application level subscriptions: Supported
+
+
+        Events may not be delivered in the order they occurred. Use
+        `data.occurred_at` to reconcile the order.
+
+        See the [Event ordering
+        guide](/guides/developer/webhooks/event-ordering) for details.
+
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
       tags:
         - webhook-event
         - bank-account-details
@@ -26441,22 +26441,23 @@ webhooks:
         This event is triggered for the initial card status as well as any
         subsequent updates.
 
-        See the [Webhooks guide](/guides/developer/webhooks) for setup
-        instructions, signature verification, and best practices.
-
-
-        Events may not be delivered in the order they occurred. Use
-        `data.occurred_at` to reconcile the order.
-
-        See the [Event Ordering](/guides/developer/webhooks/event-ordering)
-        guide for details.
-
 
         * Event type: `cards#card-status-change`
 
         * Profile level subscriptions: Not Supported
 
         * Application level subscriptions: Supported
+
+
+        Events may not be delivered in the order they occurred. Use
+        `data.occurred_at` to reconcile the order.
+
+        See the [Event ordering
+        guide](/guides/developer/webhooks/event-ordering) for details.
+
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
       tags:
         - webhook-event
         - card
@@ -26493,26 +26494,13 @@ webhooks:
       operationId: eventCardsCardProductionStatusChange
       summary: Card production status change
       description: >
-        Triggered every time a card production status is updated.
-
-        Please note that this webhook is solely used for physical card with
-        `KIOSK_COLLECTION` delivery method.
-
-
-        Refer back to the [Card kiosk collection
-        guide](/guides/product/issue-cards/card-kiosk-collection) for more
-        details.
+        Triggered every time a card production status is updated. This webhook
+        is solely used for physical cards with `KIOSK_COLLECTION` delivery
+        method.
 
 
-        See the [Webhooks guide](/guides/developer/webhooks) for setup
-        instructions, signature verification, and best practices.
-
-
-        Events may not be delivered in the order they occurred. Use
-        `data.occurred_at` to reconcile the order.
-
-        See the [Event Ordering](/guides/developer/webhooks/event-ordering)
-        guide for details.
+        For more details, see the [Card kiosk collection
+        guide](/guides/product/issue-cards/card-kiosk-collection).
 
 
         * Event type: `cards#card-production-status-change`
@@ -26520,6 +26508,17 @@ webhooks:
         * Profile level subscriptions: Not Supported
 
         * Application level subscriptions: Supported
+
+
+        Events may not be delivered in the order they occurred. Use
+        `data.occurred_at` to reconcile the order.
+
+        See the [Event ordering
+        guide](/guides/developer/webhooks/event-ordering) for details.
+
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
       tags:
         - webhook-event
         - card-kiosk-collection
@@ -26560,22 +26559,23 @@ webhooks:
         provided information can be used to send a push notification to the
         customer's mobile app.
 
-        See the [Webhooks guide](/guides/developer/webhooks) for setup
-        instructions, signature verification, and best practices.
-
-
-        Events may not be delivered in the order they occurred. Use
-        `data.occurred_at` to reconcile the order.
-
-        See the [Event Ordering](/guides/developer/webhooks/event-ordering)
-        guide for details.
-
 
         * Event type: `cards#3ds-challenge`
 
         * Profile level subscriptions: Not Supported
 
         * Application level subscriptions: Supported
+
+
+        Events may not be delivered in the order they occurred. Use
+        `data.occurred_at` to reconcile the order.
+
+        See the [Event ordering
+        guide](/guides/developer/webhooks/event-ordering) for details.
+
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
       tags:
         - webhook-event
         - 3ds
@@ -26613,19 +26613,8 @@ webhooks:
       summary: Card order status change
       description: >
         This event is triggered every time a card order status is updated.
-
-        Please note that statuses depend on the type of card (virtual/physical).
-        Additional statuses related to delivery exist for physical cards.
-
-        See the [Webhooks guide](/guides/developer/webhooks) for setup
-        instructions, signature verification, and best practices.
-
-
-        Events may not be delivered in the order they occurred. Use
-        `data.occurred_at` to reconcile the order.
-
-        See the [Event Ordering](/guides/developer/webhooks/event-ordering)
-        guide for details.
+        Statuses depend on the type of card (virtual/physical). Additional
+        statuses related to delivery exist for physical cards.
 
 
         * Event type: `cards#card-order-status-change`
@@ -26635,30 +26624,30 @@ webhooks:
         * Application level subscriptions: Supported
 
 
-        **Available card order statuses**
+        **Available card order statuses**:
 
 
         The initial card order status is `PLACED` or `REQUIREMENTS_FULFILLED`
         depending on the requirement fulfillment state. The possible values are:
 
-        - `PLACED` - The card order is created. The card will be generated once
+        - `PLACED`: The card order is created. The card will be generated once
         it has fulfilled all the requirements.
 
-        - `REQUIREMENTS_FULFILLED` - The card order has fulfilled all the
+        - `REQUIREMENTS_FULFILLED`: The card order has fulfilled all the
         requirements and the card should be generated in a short while.
 
-        - `CARD_DETAILS_CREATED` - The card has been generated.
+        - `CARD_DETAILS_CREATED`: The card has been generated.
 
-        - `PRODUCED` - The physical card has been produced and waiting to be
+        - `PRODUCED`: The physical card has been produced and is waiting to be
         picked up by delivery vendor (physical card only).
 
-        - `COMPLETED` - The card has been activated and is ready to use. The
-        card order is completed.
+        - `COMPLETED`: The card has been activated and is ready to use. The card
+        order is completed.
 
-        - `CANCELLED` - The card order has been cancelled. This can happen if
-        you reach out to Wise Support to cancel a card order.
+        - `CANCELLED`: The card order has been cancelled. This can happen if you
+        contact Wise Support to cancel a card order.
 
-        - `RETURNED` - Delivery failed, the physical card has been returned and
+        - `RETURNED`: Delivery failed. The physical card has been returned and
         will be blocked (physical card only).
 
 
@@ -26666,6 +26655,17 @@ webhooks:
           src="/images/diagrams/card-order-status-flow.png"
           alt="Create card order statuses transition diagram"
         /%}
+
+
+        Events may not be delivered in the order they occurred. Use
+        `data.occurred_at` to reconcile the order.
+
+        See the [Event ordering
+        guide](/guides/developer/webhooks/event-ordering) for details.
+
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
       tags:
         - webhook-event
         - card-order
@@ -26704,16 +26704,6 @@ webhooks:
       description: >
         Triggered whenever a new card transaction occurs or is modified.
 
-        See the [Webhooks guide](/guides/developer/webhooks) for setup
-        instructions, signature verification, and best practices.
-
-
-        Events may not be delivered in the order they occurred. Use
-        `data.occurred_at` to reconcile the order.
-
-        See the [Event Ordering](/guides/developer/webhooks/event-ordering)
-        guide for details.
-
 
         * Event type: `cards#transaction-state-change`
 
@@ -26729,14 +26719,25 @@ webhooks:
         the results may not always be consistent.
 
 
-        * Active card check – `transaction_amount` is 0 or 1 and
-        `merchant.category.code` does not equal `6011`
+        * Active card check: `transaction_amount` is 0 or 1 and
+        `merchant.category.code` does not equal `6011`.
 
-        * ATM balance check – `transaction_amount` is 0 and
-        `merchant.category.code` equals `6011`
+        * ATM balance check: `transaction_amount` is 0 and
+        `merchant.category.code` equals `6011`.
 
-        * Pre-Authorisation – `is_amount_confirmed` is false and
-        `transaction_state` equals `IN_PROGRESS`
+        * Pre-Authorisation: `is_amount_confirmed` is false and
+        `transaction_state` equals `IN_PROGRESS`.
+
+
+        Events may not be delivered in the order they occurred. Use
+        `data.occurred_at` to reconcile the order.
+
+        See the [Event ordering
+        guide](/guides/developer/webhooks/event-ordering) for details.
+
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
       tags:
         - webhook-event
         - card-transaction
@@ -26779,15 +26780,16 @@ webhooks:
         verification methods required to complete the wallet provisioning are
         returned.
 
-        See the [Webhooks guide](/guides/developer/webhooks) for setup
-        instructions, signature verification, and best practices.
-
 
         * Event type: `cards#manual-provisioning-verification`
 
         * Profile level subscriptions: Not Supported
 
         * Application level subscriptions: Supported
+
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
       tags:
         - webhook-event
         - card
@@ -26821,16 +26823,6 @@ webhooks:
         regulatory hold limit (applicable in countries such as Singapore and
         Malaysia).
 
-        See the [Webhooks guide](/guides/developer/webhooks) for setup
-        instructions, signature verification, and best practices.
-
-
-        Events may not be delivered in the order they occurred. Use
-        `data.occurred_at` to reconcile the order.
-
-        See the [Event Ordering](/guides/developer/webhooks/event-ordering)
-        guide for details.
-
 
         Use `data.state` to determine whether the breach has been opened or
         closed, and `data.closing_reason` to understand how it was resolved.
@@ -26841,6 +26833,17 @@ webhooks:
         * Profile level subscriptions: Supported
 
         * Application level subscriptions: Supported
+
+
+        Events may not be delivered in the order they occurred. Use
+        `data.occurred_at` to reconcile the order.
+
+        See the [Event ordering
+        guide](/guides/developer/webhooks/event-ordering) for details.
+
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
       tags:
         - webhook-event
         - balance
@@ -26912,16 +26915,6 @@ webhooks:
         Verification](/guides/product/kyc/partner-kyc/additional-verification)
         process.
 
-        See the [Webhooks guide](/guides/developer/webhooks) for setup
-        instructions, signature verification, and best practices.
-
-
-        Events may not be delivered in the order they occurred. Use
-        `data.occurred_at` to reconcile the order.
-
-        See the [Event Ordering](/guides/developer/webhooks/event-ordering)
-        guide for details.
-
 
         * Event type: `profiles#cdd-check-state-change`
 
@@ -26930,7 +26923,8 @@ webhooks:
         * Application level subscriptions: Supported
 
 
-        ### Verification state values
+        #### Verification state values
+
 
         | Code                  |
         Description                                                                 
@@ -26939,13 +26933,14 @@ webhooks:
         |-----------------------|------------------------------------------------------------------------------|
 
         | `VERIFIED`            | Additional verification check has
-        passed                                     |
+        passed.                                    |
 
         | `EVIDENCE_REQUIRED`   | Additional verification check has failed,
-        evidences are required             |
+        evidences are required .           |
 
 
-        ### Review outcome values
+        #### Review outcome values
+
 
         | Code                                     |
         Description                                                                 
@@ -26954,56 +26949,68 @@ webhooks:
         |------------------------------------------|------------------------------------------------------------------------------|
 
         | `DOCUMENT_POOR_QUALITY`                    | Document quality
-        poor                                                        |
+        poor.                                                       |
 
         | `DOCUMENT_OUT_OF_DATE`                     | Document out of
-        date                                                         |
+        date.                                                        |
 
         | `DOCUMENT_NAME_MISMATCH`                   | Name on document does not
-        match records                                      |
+        match records.                                     |
 
         | `DOCUMENT_MISSING_NAME`                    | Name on document
-        missing                                                     |
+        missing.                                                    |
 
         | `DOCUMENT_MISSING_ISSUE_DATE`              | Document issue date
-        missing                                                  |
+        missing.                                                 |
 
         | `DOCUMENT_MISSING_COMPANY_LOGO_LETTERHEAD` | Company logo or
-        letterhead missing from document                             |
+        letterhead missing from document.                            |
 
         | `DOCUMENT_NOT_COMPLETE`                    | Document is partially
-        cut-off and does not contain full information          |
+        cut-off and does not contain full information.         |
 
         | `DOCUMENT_MISSING_SIGNATURE`               | Document missing
-        signature                                                   |
+        signature.                                                  |
 
         | `DOCUMENT_MISSING_INCOME`                  | Document missing income
-        information or income is not clear from the document |
+        information or income is not clear from the document. |
 
         | `DOCUMENT_TYPE_UNACCEPTABLE`               | Submitted document type
-        is not acceptable                                    |
+        is not acceptable.                                   |
 
         | `INVOICE_UNACCEPTABLE`                     | Invoice is not an
-        accepted document                                          |
+        accepted document.                                         |
 
         | `PHOTO_ID_UNACCEPTABLE`                    | Photo ID is not an
-        accepted document                                         |
+        accepted document.                                        |
 
         | `TRANSACTION_UNACCEPTABLE`                 | Transaction (or a
-        screenshot of a transaction) is not accepted               |
+        screenshot of a transaction) is not accepted.              |
 
         | `PHOTO_UNACCEPTABLE`                       | Photos (or computer
-        screenshots) are not acceptable                          |
+        screenshots) are not acceptable.                         |
 
         | `OTHER`                                    | Reason
-        unknown                                                               |
+        unknown.                                                              |
 
 
-        ### Required evidence values
+        #### Required evidence values
 
-        Go to the [list of
+
+        See the [list of
         evidences](/guides/product/kyc/partner-kyc/supported-evidences) to find
         all possible values.
+
+
+        Events may not be delivered in the order they occurred. Use
+        `data.occurred_at` to reconcile the order.
+
+        See the [Event ordering
+        guide](/guides/developer/webhooks/event-ordering) for details.
+
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
       tags:
         - webhook-event
         - verification
@@ -27040,12 +27047,8 @@ webhooks:
       operationId: eventProfilesOverdraftLimitThreshold
       summary: Overdraft limit threshold
       description: >
-        Triggered when the overdraft limit usage has reached 70% threshold.
-
-        The event at each threshold is triggered maximum once per hour.
-
-        See the [Webhooks guide](/guides/developer/webhooks) for setup
-        instructions, signature verification, and best practices.
+        Triggered when the overdraft limit usage has reached 70% threshold. The
+        event at each threshold is triggered maximum once per hour.
 
 
         * Event type: `profiles#overdraft-limit-threshold`
@@ -27053,6 +27056,10 @@ webhooks:
         * Profile level subscriptions: Not Supported
 
         * Application level subscriptions: Supported
+
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
       tags:
         - webhook-event
         - profile
@@ -27091,22 +27098,23 @@ webhooks:
       description: >
         Triggered every time a profile's state is updated.
 
-        See the [Webhooks guide](/guides/developer/webhooks) for setup
-        instructions, signature verification, and best practices.
-
-
-        Events may not be delivered in the order they occurred. Use
-        `data.occurred_at` to reconcile the order.
-
-        See the [Event Ordering](/guides/developer/webhooks/event-ordering)
-        guide for details.
-
 
         * Event type: `profiles#state-change`
 
         * Profile level subscriptions: Not Supported
 
         * Application level subscriptions: Supported
+
+
+        Events may not be delivered in the order they occurred. Use
+        `data.occurred_at` to reconcile the order.
+
+        See the [Event ordering
+        guide](/guides/developer/webhooks/event-ordering) for details.
+
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
       tags:
         - webhook-event
         - profile
@@ -27148,24 +27156,12 @@ webhooks:
 
         A profile's _verification state_ can be `verified` or `not_verified`.
 
-        If the state is `verified`, then the user is ready to make payments
+        - If the state is `verified`, then the user is ready to make payments
         using Wise.
 
-        If the state is `not_verified`, then we advise not to initiate any
-        transfers with the user's access token as the
-
-        payments will not be processed until the verification is completed.
-
-
-        See the [Webhooks guide](/guides/developer/webhooks) for setup
-        instructions, signature verification, and best practices.
-
-
-        Events may not be delivered in the order they occurred. Use
-        `data.occurred_at` to reconcile the order.
-
-        See the [Event Ordering](/guides/developer/webhooks/event-ordering)
-        guide for details.
+        - If the state is `not_verified`, then we advise not to initiate any
+        transfers with the user's access token as the payments will not be
+        processed until the verification is completed.
 
 
         * Event type: `profiles#verification-state-change`
@@ -27173,6 +27169,17 @@ webhooks:
         * Profile level subscriptions: Not Supported
 
         * Application level subscriptions: Supported
+
+
+        Events may not be delivered in the order they occurred. Use
+        `data.occurred_at` to reconcile the order.
+
+        See the [Event ordering
+        guide](/guides/developer/webhooks/event-ordering) for details.
+
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
       tags:
         - webhook-event
         - profile
@@ -27209,18 +27216,15 @@ webhooks:
       operationId: eventKycReviewsStateChange
       summary: KYC review state change
       description: >
-        Triggered when a KYC Review state has changed.
-
-        See the [Webhooks guide](/guides/developer/webhooks) for setup
-        instructions, signature verification, and best practices.
+        Triggered when a KYC review state has changed.
 
 
         {% admonition type="info" %}
 
-        In previous versions, this event fired only when the overall KYC Review
+        In previous versions, this event fired only when the overall KYC review
         state changed. In **v5.0.0**, it fires on every requirement or
-        additional requirement state change, which may result in more events
-        being received. See `data.resource.prevState` and
+        additional requirement state change, which may result in receiving more
+        events. See `data.resource.prevState` and
         `data.resource.requirementChanges` for details on what changed.
 
         {% /admonition %}
@@ -27231,6 +27235,10 @@ webhooks:
         * Profile level subscriptions: Not Supported
 
         * Application level subscriptions: Supported
+
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
       tags:
         - webhook-event
         - kyc-review
@@ -27271,16 +27279,6 @@ webhooks:
       description: >
         Triggered every time a user's state is updated.
 
-        See the [Webhooks guide](/guides/developer/webhooks) for setup
-        instructions, signature verification, and best practices.
-
-
-        Events may not be delivered in the order they occurred. Use
-        `data.occurred_at` to reconcile the order.
-
-        See the [Event Ordering](/guides/developer/webhooks/event-ordering)
-        guide for details.
-
 
         * Event type: `users#state-change`
 
@@ -27289,29 +27287,38 @@ webhooks:
         * Application level subscriptions: Supported
 
 
-        **User state change transitions**
+        **User state change transitions**:
 
 
-        The possible `previous_state` and `current_state` values are:
+        Possible `previous_state` and `current_state` values:
 
-        - `ACTIVE` - The user's account is active.
+        - `ACTIVE`: The user's account is active.
 
-        - `WITHDRAW_ONLY` - The user has 90 calendar days to remove their money
+        - `WITHDRAW_ONLY`: The user has 90 calendar days to remove their money
         from their balance before we fully close their account. This can be done
         through sending from their balance to themselves and others or spending
-        with their card. The user will still be able to order new cards, convert
-        between balances, open and close balances, and download balance
-        statements. After 90 calendar days, the account will move into a
-        `DEACTIVATED` state.
+        with their card. The user still cannot order new cards, convert between
+        balances, open and close balances, and download balance statements.
+        After 90 calendar days, the account moves into a `DEACTIVATED` state.
 
-        - `DEACTIVATED` - The user's account is deactivated and they will not be
-        able to perform any actions on their account. The end-user tokens will
-        be revoked and you will receive a `401 Unauthorized` response for API
-        calls.
+        - `DEACTIVATED`: The user's account is deactivated and they cannot
+        perform any actions on their account. The end-user tokens are revoked
+        and you will receive a `401 Unauthorized` response for API calls.
 
 
         {% img src="/images/diagrams/user-deactivation-flow.png" alt="User state
         change flow diagram" /%}
+
+
+        Events may not be delivered in the order they occurred. Use
+        `data.occurred_at` to reconcile the order.
+
+        See the [Event ordering
+        guide](/guides/developer/webhooks/event-ordering) for details.
+
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
       tags:
         - webhook-event
         - user
@@ -27350,8 +27357,12 @@ webhooks:
       description: >
         Triggered every time a multi-currency account is credited or debited.
 
-        See the [Webhooks guide](/guides/developer/webhooks) for setup
-        instructions, signature verification, and best practices.
+
+        * Event type: `balances#update`
+
+        * Profile level subscriptions: Supported
+
+        * Application level subscriptions: Supported
 
 
         Events may not be delivered in the order they occurred. Use
@@ -27359,17 +27370,14 @@ webhooks:
         events within a single transaction.
 
         For tracking events related to a single transaction such as a cancelled
-        card transaction, please use `data.step_id` to reconcile the order.
+        card transaction, use `data.step_id` to reconcile the order.
 
-        See the [Event Ordering](/guides/developer/webhooks/event-ordering)
-        guide for details.
+        See the [Event ordering
+        guide](/guides/developer/webhooks/event-ordering) for details.
 
 
-        * Event type: `balances#update`
-
-        * Profile level subscriptions: Supported
-
-        * Application level subscriptions: Supported
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
       tags:
         - webhook-event
         - balance
@@ -27412,22 +27420,23 @@ webhooks:
       description: >
         Triggered every time a balance account is activated or deactivated.
 
-        See the [Webhooks guide](/guides/developer/webhooks) for setup
-        instructions, signature verification, and best practices.
-
-
-        Events may not be delivered in the order they occurred. Use
-        `data.occurred_at` to reconcile the order.
-
-        See the [Event Ordering](/guides/developer/webhooks/event-ordering)
-        guide for details.
-
 
         * Event type: `balances#account-state-change`
 
         * Profile level subscriptions: Not Supported
 
         * Application level subscriptions: Supported
+
+
+        Events may not be delivered in the order they occurred. Use
+        `data.occurred_at` to reconcile the order.
+
+        See the [Event ordering
+        guide](/guides/developer/webhooks/event-ordering) for details.
+
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
       tags:
         - webhook-event
         - balance
@@ -27539,19 +27548,17 @@ webhooks:
         changes.
 
 
-        The expected state of a batch payment initiation can be one of: `NEW`,
-        `PROCESSING`, `COMPLETED`, `FAILED`, `CHARGED_BACK`.
+        The expected state of a batch payment initiation can be one of: 
 
+        - `NEW`
 
-        See the [Webhooks guide](/guides/developer/webhooks) for setup
-        instructions, signature verification, and best practices.
+        - `PROCESSING`
 
+        - `COMPLETED`
 
-        Events may not be delivered in the order they occurred. Use
-        `data.occurred_at` to reconcile the order.
+        - `FAILED`
 
-        See the [Event Ordering](/guides/developer/webhooks/event-ordering)
-        guide for details.
+        - `CHARGED_BACK`
 
 
         * Event type: `batch-payment-initiations#state-change`
@@ -27559,6 +27566,17 @@ webhooks:
         * Profile level subscriptions: Not Supported
 
         * Application level subscriptions: Supported
+
+
+        Events may not be delivered in the order they occurred. Use
+        `data.occurred_at` to reconcile the order.
+
+        See the [Event ordering
+        guide](/guides/developer/webhooks/event-ordering) for details.
+
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
       tags:
         - webhook-event
         - batch-group
@@ -27596,28 +27614,15 @@ webhooks:
       summary: Partner support case changed
       description: >
         Triggered every time a partner case is updated, including if commented
-        on or if the status is changed.
-
-        See the [Webhooks guide](/guides/developer/webhooks) for setup
-        instructions, signature verification, and best practices.
+        on or if the status is changed. Note that you will also receive a
+        webhook response when you have created a new case or updated a case.
 
 
-        Note that you will also receive a webhook response when you have created
-        a new case or updated a case.
+        {% admonition type="warning" name="Endpoint in BETA" %}
 
-
-        Events may not be delivered in the order they occurred. Use
-        `data.occurred_at` to reconcile the order.
-
-        See the [Event Ordering](/guides/developer/webhooks/event-ordering)
-        guide for details.
-
-
-        {% admonition type="warning" %}
-
-        As the Partner Support API is currently in beta, the information below
-        may change. We will be adding in new types of cases, so please ensure
-        that you handle additional undocumented types.
+        As this endpoing is currently in beta, the information below may change.
+        We will be adding in new types of cases, so ensure you handle additional
+        undocumented types.
 
         {% /admonition %}
 
@@ -27627,6 +27632,17 @@ webhooks:
         * Profile level subscriptions: Not supported
 
         * Application level subscriptions: Supported
+
+
+        Events may not be delivered in the order they occurred. Use
+        `data.occurred_at` to reconcile the order.
+
+        See the [Event ordering
+        guide](/guides/developer/webhooks/event-ordering) for details.
+
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
       tags:
         - webhook-event
         - case
@@ -27663,23 +27679,13 @@ webhooks:
       operationId: eventSwiftInCredit
       summary: Swift receive credit
       description: >
-        Triggered every time a Swift message is received and a credit is
+        Triggered every time a SWIFT message is received and a credit is
         deposited into a balance account.
-
-        See the [Webhooks guide](/guides/developer/webhooks) for setup
-        instructions, signature verification, and best practices.
-
-
-        Events may not be delivered in the order they occurred. Use
-        `data.occurred_at` to reconcile the order.
-
-        See the [Event Ordering](/guides/developer/webhooks/event-ordering)
-        guide for details.
 
 
         If you also subscribe to `balances#credit` or `transfers#state-change`
-        on the same profile or application you may experience some duplication
-        of webhook events. You should make allowances for this and handle it in
+        on the same profile or application, you may experience some duplication
+        of webhook events. You should make allowances for this to handle it in
         your implementation.
 
 
@@ -27688,6 +27694,17 @@ webhooks:
         * Profile level subscriptions: Supported
 
         * Application level subscriptions: Supported
+
+
+        Events may not be delivered in the order they occurred. Use
+        `data.occurred_at` to reconcile the order.
+
+        See the [Event ordering
+        guide](/guides/developer/webhooks/event-ordering) for details.
+
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
       tags:
         - webhook-event
       parameters:
@@ -27723,19 +27740,9 @@ webhooks:
       operationId: eventSwiftMessageReceived
       summary: Swift message received
       description: >
-        Triggered when a Swift message (e.g.
+        Triggered when a SWIFT message (e.g.,
         [pacs.008](/guides/product/receive-money/subscribe-to-swift-message-received#example-pacs008-message-content))
         is received and processed by Wise on behalf of a partner.
-
-        See the [Webhooks guide](/guides/developer/webhooks) for setup
-        instructions, signature verification, and best practices.
-
-
-        Events may not be delivered in the order they occurred. Use
-        `data.occurred_at` to reconcile the order.
-
-        See the [Event Ordering](/guides/developer/webhooks/event-ordering)
-        guide for details.
 
 
         * Event type: `swift#message-received`
@@ -27743,6 +27750,17 @@ webhooks:
         * Profile level subscriptions: Supported
 
         * Application level subscriptions: Supported
+
+
+        Events may not be delivered in the order they occurred. Use
+        `data.occurred_at` to reconcile the order.
+
+        See the [Event ordering
+        guide](/guides/developer/webhooks/event-ordering) for details.
+
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
       tags:
         - webhook-event
       parameters:
@@ -27778,24 +27796,10 @@ webhooks:
       description: >
         Triggered every time a transaction dispute is submitted or updated.
 
-        See the [Webhooks guide](/guides/developer/webhooks) for setup
-        instructions, signature verification, and best practices.
-
-
-        Events may not be delivered in the order they occurred. Use
-        `data.occurred_at` to reconcile the order.
-
-        See the [Event Ordering](/guides/developer/webhooks/event-ordering)
-        guide for details.
-
-
-        {% admonition type="warning" %}
 
         You may receive update events even when there are no apparent changes in
-        the dispute status or subStatus, as certain underlying modifications
+        the dispute `status` or `subStatus`, as certain underlying modifications
         might not directly impact these visible indicators.
-
-        {% /admonition %}
 
 
         * Event type: `transaction-disputes#update`
@@ -27803,6 +27807,17 @@ webhooks:
         * Profile level subscriptions: Not Supported
 
         * Application level subscriptions: Supported
+
+
+        Events may not be delivered in the order they occurred. Use
+        `data.occurred_at` to reconcile the order.
+
+        See the [Event ordering
+        guide](/guides/developer/webhooks/event-ordering) for details.
+
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
       tags:
         - webhook-event
         - disputes
@@ -27841,26 +27856,15 @@ webhooks:
       description: >
         Triggered when a bulk settlement fund is received. Once there is a
         match, meaning the amount for this settlement journal is fully settled,
-        the `amount_matched` will be set to true. If it is not matched, check
-        the difference between `source_amount` and `target_amount` to determine
-        how much more needs to be paid.
+        the `amount_matched` is set to `true`. If it is not matched, check the
+        difference between `source_amount` and `target_amount` to determine how
+        much more needs to be paid.
 
 
-        Please note that this event can also be triggered when our operations
-        team reallocates funds between settlements. Therefore, the
-        `received_amount` in version 2.0.0 of the webhook is inaccurate. Please
-        use the latest version, 4.0.0. Version 2.0.0 is deprecated.
-
-
-        See the [Webhooks guide](/guides/developer/webhooks) for setup
-        instructions, signature verification, and best practices.
-
-
-        Events may not be delivered in the order they occurred. Use
-        `data.occurred_at` to reconcile the order.
-
-        See the [Event Ordering](/guides/developer/webhooks/event-ordering)
-        guide for details.
+        This event can also be triggered when our operations team reallocates
+        funds between settlements. Therefore, the `received_amount` in version
+        2.0.0 of the webhook is inaccurate. Please use the latest version,
+        4.0.0. Version 2.0.0 is deprecated.
 
 
         * Event type: `bulk-settlement#payment-received`
@@ -27868,6 +27872,17 @@ webhooks:
         * Profile level subscriptions: Not Supported
 
         * Application level subscriptions: Supported
+
+
+        Events may not be delivered in the order they occurred. Use
+        `data.occurred_at` to reconcile the order.
+
+        See the [Event ordering
+        guide](/guides/developer/webhooks/event-ordering) for details.
+
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
       tags:
         - webhook-event
         - bulk-settlement
@@ -27909,14 +27924,17 @@ webhooks:
         Triggered when an incoming transfer is credited to a Wise balance.
 
 
-        This is a thin event, containing just the `incoming_transfer_id`. You
-        can fetch the full resource via the 
+        This is a thin event, containing just the `incoming_transfer_id`. Fetch
+        the full resource via the 
 
-        [Incoming Transfer API](/api-reference/incoming-transfer)
+        [incoming transfer endpoint](/api-reference/incoming-transfer).
 
 
-        See the [Webhooks guide](/guides/developer/webhooks) for setup
-        instructions, signature verification, and best practices.
+        * Event type: `incoming-transfer#credited`
+
+        * Profile level subscriptions: Supported
+
+        * Application level subscriptions: Supported
 
 
         Events may not be delivered in the order they occurred. Use
@@ -27926,11 +27944,8 @@ webhooks:
         guide](/guides/developer/webhooks/event-ordering) for details.
 
 
-        * Event type: `incoming-transfer#credited`
-
-        * Profile level subscriptions: Supported
-
-        * Application level subscriptions: Supported
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
       tags:
         - webhook-event
         - incoming-transfer
@@ -35500,16 +35515,16 @@ components:
         subscription_id:
           type: string
           format: uuid
-          description: ID of the webhook subscription that triggered this event
+          description: ID of the webhook subscription that triggered this event.
           example: 01234567-89ab-cdef-0123-456789abcdef
         event_type:
           type: string
-          description: Event type identifier
+          description: Event type identifier.
           example: transfers#active-cases
         sent_at:
           type: string
           format: date-time
-          description: Timestamp when the event was sent
+          description: Timestamp when the event was sent.
           example: '2020-01-01T12:34:56.123Z'
         data:
           type: object
@@ -35529,7 +35544,7 @@ components:
                 profile_id:
                   type: integer
                   format: int64
-                  description: Profile ID of the transfer owner
+                  description: Profile ID of the transfer owner.
                   example: 222
                 account_id:
                   type: integer
@@ -35540,7 +35555,7 @@ components:
               type: array
               items:
                 type: string
-              description: Ongoing issues related to the transfer
+              description: Ongoing issues related to the transfer.
               example:
                 - deposit_amount_less_invoice
     v2.0.0:
@@ -35558,7 +35573,7 @@ components:
         subscription_id:
           type: string
           format: uuid
-          description: ID of the webhook subscription that triggered this event
+          description: ID of the webhook subscription that triggered this event.
           example: 01234567-89ab-cdef-0123-456789abcdef
         event_type:
           type: string
@@ -35567,7 +35582,7 @@ components:
         sent_at:
           type: string
           format: date-time
-          description: Timestamp when the event was sent
+          description: Timestamp when the event was sent.
           example: '2020-01-01T12:34:56Z'
         data:
           type: object
@@ -35587,18 +35602,18 @@ components:
                 profile_id:
                   type: integer
                   format: int64
-                  description: Profile ID of the transfer owner
+                  description: Profile ID of the transfer owner.
                   example: 222
                 account_id:
                   type: integer
                   format: int64
-                  description: Recipient account ID
+                  description: Recipient account ID.
                   example: 333
             active_cases:
               type: array
               items:
                 type: string
-              description: Ongoing issues related to the transfer
+              description: Ongoing issues related to the transfer.
               example:
                 - deposit_amount_less_invoice
     v4.0.0-2:
@@ -35616,16 +35631,16 @@ components:
         subscription_id:
           type: string
           format: uuid
-          description: ID of the webhook subscription that triggered this event
+          description: ID of the webhook subscription that triggered this event.
           example: 01234567-89ab-cdef-0123-456789abcdef
         event_type:
           type: string
-          description: Event type identifier
+          description: Event type identifier.
           example: transfers#refund
         sent_at:
           type: string
           format: date-time
-          description: Timestamp when the event was sent
+          description: Timestamp when the event was sent.
           example: '2024-01-01T12:34:56.123Z'
         data:
           type: object
@@ -35635,17 +35650,17 @@ components:
               properties:
                 type:
                   type: string
-                  description: Transfer resource type (always `transfer`)
+                  description: Transfer resource type (always `transfer`).
                   example: transfer
                 id:
                   type: integer
                   format: int64
-                  description: ID of the transfer
+                  description: ID of the transfer.
                   example: 111
                 profile_id:
                   type: integer
                   format: int64
-                  description: Identifies the Wise profile associated with this refund
+                  description: Identifies the Wise profile associated with this refund.
                   example: 222
                 account_id:
                   type: integer
@@ -35671,7 +35686,7 @@ components:
             occurred_at:
               type: string
               format: date-time
-              description: The date and time the refund was triggered
+              description: The date and time the refund was triggered.
               example: '2024-01-01T12:34:56.789Z'
     v2.0.0-2:
       title: Schema version 2.0.0
@@ -35688,16 +35703,16 @@ components:
         subscription_id:
           type: string
           format: uuid
-          description: ID of the webhook subscription that triggered this event
+          description: ID of the webhook subscription that triggered this event.
           example: 01234567-89ab-cdef-0123-456789abcdef
         event_type:
           type: string
-          description: Event type identifier
+          description: Event type identifier.
           example: transfers#refund
         sent_at:
           type: string
           format: date-time
-          description: Timestamp when the event was sent
+          description: Timestamp when the event was sent.
           example: '2024-01-01T12:34:56Z'
         data:
           type: object
@@ -35707,17 +35722,17 @@ components:
               properties:
                 type:
                   type: string
-                  description: Transfer resource type (always `transfer`)
+                  description: Transfer resource type (always `transfer`).
                   example: transfer
                 id:
                   type: integer
                   format: int64
-                  description: ID of the transfer
+                  description: ID of the transfer.
                   example: 111
                 profile_id:
                   type: integer
                   format: int64
-                  description: Identifies the Wise profile associated with this refund
+                  description: Identifies the Wise profile associated with this refund.
                   example: 222
                 account_id:
                   type: integer
@@ -35743,7 +35758,7 @@ components:
             occurred_at:
               type: string
               format: date-time
-              description: The date and time the refund was triggered
+              description: The date and time the refund was triggered.
               example: '2024-01-01T12:34:56Z'
     v4.0.0-3:
       title: Schema version 4.0.0
@@ -35760,16 +35775,16 @@ components:
         subscription_id:
           type: string
           format: uuid
-          description: ID of the webhook subscription that triggered this event
+          description: ID of the webhook subscription that triggered this event.
           example: 01234567-89ab-cdef-0123-456789abcdef
         event_type:
           type: string
-          description: Event type identifier
+          description: Event type identifier.
           example: transfers#payout-failure
         sent_at:
           type: string
           format: date-time
-          description: Timestamp when the event was sent
+          description: Timestamp when the event was sent.
           example: '2023-08-10T10:17:28.123Z'
         data:
           type: object
@@ -35777,12 +35792,12 @@ components:
             transfer_id:
               type: integer
               format: int64
-              description: ID of the transfer
+              description: ID of the transfer.
               example: 111
             profile_id:
               type: integer
               format: int64
-              description: ID of the profile that initiated the transfer
+              description: ID of the profile that initiated the transfer.
               example: 222
             failure_reason_code:
               type: string
@@ -35801,7 +35816,7 @@ components:
             occurred_at:
               type: string
               format: date-time
-              description: When the state change occurred
+              description: When the state change occurred.
               example: '2023-08-10T10:17:23.123Z'
     v2.0.0-3:
       title: Schema version 2.0.0
@@ -35818,16 +35833,16 @@ components:
         subscription_id:
           type: string
           format: uuid
-          description: ID of the webhook subscription that triggered this event
+          description: ID of the webhook subscription that triggered this event.
           example: 01234567-89ab-cdef-0123-456789abcdef
         event_type:
           type: string
-          description: Event type identifier
+          description: Event type identifier.
           example: transfers#payout-failure
         sent_at:
           type: string
           format: date-time
-          description: Timestamp when the event was sent
+          description: Timestamp when the event was sent.
           example: '2023-08-10T10:17:28Z'
         data:
           type: object
@@ -35835,12 +35850,12 @@ components:
             transfer_id:
               type: integer
               format: int64
-              description: ID of the transfer
+              description: ID of the transfer.
               example: 111
             profile_id:
               type: integer
               format: int64
-              description: ID of the profile that initiated the transfer
+              description: ID of the profile that initiated the transfer.
               example: 222
             failure_reason_code:
               type: string
@@ -35859,7 +35874,7 @@ components:
             occurred_at:
               type: string
               format: date-time
-              description: When the state change occurred
+              description: When the state change occurred.
               example: '2023-08-10T10:17:23.000+00:00'
     v4.0.0-4:
       title: Schema version 4.0.0
@@ -35876,7 +35891,7 @@ components:
         subscription_id:
           type: string
           format: uuid
-          description: ID of the webhook subscription that triggered this event
+          description: ID of the webhook subscription that triggered this event.
           example: 01234567-89ab-cdef-0123-456789abcdef
         event_type:
           type: string
@@ -35885,7 +35900,7 @@ components:
         sent_at:
           type: string
           format: date-time
-          description: Timestamp when the event was sent
+          description: Timestamp when the event was sent.
           example: '2020-01-01T12:34:56.123Z'
         data:
           type: object
@@ -35905,7 +35920,7 @@ components:
                 profile_id:
                   type: integer
                   format: int64
-                  description: Profile ID of the transfer owner
+                  description: Profile ID of the transfer owner.
                   example: 222
                 account_id:
                   type: integer
@@ -35930,7 +35945,7 @@ components:
             occurred_at:
               type: string
               format: date-time
-              description: Timestamp when the state change occurred
+              description: Timestamp when the state change occurred.
               example: '2020-01-01T12:34:56.789Z'
     v2.0.0-4:
       title: Schema version 2.0.0
@@ -35947,7 +35962,7 @@ components:
         subscription_id:
           type: string
           format: uuid
-          description: ID of the webhook subscription that triggered this event
+          description: ID of the webhook subscription that triggered this event.
           example: 01234567-89ab-cdef-0123-456789abcdef
         event_type:
           type: string
@@ -35956,7 +35971,7 @@ components:
         sent_at:
           type: string
           format: date-time
-          description: Timestamp when the event was sent
+          description: Timestamp when the event was sent.
           example: '2020-01-01T12:34:56Z'
         data:
           type: object
@@ -35976,7 +35991,7 @@ components:
                 profile_id:
                   type: integer
                   format: int64
-                  description: Profile ID of the transfer owner
+                  description: Profile ID of the transfer owner.
                   example: 222
                 account_id:
                   type: integer
@@ -36001,7 +36016,7 @@ components:
             occurred_at:
               type: string
               format: date-time
-              description: Timestamp when the state change occurred
+              description: Timestamp when the state change occurred.
               example: '2020-01-01T12:34:56Z'
     v4.0.0-5:
       title: Schema version 4.0.0
@@ -36018,7 +36033,7 @@ components:
         subscription_id:
           type: string
           format: uuid
-          description: ID of the webhook subscription that triggered this event
+          description: ID of the webhook subscription that triggered this event.
           example: 01989c58-7171-7276-9a4c-c9b4cefc0897
         event_type:
           type: string
@@ -36027,7 +36042,7 @@ components:
         sent_at:
           type: string
           format: date-time
-          description: Timestamp when the event was sent
+          description: Timestamp when the event was sent.
           example: '2025-08-08T07:49:31.123Z'
         data:
           type: object
@@ -36035,24 +36050,24 @@ components:
             creation_time:
               type: string
               format: date-time
-              description: When the order was created
+              description: When the order was created.
               example: '2025-08-08T07:49:27.456Z'
             currency:
               type: string
-              description: Currency code for the account details order
+              description: Currency code for the account details order.
               example: CAD
             is_account_details_issued:
               type: boolean
-              description: Whether account details have been issued for this order
+              description: Whether account details have been issued for this order.
               example: false
             modification_time:
               type: string
               format: date-time
-              description: When the order was last modified
+              description: When the order was last modified.
               example: '2025-08-08T07:49:30.789Z'
             order_id:
               type: string
-              description: Unique identifier for the account details order
+              description: Unique identifier for the account details order.
               example: 01989c58-45e4-71dd-9373-7d999e992f99
             order_status:
               type: string
@@ -36066,11 +36081,11 @@ components:
             profile_id:
               type: integer
               format: int64
-              description: ID of the profile associated with this order
+              description: ID of the profile associated with this order.
               example: 28835473
             requirements:
               type: array
-              description: List of requirements for this order
+              description: List of requirements for this order.
               items:
                 type: object
                 properties:
@@ -36099,7 +36114,7 @@ components:
         subscription_id:
           type: string
           format: uuid
-          description: ID of the webhook subscription that triggered this event
+          description: ID of the webhook subscription that triggered this event.
           example: 01989c58-7171-7276-9a4c-c9b4cefc0897
         event_type:
           type: string
@@ -36108,7 +36123,7 @@ components:
         sent_at:
           type: string
           format: date-time
-          description: Timestamp when the event was sent
+          description: Timestamp when the event was sent.
           example: '2025-08-08T07:49:31Z'
         data:
           type: object
@@ -36116,28 +36131,28 @@ components:
             creation_time:
               type: string
               format: date-time
-              description: When the order was created
+              description: When the order was created.
               example: '2025-08-08T07:49:27Z'
             currency:
               type: string
-              description: Currency code for the account details order
+              description: Currency code for the account details order.
               example: CAD
             is_account_details_issued:
               type: boolean
-              description: Whether account details have been issued for this order
+              description: Whether account details have been issued for this order.
               example: false
             modification_time:
               type: string
               format: date-time
-              description: When the order was last modified
+              description: When the order was last modified.
               example: '2025-08-08T07:49:30Z'
             order_id:
               type: string
-              description: Unique identifier for the account details order
+              description: Unique identifier for the account details order.
               example: 01989c58-45e4-71dd-9373-7d999e992f99
             order_status:
               type: string
-              description: Current status of the order
+              description: Current status of the order.
               enum:
                 - PENDING_USER
                 - PENDING_TW
@@ -36147,11 +36162,11 @@ components:
             profile_id:
               type: integer
               format: int64
-              description: ID of the profile associated with this order
+              description: ID of the profile associated with this order.
               example: 28835473
             requirements:
               type: array
-              description: List of requirements for this order
+              description: List of requirements for this order.
               items:
                 type: object
                 properties:
@@ -36180,7 +36195,7 @@ components:
         subscription_id:
           type: string
           format: uuid
-          description: ID of the webhook subscription that triggered this event
+          description: ID of the webhook subscription that triggered this event.
           example: 36c3f762-560d-4f07-84f9-5d8a3cacabbb
         event_type:
           type: string
@@ -36189,7 +36204,7 @@ components:
         sent_at:
           type: string
           format: date-time
-          description: Timestamp when the event was sent
+          description: Timestamp when the event was sent.
           example: '2024-01-01T12:34:56.123Z'
         data:
           type: object
@@ -36200,12 +36215,12 @@ components:
                 id:
                   type: integer
                   format: int64
-                  description: Balance ID which is linked to the account detail
+                  description: Balance ID which is linked to the account detail.
                   example: 12345
                 profile_id:
                   type: integer
                   format: int64
-                  description: ID of the profile that owns the payment
+                  description: ID of the profile that owns the payment.
                   example: 1
                 type:
                   type: string
@@ -36213,11 +36228,11 @@ components:
                   example: balance-account
             account_details_id:
               type: string
-              description: Account detail ID where the pay-in was received
+              description: Account detail ID where the pay-in was received.
               example: '1'
             target_account_id:
               type: string
-              description: Balance ID which is linked to the account detail
+              description: Balance ID which is linked to the account detail.
               example: '12345'
             transfer:
               type: object
@@ -36280,7 +36295,7 @@ components:
             occurred_at:
               type: string
               format: date-time
-              description: Timestamp when the event occurred
+              description: Timestamp when the event occurred.
               example: '2026-02-24T11:10:13.789Z'
     v2.0.0-6:
       title: Schema version 2.0.0
@@ -36297,7 +36312,7 @@ components:
         subscription_id:
           type: string
           format: uuid
-          description: ID of the webhook subscription that triggered this event
+          description: ID of the webhook subscription that triggered this event.
           example: 36c3f762-560d-4f07-84f9-5d8a3cacabbb
         event_type:
           type: string
@@ -36306,7 +36321,7 @@ components:
         sent_at:
           type: string
           format: date-time
-          description: Timestamp when the event was sent
+          description: Timestamp when the event was sent.
           example: '2024-01-01T12:34:56Z'
         data:
           type: object
@@ -36317,12 +36332,12 @@ components:
                 id:
                   type: integer
                   format: int64
-                  description: Balance ID which is linked to the account detail
+                  description: Balance ID which is linked to the account detail.
                   example: 12345
                 profile_id:
                   type: integer
                   format: int64
-                  description: ID of the profile that owns the payment
+                  description: ID of the profile that owns the payment.
                   example: 1
                 type:
                   type: string
@@ -36330,11 +36345,11 @@ components:
                   example: balance-account
             account_details_id:
               type: string
-              description: Account detail ID where the pay-in was received
+              description: Account detail ID where the pay-in was received.
               example: '1'
             target_account_id:
               type: string
-              description: Balance ID which is linked to the account detail
+              description: Balance ID which is linked to the account detail.
               example: '12345'
             transfer:
               type: object
@@ -36397,7 +36412,7 @@ components:
             occurred_at:
               type: string
               format: date-time
-              description: Timestamp when the event occurred
+              description: Timestamp when the event occurred.
               example: '2026-02-24T11:10:13Z'
     v4.0.0-7:
       title: Schema version 4.0.0
@@ -36414,7 +36429,7 @@ components:
         subscription_id:
           type: string
           format: uuid
-          description: ID of the webhook subscription that triggered this event
+          description: ID of the webhook subscription that triggered this event.
           example: ABCD-1234-ABCD-1234-ABCD
         event_type:
           type: string
@@ -36423,7 +36438,7 @@ components:
         sent_at:
           type: string
           format: date-time
-          description: Timestamp when the event was sent
+          description: Timestamp when the event was sent.
           example: '2022-08-22T07:59:50.123Z'
         data:
           type: object
@@ -36434,7 +36449,7 @@ components:
                 profile_id:
                   type: integer
                   format: int64
-                  description: ID of the profile that owns the card
+                  description: ID of the profile that owns the card.
                   example: 123456
                 client_id:
                   type: string
@@ -36442,7 +36457,7 @@ components:
                   example: your-bank
                 card_token:
                   type: string
-                  description: Unique identifier of the card
+                  description: Unique identifier of the card.
                   example: ABCD-1234-ABCD-1234-ABCD
                 type:
                   type: string
@@ -36453,24 +36468,24 @@ components:
               description: >
                 The updated card status. Possible values:
 
-                - `ACTIVE` - Card is active and can be used
+                - `ACTIVE` - Card is active and can be used.
 
                 - `INACTIVE` - Card is inactive and all transactions will be
-                declined
+                declined.
 
                 - `BLOCKED` - Card is blocked and cannot be reversed back to any
-                state
+                state.
 
-                - `FROZEN` - Card is "blocked" but temporarily
+                - `FROZEN` - Card is "blocked", but temporarily.
 
                 - `PARTNER_SUSPENDED` - Card is suspended by Wise temporarily
-                due to e.g. fraud reasons
+                due to, for example, fraud reasons.
 
-                - `EXPIRED` - Card is expired
+                - `EXPIRED` - Card is expired.
 
-                - `PURGED` - The cardhoder data (e.g. PAN, PIN) have been purged
+                - `PURGED` - The cardhoder data (ex: PAN, PIN) have been purged
                 after exceeds the retention period (555 days after the card's
-                expiry date)
+                expiry date).
               example: FROZEN
             changed_by:
               type: string
@@ -36478,12 +36493,12 @@ components:
                 The identifier of the entity that updated the card status. If
                 changed by Wise, the value is set to `internal_system`,
 
-                otherwise, it is set to your api_client_id
+                otherwise, it is set to your `api_client_id`.
               example: internal_system
             occurred_at:
               type: string
               format: date-time
-              description: When the card status change occurred
+              description: When the card status change occurred.
               example: '2022-08-22T07:49:50.789Z'
     v2.0.0-7:
       title: Schema version 2.0.0
@@ -36500,7 +36515,7 @@ components:
         subscription_id:
           type: string
           format: uuid
-          description: ID of the webhook subscription that triggered this event
+          description: ID of the webhook subscription that triggered this event.
           example: ABCD-1234-ABCD-1234-ABCD
         event_type:
           type: string
@@ -36509,7 +36524,7 @@ components:
         sent_at:
           type: string
           format: date-time
-          description: Timestamp when the event was sent
+          description: Timestamp when the event was sent.
           example: '2022-08-22T07:59:50Z'
         data:
           type: object
@@ -36520,7 +36535,7 @@ components:
                 profile_id:
                   type: integer
                   format: int64
-                  description: ID of the profile that owns the card
+                  description: ID of the profile that owns the card.
                   example: 123456
                 client_id:
                   type: string
@@ -36528,7 +36543,7 @@ components:
                   example: your-bank
                 card_token:
                   type: string
-                  description: Unique identifier of the card
+                  description: Unique identifier of the card.
                   example: ABCD-1234-ABCD-1234-ABCD
                 type:
                   type: string
@@ -36539,24 +36554,24 @@ components:
               description: >
                 The updated card status. Possible values:
 
-                - `ACTIVE` - Card is active and can be used
+                - `ACTIVE` - Card is active and can be used.
 
                 - `INACTIVE` - Card is inactive and all transactions will be
-                declined
+                declined.
 
                 - `BLOCKED` - Card is blocked and cannot be reversed back to any
-                state
+                state.
 
-                - `FROZEN` - Card is "blocked" but temporarily
+                - `FROZEN` - Card is "blocked", but temporarily.
 
                 - `PARTNER_SUSPENDED` - Card is suspended by Wise temporarily
-                due to e.g. fraud reasons
+                due to, for example, fraud reasons.
 
-                - `EXPIRED` - Card is expired
+                - `EXPIRED` - Card is expired.
 
-                - `PURGED` - The cardholder data (e.g. PAN, PIN) have been
-                purged after exceeds the retention period (555 days after the
-                card's expiry date)
+                - `PURGED` - The cardholder data (ex: PAN, PIN) have been purged
+                after exceeds the retention period (555 days after the card's
+                expiry date).
               example: FROZEN
             changed_by:
               type: string
@@ -36564,12 +36579,12 @@ components:
                 The identifier of the entity that updated the card status. If
                 changed by Wise, the value is set to `internal_system`,
 
-                otherwise, it is set to your api_client_id
+                otherwise, it is set to your `api_client_id`.
               example: internal_system
             occurred_at:
               type: string
               format: date-time
-              description: When the card status change occurred
+              description: When the card status change occurred.
               example: '2022-08-22T07:49:50Z'
     v4.0.0-8:
       title: Schema version 4.0.0
@@ -36586,7 +36601,7 @@ components:
         subscription_id:
           type: string
           format: uuid
-          description: ID of the webhook subscription that triggered this event
+          description: ID of the webhook subscription that triggered this event.
           example: 01234567-89ab-cdef-0123-456789abcdef
         event_type:
           type: string
@@ -36595,7 +36610,7 @@ components:
         sent_at:
           type: string
           format: date-time
-          description: Timestamp when the event was sent
+          description: Timestamp when the event was sent.
           example: '2024-01-01T12:34:56.123Z'
         data:
           type: object
@@ -36606,27 +36621,27 @@ components:
                 profile_id:
                   type: integer
                   format: int64
-                  description: ID of the profile that owns the card
+                  description: ID of the profile that owns the card.
                   example: 123456
                 type:
                   type: string
-                  description: Webhook notification of type 'card'
+                  description: Webhook notification of type 'card'.
                   example: card
                 client_id:
                   type: string
-                  description: API client_id
+                  description: API `client_id`
                   example: your-bank
                 card_token:
                   type:
                     - string
                     - 'null'
-                  description: Unique identifier of the card
+                  description: Unique identifier of the card.
                   example: 35050a4a-9521-426e-8109-1396e3687a3e
             status:
               type: string
               description: >
-                Current production status. The possible values can be found in
-                the [production status flow
+                Current production status. See possible values in the
+                [production status flow
                 diagram](/api-reference/card-kiosk-collection#production-status-flow).
               example: PRODUCED
             kiosk_id:
@@ -36641,7 +36656,7 @@ components:
               type: string
               format: date-time
               description: >-
-                Time when the card production request has been sent to the kiosk
+                Time when the card production request was sent to the kiosk
                 machine.
               example: '2024-01-01T12:24:56.789Z'
             error_code:
@@ -36649,8 +36664,8 @@ components:
                 - string
                 - 'null'
               description: >
-                Code returned when card production is not successful. The
-                possible values can be found in [production
+                Code returned when card production is not successful. See
+                possible values in [production
                 errors](/api-reference/card-kiosk-collection/cardkioskcollectionproduce).
               example: null
             description:
@@ -36672,7 +36687,7 @@ components:
         subscription_id:
           type: string
           format: uuid
-          description: ID of the webhook subscription that triggered this event
+          description: ID of the webhook subscription that triggered this event.
           example: 01234567-89ab-cdef-0123-456789abcdef
         event_type:
           type: string
@@ -36681,7 +36696,7 @@ components:
         sent_at:
           type: string
           format: date-time
-          description: Timestamp when the event was sent
+          description: Timestamp when the event was sent.
           example: '2024-01-01T12:34:56Z'
         data:
           type: object
@@ -36692,27 +36707,27 @@ components:
                 profile_id:
                   type: integer
                   format: int64
-                  description: ID of the profile that owns the card
+                  description: ID of the profile that owns the card.
                   example: 123456
                 type:
                   type: string
-                  description: Webhook notification of type 'card'
+                  description: Webhook notification of type 'card'.
                   example: card
                 client_id:
                   type: string
-                  description: API client_id
+                  description: API `client_id`
                   example: your-bank
                 card_token:
                   type:
                     - string
                     - 'null'
-                  description: Unique identifier of the card
+                  description: Unique identifier of the card.
                   example: 35050a4a-9521-426e-8109-1396e3687a3e
             status:
               type: string
               description: >
-                Current production status. The possible values can be found in
-                the [production status flow
+                Current production status. See possible values in the
+                [production status flow
                 diagram](/api-reference/card-kiosk-collection#production-status-flow).
               example: PRODUCED
             kiosk_id:
@@ -36727,7 +36742,7 @@ components:
               type: string
               format: date-time
               description: >-
-                Time when the card production request has been sent to the kiosk
+                Time when the card production request was sent to the kiosk
                 machine.
               example: '2024-01-01T12:24:56Z'
             error_code:
@@ -36735,8 +36750,8 @@ components:
                 - string
                 - 'null'
               description: >
-                Code returned when card production is not successful. The
-                possible values can be found in [production
+                Code returned when card production is not successful. See
+                possible values in [production
                 errors](/api-reference/card-kiosk-collection/cardkioskcollectionproduce).
               example: null
             description:
@@ -36758,7 +36773,7 @@ components:
         subscription_id:
           type: string
           format: uuid
-          description: ID of the webhook subscription that triggered this event
+          description: ID of the webhook subscription that triggered this event.
           example: ec6d37c2-4611-457a-b210-d1a5f4e354c7
         event_type:
           type: string
@@ -36767,7 +36782,7 @@ components:
         sent_at:
           type: string
           format: date-time
-          description: Timestamp when the event was sent
+          description: Timestamp when the event was sent.
           example: '2024-09-05T06:47:15.123Z'
         data:
           type: object
@@ -36777,7 +36792,7 @@ components:
               properties:
                 client_id:
                   type: string
-                  description: Your api_client_id
+                  description: Your `api_client_id`
                   example: tw-test-card-issuance
                 card_token:
                   type: string
@@ -36790,21 +36805,21 @@ components:
                   example: 29751964
                 type:
                   type: string
-                  description: Resource type (always `card`)
+                  description: Resource type (always `card`).
                   example: card
             challenge_expires_after:
               type: integer
               format: int64
-              description: The number of seconds before the challenge expires
+              description: The number of seconds before the challenge expires.
               example: 300
             occurred_at:
               type: string
               format: date-time
-              description: When the challenge is triggered
+              description: When the challenge is triggered.
               example: '2024-09-05T06:47:15.789Z'
             challenge_method:
               type: string
-              description: The challenge method chosen by customer (always `PUSH`)
+              description: The challenge method chosen by customer (always `PUSH`).
               example: PUSH
             transaction:
               type: object
@@ -36812,12 +36827,12 @@ components:
                 reference:
                   type: string
                   description: >-
-                    Transaction reference, you should use this field when
+                    Transaction reference. You should use this field when
                     notifying us of the challenge result.
                   example: '148990660'
                 channel:
                   type: string
-                  description: User agent (usually `browser` or `app`)
+                  description: User agent (usually `browser` or `app`).
                   example: browser
                 merchant:
                   type: object
@@ -36830,7 +36845,7 @@ components:
                       example: null
                     country:
                       type: string
-                      description: Merchant country, it follows ISO 3166-1 alpha-2 standard
+                      description: Merchant country. Follows ISO 3166-1 alpha-2 standard.
                       example: AD
                     name:
                       type: string
@@ -36869,7 +36884,7 @@ components:
         subscription_id:
           type: string
           format: uuid
-          description: ID of the webhook subscription that triggered this event
+          description: ID of the webhook subscription that triggered this event.
           example: ec6d37c2-4611-457a-b210-d1a5f4e354c7
         event_type:
           type: string
@@ -36878,7 +36893,7 @@ components:
         sent_at:
           type: string
           format: date-time
-          description: Timestamp when the event was sent
+          description: Timestamp when the event was sent.
           example: '2024-09-05T06:47:15Z'
         data:
           type: object
@@ -36888,7 +36903,7 @@ components:
               properties:
                 client_id:
                   type: string
-                  description: Your api_client_id
+                  description: Your `api_client_id`
                   example: tw-test-card-issuance
                 card_token:
                   type: string
@@ -36901,21 +36916,21 @@ components:
                   example: 29751964
                 type:
                   type: string
-                  description: Resource type (always `card`)
+                  description: Resource type (always `card`).
                   example: card
             challenge_expires_after:
               type: integer
               format: int64
-              description: The number of seconds before the challenge expires
+              description: The number of seconds before the challenge expires.
               example: 300
             occurred_at:
               type: string
               format: date-time
-              description: When the challenge is triggered
+              description: When the challenge is triggered.
               example: '2024-09-05T06:47:15Z'
             challenge_method:
               type: string
-              description: The challenge method chosen by customer (always `PUSH`)
+              description: The challenge method chosen by customer (always `PUSH`).
               example: PUSH
             transaction:
               type: object
@@ -36923,12 +36938,12 @@ components:
                 reference:
                   type: string
                   description: >-
-                    Transaction reference, you should use this field when
+                    Transaction reference. You should use this field when
                     notifying us of the challenge result.
                   example: '148990660'
                 channel:
                   type: string
-                  description: User agent (usually `browser` or `app`)
+                  description: User agent (usually `browser` or `app`).
                   example: browser
                 merchant:
                   type: object
@@ -36941,7 +36956,7 @@ components:
                       example: null
                     country:
                       type: string
-                      description: Merchant country, it follows ISO 3166-1 alpha-2 standard
+                      description: Merchant country. Follows ISO 3166-1 alpha-2 standard.
                       example: AD
                     name:
                       type: string
@@ -36951,7 +36966,7 @@ components:
                       type:
                         - string
                         - 'null'
-                      description: Merchant url
+                      description: Merchant URL
                       example: http://intrepid-fav.net
                 money_value:
                   type: object
@@ -36980,7 +36995,7 @@ components:
         subscription_id:
           type: string
           format: uuid
-          description: ID of the webhook subscription that triggered this event
+          description: ID of the webhook subscription that triggered this event.
           example: 01234567-89ab-cdef-0123-456789abcdef
         event_type:
           type: string
@@ -36989,7 +37004,7 @@ components:
         sent_at:
           type: string
           format: date-time
-          description: Timestamp when the event was sent
+          description: Timestamp when the event was sent.
           example: '2023-01-01T12:34:56.123Z'
         data:
           type: object
@@ -37000,33 +37015,33 @@ components:
                 profile_id:
                   type: integer
                   format: int64
-                  description: ID of the profile that owns the card
+                  description: ID of the profile that owns the card.
                   example: 123456
                 type:
                   type: string
-                  description: Webhook notification of type 'card'
+                  description: Webhook notification of type 'card'.
                   example: card
                 client_id:
                   type: string
-                  description: Api client_id
+                  description: API `client_id`
                   example: your-bank
                 card_token:
                   type:
                     - string
                     - 'null'
-                  description: Unique identifier of the card
+                  description: Unique identifier of the card.
                   example: 35050a4a-9521-426e-8109-1396e3687a3e
                 card_program:
                   type: string
                   description: >-
-                    The card program associated with this card order. A Card
-                    Program is what Wise refers to all the cards that you will
-                    be issuing with us, grouped by product type and by issuing
+                    The card program associated with this card order. A card
+                    program is how Wise refers to all the cards you will be
+                    issuing with us, grouped by product type and issuing
                     country.
                   example: VISA_DEBIT_CONSUMER_UK_1_PHYSICAL_CARDS_API
             order_id:
               type: string
-              description: Card order ID associated with the status change
+              description: Card order ID associated with the status change.
               example: 1001L
             order_status:
               type: string
@@ -37044,12 +37059,12 @@ components:
               type:
                 - string
                 - 'null'
-              description: Delivery vendor used to dispatch the order (physical card only)
+              description: Delivery vendor used to dispatch the order (physical card only).
               example: DHL
             occurred_at:
               type: string
               format: date-time
-              description: When the card order status change occurred
+              description: When the card order status change occurred.
               example: '2023-01-01T12:24:56.789Z'
     v2.0.0-10:
       title: Schema version 2.0.0
@@ -37066,7 +37081,7 @@ components:
         subscription_id:
           type: string
           format: uuid
-          description: ID of the webhook subscription that triggered this event
+          description: ID of the webhook subscription that triggered this event.
           example: 01234567-89ab-cdef-0123-456789abcdef
         event_type:
           type: string
@@ -37075,7 +37090,7 @@ components:
         sent_at:
           type: string
           format: date-time
-          description: Timestamp when the event was sent
+          description: Timestamp when the event was sent.
           example: '2023-01-01T12:34:56Z'
         data:
           type: object
@@ -37086,33 +37101,33 @@ components:
                 profile_id:
                   type: integer
                   format: int64
-                  description: ID of the profile that owns the card
+                  description: ID of the profile that owns the card.
                   example: 123456
                 type:
                   type: string
-                  description: Webhook notification of type 'card'
+                  description: Webhook notification of type 'card'.
                   example: card
                 client_id:
                   type: string
-                  description: Api client_id
+                  description: API `client_id`
                   example: your-bank
                 card_token:
                   type:
                     - string
                     - 'null'
-                  description: Unique identifier of the card
+                  description: Unique identifier of the card.
                   example: 35050a4a-9521-426e-8109-1396e3687a3e
                 card_program:
                   type: string
                   description: >-
-                    The card program associated with this card order. A Card
-                    Program is what Wise refers to all the cards that you will
-                    be issuing with us, grouped by product type and by issuing
+                    The card program associated with this card order. A card
+                    program is how Wise refers to all the cards you will be
+                    issuing with us, grouped by product type and issuing
                     country.
                   example: VISA_DEBIT_CONSUMER_UK_1_PHYSICAL_CARDS_API
             order_id:
               type: string
-              description: Card order ID associated with the status change
+              description: Card order ID associated with the status change.
               example: 1001L
             order_status:
               type: string
@@ -37130,12 +37145,12 @@ components:
               type:
                 - string
                 - 'null'
-              description: Delivery vendor used to dispatch the order (physical card only)
+              description: Delivery vendor used to dispatch the order (physical card only).
               example: DHL
             occurred_at:
               type: string
               format: date-time
-              description: When the card order status change occurred
+              description: When the card order status change occurred.
               example: '2023-01-01T12:24:56Z'
     v4.0.0-11:
       title: Schema version 4.0.0
@@ -37152,7 +37167,7 @@ components:
         subscription_id:
           type: string
           format: uuid
-          description: ID of the webhook subscription that triggered this event
+          description: ID of the webhook subscription that triggered this event.
           example: 568da36b-7335-4608-ad1b-e5c2d32273b6
         event_type:
           type: string
@@ -37161,7 +37176,7 @@ components:
         sent_at:
           type: string
           format: date-time
-          description: Timestamp when the event was sent
+          description: Timestamp when the event was sent.
           example: '2022-08-15T11:10:46.123Z'
         data:
           type: object
@@ -37172,28 +37187,28 @@ components:
                 profile_id:
                   type: integer
                   format: int64
-                  description: ID of the profile that owns the card
+                  description: ID of the profile that owns the card.
                   example: 123456
                 client_id:
                   type: string
-                  description: Your api_client_id
+                  description: Your `api_client_id`
                   example: your-bank
                 card_token:
                   type: string
-                  description: Unique identifier of the card
+                  description: Unique identifier of the card.
                   example: 136b29e4-7eab-4dac-a017-438d494ef6cb
                 card_last_digits:
                   type: string
-                  description: Last 4 digits of the card
+                  description: Last 4 digits of the card.
                   example: '1234'
                 type:
                   type: string
-                  description: Resource type (always `card`)
+                  description: Resource type (always `card`).
                   example: card
             transaction_id:
               type: integer
               format: int64
-              description: ID of the transaction
+              description: ID of the transaction.
               example: 12345
             transaction_type:
               type: string
@@ -37201,24 +37216,24 @@ components:
                 Type of the transaction. Possible values:
 
                 - `ACCOUNT_CREDIT` - Receiving money on the card, excluding Visa
-                OCT or Mastercard MoneySend
+                OCT or Mastercard MoneySend.
 
-                - `ACCOUNT_FUNDING` - Sending money to another card or e-wallet
+                - `ACCOUNT_FUNDING` - Sending money to another card or e-wallet.
 
-                - `CASH_ADVANCE` - Cash disbursement
+                - `CASH_ADVANCE` - Cash disbursement.
 
-                - `CASH_WITHDRAWAL` - ATM withdrawal
+                - `CASH_WITHDRAWAL` - ATM withdrawal.
 
                 - `CHARGEBACK` - Currently unused. Reserved for future use.
 
-                - `CREDIT_TRANSACTION` - Visa OCT and Mastercard MoneySend
+                - `CREDIT_TRANSACTION` - Visa OCT and Mastercard MoneySend.
 
-                - `ECOM_PURCHASE` - Online purchase
+                - `ECOM_PURCHASE` - Online purchase.
 
-                - `POS_PURCHASE` - Purchase via a POS Terminal
+                - `POS_PURCHASE` - Purchase via a POS terminal.
 
                 - `REFUND` - Partial or full refund of an existing card
-                transaction
+                transaction.
               example: CASH_WITHDRAWAL
             transaction_step_type:
               type: string
@@ -37226,13 +37241,13 @@ components:
                 Step type of the transaction. Possible values:
 
                 - `AUTH` - Transaction authorization which is usually the first
-                step
+                step.
 
-                - `PARTIAL_REVERSAL` - Transaction has been partially reversed
+                - `PARTIAL_REVERSAL` - Transaction has been partially reversed.
 
-                - `FULL_REVERSAL` - Transaction has been fully reversed
+                - `FULL_REVERSAL` - Transaction has been fully reversed.
 
-                - `CAPTURE` - Transaction has been captured
+                - `CAPTURE` - Transaction has been captured.
 
                 - `SETTLE` - Currently unused. Reserved for future use.
 
@@ -37244,36 +37259,36 @@ components:
               type: string
               description: |
                 The current state of the transaction. Possible values:
-                - `IN_PROGRESS` - The transaction is still in progress
-                - `COMPLETED` - The transaction is completed
-                - `DECLINED` - The transaction has been declined
-                - `CANCELLED` - The transaction has been cancelled
-                - `UNKNOWN` - Default fallback status
+                - `IN_PROGRESS` - The transaction is still in progress.
+                - `COMPLETED` - The transaction is completed.
+                - `DECLINED` - The transaction has been declined.
+                - `CANCELLED` - The transaction has been cancelled.
+                - `UNKNOWN` - Default fallback status.
               example: COMPLETED
             decline_reason:
               type:
                 - string
                 - 'null'
-              description: Code of the decline reason if applicable
+              description: Code of the decline reason if applicable.
               example: null
             detailed_decline_reason:
               type:
                 - string
                 - 'null'
               description: >
-                Code of the detailed decline reason if applicable. List of
-                available options is available
-                [here](/api-reference/card-transaction#card-transaction-detailed-decline-reasons).
+                Code of the detailed decline reason if applicable. See list of
+                [card transaction decline
+                reasons](/api-reference/card-transaction#card-transaction-detailed-decline-reasons).
               example: null
             creation_time:
               type: string
               format: date-time
-              description: When the transaction was created
+              description: When the transaction was created.
               example: '2022-08-15T11:10:41.456Z'
             occurred_at:
               type: string
               format: date-time
-              description: When the transaction state change occurred
+              description: When the transaction state change occurred.
               example: '2022-08-15T11:10:41.789Z'
             purge_time:
               type:
@@ -37282,7 +37297,7 @@ components:
               format: date-time
               description: >-
                 Time at which reserved funds will be released after the
-                authorisation hold expires
+                authorisation hold expires.
               example: '2022-08-22T11:10:41.123Z'
             transaction_amount:
               type: object
@@ -37292,7 +37307,7 @@ components:
                   format: decimal
                   description: >-
                     Transaction amount, excluding all embedded fees such as ATM
-                    fees that are not applied by Wise
+                    fees that are not applied by Wise.
                   example: 100
                 currency:
                   type: string
@@ -37326,7 +37341,7 @@ components:
                 value:
                   type: number
                   format: decimal
-                  description: Transaction amount including all fees
+                  description: Transaction amount including all fees.
                   example: 101
                 currency:
                   type: string
@@ -37349,30 +37364,30 @@ components:
               properties:
                 name:
                   type: string
-                  description: Name of the merchant
+                  description: Name of the merchant.
                   example: Test Payment
                 location:
                   type: object
                   properties:
                     country:
                       type: string
-                      description: Country where merchant is located
+                      description: Country where merchant is located.
                       example: France
                     city:
                       type: string
-                      description: City where merchant is located
+                      description: City where merchant is located.
                       example: Rouen
                     postCode:
                       type:
                         - string
                         - 'null'
-                      description: Post code where merchant is located
+                      description: Post code where merchant is located.
                       example: '00000'
                     state:
                       type:
                         - string
                         - 'null'
-                      description: State where merchant is located
+                      description: State where merchant is located.
                       example: null
                 category:
                   type: object
@@ -37393,7 +37408,7 @@ components:
               type: string
               description: >-
                 Also called authorization code. This can be used to prove
-                ownership of a customer's card/account to a merchant
+                ownership of a customer's card/account to a merchant.
               example: '913647'
             arn:
               type:
@@ -37415,7 +37430,7 @@ components:
               type: string
               description: >-
                 Balance channel reference ID associated with the card
-                transaction
+                transaction.
               example: 6e71018d-2f4d-4fc3-6711-f517f4664712
             debits:
               type: array
@@ -37444,7 +37459,7 @@ components:
                       value:
                         type: number
                         format: decimal
-                        description: Amount taken from the balance
+                        description: Amount taken from the balance.
                         example: 165.96
                       currency:
                         type: string
@@ -37482,7 +37497,7 @@ components:
                   creation_time:
                     type: string
                     format: date-time
-                    description: Time of balance debit creation
+                    description: Time of balance debit creation.
                     example: '2022-08-15T11:10:41.456Z'
             credits:
               type: array
@@ -37501,7 +37516,7 @@ components:
                       value:
                         type: number
                         format: decimal
-                        description: Amount credited to the balance
+                        description: Amount credited to the balance.
                         example: 100
                       currency:
                         type: string
@@ -37518,7 +37533,7 @@ components:
                   example: APPROVED
                 fallback:
                   type: boolean
-                  description: Whether there was a fallback applied by Wise
+                  description: Whether there was a fallback applied by Wise.
                   example: true
     v2.1.0:
       title: Schema version 2.1.0
@@ -38328,7 +38343,7 @@ components:
         subscription_id:
           type: string
           format: uuid
-          description: ID of the webhook subscription that triggered this event
+          description: ID of the webhook subscription that triggered this event.
           example: 5281e333-a4d9-4960-aec3-553267a9a8aa
         event_type:
           type: string
@@ -38337,7 +38352,7 @@ components:
         sent_at:
           type: string
           format: date-time
-          description: Timestamp when the event was sent
+          description: Timestamp when the event was sent.
           example: '2026-03-09T05:52:37Z'
         data:
           type: object
@@ -38348,38 +38363,38 @@ components:
                 profile_id:
                   type: integer
                   format: int64
-                  description: ID of the profile that owns the card
+                  description: ID of the profile that owns the card.
                   example: 9953556
                 client_id:
                   type: string
-                  description: Your api_client_id
+                  description: Your `api_client_id`
                   example: tw-test-card-issuance
                 card_token:
                   type: string
-                  description: Unique identifier of the card
+                  description: Unique identifier of the card.
                   example: 72393ec3-0707-4bf1-00b7-744f7a380d2c
                 type:
                   type: string
-                  description: Resource type (always `card`)
+                  description: Resource type (always `card`).
                   example: card
             payment_token_unique_reference:
               type: string
-              description: The payment token unique reference associated to the card
+              description: The payment token unique reference associated to the card.
               example: DNITHE352605523102858206
             last_four_digits:
               type: string
-              description: The last four digits for the card Primary Account Number (PAN)
+              description: The last four digits for the card Primary Account Number (PAN).
               example: '8237'
             creation_time:
               type: string
               format: date-time
-              description: The time when the card provisioning request was created
+              description: The time when the card provisioning request was created.
               example: '2026-03-09T05:52:37.274962Z'
             wallet_name:
               type: string
               description: >-
                 The wallet provider used to provision the card such as "Google
-                Pay" or "Apple Pay"
+                Pay" or "Apple Pay".
               example: Google Pay
     v4.0.0-12:
       title: Schema version 4.0.0
@@ -38396,7 +38411,7 @@ components:
         subscription_id:
           type: string
           format: uuid
-          description: ID of the webhook subscription that triggered this event
+          description: ID of the webhook subscription that triggered this event.
           example: 01234567-89ab-cdef-0123-456789abcdef
         event_type:
           type: string
@@ -38405,7 +38420,7 @@ components:
         sent_at:
           type: string
           format: date-time
-          description: Timestamp when the event was sent
+          description: Timestamp when the event was sent.
           example: '2024-06-01T08:00:00Z'
         data:
           type: object
@@ -38415,30 +38430,30 @@ components:
               properties:
                 type:
                   type: string
-                  description: Resource type. Always `hold-limit-breach`
+                  description: Resource type. Always `hold-limit-breach`.
                   example: hold-limit-breach
                 hold_limit_breach_id:
                   type: integer
                   format: int64
-                  description: ID of the hold limit breach
+                  description: ID of the hold limit breach.
                   example: 1001
                 profile_id:
                   type: integer
                   format: int64
-                  description: ID of the profile that owns the breach
+                  description: ID of the profile that owns the breach.
                   example: 12321323
             amount:
               type: number
               format: decimal
-              description: Amount that exceeded the hold limit
+              description: Amount that exceeded the hold limit.
               example: 500.5
             currency:
               type: string
-              description: Currency code (ISO 4217) of the breach amount
+              description: Currency code (ISO 4217) of the breach amount.
               example: SGD
             state:
               type: string
-              description: Current state of the breach
+              description: Current state of the breach.
               enum:
                 - OPEN
                 - CLOSED
@@ -38447,7 +38462,7 @@ components:
               type:
                 - string
                 - 'null'
-              description: Reason the breach was closed. Null if state is `OPEN`
+              description: Reason the breach was closed. Null if state is `OPEN`.
               enum:
                 - AUTOMATICALLY_RESOLVED
                 - MANUALLY_RESOLVED
@@ -38456,19 +38471,19 @@ components:
             created_at:
               type: string
               format: date-time
-              description: Timestamp when the breach was created (ISO 8601)
+              description: Timestamp when the breach was created (ISO 8601).
               example: '2024-06-01T08:00:00Z'
             updated_at:
               type: string
               format: date-time
-              description: Timestamp when the breach was last updated (ISO 8601)
+              description: Timestamp when the breach was last updated (ISO 8601).
               example: '2024-06-01T08:00:00Z'
             occurred_at:
               type: string
               format: date-time
               description: >-
                 Timestamp when the event occurred (ISO 8601). Use this field to
-                reconcile out-of-order events
+                reconcile out-of-order events.
               example: '2024-06-01T08:00:00Z'
     v4.0.0-13:
       title: Schema version 4.0.0
@@ -38485,7 +38500,7 @@ components:
         subscription_id:
           type: string
           format: uuid
-          description: ID of the webhook subscription that triggered this event
+          description: ID of the webhook subscription that triggered this event.
           example: 01234567-89ab-cdef-0123-456789abcdef
         event_type:
           type: string
@@ -38494,7 +38509,7 @@ components:
         sent_at:
           type: string
           format: date-time
-          description: Timestamp when the event was sent
+          description: Timestamp when the event was sent.
           example: '2020-01-01T12:34:56.123Z'
         data:
           type: object
@@ -38504,12 +38519,12 @@ components:
               properties:
                 type:
                   type: string
-                  description: Profile resource type (always set to `profile`)
+                  description: Profile resource type (always set to `profile`).
                   example: profile
                 id:
                   type: integer
                   format: int64
-                  description: ID of the profile
+                  description: ID of the profile.
                   example: 111
             current_state:
               type: string
@@ -38521,14 +38536,14 @@ components:
                 *Optional*
 
                 Reason the verification review did not pass.
-                Refer to the table above for descriptions of these reasons.
+                Refer to the table above for reason descriptions.
               example: DOCUMENT_OUT_OF_DATE
             required_evidences:
               type: array
               items:
                 type: string
               description: >
-                List of required evidences for verification. Go to the [list of
+                List of required evidences for verification. See the [list of
                 evidences](/guides/product/kyc/partner-kyc/supported-evidences)
                 to find all possible values.
               example:
@@ -38536,7 +38551,7 @@ components:
             occurred_at:
               type: string
               format: date-time
-              description: When the CDD check state change occurred
+              description: When the CDD check state change occurred.
               example: '2020-01-01T12:34:56.789Z'
             source_of_income:
               type: string
@@ -38546,7 +38561,7 @@ components:
 
                 Source of income for a personal profile submitted via the
                 [/upload-evidences
-                API](/api-reference/verification/verificationuploadevidences).
+                endpoint](/api-reference/verification/verificationuploadevidences).
 
                 Use this to upload the correct Source of Wealth document.
               example: INVESTMENTS
@@ -38558,7 +38573,7 @@ components:
 
                 Source of funding for a business profile submitted via the
                 [/upload-evidences
-                API](/api-reference/verification/verificationuploadevidences).
+                endpoint](/api-reference/verification/verificationuploadevidences).
 
                 Use this to upload the correct Source of Wealth document.
               example: REVENUE
@@ -38669,7 +38684,7 @@ components:
         subscription_id:
           type: string
           format: uuid
-          description: ID of the webhook subscription that triggered this event
+          description: ID of the webhook subscription that triggered this event.
           example: 01234567-89ab-cdef-0123-456789abcdef
         event_type:
           type: string
@@ -38678,7 +38693,7 @@ components:
         sent_at:
           type: string
           format: date-time
-          description: Timestamp when the event was sent
+          description: Timestamp when the event was sent.
           example: '2020-01-01T12:34:56.123Z'
         data:
           type: object
@@ -38688,12 +38703,12 @@ components:
               properties:
                 type:
                   type: string
-                  description: Profile resource type (always `profile`)
+                  description: Profile resource type (always `profile`).
                   example: profile
                 id:
                   type: integer
                   format: int64
-                  description: ID of the profile
+                  description: ID of the profile.
                   example: 111
             overdraft:
               type: object
@@ -38710,7 +38725,7 @@ components:
                   example: 20000
                 currency:
                   type: string
-                  description: Currency in which the amounts are expressed in
+                  description: Currency in which the amounts are expressed.
                   example: EUR
     v2.0.0-14:
       title: Schema version 2.0.0
@@ -38785,7 +38800,7 @@ components:
         subscription_id:
           type: string
           format: uuid
-          description: ID of the webhook subscription that triggered this event
+          description: ID of the webhook subscription that triggered this event.
           example: f5b51f77-e14a-433b-9f7c-fc2834ffcff5
         event_type:
           type: string
@@ -38794,7 +38809,7 @@ components:
         sent_at:
           type: string
           format: date-time
-          description: Timestamp when the event was sent
+          description: Timestamp when the event was sent.
           example: '2020-01-01T12:34:56.123Z'
         data:
           type: object
@@ -38805,11 +38820,11 @@ components:
                 id:
                   type: integer
                   format: int64
-                  description: ID of the profile
+                  description: ID of the profile.
                   example: 1234
                 type:
                   type: string
-                  description: Resource type (always `profile`)
+                  description: Resource type (always `profile`).
                   example: profile
             current_state:
               type: string
@@ -38822,14 +38837,14 @@ components:
                 their money from their balance before Wise fully deactivates
                 their account. This can be done through sending from their
                 balance to themselves and others or spending with their card.
-                They will not be able to receive money to their balances and
-                fund transfers from external bank accounts. They will still be
-                able to order new cards, convert between balances, open and
-                close balances, and download balance statements. After 90
-                calendar days, the profile will move into a `DEACTIVATED` state.
+                They cannot receive money to their balances and fund transfers
+                from external bank accounts. They can still order new cards,
+                convert between balances, open and close balances, and download
+                balance statements. After 90 calendar days, the profile will
+                move into a `DEACTIVATED` state.
 
-                - `VIEW_ONLY` - The profile is able to access and view balances
-                and account activities such as transfer history and balance
+                - `VIEW_ONLY` - The profile can access and view balances and
+                account activities such as transfer history and balance
                 statements. However, they can no longer perform actions such as
                 moving money with Wise in any way. All transfers sent to the
                 account after it is set to `VIEW_ONLY` mode will also bounce
@@ -38843,7 +38858,7 @@ components:
             occurred_at:
               type: string
               format: date-time
-              description: When the profile state change occurred
+              description: When the profile state change occurred.
               example: '2020-01-01T12:34:56.789Z'
             requested_by_customer:
               type: boolean
@@ -38947,7 +38962,7 @@ components:
         subscription_id:
           type: string
           format: uuid
-          description: ID of the webhook subscription that triggered this event
+          description: ID of the webhook subscription that triggered this event.
           example: 01234567-89ab-cdef-0123-456789abcdef
         event_type:
           type: string
@@ -38956,7 +38971,7 @@ components:
         sent_at:
           type: string
           format: date-time
-          description: Timestamp when the event was sent
+          description: Timestamp when the event was sent.
           example: '2020-01-01T12:34:56.123Z'
         data:
           type: object
@@ -38966,16 +38981,16 @@ components:
               properties:
                 type:
                   type: string
-                  description: Resource type (always `profile`)
+                  description: Resource type (always `profile`).
                   example: profile
                 id:
                   type: integer
                   format: int64
-                  description: ID of the profile
+                  description: ID of the profile.
                   example: 111
             current_state:
               type: string
-              description: Current verification state of the profile
+              description: Current verification state of the profile.
               enum:
                 - verified
                 - not_verified
@@ -38983,7 +38998,7 @@ components:
             occurred_at:
               type: string
               format: date-time
-              description: When the verification state change occurred
+              description: When the verification state change occurred.
               example: '2020-01-01T12:34:56.789Z'
     v2.0.0-16:
       title: Schema version 2.0.0
@@ -39053,7 +39068,7 @@ components:
         subscription_id:
           type: string
           format: uuid
-          description: ID of the webhook subscription that triggered this event
+          description: ID of the webhook subscription that triggered this event.
           example: 8df95817-8085-40aa-9bda-e3bf46e7a21a
         event_type:
           type: string
@@ -39062,7 +39077,7 @@ components:
         sent_at:
           type: string
           format: date-time
-          description: Timestamp when the event was sent
+          description: Timestamp when the event was sent.
           example: '2024-09-03T16:29:42.123Z'
         data:
           type: object
@@ -39078,21 +39093,21 @@ components:
                 state:
                   type: string
                   description: >
-                    Status of the KYC Review. See [KYC Review
-                    Status](/guides/product/kyc/wise-kyc/hosted-kyc/kyc-review-status.md)
+                    Status of the KYC Review. See [KYC review
+                    status](/guides/product/kyc/wise-kyc/hosted-kyc/kyc-review-status.md)
                     for possible values.
                   example: WAITING_CUSTOMER_INPUT
                 prevState:
                   type: string
                   description: >
-                    Previous status of the KYC Review. See [KYC Review
-                    Status](/guides/product/kyc/wise-kyc/hosted-kyc/kyc-review-status.md)
+                    Previous status of the KYC review. See [KYC review
+                    status](/guides/product/kyc/wise-kyc/hosted-kyc/kyc-review-status.md)
                     for possible values.
                   example: WAITING_CUSTOMER_INPUT
                 profileId:
                   type: integer
                   format: int64
-                  description: ID of the profile KYC Review belongs to.
+                  description: ID of the profile KYC review belongs to.
                   example: 22016766
                 requiredBy:
                   type: string
@@ -39106,26 +39121,26 @@ components:
                 createdAt:
                   type: string
                   format: date-time
-                  description: Timestamp marking the creation of the KYC Review.
+                  description: Timestamp marking the creation of the KYC review.
                   example: '2024-09-03T16:22:02.258Z'
                 updatedAt:
                   type: string
                   format: date-time
-                  description: Timestamp marking the last update of the KYC Review.
+                  description: Timestamp marking the last update of the KYC review.
                   example: '2024-09-03T16:29:41.148Z'
                 triggerReferences:
                   type: array
-                  description: List of trigger references for this KYC Review.
+                  description: List of trigger references for this KYC review.
                   items:
                     type: object
                     properties:
                       type:
                         type: string
                         description: >
-                          Type of the underlying action/process this KYC Review
+                          Type of the underlying action/process this KYC review
                           is for. Usually a reference to which product
 
-                          this KYC Review is for (like `QUOTE` or `TRANSFER`) or
+                          this KYC review is for (like `QUOTE` or `TRANSFER`) or
                           a reference to a KYC process on the profile
 
                           that isn't related to a specific product (like
@@ -39143,34 +39158,34 @@ components:
                         type: object
                         description: >
                           Key-value Object containing metadata of the underlying
-                          product object that triggered the KYC Review.
+                          product object that triggered the KYC review.
 
-                          For `"QUOTE"`, `"TRANSFER"` and `"ADD_MONEY"` types,
-                          triggerData contains an `"id"` field that refers to
+                          For `QUOTE`, `TRANSFER` and `ADD_MONEY` types,
+                          `triggerData` contains an `id` field that refers to
                           their respective IDs.
 
-                          For `"BANK_ACCOUNT_DETAILS"`, triggerData has a field
-                          called `"currencies"` which contains a list of
-                          currencies (i.e USD, SGD, EUR) that
+                          For `BANK_ACCOUNT_DETAILS`, `triggerData` has a field
+                          called `currencies` that contains a list of currencies
+                          (ex: USD, SGD, EUR)
 
                           the bank details have been created for.
 
 
-                          | triggerReference.type | field       | type          
-                          |
+                          | `triggerReference.type` | Field       |
+                          Type           |
 
                           |-----------------------|-------------|----------------|
 
-                          | `QUOTE`                 | id          |
+                          | `QUOTE`                 | `id`          |
                           uuid           |
 
-                          | `TRANSFER`              | id          |
+                          | `TRANSFER`              | `id`          |
                           long           |
 
-                          | `ADD_MONEY`             | id          |
+                          | `ADD_MONEY`             | `id`          |
                           long           |
 
-                          | `BANK_ACCOUNT_DETAILS`  | currencies  | list of
+                          | `BANK_ACCOUNT_DETAILS`  | `currencies`  | list of
                           string |
 
 
@@ -39183,10 +39198,10 @@ components:
                   type: array
                   description: >
                     Nested list of [KYC
-                    Requirement](/api-reference/kyc-review/kyc-requirement)
+                    requirement](/api-reference/kyc-review/kyc-requirement)
                     objects in `[[Requirement]]` format, where each inner list
                     represents a combination of possible requirements to be
-                    provided. To fulfil the whole KYC Review, at least one item
+                    provided. To fulfil the whole KYC review, at least one item
                     from each inner list should be provided.
 
 
@@ -39195,7 +39210,7 @@ components:
 
 
                     Please refer to the [KYC
-                    Requirement](/api-reference/kyc-review/kyc-requirement)
+                    requirement](/api-reference/kyc-review/kyc-requirement)
                     documentation for full examples of the schema.
                   items:
                     type: array
@@ -39212,14 +39227,14 @@ components:
                         description: >-
                           The
                           [key](/api-reference/kyc-review/kyc-requirement#path=key)
-                          of the requirement which has changed.
+                          of the requirement that has changed.
                         example: ID_DOCUMENT
                       newState:
                         type: string
                         description: >-
                           The new
                           [state](/api-reference/kyc-review/kyc-requirement#path=state)
-                          of the requirement which has changed.
+                          of the requirement that has changed.
                         example: IN_REVIEW
                       prevState:
                         type: string
@@ -39228,7 +39243,7 @@ components:
 
                           The previous
                           [state](/api-reference/kyc-review/kyc-requirement#path=state)
-                          of the requirement which has changed. In case only an
+                          of the requirement that has changed. In case only an
                           [additional
                           requirement](/api-reference/kyc-review/kyc-requirement#path=additionalRequirements)
                           has changed, this state can be equal to `newState`.
@@ -39247,14 +39262,14 @@ components:
                               description: >-
                                 The
                                 [UUID](/api-reference/kyc-review/kyc-requirement#path=additionalRequirements/additionalRequirementId)
-                                of the additional requirement which has changed.
+                                of the additional requirement that has changed.
                               example: 8b789c45-60ae-475d-b667-c8714db9a6a4
                             newState:
                               type: string
                               description: >-
                                 The new
                                 [state](/api-reference/kyc-review/kyc-requirement#path=additionalRequirements/state)
-                                of the additional requirement which has changed.
+                                of the additional requirement that has changed.
                               example: IN_REVIEW
                             prevState:
                               type: string
@@ -39264,7 +39279,7 @@ components:
 
                                 The previous
                                 [state](/api-reference/kyc-review/kyc-requirement#path=additionalRequirements/state)
-                                of the additional requirement which has changed.
+                                of the additional requirement that has changed.
                               example: NOT_PROVIDED
     v4.0.0-17:
       title: Schema version 4.0.0
@@ -39653,7 +39668,7 @@ components:
         subscription_id:
           type: string
           format: uuid
-          description: ID of the webhook subscription that triggered this event
+          description: ID of the webhook subscription that triggered this event.
           example: f5b51f77-e14a-433b-9f7c-fc2834ffcff5
         event_type:
           type: string
@@ -39662,7 +39677,7 @@ components:
         sent_at:
           type: string
           format: date-time
-          description: Timestamp when the event was sent
+          description: Timestamp when the event was sent.
           example: '2020-01-01T12:34:56.123Z'
         data:
           type: object
@@ -39673,11 +39688,11 @@ components:
                 id:
                   type: integer
                   format: int64
-                  description: ID of the user
+                  description: ID of the user.
                   example: 1234
                 type:
                   type: string
-                  description: Resource type (always `user`)
+                  description: Resource type (always `user`).
                   example: user
             previous_state:
               type: string
@@ -39688,7 +39703,7 @@ components:
               example: ACTIVE
             current_state:
               type: string
-              description: The current state of the user
+              description: The current state of the user.
               enum:
                 - ACTIVE
                 - WITHDRAW_ONLY
@@ -39697,21 +39712,20 @@ components:
             deactivation_type:
               type: string
               description: >-
-                If the type is `ACCOUNT_SUSPENSION`, it is possible for your
-                customer support teams to appeal the deactivation by reaching
-                out to Wise.
+                If the type is `ACCOUNT_SUSPENSION`, it is possible to appeal
+                the deactivation by contacting Wise.
               enum:
                 - ACCOUNT_SUSPENSION
                 - ACCOUNT_CLOSURE
               example: ACCOUNT_SUSPENSION
             deactivation_reason:
               type: string
-              description: The reason for deactivation
+              description: The reason for deactivation.
               example: REQUESTED_BY_CUSTOMER_CS
             occurred_at:
               type: string
               format: date-time
-              description: When the user state change occurred
+              description: When the user state change occurred.
               example: '2020-01-01T12:34:56.789Z'
     v2.0.0-18:
       title: Schema version 2.0.0
@@ -39803,7 +39817,7 @@ components:
         subscription_id:
           type: string
           format: uuid
-          description: ID of the webhook subscription that triggered this event
+          description: ID of the webhook subscription that triggered this event.
           example: f2264fe5-a0f5-4dab-a1b4-6faa87761425
         event_type:
           type: string
@@ -39812,7 +39826,7 @@ components:
         sent_at:
           type: string
           format: date-time
-          description: Timestamp when the event was sent
+          description: Timestamp when the event was sent.
           example: '2023-03-08T14:55:39.456Z'
         data:
           type: object
@@ -39822,17 +39836,17 @@ components:
               properties:
                 type:
                   type: string
-                  description: Resource type (always balance-account)
+                  description: Resource type (always `balance-account`).
                   example: balance-account
                 id:
                   type: integer
                   format: int64
-                  description: ID of the account
+                  description: ID of the account.
                   example: 2
                 profile_id:
                   type: integer
                   format: int64
-                  description: ID of the profile that owns the account
+                  description: ID of the profile that owns the account.
                   example: 2
             amount:
               type: number
@@ -39842,7 +39856,7 @@ components:
             balance_id:
               type: integer
               format: int64
-              description: ID of the balance credited or debited
+              description: ID of the balance credited or debited.
               example: 111
             channel_name:
               type: string
@@ -39855,17 +39869,17 @@ components:
             occurred_at:
               type: string
               format: date-time
-              description: When the transaction occurred
+              description: When the transaction occurred.
               example: '2023-03-08T14:55:38.123Z'
             post_transaction_balance_amount:
               type: number
               format: decimal
-              description: Available balance after current transaction
+              description: Available balance after current transaction.
               example: 88.93
             step_id:
               type: integer
               format: int64
-              description: Unique identifier for tracking sequence of transaction events
+              description: Unique identifier for tracking sequence of transaction events.
               example: 1234567
             transaction_type:
               type: string
@@ -39873,7 +39887,7 @@ components:
               example: credit
             transfer_reference:
               type: string
-              description: ID of the transfer
+              description: ID of the transfer.
               example: BNK-1234567
     v3.0.0:
       title: Schema version 3.0.0
@@ -40126,7 +40140,7 @@ components:
         subscription_id:
           type: string
           format: uuid
-          description: ID of the webhook subscription that triggered this event
+          description: ID of the webhook subscription that triggered this event.
           example: 01234567-89ab-cdef-0123-456789abcdef
         event_type:
           type: string
@@ -40135,7 +40149,7 @@ components:
         sent_at:
           type: string
           format: date-time
-          description: Timestamp when the event was sent
+          description: Timestamp when the event was sent.
           example: '2020-01-01T12:34:56.123Z'
         data:
           type: object
@@ -40145,17 +40159,17 @@ components:
               properties:
                 type:
                   type: string
-                  description: Resource type (always `balance-account`)
+                  description: Resource type (always `balance-account`).
                   example: balance-account
                 id:
                   type: integer
                   format: int64
-                  description: ID of the account
+                  description: ID of the account.
                   example: 123
                 profile_id:
                   type: integer
                   format: int64
-                  description: ID of the profile that owns the account
+                  description: ID of the profile that owns the account.
                   example: 555
                 state:
                   type: string
@@ -40167,7 +40181,7 @@ components:
             occurred_at:
               type: string
               format: date-time
-              description: Timestamp when the event occurred
+              description: Timestamp when the event occurred.
               example: '2020-01-01T12:34:56.789Z'
     v2.0.0-19:
       title: Schema version 2.0.0
@@ -40380,7 +40394,7 @@ components:
         subscription_id:
           type: string
           format: uuid
-          description: ID of the webhook subscription that triggered this event
+          description: ID of the webhook subscription that triggered this event.
           example: 01234567-89ab-cdef-0123-456789abcdef
         event_type:
           type: string
@@ -40389,7 +40403,7 @@ components:
         sent_at:
           type: string
           format: date-time
-          description: Timestamp when the event was sent
+          description: Timestamp when the event was sent.
           example: '2020-01-01T12:34:56.123Z'
         data:
           type: object
@@ -40409,11 +40423,11 @@ components:
                 profile_id:
                   type: integer
                   format: int64
-                  description: The ID of the profile this payment belongs to
+                  description: The ID of the profile this payment belongs to.
                   example: 2
             previous_status:
               type: string
-              description: Previous payment initiation state
+              description: Previous payment initiation state.
               enum:
                 - NEW
                 - PROCESSING
@@ -40423,7 +40437,7 @@ components:
               example: NEW
             current_status:
               type: string
-              description: Current payment initiation state
+              description: Current payment initiation state.
               enum:
                 - NEW
                 - PROCESSING
@@ -40434,11 +40448,11 @@ components:
             occurred_at:
               type: string
               format: date-time
-              description: When the payment initiation state change occurred
+              description: When the payment initiation state change occurred.
               example: '2021-04-13T19:51:41.423Z'
             return_code:
               type: string
-              description: Return code of the underlying payment system
+              description: Return code of the underlying payment system.
               example: '200'
     v2.0.0-21:
       title: Schema version 2.0.0
@@ -40530,7 +40544,7 @@ components:
         subscription_id:
           type: string
           format: uuid
-          description: ID of the webhook subscription that triggered this event
+          description: ID of the webhook subscription that triggered this event.
           example: 017631af-326c-4a69-93f3-bd1ce987a743
         event_type:
           type: string
@@ -40539,7 +40553,7 @@ components:
         sent_at:
           type: string
           format: date-time
-          description: Timestamp when the event was sent
+          description: Timestamp when the event was sent.
           example: '2023-06-23T09:45:36.123Z'
         data:
           type: object
@@ -40551,18 +40565,18 @@ components:
                   type: string
                   description: >-
                     Type of resource for webhook. Will always be
-                    `partner-support-case`
+                    `partner-support-case`.
                   example: partner-support-case
                 case_id:
                   type: integer
                   format: int64
-                  description: ID of the partner case
+                  description: ID of the partner case.
                   example: 136
                 case_type:
                   type: string
                   description: >-
                     Type of the partner case. Value must be `GENERAL_ENQUIRY`.
-                    More case types will be added in the future.
+                    More case types to be added in the future.
                   example: GENERAL_ENQUIRY
                 details:
                   type: object
@@ -40724,7 +40738,7 @@ components:
         subscription_id:
           type: string
           format: uuid
-          description: ID of the webhook subscription that triggered this event
+          description: ID of the webhook subscription that triggered this event.
           example: 01234567-89ab-cdef-0123-456789abcdef
         event_type:
           type: string
@@ -40733,7 +40747,7 @@ components:
         sent_at:
           type: string
           format: date-time
-          description: Timestamp when the event was sent
+          description: Timestamp when the event was sent.
           example: '2023-08-21T12:34:58.123Z'
         data:
           type: object
@@ -41037,8 +41051,9 @@ components:
                     wise:
                       type: array
                       description: >-
-                        List of fees applied by Wise (e.g., conversion fee). If
-                        this list is empty, no fees were applied by Wise.
+                        List of fees applied by Wise (for example, conversion
+                        fees). If this list is empty, no fees were applied by
+                        Wise.
                       items:
                         type: object
                         required:
@@ -41062,9 +41077,9 @@ components:
                     correspondent:
                       type: array
                       description: >-
-                        List of fees declared by correspondents (e.g., handling
-                        fee). If this list is empty, no fees were declared by
-                        correspondents.
+                        List of fees declared by correspondents (for example,
+                        handling fees). If this list is empty, no fees were
+                        declared by correspondents.
                       items:
                         type: object
                         required:
@@ -41087,13 +41102,14 @@ components:
                     Date and time at which the associated transaction was
                     created. Time in UTC.
 
+
                     Format: `YYYY`-`MM`-`DD`T`HH`:`MM`:`SS`.`mmm`Z
                   example: '2023-08-21T12:34:56.456Z'
                 previous_instructing_agents:
                   type: array
                   description: >-
-                    List of previous instructing agents in the payment chain
-                    (ordered from first to last).
+                    List of previous instructing agents in the payment chain,
+                    ordered from first to last.
                   items:
                     type: object
                     properties:
@@ -41146,6 +41162,7 @@ components:
               description: >
                 Date and time at which the amount was credited to the balance
                 account. Time in UTC.
+
 
                 Format: `YYYY`-`MM`-`DD`T`HH`:`MM`:`SS`.`mmm`Z
               example: '2023-08-21T12:34:56.789Z'
@@ -41458,7 +41475,7 @@ components:
         subscription_id:
           type: string
           format: uuid
-          description: ID of the webhook subscription that triggered this event
+          description: ID of the webhook subscription that triggered this event.
           example: 01234567-89ab-cdef-0123-456789abcdef
         event_type:
           type: string
@@ -41467,7 +41484,7 @@ components:
         sent_at:
           type: string
           format: date-time
-          description: Timestamp when the event was sent
+          description: Timestamp when the event was sent.
           example: '2025-10-21T12:34:58.123Z'
         data:
           type: object
@@ -41494,7 +41511,7 @@ components:
               type: string
               format: date-time
               description: >-
-                Date and time at which the Swift message was processed by Wise.
+                Date and time at which the SWIFT message was processed by Wise.
                 Time in UTC.
               example: '2025-10-21T12:34:56.789Z'
             resource:
@@ -41502,18 +41519,18 @@ components:
               properties:
                 id:
                   type: string
-                  description: Identifier of the Swift message.
+                  description: Identifier of the SWIFT message.
                   example: a1b2c3d4e5f6
                 message_type:
                   type: string
                   description: >-
-                    Type of Swift message contained in the content field (e.g.
+                    Type of SWIFT message contained in the content field (e.g.,
                     `pacs.008.001.08`). Extensible for future message types.
                   example: pacs.008.001.08
                 content:
                   type: string
                   description: >-
-                    The raw Swift message data, encoded as specified by
+                    The raw SWIFT message data, encoded as specified by
                     `content_encoding`.
                   example: PD94bWwgdmVyc2lvbj0iMS4wIj8+...
                 content_encoding:
@@ -41535,7 +41552,7 @@ components:
         subscription_id:
           type: string
           format: uuid
-          description: ID of the webhook subscription that triggered this event
+          description: ID of the webhook subscription that triggered this event.
           example: 7bb32a11-74ad-43b6-9505-3f5facbc87ed
         event_type:
           type: string
@@ -41544,7 +41561,7 @@ components:
         sent_at:
           type: string
           format: date-time
-          description: Timestamp when the event was sent
+          description: Timestamp when the event was sent.
           example: '2024-04-18T06:36:17.123Z'
         data:
           type: object
@@ -41554,27 +41571,28 @@ components:
               properties:
                 id:
                   type: string
-                  description: Unique ID of the dispute
+                  description: Unique ID of the dispute.
                   example: 39f893e3-4b0c-4850-9c5c-8cb8f4798a43
                 profile_id:
                   type: integer
                   format: int64
-                  description: ID of the profile that owns the card
+                  description: ID of the profile that owns the card.
                   example: 16605997
                 transaction_id:
                   type: integer
                   format: int64
-                  description: ID of the card transaction
+                  description: ID of the card transaction.
                   example: 4337
                 type:
                   type: string
-                  description: Resource type (always `transaction-dispute`)
+                  description: Resource type (always `transaction-dispute`).
                   example: transaction-dispute
             reason:
               type: string
               description: >-
-                Dispute reason, you can find all the possible values
-                [here](/api-reference/disputes/disputereasonsget)
+                Dispute reason. See [dispute
+                reason](/api-reference/disputes/disputereasonsget) for all
+                possible values.
               example: WRONG_AMOUNT
             status:
               type: string
@@ -41586,30 +41604,31 @@ components:
             sub_status:
               type: string
               description: >-
-                Dispute detailed status, you can find all the possible values
-                [here](/api-reference/disputes#dispute-sub-status)
+                Dispute detailed status. See [dispute
+                sub-status](/api-reference/disputes#dispute-sub-status) for all
+                possible values.
               example: WITHDRAWN
             status_message:
               type: string
-              description: Explanation for subStatus
+              description: Explanation for `subStatus`.
               example: Withdrawn
             created_at:
               type: string
               format: date-time
-              description: Time when the dispute was created
+              description: Time when the dispute was created.
               example: '2024-04-18T06:17:12.456Z'
             created_by:
               type: string
-              description: Creator of the dispute, it is currently set to the user id
+              description: Creator of the dispute. Currently set to the user id.
               example: '6097861'
             can_withdraw:
               type: boolean
-              description: Whether the dispute can be withdrawn
+              description: Whether the dispute can be withdrawn.
               example: false
             occurred_at:
               type: string
               format: date-time
-              description: When the dispute updates occurred
+              description: When the dispute updates occurred.
               example: '2024-04-18T06:36:15.789Z'
     v2.0.0-23:
       title: Schema version 2.0.0
@@ -41717,7 +41736,7 @@ components:
         subscription_id:
           type: string
           format: uuid
-          description: ID of the webhook subscription that triggered this event
+          description: ID of the webhook subscription that triggered this event.
           example: f5b51f77-e14a-433b-9f7c-fc2834ffcff5
         event_type:
           type: string
@@ -41726,7 +41745,7 @@ components:
         sent_at:
           type: string
           format: date-time
-          description: Timestamp when the event was sent
+          description: Timestamp when the event was sent.
           example: '2024-04-18T06:36:17.123Z'
         data:
           type: object
@@ -41745,21 +41764,21 @@ components:
                 source_amount:
                   type: number
                   format: decimal
-                  description: The amount Wise paid out on behalf of partner
+                  description: The amount Wise paid out on behalf of partner.
                   example: -100.1
                 target_amount:
                   type: number
                   format: decimal
-                  description: Total settlement fund received for this settlement journal
+                  description: Total settlement fund received for this settlement journal.
                   example: 100.1
                 amount_matched:
                   type: boolean
-                  description: Whether amount received matches what is expected
+                  description: Whether amount received matches what is expected.
                   example: true
             occurred_at:
               type: string
               format: date-time
-              description: When the settlement fund was received
+              description: When the settlement fund was received.
               example: '2024-04-18T06:36:15.789Z'
     v3.0.0-3:
       title: Schema version 3.0.0
@@ -41904,7 +41923,7 @@ components:
         subscription_id:
           type: string
           format: uuid
-          description: ID of the webhook subscription that triggered this event
+          description: ID of the webhook subscription that triggered this event.
           example: 01234567-89ab-cdef-0123-456789abcdef
         event_type:
           type: string
@@ -41913,7 +41932,7 @@ components:
         sent_at:
           type: string
           format: date-time
-          description: Timestamp when the event was sent
+          description: Timestamp when the event was sent.
           example: '2025-10-21T12:34:58.123Z'
         data:
           type: object
@@ -41932,6 +41951,7 @@ components:
               description: >
                 Date and time at which the amount was credited to the balance
                 account. Time in UTC.
+
 
                 Format: `YYYY`-`MM`-`DD`T`HH`:`MM`:`SS`.`mmm`Z
               example: '2023-08-21T12:34:56.789Z'
