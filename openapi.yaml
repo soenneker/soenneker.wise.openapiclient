@@ -1034,6 +1034,17 @@ tags:
       Please refer to our [Hosted KYC
       guide](/guides/product/kyc/wise-kyc/hosted-kyc) for more information on
       the general use of the endpoints included below.
+  - name: link-requests
+    x-displayName: Link Requests
+    description: >
+      Embedded Flows are Wise-hosted flows that partners can open for their
+      users or embed inside their own product with an iframe or mobile WebView.
+
+
+      Use the embedded link request endpoints to create a short-lived flow URL
+      for a profile or retrieve an embedded link request by ID. For an overview
+      of when to use Embedded Flows, see the [Embedded Flows
+      guide](/guides/product/embedded-flows/index.md).
   - name: multi-currency-account
     x-displayName: Multi Currency Account
     description: >
@@ -1465,6 +1476,9 @@ x-tagGroups:
       - kyc-review
       - verification
       - facetec
+  - name: Embedded Flows
+    tags:
+      - link-requests
   - name: Strong Customer Authentication
     tags:
       - sca-ott
@@ -11568,6 +11582,246 @@ paths:
               $ref: '#/components/headers/x-trace-id'
         '404':
           description: KYC Review or provided requirement key not found.
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '429':
+          $ref: '#/components/responses/429'
+  /2026Q2/profiles/{profileId}/embedded-flows/link-requests/recipients:
+    post:
+      operationId: recipientEmbeddedLinkRequestCreate
+      summary: Recipient creation
+      description: >
+        Creates a short-lived URL to a Wise-hosted recipient creation Embedded
+        Flow for the given profile.
+
+
+        Use the returned `url` to redirect the user to Wise or embed the flow in
+        your product with an iframe or mobile WebView. When the flow resolves,
+        Wise redirects the user to the `redirectUrl` provided in this request.
+
+
+        Wise validates `redirectUrl` against the redirect URL allowlist
+        configured for your integration.
+
+
+        For an example flow, see the [Embedded Flows
+        guide](/guides/product/embedded-flows/index.md#hosted-recipient-creation-flow).
+      tags:
+        - link-requests
+      security:
+        - UserToken: []
+      parameters:
+        - name: profileId
+          in: path
+          required: true
+          description: The profile ID.
+          schema:
+            type: integer
+            format: int64
+        - $ref: '#/components/parameters/X-External-Correlation-Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - redirectUrl
+              properties:
+                redirectUrl:
+                  type: string
+                  format: uri
+                  description: >-
+                    URL where the user will be redirected when the flow
+                    resolves. This URL must match the redirect URL allowlist
+                    configured for your integration.
+                  example: https://example.com/return
+                targetCurrency:
+                  type: string
+                  description: >-
+                    Optional target currency used to start recipient
+                    requirements for a specific currency.
+                  example: USD
+            example:
+              redirectUrl: https://example.com/return
+              targetCurrency: USD
+      x-codeSamples:
+        - lang: bash
+          label: cURL
+          source: |
+            curl -L -X POST \
+              'https://api.wise-sandbox.com/2026Q2/profiles/{profileId}/embedded-flows/link-requests/recipients' \
+              -H 'Authorization: Bearer <USER_ACCESS_TOKEN>' \
+              -H 'Content-Type: application/json' \
+              -d '{
+                "redirectUrl": "https://example.com/return",
+                "targetCurrency": "USD"
+              }'
+      responses:
+        '201':
+          description: Embedded link request created.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - url
+                  - expiresAt
+                properties:
+                  url:
+                    type: string
+                    format: uri
+                    description: Unique URL to open or embed for the user.
+                    example: >-
+                      https://wise-sandbox.com/embedded-flows?embeddedLinkRequestId=9f5f5812-2609-4e48-8418-b64437c0c7cd#token=0d0bdc88-bcf4-43dd-85be-7ca65441db20
+                  expiresAt:
+                    type: string
+                    format: date-time
+                    description: Timestamp when the returned flow URL expires.
+                    example: '2026-06-15T13:23:20.265Z'
+              example:
+                url: >-
+                  https://wise-sandbox.com/embedded-flows?embeddedLinkRequestId=9f5f5812-2609-4e48-8418-b64437c0c7cd#token=0d0bdc88-bcf4-43dd-85be-7ca65441db20
+                expiresAt: '2026-06-15T13:23:20.265Z'
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '400':
+          description: Invalid request, such as an invalid redirect URL.
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '401':
+          description: User is not authorised to access the resource.
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '404':
+          description: Profile not found.
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '429':
+          $ref: '#/components/responses/429'
+  /2026Q2/embedded-flows/link-requests/{embeddedLinkRequestId}:
+    get:
+      operationId: embeddedLinkRequestGet
+      summary: Get embedded flow configuration
+      description: >
+        Retrieves an Embedded Flow configuration by embedded link request ID.
+        Typically this is not needed to be called as its used by the flow
+        itself.
+
+
+        Embedded Flows uses this endpoint to load the configuration for a
+        previously created link request. For an example flow, see the [Embedded
+        Flows
+        guide](/guides/product/embedded-flows/index.md#hosted-recipient-creation-flow).
+      tags:
+        - link-requests
+      security:
+        - UserToken: []
+      parameters:
+        - name: embeddedLinkRequestId
+          in: path
+          required: true
+          description: The embedded link request ID.
+          schema:
+            type: string
+            format: uuid
+          example: ea5eb6ca-3af7-4e88-a2e2-6a68dd92f198
+        - $ref: '#/components/parameters/X-External-Correlation-Id'
+      x-codeSamples:
+        - lang: bash
+          label: cURL
+          source: |
+            curl -L -X GET \
+              'https://api.wise-sandbox.com/2026Q2/embedded-flows/link-requests/ea5eb6ca-3af7-4e88-a2e2-6a68dd92f198' \
+              -H 'Authorization: Bearer <USER_ACCESS_TOKEN>'
+      responses:
+        '200':
+          description: Embedded link request found.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - id
+                  - profileId
+                  - type
+                  - clientKey
+                  - metadata
+                  - redirectUrl
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    description: Embedded link request ID.
+                    example: ea5eb6ca-3af7-4e88-a2e2-6a68dd92f198
+                  profileId:
+                    type: integer
+                    format: int64
+                    description: Profile that owns the embedded flow.
+                    example: 12345
+                  type:
+                    type: string
+                    description: Embedded Flow type.
+                    enum:
+                      - RECIPIENT
+                      - KYC
+                    example: RECIPIENT
+                  clientKey:
+                    type: string
+                    description: Client key that created the embedded link request.
+                    example: partner-client-key
+                  metadata:
+                    type: object
+                    description: Flow-specific metadata.
+                    properties:
+                      targetCurrency:
+                        type: string
+                        description: >-
+                          Optional target currency for hosted recipient
+                          creation.
+                        example: USD
+                  redirectUrl:
+                    type: string
+                    format: uri
+                    description: URL where Wise redirects the user after the flow resolves.
+                    example: https://example.com/return
+              example:
+                id: ea5eb6ca-3af7-4e88-a2e2-6a68dd92f198
+                profileId: 12345
+                type: RECIPIENT
+                clientKey: partner-client-key
+                metadata:
+                  targetCurrency: USD
+                redirectUrl: https://example.com/return
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '401':
+          description: User is not authorised to access the resource.
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '404':
+          description: Embedded link request not found.
           headers:
             X-External-Correlation-Id:
               $ref: '#/components/headers/X-External-Correlation-Id'
@@ -27978,6 +28232,60 @@ webhooks:
             Return any `2xx` status to acknowledge receipt of the event.
             Returning other statuses will not change the incoming transfer's
             state.
+  recipients#state-change:
+    post:
+      operationId: eventRecipientsStateChange
+      summary: Recipient state change
+      description: >
+        Triggered when a recipient account created or changed through hosted
+        recipient creation changes state.
+
+        See the [Embedded Flows
+        guide](/guides/product/embedded-flows/index.md#hosted-recipient-creation-flow)
+        for an example recipient creation flow.
+
+
+        Events may not be delivered in the order they occurred. Use
+        `data.resource.occurred_at` to reconcile the order.
+
+        See the [Event Ordering](/guides/developer/webhooks/event-ordering)
+        guide for details.
+
+
+        * Event type: `recipients#state-change`
+
+        * Profile level subscriptions: Supported
+
+        * Application level subscriptions: Supported
+      tags:
+        - webhook-event
+        - recipient
+      parameters:
+        - $ref: '#/components/parameters/x-signature-sha256'
+        - $ref: '#/components/parameters/x-delivery-id'
+        - $ref: '#/components/parameters/x-test-notification'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: Recipient State Change Event
+              discriminator:
+                propertyName: schema_version
+                mapping:
+                  4.0.0: '#/components/schemas/v4.0.0-29'
+              oneOf:
+                - $ref: '#/components/schemas/v4.0.0-29'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+          description: Return any `2xx` status to acknowledge receipt of the event.
 components:
   parameters:
     X-External-Correlation-Id:
@@ -41955,6 +42263,98 @@ components:
 
                 Format: `YYYY`-`MM`-`DD`T`HH`:`MM`:`SS`.`mmm`Z
               example: '2023-08-21T12:34:56.789Z'
+    v4.0.0-29:
+      title: Schema version 4.0.0
+      type: object
+      required:
+        - schema_version
+        - subscription_id
+        - event_type
+        - sent_at
+        - data
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 4.0.0
+          example: 4.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event.
+          example: ced03af9-be76-46ac-ada8-7fe935792290
+        event_type:
+          type: string
+          description: Event type identifier.
+          enum:
+            - recipients#state-change
+          example: recipients#state-change
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent.
+          example: '2026-06-15T13:18:20.265Z'
+        data:
+          type: object
+          required:
+            - resource
+          properties:
+            resource:
+              type: object
+              required:
+                - id
+                - occurred_at
+                - data
+              properties:
+                id:
+                  type: string
+                  description: Resource identifier for the changed recipient.
+                  example: '700525176'
+                occurred_at:
+                  type: string
+                  format: date-time
+                  description: Timestamp when the recipient state change occurred.
+                  example: '2026-06-15T13:18:20.265Z'
+                data:
+                  type: object
+                  required:
+                    - recipientId
+                    - profileId
+                    - currency
+                    - state
+                    - clientId
+                  properties:
+                    recipientId:
+                      type: integer
+                      format: int64
+                      description: Recipient account ID.
+                      example: 700525176
+                    profileId:
+                      type: integer
+                      format: int64
+                      description: Profile ID that owns the recipient.
+                      example: 14966143
+                    currency:
+                      type: string
+                      description: Recipient account currency.
+                      example: EUR
+                    state:
+                      type: string
+                      description: Recipient state that triggered the event.
+                      enum:
+                        - CREATE
+                        - UPDATE
+                        - DEACTIVATE
+                        - OBFUSCATE
+                        - DELETE
+                      example: CREATE
+                    clientId:
+                      type: string
+                      description: Partner client ID associated with the recipient.
+                      example: hosted-kyc-test-client
   securitySchemes:
     UserToken:
       type: http

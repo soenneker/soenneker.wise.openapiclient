@@ -6578,6 +6578,124 @@
         ]
       }
     },
+    "/2026Q2/profiles/{profileId}/embedded-flows/link-requests/recipients": {
+      "post": {
+        "tags": [
+          "link-requests"
+        ],
+        "summary": "Recipient creation",
+        "description": "Creates a short-lived URL to a Wise-hosted recipient creation Embedded Flow for the given profile.\n\nUse the returned \u0060url\u0060 to redirect the user to Wise or embed the flow in your product with an iframe or mobile WebView. When the flow resolves, Wise redirects the user to the \u0060redirectUrl\u0060 provided in this request.\n\nWise validates \u0060redirectUrl\u0060 against the redirect URL allowlist configured for your integration.\n\nFor an example flow, see the [Embedded Flows guide](/guides/product/embedded-flows/index.md#hosted-recipient-creation-flow).\n",
+        "operationId": "RecipientEmbeddedLinkRequestCreate",
+        "parameters": [
+          {
+            "name": "profileId",
+            "in": "path",
+            "description": "The profile ID.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/X-External-Correlation-Id"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecipientEmbeddedLinkRequestCreateRequest"
+              },
+              "example": {
+                "redirectUrl": "https://example.com/return",
+                "targetCurrency": "USD"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Embedded link request created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecipientEmbeddedLinkRequestCreate201Response"
+                },
+                "example": {
+                  "url": "https://wise-sandbox.com/embedded-flows?embeddedLinkRequestId=9f5f5812-2609-4e48-8418-b64437c0c7cd#token=0d0bdc88-bcf4-43dd-85be-7ca65441db20",
+                  "expiresAt": "2026-06-15T13:23:20.265Z"
+                }
+              }
+            }
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          }
+        },
+        "security": [
+          {
+            "UserToken": []
+          }
+        ]
+      }
+    },
+    "/2026Q2/embedded-flows/link-requests/{embeddedLinkRequestId}": {
+      "get": {
+        "tags": [
+          "link-requests"
+        ],
+        "summary": "Get embedded flow configuration",
+        "description": "Retrieves an Embedded Flow configuration by embedded link request ID. Typically this is not needed to be called as its used by the flow itself.\n\nEmbedded Flows uses this endpoint to load the configuration for a previously created link request. For an example flow, see the [Embedded Flows guide](/guides/product/embedded-flows/index.md#hosted-recipient-creation-flow).\n",
+        "operationId": "EmbeddedLinkRequestGet",
+        "parameters": [
+          {
+            "name": "embeddedLinkRequestId",
+            "in": "path",
+            "description": "The embedded link request ID.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "ea5eb6ca-3af7-4e88-a2e2-6a68dd92f198"
+          },
+          {
+            "$ref": "#/components/parameters/X-External-Correlation-Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Embedded link request found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmbeddedLinkRequestGet200Response"
+                },
+                "example": {
+                  "id": "ea5eb6ca-3af7-4e88-a2e2-6a68dd92f198",
+                  "profileId": 12345,
+                  "type": "RECIPIENT",
+                  "clientKey": "partner-client-key",
+                  "metadata": {
+                    "targetCurrency": "USD"
+                  },
+                  "redirectUrl": "https://example.com/return"
+                }
+              }
+            }
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          }
+        },
+        "security": [
+          {
+            "UserToken": []
+          }
+        ]
+      }
+    },
     "/v2/borderless-accounts-configuration/profiles/{profileId}/available-currencies": {
       "get": {
         "tags": [
@@ -21556,6 +21674,40 @@
           }
         }
       },
+      "V40029": {
+        "title": "Schema version 4.0.0",
+        "required": [
+          "schema_version",
+          "subscription_id",
+          "event_type",
+          "sent_at",
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "schema_version": {
+            "$ref": "#/components/schemas/V40029SchemaVersion"
+          },
+          "subscription_id": {
+            "type": "string",
+            "description": "ID of the webhook subscription that triggered this event.",
+            "format": "uuid",
+            "example": "ced03af9-be76-46ac-ada8-7fe935792290"
+          },
+          "event_type": {
+            "$ref": "#/components/schemas/V40029EventType"
+          },
+          "sent_at": {
+            "type": "string",
+            "description": "Timestamp when the event was sent.",
+            "format": "date-time",
+            "example": "2026-06-15T13:18:20.265Z"
+          },
+          "data": {
+            "$ref": "#/components/schemas/V40029Data"
+          }
+        }
+      },
       "BalanceReservedAmount": {
         "type": "object",
         "properties": {
@@ -24902,6 +25054,17 @@
             "description": "\u0022Date and time at which the amount was credited to the balance account. Time in UTC.\n\nFormat: \u0060YYYY\u0060-\u0060MM\u0060-\u0060DD\u0060T\u0060HH\u0060:\u0060MM\u0060:\u0060SS\u0060.\u0060mmm\u0060Z\n\u0022",
             "format": "date-time",
             "example": "2023-08-21T12:34:56.789Z"
+          }
+        }
+      },
+      "V40029Data": {
+        "required": [
+          "resource"
+        ],
+        "type": "object",
+        "properties": {
+          "resource": {
+            "$ref": "#/components/schemas/V40029DataResource"
           }
         }
       },
@@ -28367,6 +28530,30 @@
           }
         }
       },
+      "V40029DataResource": {
+        "required": [
+          "id",
+          "occurred_at",
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Resource identifier for the changed recipient.",
+            "example": 700525176
+          },
+          "occurred_at": {
+            "type": "string",
+            "description": "Timestamp when the recipient state change occurred.",
+            "format": "date-time",
+            "example": "2026-06-15T13:18:20.265Z"
+          },
+          "data": {
+            "$ref": "#/components/schemas/V40029DataResourceData"
+          }
+        }
+      },
       "BankAccountDetailsReceiveOptionsItemDescriptionCta": {
         "type": "object",
         "properties": {
@@ -29556,6 +29743,43 @@
           "name": {
             "type": "string",
             "description": "Display name for the value."
+          }
+        }
+      },
+      "V40029DataResourceData": {
+        "required": [
+          "recipientId",
+          "profileId",
+          "currency",
+          "state",
+          "clientId"
+        ],
+        "type": "object",
+        "properties": {
+          "recipientId": {
+            "type": "integer",
+            "description": "Recipient account ID.",
+            "format": "int64",
+            "example": 700525176
+          },
+          "profileId": {
+            "type": "integer",
+            "description": "Profile ID that owns the recipient.",
+            "format": "int64",
+            "example": 14966143
+          },
+          "currency": {
+            "type": "string",
+            "description": "Recipient account currency.",
+            "example": "EUR"
+          },
+          "state": {
+            "$ref": "#/components/schemas/V40029DataResourceDataState"
+          },
+          "clientId": {
+            "type": "string",
+            "description": "Partner client ID associated with the recipient.",
+            "example": "hosted-kyc-test-client"
           }
         }
       },
@@ -31641,6 +31865,88 @@
             "items": {
               "$ref": "#/components/schemas/KycReviewRequirementSubmit400ResponseErrorsItem"
             }
+          }
+        }
+      },
+      "RecipientEmbeddedLinkRequestCreateRequest": {
+        "required": [
+          "redirectUrl"
+        ],
+        "type": "object",
+        "properties": {
+          "redirectUrl": {
+            "type": "string",
+            "description": "URL where the user will be redirected when the flow resolves. This URL must match the redirect URL allowlist configured for your integration.",
+            "format": "uri",
+            "example": "https://example.com/return"
+          },
+          "targetCurrency": {
+            "type": "string",
+            "description": "Optional target currency used to start recipient requirements for a specific currency.",
+            "example": "USD"
+          }
+        }
+      },
+      "RecipientEmbeddedLinkRequestCreate201Response": {
+        "required": [
+          "url",
+          "expiresAt"
+        ],
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "Unique URL to open or embed for the user.",
+            "format": "uri",
+            "example": "https://wise-sandbox.com/embedded-flows?embeddedLinkRequestId=9f5f5812-2609-4e48-8418-b64437c0c7cd#token=0d0bdc88-bcf4-43dd-85be-7ca65441db20"
+          },
+          "expiresAt": {
+            "type": "string",
+            "description": "Timestamp when the returned flow URL expires.",
+            "format": "date-time",
+            "example": "2026-06-15T13:23:20.265Z"
+          }
+        }
+      },
+      "EmbeddedLinkRequestGet200Response": {
+        "required": [
+          "id",
+          "profileId",
+          "type",
+          "clientKey",
+          "metadata",
+          "redirectUrl"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Embedded link request ID.",
+            "format": "uuid",
+            "example": "ea5eb6ca-3af7-4e88-a2e2-6a68dd92f198"
+          },
+          "profileId": {
+            "type": "integer",
+            "description": "Profile that owns the embedded flow.",
+            "format": "int64",
+            "example": 12345
+          },
+          "type": {
+            "$ref": "#/components/schemas/EmbeddedLinkRequestGet200ResponseType"
+          },
+          "clientKey": {
+            "type": "string",
+            "description": "Client key that created the embedded link request.",
+            "example": "partner-client-key"
+          },
+          "metadata": {
+            "$ref": "#/components/schemas/EmbeddedLinkRequestGet200ResponseMetadata"
+          },
+          "redirectUrl": {
+            "type": "string",
+            "description": "URL where Wise redirects the user after the flow resolves.",
+            "format": "uri",
+            "example": "https://example.com/return"
           }
         }
       },
@@ -35421,6 +35727,17 @@
             "$ref": "#/components/schemas/KycReviewRequirementSubmit400ResponseErrorsItemAttributes"
           }
         }
+      },
+      "EmbeddedLinkRequestGet200ResponseMetadata": {
+        "type": "object",
+        "properties": {
+          "targetCurrency": {
+            "type": "string",
+            "description": "Optional target currency for hosted recipient creation.",
+            "example": "USD"
+          }
+        },
+        "description": "Flow-specific metadata."
       },
       "UserSecurityPhoneNumberCreate422ResponseErrorsItem": {
         "type": "object",
@@ -40136,6 +40453,44 @@
           ]
         }
       },
+      "V40029SchemaVersion": {
+        "enum": [
+          "4.0.0"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Version of the event schema. Determined by the \u0060schema_version\u0060 on your [webhook subscription](/api-reference/webhook).",
+        "example": "4.0.0",
+        "x-ms-enum": {
+          "name": "V40029SchemaVersion",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "4.0.0",
+              "name": "Value400"
+            }
+          ]
+        }
+      },
+      "V40029EventType": {
+        "enum": [
+          "recipients#state-change"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Event type identifier.",
+        "example": "recipients#state-change",
+        "x-ms-enum": {
+          "name": "V40029EventType",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "recipients#state-change",
+              "name": "RecipientsHashStateChange"
+            }
+          ]
+        }
+      },
       "BankAccountDetailsReceiveOptionsItemType": {
         "enum": [
           "LOCAL",
@@ -41872,6 +42227,45 @@
           ]
         }
       },
+      "V40029DataResourceDataState": {
+        "enum": [
+          "CREATE",
+          "UPDATE",
+          "DEACTIVATE",
+          "OBFUSCATE",
+          "DELETE"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Recipient state that triggered the event.",
+        "example": "CREATE",
+        "x-ms-enum": {
+          "name": "V40029DataResourceDataState",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "CREATE",
+              "name": "Create"
+            },
+            {
+              "value": "UPDATE",
+              "name": "Update"
+            },
+            {
+              "value": "DEACTIVATE",
+              "name": "Deactivate"
+            },
+            {
+              "value": "OBFUSCATE",
+              "name": "Obfuscate"
+            },
+            {
+              "value": "DELETE",
+              "name": "Delete"
+            }
+          ]
+        }
+      },
       "VerificationUploadEvidences207ResponseOverallStatus": {
         "enum": [
           "SUCCESS",
@@ -42437,6 +42831,30 @@
             {
               "value": "CARD",
               "name": "Card"
+            }
+          ]
+        }
+      },
+      "EmbeddedLinkRequestGet200ResponseType": {
+        "enum": [
+          "RECIPIENT",
+          "KYC"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Embedded Flow type.",
+        "example": "RECIPIENT",
+        "x-ms-enum": {
+          "name": "EmbeddedLinkRequestGet200ResponseType",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "RECIPIENT",
+              "name": "Recipient"
+            },
+            {
+              "value": "KYC",
+              "name": "Kyc"
             }
           ]
         }
@@ -45371,6 +45789,11 @@
       "name": "kyc-review",
       "description": "KYC Review API provides endpoints to view, update and submit information related to the KYC flow.\n\nThere are two ways to collect KYC requirements from your customers:\n- **Hosted KYC** \u2014 redirect your customer to a Wise-hosted UI that guides them through the process.\n- **API submission** \u2014 use the [KYC Requirement Submit](/api-reference/kyc-review/kycreviewrequirementsubmit) endpoint to submit requirements directly. This is only available for requirement types where \u0060apiCollectionSupported\u0060 is \u0060true\u0060.\n\nPlease refer to our [Hosted KYC guide](/guides/product/kyc/wise-kyc/hosted-kyc) for more information on the general use of the endpoints included below.\n",
       "x-displayName": "KYC Review"
+    },
+    {
+      "name": "link-requests",
+      "description": "Embedded Flows are Wise-hosted flows that partners can open for their users or embed inside their own product with an iframe or mobile WebView.\n\nUse the embedded link request endpoints to create a short-lived flow URL for a profile or retrieve an embedded link request by ID. For an overview of when to use Embedded Flows, see the [Embedded Flows guide](/guides/product/embedded-flows/index.md).\n",
+      "x-displayName": "Link Requests"
     },
     {
       "name": "multi-currency-account",

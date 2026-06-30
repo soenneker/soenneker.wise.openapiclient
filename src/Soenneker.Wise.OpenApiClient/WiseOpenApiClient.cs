@@ -8,6 +8,7 @@ using Microsoft.Kiota.Serialization.Multipart;
 using Microsoft.Kiota.Serialization.Text;
 using Soenneker.Wise.OpenApiClient.Oauth;
 using Soenneker.Wise.OpenApiClient.TwcardData;
+using Soenneker.Wise.OpenApiClient.TwoZeroTwoSixQ2;
 using Soenneker.Wise.OpenApiClient.V1;
 using Soenneker.Wise.OpenApiClient.V2;
 using Soenneker.Wise.OpenApiClient.V3;
@@ -34,6 +35,11 @@ namespace Soenneker.Wise.OpenApiClient
         public global::Soenneker.Wise.OpenApiClient.TwcardData.TwcardDataRequestBuilder TwcardData
         {
             get => new global::Soenneker.Wise.OpenApiClient.TwcardData.TwcardDataRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The TwoZeroTwoSixQ2 property</summary>
+        public global::Soenneker.Wise.OpenApiClient.TwoZeroTwoSixQ2.TwoZeroTwoSixQ2RequestBuilder TwoZeroTwoSixQ2
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.TwoZeroTwoSixQ2.TwoZeroTwoSixQ2RequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The v1 property</summary>
         public global::Soenneker.Wise.OpenApiClient.V1.V1RequestBuilder V1
