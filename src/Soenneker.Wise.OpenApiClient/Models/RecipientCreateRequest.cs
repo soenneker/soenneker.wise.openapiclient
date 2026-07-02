@@ -51,6 +51,14 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string Type { get; set; }
 #endif
+        /// <summary>The information of the ultimate beneficiary for this recipient, if present. If absent, the ultimate beneficiary is the recipient.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public global::Soenneker.Wise.OpenApiClient.Models.RecipientCreateRequestUltimateBeneficiary? UltimateBeneficiary { get; set; }
+#nullable restore
+#else
+        public global::Soenneker.Wise.OpenApiClient.Models.RecipientCreateRequestUltimateBeneficiary UltimateBeneficiary { get; set; }
+#endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.RecipientCreateRequest"/> and sets the default values.
         /// </summary>
@@ -82,6 +90,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "ownedByCustomer", n => { OwnedByCustomer = n.GetBoolValue(); } },
                 { "profile", n => { Profile = n.GetLongValue(); } },
                 { "type", n => { Type = n.GetStringValue(); } },
+                { "ultimateBeneficiary", n => { UltimateBeneficiary = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.RecipientCreateRequestUltimateBeneficiary>(global::Soenneker.Wise.OpenApiClient.Models.RecipientCreateRequestUltimateBeneficiary.CreateFromDiscriminatorValue); } },
             };
         }
         /// <summary>
@@ -97,6 +106,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteBoolValue("ownedByCustomer", OwnedByCustomer);
             writer.WriteLongValue("profile", Profile);
             writer.WriteStringValue("type", Type);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.RecipientCreateRequestUltimateBeneficiary>("ultimateBeneficiary", UltimateBeneficiary);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

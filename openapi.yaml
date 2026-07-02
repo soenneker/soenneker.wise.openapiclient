@@ -1494,7 +1494,7 @@ x-tagGroups:
       - balance-statement
       - bank-account-details
       - multi-currency-account
-  - name: Cards
+  - name: Issuing
     tags:
       - card
       - card-sensitive-details
@@ -6732,6 +6732,80 @@ paths:
               $ref: '#/components/headers/x-trace-id'
         '429':
           $ref: '#/components/responses/429'
+  /twcard-data/v1/sensitive-card-data/preset-pin:
+    post:
+      tags:
+        - card-sensitive-details
+      summary: Set card PIN
+      operationId: cardOrderPresetPin
+      description: >
+        Sets a PIN during the card order flow. This endpoint will be accessible
+        for partners that require to set a PIN during the card order flow.
+
+
+        Please follow [this
+        guide](/guides/product/issue-cards/sensitive-card-details) to use this
+        endpoint.
+
+
+        To use this endpoint, make sure to set the `api token` and the `card
+        order id` in the headers.
+      servers:
+        - url: https://twcard.wise.com
+          description: Production Environment
+        - url: https://twcard.wise-sandbox.com
+          description: Sandbox Environment
+      security:
+        - UserToken: []
+      parameters:
+        - name: x-tw-twcard-order-id
+          in: header
+          required: true
+          description: The card order ID.
+          schema:
+            type: string
+          example: '142'
+        - $ref: '#/components/parameters/X-External-Correlation-Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Request body for setting a card PIN.
+              required:
+                - keyVersion
+                - encryptedPayload
+              properties:
+                keyVersion:
+                  type: integer
+                  description: The version of the key to use. It is always set to 1.
+                  example: 1
+                encryptedPayload:
+                  type: string
+                  description: >-
+                    Your [JWE
+                    payload](/guides/product/issue-cards/sensitive-card-details).
+                  example: eyJhbGciOiJSU0...
+      responses:
+        '200':
+          description: OK - PIN set successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  cardOrderId:
+                    type: string
+                    description: The card order ID.
+                    example: '142'
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '429':
+          $ref: '#/components/responses/429'
   /v3/spend/profiles/{profileId}/cards/{cardToken}/production:
     put:
       tags:
@@ -7579,80 +7653,6 @@ paths:
           $ref: '#/components/responses/429'
       parameters:
         - $ref: '#/components/parameters/X-External-Correlation-Id'
-  /twcard-data/v1/sensitive-card-data/preset-pin:
-    post:
-      tags:
-        - card-order
-      summary: Set card PIN
-      operationId: cardOrderPresetPin
-      description: >
-        Sets a PIN during the card order flow. This endpoint will be accessible
-        for partners that require to set a PIN during the card order flow.
-
-
-        Please follow [this
-        guide](/guides/product/issue-cards/sensitive-card-details) to use this
-        endpoint.
-
-
-        To use this endpoint, make sure to set the `api token` and the `card
-        order id` in the headers.
-      servers:
-        - url: https://twcard.wise.com
-          description: Production Environment
-        - url: https://twcard.wise-sandbox.com
-          description: Sandbox Environment
-      security:
-        - UserToken: []
-      parameters:
-        - name: x-tw-twcard-order-id
-          in: header
-          required: true
-          description: The card order ID.
-          schema:
-            type: string
-          example: '142'
-        - $ref: '#/components/parameters/X-External-Correlation-Id'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              description: Request body for setting a card PIN.
-              required:
-                - keyVersion
-                - encryptedPayload
-              properties:
-                keyVersion:
-                  type: integer
-                  description: The version of the key to use. It is always set to 1.
-                  example: 1
-                encryptedPayload:
-                  type: string
-                  description: >-
-                    Your [JWE
-                    payload](/guides/product/issue-cards/sensitive-card-details).
-                  example: eyJhbGciOiJSU0...
-      responses:
-        '200':
-          description: OK - PIN set successfully.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  cardOrderId:
-                    type: string
-                    description: The card order ID.
-                    example: '142'
-          headers:
-            X-External-Correlation-Id:
-              $ref: '#/components/headers/X-External-Correlation-Id'
-            x-trace-id:
-              $ref: '#/components/headers/x-trace-id'
-        '429':
-          $ref: '#/components/responses/429'
   /v3/spend/profiles/{profileId}/cards/transactions/{transactionId}:
     get:
       deprecated: true
@@ -33150,6 +33150,105 @@ components:
               type: array
               items:
                 type: object
+        ultimateBeneficiary:
+          type:
+            - object
+            - 'null'
+          description: The information of the ultimate beneficiary for this recipient.
+          required:
+            - accountNumber
+          properties:
+            accountNumber:
+              type:
+                - string
+              description: Ultimate beneficiary account number.
+              example: '37778842'
+            bankName:
+              type:
+                - string
+                - 'null'
+              description: Ultimate beneficiary bank name.
+              example: Wise Payments Limited
+            bankCode:
+              type:
+                - string
+                - 'null'
+              description: Ultimate beneficiary bank code.
+              example: '026073150'
+            name:
+              type: object
+              description: Ultimate beneficiary name details.
+              properties:
+                fullName:
+                  type: string
+                  description: Ultimate beneficiary full name.
+                  example: John Doe
+                givenName:
+                  type:
+                    - string
+                    - 'null'
+                  description: Ultimate beneficiary given name.
+                  example: null
+                familyName:
+                  type:
+                    - string
+                    - 'null'
+                  description: Ultimate beneficiary surname.
+                  example: null
+                middleName:
+                  type:
+                    - string
+                    - 'null'
+                  description: Ultimate beneficiary middle name.
+                  example: null
+                patronymicName:
+                  type:
+                    - string
+                    - 'null'
+                  description: Ultimate beneficiary patronymic name (when applicable).
+                  example: null
+                cannotHavePatronymicName:
+                  type:
+                    - boolean
+                    - 'null'
+                  description: >-
+                    Indicates if the ultimate beneficiary cannot have a
+                    patronymic name (when applicable).
+                  example: null
+            address:
+              type:
+                - object
+                - 'null'
+              description: Ultimate beneficiary address.
+              properties:
+                country:
+                  type: string
+                  example: US
+                firstLine:
+                  type: string
+                postCode:
+                  type: string
+                city:
+                  type: string
+                state:
+                  type: string
+            bankAddress:
+              type:
+                - object
+                - 'null'
+              description: Ultimate beneficiary bank address.
+              properties:
+                country:
+                  type: string
+                  example: US
+                firstLine:
+                  type: string
+                postCode:
+                  type: string
+                city:
+                  type: string
+                state:
+                  type: string
     recipient-create-request:
       type: object
       description: >
@@ -33221,6 +33320,107 @@ components:
                 example).
               example: '1961-01-01'
           additionalProperties: true
+        ultimateBeneficiary:
+          type:
+            - object
+            - 'null'
+          description: >-
+            The information of the ultimate beneficiary for this recipient, if
+            present. If absent, the ultimate beneficiary is the recipient.
+          required:
+            - accountNumber
+          properties:
+            accountNumber:
+              type:
+                - string
+              description: Ultimate beneficiary account number.
+              example: '37778842'
+            bankName:
+              type:
+                - string
+                - 'null'
+              description: Ultimate beneficiary bank name.
+              example: Wise Payments Limited
+            bankCode:
+              type:
+                - string
+                - 'null'
+              description: Ultimate beneficiary bank code.
+              example: '026073150'
+            name:
+              type: object
+              description: Ultimate beneficiary name details.
+              properties:
+                fullName:
+                  type: string
+                  description: Ultimate beneficiary full name.
+                  example: John Doe
+                givenName:
+                  type:
+                    - string
+                    - 'null'
+                  description: Ultimate beneficiary given name.
+                  example: null
+                familyName:
+                  type:
+                    - string
+                    - 'null'
+                  description: Ultimate beneficiary surname.
+                  example: null
+                middleName:
+                  type:
+                    - string
+                    - 'null'
+                  description: Ultimate beneficiary middle name.
+                  example: null
+                patronymicName:
+                  type:
+                    - string
+                    - 'null'
+                  description: Ultimate beneficiary patronymic name (when applicable).
+                  example: null
+                cannotHavePatronymicName:
+                  type:
+                    - boolean
+                    - 'null'
+                  description: >-
+                    Indicates if the ultimate beneficiary cannot have a
+                    patronymic name (when applicable).
+                  example: null
+            address:
+              type:
+                - object
+                - 'null'
+              description: Ultimate beneficiary address.
+              properties:
+                country:
+                  type: string
+                  example: US
+                firstLine:
+                  type: string
+                postCode:
+                  type: string
+                city:
+                  type: string
+                state:
+                  type: string
+            bankAddress:
+              type:
+                - object
+                - 'null'
+              description: Ultimate beneficiary bank address.
+              properties:
+                country:
+                  type: string
+                  example: US
+                firstLine:
+                  type: string
+                postCode:
+                  type: string
+                city:
+                  type: string
+                state:
+                  type: string
     recipient:
       type: object
       title: Recipient Account
@@ -33394,6 +33594,105 @@ components:
           type: boolean
           description: If recipient account belongs to profile owner.
           example: false
+        ultimateBeneficiary:
+          type:
+            - object
+            - 'null'
+          description: The information of the ultimate beneficiary for this recipient.
+          required:
+            - accountNumber
+          properties:
+            accountNumber:
+              type:
+                - string
+              description: Ultimate beneficiary account number.
+              example: '37778842'
+            bankName:
+              type:
+                - string
+                - 'null'
+              description: Ultimate beneficiary bank name.
+              example: Wise Payments Limited
+            bankCode:
+              type:
+                - string
+                - 'null'
+              description: Ultimate beneficiary bank code.
+              example: '026073150'
+            name:
+              type: object
+              description: Ultimate beneficiary name details.
+              properties:
+                fullName:
+                  type: string
+                  description: Ultimate beneficiary full name.
+                  example: John Doe
+                givenName:
+                  type:
+                    - string
+                    - 'null'
+                  description: Ultimate beneficiary given name.
+                  example: null
+                familyName:
+                  type:
+                    - string
+                    - 'null'
+                  description: Ultimate beneficiary surname.
+                  example: null
+                middleName:
+                  type:
+                    - string
+                    - 'null'
+                  description: Ultimate beneficiary middle name.
+                  example: null
+                patronymicName:
+                  type:
+                    - string
+                    - 'null'
+                  description: Ultimate beneficiary patronymic name (when applicable).
+                  example: null
+                cannotHavePatronymicName:
+                  type:
+                    - boolean
+                    - 'null'
+                  description: >-
+                    Indicates if the ultimate beneficiary cannot have a
+                    patronymic name (when applicable).
+                  example: null
+            address:
+              type:
+                - object
+                - 'null'
+              description: Ultimate beneficiary address.
+              properties:
+                country:
+                  type: string
+                  example: US
+                firstLine:
+                  type: string
+                postCode:
+                  type: string
+                city:
+                  type: string
+                state:
+                  type: string
+            bankAddress:
+              type:
+                - object
+                - 'null'
+              description: Ultimate beneficiary bank address.
+              properties:
+                country:
+                  type: string
+                  example: US
+                firstLine:
+                  type: string
+                postCode:
+                  type: string
+                city:
+                  type: string
+                state:
+                  type: string
         confirmations:
           type: object
           description: >
@@ -39031,10 +39330,15 @@ components:
                   format: decimal
                   description: Overdraft limit approved
                   example: 20000
-                currency:
+                profile_limit_currency:
                   type: string
-                  description: Currency in which the amounts are expressed.
+                  description: Currency in which the amounts are expressed in
                   example: EUR
+                limit_usage_percentage:
+                  type: number
+                  format: decimal
+                  description: Percentage of overdraft limit used
+                  example: 85
     v2.0.0-14:
       title: Schema version 2.0.0
       type: object
@@ -39089,10 +39393,15 @@ components:
                   format: decimal
                   description: Overdraft limit approved
                   example: 20000
-                currency:
+                profile_limit_currency:
                   type: string
                   description: Currency in which the amounts are expressed in
                   example: EUR
+                limit_usage_percentage:
+                  type: number
+                  format: decimal
+                  description: Percentage of overdraft limit used
+                  example: 85
     v4.0.0-15:
       title: Schema version 4.0.0
       type: object

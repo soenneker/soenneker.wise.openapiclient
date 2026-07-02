@@ -2926,6 +2926,70 @@
         ]
       }
     },
+    "/twcard-data/v1/sensitive-card-data/preset-pin": {
+      "post": {
+        "tags": [
+          "card-sensitive-details"
+        ],
+        "summary": "Set card PIN",
+        "description": "Sets a PIN during the card order flow. This endpoint will be accessible for partners that require to set a PIN during the card order flow.\n\nPlease follow [this guide](/guides/product/issue-cards/sensitive-card-details) to use this endpoint.\n\nTo use this endpoint, make sure to set the \u0060api token\u0060 and the \u0060card order id\u0060 in the headers.\n",
+        "operationId": "CardOrderPresetPin",
+        "parameters": [
+          {
+            "name": "x-tw-twcard-order-id",
+            "in": "header",
+            "description": "The card order ID.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": 142
+          },
+          {
+            "$ref": "#/components/parameters/X-External-Correlation-Id"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CardOrderPresetPinRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK - PIN set successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CardOrderPresetPin200Response"
+                }
+              }
+            }
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          }
+        },
+        "security": [
+          {
+            "UserToken": []
+          }
+        ],
+        "servers": [
+          {
+            "url": "https://twcard.wise.com",
+            "description": "Production Environment"
+          },
+          {
+            "url": "https://twcard.wise-sandbox.com",
+            "description": "Sandbox Environment"
+          }
+        ]
+      }
+    },
     "/v3/spend/profiles/{profileId}/cards/{cardToken}/production": {
       "put": {
         "tags": [
@@ -3492,70 +3556,6 @@
         "security": [
           {
             "UserToken": []
-          }
-        ]
-      }
-    },
-    "/twcard-data/v1/sensitive-card-data/preset-pin": {
-      "post": {
-        "tags": [
-          "card-order"
-        ],
-        "summary": "Set card PIN",
-        "description": "Sets a PIN during the card order flow. This endpoint will be accessible for partners that require to set a PIN during the card order flow.\n\nPlease follow [this guide](/guides/product/issue-cards/sensitive-card-details) to use this endpoint.\n\nTo use this endpoint, make sure to set the \u0060api token\u0060 and the \u0060card order id\u0060 in the headers.\n",
-        "operationId": "CardOrderPresetPin",
-        "parameters": [
-          {
-            "name": "x-tw-twcard-order-id",
-            "in": "header",
-            "description": "The card order ID.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "example": 142
-          },
-          {
-            "$ref": "#/components/parameters/X-External-Correlation-Id"
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CardOrderPresetPinRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK - PIN set successfully.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CardOrderPresetPin200Response"
-                }
-              }
-            }
-          },
-          "429": {
-            "$ref": "#/components/responses/429"
-          }
-        },
-        "security": [
-          {
-            "UserToken": []
-          }
-        ],
-        "servers": [
-          {
-            "url": "https://twcard.wise.com",
-            "description": "Production Environment"
-          },
-          {
-            "url": "https://twcard.wise-sandbox.com",
-            "description": "Sandbox Environment"
           }
         ]
       }
@@ -17604,6 +17604,9 @@
           },
           "confirmations": {
             "$ref": "#/components/schemas/RecipientV1Confirmations"
+          },
+          "ultimateBeneficiary": {
+            "$ref": "#/components/schemas/RecipientV1UltimateBeneficiary"
           }
         },
         "description": "Deprecated v1 recipient account object. For new integrations, use the v2 resource which includes additional fields such as \u0060displayFields\u0060, \u0060accountSummary\u0060, and \u0060longAccountSummary\u0060.\n"
@@ -17639,6 +17642,9 @@
           },
           "details": {
             "$ref": "#/components/schemas/RecipientCreateRequestDetails"
+          },
+          "ultimateBeneficiary": {
+            "$ref": "#/components/schemas/RecipientCreateRequestUltimateBeneficiary"
           }
         },
         "description": "Create a recipient (beneficiary) account request for POST /v1/accounts. The required fields inside \u0060details\u0060 depend on currency/route; use the account-requirements endpoints (e.g. /v1/quotes/{quoteId}/account-requirements) to discover the exact required fields.\n"
@@ -17730,6 +17736,9 @@
             "type": "boolean",
             "description": "If recipient account belongs to profile owner.",
             "example": false
+          },
+          "ultimateBeneficiary": {
+            "$ref": "#/components/schemas/RecipientUltimateBeneficiary"
           },
           "confirmations": {
             "$ref": "#/components/schemas/RecipientConfirmations"
@@ -22691,6 +22700,39 @@
         },
         "description": "Verification results for the recipient\u0027s details."
       },
+      "RecipientV1UltimateBeneficiary": {
+        "required": [
+          "accountNumber"
+        ],
+        "type": "object",
+        "properties": {
+          "accountNumber": {
+            "type": "string",
+            "description": "Ultimate beneficiary account number.",
+            "example": 37778842
+          },
+          "bankName": {
+            "type": "string",
+            "description": "Ultimate beneficiary bank name.",
+            "example": "Wise Payments Limited"
+          },
+          "bankCode": {
+            "type": "string",
+            "description": "Ultimate beneficiary bank code.",
+            "example": 26073150
+          },
+          "name": {
+            "$ref": "#/components/schemas/RecipientV1UltimateBeneficiaryName"
+          },
+          "address": {
+            "$ref": "#/components/schemas/RecipientV1UltimateBeneficiaryAddress"
+          },
+          "bankAddress": {
+            "$ref": "#/components/schemas/RecipientV1UltimateBeneficiaryBankAddress"
+          }
+        },
+        "description": "The information of the ultimate beneficiary for this recipient."
+      },
       "RecipientCreateRequestDetails": {
         "type": "object",
         "properties": {
@@ -22714,6 +22756,39 @@
           }
         },
         "description": "Currency/route-specific recipient fields. Common examples include legalType, sortCode, accountNumber, email, dateOfBirth, etc. Use account-requirements APIs to determine what is required.\n"
+      },
+      "RecipientCreateRequestUltimateBeneficiary": {
+        "required": [
+          "accountNumber"
+        ],
+        "type": "object",
+        "properties": {
+          "accountNumber": {
+            "type": "string",
+            "description": "Ultimate beneficiary account number.",
+            "example": 37778842
+          },
+          "bankName": {
+            "type": "string",
+            "description": "Ultimate beneficiary bank name.",
+            "example": "Wise Payments Limited"
+          },
+          "bankCode": {
+            "type": "string",
+            "description": "Ultimate beneficiary bank code.",
+            "example": 26073150
+          },
+          "name": {
+            "$ref": "#/components/schemas/RecipientCreateRequestUltimateBeneficiaryName"
+          },
+          "address": {
+            "$ref": "#/components/schemas/RecipientCreateRequestUltimateBeneficiaryAddress"
+          },
+          "bankAddress": {
+            "$ref": "#/components/schemas/RecipientCreateRequestUltimateBeneficiaryBankAddress"
+          }
+        },
+        "description": "The information of the ultimate beneficiary for this recipient, if present. If absent, the ultimate beneficiary is the recipient."
       },
       "RecipientName": {
         "type": "object",
@@ -22801,6 +22876,39 @@
             "description": "Account identifier value."
           }
         }
+      },
+      "RecipientUltimateBeneficiary": {
+        "required": [
+          "accountNumber"
+        ],
+        "type": "object",
+        "properties": {
+          "accountNumber": {
+            "type": "string",
+            "description": "Ultimate beneficiary account number.",
+            "example": 37778842
+          },
+          "bankName": {
+            "type": "string",
+            "description": "Ultimate beneficiary bank name.",
+            "example": "Wise Payments Limited"
+          },
+          "bankCode": {
+            "type": "string",
+            "description": "Ultimate beneficiary bank code.",
+            "example": 26073150
+          },
+          "name": {
+            "$ref": "#/components/schemas/RecipientUltimateBeneficiaryName"
+          },
+          "address": {
+            "$ref": "#/components/schemas/RecipientUltimateBeneficiaryAddress"
+          },
+          "bankAddress": {
+            "$ref": "#/components/schemas/RecipientUltimateBeneficiaryBankAddress"
+          }
+        },
+        "description": "The information of the ultimate beneficiary for this recipient."
       },
       "RecipientConfirmations": {
         "type": "object",
@@ -25694,6 +25802,246 @@
       "RecipientV1ConfirmationsOutcomesItem": {
         "type": "object"
       },
+      "RecipientV1UltimateBeneficiaryName": {
+        "type": "object",
+        "properties": {
+          "fullName": {
+            "type": "string",
+            "description": "Ultimate beneficiary full name.",
+            "example": "John Doe"
+          },
+          "givenName": {
+            "type": "string",
+            "description": "Ultimate beneficiary given name.",
+            "example": null
+          },
+          "familyName": {
+            "type": "string",
+            "description": "Ultimate beneficiary surname.",
+            "example": null
+          },
+          "middleName": {
+            "type": "string",
+            "description": "Ultimate beneficiary middle name.",
+            "example": null
+          },
+          "patronymicName": {
+            "type": "string",
+            "description": "Ultimate beneficiary patronymic name (when applicable).",
+            "example": null
+          },
+          "cannotHavePatronymicName": {
+            "type": "boolean",
+            "description": "Indicates if the ultimate beneficiary cannot have a patronymic name (when applicable).",
+            "example": null
+          }
+        },
+        "description": "Ultimate beneficiary name details."
+      },
+      "RecipientV1UltimateBeneficiaryAddress": {
+        "type": "object",
+        "properties": {
+          "country": {
+            "type": "string",
+            "example": "US"
+          },
+          "firstLine": {
+            "type": "string"
+          },
+          "postCode": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          }
+        },
+        "description": "Ultimate beneficiary address."
+      },
+      "RecipientV1UltimateBeneficiaryBankAddress": {
+        "type": "object",
+        "properties": {
+          "country": {
+            "type": "string",
+            "example": "US"
+          },
+          "firstLine": {
+            "type": "string"
+          },
+          "postCode": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          }
+        },
+        "description": "Ultimate beneficiary bank address."
+      },
+      "RecipientCreateRequestUltimateBeneficiaryName": {
+        "type": "object",
+        "properties": {
+          "fullName": {
+            "type": "string",
+            "description": "Ultimate beneficiary full name.",
+            "example": "John Doe"
+          },
+          "givenName": {
+            "type": "string",
+            "description": "Ultimate beneficiary given name.",
+            "example": null
+          },
+          "familyName": {
+            "type": "string",
+            "description": "Ultimate beneficiary surname.",
+            "example": null
+          },
+          "middleName": {
+            "type": "string",
+            "description": "Ultimate beneficiary middle name.",
+            "example": null
+          },
+          "patronymicName": {
+            "type": "string",
+            "description": "Ultimate beneficiary patronymic name (when applicable).",
+            "example": null
+          },
+          "cannotHavePatronymicName": {
+            "type": "boolean",
+            "description": "Indicates if the ultimate beneficiary cannot have a patronymic name (when applicable).",
+            "example": null
+          }
+        },
+        "description": "Ultimate beneficiary name details."
+      },
+      "RecipientCreateRequestUltimateBeneficiaryAddress": {
+        "type": "object",
+        "properties": {
+          "country": {
+            "type": "string",
+            "example": "US"
+          },
+          "firstLine": {
+            "type": "string"
+          },
+          "postCode": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          }
+        },
+        "description": "Ultimate beneficiary address."
+      },
+      "RecipientCreateRequestUltimateBeneficiaryBankAddress": {
+        "type": "object",
+        "properties": {
+          "country": {
+            "type": "string",
+            "example": "US"
+          },
+          "firstLine": {
+            "type": "string"
+          },
+          "postCode": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          }
+        },
+        "description": "Ultimate beneficiary bank address."
+      },
+      "RecipientUltimateBeneficiaryName": {
+        "type": "object",
+        "properties": {
+          "fullName": {
+            "type": "string",
+            "description": "Ultimate beneficiary full name.",
+            "example": "John Doe"
+          },
+          "givenName": {
+            "type": "string",
+            "description": "Ultimate beneficiary given name.",
+            "example": null
+          },
+          "familyName": {
+            "type": "string",
+            "description": "Ultimate beneficiary surname.",
+            "example": null
+          },
+          "middleName": {
+            "type": "string",
+            "description": "Ultimate beneficiary middle name.",
+            "example": null
+          },
+          "patronymicName": {
+            "type": "string",
+            "description": "Ultimate beneficiary patronymic name (when applicable).",
+            "example": null
+          },
+          "cannotHavePatronymicName": {
+            "type": "boolean",
+            "description": "Indicates if the ultimate beneficiary cannot have a patronymic name (when applicable).",
+            "example": null
+          }
+        },
+        "description": "Ultimate beneficiary name details."
+      },
+      "RecipientUltimateBeneficiaryAddress": {
+        "type": "object",
+        "properties": {
+          "country": {
+            "type": "string",
+            "example": "US"
+          },
+          "firstLine": {
+            "type": "string"
+          },
+          "postCode": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          }
+        },
+        "description": "Ultimate beneficiary address."
+      },
+      "RecipientUltimateBeneficiaryBankAddress": {
+        "type": "object",
+        "properties": {
+          "country": {
+            "type": "string",
+            "example": "US"
+          },
+          "firstLine": {
+            "type": "string"
+          },
+          "postCode": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          }
+        },
+        "description": "Ultimate beneficiary bank address."
+      },
       "RecipientConfirmationsOutcomesItem": {
         "type": "object",
         "properties": {
@@ -27438,10 +27786,16 @@
             "format": "decimal",
             "example": 20000
           },
-          "currency": {
+          "profile_limit_currency": {
             "type": "string",
-            "description": "Currency in which the amounts are expressed.",
+            "description": "Currency in which the amounts are expressed in",
             "example": "EUR"
+          },
+          "limit_usage_percentage": {
+            "type": "number",
+            "description": "Percentage of overdraft limit used",
+            "format": "decimal",
+            "example": 85
           }
         }
       },
@@ -27476,10 +27830,16 @@
             "format": "decimal",
             "example": 20000
           },
-          "currency": {
+          "profile_limit_currency": {
             "type": "string",
             "description": "Currency in which the amounts are expressed in",
             "example": "EUR"
+          },
+          "limit_usage_percentage": {
+            "type": "number",
+            "description": "Percentage of overdraft limit used",
+            "format": "decimal",
+            "example": 85
           }
         }
       },
@@ -31297,6 +31657,36 @@
           }
         }
       },
+      "CardOrderPresetPinRequest": {
+        "required": [
+          "keyVersion",
+          "encryptedPayload"
+        ],
+        "type": "object",
+        "properties": {
+          "keyVersion": {
+            "type": "integer",
+            "description": "The version of the key to use. It is always set to 1.",
+            "example": 1
+          },
+          "encryptedPayload": {
+            "type": "string",
+            "description": "Your [JWE payload](/guides/product/issue-cards/sensitive-card-details).",
+            "example": "eyJhbGciOiJSU0..."
+          }
+        },
+        "description": "Request body for setting a card PIN."
+      },
+      "CardOrderPresetPin200Response": {
+        "type": "object",
+        "properties": {
+          "cardOrderId": {
+            "type": "string",
+            "description": "The card order ID.",
+            "example": 142
+          }
+        }
+      },
       "CardKioskCollectionProduceRequest": {
         "required": [
           "kioskId"
@@ -31445,36 +31835,6 @@
               "$ref": "#/components/schemas/CardOrderValidateAddress200ResponseErrorsItem"
             },
             "description": "Collection of validation errors. Empty if address is valid."
-          }
-        }
-      },
-      "CardOrderPresetPinRequest": {
-        "required": [
-          "keyVersion",
-          "encryptedPayload"
-        ],
-        "type": "object",
-        "properties": {
-          "keyVersion": {
-            "type": "integer",
-            "description": "The version of the key to use. It is always set to 1.",
-            "example": 1
-          },
-          "encryptedPayload": {
-            "type": "string",
-            "description": "Your [JWE payload](/guides/product/issue-cards/sensitive-card-details).",
-            "example": "eyJhbGciOiJSU0..."
-          }
-        },
-        "description": "Request body for setting a card PIN."
-      },
-      "CardOrderPresetPin200Response": {
-        "type": "object",
-        "properties": {
-          "cardOrderId": {
-            "type": "string",
-            "description": "The card order ID.",
-            "example": 142
           }
         }
       },
