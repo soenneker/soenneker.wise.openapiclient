@@ -2740,6 +2740,40 @@
           }
         },
         "responses": {
+          "400": {
+            "description": "Bad request. The requested permission type is not recognized.\nNo permissions are updated.\n",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CardPermissionsBulkUpdate400Response"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable entity. The request is syntactically valid but cannot be fulfilled because\na requested permission is not supported by this card type, or the permission\nis locked and cannot be changed. No permissions are updated.\n",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CardPermissionsBulkUpdate422Response"
+                },
+                "examples": {
+                  "permissionNotSupported": {
+                    "summary": "Permission not supported for card type",
+                    "value": {
+                      "message": "Permission \u0027POS_CONTACTLESS\u0027 is not supported for this card and cannot be updated"
+                    }
+                  },
+                  "permissionLocked": {
+                    "summary": "Permission is locked",
+                    "value": {
+                      "message": "Permission \u0027POS_CONTACTLESS\u0027 is locked for this card and cannot be updated"
+                    }
+                  }
+                }
+              }
+            }
+          },
           "429": {
             "$ref": "#/components/responses/429"
           }
@@ -16139,6 +16173,10 @@
         ]
       },
       "Permission": {
+        "required": [
+          "type",
+          "isEnabled"
+        ],
         "type": "object",
         "properties": {
           "type": {
@@ -16151,7 +16189,8 @@
           },
           "isLocked": {
             "type": "boolean",
-            "description": "Indicates if this permission is locked. If locked, the permission cannot be enabled.",
+            "description": "Indicates if this permission is locked. If \u0060true\u0060, this permission cannot be updated.",
+            "readOnly": true,
             "example": false
           }
         },
@@ -31546,11 +31585,32 @@
         "type": "object",
         "properties": {
           "permissions": {
+            "maxItems": 6,
+            "uniqueItems": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/CardPermissionsBulkUpdateRequestPermissionsItem"
+              "$ref": "#/components/schemas/Permission"
             },
             "description": "List of permissions to update."
+          }
+        }
+      },
+      "CardPermissionsBulkUpdate400Response": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Error message describing the invalid permission type.",
+            "example": "Permission \u0027INVALID_TYPE\u0027 is not a valid permission type"
+          }
+        }
+      },
+      "CardPermissionsBulkUpdate422Response": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Error message describing why the permission update was rejected."
           }
         }
       },
@@ -35820,22 +35880,6 @@
           }
         }
       },
-      "CardPermissionsBulkUpdateRequestPermissionsItem": {
-        "required": [
-          "type",
-          "isEnabled"
-        ],
-        "type": "object",
-        "properties": {
-          "type": {
-            "$ref": "#/components/schemas/CardPermissionsBulkUpdateRequestPermissionsItemType"
-          },
-          "isEnabled": {
-            "type": "boolean",
-            "description": "Whether to enable or disable this permission."
-          }
-        }
-      },
       "CardOrderCreateRequestAddress": {
         "type": "object",
         "properties": {
@@ -38693,7 +38737,7 @@
         ],
         "type": "string",
         "additionalProperties": false,
-        "description": "The type of transaction this permission controls:\n- \u0060ECOM\u0060 - Online transactions\n- \u0060POS_CHIP\u0060 - Physical point-of-sale transactions with chip\n- \u0060POS_MAGSTRIPE\u0060 - Physical point-of-sale transactions with magnetic stripe\n- \u0060POS_CONTACTLESS\u0060 - Physical point-of-sale contactless transactions\n- \u0060ATM_WITHDRAWAL\u0060 - ATM withdrawals\n- \u0060MOBILE_WALLETS\u0060 - Digital wallet payments (Apple Pay, Google Pay)\n",
+        "description": "The type of transaction this permission controls.\n\nPermissions available on all cards:\n- \u0060ECOM\u0060 - Online transactions\n- \u0060ATM_WITHDRAWAL\u0060 - ATM withdrawals\n- \u0060MOBILE_WALLETS\u0060 - Digital wallet payments (Apple Pay, Google Pay)\n\nAdditional permissions available on physical cards:\n- \u0060POS_MAGSTRIPE\u0060 - Physical point-of-sale transactions with magnetic stripe\n- \u0060POS_CONTACTLESS\u0060 - Physical point-of-sale contactless transactions\n- \u0060POS_CHIP\u0060 - Physical point-of-sale transactions with chip\n\nVirtual cards do not return physical point-of-sale permissions. Only permissions returned for the card can be updated.\n",
         "example": "ECOM",
         "x-ms-enum": {
           "name": "PermissionType",
@@ -44643,49 +44687,6 @@
             {
               "value": "DONE",
               "name": "Done"
-            }
-          ]
-        }
-      },
-      "CardPermissionsBulkUpdateRequestPermissionsItemType": {
-        "enum": [
-          "ECOM",
-          "POS_CHIP",
-          "POS_MAGSTRIPE",
-          "POS_CONTACTLESS",
-          "ATM_WITHDRAWAL",
-          "MOBILE_WALLETS"
-        ],
-        "type": "string",
-        "additionalProperties": false,
-        "description": "The permission type to update.",
-        "x-ms-enum": {
-          "name": "CardPermissionsBulkUpdateRequestPermissionsItemType",
-          "modelAsString": false,
-          "values": [
-            {
-              "value": "ECOM",
-              "name": "Ecom"
-            },
-            {
-              "value": "POS_CHIP",
-              "name": "PosChip"
-            },
-            {
-              "value": "POS_MAGSTRIPE",
-              "name": "PosMagstripe"
-            },
-            {
-              "value": "POS_CONTACTLESS",
-              "name": "PosContactless"
-            },
-            {
-              "value": "ATM_WITHDRAWAL",
-              "name": "AtmWithdrawal"
-            },
-            {
-              "value": "MOBILE_WALLETS",
-              "name": "MobileWallets"
             }
           ]
         }

@@ -6305,29 +6305,65 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              required:
-                - type
-                - isEnabled
-              properties:
-                type:
-                  type: string
-                  description: The permission type to update.
-                  enum:
-                    - ECOM
-                    - POS_CHIP
-                    - POS_MAGSTRIPE
-                    - POS_CONTACTLESS
-                    - ATM_WITHDRAWAL
-                    - MOBILE_WALLETS
-                  example: ECOM
-                isEnabled:
-                  type: boolean
-                  description: Whether to enable or disable this permission.
-                  example: true
+              $ref: '#/components/schemas/Permission'
       responses:
         '200':
           description: Permission updated successfully.
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '400':
+          description: |
+            Bad request. The requested permission type is not recognized.
+            No permission is updated.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Error message describing the invalid permission type.
+                    example: Permission 'INVALID_TYPE' is not a valid permission type
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '422':
+          description: >
+            Unprocessable entity. The request is syntactically valid but cannot
+            be fulfilled because
+
+            a requested permission is not supported by this card type, or the
+            permission
+
+            is locked and cannot be changed. No permission is updated.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: >-
+                      Error message describing why the permission update was
+                      rejected.
+              examples:
+                permissionNotSupported:
+                  summary: Permission not supported for card type
+                  value:
+                    message: >-
+                      Permission 'POS_CONTACTLESS' is not supported for this
+                      card and cannot be updated
+                permissionLocked:
+                  summary: Permission is locked
+                  value:
+                    message: >-
+                      Permission 'POS_CONTACTLESS' is locked for this card and
+                      cannot be updated
           headers:
             X-External-Correlation-Id:
               $ref: '#/components/headers/X-External-Correlation-Id'
@@ -6379,26 +6415,11 @@ paths:
               properties:
                 permissions:
                   type: array
+                  uniqueItems: true
+                  maxItems: 6
                   description: List of permissions to update.
                   items:
-                    type: object
-                    required:
-                      - type
-                      - isEnabled
-                    properties:
-                      type:
-                        type: string
-                        description: The permission type to update.
-                        enum:
-                          - ECOM
-                          - POS_CHIP
-                          - POS_MAGSTRIPE
-                          - POS_CONTACTLESS
-                          - ATM_WITHDRAWAL
-                          - MOBILE_WALLETS
-                      isEnabled:
-                        type: boolean
-                        description: Whether to enable or disable this permission.
+                    $ref: '#/components/schemas/Permission'
             example:
               permissions:
                 - type: ECOM
@@ -6408,6 +6429,61 @@ paths:
       responses:
         '200':
           description: Permissions updated successfully.
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '400':
+          description: |
+            Bad request. The requested permission type is not recognized.
+            No permissions are updated.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Error message describing the invalid permission type.
+                    example: Permission 'INVALID_TYPE' is not a valid permission type
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '422':
+          description: >
+            Unprocessable entity. The request is syntactically valid but cannot
+            be fulfilled because
+
+            a requested permission is not supported by this card type, or the
+            permission
+
+            is locked and cannot be changed. No permissions are updated.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: >-
+                      Error message describing why the permission update was
+                      rejected.
+              examples:
+                permissionNotSupported:
+                  summary: Permission not supported for card type
+                  value:
+                    message: >-
+                      Permission 'POS_CONTACTLESS' is not supported for this
+                      card and cannot be updated
+                permissionLocked:
+                  summary: Permission is locked
+                  value:
+                    message: >-
+                      Permission 'POS_CONTACTLESS' is locked for this card and
+                      cannot be updated
           headers:
             X-External-Correlation-Id:
               $ref: '#/components/headers/X-External-Correlation-Id'
@@ -29688,15 +29764,26 @@ components:
       description: Spending permission configuration for a card.
       x-tags:
         - card
+      required:
+        - type
+        - isEnabled
       properties:
         type:
           type: string
           description: >
-            The type of transaction this permission controls:
+            The type of transaction this permission controls.
+
+
+            Permissions available on all cards:
 
             - `ECOM` - Online transactions
 
-            - `POS_CHIP` - Physical point-of-sale transactions with chip
+            - `ATM_WITHDRAWAL` - ATM withdrawals
+
+            - `MOBILE_WALLETS` - Digital wallet payments (Apple Pay, Google Pay)
+
+
+            Additional permissions available on physical cards:
 
             - `POS_MAGSTRIPE` - Physical point-of-sale transactions with
             magnetic stripe
@@ -29704,9 +29791,11 @@ components:
             - `POS_CONTACTLESS` - Physical point-of-sale contactless
             transactions
 
-            - `ATM_WITHDRAWAL` - ATM withdrawals
+            - `POS_CHIP` - Physical point-of-sale transactions with chip
 
-            - `MOBILE_WALLETS` - Digital wallet payments (Apple Pay, Google Pay)
+
+            Virtual cards do not return physical point-of-sale permissions. Only
+            permissions returned for the card can be updated.
           enum:
             - ECOM
             - POS_CHIP
@@ -29721,9 +29810,10 @@ components:
           example: false
         isLocked:
           type: boolean
+          readOnly: true
           description: >-
-            Indicates if this permission is locked. If locked, the permission
-            cannot be enabled.
+            Indicates if this permission is locked. If `true`, this permission
+            cannot be updated.
           example: false
     ProductionStatus:
       type: object

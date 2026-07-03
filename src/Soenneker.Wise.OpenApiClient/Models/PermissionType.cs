@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
-    /// <summary>The type of transaction this permission controls:- `ECOM` - Online transactions- `POS_CHIP` - Physical point-of-sale transactions with chip- `POS_MAGSTRIPE` - Physical point-of-sale transactions with magnetic stripe- `POS_CONTACTLESS` - Physical point-of-sale contactless transactions- `ATM_WITHDRAWAL` - ATM withdrawals- `MOBILE_WALLETS` - Digital wallet payments (Apple Pay, Google Pay)</summary>
+    /// <summary>The type of transaction this permission controls.Permissions available on all cards:- `ECOM` - Online transactions- `ATM_WITHDRAWAL` - ATM withdrawals- `MOBILE_WALLETS` - Digital wallet payments (Apple Pay, Google Pay)Additional permissions available on physical cards:- `POS_MAGSTRIPE` - Physical point-of-sale transactions with magnetic stripe- `POS_CONTACTLESS` - Physical point-of-sale contactless transactions- `POS_CHIP` - Physical point-of-sale transactions with chipVirtual cards do not return physical point-of-sale permissions. Only permissions returned for the card can be updated.</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public enum PermissionType
     {

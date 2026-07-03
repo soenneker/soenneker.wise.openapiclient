@@ -17,9 +17,9 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Indicates if this permission type is enabled.</summary>
         public bool? IsEnabled { get; set; }
-        /// <summary>Indicates if this permission is locked. If locked, the permission cannot be enabled.</summary>
-        public bool? IsLocked { get; set; }
-        /// <summary>The type of transaction this permission controls:- `ECOM` - Online transactions- `POS_CHIP` - Physical point-of-sale transactions with chip- `POS_MAGSTRIPE` - Physical point-of-sale transactions with magnetic stripe- `POS_CONTACTLESS` - Physical point-of-sale contactless transactions- `ATM_WITHDRAWAL` - ATM withdrawals- `MOBILE_WALLETS` - Digital wallet payments (Apple Pay, Google Pay)</summary>
+        /// <summary>Indicates if this permission is locked. If `true`, this permission cannot be updated.</summary>
+        public bool? IsLocked { get; private set; }
+        /// <summary>The type of transaction this permission controls.Permissions available on all cards:- `ECOM` - Online transactions- `ATM_WITHDRAWAL` - ATM withdrawals- `MOBILE_WALLETS` - Digital wallet payments (Apple Pay, Google Pay)Additional permissions available on physical cards:- `POS_MAGSTRIPE` - Physical point-of-sale transactions with magnetic stripe- `POS_CONTACTLESS` - Physical point-of-sale contactless transactions- `POS_CHIP` - Physical point-of-sale transactions with chipVirtual cards do not return physical point-of-sale permissions. Only permissions returned for the card can be updated.</summary>
         public global::Soenneker.Wise.OpenApiClient.Models.PermissionType? Type { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.Permission"/> and sets the default values.
@@ -59,7 +59,6 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteBoolValue("isEnabled", IsEnabled);
-            writer.WriteBoolValue("isLocked", IsLocked);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PermissionType>("type", Type);
             writer.WriteAdditionalData(AdditionalData);
         }
