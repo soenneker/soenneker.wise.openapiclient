@@ -19140,6 +19140,9 @@ paths:
                     sortCode: '040075'
                     accountNumber: '37778842'
                     dateOfBirth: '1961-01-01'
+                  ultimateBeneficiary:
+                    name:
+                      fullName: John Doe
               Email recipient:
                 summary: Email recipient
                 value:
@@ -28049,9 +28052,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
+                  4.1.0: '#/components/schemas/v4.1.0'
                   4.0.0: '#/components/schemas/v4.0.0-24'
                   3.0.0: '#/components/schemas/v3.0.0-2'
               oneOf:
+                - $ref: '#/components/schemas/v4.1.0'
                 - $ref: '#/components/schemas/v4.0.0-24'
                 - $ref: '#/components/schemas/v3.0.0-2'
       responses:
@@ -33246,11 +33251,12 @@ components:
             - 'null'
           description: The information of the ultimate beneficiary for this recipient.
           required:
-            - accountNumber
+            - name
           properties:
             accountNumber:
               type:
                 - string
+                - 'null'
               description: Ultimate beneficiary account number.
               example: '37778842'
             bankName:
@@ -33268,43 +33274,13 @@ components:
             name:
               type: object
               description: Ultimate beneficiary name details.
+              required:
+                - fullName
               properties:
                 fullName:
                   type: string
                   description: Ultimate beneficiary full name.
                   example: John Doe
-                givenName:
-                  type:
-                    - string
-                    - 'null'
-                  description: Ultimate beneficiary given name.
-                  example: null
-                familyName:
-                  type:
-                    - string
-                    - 'null'
-                  description: Ultimate beneficiary surname.
-                  example: null
-                middleName:
-                  type:
-                    - string
-                    - 'null'
-                  description: Ultimate beneficiary middle name.
-                  example: null
-                patronymicName:
-                  type:
-                    - string
-                    - 'null'
-                  description: Ultimate beneficiary patronymic name (when applicable).
-                  example: null
-                cannotHavePatronymicName:
-                  type:
-                    - boolean
-                    - 'null'
-                  description: >-
-                    Indicates if the ultimate beneficiary cannot have a
-                    patronymic name (when applicable).
-                  example: null
             address:
               type:
                 - object
@@ -33418,11 +33394,12 @@ components:
             The information of the ultimate beneficiary for this recipient, if
             present. If absent, the ultimate beneficiary is the recipient.
           required:
-            - accountNumber
+            - name
           properties:
             accountNumber:
               type:
                 - string
+                - 'null'
               description: Ultimate beneficiary account number.
               example: '37778842'
             bankName:
@@ -33440,43 +33417,13 @@ components:
             name:
               type: object
               description: Ultimate beneficiary name details.
+              required:
+                - fullName
               properties:
                 fullName:
                   type: string
                   description: Ultimate beneficiary full name.
                   example: John Doe
-                givenName:
-                  type:
-                    - string
-                    - 'null'
-                  description: Ultimate beneficiary given name.
-                  example: null
-                familyName:
-                  type:
-                    - string
-                    - 'null'
-                  description: Ultimate beneficiary surname.
-                  example: null
-                middleName:
-                  type:
-                    - string
-                    - 'null'
-                  description: Ultimate beneficiary middle name.
-                  example: null
-                patronymicName:
-                  type:
-                    - string
-                    - 'null'
-                  description: Ultimate beneficiary patronymic name (when applicable).
-                  example: null
-                cannotHavePatronymicName:
-                  type:
-                    - boolean
-                    - 'null'
-                  description: >-
-                    Indicates if the ultimate beneficiary cannot have a
-                    patronymic name (when applicable).
-                  example: null
             address:
               type:
                 - object
@@ -33690,11 +33637,12 @@ components:
             - 'null'
           description: The information of the ultimate beneficiary for this recipient.
           required:
-            - accountNumber
+            - name
           properties:
             accountNumber:
               type:
                 - string
+                - 'null'
               description: Ultimate beneficiary account number.
               example: '37778842'
             bankName:
@@ -33712,43 +33660,13 @@ components:
             name:
               type: object
               description: Ultimate beneficiary name details.
+              required:
+                - fullName
               properties:
                 fullName:
                   type: string
                   description: Ultimate beneficiary full name.
                   example: John Doe
-                givenName:
-                  type:
-                    - string
-                    - 'null'
-                  description: Ultimate beneficiary given name.
-                  example: null
-                familyName:
-                  type:
-                    - string
-                    - 'null'
-                  description: Ultimate beneficiary surname.
-                  example: null
-                middleName:
-                  type:
-                    - string
-                    - 'null'
-                  description: Ultimate beneficiary middle name.
-                  example: null
-                patronymicName:
-                  type:
-                    - string
-                    - 'null'
-                  description: Ultimate beneficiary patronymic name (when applicable).
-                  example: null
-                cannotHavePatronymicName:
-                  type:
-                    - boolean
-                    - 'null'
-                  description: >-
-                    Indicates if the ultimate beneficiary cannot have a
-                    patronymic name (when applicable).
-                  example: null
             address:
               type:
                 - object
@@ -41430,6 +41348,504 @@ components:
               format: date-time
               description: When the partner case update occurred.
               example: '2023-06-23T09:45:34Z'
+    v4.1.0:
+      title: Schema version 4.1.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 4.1.0
+          example: 4.1.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event.
+          example: 01234567-89ab-cdef-0123-456789abcdef
+        event_type:
+          type: string
+          description: Event type identifier
+          example: swift-in#credit
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent.
+          example: '2023-08-21T12:34:58.123Z'
+        data:
+          type: object
+          required:
+            - action
+            - resource
+            - occurred_at
+          properties:
+            action:
+              type: object
+              required:
+                - type
+                - id
+                - profile_id
+                - account_id
+              properties:
+                type:
+                  type: string
+                  description: Type of action. Always `credit`.
+                  example: credit
+                id:
+                  type: integer
+                  format: int64
+                  description: TransferID of the credit.
+                  example: 12345
+                profile_id:
+                  type: integer
+                  format: int64
+                  description: ProfileID for the transfer.
+                  example: 222
+                account_id:
+                  type: integer
+                  format: int64
+                  description: AccountID for the transfer.
+                  example: 333
+            resource:
+              type: object
+              required:
+                - id
+                - uetr
+                - exchange_rate
+                - settled_amount
+                - transaction_time
+              properties:
+                id:
+                  type: string
+                  description: ID of the webhook.
+                  example: '55555'
+                uetr:
+                  type: string
+                  format: guid
+                  description: >-
+                    Unique identifier created by the scheme for each payment and
+                    passed through the scheme to Wise.
+                  example: f875814b-7d44-4d1b-a499-123456789abcde
+                reference:
+                  type: string
+                  description: Reference provided by the ultimate sender for the payment.
+                  minLength: 0
+                  maxLength: 140
+                  example: /RFB/BET072
+                recipient:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: Name of the ultimate recipient.
+                      minLength: 1
+                      maxLength: 140
+                      example: JOHN SMITH
+                    address:
+                      type: object
+                      description: Structured address of the ultimate recipient.
+                      properties:
+                        first_line:
+                          type: string
+                          description: >-
+                            Address lines concatenated into a single line. Use
+                            `address_lines` instead.
+                          deprecated: true
+                        address_lines:
+                          type: array
+                          items:
+                            type: string
+                          description: Unstructured address lines
+                          example:
+                            - 6 Evergreen Ave
+                            - Brussels
+                        street_name:
+                          type: string
+                          description: Street name.
+                          example: Evergreen Ave
+                        building_number:
+                          type: string
+                          description: Building number.
+                          example: '6'
+                        town_name:
+                          type: string
+                          description: Town (city) name.
+                          example: BRUSSELS
+                        postal_code:
+                          type: string
+                          description: Postal code.
+                          example: '1000'
+                        country_sub_division:
+                          type: string
+                          description: >-
+                            Country subdivision such as a state, province, or
+                            region.
+                        country_code:
+                          type: string
+                          description: Country code. 2-letter ISO country code.
+                          example: BE
+                    account:
+                      type: string
+                      description: >-
+                        This can be either an IBAN, BBAN, AccountId or a
+                        Descriptor (another kind of identifier).
+                      minLength: 1
+                      maxLength: 36
+                      example: BE1234567891234
+                    bank_details:
+                      type: object
+                      description: Recipient bank details.
+                      properties:
+                        bic:
+                          type: string
+                          description: Recipient bank BIC.
+                          example: EXMPBEBB
+                        name:
+                          type: string
+                          description: Recipient bank name.
+                          example: EXAMPLE BANK BELGIUM
+                        address:
+                          type: object
+                          description: >-
+                            Recipient bank address (same structure as
+                            `recipient.address`).
+                          properties:
+                            first_line:
+                              type: string
+                              description: >-
+                                Address lines concatenated into a single line.
+                                Use `address_lines` instead.
+                              deprecated: true
+                            address_lines:
+                              type: array
+                              items:
+                                type: string
+                              description: Unstructured address lines
+                              example:
+                                - 1 Rue de l'Exemple
+                                - Brussels
+                            street_name:
+                              type: string
+                              description: Street name.
+                              example: Rue de l'Exemple
+                            building_number:
+                              type: string
+                              description: Building number.
+                              example: '1'
+                            town_name:
+                              type: string
+                              description: Town (city) name.
+                              example: BRUSSELS
+                            postal_code:
+                              type: string
+                              description: Postal code.
+                              example: '1000'
+                            country_sub_division:
+                              type: string
+                              description: >-
+                                Country subdivision such as a state, province,
+                                or region.
+                            country_code:
+                              type: string
+                              description: Country code. 2-letter ISO country code.
+                              example: BE
+                sender:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: Name of the ultimate sender.
+                      minLength: 1
+                      maxLength: 140
+                      example: GEORGE SMITH
+                    address:
+                      type: object
+                      description: Structured address of the ultimate sender.
+                      properties:
+                        first_line:
+                          type: string
+                          description: >-
+                            Address lines concatenated into a single line. Use
+                            `address_lines` instead.
+                          deprecated: true
+                        address_lines:
+                          type: array
+                          items:
+                            type: string
+                          description: Unstructured address lines
+                          example:
+                            - 10 Evergreen Street
+                            - Brussels
+                        street_name:
+                          type: string
+                          description: Street name.
+                          example: Evergreen Street
+                        building_number:
+                          type: string
+                          description: Building number.
+                          example: '10'
+                        town_name:
+                          type: string
+                          description: Town (city) name.
+                          example: BRUSSELS
+                        postal_code:
+                          type: string
+                          description: Postal code.
+                          example: '1000'
+                        country_sub_division:
+                          type: string
+                          description: >-
+                            Country subdivision such as a state, province, or
+                            region.
+                        country_code:
+                          type: string
+                          description: Country code. 2-letter ISO country code.
+                          example: BE
+                    account:
+                      type: string
+                      description: >-
+                        This can be either an IBAN, BBAN, AccountId or a
+                        Descriptor (another kind of identifier).
+                      minLength: 1
+                      maxLength: 36
+                      example: EE947700771111111111
+                    bank_details:
+                      type: object
+                      description: Sender bank details.
+                      properties:
+                        bic:
+                          type: string
+                          description: Sender bank BIC.
+                          example: TESTDEFF
+                        name:
+                          type: string
+                          description: Sender bank name.
+                          example: TEST BANK AG
+                        address:
+                          type: object
+                          description: >-
+                            Sender bank address (same structure as
+                            `recipient.address`).
+                          properties:
+                            first_line:
+                              type: string
+                              description: >-
+                                Address lines concatenated into a single line.
+                                Use `address_lines` instead.
+                              deprecated: true
+                            address_lines:
+                              type: array
+                              items:
+                                type: string
+                              description: Unstructured address lines
+                              example:
+                                - 10 Musterstrasse
+                                - Frankfurt
+                            street_name:
+                              type: string
+                              description: Street name.
+                              example: Musterstrasse
+                            building_number:
+                              type: string
+                              description: Building number.
+                              example: '99'
+                            town_name:
+                              type: string
+                              description: Town (city) name.
+                              example: FRANKFURT
+                            postal_code:
+                              type: string
+                              description: Postal code.
+                              example: '60311'
+                            country_sub_division:
+                              type: string
+                              description: >-
+                                Country subdivision such as a state, province,
+                                or region.
+                            country_code:
+                              type: string
+                              description: Country code. 2-letter ISO country code.
+                              example: DE
+                exchange_rate:
+                  type: number
+                  format: double
+                  description: >
+                    In case the originally instructed amount was converted by
+                    Wise or any other intermediary agent, this field contains
+                    the exchange rate used. If no conversion took place, the
+                    exchange rate will be `1.0`.
+                  example: 0.8
+                instructed_amount:
+                  type: object
+                  description: Amount originally instructed by the ultimate sender.
+                  required:
+                    - value
+                    - currency
+                  properties:
+                    value:
+                      type: number
+                      format: double
+                      description: >-
+                        Value of the amount originally instructed by the
+                        ultimate sender.
+                      example: 1000
+                    currency:
+                      type: string
+                      description: >-
+                        Currency of the amount originally instructed by the
+                        ultimate sender. 3-letter ISO currency code.
+                      example: USD
+                settled_amount:
+                  type: object
+                  required:
+                    - value
+                    - currency
+                  properties:
+                    value:
+                      type: number
+                      format: double
+                      description: Value of the amount settled to the balance account.
+                      example: 786.54
+                    currency:
+                      type: string
+                      description: >-
+                        Currency of the amount settled to the balance account.
+                        3-letter ISO currency code.
+                      example: GBP
+                fee:
+                  type: object
+                  properties:
+                    wise:
+                      type: array
+                      description: >-
+                        List of fees applied by Wise (for example, conversion
+                        fees). If this list is empty, no fees were applied by
+                        Wise.
+                      items:
+                        type: object
+                        required:
+                          - type
+                          - value
+                          - currency
+                        properties:
+                          type:
+                            type: string
+                            description: Type of fee.
+                            example: conversion
+                          value:
+                            type: number
+                            format: double
+                            description: Value of fee.
+                            example: 2.76
+                          currency:
+                            type: string
+                            description: Currency of fee. 3-letter ISO currency code.
+                            example: GBP
+                    correspondent:
+                      type: array
+                      description: >-
+                        List of fees declared by correspondents (for example,
+                        handling fees). If this list is empty, no fees were
+                        declared by correspondents.
+                      items:
+                        type: object
+                        required:
+                          - value
+                          - currency
+                        properties:
+                          value:
+                            type: number
+                            format: double
+                            description: Value of fee.
+                            example: 4.5
+                          currency:
+                            type: string
+                            description: Currency of fee. 3-letter ISO currency code.
+                            example: USD
+                transaction_time:
+                  type: string
+                  format: date-time
+                  description: >
+                    Date and time at which the associated transaction was
+                    created. Time in UTC.
+
+
+                    Format: `YYYY`-`MM`-`DD`T`HH`:`MM`:`SS`.`mmm`Z
+                  example: '2023-08-21T12:34:56.456Z'
+                previous_instructing_agents:
+                  type: array
+                  description: >-
+                    List of previous instructing agents in the payment chain,
+                    ordered from first to last.
+                  items:
+                    type: object
+                    properties:
+                      bic:
+                        type: string
+                        description: Previous instructing agent BIC.
+                        example: SAMPUS33
+                      name:
+                        type: string
+                        description: Previous instructing agent bank name.
+                        example: SAMPLE BANK USA
+                      address:
+                        type: object
+                        description: >-
+                          Previous instructing agent bank address (same
+                          structure as `recipient.address`).
+                        properties:
+                          first_line:
+                            type: string
+                            description: >-
+                              Address lines concatenated into a single line. Use
+                              `address_lines` instead.
+                            deprecated: true
+                          address_lines:
+                            type: array
+                            items:
+                              type: string
+                            description: Unstructured address lines
+                            example:
+                              - 100 Fictional Avenue
+                              - NEW YORK
+                          street_name:
+                            type: string
+                            description: Street name.
+                            example: Fictional Avenue
+                          building_number:
+                            type: string
+                            description: Building number.
+                            example: '100'
+                          town_name:
+                            type: string
+                            description: Town (city) name.
+                            example: NEW YORK
+                          postal_code:
+                            type: string
+                            description: Postal code.
+                            example: '10001'
+                          country_sub_division:
+                            type: string
+                            description: >-
+                              Country subdivision such as a state, province, or
+                              region.
+                            example: NY
+                          country_code:
+                            type: string
+                            description: Country code. 2-letter ISO country code.
+                            example: US
+            occurred_at:
+              type: string
+              format: date-time
+              description: >
+                Date and time at which the amount was credited to the balance
+                account. Time in UTC.
+
+
+                Format: `YYYY`-`MM`-`DD`T`HH`:`MM`:`SS`.`mmm`Z
+              example: '2023-08-21T12:34:56.789Z'
     v4.0.0-24:
       title: Schema version 4.0.0
       type: object

@@ -15,16 +15,6 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Indicates if the ultimate beneficiary cannot have a patronymic name (when applicable).</summary>
-        public bool? CannotHavePatronymicName { get; set; }
-        /// <summary>Ultimate beneficiary surname.</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? FamilyName { get; set; }
-#nullable restore
-#else
-        public string FamilyName { get; set; }
-#endif
         /// <summary>Ultimate beneficiary full name.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -32,30 +22,6 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #nullable restore
 #else
         public string FullName { get; set; }
-#endif
-        /// <summary>Ultimate beneficiary given name.</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? GivenName { get; set; }
-#nullable restore
-#else
-        public string GivenName { get; set; }
-#endif
-        /// <summary>Ultimate beneficiary middle name.</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? MiddleName { get; set; }
-#nullable restore
-#else
-        public string MiddleName { get; set; }
-#endif
-        /// <summary>Ultimate beneficiary patronymic name (when applicable).</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? PatronymicName { get; set; }
-#nullable restore
-#else
-        public string PatronymicName { get; set; }
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.RecipientUltimateBeneficiaryName"/> and sets the default values.
@@ -82,12 +48,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "cannotHavePatronymicName", n => { CannotHavePatronymicName = n.GetBoolValue(); } },
-                { "familyName", n => { FamilyName = n.GetStringValue(); } },
                 { "fullName", n => { FullName = n.GetStringValue(); } },
-                { "givenName", n => { GivenName = n.GetStringValue(); } },
-                { "middleName", n => { MiddleName = n.GetStringValue(); } },
-                { "patronymicName", n => { PatronymicName = n.GetStringValue(); } },
             };
         }
         /// <summary>
@@ -97,12 +58,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteBoolValue("cannotHavePatronymicName", CannotHavePatronymicName);
-            writer.WriteStringValue("familyName", FamilyName);
             writer.WriteStringValue("fullName", FullName);
-            writer.WriteStringValue("givenName", GivenName);
-            writer.WriteStringValue("middleName", MiddleName);
-            writer.WriteStringValue("patronymicName", PatronymicName);
             writer.WriteAdditionalData(AdditionalData);
         }
     }
