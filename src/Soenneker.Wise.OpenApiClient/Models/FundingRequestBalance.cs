@@ -16,8 +16,6 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>ID of the balance to debit.</summary>
         public long? BalanceId { get; set; }
-        /// <summary>ID of an existing pending balance transaction to settle.</summary>
-        public long? BalanceTransactionId { get; set; }
         /// <summary>The type property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -52,7 +50,6 @@ namespace Soenneker.Wise.OpenApiClient.Models
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "balanceId", n => { BalanceId = n.GetLongValue(); } },
-                { "balanceTransactionId", n => { BalanceTransactionId = n.GetLongValue(); } },
                 { "type", n => { Type = n.GetStringValue(); } },
             };
         }
@@ -64,7 +61,6 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteLongValue("balanceId", BalanceId);
-            writer.WriteLongValue("balanceTransactionId", BalanceTransactionId);
             writer.WriteStringValue("type", Type);
             writer.WriteAdditionalData(AdditionalData);
         }

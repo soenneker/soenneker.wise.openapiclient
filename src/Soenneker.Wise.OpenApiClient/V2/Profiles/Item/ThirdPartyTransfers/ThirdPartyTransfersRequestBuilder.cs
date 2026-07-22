@@ -19,7 +19,7 @@ namespace Soenneker.Wise.OpenApiClient.V2.Profiles.Item.ThirdPartyTransfers
     public partial class ThirdPartyTransfersRequestBuilder : BaseRequestBuilder
     {
         /// <summary>Gets an item from the Soenneker.Wise.OpenApiClient.v2.profiles.item.thirdPartyTransfers.item collection</summary>
-        /// <param name="position">Unique identifier of the item</param>
+        /// <param name="position">Transfer Id</param>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.ThirdPartyTransfers.Item.WithTransferItemRequestBuilder"/></returns>
         public global::Soenneker.Wise.OpenApiClient.V2.Profiles.Item.ThirdPartyTransfers.Item.WithTransferItemRequestBuilder this[long position]
         {

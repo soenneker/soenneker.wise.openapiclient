@@ -5436,6 +5436,16 @@
             "example": "jwe"
           },
           {
+            "name": "x-tw-jose-encryption-kid",
+            "in": "header",
+            "description": "Public Key ID of JWE Encryption Key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "2333836d-2e1c-4acd-8b52-234d379260aa"
+          },
+          {
             "$ref": "#/components/parameters/X-External-Correlation-Id"
           }
         ],
@@ -5617,6 +5627,16 @@
               "$ref": "#/components/schemas/JosePlaygroundJwsJweXTwJoseMethodParameter"
             },
             "example": "jws\u002Bjwe"
+          },
+          {
+            "name": "x-tw-jose-encryption-kid",
+            "in": "header",
+            "description": "Public Key ID of JWE Encryption Key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "2333836d-2e1c-4acd-8b52-234d379260aa"
           },
           {
             "$ref": "#/components/parameters/X-External-Correlation-Id"
@@ -13812,9 +13832,11 @@
           {
             "name": "profileId",
             "in": "path",
+            "description": "Profile Id",
             "required": true,
             "schema": {
               "type": "integer",
+              "description": "Profile Id",
               "format": "int64",
               "example": 123456789
             }
@@ -13822,9 +13844,11 @@
           {
             "name": "transferId",
             "in": "path",
+            "description": "Transfer Id",
             "required": true,
             "schema": {
               "type": "integer",
+              "description": "Transfer Id",
               "format": "int64",
               "example": 16521632
             }
@@ -13952,9 +13976,11 @@
           {
             "name": "profileId",
             "in": "path",
+            "description": "Profile Id",
             "required": true,
             "schema": {
               "type": "integer",
+              "description": "Profile Id",
               "format": "int64",
               "example": 123456789
             }
@@ -13962,9 +13988,11 @@
           {
             "name": "transferId",
             "in": "path",
+            "description": "Transfer Id",
             "required": true,
             "schema": {
               "type": "integer",
+              "description": "Transfer Id",
               "format": "int64",
               "example": 16521632
             }
@@ -18191,6 +18219,7 @@
         "type": "object",
         "properties": {
           "reference": {
+            "maxLength": 250,
             "type": "string",
             "description": "Recipient will see this reference text in their bank statement. Maximum allowed characters depends on the currency route.\n         [Business Payments Tips](https://wise.com/help/articles/2932870/tips-for-paying-invoices) for a full list",
             "example": "T12789649"
@@ -18206,6 +18235,7 @@
             "example": "John"
           },
           "middleNames": {
+            "maxItems": 10,
             "type": "array",
             "items": {
               "type": "string"
@@ -18231,29 +18261,41 @@
         "description": "Data block to capture the originator name details"
       },
       "Address22": {
+        "required": [
+          "countryCode",
+          "firstLine"
+        ],
         "type": "object",
         "properties": {
           "firstLine": {
+            "maxLength": 250,
+            "minLength": 1,
+            "pattern": "\\S",
             "type": "string",
             "description": "Payment originator address first line",
             "example": "Salu tee 14"
           },
           "city": {
+            "maxLength": 250,
             "type": "string",
             "description": "Payment originator address city",
             "example": "Tallinn"
           },
           "stateCode": {
             "type": "string",
-            "description": "Payment originator address state code. Required if address country code in (US, CA, BR, AU)"
+            "description": "Payment originator address state code. Required if address country code in (US, CA, BR, AU)",
+            "example": "NY"
           },
           "countryCode": {
-            "pattern": "^[A-Z]{2}$",
+            "maxLength": 2,
+            "minLength": 1,
+            "pattern": "\\S",
             "type": "string",
             "description": "Payment originator address country code ISO 3166-1 alpha-2",
             "example": "EE"
           },
           "postCode": {
+            "maxLength": 250,
             "type": "string",
             "description": "Originator address zip code",
             "example": 12112
@@ -18270,6 +18312,8 @@
         "type": "object",
         "properties": {
           "reference": {
+            "minLength": 1,
+            "pattern": "\\S",
             "type": "string",
             "description": "Unique customer ID in your system. This allows us to uniquely identify each originator",
             "example": "CST-2991992"
@@ -18281,7 +18325,8 @@
             "type": "string",
             "description": "Payment originator date of birth",
             "format": "date",
-            "example": "1977-07-01"
+            "example": "1977-07-01",
+            "x-temporal-constraint": "past"
           },
           "nationality": {
             "type": "string",
@@ -18320,6 +18365,8 @@
         "type": "object",
         "properties": {
           "reference": {
+            "minLength": 1,
+            "pattern": "\\S",
             "type": "string",
             "description": "Unique customer ID in your system. This allows us to uniquely identify each originator",
             "example": "CST-2991992"
@@ -18331,7 +18378,8 @@
             "type": "string",
             "description": "Payment originator date of birth",
             "format": "date",
-            "example": "1977-07-01"
+            "example": "1977-07-01",
+            "x-temporal-constraint": "past"
           },
           "nationality": {
             "type": "string",
@@ -18354,13 +18402,14 @@
       "BusinessOriginator": {
         "required": [
           "address",
-          "businessRegistrationCode",
-          "businessRegistrationDate",
-          "name"
+          "name",
+          "reference"
         ],
         "type": "object",
         "properties": {
           "reference": {
+            "minLength": 1,
+            "pattern": "\\S",
             "type": "string",
             "description": "Unique customer ID in your system. This allows us to uniquely identify each originator",
             "example": "CST-2991992"
@@ -18369,6 +18418,7 @@
             "$ref": "#/components/schemas/Name"
           },
           "businessRegistrationCode": {
+            "maxLength": 150,
             "type": "string",
             "description": "Payment originator business registry number / incorporation number",
             "example": "83920-546"
@@ -18377,7 +18427,8 @@
             "type": "string",
             "description": "Payment originator business registration date. Required for certain routes (e.g. to UGX)",
             "format": "date",
-            "example": "2020-01-15"
+            "example": "2020-01-15",
+            "x-temporal-constraint": "pastOrPresent"
           },
           "accountDetails": {
             "type": "string",
@@ -18393,14 +18444,15 @@
       "OriginatorBusiness": {
         "required": [
           "address",
-          "businessRegistrationCode",
-          "businessRegistrationDate",
           "name",
+          "reference",
           "legalEntityType"
         ],
         "type": "object",
         "properties": {
           "reference": {
+            "minLength": 1,
+            "pattern": "\\S",
             "type": "string",
             "description": "Unique customer ID in your system. This allows us to uniquely identify each originator",
             "example": "CST-2991992"
@@ -18409,6 +18461,7 @@
             "$ref": "#/components/schemas/Name"
           },
           "businessRegistrationCode": {
+            "maxLength": 150,
             "type": "string",
             "description": "Payment originator business registry number / incorporation number",
             "example": "83920-546"
@@ -18417,7 +18470,8 @@
             "type": "string",
             "description": "Payment originator business registration date. Required for certain routes (e.g. to UGX)",
             "format": "date",
-            "example": "2020-01-15"
+            "example": "2020-01-15",
+            "x-temporal-constraint": "pastOrPresent"
           },
           "accountDetails": {
             "type": "string",
@@ -18473,6 +18527,9 @@
         "type": "object",
         "properties": {
           "originalTransferId": {
+            "maxLength": 250,
+            "minLength": 1,
+            "pattern": "\\S",
             "type": "string",
             "description": "Unique transfer ID in your system. We use this field also to perform idempotency check to avoid duplicate transfers in case of network failures or timeouts.\n    You can only submit one transfer with same originalTransferId.",
             "example": 4711
@@ -18490,6 +18547,8 @@
             "example": 1527389
           },
           "quote": {
+            "minLength": 1,
+            "pattern": "\\S",
             "type": "string",
             "description": "Quote ID. You can only create one transfer per one quote.\n    You cannot use same quote ID to create multiple transfers.",
             "example": "3522e360-356a-4e37-9f99-94a21898d8fa"
@@ -18582,7 +18641,8 @@
           },
           "stateCode": {
             "type": "string",
-            "description": "Payment originator address state code. Required if address country code in (US, CA, BR, AU)"
+            "description": "Payment originator address state code. Required if address country code in (US, CA, BR, AU)",
+            "example": "NY"
           },
           "countryCode": {
             "pattern": "^[A-Z]{2}$",
@@ -18698,22 +18758,32 @@
             "example": false
           },
           "sourceCurrency": {
+            "maxLength": 3,
+            "minLength": 3,
+            "pattern": "^[A-Z]{3}$",
             "type": "string",
             "description": "Source currency code",
             "example": "EUR"
           },
           "sourceValue": {
+            "minimum": false,
+            "exclusiveMinimum": true,
             "type": "number",
             "description": "Transfer amount in source currency",
             "format": "decimal",
             "example": 0
           },
           "targetCurrency": {
+            "maxLength": 3,
+            "minLength": 3,
+            "pattern": "^[A-Z]{3}$",
             "type": "string",
             "description": "Target currency code",
             "example": "GBP"
           },
           "targetValue": {
+            "minimum": false,
+            "exclusiveMinimum": true,
             "type": "number",
             "description": "Transfer amount in target currency",
             "format": "decimal",
@@ -18771,6 +18841,8 @@
             "example": "cancelled"
           },
           "rate": {
+            "minimum": false,
+            "exclusiveMinimum": true,
             "type": "number",
             "description": "Exchange rate value",
             "format": "decimal",
@@ -18788,22 +18860,32 @@
             "example": false
           },
           "sourceCurrency": {
+            "maxLength": 3,
+            "minLength": 3,
+            "pattern": "^[A-Z]{3}$",
             "type": "string",
             "description": "Source currency code",
             "example": "EUR"
           },
           "sourceValue": {
+            "minimum": false,
+            "exclusiveMinimum": true,
             "type": "number",
             "description": "Transfer amount in source currency",
             "format": "decimal",
             "example": 0
           },
           "targetCurrency": {
+            "maxLength": 3,
+            "minLength": 3,
+            "pattern": "^[A-Z]{3}$",
             "type": "string",
             "description": "Target currency code",
             "example": "GBP"
           },
           "targetValue": {
+            "minimum": false,
+            "exclusiveMinimum": true,
             "type": "number",
             "description": "Transfer amount in target currency",
             "format": "decimal",
@@ -18831,12 +18913,6 @@
             "description": "ID of the balance to debit.",
             "format": "int64",
             "example": 45678901
-          },
-          "balanceTransactionId": {
-            "type": "integer",
-            "description": "ID of an existing pending balance transaction to settle.",
-            "format": "int64",
-            "example": 987654321
           }
         }
       },
@@ -18863,12 +18939,6 @@
             "format": "int64",
             "example": 45678901
           },
-          "balanceTransactionId": {
-            "type": "integer",
-            "description": "ID of an existing pending balance transaction to settle.",
-            "format": "int64",
-            "example": 987654321
-          },
           "type": {
             "type": "string"
           }
@@ -18884,7 +18954,8 @@
           },
           "status": {
             "type": "string",
-            "description": "Internal status field."
+            "description": "Internal status field.",
+            "example": "COMPLETE"
           }
         }
       },
@@ -18901,7 +18972,8 @@
           },
           "status": {
             "type": "string",
-            "description": "Internal status field."
+            "description": "Internal status field.",
+            "example": "COMPLETE"
           },
           "type": {
             "type": "string"
@@ -18921,7 +18993,8 @@
           },
           "status": {
             "type": "string",
-            "description": "Internal status field."
+            "description": "Internal status field.",
+            "example": "COMPLETE"
           },
           "type": {
             "type": "string"
@@ -19100,7 +19173,8 @@
           },
           "errorMessage": {
             "type": "string",
-            "description": "Free-form human-readable explanation of a \u0060REJECTED\u0060 outcome. Suitable for logging and developer-facing tools; not localised and not safe to surface to end users. May be absent."
+            "description": "Free-form human-readable explanation of a \u0060REJECTED\u0060 outcome. Suitable for logging and developer-facing tools; not localised and not safe to surface to end users. May be absent.",
+            "example": "Transfer not found"
           },
           "balanceTransactionId": {
             "type": "integer",
@@ -19135,7 +19209,8 @@
           },
           "errorMessage": {
             "type": "string",
-            "description": "Free-form human-readable explanation of a \u0060REJECTED\u0060 outcome. Suitable for logging and developer-facing tools; not localised and not safe to surface to end users. May be absent."
+            "description": "Free-form human-readable explanation of a \u0060REJECTED\u0060 outcome. Suitable for logging and developer-facing tools; not localised and not safe to surface to end users. May be absent.",
+            "example": "Transfer not found"
           },
           "balanceTransactionId": {
             "type": "integer",
@@ -19159,7 +19234,8 @@
           },
           "errorMessage": {
             "type": "string",
-            "description": "Free-form human-readable explanation of a \u0060REJECTED\u0060 outcome. Suitable for logging and developer-facing tools; not localised and not safe to surface to end users. May be absent."
+            "description": "Free-form human-readable explanation of a \u0060REJECTED\u0060 outcome. Suitable for logging and developer-facing tools; not localised and not safe to surface to end users. May be absent.",
+            "example": "Transfer not found"
           },
           "partnerReference": {
             "type": "string",
@@ -19182,7 +19258,8 @@
           },
           "errorMessage": {
             "type": "string",
-            "description": "Free-form human-readable explanation of a \u0060REJECTED\u0060 outcome. Suitable for logging and developer-facing tools; not localised and not safe to surface to end users. May be absent."
+            "description": "Free-form human-readable explanation of a \u0060REJECTED\u0060 outcome. Suitable for logging and developer-facing tools; not localised and not safe to surface to end users. May be absent.",
+            "example": "Transfer not found"
           },
           "partnerReference": {
             "type": "string",
@@ -19208,7 +19285,8 @@
           },
           "errorMessage": {
             "type": "string",
-            "description": "Free-form human-readable explanation of a \u0060REJECTED\u0060 outcome. Suitable for logging and developer-facing tools; not localised and not safe to surface to end users. May be absent."
+            "description": "Free-form human-readable explanation of a \u0060REJECTED\u0060 outcome. Suitable for logging and developer-facing tools; not localised and not safe to surface to end users. May be absent.",
+            "example": "Transfer not found"
           },
           "partnerReference": {
             "type": "string",

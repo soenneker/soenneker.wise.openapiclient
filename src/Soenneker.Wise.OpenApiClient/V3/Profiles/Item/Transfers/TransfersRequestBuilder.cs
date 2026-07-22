@@ -16,7 +16,7 @@ namespace Soenneker.Wise.OpenApiClient.V3.Profiles.Item.Transfers
     public partial class TransfersRequestBuilder : BaseRequestBuilder
     {
         /// <summary>Gets an item from the Soenneker.Wise.OpenApiClient.v3.profiles.item.transfers.item collection</summary>
-        /// <param name="position">Unique identifier of the item</param>
+        /// <param name="position">Transfer Id</param>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.Transfers.Item.WithTransferItemRequestBuilder"/></returns>
         public global::Soenneker.Wise.OpenApiClient.V3.Profiles.Item.Transfers.Item.WithTransferItemRequestBuilder this[long position]
         {

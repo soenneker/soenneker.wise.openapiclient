@@ -10123,6 +10123,13 @@ paths:
             enum:
               - jwe
           example: jwe
+        - name: x-tw-jose-encryption-kid
+          in: header
+          required: true
+          description: Public Key ID of JWE Encryption Key
+          schema:
+            type: string
+          example: 2333836d-2e1c-4acd-8b52-234d379260aa
         - $ref: '#/components/parameters/X-External-Correlation-Id'
       security:
         - ClientCredentialsToken: []
@@ -10445,6 +10452,13 @@ paths:
             enum:
               - jws+jwe
           example: jws+jwe
+        - name: x-tw-jose-encryption-kid
+          in: header
+          required: true
+          description: Public Key ID of JWE Encryption Key
+          schema:
+            type: string
+          example: 2333836d-2e1c-4acd-8b52-234d379260aa
         - $ref: '#/components/parameters/X-External-Correlation-Id'
       security:
         - ClientCredentialsToken: []
@@ -24050,8 +24064,11 @@ paths:
           description: Third party transfer successfully created.
           headers:
             Location:
+              description: Path to the created transfer
               schema:
                 type: string
+                description: Path to the created transfer
+                example: /public/v2/profiles/123/third-party-transfers/16521632
             X-External-Correlation-Id:
               $ref: '#/components/headers/X-External-Correlation-Id'
             x-trace-id:
@@ -24205,15 +24222,19 @@ paths:
       parameters:
         - name: profileId
           in: path
+          description: Profile Id
           schema:
             type: integer
+            description: Profile Id
             format: int64
             example: 123456789
           required: true
         - name: transferId
           in: path
+          description: Transfer Id
           schema:
             type: integer
+            description: Transfer Id
             format: int64
             example: 16521632
           required: true
@@ -24361,15 +24382,19 @@ paths:
       parameters:
         - name: profileId
           in: path
+          description: Profile Id
           schema:
             type: integer
+            description: Profile Id
             format: int64
             example: 123456789
           required: true
         - name: transferId
           in: path
+          description: Transfer Id
           schema:
             type: integer
+            description: Transfer Id
             format: int64
             example: 16521632
           required: true
@@ -34862,6 +34887,7 @@ components:
       properties:
         reference:
           type: string
+          maxLength: 250
           description: >-
             Recipient will see this reference text in their bank statement.
             Maximum allowed characters depends on the currency route.
@@ -34879,6 +34905,7 @@ components:
           type: array
           items:
             type: string
+          maxItems: 10
           description: Payment originator middle name(s)
         familyName:
           type: string
@@ -34897,10 +34924,14 @@ components:
       properties:
         firstLine:
           type: string
+          maxLength: 250
+          minLength: 1
+          pattern: \S
           description: Payment originator address first line
           example: Salu tee 14
         city:
           type: string
+          maxLength: 250
           description: Payment originator address city
           example: Tallinn
         stateCode:
@@ -34908,20 +34939,29 @@ components:
           description: >-
             Payment originator address state code. Required if address country
             code in (US, CA, BR, AU)
+          example: NY
         countryCode:
           type: string
-          pattern: ^[A-Z]{2}$
+          maxLength: 2
+          minLength: 1
+          pattern: \S
           description: Payment originator address country code ISO 3166-1 alpha-2
           example: EE
         postCode:
           type: string
+          maxLength: 250
           description: Originator address zip code
           example: '12112'
+      required:
+        - countryCode
+        - firstLine
     PrivateOriginator:
       type: object
       properties:
         reference:
           type: string
+          minLength: 1
+          pattern: \S
           description: >-
             Unique customer ID in your system. This allows us to uniquely
             identify each originator
@@ -34933,6 +34973,7 @@ components:
           description: Payment originator date of birth
           format: date
           example: '1977-07-01'
+          x-temporal-constraint: past
         nationality:
           type: string
           description: >-
@@ -34967,6 +35008,8 @@ components:
       properties:
         reference:
           type: string
+          minLength: 1
+          pattern: \S
           description: >-
             Unique customer ID in your system. This allows us to uniquely
             identify each originator
@@ -34975,6 +35018,7 @@ components:
           $ref: '#/components/schemas/Name'
         businessRegistrationCode:
           type: string
+          maxLength: 150
           description: Payment originator business registry number / incorporation number
           example: 83920-546
         businessRegistrationDate:
@@ -34984,6 +35028,7 @@ components:
             routes (e.g. to UGX)
           format: date
           example: '2020-01-15'
+          x-temporal-constraint: pastOrPresent
         accountDetails:
           type: string
           description: Payment originator account number
@@ -34992,9 +35037,8 @@ components:
           $ref: '#/components/schemas/Address-2'
       required:
         - address
-        - businessRegistrationCode
-        - businessRegistrationDate
         - name
+        - reference
     OriginatorBUSINESS:
       allOf:
         - $ref: '#/components/schemas/BusinessOriginator'
@@ -35013,6 +35057,9 @@ components:
       properties:
         originalTransferId:
           type: string
+          maxLength: 250
+          minLength: 1
+          pattern: \S
           description: >-
             Unique transfer ID in your system. We use this field also to perform
             idempotency check to avoid duplicate transfers in case of network
@@ -35031,6 +35078,8 @@ components:
           example: 1527389
         quote:
           type: string
+          minLength: 1
+          pattern: \S
           description: |-
             Quote ID. You can only create one transfer per one quote.
                 You cannot use same quote ID to create multiple transfers.
@@ -35073,6 +35122,9 @@ components:
           items:
             type: string
           description: Payment originator middle name(s)
+          example:
+            - Fitz
+            - John
         familyName:
           type: string
           description: Payment originator family name
@@ -35101,6 +35153,7 @@ components:
           description: >-
             Payment originator address state code. Required if address country
             code in (US, CA, BR, AU)
+          example: NY
         countryCode:
           type: string
           pattern: ^[A-Z]{2}$
@@ -35201,19 +35254,29 @@ components:
           example: false
         sourceCurrency:
           type: string
+          maxLength: 3
+          minLength: 3
+          pattern: ^[A-Z]{3}$
           description: Source currency code
           example: EUR
         sourceValue:
           type: number
+          minimum: 0
+          exclusiveMinimum: 0
           description: Transfer amount in source currency
           format: decimal
           example: 0
         targetCurrency:
           type: string
+          maxLength: 3
+          minLength: 3
+          pattern: ^[A-Z]{3}$
           description: Target currency code
           example: GBP
         targetValue:
           type: number
+          minimum: 0
+          exclusiveMinimum: 0
           description: Transfer amount in target currency
           format: decimal
           example: 150
@@ -35265,6 +35328,8 @@ components:
           example: cancelled
         rate:
           type: number
+          minimum: 0
+          exclusiveMinimum: 0
           description: Exchange rate value
           format: decimal
           example: 0.89
@@ -35278,19 +35343,29 @@ components:
           example: false
         sourceCurrency:
           type: string
+          maxLength: 3
+          minLength: 3
+          pattern: ^[A-Z]{3}$
           description: Source currency code
           example: EUR
         sourceValue:
           type: number
+          minimum: 0
+          exclusiveMinimum: 0
           description: Transfer amount in source currency
           format: decimal
           example: 0
         targetCurrency:
           type: string
+          maxLength: 3
+          minLength: 3
+          pattern: ^[A-Z]{3}$
           description: Target currency code
           example: GBP
         targetValue:
           type: number
+          minimum: 0
+          exclusiveMinimum: 0
           description: Transfer amount in target currency
           format: decimal
           example: 150
@@ -35313,11 +35388,6 @@ components:
           description: ID of the balance to debit.
           format: int64
           example: 45678901
-        balanceTransactionId:
-          type: integer
-          description: ID of an existing pending balance transaction to settle.
-          format: int64
-          example: 987654321
     FundingRequestMixin:
       type: object
       properties:
@@ -35341,6 +35411,7 @@ components:
         status:
           type: string
           description: Internal status field.
+          example: COMPLETE
     FundingRequestTrustedPreFundBulk:
       allOf:
         - $ref: '#/components/schemas/TrustedPreFundRequest'
@@ -35406,6 +35477,7 @@ components:
             Free-form human-readable explanation of a `REJECTED` outcome.
             Suitable for logging and developer-facing tools; not localised and
             not safe to surface to end users. May be absent.
+          example: Transfer not found
         balanceTransactionId:
           type: integer
           description: ID of the balance transaction created to settle the transfer.
@@ -35435,6 +35507,7 @@ components:
             Free-form human-readable explanation of a `REJECTED` outcome.
             Suitable for logging and developer-facing tools; not localised and
             not safe to surface to end users. May be absent.
+          example: Transfer not found
         partnerReference:
           type: string
           description: Partner-supplied reference echoed back.
