@@ -6,14 +6,35 @@ using Microsoft.Kiota.Serialization.Form;
 using Microsoft.Kiota.Serialization.Json;
 using Microsoft.Kiota.Serialization.Multipart;
 using Microsoft.Kiota.Serialization.Text;
+using Soenneker.Wise.OpenApiClient.Accounts;
+using Soenneker.Wise.OpenApiClient.AddressRequirements;
+using Soenneker.Wise.OpenApiClient.Addresses;
+using Soenneker.Wise.OpenApiClient.Application;
+using Soenneker.Wise.OpenApiClient.Applications;
+using Soenneker.Wise.OpenApiClient.Auth;
+using Soenneker.Wise.OpenApiClient.BorderlessAccountsConfiguration;
+using Soenneker.Wise.OpenApiClient.Cases;
+using Soenneker.Wise.OpenApiClient.Comparisons;
+using Soenneker.Wise.OpenApiClient.Currencies;
+using Soenneker.Wise.OpenApiClient.DeliveryEstimates;
+using Soenneker.Wise.OpenApiClient.EmbeddedFlows;
+using Soenneker.Wise.OpenApiClient.Facetec;
+using Soenneker.Wise.OpenApiClient.IncomingTransfers;
+using Soenneker.Wise.OpenApiClient.Me;
+using Soenneker.Wise.OpenApiClient.MultiCurrencyAccount;
 using Soenneker.Wise.OpenApiClient.Oauth;
+using Soenneker.Wise.OpenApiClient.OneTimeToken;
+using Soenneker.Wise.OpenApiClient.Profiles;
+using Soenneker.Wise.OpenApiClient.Quotes;
+using Soenneker.Wise.OpenApiClient.Rates;
+using Soenneker.Wise.OpenApiClient.Settlements;
+using Soenneker.Wise.OpenApiClient.Simulation;
+using Soenneker.Wise.OpenApiClient.Spend;
+using Soenneker.Wise.OpenApiClient.TransferRequirements;
+using Soenneker.Wise.OpenApiClient.Transfers;
 using Soenneker.Wise.OpenApiClient.TwcardData;
-using Soenneker.Wise.OpenApiClient.TwoZeroTwoSixQ2;
-using Soenneker.Wise.OpenApiClient.V1;
-using Soenneker.Wise.OpenApiClient.V2;
-using Soenneker.Wise.OpenApiClient.V3;
-using Soenneker.Wise.OpenApiClient.V4;
-using Soenneker.Wise.OpenApiClient.V5;
+using Soenneker.Wise.OpenApiClient.User;
+using Soenneker.Wise.OpenApiClient.Users;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -26,45 +47,150 @@ namespace Soenneker.Wise.OpenApiClient
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class WiseOpenApiClient : BaseRequestBuilder
     {
+        /// <summary>The accounts property</summary>
+        public global::Soenneker.Wise.OpenApiClient.Accounts.AccountsRequestBuilder Accounts
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.Accounts.AccountsRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The addresses property</summary>
+        public global::Soenneker.Wise.OpenApiClient.Addresses.AddressesRequestBuilder Addresses
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.Addresses.AddressesRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The addressRequirements property</summary>
+        public global::Soenneker.Wise.OpenApiClient.AddressRequirements.AddressRequirementsRequestBuilder AddressRequirements
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.AddressRequirements.AddressRequirementsRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The application property</summary>
+        public global::Soenneker.Wise.OpenApiClient.Application.ApplicationRequestBuilder Application
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.Application.ApplicationRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The applications property</summary>
+        public global::Soenneker.Wise.OpenApiClient.Applications.ApplicationsRequestBuilder Applications
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.Applications.ApplicationsRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The auth property</summary>
+        public global::Soenneker.Wise.OpenApiClient.Auth.AuthRequestBuilder Auth
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.Auth.AuthRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The borderlessAccountsConfiguration property</summary>
+        public global::Soenneker.Wise.OpenApiClient.BorderlessAccountsConfiguration.BorderlessAccountsConfigurationRequestBuilder BorderlessAccountsConfiguration
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.BorderlessAccountsConfiguration.BorderlessAccountsConfigurationRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The cases property</summary>
+        public global::Soenneker.Wise.OpenApiClient.Cases.CasesRequestBuilder Cases
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.Cases.CasesRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The comparisons property</summary>
+        public global::Soenneker.Wise.OpenApiClient.Comparisons.ComparisonsRequestBuilder Comparisons
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.Comparisons.ComparisonsRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The currencies property</summary>
+        public global::Soenneker.Wise.OpenApiClient.Currencies.CurrenciesRequestBuilder Currencies
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.Currencies.CurrenciesRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The deliveryEstimates property</summary>
+        public global::Soenneker.Wise.OpenApiClient.DeliveryEstimates.DeliveryEstimatesRequestBuilder DeliveryEstimates
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.DeliveryEstimates.DeliveryEstimatesRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The embeddedFlows property</summary>
+        public global::Soenneker.Wise.OpenApiClient.EmbeddedFlows.EmbeddedFlowsRequestBuilder EmbeddedFlows
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.EmbeddedFlows.EmbeddedFlowsRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The facetec property</summary>
+        public global::Soenneker.Wise.OpenApiClient.Facetec.FacetecRequestBuilder Facetec
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.Facetec.FacetecRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The incomingTransfers property</summary>
+        public global::Soenneker.Wise.OpenApiClient.IncomingTransfers.IncomingTransfersRequestBuilder IncomingTransfers
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.IncomingTransfers.IncomingTransfersRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The me property</summary>
+        public global::Soenneker.Wise.OpenApiClient.Me.MeRequestBuilder Me
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.Me.MeRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The multiCurrencyAccount property</summary>
+        public global::Soenneker.Wise.OpenApiClient.MultiCurrencyAccount.MultiCurrencyAccountRequestBuilder MultiCurrencyAccount
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.MultiCurrencyAccount.MultiCurrencyAccountRequestBuilder(PathParameters, RequestAdapter);
+        }
         /// <summary>The oauth property</summary>
         public global::Soenneker.Wise.OpenApiClient.Oauth.OauthRequestBuilder Oauth
         {
             get => new global::Soenneker.Wise.OpenApiClient.Oauth.OauthRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The oneTimeToken property</summary>
+        public global::Soenneker.Wise.OpenApiClient.OneTimeToken.OneTimeTokenRequestBuilder OneTimeToken
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.OneTimeToken.OneTimeTokenRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The profiles property</summary>
+        public global::Soenneker.Wise.OpenApiClient.Profiles.ProfilesRequestBuilder Profiles
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.Profiles.ProfilesRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The quotes property</summary>
+        public global::Soenneker.Wise.OpenApiClient.Quotes.QuotesRequestBuilder Quotes
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.Quotes.QuotesRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The rates property</summary>
+        public global::Soenneker.Wise.OpenApiClient.Rates.RatesRequestBuilder Rates
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.Rates.RatesRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The settlements property</summary>
+        public global::Soenneker.Wise.OpenApiClient.Settlements.SettlementsRequestBuilder Settlements
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.Settlements.SettlementsRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The simulation property</summary>
+        public global::Soenneker.Wise.OpenApiClient.Simulation.SimulationRequestBuilder Simulation
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.Simulation.SimulationRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The spend property</summary>
+        public global::Soenneker.Wise.OpenApiClient.Spend.SpendRequestBuilder Spend
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.Spend.SpendRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The transferRequirements property</summary>
+        public global::Soenneker.Wise.OpenApiClient.TransferRequirements.TransferRequirementsRequestBuilder TransferRequirements
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.TransferRequirements.TransferRequirementsRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The transfers property</summary>
+        public global::Soenneker.Wise.OpenApiClient.Transfers.TransfersRequestBuilder Transfers
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.Transfers.TransfersRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The twcardData property</summary>
         public global::Soenneker.Wise.OpenApiClient.TwcardData.TwcardDataRequestBuilder TwcardData
         {
             get => new global::Soenneker.Wise.OpenApiClient.TwcardData.TwcardDataRequestBuilder(PathParameters, RequestAdapter);
         }
-        /// <summary>The TwoZeroTwoSixQ2 property</summary>
-        public global::Soenneker.Wise.OpenApiClient.TwoZeroTwoSixQ2.TwoZeroTwoSixQ2RequestBuilder TwoZeroTwoSixQ2
+        /// <summary>The user property</summary>
+        public global::Soenneker.Wise.OpenApiClient.User.UserRequestBuilder User
         {
-            get => new global::Soenneker.Wise.OpenApiClient.TwoZeroTwoSixQ2.TwoZeroTwoSixQ2RequestBuilder(PathParameters, RequestAdapter);
+            get => new global::Soenneker.Wise.OpenApiClient.User.UserRequestBuilder(PathParameters, RequestAdapter);
         }
-        /// <summary>The v1 property</summary>
-        public global::Soenneker.Wise.OpenApiClient.V1.V1RequestBuilder V1
+        /// <summary>The users property</summary>
+        public global::Soenneker.Wise.OpenApiClient.Users.UsersRequestBuilder Users
         {
-            get => new global::Soenneker.Wise.OpenApiClient.V1.V1RequestBuilder(PathParameters, RequestAdapter);
-        }
-        /// <summary>The v2 property</summary>
-        public global::Soenneker.Wise.OpenApiClient.V2.V2RequestBuilder V2
-        {
-            get => new global::Soenneker.Wise.OpenApiClient.V2.V2RequestBuilder(PathParameters, RequestAdapter);
-        }
-        /// <summary>The v3 property</summary>
-        public global::Soenneker.Wise.OpenApiClient.V3.V3RequestBuilder V3
-        {
-            get => new global::Soenneker.Wise.OpenApiClient.V3.V3RequestBuilder(PathParameters, RequestAdapter);
-        }
-        /// <summary>The v4 property</summary>
-        public global::Soenneker.Wise.OpenApiClient.V4.V4RequestBuilder V4
-        {
-            get => new global::Soenneker.Wise.OpenApiClient.V4.V4RequestBuilder(PathParameters, RequestAdapter);
-        }
-        /// <summary>The v5 property</summary>
-        public global::Soenneker.Wise.OpenApiClient.V5.V5RequestBuilder V5
-        {
-            get => new global::Soenneker.Wise.OpenApiClient.V5.V5RequestBuilder(PathParameters, RequestAdapter);
+            get => new global::Soenneker.Wise.OpenApiClient.Users.UsersRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.WiseOpenApiClient"/> and sets the default values.
@@ -81,7 +207,7 @@ namespace Soenneker.Wise.OpenApiClient
             ApiClientBuilder.RegisterDefaultDeserializer<FormParseNodeFactory>();
             if (string.IsNullOrEmpty(RequestAdapter.BaseUrl))
             {
-                RequestAdapter.BaseUrl = "https://api.wise.com";
+                RequestAdapter.BaseUrl = "https://api.wise.com/2026Q3";
             }
             PathParameters.TryAdd("baseurl", RequestAdapter.BaseUrl);
         }
