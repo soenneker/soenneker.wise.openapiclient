@@ -34,7 +34,7 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.Item.EmbeddedFlows.LinkRequests.
         {
         }
         /// <summary>
-        /// Creates a short-lived URL to a Wise-hosted recipient creation Embedded Flow for the given profile.Use the returned `url` to redirect the user to Wise or embed the flow in your product with an iframe or mobile WebView. When the flow resolves, Wise redirects the user to the `redirectUrl` provided in this request.Wise validates `redirectUrl` against the redirect URL allowlist configured for your integration.For an example flow, see the [Embedded Flows guide](/guides/product/embedded-flows/index.md#hosted-recipient-creation-flow).
+        /// Returns a link that allows a user to complete a recipient creation flow via either a redirect or embedded iframe/webview.View [Embedded Flows - Recipient Creation](/guides/product/embedded-flows/flows/recipient-creation) to see what data the frontend is returned upon flow completion.
         /// </summary>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.RecipientEmbeddedLinkRequestCreate201Response"/></returns>
         /// <param name="body">The request body</param>
@@ -59,7 +59,7 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.Item.EmbeddedFlows.LinkRequests.
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.RecipientEmbeddedLinkRequestCreate201Response>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.RecipientEmbeddedLinkRequestCreate201Response.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Creates a short-lived URL to a Wise-hosted recipient creation Embedded Flow for the given profile.Use the returned `url` to redirect the user to Wise or embed the flow in your product with an iframe or mobile WebView. When the flow resolves, Wise redirects the user to the `redirectUrl` provided in this request.Wise validates `redirectUrl` against the redirect URL allowlist configured for your integration.For an example flow, see the [Embedded Flows guide](/guides/product/embedded-flows/index.md#hosted-recipient-creation-flow).
+        /// Returns a link that allows a user to complete a recipient creation flow via either a redirect or embedded iframe/webview.View [Embedded Flows - Recipient Creation](/guides/product/embedded-flows/flows/recipient-creation) to see what data the frontend is returned upon flow completion.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>

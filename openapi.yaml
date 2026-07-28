@@ -1429,6 +1429,17 @@ tags:
 
       See the [Webhooks guide](/guides/developer/webhooks) for setup
       instructions, signature verification, and best practices.
+  - name: link-requests
+    x-displayName: Link Requests
+    description: >
+      Embedded Flows are Wise-hosted flows that partners can open for their
+      users or embed inside their own product with an iframe or mobile WebView.
+
+
+      Use the embedded link request endpoints to create a short-lived flow URL
+      for a profile or retrieve an embedded link request by ID. For an overview
+      of when to use Embedded Flows, see the [Embedded Flows
+      guide](/guides/product/embedded-flows/index.md).
 x-tagGroups:
   - name: Authentication
     tags:
@@ -9709,6 +9720,8 @@ paths:
               - ID_DOCUMENT
               - INCOME
               - INDIA_TRANSFER_PURPOSE
+              - JPN_BUSINESS_CERT
+              - JPN_PERSONAL_MYNUMBER
               - PROOF_OF_TRADING_ADDRESS
               - SOURCE_OF_FUNDS
               - SOURCE_OF_WEALTH
@@ -10389,23 +10402,15 @@ paths:
   /profiles/{profileId}/embedded-flows/link-requests/recipients:
     post:
       operationId: recipientEmbeddedLinkRequestCreate
-      summary: Recipient creation
+      summary: Recipient Creation
       description: >
-        Creates a short-lived URL to a Wise-hosted recipient creation Embedded
-        Flow for the given profile.
+        Returns a link that allows a user to complete a recipient creation flow
+        via either a redirect or embedded iframe/webview.
 
 
-        Use the returned `url` to redirect the user to Wise or embed the flow in
-        your product with an iframe or mobile WebView. When the flow resolves,
-        Wise redirects the user to the `redirectUrl` provided in this request.
-
-
-        Wise validates `redirectUrl` against the redirect URL allowlist
-        configured for your integration.
-
-
-        For an example flow, see the [Embedded Flows
-        guide](/guides/product/embedded-flows/index.md#hosted-recipient-creation-flow).
+        View [Embedded Flows - Recipient
+        Creation](/guides/product/embedded-flows/flows/recipient-creation) to
+        see what data the frontend is returned upon flow completion.
       tags:
         - link-requests
       security:
@@ -10431,10 +10436,16 @@ paths:
                 redirectUrl:
                   type: string
                   format: uri
-                  description: >-
+                  description: >
                     URL where the user will be redirected when the flow
-                    resolves. This URL must match the redirect URL allowlist
-                    configured for your integration.
+                    resolves.
+
+                    This will also include query parameters based on flow
+                    completion state and created recipient ID.
+
+                    View [Embedded Flows - Recipient
+                    Creation](/guides/product/embedded-flows/flows/recipient-creation)
+                    for more information.
                   example: https://example.com/return
                 targetCurrency:
                   type: string
@@ -10445,18 +10456,6 @@ paths:
             example:
               redirectUrl: https://example.com/return
               targetCurrency: USD
-      x-codeSamples:
-        - lang: bash
-          label: cURL
-          source: |
-            curl -L -X POST \
-              'https://api.wise-sandbox.com/2026Q2/profiles/{profileId}/embedded-flows/link-requests/recipients' \
-              -H 'Authorization: Bearer <USER_ACCESS_TOKEN>' \
-              -H 'Content-Type: application/json' \
-              -d '{
-                "redirectUrl": "https://example.com/return",
-                "targetCurrency": "USD"
-              }'
       responses:
         '201':
           description: Embedded link request created.
@@ -10539,13 +10538,6 @@ paths:
             format: uuid
           example: ea5eb6ca-3af7-4e88-a2e2-6a68dd92f198
         - $ref: '#/components/parameters/X-External-Correlation-Id'
-      x-codeSamples:
-        - lang: bash
-          label: cURL
-          source: |
-            curl -L -X GET \
-              'https://api.wise-sandbox.com/2026Q2/embedded-flows/link-requests/ea5eb6ca-3af7-4e88-a2e2-6a68dd92f198' \
-              -H 'Authorization: Bearer <USER_ACCESS_TOKEN>'
       responses:
         '200':
           description: Embedded link request found.

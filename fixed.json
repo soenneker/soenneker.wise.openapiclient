@@ -6552,8 +6552,8 @@
         "tags": [
           "link-requests"
         ],
-        "summary": "Recipient creation",
-        "description": "Creates a short-lived URL to a Wise-hosted recipient creation Embedded Flow for the given profile.\n\nUse the returned \u0060url\u0060 to redirect the user to Wise or embed the flow in your product with an iframe or mobile WebView. When the flow resolves, Wise redirects the user to the \u0060redirectUrl\u0060 provided in this request.\n\nWise validates \u0060redirectUrl\u0060 against the redirect URL allowlist configured for your integration.\n\nFor an example flow, see the [Embedded Flows guide](/guides/product/embedded-flows/index.md#hosted-recipient-creation-flow).\n",
+        "summary": "Recipient Creation",
+        "description": "Returns a link that allows a user to complete a recipient creation flow via either a redirect or embedded iframe/webview.\n\nView [Embedded Flows - Recipient Creation](/guides/product/embedded-flows/flows/recipient-creation) to see what data the frontend is returned upon flow completion.\n",
         "operationId": "RecipientEmbeddedLinkRequestCreate",
         "parameters": [
           {
@@ -32391,7 +32391,7 @@
         "properties": {
           "redirectUrl": {
             "type": "string",
-            "description": "URL where the user will be redirected when the flow resolves. This URL must match the redirect URL allowlist configured for your integration.",
+            "description": "URL where the user will be redirected when the flow resolves.\nThis will also include query parameters based on flow completion state and created recipient ID.\nView [Embedded Flows - Recipient Creation](/guides/product/embedded-flows/flows/recipient-creation) for more information.\n",
             "format": "uri",
             "example": "https://example.com/return"
           },
@@ -45314,6 +45314,8 @@
           "ID_DOCUMENT",
           "INCOME",
           "INDIA_TRANSFER_PURPOSE",
+          "JPN_BUSINESS_CERT",
+          "JPN_PERSONAL_MYNUMBER",
           "PROOF_OF_TRADING_ADDRESS",
           "SOURCE_OF_FUNDS",
           "SOURCE_OF_WEALTH",
@@ -45399,6 +45401,14 @@
             {
               "value": "INDIA_TRANSFER_PURPOSE",
               "name": "IndiaTransferPurpose"
+            },
+            {
+              "value": "JPN_BUSINESS_CERT",
+              "name": "JpnBusinessCert"
+            },
+            {
+              "value": "JPN_PERSONAL_MYNUMBER",
+              "name": "JpnPersonalMynumber"
             },
             {
               "value": "PROOF_OF_TRADING_ADDRESS",
@@ -45963,6 +45973,11 @@
       "name": "webhook-event",
       "description": "Webhook events are notifications Wise sends to your server when specific actions occur. Subscribe to events using the [Webhook](/api-reference/webhook) endpoints at the application or profile level.\n\nSee the [Webhooks guide](/guides/developer/webhooks) for setup instructions, signature verification, and best practices.\n",
       "x-displayName": "Events"
+    },
+    {
+      "name": "link-requests",
+      "description": "Embedded Flows are Wise-hosted flows that partners can open for their users or embed inside their own product with an iframe or mobile WebView.\n\nUse the embedded link request endpoints to create a short-lived flow URL for a profile or retrieve an embedded link request by ID. For an overview of when to use Embedded Flows, see the [Embedded Flows guide](/guides/product/embedded-flows/index.md).\n",
+      "x-displayName": "Link Requests"
     }
   ]
 }

@@ -14,7 +14,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>URL where the user will be redirected when the flow resolves. This URL must match the redirect URL allowlist configured for your integration.</summary>
+        /// <summary>URL where the user will be redirected when the flow resolves.This will also include query parameters based on flow completion state and created recipient ID.View [Embedded Flows - Recipient Creation](/guides/product/embedded-flows/flows/recipient-creation) for more information.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? RedirectUrl { get; set; }
