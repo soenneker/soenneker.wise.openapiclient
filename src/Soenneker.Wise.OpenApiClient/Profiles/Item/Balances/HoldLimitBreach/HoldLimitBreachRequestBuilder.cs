@@ -57,14 +57,14 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.Item.Balances.HoldLimitBreach
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<List<global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreach>?> PostAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.Profiles.Item.Balances.HoldLimitBreach.HoldLimitBreachRequestBuilder.HoldLimitBreachRequestBuilderPostQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<List<global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreach>?> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.Profiles.Item.Balances.HoldLimitBreach.HoldLimitBreachRequestBuilder.HoldLimitBreachRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<List<global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreach>> PostAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.Profiles.Item.Balances.HoldLimitBreach.HoldLimitBreachRequestBuilder.HoldLimitBreachRequestBuilderPostQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<List<global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreach>> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.Profiles.Item.Balances.HoldLimitBreach.HoldLimitBreachRequestBuilder.HoldLimitBreachRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
-            var requestInfo = ToPostRequestInformation(requestConfiguration);
+            var requestInfo = ToGetRequestInformation(requestConfiguration);
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
                 { "400", global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreachList400Response.CreateFromDiscriminatorValue },
@@ -81,14 +81,14 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.Item.Balances.HoldLimitBreach
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToPostRequestInformation(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.Profiles.Item.Balances.HoldLimitBreach.HoldLimitBreachRequestBuilder.HoldLimitBreachRequestBuilderPostQueryParameters>>? requestConfiguration = default)
+        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.Profiles.Item.Balances.HoldLimitBreach.HoldLimitBreachRequestBuilder.HoldLimitBreachRequestBuilderGetQueryParameters>>? requestConfiguration = default)
         {
 #nullable restore
 #else
-        public RequestInformation ToPostRequestInformation(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.Profiles.Item.Balances.HoldLimitBreach.HoldLimitBreachRequestBuilder.HoldLimitBreachRequestBuilderPostQueryParameters>> requestConfiguration = default)
+        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.Profiles.Item.Balances.HoldLimitBreach.HoldLimitBreachRequestBuilder.HoldLimitBreachRequestBuilderGetQueryParameters>> requestConfiguration = default)
         {
 #endif
-            var requestInfo = new RequestInformation(Method.POST, UrlTemplate, PathParameters);
+            var requestInfo = new RequestInformation(Method.GET, UrlTemplate, PathParameters);
             requestInfo.Configure(requestConfiguration);
             requestInfo.Headers.TryAdd("Accept", "application/json");
             return requestInfo;
@@ -106,7 +106,7 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.Item.Balances.HoldLimitBreach
         /// Returns a list of hold limit breaches for a profile. A hold limit breach occurs when a balance exceeds the regulatory hold limit for that profile&apos;s country (e.g. Singapore, Malaysia).You can optionally filter by `state` and `closing_reason`.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-        public partial class HoldLimitBreachRequestBuilderPostQueryParameters 
+        public partial class HoldLimitBreachRequestBuilderGetQueryParameters 
         {
             /// <summary>Filter by closing reason. One of `AUTOMATICALLY_RESOLVED`, `MANUALLY_RESOLVED`</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER

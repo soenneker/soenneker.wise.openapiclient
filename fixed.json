@@ -1175,7 +1175,7 @@
       }
     },
     "/profiles/{profileId}/balances/hold-limit-breach": {
-      "post": {
+      "get": {
         "tags": [
           "balance"
         ],
@@ -13476,7 +13476,7 @@
         ],
         "summary": "Create a third party transfer",
         "description": "    When creating a transfer on behalf of a third party, you must take note that:\n\n    * The \u0060originator\u0060 datablock is **required**. This details the ultimate sender of funds in the transfer.\n    * Depending on the legal entity type of the originator (\u0060PRIVATE\u0060 or \u0060BUSINESS\u0060), the required fields vary. Please refer the sample request examples.\n    * \u0060OriginalTransferId\u0060 field must be used. This is your own ID for the transfer.\n\n    You need to save the transfer ID for tracking its status later via webhooks.\n\n    #### Avoiding duplicate transfers\n\n    The \u0060originalTransferId\u0060 field is used to avoid duplicate transfer requests. If your initial call fails (error or timeout), retry the call using the same \u0060originalTransferId\u0060 value. Subsequent retry messages are treated as repeat messages and will not create duplicate transfers.\n",
-        "operationId": "Createthirdpartytransfer",
+        "operationId": "CreateThirdPartyTransfer",
         "parameters": [
           {
             "name": "profileId",
@@ -13679,7 +13679,7 @@
         ],
         "summary": "Get a third party transfer by ID",
         "description": "    Get third party transfer info by ID. To receive dynamic updates as the state of the transfer changes, see the [webhooks documentation](https://docs.wise.com/api-reference/webhook).\n",
-        "operationId": "Getthirdpartytransfer",
+        "operationId": "GetThirdPartyTransfer",
         "parameters": [
           {
             "name": "profileId",
@@ -13823,7 +13823,7 @@
         ],
         "summary": "Fund a Transfer",
         "description": "    {% admonition type=\u0022warning\u0022 %}\n      This endpoint is SCA protected when it applies. If your profile is registered within the UK and/or EEA, SCA most likely applies to you.\n      Please read more about [implementing SCA](/guides/developer/auth-and-security/sca-and-2fa).\n    {% /admonition %}\n\n    This API call is the final step for executing payouts when using a balance with Wise. Upon calling the endpoint, Wise will begin the processing of the transfer, depending on the status of funds.\n\n    When using the transfer by transfer settlement model, the following funding type(s) must be used:\n\n    * **BALANCE** \u2014 Funds are pulled from a multi-currency account held with Wise.\n\n    When funding through the Bulk Settlement model, the following funding type(s) must be used:\n\n    * **TRUSTED_PRE_FUND_BULK** \u2014 Funds for the transfer will be settled through a bulk payment at a later date. This method is not applicable for First Party partner account transfers.\n\n    If funding from \u0060BALANCE\u0060, and your multi-currency account does not have the required funds to complete the action, then this call will fail with an \u0022insufficient funds\u0022 error. Once funds are added and available, you must call this endpoint again.\n    ",
-        "operationId": "Transferfund",
+        "operationId": "TransferFund",
         "parameters": [
           {
             "name": "profileId",
@@ -13927,7 +13927,7 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/Transferfund400ResponseResponsePlain"
+                  "$ref": "#/components/schemas/TransferFund400ResponseResponsePlain"
                 }
               }
             }
@@ -13937,7 +13937,7 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/Transferfund403ResponseResponsePlain"
+                  "$ref": "#/components/schemas/TransferFund403ResponseResponsePlain"
                 }
               }
             }
@@ -13947,7 +13947,7 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/Transferfund404ResponseResponsePlain"
+                  "$ref": "#/components/schemas/TransferFund404ResponseResponsePlain"
                 }
               }
             }
@@ -13957,7 +13957,7 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/Transferfund409ResponseResponsePlain"
+                  "$ref": "#/components/schemas/TransferFund409ResponseResponsePlain"
                 }
               }
             }
@@ -13967,7 +13967,7 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/Transferfund422ResponseResponsePlain"
+                  "$ref": "#/components/schemas/TransferFund422ResponseResponsePlain"
                 }
               }
             }
@@ -13980,7 +13980,7 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/Transferfund500ResponseResponsePlain"
+                  "$ref": "#/components/schemas/TransferFund500ResponseResponsePlain"
                 }
               }
             }
@@ -34462,22 +34462,22 @@
           "$ref": "#/components/schemas/TransferRequirement"
         }
       },
-      "Transferfund400Response": {
+      "TransferFund400Response": {
         "type": "string"
       },
-      "Transferfund403Response": {
+      "TransferFund403Response": {
         "type": "string"
       },
-      "Transferfund404Response": {
+      "TransferFund404Response": {
         "type": "string"
       },
-      "Transferfund409Response": {
+      "TransferFund409Response": {
         "type": "string"
       },
-      "Transferfund422Response": {
+      "TransferFund422Response": {
         "type": "string"
       },
-      "Transferfund500Response": {
+      "TransferFund500Response": {
         "type": "string"
       },
       "TransferPaymentsList200Response": {
@@ -35054,22 +35054,22 @@
           "$ref": "#/components/schemas/TransferRequirement"
         }
       },
-      "Transferfund400ResponseResponsePlain": {
+      "TransferFund400ResponseResponsePlain": {
         "type": "string"
       },
-      "Transferfund403ResponseResponsePlain": {
+      "TransferFund403ResponseResponsePlain": {
         "type": "string"
       },
-      "Transferfund404ResponseResponsePlain": {
+      "TransferFund404ResponseResponsePlain": {
         "type": "string"
       },
-      "Transferfund409ResponseResponsePlain": {
+      "TransferFund409ResponseResponsePlain": {
         "type": "string"
       },
-      "Transferfund422ResponseResponsePlain": {
+      "TransferFund422ResponseResponsePlain": {
         "type": "string"
       },
-      "Transferfund500ResponseResponsePlain": {
+      "TransferFund500ResponseResponsePlain": {
         "type": "string"
       },
       "TransferPaymentsList200ResponseResponseJson": {

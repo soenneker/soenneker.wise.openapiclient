@@ -3204,7 +3204,7 @@ paths:
         '429':
           $ref: '#/components/responses/429'
   /profiles/{profileId}/balances/hold-limit-breach:
-    post:
+    get:
       tags:
         - balance
       summary: List hold limit breaches
@@ -20547,7 +20547,7 @@ paths:
 
             The `originalTransferId` field is used to avoid duplicate transfer requests. If your initial call fails (error or timeout), retry the call using the same `originalTransferId` value. Subsequent retry messages are treated as repeat messages and will not create duplicate transfers.
       summary: Create a third party transfer
-      operationId: createthirdpartytransfer
+      operationId: createThirdPartyTransfer
       requestBody:
         content:
           application/json:
@@ -20713,7 +20713,7 @@ paths:
 
             Get third party transfer info by ID. To receive dynamic updates as the state of the transfer changes, see the [webhooks documentation](https://docs.wise.com/api-reference/webhook).
       summary: Get a third party transfer by ID
-      operationId: getthirdpartytransfer
+      operationId: getThirdPartyTransfer
       parameters:
         - name: profileId
           in: path
@@ -20852,7 +20852,7 @@ paths:
             If funding from `BALANCE`, and your multi-currency account does not have the required funds to complete the action, then this call will fail with an "insufficient funds" error. Once funds are added and available, you must call this endpoint again.
             
       summary: Fund a Transfer
-      operationId: transferfund
+      operationId: transferFund
       requestBody:
         content:
           application/json:
