@@ -29870,6 +29870,7 @@ components:
           example: CST-2991992
         name:
           $ref: '#/components/schemas/Name'
+          description: Data block to capture the originator name details
         dateOfBirth:
           type: string
           description: Payment originator date of birth
@@ -29888,6 +29889,7 @@ components:
           example: '23456789'
         address:
           $ref: '#/components/schemas/Address-2'
+          description: Payment originator address
       required:
         - address
         - dateOfBirth
@@ -29918,6 +29920,7 @@ components:
           example: CST-2991992
         name:
           $ref: '#/components/schemas/Name'
+          description: Data block to capture the originator name details
         businessRegistrationCode:
           type: string
           maxLength: 150
@@ -29937,6 +29940,7 @@ components:
           example: '23456789'
         address:
           $ref: '#/components/schemas/Address-2'
+          description: Payment originator address
       required:
         - address
         - name
@@ -29988,8 +29992,10 @@ components:
           example: 3522e360-356a-4e37-9f99-94a21898d8fa
         details:
           $ref: '#/components/schemas/Details'
+          description: Data block to capture payment details.
         originator:
           $ref: '#/components/schemas/Originator'
+          description: Data block to capture payment originator details.
       required:
         - details
         - originalTransferId
@@ -30070,6 +30076,7 @@ components:
       properties:
         legalEntityType:
           $ref: '#/components/schemas/LegalEntityTypeResponse'
+          description: Payment originator legal type
         reference:
           type: string
           description: >-
@@ -30078,6 +30085,7 @@ components:
           example: CST-2991992
         name:
           $ref: '#/components/schemas/NameResponse'
+          description: Data block to capture the originator name details
         dateOfBirth:
           type: string
           description: Payment originator date of birth
@@ -30095,6 +30103,7 @@ components:
           example: '23456789'
         address:
           $ref: '#/components/schemas/AddressResponse'
+          description: Payment originator address
         businessRegistrationCode:
           type: string
           description: Payment originator business registry number / incorporation number
@@ -30148,8 +30157,10 @@ components:
           example: 0.89
         details:
           $ref: '#/components/schemas/DetailsResponse'
+          description: Payment Details
         originator:
           $ref: '#/components/schemas/OriginatorResponse'
+          description: Data block to capture payment originator details
         hasActiveIssues:
           type: boolean
           description: Are there any pending issues which stop executing the transfer?
@@ -30237,8 +30248,10 @@ components:
           example: 0.89
         details:
           $ref: '#/components/schemas/DetailsResponse'
+          description: Payment Details
         originator:
           $ref: '#/components/schemas/OriginatorResponse'
+          description: Data block to capture payment originator details
         hasActiveIssues:
           type: boolean
           description: Are there any pending issues which stop executing the transfer?
@@ -30371,8 +30384,10 @@ components:
       properties:
         status:
           $ref: '#/components/schemas/FundingStatus'
+          description: Outcome of the funding attempt.
         errorCode:
           $ref: '#/components/schemas/FundingErrorCode'
+          description: Machine-readable error code. Present if `status = REJECTED`.
         errorMessage:
           type: string
           description: >-
@@ -30401,8 +30416,10 @@ components:
       properties:
         status:
           $ref: '#/components/schemas/FundingStatus'
+          description: Outcome of the funding attempt.
         errorCode:
           $ref: '#/components/schemas/FundingErrorCode'
+          description: Machine-readable error code. Present if `status = REJECTED`.
         errorMessage:
           type: string
           description: >-
