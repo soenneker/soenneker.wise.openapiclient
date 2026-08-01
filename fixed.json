@@ -493,7 +493,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AddressList200ResponseResponseJson"
+                  "$ref": "#/components/schemas/AddressList200ResponseSchema"
                 },
                 "example": [
                   {
@@ -792,7 +792,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BalanceList200ResponseResponseJson"
+                  "$ref": "#/components/schemas/BalanceList200ResponseSchema"
                 }
               }
             }
@@ -1223,7 +1223,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HoldLimitBreachList200ResponseResponseJson"
+                  "$ref": "#/components/schemas/HoldLimitBreachList200ResponseSchema"
                 }
               }
             }
@@ -1544,7 +1544,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BankAccountDetailsGet200ResponseResponseJson"
+                  "$ref": "#/components/schemas/BankAccountDetailsGet200ResponseSchema"
                 }
               }
             }
@@ -1659,7 +1659,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BankAccountDetailsOrdersList200ResponseResponseJson"
+                  "$ref": "#/components/schemas/BankAccountDetailsOrdersList200ResponseSchema"
                 }
               }
             }
@@ -2008,7 +2008,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BatchGroupTransferCreate200ResponseResponseJson"
+                  "$ref": "#/components/schemas/BatchGroupTransferCreate200ResponseSchema"
                 }
               }
             }
@@ -4154,7 +4154,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CurrenciesGet200ResponseResponseJson"
+                  "$ref": "#/components/schemas/CurrenciesGet200ResponseSchema"
                 },
                 "example": [
                   {
@@ -4361,7 +4361,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DirectDebitAccountGet200ResponseResponseJson"
+                  "$ref": "#/components/schemas/DirectDebitAccountGet200ResponseSchema"
                 }
               }
             }
@@ -4449,7 +4449,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DisputeDynamicFlowStep200ResponseResponseJson"
+                  "$ref": "#/components/schemas/DisputeDynamicFlowStep200ResponseSchema"
                 },
                 "example": {
                   "key": "TROUBLE_WITH_GOODS_SERVICES",
@@ -4535,7 +4535,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DisputeReasonsGet200ResponseResponseJson"
+                  "$ref": "#/components/schemas/DisputeReasonsGet200ResponseSchema"
                 },
                 "example": [
                   {
@@ -4706,7 +4706,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DisputeSubmit200ResponseResponseJson"
+                  "$ref": "#/components/schemas/DisputeSubmit200ResponseSchema"
                 },
                 "example": {
                   "key": "final",
@@ -4798,7 +4798,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DisputeFileUpload200ResponseResponseJson"
+                  "$ref": "#/components/schemas/DisputeFileUpload200ResponseSchema"
                 },
                 "example": {
                   "receipt": "ab4f5d2"
@@ -5094,7 +5094,7 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/FacetecPublicKeyGet200ResponseResponsePlain"
+                  "$ref": "#/components/schemas/FacetecPublicKeyGet200PlainResponseSchema"
                 },
                 "example": "-----BEGIN PUBLIC KEY-----\nPublic Key Content\n-----END PUBLIC KEY-----\n"
               }
@@ -5297,7 +5297,7 @@
             "content": {
               "application/jose\u002Bjson": {
                 "schema": {
-                  "$ref": "#/components/schemas/JosePlaygroundJws200ResponseResponseJoseJson"
+                  "$ref": "#/components/schemas/JosePlaygroundJws200JoseJsonResponseSchema"
                 },
                 "example": "eyJ2ZXJzaW9uIjoxLCJhbGciOiJFUzUxMiJ9.eyJtZXNzYWdlIjoiam9zZS1wbGF5Z3JvdW5kLXJlc3BvbnNlLVRoaXMgaXMgYW4gZXhhbXBsZSBmcm9tIGRvY3Mud2lzZS5jb20iLCJtZXRob2QiOiJQT1NUIn0.APYfoUySW_dPdBBVST3tJdaCBCMQZm0UR6g0vBqxjjX4WWkOdt6h045EXZKMT1m0JEMI5b7KpN14Mib9BxS7VWpLAPwYhTU5pJcQrtiK4fwaBMTT_DwipZk6ASXVevrMK_Tn9YSSkKDsv6X9qyBsnIXKy304Ex5QIHKmSGQT6wNSJ7Ye02"
               }
@@ -5362,7 +5362,7 @@
             "content": {
               "application/jose\u002Bjson": {
                 "schema": {
-                  "$ref": "#/components/schemas/JosePlaygroundJweGet200ResponseResponseJoseJson"
+                  "$ref": "#/components/schemas/JosePlaygroundJweGet200JoseJsonResponseSchema"
                 },
                 "example": "eyJraWQiOiI2ZGE0OTQ5NS0xNjMyLTQzY2QtOWEwMy1kZDMyNDYwM2VjZDciLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiUlNBLU9BRVAtMjU2In0.UC5mC6XSGZZuQzUALpM2QfDWyi-lcl4Wv3v8-9L04BFmqYTyiQMO-YMxiwzOdVbF-L01CaFcr_iuoM36fKp01onJAtsrvuGcnrHeh23kMwZ5k29ycGTckE0YYLe-WV9WtXguudfFC3Hri9v4FTPEE1_BbkrHACVufuhw_xWUWgYAekfm7dnmTI_3SmtExWZ_P-Xn6rkGXhsJ0Kq9LB-F3mnuvz_iglvZsW76RdLV_I4es-TfTnQgVOGO-N38SSS4wCF1qw2TWOkpNAe9kyAg6a8tWw8ZkpOxJlmGdp4jLuG_GDWlmtDrv9ntgeCLDRiTp4SLYL2MGYdmNXigZI5xrg.P_h3CuIiKxEzndER.Zf0wahZEHQSMcb4olkeT1NNzh3Alj34XbXVdREiqQH9CKDa-GnKvh1lXXYuvTO99vtBmNRM.iTzGQ3FNRIybDT_lJcnaeQ03"
               }
@@ -5425,7 +5425,7 @@
             "content": {
               "application/jose\u002Bjson": {
                 "schema": {
-                  "$ref": "#/components/schemas/JosePlaygroundJwePost200ResponseResponseJoseJson"
+                  "$ref": "#/components/schemas/JosePlaygroundJwePost200JoseJsonResponseSchema"
                 },
                 "example": "eyJraWQiOiI2ZGE0OTQ5NS0xNjMyLTQzY2QtOWEwMy1kZDMyNDYwM2VjZDciLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiUlNBLU9BRVAtMjU2In0.qwMqgFXRI84THQdCHhxNe5yvKOuKp2rAMH62xQ1OioPatnLfxqPHJUX0as13B3g3JKaqGgF0qMi7r3QbJ_cXNFBIg1yenCwWv4192J73-kEkCSyS-FflDCNfih1z1mm95ftAE7FhHJVG5tcSm_B0-bPU3SbjB3SDhR3QlLX5o_sQmYkQay8PKSssyBS5tCjuKdz-9QNvZtNADPujKrJGe5hE5r7ShcNwVUS2vpMXANiQTzZnQ2L3j_m07Rru-PgMxHTD2uR621B87YfTHonWDJe4XogA_pMWD_hzHVQKT7Il--2YOtv8PTnLge-uVvRTgqUiYUdvq85nPyDKsOQMnQ.zprknKK9W4iAX7YA.LJWA6oRcYj0LruM3GLPtZ0CtVNpI0Zs9WFrARDd464kKxSlu15LBiFFCFwOHbeKoRudfp8Br7MfRIlaTLHxPEE1xoBB8jZN8fakAcApU.OlMATtfF9XMtYJtTsGuBGQ02"
               }
@@ -5490,7 +5490,7 @@
             "content": {
               "application/jose\u002Bjson": {
                 "schema": {
-                  "$ref": "#/components/schemas/JosePlaygroundJweDirectEncryption200ResponseResponseJoseJson"
+                  "$ref": "#/components/schemas/JosePlaygroundJweDirectEncryption200JoseJsonResponseSchema"
                 },
                 "example": "eyJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiZGlyIn0..gTnxA4uYrCTWVNp1.jQ3dDidM2Z8RuYkgQt1ydJ6xYy5uG3CH72-pioHlZPqucxPWeN1pWwmceQKgpGulJmw3nYLRNkgCa9yQHMofpFIlV5HQJS6mQDxZP4G2kj3bFKvByckRYQQ3v3W7TkjfVL4NAVlrDqxx3G29-qblRwbyneMP.mVY_uctEfEAleVVbHjcqdA04"
               }
@@ -5575,7 +5575,7 @@
             "content": {
               "application/jose\u002Bjson": {
                 "schema": {
-                  "$ref": "#/components/schemas/JosePlaygroundJwsJwe200ResponseResponseJoseJson"
+                  "$ref": "#/components/schemas/JosePlaygroundJwsJwe200JoseJsonResponseSchema"
                 },
                 "example": "eyJraWQiOiJiMzc0ODE1MC0xNGQ0LTRlMDAtYjM5NC03YWUwYzkzYmUyNDUiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiUlNBLU9BRVAtMjU2In0.VGhpcyBpcyB0aGUgZW5jcnlwdGVkIENFSw.aXZfdmFsdWU.ZW5jcnlwdGVkX3BheWxvYWQ.YXV0aF90YWc"
               }
@@ -5692,7 +5692,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/KycReviewList200ResponseResponseJson"
+                  "$ref": "#/components/schemas/KycReviewList200ResponseSchema"
                 }
               }
             }
@@ -6694,7 +6694,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/McaAvailableCurrenciesGet200ResponseResponseJson"
+                  "$ref": "#/components/schemas/McaAvailableCurrenciesGet200ResponseSchema"
                 },
                 "example": [
                   "EUR",
@@ -6744,7 +6744,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/McaPayinCurrenciesGet200ResponseResponseJson"
+                  "$ref": "#/components/schemas/McaPayinCurrenciesGet200ResponseSchema"
                 },
                 "example": [
                   "EUR",
@@ -7757,7 +7757,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ProfileList200ResponseResponseJson"
+                  "$ref": "#/components/schemas/ProfileList200ResponseSchema"
                 },
                 "example": [
                   {
@@ -8523,7 +8523,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ProfileDirectorCreate200ResponseResponseJson"
+                  "$ref": "#/components/schemas/ProfileDirectorCreate200ResponseSchema"
                 },
                 "example": [
                   {
@@ -8582,7 +8582,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ProfileDirectorList200ResponseResponseJson"
+                  "$ref": "#/components/schemas/ProfileDirectorList200ResponseSchema"
                 },
                 "example": [
                   {
@@ -8664,7 +8664,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ProfileDirectorUpdate200ResponseResponseJson"
+                  "$ref": "#/components/schemas/ProfileDirectorUpdate200ResponseSchema"
                 },
                 "example": [
                   {
@@ -8757,7 +8757,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ProfileUboCreate200ResponseResponseJson"
+                  "$ref": "#/components/schemas/ProfileUboCreate200ResponseSchema"
                 },
                 "example": [
                   {
@@ -8820,7 +8820,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ProfileUboList200ResponseResponseJson"
+                  "$ref": "#/components/schemas/ProfileUboList200ResponseSchema"
                 },
                 "example": [
                   {
@@ -8915,7 +8915,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ProfileUboUpdate200ResponseResponseJson"
+                  "$ref": "#/components/schemas/ProfileUboUpdate200ResponseSchema"
                 },
                 "example": [
                   {
@@ -9273,7 +9273,7 @@
             "content": {
               "application/problem\u002Bjson": {
                 "schema": {
-                  "$ref": "#/components/schemas/DigitalWalletActivatePaymentToken403Response"
+                  "$ref": "#/components/schemas/DigitalWalletActivatePaymentToken403ProblemJsonResponse"
                 }
               }
             }
@@ -9283,7 +9283,7 @@
             "content": {
               "application/problem\u002Bjson": {
                 "schema": {
-                  "$ref": "#/components/schemas/DigitalWalletActivatePaymentToken404Response"
+                  "$ref": "#/components/schemas/DigitalWalletActivatePaymentToken404ProblemJsonResponse"
                 }
               }
             }
@@ -9296,7 +9296,7 @@
             "content": {
               "application/problem\u002Bjson": {
                 "schema": {
-                  "$ref": "#/components/schemas/DigitalWalletActivatePaymentToken500Response"
+                  "$ref": "#/components/schemas/DigitalWalletActivatePaymentToken500ProblemJsonResponse"
                 }
               }
             }
@@ -9736,7 +9736,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RateGet200ResponseResponseJson"
+                  "$ref": "#/components/schemas/RateGet200ResponseSchema"
                 }
               }
             }
@@ -10491,7 +10491,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SimulationTransferPayoutFailure400ResponseResponseJson"
+                  "$ref": "#/components/schemas/SimulationTransferPayoutFailure400ResponseSchema"
                 },
                 "examples": {
                   "invalidFailureReasonCode": {
@@ -10530,7 +10530,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SimulationTransferPayoutFailure500ResponseResponseJson"
+                  "$ref": "#/components/schemas/SimulationTransferPayoutFailure500ResponseSchema"
                 },
                 "example": {
                   "errors": [
@@ -11231,7 +11231,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SimulationCardTransactions200ResponseResponseJson"
+                  "$ref": "#/components/schemas/SimulationCardTransactions200ResponseSchema"
                 },
                 "example": [
                   {
@@ -11776,7 +11776,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SpendControlsRulesList200ResponseResponseJson"
+                  "$ref": "#/components/schemas/SpendControlsRulesList200ResponseSchema"
                 },
                 "example": [
                   {
@@ -11926,7 +11926,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SpendControlsAppliedRulesList200ResponseResponseJson"
+                  "$ref": "#/components/schemas/SpendControlsAppliedRulesList200ResponseSchema"
                 },
                 "example": [
                   {
@@ -13152,7 +13152,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/TransferList200ResponseResponseJson"
+                  "$ref": "#/components/schemas/TransferList200ResponseSchema"
                 }
               }
             }
@@ -13305,7 +13305,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/TransferRequirementsValidate200ResponseResponseJson"
+                  "$ref": "#/components/schemas/TransferRequirementsValidate200ResponseSchema"
                 },
                 "example": [
                   {
@@ -13927,7 +13927,7 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/TransferFund400ResponseResponsePlain"
+                  "$ref": "#/components/schemas/TransferFund400PlainResponseSchema"
                 }
               }
             }
@@ -13937,7 +13937,7 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/TransferFund403ResponseResponsePlain"
+                  "$ref": "#/components/schemas/TransferFund403PlainResponseSchema"
                 }
               }
             }
@@ -13947,7 +13947,7 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/TransferFund404ResponseResponsePlain"
+                  "$ref": "#/components/schemas/TransferFund404PlainResponseSchema"
                 }
               }
             }
@@ -13957,7 +13957,7 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/TransferFund409ResponseResponsePlain"
+                  "$ref": "#/components/schemas/TransferFund409PlainResponseSchema"
                 }
               }
             }
@@ -13967,7 +13967,7 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/TransferFund422ResponseResponsePlain"
+                  "$ref": "#/components/schemas/TransferFund422PlainResponseSchema"
                 }
               }
             }
@@ -13980,7 +13980,7 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/TransferFund500ResponseResponsePlain"
+                  "$ref": "#/components/schemas/TransferFund500PlainResponseSchema"
                 }
               }
             }
@@ -14025,7 +14025,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/TransferPaymentsList200ResponseResponseJson"
+                  "$ref": "#/components/schemas/TransferPaymentsList200ResponseSchema"
                 }
               }
             }
@@ -14128,7 +14128,7 @@
             "content": {
               "application/pdf": {
                 "schema": {
-                  "$ref": "#/components/schemas/TransferReceiptGet200ResponseResponsePdf"
+                  "$ref": "#/components/schemas/TransferReceiptGet200PdfResponseSchema"
                 }
               }
             }
@@ -14176,7 +14176,7 @@
             "content": {
               "application/pdf": {
                 "schema": {
-                  "$ref": "#/components/schemas/TransferUsCombinedReceiptGet200ResponseResponsePdf"
+                  "$ref": "#/components/schemas/TransferUsCombinedReceiptGet200PdfResponseSchema"
                 }
               }
             }
@@ -14224,7 +14224,7 @@
             "content": {
               "application/pdf": {
                 "schema": {
-                  "$ref": "#/components/schemas/TransferNocGet200ResponseResponsePdf"
+                  "$ref": "#/components/schemas/TransferNocGet200PdfResponseSchema"
                 }
               }
             }
@@ -14681,7 +14681,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/WebhookApplicationSubscriptionList200ResponseResponseJson"
+                  "$ref": "#/components/schemas/WebhookApplicationSubscriptionList200ResponseSchema"
                 }
               }
             }
@@ -14831,7 +14831,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/WebhookApplicationSubscriptionTest200ResponseResponseJson"
+                  "$ref": "#/components/schemas/WebhookApplicationSubscriptionTest200ResponseSchema"
                 }
               }
             }
@@ -14946,7 +14946,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/WebhookProfileSubscriptionList200ResponseResponseJson"
+                  "$ref": "#/components/schemas/WebhookProfileSubscriptionList200ResponseSchema"
                 },
                 "example": [
                   {
@@ -32152,7 +32152,7 @@
           }
         }
       },
-      "FacetecPublicKeyGet200Response": {
+      "FacetecPublicKeyGet200PlainResponse": {
         "type": "string"
       },
       "JoseResponsePublicKeysGet200Response": {
@@ -32244,11 +32244,11 @@
           }
         }
       },
-      "JosePlaygroundJws200Response": {
+      "JosePlaygroundJws200JoseJsonResponse": {
         "type": "string",
         "description": "\u0022JWS-encoded string. When decoded, the response contains:\n\n- \u0060message\u0060 \u2014 The original message prefixed with \u0060jose-playground-response-\u0060. Message length is limited to 100 characters.\n- \u0060method\u0060 \u2014 Original HTTP request method name: \u0060POST\u0060.\n\nExample of decoded response:\n\u0060\u0060\u0060json\n{\n  \\\u0022message\\\u0022: \\\u0022jose-playground-response-This is an example from docs.wise.com\\\u0022,\n  \\\u0022method\\\u0022: \\\u0022POST\\\u0022\n}\n\u0060\u0060\u0060\n\u0022"
       },
-      "JosePlaygroundJweGet200Response": {
+      "JosePlaygroundJweGet200JoseJsonResponse": {
         "type": "string",
         "description": "\u0022JWE-encoded string. When decrypted, the response contains:\n\n- \u0060message\u0060 \u2014 The response message is always \u0060jose-playground-response-\u0060.\n- \u0060method\u0060 \u2014 Original HTTP request method name: \u0060GET\u0060.\n\nExample of decrypted response:\n\u0060\u0060\u0060json\n{\n  \\\u0022message\\\u0022: \\\u0022jose-playground-response-\\\u0022,\n  \\\u0022method\\\u0022: \\\u0022GET\\\u0022\n}\n\u0060\u0060\u0060\n\u0022"
       },
@@ -32264,7 +32264,7 @@
           }
         }
       },
-      "JosePlaygroundJwePost200Response": {
+      "JosePlaygroundJwePost200JoseJsonResponse": {
         "type": "string",
         "description": "\u0022JWE-encoded string. When decrypted, the response contains:\n\n- \u0060message\u0060 \u2014 The original message prefixed with \u0060jose-playground-response-\u0060. Message length is limited to 100 characters.\n- \u0060method\u0060 \u2014 Original HTTP request method name: \u0060POST\u0060.\n\nExample of decrypted response:\n\u0060\u0060\u0060json\n{\n  \\\u0022message\\\u0022: \\\u0022jose-playground-response-This is an example from docs.wise.com\\\u0022,\n  \\\u0022method\\\u0022: \\\u0022POST\\\u0022\n}\n\u0060\u0060\u0060\n\u0022"
       },
@@ -32280,7 +32280,7 @@
           }
         }
       },
-      "JosePlaygroundJweDirectEncryption200Response": {
+      "JosePlaygroundJweDirectEncryption200JoseJsonResponse": {
         "type": "string",
         "description": "\u0022JWE-encoded string using direct encryption. The response is encrypted with the original content encryption key from the request.\n\nResponse JOSE headers:\n\u0060\u0060\u0060json\n{\\\u0022enc\\\u0022: \\\u0022A256GCM\\\u0022, \\\u0022alg\\\u0022: \\\u0022dir\\\u0022}\n\u0060\u0060\u0060\n\nWhen decrypted, the response contains:\n\n- \u0060message\u0060 \u2014 The original message prefixed with \u0060jose-playground-response-\u0060. Message length is limited to 100 characters.\n- \u0060method\u0060 \u2014 Original HTTP request method name: \u0060POST\u0060.\n\nExample of decrypted response:\n\u0060\u0060\u0060json\n{\n  \\\u0022message\\\u0022: \\\u0022jose-playground-response-This is an example from docs.wise.com\\\u0022,\n  \\\u0022method\\\u0022: \\\u0022POST\\\u0022\n}\n\u0060\u0060\u0060\n\u0022"
       },
@@ -32296,7 +32296,7 @@
           }
         }
       },
-      "JosePlaygroundJwsJwe200Response": {
+      "JosePlaygroundJwsJwe200JoseJsonResponse": {
         "type": "string",
         "description": "\u0022JWE-encoded string containing a signed JWS. After decryption (JWE) and signature verification (JWS), the response contains:\n\n- \u0060message\u0060 \u2014 The original message prefixed with \u0060jose-playground-response-\u0060. Message length is limited to 100 characters.\n- \u0060method\u0060 \u2014 Original HTTP request method name: \u0060POST\u0060.\n\nExample of decrypted and decoded response:\n\u0060\u0060\u0060json\n{\n  \\\u0022message\\\u0022: \\\u0022jose-playground-response-This is an example from docs.wise.com\\\u0022,\n  \\\u0022method\\\u0022: \\\u0022POST\\\u0022\n}\n\u0060\u0060\u0060\n\u0022"
       },
@@ -33501,7 +33501,7 @@
           }
         }
       },
-      "DigitalWalletActivatePaymentToken403Response": {
+      "DigitalWalletActivatePaymentToken403ProblemJsonResponse": {
         "type": "object",
         "properties": {
           "type": {
@@ -33530,7 +33530,7 @@
           }
         }
       },
-      "DigitalWalletActivatePaymentToken404Response": {
+      "DigitalWalletActivatePaymentToken404ProblemJsonResponse": {
         "type": "object",
         "properties": {
           "type": {
@@ -33559,7 +33559,7 @@
           }
         }
       },
-      "DigitalWalletActivatePaymentToken500Response": {
+      "DigitalWalletActivatePaymentToken500ProblemJsonResponse": {
         "type": "object",
         "properties": {
           "type": {
@@ -34462,22 +34462,22 @@
           "$ref": "#/components/schemas/TransferRequirement"
         }
       },
-      "TransferFund400Response": {
+      "TransferFund400PlainResponse": {
         "type": "string"
       },
-      "TransferFund403Response": {
+      "TransferFund403PlainResponse": {
         "type": "string"
       },
-      "TransferFund404Response": {
+      "TransferFund404PlainResponse": {
         "type": "string"
       },
-      "TransferFund409Response": {
+      "TransferFund409PlainResponse": {
         "type": "string"
       },
-      "TransferFund422Response": {
+      "TransferFund422PlainResponse": {
         "type": "string"
       },
-      "TransferFund500Response": {
+      "TransferFund500PlainResponse": {
         "type": "string"
       },
       "TransferPaymentsList200Response": {
@@ -34515,15 +34515,15 @@
           }
         }
       },
-      "TransferReceiptGet200Response": {
+      "TransferReceiptGet200PdfResponse": {
         "type": "string",
         "format": "binary"
       },
-      "TransferUsCombinedReceiptGet200Response": {
+      "TransferUsCombinedReceiptGet200PdfResponse": {
         "type": "string",
         "format": "binary"
       },
-      "TransferNocGet200Response": {
+      "TransferNocGet200PdfResponse": {
         "type": "string",
         "format": "binary"
       },
@@ -34709,7 +34709,7 @@
         },
         "description": "Response containing a list of activities for a profile."
       },
-      "AddressList200ResponseResponseJson": {
+      "AddressList200ResponseSchema": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/Address"
@@ -34727,31 +34727,31 @@
           "$ref": "#/components/schemas/AddressRequirementsResponseItem"
         }
       },
-      "BalanceList200ResponseResponseJson": {
+      "BalanceList200ResponseSchema": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/Balance"
         }
       },
-      "HoldLimitBreachList200ResponseResponseJson": {
+      "HoldLimitBreachList200ResponseSchema": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/HoldLimitBreach"
         }
       },
-      "BankAccountDetailsGet200ResponseResponseJson": {
+      "BankAccountDetailsGet200ResponseSchema": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/BankAccountDetails"
         }
       },
-      "BankAccountDetailsOrdersList200ResponseResponseJson": {
+      "BankAccountDetailsOrdersList200ResponseSchema": {
         "type": "array",
         "items": {
-          "$ref": "#/components/schemas/BankAccountDetailsOrdersList200ResponseResponseJsonItem"
+          "$ref": "#/components/schemas/BankAccountDetailsOrdersList200ResponseSchemaItem"
         }
       },
-      "BatchGroupTransferCreate200ResponseResponseJson": {
+      "BatchGroupTransferCreate200ResponseSchema": {
         "type": "object",
         "description": "Transfer object. See [Transfer API reference](/api-reference/transfer#object) for full details."
       },
@@ -34800,33 +34800,33 @@
           }
         }
       },
-      "CurrenciesGet200ResponseResponseJson": {
+      "CurrenciesGet200ResponseSchema": {
         "type": "array",
         "items": {
-          "$ref": "#/components/schemas/CurrenciesGet200ResponseResponseJsonItem"
+          "$ref": "#/components/schemas/CurrenciesGet200ResponseSchemaItem"
         }
       },
-      "DirectDebitAccountGet200ResponseResponseJson": {
+      "DirectDebitAccountGet200ResponseSchema": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/DirectDebitAccount"
         }
       },
-      "DisputeDynamicFlowStep200ResponseResponseJson": {
+      "DisputeDynamicFlowStep200ResponseSchema": {
         "type": "object",
         "description": "Dynamic Flow JSON object. Pass this to the Dynamic Flow framework to render the dispute form."
       },
-      "DisputeReasonsGet200ResponseResponseJson": {
+      "DisputeReasonsGet200ResponseSchema": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/DisputeReason"
         }
       },
-      "DisputeSubmit200ResponseResponseJson": {
+      "DisputeSubmit200ResponseSchema": {
         "type": "object",
         "description": "Dynamic Flow JSON object."
       },
-      "DisputeFileUpload200ResponseResponseJson": {
+      "DisputeFileUpload200ResponseSchema": {
         "type": "object",
         "additionalProperties": {
           "type": "string"
@@ -34849,36 +34849,36 @@
           }
         }
       },
-      "FacetecPublicKeyGet200ResponseResponsePlain": {
+      "FacetecPublicKeyGet200PlainResponseSchema": {
         "type": "string"
       },
-      "JosePlaygroundJws200ResponseResponseJoseJson": {
+      "JosePlaygroundJws200JoseJsonResponseSchema": {
         "type": "string",
         "description": "\u0022JWS-encoded string. When decoded, the response contains:\n\n- \u0060message\u0060 \u2014 The original message prefixed with \u0060jose-playground-response-\u0060. Message length is limited to 100 characters.\n- \u0060method\u0060 \u2014 Original HTTP request method name: \u0060POST\u0060.\n\nExample of decoded response:\n\u0060\u0060\u0060json\n{\n  \\\u0022message\\\u0022: \\\u0022jose-playground-response-This is an example from docs.wise.com\\\u0022,\n  \\\u0022method\\\u0022: \\\u0022POST\\\u0022\n}\n\u0060\u0060\u0060\n\u0022"
       },
-      "JosePlaygroundJweGet200ResponseResponseJoseJson": {
+      "JosePlaygroundJweGet200JoseJsonResponseSchema": {
         "type": "string",
         "description": "\u0022JWE-encoded string. When decrypted, the response contains:\n\n- \u0060message\u0060 \u2014 The response message is always \u0060jose-playground-response-\u0060.\n- \u0060method\u0060 \u2014 Original HTTP request method name: \u0060GET\u0060.\n\nExample of decrypted response:\n\u0060\u0060\u0060json\n{\n  \\\u0022message\\\u0022: \\\u0022jose-playground-response-\\\u0022,\n  \\\u0022method\\\u0022: \\\u0022GET\\\u0022\n}\n\u0060\u0060\u0060\n\u0022"
       },
-      "JosePlaygroundJwePost200ResponseResponseJoseJson": {
+      "JosePlaygroundJwePost200JoseJsonResponseSchema": {
         "type": "string",
         "description": "\u0022JWE-encoded string. When decrypted, the response contains:\n\n- \u0060message\u0060 \u2014 The original message prefixed with \u0060jose-playground-response-\u0060. Message length is limited to 100 characters.\n- \u0060method\u0060 \u2014 Original HTTP request method name: \u0060POST\u0060.\n\nExample of decrypted response:\n\u0060\u0060\u0060json\n{\n  \\\u0022message\\\u0022: \\\u0022jose-playground-response-This is an example from docs.wise.com\\\u0022,\n  \\\u0022method\\\u0022: \\\u0022POST\\\u0022\n}\n\u0060\u0060\u0060\n\u0022"
       },
-      "JosePlaygroundJweDirectEncryption200ResponseResponseJoseJson": {
+      "JosePlaygroundJweDirectEncryption200JoseJsonResponseSchema": {
         "type": "string",
         "description": "\u0022JWE-encoded string using direct encryption. The response is encrypted with the original content encryption key from the request.\n\nResponse JOSE headers:\n\u0060\u0060\u0060json\n{\\\u0022enc\\\u0022: \\\u0022A256GCM\\\u0022, \\\u0022alg\\\u0022: \\\u0022dir\\\u0022}\n\u0060\u0060\u0060\n\nWhen decrypted, the response contains:\n\n- \u0060message\u0060 \u2014 The original message prefixed with \u0060jose-playground-response-\u0060. Message length is limited to 100 characters.\n- \u0060method\u0060 \u2014 Original HTTP request method name: \u0060POST\u0060.\n\nExample of decrypted response:\n\u0060\u0060\u0060json\n{\n  \\\u0022message\\\u0022: \\\u0022jose-playground-response-This is an example from docs.wise.com\\\u0022,\n  \\\u0022method\\\u0022: \\\u0022POST\\\u0022\n}\n\u0060\u0060\u0060\n\u0022"
       },
-      "JosePlaygroundJwsJwe200ResponseResponseJoseJson": {
+      "JosePlaygroundJwsJwe200JoseJsonResponseSchema": {
         "type": "string",
         "description": "\u0022JWE-encoded string containing a signed JWS. After decryption (JWE) and signature verification (JWS), the response contains:\n\n- \u0060message\u0060 \u2014 The original message prefixed with \u0060jose-playground-response-\u0060. Message length is limited to 100 characters.\n- \u0060method\u0060 \u2014 Original HTTP request method name: \u0060POST\u0060.\n\nExample of decrypted and decoded response:\n\u0060\u0060\u0060json\n{\n  \\\u0022message\\\u0022: \\\u0022jose-playground-response-This is an example from docs.wise.com\\\u0022,\n  \\\u0022method\\\u0022: \\\u0022POST\\\u0022\n}\n\u0060\u0060\u0060\n\u0022"
       },
-      "KycReviewList200ResponseResponseJson": {
+      "KycReviewList200ResponseSchema": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/KycReview"
         }
       },
-      "McaAvailableCurrenciesGet200ResponseResponseJson": {
+      "McaAvailableCurrenciesGet200ResponseSchema": {
         "type": "array",
         "items": {
           "type": "string",
@@ -34886,7 +34886,7 @@
         },
         "description": "List of currency codes."
       },
-      "McaPayinCurrenciesGet200ResponseResponseJson": {
+      "McaPayinCurrenciesGet200ResponseSchema": {
         "type": "array",
         "items": {
           "type": "string",
@@ -34894,7 +34894,7 @@
         },
         "description": "List of currency codes."
       },
-      "ProfileList200ResponseResponseJson": {
+      "ProfileList200ResponseSchema": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/Profile"
@@ -34906,13 +34906,13 @@
           "$ref": "#/components/schemas/ProfileDirectorCreateRequestRequestBodyItem"
         }
       },
-      "ProfileDirectorCreate200ResponseResponseJson": {
+      "ProfileDirectorCreate200ResponseSchema": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/Director"
         }
       },
-      "ProfileDirectorList200ResponseResponseJson": {
+      "ProfileDirectorList200ResponseSchema": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/Director"
@@ -34924,7 +34924,7 @@
           "$ref": "#/components/schemas/ProfileDirectorUpdateRequestRequestBodyItem"
         }
       },
-      "ProfileDirectorUpdate200ResponseResponseJson": {
+      "ProfileDirectorUpdate200ResponseSchema": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/Director"
@@ -34936,13 +34936,13 @@
           "$ref": "#/components/schemas/ProfileUboCreateRequestRequestBodyItem"
         }
       },
-      "ProfileUboCreate200ResponseResponseJson": {
+      "ProfileUboCreate200ResponseSchema": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/Ubo"
         }
       },
-      "ProfileUboList200ResponseResponseJson": {
+      "ProfileUboList200ResponseSchema": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/Ubo"
@@ -34954,16 +34954,16 @@
           "$ref": "#/components/schemas/ProfileUboUpdateRequestRequestBodyItem"
         }
       },
-      "ProfileUboUpdate200ResponseResponseJson": {
+      "ProfileUboUpdate200ResponseSchema": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/Ubo"
         }
       },
-      "RateGet200ResponseResponseJson": {
+      "RateGet200ResponseSchema": {
         "type": "array",
         "items": {
-          "$ref": "#/components/schemas/RateGet200ResponseResponseJsonItem"
+          "$ref": "#/components/schemas/RateGet200ResponseSchemaItem"
         }
       },
       "RecipientAccountRequirementsGet200Response": {
@@ -34999,28 +34999,28 @@
           }
         }
       },
-      "SimulationTransferPayoutFailure400ResponseResponseJson": {
+      "SimulationTransferPayoutFailure400ResponseSchema": {
         "type": "object"
       },
-      "SimulationTransferPayoutFailure500ResponseResponseJson": {
+      "SimulationTransferPayoutFailure500ResponseSchema": {
         "type": "object"
       },
-      "SimulationCardTransactions200ResponseResponseJson": {
+      "SimulationCardTransactions200ResponseSchema": {
         "type": "array",
         "items": {
-          "$ref": "#/components/schemas/SimulationCardTransactions200ResponseResponseJsonItem"
+          "$ref": "#/components/schemas/SimulationCardTransactions200ResponseSchemaItem"
         }
       },
-      "SpendControlsRulesList200ResponseResponseJson": {
+      "SpendControlsRulesList200ResponseSchema": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/Rule"
         }
       },
-      "SpendControlsAppliedRulesList200ResponseResponseJson": {
+      "SpendControlsAppliedRulesList200ResponseSchema": {
         "type": "array",
         "items": {
-          "$ref": "#/components/schemas/SpendControlsAppliedRulesList200ResponseResponseJsonItem"
+          "$ref": "#/components/schemas/SpendControlsAppliedRulesList200ResponseSchemaItem"
         }
       },
       "SpendLimitsProfileGet200Response": {
@@ -35042,67 +35042,67 @@
           }
         }
       },
-      "TransferList200ResponseResponseJson": {
+      "TransferList200ResponseSchema": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/TransferList200ResponseItem"
         }
       },
-      "TransferRequirementsValidate200ResponseResponseJson": {
+      "TransferRequirementsValidate200ResponseSchema": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/TransferRequirement"
         }
       },
-      "TransferFund400ResponseResponsePlain": {
+      "TransferFund400PlainResponseSchema": {
         "type": "string"
       },
-      "TransferFund403ResponseResponsePlain": {
+      "TransferFund403PlainResponseSchema": {
         "type": "string"
       },
-      "TransferFund404ResponseResponsePlain": {
+      "TransferFund404PlainResponseSchema": {
         "type": "string"
       },
-      "TransferFund409ResponseResponsePlain": {
+      "TransferFund409PlainResponseSchema": {
         "type": "string"
       },
-      "TransferFund422ResponseResponsePlain": {
+      "TransferFund422PlainResponseSchema": {
         "type": "string"
       },
-      "TransferFund500ResponseResponsePlain": {
+      "TransferFund500PlainResponseSchema": {
         "type": "string"
       },
-      "TransferPaymentsList200ResponseResponseJson": {
+      "TransferPaymentsList200ResponseSchema": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/Payment"
         }
       },
-      "TransferReceiptGet200ResponseResponsePdf": {
+      "TransferReceiptGet200PdfResponseSchema": {
         "type": "string",
         "format": "binary"
       },
-      "TransferUsCombinedReceiptGet200ResponseResponsePdf": {
+      "TransferUsCombinedReceiptGet200PdfResponseSchema": {
         "type": "string",
         "format": "binary"
       },
-      "TransferNocGet200ResponseResponsePdf": {
+      "TransferNocGet200PdfResponseSchema": {
         "type": "string",
         "format": "binary"
       },
-      "WebhookApplicationSubscriptionList200ResponseResponseJson": {
+      "WebhookApplicationSubscriptionList200ResponseSchema": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/Subscription"
         }
       },
-      "WebhookApplicationSubscriptionTest200ResponseResponseJson": {
+      "WebhookApplicationSubscriptionTest200ResponseSchema": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/TestNotification"
         }
       },
-      "WebhookProfileSubscriptionList200ResponseResponseJson": {
+      "WebhookProfileSubscriptionList200ResponseSchema": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/Subscription"
@@ -37392,7 +37392,7 @@
           }
         }
       },
-      "BankAccountDetailsOrdersList200ResponseResponseJsonItem": {
+      "BankAccountDetailsOrdersList200ResponseSchemaItem": {
         "type": "object",
         "properties": {
           "status": {
@@ -37412,7 +37412,7 @@
           }
         }
       },
-      "CurrenciesGet200ResponseResponseJsonItem": {
+      "CurrenciesGet200ResponseSchemaItem": {
         "type": "object",
         "properties": {
           "code": {
@@ -37562,7 +37562,7 @@
           }
         }
       },
-      "RateGet200ResponseResponseJsonItem": {
+      "RateGet200ResponseSchemaItem": {
         "required": [
           "rate",
           "source",
@@ -37595,7 +37595,7 @@
         },
         "description": "The resulting Rate object."
       },
-      "SimulationCardTransactions200ResponseResponseJsonItem": {
+      "SimulationCardTransactions200ResponseSchemaItem": {
         "type": "object",
         "properties": {
           "transactionId": {
@@ -37609,7 +37609,7 @@
           }
         }
       },
-      "SpendControlsAppliedRulesList200ResponseResponseJsonItem": {
+      "SpendControlsAppliedRulesList200ResponseSchemaItem": {
         "type": "object",
         "properties": {
           "ruleId": {

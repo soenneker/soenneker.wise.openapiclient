@@ -54,17 +54,17 @@ namespace Soenneker.Wise.OpenApiClient.Simulation.Spend.Profiles.Item.Cards.Item
         /// <summary>
         /// Returns a list of simulated card transactions, in descending order of creation time.To retrieve more details of a transaction, use the [get card transaction by ID](/api-reference/card-transaction/cardtransactionget) endpoint.
         /// </summary>
-        /// <returns>A List&lt;global::Soenneker.Wise.OpenApiClient.Models.SimulationCardTransactions200ResponseResponseJsonItem&gt;</returns>
+        /// <returns>A List&lt;global::Soenneker.Wise.OpenApiClient.Models.SimulationCardTransactions200ResponseSchemaItem&gt;</returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<List<global::Soenneker.Wise.OpenApiClient.Models.SimulationCardTransactions200ResponseResponseJsonItem>?> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.TransactionsRequestBuilder.TransactionsRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<List<global::Soenneker.Wise.OpenApiClient.Models.SimulationCardTransactions200ResponseSchemaItem>?> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.TransactionsRequestBuilder.TransactionsRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<List<global::Soenneker.Wise.OpenApiClient.Models.SimulationCardTransactions200ResponseResponseJsonItem>> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.TransactionsRequestBuilder.TransactionsRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<List<global::Soenneker.Wise.OpenApiClient.Models.SimulationCardTransactions200ResponseSchemaItem>> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.Simulation.Spend.Profiles.Item.Cards.Item.Transactions.TransactionsRequestBuilder.TransactionsRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
@@ -72,7 +72,7 @@ namespace Soenneker.Wise.OpenApiClient.Simulation.Spend.Profiles.Item.Cards.Item
             {
                 { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
             };
-            var collectionResult = await RequestAdapter.SendCollectionAsync<global::Soenneker.Wise.OpenApiClient.Models.SimulationCardTransactions200ResponseResponseJsonItem>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.SimulationCardTransactions200ResponseResponseJsonItem.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
+            var collectionResult = await RequestAdapter.SendCollectionAsync<global::Soenneker.Wise.OpenApiClient.Models.SimulationCardTransactions200ResponseSchemaItem>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.SimulationCardTransactions200ResponseSchemaItem.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
             return collectionResult?.AsList();
         }
         /// <summary>

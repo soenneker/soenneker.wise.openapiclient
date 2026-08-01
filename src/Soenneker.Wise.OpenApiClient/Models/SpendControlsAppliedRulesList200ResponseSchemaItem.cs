@@ -7,30 +7,31 @@ using System.IO;
 using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
-    /// <summary>
-    /// Object with the file field name as key and the assigned file ID as value.
-    /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    public partial class DisputeFileUpload200ResponseResponseJson : IAdditionalDataHolder, IParsable
+    #pragma warning disable CS1591
+    public partial class SpendControlsAppliedRulesList200ResponseSchemaItem : IAdditionalDataHolder, IParsable
+    #pragma warning restore CS1591
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
+        /// <summary>The ID of the applied authorisation rule.</summary>
+        public long? RuleId { get; set; }
         /// <summary>
-        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.DisputeFileUpload200ResponseResponseJson"/> and sets the default values.
+        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.SpendControlsAppliedRulesList200ResponseSchemaItem"/> and sets the default values.
         /// </summary>
-        public DisputeFileUpload200ResponseResponseJson()
+        public SpendControlsAppliedRulesList200ResponseSchemaItem()
         {
             AdditionalData = new Dictionary<string, object>();
         }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.DisputeFileUpload200ResponseResponseJson"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.SpendControlsAppliedRulesList200ResponseSchemaItem"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static global::Soenneker.Wise.OpenApiClient.Models.DisputeFileUpload200ResponseResponseJson CreateFromDiscriminatorValue(IParseNode parseNode)
+        public static global::Soenneker.Wise.OpenApiClient.Models.SpendControlsAppliedRulesList200ResponseSchemaItem CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.DisputeFileUpload200ResponseResponseJson();
+            return new global::Soenneker.Wise.OpenApiClient.Models.SpendControlsAppliedRulesList200ResponseSchemaItem();
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -40,6 +41,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
+                { "ruleId", n => { RuleId = n.GetLongValue(); } },
             };
         }
         /// <summary>
@@ -49,6 +51,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
+            writer.WriteLongValue("ruleId", RuleId);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

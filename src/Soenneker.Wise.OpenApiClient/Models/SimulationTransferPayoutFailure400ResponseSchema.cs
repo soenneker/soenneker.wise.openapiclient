@@ -10,7 +10,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 {
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
-    public partial class SimulationTransferPayoutFailure400ResponseResponseJson : ApiException, IAdditionalDataHolder, IParsable
+    public partial class SimulationTransferPayoutFailure400ResponseSchema : ApiException, IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -18,21 +18,21 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The primary error message.</summary>
         public override string Message { get => base.Message; }
         /// <summary>
-        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.SimulationTransferPayoutFailure400ResponseResponseJson"/> and sets the default values.
+        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.SimulationTransferPayoutFailure400ResponseSchema"/> and sets the default values.
         /// </summary>
-        public SimulationTransferPayoutFailure400ResponseResponseJson()
+        public SimulationTransferPayoutFailure400ResponseSchema()
         {
             AdditionalData = new Dictionary<string, object>();
         }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.SimulationTransferPayoutFailure400ResponseResponseJson"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.SimulationTransferPayoutFailure400ResponseSchema"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static global::Soenneker.Wise.OpenApiClient.Models.SimulationTransferPayoutFailure400ResponseResponseJson CreateFromDiscriminatorValue(IParseNode parseNode)
+        public static global::Soenneker.Wise.OpenApiClient.Models.SimulationTransferPayoutFailure400ResponseSchema CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.SimulationTransferPayoutFailure400ResponseResponseJson();
+            return new global::Soenneker.Wise.OpenApiClient.Models.SimulationTransferPayoutFailure400ResponseSchema();
         }
         /// <summary>
         /// The deserialization information for the current model

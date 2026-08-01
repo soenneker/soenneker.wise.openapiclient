@@ -36,18 +36,18 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.Item.BatchGroups.Item.Transfers
         /// <summary>
         /// Create a transfer in the batch group using a previously created recipient account and quote.For the request body format, see [transfer creation](/api-reference/transfer#create). For quote and recipient creation, see [quote creation](/api-reference/quote/quotecreate) and [recipient creation](/api-reference/recipient/recipientcreate).
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.BatchGroupTransferCreate200ResponseResponseJson"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.BatchGroupTransferCreate200ResponseSchema"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.Models.BatchGroupTransferCreate200ResponseResponseJson?> PostAsync(global::Soenneker.Wise.OpenApiClient.Models.BatchGroupTransferCreateRequest body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.BatchGroupTransferCreate200ResponseSchema?> PostAsync(global::Soenneker.Wise.OpenApiClient.Models.BatchGroupTransferCreateRequest body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.Models.BatchGroupTransferCreate200ResponseResponseJson> PostAsync(global::Soenneker.Wise.OpenApiClient.Models.BatchGroupTransferCreateRequest body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.BatchGroupTransferCreate200ResponseSchema> PostAsync(global::Soenneker.Wise.OpenApiClient.Models.BatchGroupTransferCreateRequest body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
@@ -56,7 +56,7 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.Item.BatchGroups.Item.Transfers
             {
                 { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
             };
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.BatchGroupTransferCreate200ResponseResponseJson>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.BatchGroupTransferCreate200ResponseResponseJson.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.BatchGroupTransferCreate200ResponseSchema>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.BatchGroupTransferCreate200ResponseSchema.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Create a transfer in the batch group using a previously created recipient account and quote.For the request body format, see [transfer creation](/api-reference/transfer#create). For quote and recipient creation, see [quote creation](/api-reference/quote/quotecreate) and [recipient creation](/api-reference/recipient/recipientcreate).

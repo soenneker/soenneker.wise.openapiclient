@@ -36,18 +36,18 @@ namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.DisputeForm.FileNames
         /// <summary>
         /// Upload a file for use in a dispute submission. Use the returned file ID in the `files` object when submitting a dispute.A dispute referencing the returned file ID must be submitted no later than **two hours** after the file upload, otherwise the file will expire and must be re-uploaded.
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.DisputeFileUpload200ResponseResponseJson"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.DisputeFileUpload200ResponseSchema"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.Models.DisputeFileUpload200ResponseResponseJson?> PostAsync(MultipartBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.DisputeFileUpload200ResponseSchema?> PostAsync(MultipartBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.Models.DisputeFileUpload200ResponseResponseJson> PostAsync(MultipartBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.DisputeFileUpload200ResponseSchema> PostAsync(MultipartBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
@@ -56,7 +56,7 @@ namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.DisputeForm.FileNames
             {
                 { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
             };
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.DisputeFileUpload200ResponseResponseJson>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.DisputeFileUpload200ResponseResponseJson.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.DisputeFileUpload200ResponseSchema>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.DisputeFileUpload200ResponseSchema.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Upload a file for use in a dispute submission. Use the returned file ID in the `files` object when submitting a dispute.A dispute referencing the returned file ID must be submitted no later than **two hours** after the file upload, otherwise the file will expire and must be re-uploaded.

@@ -8,29 +8,29 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Transfer object. See [Transfer API reference](/api-reference/transfer#object) for full details.
+    /// Dynamic Flow JSON object. Pass this to the Dynamic Flow framework to render the dispute form.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    public partial class BatchGroupTransferCreate200ResponseResponseJson : IAdditionalDataHolder, IParsable
+    public partial class DisputeDynamicFlowStep200ResponseSchema : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>
-        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.BatchGroupTransferCreate200ResponseResponseJson"/> and sets the default values.
+        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.DisputeDynamicFlowStep200ResponseSchema"/> and sets the default values.
         /// </summary>
-        public BatchGroupTransferCreate200ResponseResponseJson()
+        public DisputeDynamicFlowStep200ResponseSchema()
         {
             AdditionalData = new Dictionary<string, object>();
         }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.BatchGroupTransferCreate200ResponseResponseJson"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.DisputeDynamicFlowStep200ResponseSchema"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static global::Soenneker.Wise.OpenApiClient.Models.BatchGroupTransferCreate200ResponseResponseJson CreateFromDiscriminatorValue(IParseNode parseNode)
+        public static global::Soenneker.Wise.OpenApiClient.Models.DisputeDynamicFlowStep200ResponseSchema CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.BatchGroupTransferCreate200ResponseResponseJson();
+            return new global::Soenneker.Wise.OpenApiClient.Models.DisputeDynamicFlowStep200ResponseSchema();
         }
         /// <summary>
         /// The deserialization information for the current model
