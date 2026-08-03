@@ -8366,6 +8366,16 @@
               }
             }
           },
+          "422": {
+            "description": "Request could not be processed due to a missing prerequisite.\nReturned when submitting \u0060FINANCIAL_CAPACITY_BR\u0060 for a profile that has no tax ID on record.\n",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileVerificationDocumentCreate422Response"
+                }
+              }
+            }
+          },
           "429": {
             "$ref": "#/components/responses/429"
           }
@@ -8456,6 +8466,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProfileVerificationDocumentUpdate400Response"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Request could not be processed due to a missing prerequisite.\nReturned when submitting \u0060FINANCIAL_CAPACITY_BR\u0060 for a profile that has no tax ID on record.\n",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileVerificationDocumentUpdate422Response"
                 }
               }
             }
@@ -33270,6 +33290,19 @@
           }
         }
       },
+      "ProfileVerificationDocumentCreate422Response": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "example": "Financial capacity can\u0027t be added because no tax ID has been submitted for the profile."
+          },
+          "success": {
+            "type": "boolean",
+            "example": false
+          }
+        }
+      },
       "ProfileVerificationDocumentUpdateRequest": {
         "required": [
           "type",
@@ -33359,6 +33392,19 @@
           "message": {
             "type": "string",
             "description": "The primary error message."
+          }
+        }
+      },
+      "ProfileVerificationDocumentUpdate422Response": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string",
+            "example": "Financial capacity can\u0027t be added because no tax ID has been submitted for the profile."
+          },
+          "success": {
+            "type": "boolean",
+            "example": false
           }
         }
       },

@@ -13552,6 +13552,30 @@ paths:
               $ref: '#/components/headers/X-External-Correlation-Id'
             x-trace-id:
               $ref: '#/components/headers/x-trace-id'
+        '422':
+          description: >
+            Request could not be processed due to a missing prerequisite.
+
+            Returned when submitting `FINANCIAL_CAPACITY_BR` for a profile that
+            has no tax ID on record.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorMessage:
+                    type: string
+                    example: >-
+                      Financial capacity can't be added because no tax ID has
+                      been submitted for the profile.
+                  success:
+                    type: boolean
+                    example: false
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
         '429':
           $ref: '#/components/responses/429'
     put:
@@ -13737,6 +13761,30 @@ paths:
                           type: string
                         field:
                           type: string
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '422':
+          description: >
+            Request could not be processed due to a missing prerequisite.
+
+            Returned when submitting `FINANCIAL_CAPACITY_BR` for a profile that
+            has no tax ID on record.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorMessage:
+                    type: string
+                    example: >-
+                      Financial capacity can't be added because no tax ID has
+                      been submitted for the profile.
+                  success:
+                    type: boolean
+                    example: false
           headers:
             X-External-Correlation-Id:
               $ref: '#/components/headers/X-External-Correlation-Id'
