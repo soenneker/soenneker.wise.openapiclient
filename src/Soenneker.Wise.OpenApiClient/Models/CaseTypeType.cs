@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
-    /// <summary>Type of the partner case. More case types will be added in the future.</summary>
+    /// <summary>Type of the case. More case types will be added in the future.</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public enum CaseTypeType
     {

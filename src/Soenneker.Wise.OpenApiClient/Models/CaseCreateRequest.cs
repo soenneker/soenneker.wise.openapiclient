@@ -46,7 +46,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string Subject { get; set; }
 #endif
-        /// <summary>Type of the partner case. Value must be `GENERAL_ENQUIRY`. More case types will be added in the future.</summary>
+        /// <summary>Type of the case. Value must be `GENERAL_ENQUIRY`. More case types will be added in the future.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Type { get; set; }

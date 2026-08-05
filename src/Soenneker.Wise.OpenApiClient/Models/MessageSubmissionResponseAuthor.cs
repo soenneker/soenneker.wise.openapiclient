@@ -3,17 +3,13 @@ using System.Runtime.Serialization;
 using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
-    /// <summary>Status of the case</summary>
+    /// <summary>The author of the message (always PARTNER for submitted messages).</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    public enum CaseTypeStatus
+    public enum MessageSubmissionResponseAuthor
     {
-        [EnumMember(Value = "CREATING")]
+        [EnumMember(Value = "PARTNER")]
         #pragma warning disable CS1591
-        Creating,
-        #pragma warning restore CS1591
-        [EnumMember(Value = "PENDING")]
-        #pragma warning disable CS1591
-        Pending,
+        Partner,
         #pragma warning restore CS1591
     }
 }

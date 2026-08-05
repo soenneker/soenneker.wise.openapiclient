@@ -7437,7 +7437,7 @@
         "tags": [
           "case"
         ],
-        "summary": "Create a partner case",
+        "summary": "Create a  case",
         "description": "Cases are used to collect or transmit additional information between Partners and Wise. Use this endpoint to create a new case.\n\n{% admonition type=\u0022warning\u0022 %}\nPlease do not include PII in the \u0060subject\u0060 of a case. Any specific details regarding the case that need to be communicated should be included in the \u0060description\u0060.\n{% /admonition %}\n",
         "operationId": "CaseCreate",
         "parameters": [
@@ -7456,7 +7456,7 @@
         },
         "responses": {
           "200": {
-            "description": "Created partner case.",
+            "description": "Created case.",
             "content": {
               "application/json": {
                 "schema": {
@@ -7481,19 +7481,20 @@
         "tags": [
           "case"
         ],
-        "summary": "Retrieve a partner case by ID",
-        "description": "This endpoint returns a partner case based on the specified case ID.\n",
+        "summary": "Retrieve a case by ID",
+        "description": "Retrieves the complete details of a support case including all public messages\nand reference information.\n\n#### Response\n\nReturns the full case object with:\n- Case metadata (id, type, subType, status, timestamps)\n- Profile and external reference information\n- All public messages associated with the case\n\nMessages in the response can have three different content structures:\n\n1. Attributes Content (REQUEST messages)\nPresent in messages like \u0060DEPOSIT_SANCTION_HIT_REQUEST\u0060, \u0060REFERENCE_SANCTION_HIT_REQUEST\u0060, etc.\nContains dynamic attributes that define what information is required.\n\n2. Submission Data Content (SUBMISSION messages)\nPresent in messages like \u0060DEPOSIT_SANCTION_HIT_SUBMISSION\u0060, \u0060REFERENCE_LOCATION_HIT_SUBMISSION\u0060, etc.\nContains the data submitted by the partner in response to a request.\n\n3. Text Content (FREEFORM messages)\nPresent in \u0060FREEFORM\u0060 messages. Contains free text conversation between partners and Wise.\n",
         "operationId": "CaseGet",
         "parameters": [
           {
             "name": "caseId",
             "in": "path",
-            "description": "Partner Case ID.",
+            "description": "The unique identifier of the case.",
             "required": true,
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "example": 12345678
           },
           {
             "$ref": "#/components/parameters/X-External-Correlation-Id"
@@ -7501,11 +7502,648 @@
         ],
         "responses": {
           "200": {
-            "description": "Partner case object.",
+            "description": "Case details retrieved successfully",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CaseType"
+                  "$ref": "#/components/schemas/Case2"
+                },
+                "examples": {
+                  "referenceSanctionHitResolved": {
+                    "summary": "REFERENCE_SANCTION_HIT - Resolved case",
+                    "description": "Real example showing request attributes and partner submission",
+                    "value": {
+                      "id": 485,
+                      "profileId": 220002553,
+                      "type": "SANCTIONS",
+                      "subType": "REFERENCE_SANCTION_HIT",
+                      "status": "RESOLVED",
+                      "externalId": null,
+                      "createdAt": "2026-07-29T16:06:06.003",
+                      "updatedAt": "2026-07-29T16:09:32.998",
+                      "reference": {
+                        "type": "TRANSFER",
+                        "referenceId": 2147513101
+                      },
+                      "messages": [
+                        {
+                          "id": "67631430-77fd-4bbb-a8e0-fdfa67563d66",
+                          "caseId": 485,
+                          "createdAt": "2026-07-29T16:06:06.014",
+                          "content": {
+                            "attributes": {
+                              "business": {
+                                "name": {
+                                  "type": "String",
+                                  "required": true
+                                },
+                                "address": {
+                                  "type": "Address",
+                                  "required": true
+                                },
+                                "natureOfBusiness": {
+                                  "type": "String",
+                                  "required": false
+                                },
+                                "website": {
+                                  "type": "String",
+                                  "required": false
+                                }
+                              },
+                              "vessel": {
+                                "imoNumber": {
+                                  "type": "String",
+                                  "required": true
+                                }
+                              },
+                              "other": {
+                                "explanation": {
+                                  "type": "String",
+                                  "required": true
+                                }
+                              },
+                              "individual": {
+                                "name": {
+                                  "type": "String",
+                                  "required": true
+                                },
+                                "dob": {
+                                  "type": "LocalDate",
+                                  "required": false
+                                },
+                                "countryOfResidenceIso3": {
+                                  "type": "String",
+                                  "required": false
+                                },
+                                "nationality": {
+                                  "type": "String",
+                                  "required": false
+                                }
+                              }
+                            }
+                          },
+                          "type": "REFERENCE_SANCTION_HIT_REQUEST",
+                          "author": "WISE_SYSTEM"
+                        },
+                        {
+                          "id": "8c08894d-1e62-45c4-8332-cd1565916273",
+                          "caseId": 485,
+                          "createdAt": "2026-07-29T16:08:14.308",
+                          "content": {
+                            "submissionData": {
+                              "individual": {
+                                "name": "Mr. Robert Downy Junior",
+                                "countryOfResidenceIso3": "GBR"
+                              }
+                            }
+                          },
+                          "type": "REFERENCE_SANCTION_HIT_SUBMISSION",
+                          "author": "PARTNER"
+                        }
+                      ]
+                    }
+                  },
+                  "depositSanctionHitJourney": {
+                    "summary": "DEPOSIT_SANCTION_HIT - Complete message journey",
+                    "description": "Shows request, submission, and freeform conversation",
+                    "value": {
+                      "id": 12345001,
+                      "profileId": 987654321,
+                      "type": "SANCTIONS",
+                      "subType": "DEPOSIT_SANCTION_HIT",
+                      "status": "IN_REVIEW",
+                      "externalId": "PARTNER-DEPOSIT-001",
+                      "createdAt": "2026-07-25T10:00:00.000",
+                      "updatedAt": "2026-07-27T14:30:00.000",
+                      "reference": {
+                        "type": "TRANSFER",
+                        "referenceId": 111222333
+                      },
+                      "messages": [
+                        {
+                          "id": "11111111-1111-1111-1111-111111111111",
+                          "caseId": 12345001,
+                          "createdAt": "2026-07-25T10:00:00.000",
+                          "content": {
+                            "attributes": {
+                              "individual": {
+                                "name": {
+                                  "type": "String",
+                                  "required": true
+                                },
+                                "dob": {
+                                  "type": "LocalDate",
+                                  "required": false
+                                }
+                              },
+                              "business": {
+                                "name": {
+                                  "type": "String",
+                                  "required": true
+                                },
+                                "address": {
+                                  "type": "Address",
+                                  "required": true
+                                },
+                                "natureOfBusiness": {
+                                  "type": "String",
+                                  "required": false
+                                },
+                                "website": {
+                                  "type": "String",
+                                  "required": false
+                                }
+                              }
+                            }
+                          },
+                          "type": "DEPOSIT_SANCTION_HIT_REQUEST",
+                          "author": "WISE_SYSTEM"
+                        },
+                        {
+                          "id": "22222222-2222-2222-2222-222222222222",
+                          "caseId": 12345001,
+                          "createdAt": "2026-07-25T14:00:00.000",
+                          "content": {
+                            "submissionData": {
+                              "individual": {
+                                "name": "John Doe",
+                                "dob": "1985-03-15"
+                              }
+                            }
+                          },
+                          "type": "DEPOSIT_SANCTION_HIT_SUBMISSION",
+                          "author": "PARTNER"
+                        },
+                        {
+                          "id": "33333333-3333-3333-3333-333333333333",
+                          "caseId": 12345001,
+                          "createdAt": "2026-07-26T09:00:00.000",
+                          "content": {
+                            "text": {
+                              "freeText": "Thank you for the submission. We have reviewed the information and require additional documentation to verify the individual\u0027s identity."
+                            }
+                          },
+                          "type": "FREEFORM",
+                          "author": "WISE_AGENT"
+                        },
+                        {
+                          "id": "44444444-4444-4444-4444-444444444444",
+                          "caseId": 12345001,
+                          "createdAt": "2026-07-27T14:30:00.000",
+                          "content": {
+                            "text": {
+                              "freeText": "Please find the requested identity documents attached. The individual is a verified customer since 2020."
+                            }
+                          },
+                          "type": "FREEFORM",
+                          "author": "PARTNER"
+                        }
+                      ]
+                    }
+                  },
+                  "recipientSanctionHitJourney": {
+                    "summary": "RECIPIENT_SANCTION_HIT - Complete message journey",
+                    "description": "Shows individual submission with required countryOfResidenceIso3",
+                    "value": {
+                      "id": 12345002,
+                      "profileId": 987654322,
+                      "type": "SANCTIONS",
+                      "subType": "RECIPIENT_SANCTION_HIT",
+                      "status": "IN_REVIEW",
+                      "externalId": "PARTNER-RECIPIENT-001",
+                      "createdAt": "2026-07-24T08:00:00.000",
+                      "updatedAt": "2026-07-26T11:00:00.000",
+                      "reference": {
+                        "type": "TRANSFER",
+                        "referenceId": 222333444
+                      },
+                      "messages": [
+                        {
+                          "id": "55555555-5555-5555-5555-555555555555",
+                          "caseId": 12345002,
+                          "createdAt": "2026-07-24T08:00:00.000",
+                          "content": {
+                            "attributes": {
+                              "individual": {
+                                "name": {
+                                  "type": "String",
+                                  "required": true
+                                },
+                                "countryOfResidenceIso3": {
+                                  "type": "String",
+                                  "required": true
+                                },
+                                "dob": {
+                                  "type": "LocalDate",
+                                  "required": false
+                                },
+                                "nationality": {
+                                  "type": "String",
+                                  "required": false
+                                }
+                              },
+                              "business": {
+                                "name": {
+                                  "type": "String",
+                                  "required": true
+                                },
+                                "address": {
+                                  "type": "Address",
+                                  "required": true
+                                },
+                                "natureOfBusiness": {
+                                  "type": "String",
+                                  "required": false
+                                },
+                                "website": {
+                                  "type": "String",
+                                  "required": false
+                                }
+                              }
+                            }
+                          },
+                          "type": "RECIPIENT_SANCTION_HIT_REQUEST",
+                          "author": "WISE_SYSTEM"
+                        },
+                        {
+                          "id": "66666666-6666-6666-6666-666666666666",
+                          "caseId": 12345002,
+                          "createdAt": "2026-07-24T15:00:00.000",
+                          "content": {
+                            "submissionData": {
+                              "individual": {
+                                "name": "Jane Smith",
+                                "countryOfResidenceIso3": "USA",
+                                "dob": "1990-07-22",
+                                "nationality": "American"
+                              }
+                            }
+                          },
+                          "type": "RECIPIENT_SANCTION_HIT_SUBMISSION",
+                          "author": "PARTNER"
+                        },
+                        {
+                          "id": "77777777-7777-7777-7777-777777777777",
+                          "caseId": 12345002,
+                          "createdAt": "2026-07-25T10:00:00.000",
+                          "content": {
+                            "text": {
+                              "freeText": "We need to verify the recipient\u0027s address. Please provide proof of address."
+                            }
+                          },
+                          "type": "FREEFORM",
+                          "author": "WISE_AGENT"
+                        },
+                        {
+                          "id": "88888888-8888-8888-8888-888888888888",
+                          "caseId": 12345002,
+                          "createdAt": "2026-07-26T11:00:00.000",
+                          "content": {
+                            "text": {
+                              "freeText": "Attached is the utility bill showing the recipient\u0027s address in New York, USA."
+                            }
+                          },
+                          "type": "FREEFORM",
+                          "author": "PARTNER"
+                        }
+                      ]
+                    }
+                  },
+                  "referenceSanctionHitVesselJourney": {
+                    "summary": "REFERENCE_SANCTION_HIT - Vessel submission",
+                    "description": "Shows vessel submission for reference sanction hit",
+                    "value": {
+                      "id": 12345003,
+                      "profileId": 987654323,
+                      "type": "SANCTIONS",
+                      "subType": "REFERENCE_SANCTION_HIT",
+                      "status": "RESOLVED",
+                      "externalId": null,
+                      "createdAt": "2026-07-20T09:00:00.000",
+                      "updatedAt": "2026-07-23T16:00:00.000",
+                      "reference": {
+                        "type": "TRANSFER",
+                        "referenceId": 333444555
+                      },
+                      "messages": [
+                        {
+                          "id": "99999999-9999-9999-9999-999999999999",
+                          "caseId": 12345003,
+                          "createdAt": "2026-07-20T09:00:00.000",
+                          "content": {
+                            "attributes": {
+                              "individual": {
+                                "name": {
+                                  "type": "String",
+                                  "required": true
+                                },
+                                "dob": {
+                                  "type": "LocalDate",
+                                  "required": false
+                                },
+                                "countryOfResidenceIso3": {
+                                  "type": "String",
+                                  "required": false
+                                },
+                                "nationality": {
+                                  "type": "String",
+                                  "required": false
+                                }
+                              },
+                              "business": {
+                                "name": {
+                                  "type": "String",
+                                  "required": true
+                                },
+                                "address": {
+                                  "type": "Address",
+                                  "required": true
+                                },
+                                "natureOfBusiness": {
+                                  "type": "String",
+                                  "required": false
+                                },
+                                "website": {
+                                  "type": "String",
+                                  "required": false
+                                }
+                              },
+                              "vessel": {
+                                "imoNumber": {
+                                  "type": "String",
+                                  "required": true
+                                }
+                              },
+                              "other": {
+                                "explanation": {
+                                  "type": "String",
+                                  "required": true
+                                }
+                              }
+                            }
+                          },
+                          "type": "REFERENCE_SANCTION_HIT_REQUEST",
+                          "author": "WISE_SYSTEM"
+                        },
+                        {
+                          "id": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+                          "caseId": 12345003,
+                          "createdAt": "2026-07-20T14:00:00.000",
+                          "content": {
+                            "submissionData": {
+                              "vessel": {
+                                "vesselImoNumber": 9074729
+                              }
+                            }
+                          },
+                          "type": "REFERENCE_SANCTION_HIT_SUBMISSION",
+                          "author": "PARTNER"
+                        },
+                        {
+                          "id": "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb",
+                          "caseId": 12345003,
+                          "createdAt": "2026-07-22T10:00:00.000",
+                          "content": {
+                            "text": {
+                              "freeText": "We have verified the vessel IMO number. The vessel is not on any sanctions list. The case has been resolved."
+                            }
+                          },
+                          "type": "FREEFORM",
+                          "author": "WISE_AGENT"
+                        }
+                      ]
+                    }
+                  },
+                  "referenceLocationHitJourney": {
+                    "summary": "REFERENCE_LOCATION_HIT - Complete message journey",
+                    "description": "Shows location submission for reference location hit",
+                    "value": {
+                      "id": 12345004,
+                      "profileId": 987654324,
+                      "type": "SANCTIONS",
+                      "subType": "REFERENCE_LOCATION_HIT",
+                      "status": "WAITING_CUSTOMER_INPUT",
+                      "externalId": "PARTNER-REF-LOC-001",
+                      "createdAt": "2026-07-26T07:00:00.000",
+                      "updatedAt": "2026-07-28T09:00:00.000",
+                      "reference": {
+                        "type": "TRANSFER",
+                        "referenceId": 444555666
+                      },
+                      "messages": [
+                        {
+                          "id": "dddddddd-dddd-dddd-dddd-dddddddddddd",
+                          "caseId": 12345004,
+                          "createdAt": "2026-07-26T07:00:00.000",
+                          "content": {
+                            "attributes": {
+                              "other": {
+                                "relatedToLocation": {
+                                  "type": "String",
+                                  "required": true
+                                },
+                                "paymentExplanation": {
+                                  "type": "String",
+                                  "required": true
+                                },
+                                "location": {
+                                  "type": "String",
+                                  "required": true
+                                },
+                                "referenceDescription": {
+                                  "type": "String",
+                                  "required": true
+                                }
+                              }
+                            }
+                          },
+                          "type": "REFERENCE_LOCATION_HIT_REQUEST",
+                          "author": "WISE_SYSTEM"
+                        },
+                        {
+                          "id": "eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee",
+                          "caseId": 12345004,
+                          "createdAt": "2026-07-26T12:00:00.000",
+                          "content": {
+                            "submissionData": {
+                              "other": {
+                                "relatedToLocation": "Payment reference mentions a supplier in Belarus.",
+                                "paymentExplanation": "Payment for agricultural equipment parts.",
+                                "location": "Minsk, Belarus",
+                                "referenceDescription": "Invoice INV-2026-001 for tractor parts."
+                              }
+                            }
+                          },
+                          "type": "REFERENCE_LOCATION_HIT_SUBMISSION",
+                          "author": "PARTNER"
+                        },
+                        {
+                          "id": "ffffffff-ffff-ffff-ffff-ffffffffffff",
+                          "caseId": 12345004,
+                          "createdAt": "2026-07-28T09:00:00.000",
+                          "content": {
+                            "text": {
+                              "freeText": "Please provide the original invoice and shipping documentation for verification."
+                            }
+                          },
+                          "type": "FREEFORM",
+                          "author": "WISE_AGENT"
+                        }
+                      ]
+                    }
+                  },
+                  "recipientLocationHitJourney": {
+                    "summary": "RECIPIENT_LOCATION_HIT - Complete message journey",
+                    "description": "Shows location submission for recipient location hit",
+                    "value": {
+                      "id": 12345005,
+                      "profileId": 987654325,
+                      "type": "SANCTIONS",
+                      "subType": "RECIPIENT_LOCATION_HIT",
+                      "status": "IN_REVIEW",
+                      "externalId": "PARTNER-REC-LOC-001",
+                      "createdAt": "2026-07-27T06:00:00.000",
+                      "updatedAt": "2026-07-28T15:00:00.000",
+                      "reference": {
+                        "type": "TRANSFER",
+                        "referenceId": 555666777
+                      },
+                      "messages": [
+                        {
+                          "id": "11112222-3333-4444-5555-666677778888",
+                          "caseId": 12345005,
+                          "createdAt": "2026-07-27T06:00:00.000",
+                          "content": {
+                            "attributes": {
+                              "other": {
+                                "relatedToLocation": {
+                                  "type": "String",
+                                  "required": true
+                                },
+                                "paymentExplanation": {
+                                  "type": "String",
+                                  "required": true
+                                },
+                                "location": {
+                                  "type": "String",
+                                  "required": true
+                                },
+                                "businessWebsite": {
+                                  "type": "String",
+                                  "required": false
+                                }
+                              }
+                            }
+                          },
+                          "type": "RECIPIENT_LOCATION_HIT_REQUEST",
+                          "author": "WISE_SYSTEM"
+                        },
+                        {
+                          "id": "22223333-4444-5555-6666-777788889999",
+                          "caseId": 12345005,
+                          "createdAt": "2026-07-27T11:00:00.000",
+                          "content": {
+                            "submissionData": {
+                              "other": {
+                                "relatedToLocation": "Recipient has a branch office in the flagged location.",
+                                "paymentExplanation": "Payment for software development services.",
+                                "location": "Moscow, Russia",
+                                "businessWebsite": "https://www.techcorp-global.com"
+                              }
+                            }
+                          },
+                          "type": "RECIPIENT_LOCATION_HIT_SUBMISSION",
+                          "author": "PARTNER"
+                        },
+                        {
+                          "id": "33334444-5555-6666-7777-888899990000",
+                          "caseId": 12345005,
+                          "createdAt": "2026-07-28T10:00:00.000",
+                          "content": {
+                            "text": {
+                              "freeText": "Thank you for the information. Can you confirm that the services were rendered outside of Russia and provide the contract details?"
+                            }
+                          },
+                          "type": "FREEFORM",
+                          "author": "WISE_AGENT"
+                        },
+                        {
+                          "id": "44445555-6666-7777-8888-999900001111",
+                          "caseId": 12345005,
+                          "createdAt": "2026-07-28T15:00:00.000",
+                          "content": {
+                            "text": {
+                              "freeText": "Confirmed. The development work was performed by the London office. Contract attached showing UK delivery address."
+                            }
+                          },
+                          "type": "FREEFORM",
+                          "author": "PARTNER"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - invalid input parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400BadRequest"
+                },
+                "example": {
+                  "error": "BAD_REQUEST",
+                  "message": "Invalid request body",
+                  "errors": [
+                    {
+                      "field": "type",
+                      "message": "must not be null"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - missing or invalid authentication",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error401Unauthorized"
+                },
+                "example": {
+                  "error": "UNAUTHORIZED",
+                  "message": "Authentication required"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - insufficient permissions",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error403Forbidden"
+                },
+                "example": {
+                  "error": "FORBIDDEN",
+                  "message": "Insufficient permissions to access this resource"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found - the requested resource does not exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404NotFound"
+                },
+                "example": {
+                  "error": "NOT_FOUND",
+                  "message": "Case not found"
                 }
               }
             }
@@ -7521,67 +8159,25 @@
         ]
       }
     },
-    "/cases/{caseId}/comments": {
-      "get": {
+    "/cases/{caseId}/messages": {
+      "post": {
         "tags": [
           "case"
         ],
-        "summary": "Retrieve partner case comments",
-        "description": "This endpoint returns a comments list object, which is an array of comments that have been associated with the case. Comments are ordered newest to oldest and are not paginated (all comments returned at once).\n",
-        "operationId": "CaseCommentsGet",
+        "summary": "Submit a message to a case",
+        "description": "Submits a new message to an existing support case. The message type determines\nthe expected structure of the submission data.\n\nSee the [Case submission type](/guides/product/partner/submission-types.md) guide for details on each submission type along with an example..\n",
+        "operationId": "CaseSubmitMessage",
         "parameters": [
           {
             "name": "caseId",
             "in": "path",
-            "description": "Partner Case ID.",
+            "description": "The unique identifier of the case.",
             "required": true,
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
-          },
-          {
-            "$ref": "#/components/parameters/X-External-Correlation-Id"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Comments list object.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CaseCommentsGet200Response"
-                }
-              }
-            }
-          },
-          "429": {
-            "$ref": "#/components/responses/429"
-          }
-        },
-        "security": [
-          {
-            "ClientCredentialsToken": []
-          }
-        ]
-      },
-      "put": {
-        "tags": [
-          "case"
-        ],
-        "summary": "Add a partner case comment",
-        "description": "This endpoint allows for a comment to be placed on a partner case.\n",
-        "operationId": "CaseCommentCreate",
-        "parameters": [
-          {
-            "name": "caseId",
-            "in": "path",
-            "description": "Partner Case ID.",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            },
+            "example": 12345678
           },
           {
             "$ref": "#/components/parameters/X-External-Correlation-Id"
@@ -7591,12 +8187,146 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CaseCommentCreateRequest"
+                "$ref": "#/components/schemas/MessageSubmissionRequest"
+              },
+              "examples": {
+                "freeform": {
+                  "summary": "FREEFORM",
+                  "description": "Free text message submission",
+                  "value": {
+                    "type": "FREEFORM",
+                    "submissionData": {
+                      "freeText": "The transfer has been verified and approved by our compliance team."
+                    }
+                  }
+                }
               }
             }
           }
         },
         "responses": {
+          "201": {
+            "description": "Message submitted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageSubmissionResponse"
+                },
+                "examples": {
+                  "freeformResponse": {
+                    "summary": "FREEFORM message created",
+                    "value": {
+                      "id": "660e8400-e29b-41d4-a716-446655440001",
+                      "caseId": 12345678,
+                      "createdAt": "2026-07-27T15:00:00.000",
+                      "content": {
+                        "text": {
+                          "freeText": "The transfer has been verified and approved by our compliance team."
+                        }
+                      },
+                      "type": "FREEFORM",
+                      "author": "PARTNER"
+                    }
+                  },
+                  "sanctionHitResponse": {
+                    "summary": "Sanction hit submission created",
+                    "value": {
+                      "id": "770e8400-e29b-41d4-a716-446655440002",
+                      "caseId": 12345678,
+                      "createdAt": "2026-07-27T15:05:00.000",
+                      "content": {
+                        "submissionData": {
+                          "individual": {
+                            "name": "John Doe",
+                            "dob": "15/03/1985",
+                            "nationality": "British"
+                          }
+                        }
+                      },
+                      "type": "DEPOSIT_SANCTION_HIT_SUBMISSION",
+                      "author": "PARTNER"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - invalid input parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400BadRequest"
+                },
+                "example": {
+                  "error": "BAD_REQUEST",
+                  "message": "Invalid request body",
+                  "errors": [
+                    {
+                      "field": "type",
+                      "message": "must not be null"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - missing or invalid authentication",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error401Unauthorized"
+                },
+                "example": {
+                  "error": "UNAUTHORIZED",
+                  "message": "Authentication required"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - insufficient permissions",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error403Forbidden"
+                },
+                "example": {
+                  "error": "FORBIDDEN",
+                  "message": "Insufficient permissions to access this resource"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found - the requested resource does not exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404NotFound"
+                },
+                "example": {
+                  "error": "NOT_FOUND",
+                  "message": "Case not found"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error422UnprocessableEntity"
+                },
+                "example": {
+                  "error": "NOT_FOUND",
+                  "message": "Case not found"
+                }
+              }
+            }
+          },
           "429": {
             "$ref": "#/components/responses/429"
           }
@@ -15137,35 +15867,56 @@
   },
   "components": {
     "schemas": {
-      "BalanceAmount": {
+      "MessageSubmissionRequestSubmissionData": {
+        "required": [
+          "type"
+        ],
         "type": "object",
-        "properties": {
-          "value": {
-            "type": "number",
-            "description": "Amount value.",
-            "example": 310.86
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/SubmissionDataFreeform"
           },
-          "currency": {
-            "type": "string",
-            "description": "Currency code (ISO 4217 Alphabetic Code).",
-            "example": "EUR"
+          {
+            "$ref": "#/components/schemas/SubmissionDataSanctionHit"
+          },
+          {
+            "$ref": "#/components/schemas/SubmissionDataLocationHit"
           }
-        },
-        "description": "Available balance that can be used to fund transfers."
-      },
-      "BalanceIcon": {
-        "type": "object",
+        ],
         "properties": {
           "type": {
-            "$ref": "#/components/schemas/BalanceIconType"
-          },
-          "value": {
             "type": "string",
-            "description": "Icon value (e.g., emoji character)."
+            "description": "Union discriminator"
           }
         },
-        "description": "Icon for the balance.",
-        "example": null
+        "description": "The data for the message submission. Structure varies based on submission type.\n",
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "SubmissionDataFreeform": "#/components/schemas/SubmissionDataFreeform",
+            "SubmissionDataSanctionHit": "#/components/schemas/SubmissionDataSanctionHit",
+            "SubmissionDataLocationHit": "#/components/schemas/SubmissionDataLocationHit"
+          }
+        }
+      },
+      "Error404NotFoundNotFoundError404": {
+        "title": "Not Found Error (404)",
+        "type": "object",
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/Error404NotFoundNotFoundError404Error"
+          },
+          "message": {
+            "$ref": "#/components/schemas/Error404NotFoundNotFoundError404Message"
+          }
+        },
+        "description": "Returned when the requested case does not exist.\n\n**Common causes:**\n- Invalid \u0060caseId\u0060 that doesn\u0027t exist\n- Case was deleted or archived\n- Typo in the case ID\n",
+        "example": {
+          "error": "RESOURCE_NOT_FOUND",
+          "message": "Case with id 99999999 not found",
+          "timestamp": "2026-08-03T10:30:00.000Z",
+          "path": "/public/2026Q3/v2/cases/99999999"
+        }
       },
       "ChallengeResultRequest": {
         "required": [
@@ -16843,7 +17594,7 @@
         "properties": {
           "id": {
             "type": "integer",
-            "description": "Partner Case ID. Generated by Wise.",
+            "description": "Case ID. Generated by Wise.",
             "format": "int64",
             "example": 123456789
           },
@@ -16860,15 +17611,873 @@
           },
           "createdAt": {
             "type": "string",
-            "description": "When the partner case was originally created.",
+            "description": "When the  case was originally created.",
             "format": "date-time",
             "example": "2023-06-28T15:21:24.901"
           },
           "updatedAt": {
             "type": "string",
-            "description": "When the partner case was last updated.",
+            "description": "When the case was last updated.",
             "format": "date-time",
             "example": "2023-06-28T15:21:24.901"
+          }
+        }
+      },
+      "ContentAttributes": {
+        "title": "Attributes Content (REQUEST messages)",
+        "required": [
+          "attributes"
+        ],
+        "type": "object",
+        "properties": {
+          "attributes": {
+            "$ref": "#/components/schemas/ContentAttributesAttributes"
+          }
+        },
+        "description": "Content structure for REQUEST messages (e.g., DEPOSIT_SANCTION_HIT_REQUEST).\nContains dynamic attributes that define what information is required from the partner.\n\nThe attributes object contains ALL possible entity types for the case subtype.\nThe partner should submit data for ONE of the entity types.\n",
+        "example": {
+          "attributes": {
+            "business": {
+              "name": {
+                "type": "String",
+                "required": true
+              },
+              "address": {
+                "type": "Address",
+                "required": true
+              },
+              "natureOfBusiness": {
+                "type": "String",
+                "required": false
+              },
+              "website": {
+                "type": "String",
+                "required": false
+              }
+            },
+            "vessel": {
+              "imoNumber": {
+                "type": "String",
+                "required": true
+              }
+            },
+            "other": {
+              "explanation": {
+                "type": "String",
+                "required": true
+              }
+            },
+            "individual": {
+              "name": {
+                "type": "String",
+                "required": true
+              },
+              "dob": {
+                "type": "LocalDate",
+                "required": false
+              },
+              "countryOfResidenceIso3": {
+                "type": "String",
+                "required": false
+              },
+              "nationality": {
+                "type": "String",
+                "required": false
+              }
+            }
+          }
+        }
+      },
+      "ContentSubmissionData": {
+        "title": "Submission Data Content (SUBMISSION messages)",
+        "required": [
+          "submissionData"
+        ],
+        "type": "object",
+        "properties": {
+          "submissionData": {
+            "$ref": "#/components/schemas/ContentSubmissionDataSubmissionData"
+          }
+        },
+        "description": "Content structure for SUBMISSION messages containing partner-submitted data.",
+        "example": {
+          "submissionData": {
+            "individual": {
+              "name": "Mr. Robert Downy Junior",
+              "countryOfResidenceIso3": "GBR"
+            }
+          }
+        }
+      },
+      "ContentText": {
+        "title": "Text Content (FREEFORM messages)",
+        "required": [
+          "text"
+        ],
+        "type": "object",
+        "properties": {
+          "text": {
+            "$ref": "#/components/schemas/ContentTextText"
+          }
+        },
+        "description": "Content structure for FREEFORM messages containing free text conversation.",
+        "example": {
+          "text": {
+            "freeText": "Please find the requested identity documents attached."
+          }
+        }
+      },
+      "CaseMessageContent": {
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/ContentAttributes"
+          },
+          {
+            "$ref": "#/components/schemas/ContentSubmissionData"
+          },
+          {
+            "$ref": "#/components/schemas/ContentText"
+          }
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Union discriminator"
+          }
+        },
+        "description": "\u0022The content of a case message. The structure varies based on the message type:\n\n- **attributes**: Present in *_REQUEST messages. Contains dynamic attributes defining required information.\n- **submissionData**: Present in *_SUBMISSION messages. Contains partner-submitted data.\n- **text**: Present in FREEFORM messages. Contains free text conversation.\n\u0022",
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "ContentAttributes": "#/components/schemas/ContentAttributes",
+            "ContentSubmissionData": "#/components/schemas/ContentSubmissionData",
+            "ContentText": "#/components/schemas/ContentText"
+          }
+        }
+      },
+      "CaseMessageAuthor": {
+        "enum": [
+          "WISE_SYSTEM",
+          "PARTNER",
+          "WISE_AGENT"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "The author of the case message.",
+        "example": "PARTNER",
+        "x-ms-enum": {
+          "name": "CaseMessageAuthor",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "WISE_SYSTEM",
+              "name": "WiseSystem"
+            },
+            {
+              "value": "PARTNER",
+              "name": "Partner"
+            },
+            {
+              "value": "WISE_AGENT",
+              "name": "WiseAgent"
+            }
+          ]
+        }
+      },
+      "CaseMessage": {
+        "required": [
+          "id",
+          "caseId",
+          "createdAt",
+          "content",
+          "type",
+          "author"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "maxLength": 36,
+            "minLength": 36,
+            "type": "string",
+            "description": "Unique identifier of the message (UUID v4).",
+            "format": "uuid",
+            "example": "67631430-77fd-4bbb-a8e0-fdfa67563d66"
+          },
+          "caseId": {
+            "type": "integer",
+            "description": "The ID of the case this message belongs to.",
+            "format": "int64",
+            "example": 485
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "\u0022Timestamp when the message was created.\nFormat: ISO 8601 datetime without timezone (YYYY-MM-DDTHH:mm:ss.SSS).\n\u0022",
+            "format": "date-time",
+            "example": "2026-07-29T16:06:06.014"
+          },
+          "content": {
+            "$ref": "#/components/schemas/CaseMessageContent"
+          },
+          "type": {
+            "$ref": "#/components/schemas/CaseMessageType"
+          },
+          "author": {
+            "$ref": "#/components/schemas/CaseMessageAuthor"
+          }
+        },
+        "description": "A message within a support case."
+      },
+      "Case2": {
+        "required": [
+          "id",
+          "profileId",
+          "type",
+          "status",
+          "createdAt",
+          "messages"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Unique identifier of the case.",
+            "format": "int64",
+            "example": 485
+          },
+          "profileId": {
+            "type": "integer",
+            "description": "The profile ID associated with this case.",
+            "format": "int64",
+            "example": 220002553
+          },
+          "type": {
+            "$ref": "#/components/schemas/Case2Type"
+          },
+          "subType": {
+            "$ref": "#/components/schemas/Case2SubType"
+          },
+          "status": {
+            "$ref": "#/components/schemas/Case2Status"
+          },
+          "externalId": {
+            "maxLength": 255,
+            "type": "string",
+            "description": "Partner-created identifier for this case, if applicable.",
+            "example": "PARTNER-CASE-001"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "\u0022Timestamp when the case was created.\nFormat: ISO 8601 datetime without timezone (YYYY-MM-DDTHH:mm:ss.SSS).\n\u0022",
+            "format": "date-time",
+            "example": "2026-07-29T16:06:06.003"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "\u0022Timestamp when the case was last updated.\nFormat: ISO 8601 datetime without timezone (YYYY-MM-DDTHH:mm:ss.SSS).\n\u0022",
+            "format": "date-time",
+            "example": "2026-07-29T16:09:32.998"
+          },
+          "reference": {
+            "$ref": "#/components/schemas/Case2Reference"
+          },
+          "messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CaseMessage"
+            },
+            "description": "List of messages associated with this case."
+          }
+        },
+        "description": "A support case with its complete details including messages and references."
+      },
+      "ValidationError": {
+        "title": "Validation Error",
+        "required": [
+          "field",
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "field": {
+            "type": "string",
+            "description": "The field path that caused the validation error.\nUses dot notation for nested fields (e.g., \u0060submissionData.individual.name\u0060).\n",
+            "example": "type"
+          },
+          "message": {
+            "type": "string",
+            "description": "Description of what validation rule was violated.",
+            "example": "must not be null"
+          },
+          "rejectedValue": {
+            "$ref": "#/components/schemas/ValidationErrorRejectedValue"
+          }
+        },
+        "description": "Details about a specific field validation error.",
+        "example": {
+          "field": "submissionData.individual.name",
+          "message": "must not be blank",
+          "rejectedValue": ""
+        }
+      },
+      "ErrorResponse": {
+        "title": "Error Response",
+        "required": [
+          "error",
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "Machine-readable error code indicating the type of error.\n\nCommon codes:\n- \u0060BAD_REQUEST\u0060 - Invalid request format or parameters\n- \u0060VALIDATION_ERROR\u0060 - Request body validation failed\n- \u0060RESOURCE_NOT_FOUND\u0060 - Requested resource does not exist\n- \u0060UNAUTHORIZED\u0060 - Authentication required or failed\n- \u0060FORBIDDEN\u0060 - Insufficient permissions\n- \u0060CONFLICT\u0060 - Operation conflicts with current state\n- \u0060INTERNAL_SERVER_ERROR\u0060 - Unexpected server error\n",
+            "example": "BAD_REQUEST"
+          },
+          "message": {
+            "type": "string",
+            "description": "Human-readable error message describing what went wrong.",
+            "example": "Invalid request body"
+          },
+          "timestamp": {
+            "type": "string",
+            "description": "ISO 8601 timestamp when the error occurred.",
+            "format": "date-time",
+            "example": "2026-08-03T10:30:00.000Z"
+          },
+          "path": {
+            "type": "string",
+            "description": "The request path that caused the error.",
+            "example": "/public/2026Q3/v2/cases/12345678"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "description": "List of field-level validation errors.\nOnly present for validation errors (HTTP 400).\n"
+          }
+        },
+        "description": "Standard error response structure returned by the API.\n\nAll error responses follow this consistent format with an error code,\nhuman-readable message, and optional validation errors array.\n"
+      },
+      "Error400BadRequest": {
+        "required": [
+          "error",
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "Machine-readable error code indicating the type of error.\n\nCommon codes:\n- \u0060BAD_REQUEST\u0060 - Invalid request format or parameters\n- \u0060VALIDATION_ERROR\u0060 - Request body validation failed\n- \u0060RESOURCE_NOT_FOUND\u0060 - Requested resource does not exist\n- \u0060UNAUTHORIZED\u0060 - Authentication required or failed\n- \u0060FORBIDDEN\u0060 - Insufficient permissions\n- \u0060CONFLICT\u0060 - Operation conflicts with current state\n- \u0060INTERNAL_SERVER_ERROR\u0060 - Unexpected server error\n",
+            "example": "BAD_REQUEST"
+          },
+          "message": {
+            "type": "string",
+            "description": "Human-readable error message describing what went wrong.",
+            "example": "Invalid request body"
+          },
+          "timestamp": {
+            "type": "string",
+            "description": "ISO 8601 timestamp when the error occurred.",
+            "format": "date-time",
+            "example": "2026-08-03T10:30:00.000Z"
+          },
+          "path": {
+            "type": "string",
+            "description": "The request path that caused the error.",
+            "example": "/public/2026Q3/v2/cases/12345678"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "description": "List of field-level validation errors.\nOnly present for validation errors (HTTP 400).\n"
+          }
+        }
+      },
+      "Error401Unauthorized": {
+        "required": [
+          "error",
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "Machine-readable error code indicating the type of error.\n\nCommon codes:\n- \u0060BAD_REQUEST\u0060 - Invalid request format or parameters\n- \u0060VALIDATION_ERROR\u0060 - Request body validation failed\n- \u0060RESOURCE_NOT_FOUND\u0060 - Requested resource does not exist\n- \u0060UNAUTHORIZED\u0060 - Authentication required or failed\n- \u0060FORBIDDEN\u0060 - Insufficient permissions\n- \u0060CONFLICT\u0060 - Operation conflicts with current state\n- \u0060INTERNAL_SERVER_ERROR\u0060 - Unexpected server error\n",
+            "example": "BAD_REQUEST"
+          },
+          "message": {
+            "type": "string",
+            "description": "Human-readable error message describing what went wrong.",
+            "example": "Invalid request body"
+          },
+          "timestamp": {
+            "type": "string",
+            "description": "ISO 8601 timestamp when the error occurred.",
+            "format": "date-time",
+            "example": "2026-08-03T10:30:00.000Z"
+          },
+          "path": {
+            "type": "string",
+            "description": "The request path that caused the error.",
+            "example": "/public/2026Q3/v2/cases/12345678"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "description": "List of field-level validation errors.\nOnly present for validation errors (HTTP 400).\n"
+          }
+        }
+      },
+      "Error403Forbidden": {
+        "required": [
+          "error",
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "Machine-readable error code indicating the type of error.\n\nCommon codes:\n- \u0060BAD_REQUEST\u0060 - Invalid request format or parameters\n- \u0060VALIDATION_ERROR\u0060 - Request body validation failed\n- \u0060RESOURCE_NOT_FOUND\u0060 - Requested resource does not exist\n- \u0060UNAUTHORIZED\u0060 - Authentication required or failed\n- \u0060FORBIDDEN\u0060 - Insufficient permissions\n- \u0060CONFLICT\u0060 - Operation conflicts with current state\n- \u0060INTERNAL_SERVER_ERROR\u0060 - Unexpected server error\n",
+            "example": "BAD_REQUEST"
+          },
+          "message": {
+            "type": "string",
+            "description": "Human-readable error message describing what went wrong.",
+            "example": "Invalid request body"
+          },
+          "timestamp": {
+            "type": "string",
+            "description": "ISO 8601 timestamp when the error occurred.",
+            "format": "date-time",
+            "example": "2026-08-03T10:30:00.000Z"
+          },
+          "path": {
+            "type": "string",
+            "description": "The request path that caused the error.",
+            "example": "/public/2026Q3/v2/cases/12345678"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "description": "List of field-level validation errors.\nOnly present for validation errors (HTTP 400).\n"
+          }
+        }
+      },
+      "Error404NotFound": {
+        "required": [
+          "error",
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "Machine-readable error code indicating the type of error.\n\nCommon codes:\n- \u0060BAD_REQUEST\u0060 - Invalid request format or parameters\n- \u0060VALIDATION_ERROR\u0060 - Request body validation failed\n- \u0060RESOURCE_NOT_FOUND\u0060 - Requested resource does not exist\n- \u0060UNAUTHORIZED\u0060 - Authentication required or failed\n- \u0060FORBIDDEN\u0060 - Insufficient permissions\n- \u0060CONFLICT\u0060 - Operation conflicts with current state\n- \u0060INTERNAL_SERVER_ERROR\u0060 - Unexpected server error\n",
+            "example": "BAD_REQUEST"
+          },
+          "message": {
+            "type": "string",
+            "description": "Human-readable error message describing what went wrong.",
+            "example": "Invalid request body"
+          },
+          "timestamp": {
+            "type": "string",
+            "description": "ISO 8601 timestamp when the error occurred.",
+            "format": "date-time",
+            "example": "2026-08-03T10:30:00.000Z"
+          },
+          "path": {
+            "type": "string",
+            "description": "The request path that caused the error.",
+            "example": "/public/2026Q3/v2/cases/12345678"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "description": "List of field-level validation errors.\nOnly present for validation errors (HTTP 400).\n"
+          }
+        }
+      },
+      "MessageSubmissionType": {
+        "enum": [
+          "FREEFORM",
+          "DEPOSIT_SANCTION_HIT_SUBMISSION",
+          "REFERENCE_SANCTION_HIT_SUBMISSION",
+          "RECIPIENT_SANCTION_HIT_SUBMISSION",
+          "REFERENCE_LOCATION_HIT_SUBMISSION",
+          "RECIPIENT_LOCATION_HIT_SUBMISSION"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "The type of message submission.",
+        "example": "FREEFORM",
+        "x-ms-enum": {
+          "name": "MessageSubmissionType",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "FREEFORM",
+              "name": "Freeform"
+            },
+            {
+              "value": "DEPOSIT_SANCTION_HIT_SUBMISSION",
+              "name": "DepositSanctionHitSubmission"
+            },
+            {
+              "value": "REFERENCE_SANCTION_HIT_SUBMISSION",
+              "name": "ReferenceSanctionHitSubmission"
+            },
+            {
+              "value": "RECIPIENT_SANCTION_HIT_SUBMISSION",
+              "name": "RecipientSanctionHitSubmission"
+            },
+            {
+              "value": "REFERENCE_LOCATION_HIT_SUBMISSION",
+              "name": "ReferenceLocationHitSubmission"
+            },
+            {
+              "value": "RECIPIENT_LOCATION_HIT_SUBMISSION",
+              "name": "RecipientLocationHitSubmission"
+            }
+          ]
+        }
+      },
+      "SubmissionDataFreeform": {
+        "title": "FREEFORM Submission Data",
+        "required": [
+          "freeText"
+        ],
+        "type": "object",
+        "properties": {
+          "freeText": {
+            "maxLength": 10000,
+            "minLength": 1,
+            "type": "string",
+            "description": "The free-form text message to submit.\nCan include additional context, questions, or documentation references.\n",
+            "example": "The transfer has been verified and approved by our compliance team."
+          }
+        },
+        "description": "Submission data for FREEFORM message type.\nUsed for general text-based communication on a case.\n\n**Prerequisites:**\n- Case must not be in RESOLVED or FAILED status\n\n**Validation Rules:**\n- \u0060freeText\u0060 is REQUIRED and must be non-blank\n",
+        "example": {
+          "freeText": "Please find attached the requested documentation for this transfer."
+        }
+      },
+      "SubmissionIndividual": {
+        "title": "Individual Submission",
+        "required": [
+          "individual"
+        ],
+        "type": "object",
+        "properties": {
+          "individual": {
+            "$ref": "#/components/schemas/SubmissionIndividualIndividual"
+          }
+        },
+        "description": "Submission data for an individual entity.\n\n**Validation Rules:**\n- \u0060name\u0060 is REQUIRED for all individual submissions\n- \u0060countryOfResidenceIso3\u0060 is REQUIRED for:\n  - RECIPIENT_SANCTION_HIT_SUBMISSION\n  - REFERENCE_SANCTION_HIT_SUBMISSION\n",
+        "example": {
+          "individual": {
+            "name": "John Doe",
+            "countryOfResidenceIso3": "GBR",
+            "dob": "15/03/1985",
+            "nationality": "British"
+          }
+        }
+      },
+      "SubmissionOrganisation": {
+        "title": "Organisation Submission",
+        "required": [
+          "organisation"
+        ],
+        "type": "object",
+        "properties": {
+          "organisation": {
+            "$ref": "#/components/schemas/SubmissionOrganisationOrganisation"
+          }
+        },
+        "description": "Submission data for an organisation entity.\n\n**Validation Rules:**\n- All fields marked as required must be non-blank strings\n- \u0060countryIso3\u0060 must be a valid ISO 3166-1 alpha-3 country code\n",
+        "example": {
+          "organisation": {
+            "name": "Acme Corporation Ltd",
+            "streetAddress": "123 Business Park",
+            "city": "London",
+            "postCode": "EC1A 1BB",
+            "countryIso3": "GBR",
+            "natureOfBusiness": "Financial Services",
+            "website": "https://www.acme-corp.com"
+          }
+        }
+      },
+      "SubmissionVessel": {
+        "title": "Vessel Submission",
+        "required": [
+          "vessel"
+        ],
+        "type": "object",
+        "properties": {
+          "vessel": {
+            "$ref": "#/components/schemas/SubmissionVesselVessel"
+          }
+        },
+        "description": "Submission data for a vessel entity.\nOnly valid for REFERENCE_SANCTION_HIT_SUBMISSION.\n\n**Validation Rules:**\n- \u0060vesselImoNumber\u0060 is REQUIRED and must be non-blank\n- IMO numbers are 7-digit identifiers issued by the International Maritime Organization\n",
+        "example": {
+          "vessel": {
+            "vesselImoNumber": 9074729
+          }
+        }
+      },
+      "SubmissionMultiple": {
+        "title": "Multiple Submission",
+        "required": [
+          "multiple"
+        ],
+        "type": "object",
+        "properties": {
+          "multiple": {
+            "$ref": "#/components/schemas/SubmissionMultipleMultiple"
+          }
+        },
+        "description": "Submission data when multiple entities are involved.\nOnly valid for REFERENCE_SANCTION_HIT_SUBMISSION.\n\n**Validation Rules:**\n- \u0060explanation\u0060 is REQUIRED and must be non-blank\n- Provide clear details about all entities involved\n",
+        "example": {
+          "multiple": {
+            "explanation": "Transfer involves multiple beneficiaries as part of a group payment arrangement for a consortium project."
+          }
+        }
+      },
+      "SubmissionOther": {
+        "title": "Other Submission",
+        "required": [
+          "other"
+        ],
+        "type": "object",
+        "properties": {
+          "other": {
+            "$ref": "#/components/schemas/SubmissionOtherOther"
+          }
+        },
+        "description": "Submission data for other entity types not covered by standard categories.\nOnly valid for REFERENCE_SANCTION_HIT_SUBMISSION.\n\n**Validation Rules:**\n- \u0060explanation\u0060 is REQUIRED and must be non-blank\n- Use when the entity doesn\u0027t fit individual, organisation, vessel, or multiple categories\n",
+        "example": {
+          "other": {
+            "explanation": "This is a government entity that does not fit standard categories. It is the Ministry of Commerce."
+          }
+        }
+      },
+      "SubmissionDataSanctionHit": {
+        "title": "Sanction Hit Submission Data",
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/SubmissionIndividual"
+          },
+          {
+            "$ref": "#/components/schemas/SubmissionOrganisation"
+          },
+          {
+            "$ref": "#/components/schemas/SubmissionVessel"
+          },
+          {
+            "$ref": "#/components/schemas/SubmissionMultiple"
+          },
+          {
+            "$ref": "#/components/schemas/SubmissionOther"
+          }
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Union discriminator"
+          }
+        },
+        "description": "\u0022Submission data for sanction hit cases. Used for:\n- DEPOSIT_SANCTION_HIT_SUBMISSION\n- REFERENCE_SANCTION_HIT_SUBMISSION\n- RECIPIENT_SANCTION_HIT_SUBMISSION\n\n**Important**: Only ONE of the entity types should be provided per submission.\n\n### Validation Rules by Submission Type:\n\n**DEPOSIT_SANCTION_HIT_SUBMISSION**:\n- Must contain either \u0060individual\u0060 OR \u0060organisation\u0060 (exactly one)\n\n**RECIPIENT_SANCTION_HIT_SUBMISSION**:\n- Must contain either \u0060individual\u0060 OR \u0060organisation\u0060 (exactly one)\n- If \u0060individual\u0060, \u0060countryOfResidenceIso3\u0060 is REQUIRED\n\n**REFERENCE_SANCTION_HIT_SUBMISSION**:\n- Must contain exactly one of: \u0060individual\u0060, \u0060organisation\u0060, \u0060multiple\u0060, \u0060vessel\u0060, or \u0060other\u0060\n- If \u0060individual\u0060, \u0060countryOfResidenceIso3\u0060 is REQUIRED\n\u0022",
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "SubmissionIndividual": "#/components/schemas/SubmissionIndividual",
+            "SubmissionOrganisation": "#/components/schemas/SubmissionOrganisation",
+            "SubmissionVessel": "#/components/schemas/SubmissionVessel",
+            "SubmissionMultiple": "#/components/schemas/SubmissionMultiple",
+            "SubmissionOther": "#/components/schemas/SubmissionOther"
+          }
+        }
+      },
+      "SubmissionReferenceLocation": {
+        "title": "Reference Location Hit Submission",
+        "required": [
+          "other"
+        ],
+        "type": "object",
+        "properties": {
+          "other": {
+            "$ref": "#/components/schemas/SubmissionReferenceLocationOther"
+          }
+        },
+        "description": "Submission data for REFERENCE_LOCATION_HIT_SUBMISSION.\nUsed when a payment reference triggers a location-based compliance check.\n\n**Validation Rules:**\n- All fields in \u0060other\u0060 are REQUIRED\n- All required fields must be non-blank strings\n",
+        "example": {
+          "other": {
+            "relatedToLocation": "Payment reference mentions a supplier in Belarus.",
+            "paymentExplanation": "Payment for agricultural equipment parts from authorised supplier.",
+            "location": "Minsk, Belarus",
+            "referenceDescription": "Invoice INV-2026-001 for tractor parts shipped from Minsk warehouse."
+          }
+        }
+      },
+      "SubmissionRecipientLocation": {
+        "title": "Recipient Location Hit Submission",
+        "required": [
+          "other"
+        ],
+        "type": "object",
+        "properties": {
+          "other": {
+            "$ref": "#/components/schemas/SubmissionRecipientLocationOther"
+          }
+        },
+        "description": "Submission data for RECIPIENT_LOCATION_HIT_SUBMISSION.\nUsed when a recipient\u0027s location triggers a compliance check.\n\n**Validation Rules:**\n- \u0060relatedToLocation\u0060, \u0060paymentExplanation\u0060, and \u0060location\u0060 are REQUIRED\n- \u0060businessWebsite\u0060 is optional\n- All required fields must be non-blank strings\n",
+        "example": {
+          "other": {
+            "relatedToLocation": "Recipient has a registered branch office in the flagged location.",
+            "paymentExplanation": "Payment for software development services rendered under contract.",
+            "location": "Suspicous City, Country",
+            "businessWebsite": "https://www.techcorp-global.com"
+          }
+        }
+      },
+      "SubmissionDataLocationHit": {
+        "title": "Location Hit Submission Data",
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/SubmissionReferenceLocation"
+          },
+          {
+            "$ref": "#/components/schemas/SubmissionRecipientLocation"
+          }
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Union discriminator"
+          }
+        },
+        "description": "Submission data for location hit cases. Used for:\n- REFERENCE_LOCATION_HIT_SUBMISSION\n- RECIPIENT_LOCATION_HIT_SUBMISSION\n\nBoth types require an \u0060other\u0060 object with location-specific details.\n",
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "SubmissionReferenceLocation": "#/components/schemas/SubmissionReferenceLocation",
+            "SubmissionRecipientLocation": "#/components/schemas/SubmissionRecipientLocation"
+          }
+        }
+      },
+      "MessageSubmissionRequest": {
+        "required": [
+          "type",
+          "submissionData"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/MessageSubmissionType"
+          },
+          "submissionData": {
+            "$ref": "#/components/schemas/MessageSubmissionRequestSubmissionData"
+          }
+        },
+        "description": "Request body for submitting a message to a case.\n\nThe structure of \u0060submissionData\u0060 depends on the \u0060type\u0060 field.\n"
+      },
+      "MessageSubmissionResponse": {
+        "required": [
+          "id",
+          "caseId",
+          "createdAt",
+          "content",
+          "type",
+          "author"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "maxLength": 36,
+            "minLength": 36,
+            "type": "string",
+            "description": "Unique identifier of the created message (UUID v4).",
+            "format": "uuid",
+            "example": "660e8400-e29b-41d4-a716-446655440001"
+          },
+          "caseId": {
+            "type": "integer",
+            "description": "The ID of the case this message belongs to.",
+            "format": "int64",
+            "example": 12345678
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "\u0022Timestamp when the message was created.\nFormat: ISO 8601 datetime without timezone (server timezone is UTC).\n\u0022",
+            "format": "date-time",
+            "example": "2026-07-27T15:00:00.000"
+          },
+          "content": {
+            "$ref": "#/components/schemas/MessageSubmissionResponseContentProperty"
+          },
+          "type": {
+            "$ref": "#/components/schemas/MessageSubmissionResponseType"
+          },
+          "author": {
+            "$ref": "#/components/schemas/MessageSubmissionResponseAuthor"
+          }
+        },
+        "description": "Response returned after successfully submitting a message."
+      },
+      "Error422UnprocessableEntity": {
+        "required": [
+          "error",
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "Machine-readable error code indicating the type of error.\n\nCommon codes:\n- \u0060BAD_REQUEST\u0060 - Invalid request format or parameters\n- \u0060VALIDATION_ERROR\u0060 - Request body validation failed\n- \u0060RESOURCE_NOT_FOUND\u0060 - Requested resource does not exist\n- \u0060UNAUTHORIZED\u0060 - Authentication required or failed\n- \u0060FORBIDDEN\u0060 - Insufficient permissions\n- \u0060CONFLICT\u0060 - Operation conflicts with current state\n- \u0060INTERNAL_SERVER_ERROR\u0060 - Unexpected server error\n",
+            "example": "BAD_REQUEST"
+          },
+          "message": {
+            "type": "string",
+            "description": "Human-readable error message describing what went wrong.",
+            "example": "Invalid request body"
+          },
+          "timestamp": {
+            "type": "string",
+            "description": "ISO 8601 timestamp when the error occurred.",
+            "format": "date-time",
+            "example": "2026-08-03T10:30:00.000Z"
+          },
+          "path": {
+            "type": "string",
+            "description": "The request path that caused the error.",
+            "example": "/public/2026Q3/v2/cases/12345678"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "description": "List of field-level validation errors.\nOnly present for validation errors (HTTP 400).\n"
           }
         }
       },
@@ -18996,126 +20605,112 @@
           }
         }
       },
-      "AddressRequirementsRequestDetails": {
+      "Error403ForbiddenForbiddenError403": {
+        "title": "Forbidden Error (403)",
+        "type": "object",
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/Error403ForbiddenForbiddenError403Error"
+          },
+          "message": {
+            "$ref": "#/components/schemas/Error403ForbiddenForbiddenError403Message"
+          }
+        },
+        "description": "Returned when the authenticated client lacks permission to access the resource.\n\n**Common causes:**\n- Case belongs to a different partner (client key mismatch)\n- Attempting to access a case type not permitted for this client\n",
+        "example": {
+          "error": "FORBIDDEN",
+          "message": "You do not have permission to access this resource",
+          "timestamp": "2026-08-03T10:30:00.000Z",
+          "path": "/public/2026Q3/v2/cases/12345678"
+        }
+      },
+      "Error401UnauthorizedUnauthorizedError401": {
+        "title": "Unauthorized Error (401)",
+        "type": "object",
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/Error401UnauthorizedUnauthorizedError401Error"
+          },
+          "message": {
+            "$ref": "#/components/schemas/Error401UnauthorizedUnauthorizedError401Message"
+          }
+        },
+        "description": "Returned when authentication is missing or invalid.\n\n**Common causes:**\n- Missing \u0060Authorization\u0060 header\n- Invalid or expired API token\n- Malformed authorization header format\n",
+        "example": {
+          "error": "UNAUTHORIZED",
+          "message": "Invalid or missing authentication credentials",
+          "timestamp": "2026-08-03T10:30:00.000Z",
+          "path": "/public/2026Q3/v2/cases/12345678"
+        }
+      },
+      "Error400BadRequestBadRequestError400": {
+        "title": "Bad Request Error (400)",
+        "type": "object",
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/Error400BadRequestBadRequestError400Error"
+          },
+          "message": {
+            "$ref": "#/components/schemas/Error400BadRequestBadRequestError400Message"
+          }
+        },
+        "description": "Returned when the request is malformed or contains invalid data.\n\n**Common causes:**\n- Missing required fields (\u0060type\u0060, \u0060submissionData\u0060)\n- Invalid enum values for \u0060type\u0060\n- Malformed JSON in request body\n- Invalid field values that fail validation\n",
+        "example": {
+          "error": "BAD_REQUEST",
+          "message": "Validation failed for request body",
+          "timestamp": "2026-08-03T10:30:00.000Z",
+          "path": "/public/2026Q3/v2/cases/12345678/messages",
+          "errors": [
+            {
+              "field": "type",
+              "message": "must not be null"
+            },
+            {
+              "field": "submissionData",
+              "message": "must not be null"
+            }
+          ]
+        }
+      },
+      "ContentSubmissionDataSubmissionData": {
         "required": [
-          "country"
+          "type"
         ],
         "type": "object",
-        "properties": {
-          "country": {
-            "type": "string",
-            "description": "Country code (ISO 3166-2 Country Code).",
-            "example": "US"
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/ContentSubmissionDataSubmissionDataIndividualSubmission"
           },
-          "state": {
-            "type": "string",
-            "description": "State code. Provide to discover state-dependent fields.",
-            "example": "AZ"
+          {
+            "$ref": "#/components/schemas/ContentSubmissionDataSubmissionDataOrganisationSubmission"
+          },
+          {
+            "$ref": "#/components/schemas/ContentSubmissionDataSubmissionDataVesselSubmission"
+          },
+          {
+            "$ref": "#/components/schemas/ContentSubmissionDataSubmissionDataMultipleSubmission"
+          },
+          {
+            "$ref": "#/components/schemas/ContentSubmissionDataSubmissionDataOtherLocationSubmission"
           }
-        },
-        "additionalProperties": {
-          "type": "string",
-          "description": "Any other properties to provide context for the requirements lookup."
-        },
-        "description": "Address details to provide context for requirements lookup. Additional fields beyond those listed are accepted."
-      },
-      "AddressRequestDetails": {
-        "required": [
-          "country",
-          "firstLine",
-          "postCode",
-          "city"
         ],
-        "type": "object",
-        "properties": {
-          "country": {
-            "type": "string",
-            "description": "Country code (ISO 3166-1 alpha-2).",
-            "example": "US"
-          },
-          "firstLine": {
-            "type": "string",
-            "description": "\u0022Address line: street, house, apartment.\u0022",
-            "example": "50 Sunflower Ave"
-          },
-          "postCode": {
-            "maxLength": 30,
-            "type": "string",
-            "description": "Postal / zip code (max 30 characters).",
-            "example": 10025
-          },
-          "city": {
-            "type": "string",
-            "description": "City name.",
-            "example": "Phoenix"
-          },
-          "state": {
-            "type": "string",
-            "description": "State code. Required if country is US, CA, BR, or AU.",
-            "example": "AZ"
-          },
-          "occupations": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/AddressRequestDetailsOccupationsItem"
-            },
-            "description": "User occupations. Required for CA, IN, JP, ID, IL, MX, and within the US for state NM."
-          }
-        },
-        "description": "Address details."
-      },
-      "AddressDetails": {
-        "type": "object",
-        "properties": {
-          "country": {
-            "type": "string",
-            "description": "Country code (ISO 3166-2 Country Code).",
-            "example": "US"
-          },
-          "firstLine": {
-            "type": "string",
-            "description": "\u0022Address line: street, house, apartment.\u0022",
-            "example": "50 Sunflower Ave"
-          },
-          "postCode": {
-            "maxLength": 30,
-            "type": "string",
-            "description": "Postal or zip code (max 30 characters).",
-            "example": 10025
-          },
-          "city": {
-            "type": "string",
-            "description": "City name.",
-            "example": "Phoenix"
-          },
-          "state": {
-            "type": "string",
-            "description": "State code. Required if country is US, CA, BR, or AU.",
-            "example": "AZ"
-          },
-          "occupations": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/AddressDetailsOccupationsItem"
-            },
-            "description": "User occupations. Required for CA, IN, JP, ID, IL, MX, and within the US for state NM."
-          }
-        },
-        "description": "Address details."
-      },
-      "ActivityResource": {
-        "type": "object",
         "properties": {
           "type": {
-            "$ref": "#/components/schemas/ActivityResourceType"
-          },
-          "id": {
             "type": "string",
-            "description": "The unique identifier of the resource.",
-            "example": 343049
+            "description": "Union discriminator"
           }
         },
-        "description": "The resource associated with the activity."
+        "description": "The data submitted by the partner. Contains ONE entity type.",
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "ContentSubmissionDataSubmissionDataIndividualSubmission": "#/components/schemas/ContentSubmissionDataSubmissionDataIndividualSubmission",
+            "ContentSubmissionDataSubmissionDataOrganisationSubmission": "#/components/schemas/ContentSubmissionDataSubmissionDataOrganisationSubmission",
+            "ContentSubmissionDataSubmissionDataVesselSubmission": "#/components/schemas/ContentSubmissionDataSubmissionDataVesselSubmission",
+            "ContentSubmissionDataSubmissionDataMultipleSubmission": "#/components/schemas/ContentSubmissionDataSubmissionDataMultipleSubmission",
+            "ContentSubmissionDataSubmissionDataOtherLocationSubmission": "#/components/schemas/ContentSubmissionDataSubmissionDataOtherLocationSubmission"
+          }
+        }
       },
       "Value429Response": {
         "type": "object"
@@ -21505,6 +23100,221 @@
           }
         }
       },
+      "Error422UnprocessableEntityUnprocessableEntityError422": {
+        "title": "Unprocessable Entity Error (422)",
+        "type": "object",
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/Error422UnprocessableEntityUnprocessableEntityError422Error"
+          },
+          "message": {
+            "$ref": "#/components/schemas/Error422UnprocessableEntityUnprocessableEntityError422Message"
+          }
+        },
+        "description": "Returned when the request is syntactically correct but semantically invalid.\n\n**Common causes:**\n- Submission type does not match case sub-type (e.g., submitting DEPOSIT_SANCTION_HIT_SUBMISSION for a RECIPIENT_SANCTION_HIT case)\n- Missing required fields for the submission type (e.g., \u0060countryOfResidenceIso3\u0060 missing for RECIPIENT sanction hit individual)\n- Providing both \u0060individual\u0060 AND \u0060organisation\u0060 when only one is allowed\n- Invalid ISO country code format\n- Invalid date format for \u0060dob\u0060\n",
+        "example": {
+          "error": "UNPROCESSABLE_ENTITY",
+          "message": "Submission type DEPOSIT_SANCTION_HIT_SUBMISSION is not valid for case sub-type RECIPIENT_SANCTION_HIT",
+          "timestamp": "2026-08-03T10:30:00.000Z",
+          "path": "/public/2026Q3/v2/cases/12345678/messages"
+        }
+      },
+      "ContentSubmissionDataSubmissionDataIndividualSubmission": {
+        "title": "Individual submission",
+        "type": "object",
+        "properties": {
+          "individual": {
+            "$ref": "#/components/schemas/ContentSubmissionDataSubmissionDataIndividualSubmissionIndividual"
+          }
+        }
+      },
+      "ContentSubmissionDataSubmissionDataOrganisationSubmission": {
+        "title": "Organisation submission",
+        "type": "object",
+        "properties": {
+          "organisation": {
+            "$ref": "#/components/schemas/ContentSubmissionDataSubmissionDataOrganisationSubmissionOrganisation"
+          }
+        }
+      },
+      "ContentSubmissionDataSubmissionDataVesselSubmission": {
+        "title": "Vessel submission",
+        "type": "object",
+        "properties": {
+          "vessel": {
+            "$ref": "#/components/schemas/ContentSubmissionDataSubmissionDataVesselSubmissionVessel"
+          }
+        }
+      },
+      "ContentSubmissionDataSubmissionDataMultipleSubmission": {
+        "title": "Multiple submission",
+        "type": "object",
+        "properties": {
+          "multiple": {
+            "$ref": "#/components/schemas/ContentSubmissionDataSubmissionDataMultipleSubmissionMultiple"
+          }
+        }
+      },
+      "ContentSubmissionDataSubmissionDataOtherLocationSubmission": {
+        "title": "Other/Location submission",
+        "type": "object",
+        "properties": {
+          "other": {
+            "$ref": "#/components/schemas/ContentSubmissionDataSubmissionDataOtherLocationSubmissionOtherProperty"
+          }
+        }
+      },
+      "ActivityResource": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/ActivityResourceType"
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique identifier of the resource.",
+            "example": 343049
+          }
+        },
+        "description": "The resource associated with the activity."
+      },
+      "AddressDetails": {
+        "type": "object",
+        "properties": {
+          "country": {
+            "type": "string",
+            "description": "Country code (ISO 3166-2 Country Code).",
+            "example": "US"
+          },
+          "firstLine": {
+            "type": "string",
+            "description": "\u0022Address line: street, house, apartment.\u0022",
+            "example": "50 Sunflower Ave"
+          },
+          "postCode": {
+            "maxLength": 30,
+            "type": "string",
+            "description": "Postal or zip code (max 30 characters).",
+            "example": 10025
+          },
+          "city": {
+            "type": "string",
+            "description": "City name.",
+            "example": "Phoenix"
+          },
+          "state": {
+            "type": "string",
+            "description": "State code. Required if country is US, CA, BR, or AU.",
+            "example": "AZ"
+          },
+          "occupations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AddressDetailsOccupationsItem"
+            },
+            "description": "User occupations. Required for CA, IN, JP, ID, IL, MX, and within the US for state NM."
+          }
+        },
+        "description": "Address details."
+      },
+      "AddressRequestDetails": {
+        "required": [
+          "country",
+          "firstLine",
+          "postCode",
+          "city"
+        ],
+        "type": "object",
+        "properties": {
+          "country": {
+            "type": "string",
+            "description": "Country code (ISO 3166-1 alpha-2).",
+            "example": "US"
+          },
+          "firstLine": {
+            "type": "string",
+            "description": "\u0022Address line: street, house, apartment.\u0022",
+            "example": "50 Sunflower Ave"
+          },
+          "postCode": {
+            "maxLength": 30,
+            "type": "string",
+            "description": "Postal / zip code (max 30 characters).",
+            "example": 10025
+          },
+          "city": {
+            "type": "string",
+            "description": "City name.",
+            "example": "Phoenix"
+          },
+          "state": {
+            "type": "string",
+            "description": "State code. Required if country is US, CA, BR, or AU.",
+            "example": "AZ"
+          },
+          "occupations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AddressRequestDetailsOccupationsItem"
+            },
+            "description": "User occupations. Required for CA, IN, JP, ID, IL, MX, and within the US for state NM."
+          }
+        },
+        "description": "Address details."
+      },
+      "AddressRequirementsRequestDetails": {
+        "required": [
+          "country"
+        ],
+        "type": "object",
+        "properties": {
+          "country": {
+            "type": "string",
+            "description": "Country code (ISO 3166-2 Country Code).",
+            "example": "US"
+          },
+          "state": {
+            "type": "string",
+            "description": "State code. Provide to discover state-dependent fields.",
+            "example": "AZ"
+          }
+        },
+        "additionalProperties": {
+          "type": "string",
+          "description": "Any other properties to provide context for the requirements lookup."
+        },
+        "description": "Address details to provide context for requirements lookup. Additional fields beyond those listed are accepted."
+      },
+      "BalanceIcon": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/BalanceIconType"
+          },
+          "value": {
+            "type": "string",
+            "description": "Icon value (e.g., emoji character)."
+          }
+        },
+        "description": "Icon for the balance.",
+        "example": null
+      },
+      "BalanceAmount": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "number",
+            "description": "Amount value.",
+            "example": 310.86
+          },
+          "currency": {
+            "type": "string",
+            "description": "Currency code (ISO 4217 Alphabetic Code).",
+            "example": "EUR"
+          }
+        },
+        "description": "Available balance that can be used to fund transfers."
+      },
       "BalanceReservedAmount": {
         "type": "object",
         "properties": {
@@ -22132,6 +23942,276 @@
           }
         },
         "description": "Properties of the one time token."
+      },
+      "ContentAttributesAttributes": {
+        "type": "object",
+        "properties": {
+          "individual": {
+            "$ref": "#/components/schemas/ContentAttributesAttributesIndividual"
+          },
+          "business": {
+            "$ref": "#/components/schemas/ContentAttributesAttributesBusiness"
+          },
+          "vessel": {
+            "$ref": "#/components/schemas/ContentAttributesAttributesVessel"
+          },
+          "other": {
+            "$ref": "#/components/schemas/ContentAttributesAttributesOtherProperty"
+          }
+        },
+        "description": "Dynamic attributes defining required information for each entity type."
+      },
+      "ContentTextText": {
+        "required": [
+          "freeText"
+        ],
+        "type": "object",
+        "properties": {
+          "freeText": {
+            "type": "string",
+            "description": "The free text message content.",
+            "example": "Thank you for the submission. We have reviewed the information."
+          }
+        },
+        "description": "Text content object."
+      },
+      "Case2Reference": {
+        "required": [
+          "type",
+          "referenceId"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/Case2ReferenceType"
+          },
+          "referenceId": {
+            "maxLength": 128,
+            "type": "string",
+            "example": 2147513101
+          }
+        },
+        "description": "Reference information linking the case to a related entity."
+      },
+      "SubmissionIndividualIndividual": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "maxLength": 255,
+            "minLength": 1,
+            "type": "string",
+            "description": "Full name of the individual.",
+            "example": "John Doe"
+          },
+          "countryOfResidenceIso3": {
+            "maxLength": 3,
+            "minLength": 3,
+            "type": "string",
+            "description": "ISO 3166-1 alpha-3 country code for country of residence.\nREQUIRED for RECIPIENT and REFERENCE sanction hit submissions.\n",
+            "example": "GBR"
+          },
+          "dob": {
+            "maxLength": 10,
+            "type": "string",
+            "description": "\u0022Date of birth.\nAccepted formats: DD/MM/YYYY or YYYY-MM-DD\n\u0022",
+            "example": "15/03/1985"
+          },
+          "nationality": {
+            "maxLength": 100,
+            "type": "string",
+            "description": "Nationality of the individual.",
+            "example": "British"
+          }
+        }
+      },
+      "SubmissionOrganisationOrganisation": {
+        "required": [
+          "name",
+          "streetAddress",
+          "city",
+          "postCode",
+          "countryIso3"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "maxLength": 255,
+            "minLength": 1,
+            "type": "string",
+            "description": "Name of the organisation.",
+            "example": "Acme Corporation Ltd"
+          },
+          "streetAddress": {
+            "maxLength": 500,
+            "minLength": 1,
+            "type": "string",
+            "description": "Street address of the organisation.",
+            "example": "123 Business Park"
+          },
+          "city": {
+            "maxLength": 100,
+            "minLength": 1,
+            "type": "string",
+            "description": "City where the organisation is located.",
+            "example": "London"
+          },
+          "postCode": {
+            "maxLength": 20,
+            "minLength": 1,
+            "type": "string",
+            "description": "Postal code of the organisation\u0027s address.",
+            "example": "EC1A 1BB"
+          },
+          "countryIso3": {
+            "maxLength": 3,
+            "minLength": 3,
+            "type": "string",
+            "description": "ISO 3166-1 alpha-3 country code.",
+            "example": "GBR"
+          },
+          "natureOfBusiness": {
+            "maxLength": 500,
+            "type": "string",
+            "description": "Description of the organisation\u0027s business activities.",
+            "example": "Financial Services"
+          },
+          "website": {
+            "maxLength": 500,
+            "type": "string",
+            "description": "Organisation\u0027s website URL.",
+            "format": "uri",
+            "example": "https://www.acme-corp.com"
+          }
+        }
+      },
+      "SubmissionVesselVessel": {
+        "required": [
+          "vesselImoNumber"
+        ],
+        "type": "object",
+        "properties": {
+          "vesselImoNumber": {
+            "maxLength": 20,
+            "minLength": 1,
+            "type": "string",
+            "description": "International Maritime Organization (IMO) number of the vessel.\nIMO numbers are 7 digits, sometimes prefixed with \u0022IMO\u0022.\n",
+            "example": 9074729
+          }
+        }
+      },
+      "SubmissionMultipleMultiple": {
+        "required": [
+          "explanation"
+        ],
+        "type": "object",
+        "properties": {
+          "explanation": {
+            "maxLength": 2000,
+            "minLength": 1,
+            "type": "string",
+            "description": "Explanation describing the multiple entities involved.\nShould include details about all parties and their relationship.\n",
+            "example": "Transfer involves multiple beneficiaries as part of a group payment arrangement."
+          }
+        }
+      },
+      "SubmissionOtherOther": {
+        "required": [
+          "explanation"
+        ],
+        "type": "object",
+        "properties": {
+          "explanation": {
+            "maxLength": 2000,
+            "minLength": 1,
+            "type": "string",
+            "description": "Free-form explanation for the entity.\nDescribe the entity type and relevant details.\n",
+            "example": "This is a government entity that does not fit standard categories."
+          }
+        }
+      },
+      "SubmissionReferenceLocationOther": {
+        "required": [
+          "relatedToLocation",
+          "paymentExplanation",
+          "location",
+          "referenceDescription"
+        ],
+        "type": "object",
+        "properties": {
+          "relatedToLocation": {
+            "maxLength": 2000,
+            "minLength": 1,
+            "type": "string",
+            "description": "Explanation of how the reference is related to the flagged location.",
+            "example": "Payment reference mentions a supplier in Belarus."
+          },
+          "paymentExplanation": {
+            "maxLength": 2000,
+            "minLength": 1,
+            "type": "string",
+            "description": "Explanation of the purpose of the payment.",
+            "example": "Payment for agricultural equipment parts."
+          },
+          "location": {
+            "maxLength": 255,
+            "minLength": 1,
+            "type": "string",
+            "description": "The specific location being addressed.",
+            "example": "Minsk, Belarus"
+          },
+          "referenceDescription": {
+            "maxLength": 2000,
+            "minLength": 1,
+            "type": "string",
+            "description": "Description of the payment reference that triggered the location hit.",
+            "example": "Invoice INV-2026-001 for tractor parts shipped from Minsk warehouse."
+          }
+        }
+      },
+      "SubmissionRecipientLocationOther": {
+        "required": [
+          "relatedToLocation",
+          "paymentExplanation",
+          "location"
+        ],
+        "type": "object",
+        "properties": {
+          "relatedToLocation": {
+            "maxLength": 2000,
+            "minLength": 1,
+            "type": "string",
+            "description": "Explanation of how the recipient is related to the flagged location.",
+            "example": "Recipient has a registered business address in the location."
+          },
+          "paymentExplanation": {
+            "maxLength": 2000,
+            "minLength": 1,
+            "type": "string",
+            "description": "Explanation of the purpose of the payment.",
+            "example": "Payment for software development services."
+          },
+          "location": {
+            "maxLength": 255,
+            "minLength": 1,
+            "type": "string",
+            "description": "The specific location being addressed.",
+            "example": "Suspicous City, Country"
+          },
+          "businessWebsite": {
+            "maxLength": 500,
+            "type": "string",
+            "description": "Website of the recipient\u0027s business (optional).",
+            "format": "uri",
+            "example": "https://www.techcorp-global.com"
+          }
+        }
+      },
+      "MessageSubmissionResponseContent": {
+        "type": "object",
+        "description": "\u0022The content of the created message.\n- For FREEFORM: contains \u0060text.freeText\u0060\n- For SUBMISSION types: contains \u0060submissionData\u0060\n\u0022"
       },
       "PersonalProfileContactDetails": {
         "type": "object",
@@ -24391,7 +26471,7 @@
           },
           "occurred_at": {
             "type": "string",
-            "description": "When the partner case update occurred.",
+            "description": "When the case update occurred.",
             "format": "date-time",
             "example": "2023-06-23T09:45:34.789Z"
           }
@@ -24408,7 +26488,7 @@
           },
           "occurred_at": {
             "type": "string",
-            "description": "When the partner case update occurred.",
+            "description": "When the case update occurred.",
             "format": "date-time",
             "example": "2023-06-23T09:45:34Z"
           }
@@ -24691,18 +26771,88 @@
           }
         }
       },
-      "AddressRequestDetailsOccupationsItem": {
+      "ContentSubmissionDataSubmissionDataIndividualSubmissionIndividual": {
+        "required": [
+          "name"
+        ],
         "type": "object",
         "properties": {
-          "code": {
+          "name": {
             "type": "string",
-            "description": "User occupation - any value permitted.",
-            "example": "Software Engineer"
+            "example": "Mr. Robert Downy Junior"
           },
-          "format": {
-            "$ref": "#/components/schemas/AddressRequestDetailsOccupationsItemFormat"
+          "dob": {
+            "type": "string",
+            "example": "1985-03-15"
+          },
+          "countryOfResidenceIso3": {
+            "type": "string",
+            "example": "GBR"
+          },
+          "nationality": {
+            "type": "string",
+            "example": "British"
           }
         }
+      },
+      "ContentSubmissionDataSubmissionDataOrganisationSubmissionOrganisation": {
+        "required": [
+          "name",
+          "streetAddress",
+          "city",
+          "postCode",
+          "countryIso3"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "streetAddress": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "postCode": {
+            "type": "string"
+          },
+          "countryIso3": {
+            "type": "string"
+          },
+          "natureOfBusiness": {
+            "type": "string"
+          },
+          "website": {
+            "type": "string"
+          }
+        }
+      },
+      "ContentSubmissionDataSubmissionDataVesselSubmissionVessel": {
+        "required": [
+          "vesselImoNumber"
+        ],
+        "type": "object",
+        "properties": {
+          "vesselImoNumber": {
+            "type": "string",
+            "example": 9074729
+          }
+        }
+      },
+      "ContentSubmissionDataSubmissionDataMultipleSubmissionMultiple": {
+        "required": [
+          "explanation"
+        ],
+        "type": "object",
+        "properties": {
+          "explanation": {
+            "type": "string"
+          }
+        }
+      },
+      "ContentSubmissionDataSubmissionDataOtherLocationSubmissionOther": {
+        "type": "object"
       },
       "AddressDetailsOccupationsItem": {
         "type": "object",
@@ -24714,6 +26864,19 @@
           },
           "format": {
             "$ref": "#/components/schemas/AddressDetailsOccupationsItemFormat"
+          }
+        }
+      },
+      "AddressRequestDetailsOccupationsItem": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "User occupation - any value permitted.",
+            "example": "Software Engineer"
+          },
+          "format": {
+            "$ref": "#/components/schemas/AddressRequestDetailsOccupationsItemFormat"
           }
         }
       },
@@ -25028,6 +27191,55 @@
           }
         },
         "description": "Challenge object containing primary and alternative challenges."
+      },
+      "ContentAttributesAttributesIndividual": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "$ref": "#/components/schemas/ContentAttributesAttributesIndividualName"
+          },
+          "dob": {
+            "$ref": "#/components/schemas/ContentAttributesAttributesIndividualDob"
+          },
+          "countryOfResidenceIso3": {
+            "$ref": "#/components/schemas/ContentAttributesAttributesIndividualCountryOfResidenceIso3"
+          },
+          "nationality": {
+            "$ref": "#/components/schemas/ContentAttributesAttributesIndividualNationality"
+          }
+        },
+        "description": "Attributes for individual entity type."
+      },
+      "ContentAttributesAttributesBusiness": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "$ref": "#/components/schemas/ContentAttributesAttributesBusinessName"
+          },
+          "address": {
+            "$ref": "#/components/schemas/ContentAttributesAttributesBusinessAddress"
+          },
+          "natureOfBusiness": {
+            "$ref": "#/components/schemas/ContentAttributesAttributesBusinessNatureOfBusiness"
+          },
+          "website": {
+            "$ref": "#/components/schemas/ContentAttributesAttributesBusinessWebsite"
+          }
+        },
+        "description": "Attributes for business/organisation entity type."
+      },
+      "ContentAttributesAttributesVessel": {
+        "type": "object",
+        "properties": {
+          "imoNumber": {
+            "$ref": "#/components/schemas/ContentAttributesAttributesVesselImoNumber"
+          }
+        },
+        "description": "Attributes for vessel entity type."
+      },
+      "ContentAttributesAttributesOther": {
+        "type": "object",
+        "description": "Attributes for other entity type or location hit."
       },
       "QuotePricingConfigurationFee": {
         "type": "object",
@@ -27590,13 +29802,13 @@
           },
           "case_id": {
             "type": "integer",
-            "description": "ID of the partner case.",
+            "description": "ID of the case.",
             "format": "int64",
             "example": 136
           },
           "case_type": {
             "type": "string",
-            "description": "Type of the partner case. Value must be \u0060GENERAL_ENQUIRY\u0060. More case types to be added in the future.",
+            "description": "Type of the case. Value must be \u0060GENERAL_ENQUIRY\u0060. More case types to be added in the future.",
             "example": "GENERAL_ENQUIRY"
           },
           "details": {
@@ -27617,13 +29829,13 @@
           },
           "case_id": {
             "type": "integer",
-            "description": "ID of the partner case",
+            "description": "ID of the case",
             "format": "int64",
             "example": 136
           },
           "case_type": {
             "type": "string",
-            "description": "Type of the partner case. Value must be \u0060GENERAL_ENQUIRY\u0060. More case types will be added in the future.",
+            "description": "Type of the case. Value must be \u0060GENERAL_ENQUIRY\u0060. More case types will be added in the future.",
             "example": "GENERAL_ENQUIRY"
           },
           "details": {
@@ -28420,6 +30632,123 @@
       "OttResponseOneTimeTokenPropertiesChallengesItemAlternativesItem": {
         "type": "object"
       },
+      "ContentAttributesAttributesIndividualName": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "example": "String"
+          },
+          "required": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      },
+      "ContentAttributesAttributesIndividualDob": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "example": "LocalDate"
+          },
+          "required": {
+            "type": "boolean",
+            "example": false
+          }
+        }
+      },
+      "ContentAttributesAttributesIndividualCountryOfResidenceIso3": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "example": "String"
+          },
+          "required": {
+            "type": "boolean",
+            "example": false
+          }
+        }
+      },
+      "ContentAttributesAttributesIndividualNationality": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "example": "String"
+          },
+          "required": {
+            "type": "boolean",
+            "example": false
+          }
+        }
+      },
+      "ContentAttributesAttributesBusinessName": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "example": "String"
+          },
+          "required": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      },
+      "ContentAttributesAttributesBusinessAddress": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "example": "Address"
+          },
+          "required": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      },
+      "ContentAttributesAttributesBusinessNatureOfBusiness": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "example": "String"
+          },
+          "required": {
+            "type": "boolean",
+            "example": false
+          }
+        }
+      },
+      "ContentAttributesAttributesBusinessWebsite": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "example": "String"
+          },
+          "required": {
+            "type": "boolean",
+            "example": false
+          }
+        }
+      },
+      "ContentAttributesAttributesVesselImoNumber": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "example": "String"
+          },
+          "required": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      },
       "QuotePaymentOptionsItemPriceTotal": {
         "type": "object",
         "properties": {
@@ -29093,19 +31422,19 @@
         "properties": {
           "transfer_id": {
             "type": "integer",
-            "description": "ID of the transfer that is associated with the partner case.",
+            "description": "ID of the transfer that is associated with the case.",
             "format": "int64",
             "example": 12345678
           },
           "user_id": {
             "type": "integer",
-            "description": "ID of the user account that is associated with the partner case.",
+            "description": "ID of the user account that is associated with the case.",
             "format": "int64",
             "example": 12345678
           },
           "profile_id": {
             "type": "integer",
-            "description": "ID of the profile that is associated with the partner case.",
+            "description": "ID of the profile that is associated with the case.",
             "format": "int64",
             "example": 12345678
           }
@@ -29116,19 +31445,19 @@
         "properties": {
           "transfer_id": {
             "type": "integer",
-            "description": "ID of the transfer that is associated with the partner case.",
+            "description": "ID of the transfer that is associated with the case.",
             "format": "int64",
             "example": 12345678
           },
           "user_id": {
             "type": "integer",
-            "description": "ID of the user account that is associated with the partner case.",
+            "description": "ID of the user account that is associated with the case.",
             "format": "int64",
             "example": 12345678
           },
           "profile_id": {
             "type": "integer",
-            "description": "ID of the profile that is associated with the partner case.",
+            "description": "ID of the profile that is associated with the case.",
             "format": "int64",
             "example": 12345678
           }
@@ -32722,7 +35051,7 @@
         "properties": {
           "type": {
             "type": "string",
-            "description": "Type of the partner case. Value must be \u0060GENERAL_ENQUIRY\u0060. More case types will be added in the future.",
+            "description": "Type of the case. Value must be \u0060GENERAL_ENQUIRY\u0060. More case types will be added in the future.",
             "example": "GENERAL_ENQUIRY"
           },
           "subject": {
@@ -32742,33 +35071,6 @@
             "type": "string",
             "description": "The description of the request. The maximum size of the description is 65,535 characters. If additional characters are sent, the field will be truncated.",
             "example": "Initial summary of the issue"
-          }
-        }
-      },
-      "CaseCommentsGet200Response": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string",
-            "description": "Message providing context for the response if the comments list is empty due to the case status being in \u0060CREATING\u0060. \u0060null\u0060 if case has been created.",
-            "example": null
-          },
-          "comments": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CaseCommentsGet200ResponseCommentsItem"
-            },
-            "description": "Array of comments associated with the case."
-          }
-        }
-      },
-      "CaseCommentCreateRequest": {
-        "type": "object",
-        "properties": {
-          "comment": {
-            "type": "string",
-            "description": "The comment that you want to add to the case. This can include markdown. The maximum size of the comment is 65,535 characters. If additional characters are sent, the field will be truncated.",
-            "example": "Please see the attached information as requested.\n\nTransfer Details...."
           }
         }
       },
@@ -35251,13 +37553,65 @@
           }
         ]
       },
+      "Error404NotFoundNotFoundError404Error": {
+        "type": "object",
+        "example": "RESOURCE_NOT_FOUND"
+      },
+      "Error404NotFoundNotFoundError404Message": {
+        "type": "object",
+        "example": "Case not found"
+      },
       "KycRequirementAttributesProperty": {
         "type": "object",
         "description": "**Conditional:** Only present for certain requirement types that provide additional contextual information. The keys within this object vary depending on the parent requirement \u0060key\u0060. See the [KYC requirement types](/guides/product/kyc/wise-kyc/kyc-requirement-types) guide for details on which requirement types support attributes and what keys they contain.\n"
       },
+      "ValidationErrorRejectedValue": {
+        "type": "object",
+        "description": "The value that was rejected (if applicable).",
+        "example": null
+      },
+      "MessageSubmissionResponseContentProperty": {
+        "type": "object",
+        "description": "\u0022The content of the created message.\n- For FREEFORM: contains \u0060text.freeText\u0060\n- For SUBMISSION types: contains \u0060submissionData\u0060\n\u0022"
+      },
       "RecipientCommonFieldMapProperty": {
         "type": "object",
         "description": "Map of key lookup fields on the account."
+      },
+      "Error403ForbiddenForbiddenError403Error": {
+        "type": "object",
+        "example": "FORBIDDEN"
+      },
+      "Error403ForbiddenForbiddenError403Message": {
+        "type": "object",
+        "example": "Access denied"
+      },
+      "Error401UnauthorizedUnauthorizedError401Error": {
+        "type": "object",
+        "example": "UNAUTHORIZED"
+      },
+      "Error401UnauthorizedUnauthorizedError401Message": {
+        "type": "object",
+        "example": "Authentication required"
+      },
+      "Error400BadRequestBadRequestError400Error": {
+        "type": "object",
+        "example": "BAD_REQUEST"
+      },
+      "Error400BadRequestBadRequestError400Message": {
+        "type": "object",
+        "example": "Invalid request body"
+      },
+      "Error422UnprocessableEntityUnprocessableEntityError422Error": {
+        "type": "object",
+        "example": "UNPROCESSABLE_ENTITY"
+      },
+      "Error422UnprocessableEntityUnprocessableEntityError422Message": {
+        "type": "object",
+        "example": "Submission type mismatch"
+      },
+      "ContentSubmissionDataSubmissionDataOtherLocationSubmissionOtherProperty": {
+        "type": "object"
       },
       "KycReviewTriggerReferencesItemTriggerDataProperty": {
         "type": "object",
@@ -35266,6 +37620,10 @@
       "KycReviewWithLinkTriggerReferencesItemTriggerDataProperty": {
         "type": "object",
         "description": "Key-value object containing metadata of the underlying product object that triggered the KYC Review.\nFor \u0060QUOTE\u0060, \u0060TRANSFER\u0060 and \u0060ADD_MONEY\u0060 types, \u0060triggerData\u0060 contains an \u0060id\u0060 field that refers to their respective IDs.\nFor \u0060BANK_ACCOUNT_DETAILS\u0060, \u0060triggerData\u0060 has a field called \u0060currencies\u0060 which contains a list of currencies (e.g. USD, SGD, EUR) that the bank details have been created for.\n\nFields and their data types for each \u0060triggerReference.type\u0060:\n- \u0060QUOTE\u0060 - \u0060id\u0060 (uuid)\n- \u0060TRANSFER\u0060 - \u0060id\u0060 (long)\n- \u0060ADD_MONEY\u0060 - \u0060id\u0060 (long)\n- \u0060BANK_ACCOUNT_DETAILS\u0060 - \u0060currencies\u0060 (list of string)\n"
+      },
+      "ContentAttributesAttributesOtherProperty": {
+        "type": "object",
+        "description": "Attributes for other entity type or location hit."
       },
       "OttResponseOneTimeTokenPropertiesChallengesItemAlternativesItemProperty": {
         "type": "object"
@@ -36226,34 +38584,6 @@
           }
         },
         "description": "Details related to the case."
-      },
-      "CaseCommentsGet200ResponseCommentsItem": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "description": "ID of the comment.",
-            "format": "int64",
-            "example": 16554865464081
-          },
-          "plainBody": {
-            "type": "string",
-            "description": "The plain body of the comment. This can include simple markdown.",
-            "example": "We have resolved the issue with this transfer.\n\nThank you!"
-          },
-          "author": {
-            "type": "string",
-            "description": "The author of the comment. Can be either \u0060PARTNER\u0060 or \u0060WISE_AGENT\u0060.",
-            "example": "WISE_AGENT"
-          },
-          "createdAt": {
-            "type": "string",
-            "description": "When the comment was created. Note that comments cannot be updated.",
-            "format": "date-time",
-            "example": "2023-06-28T15:22:29.901"
-          }
-        },
-        "description": "Comment object."
       },
       "PaynowCreate200ResponseDetails": {
         "type": "object",
@@ -38407,24 +40737,6 @@
         },
         "description": "The amount allowed to be spent monthly."
       },
-      "BalanceIconType": {
-        "enum": [
-          "EMOJI"
-        ],
-        "type": "string",
-        "additionalProperties": false,
-        "description": "Icon type.",
-        "x-ms-enum": {
-          "name": "BalanceIconType",
-          "modelAsString": false,
-          "values": [
-            {
-              "value": "EMOJI",
-              "name": "Emoji"
-            }
-          ]
-        }
-      },
       "ChallengeResultRequestChallengeStatus": {
         "enum": [
           "APPROVED",
@@ -39275,15 +41587,12 @@
       "CaseTypeStatus": {
         "enum": [
           "CREATING",
-          "OPEN",
-          "PENDING",
-          "SOLVED",
-          "CLOSED"
+          "PENDING"
         ],
         "type": "string",
         "additionalProperties": false,
-        "description": "[Status of the case](/api-reference/case#case-statuses).",
-        "example": "PENDING",
+        "description": "Status of the case",
+        "example": "CREATING",
         "x-ms-enum": {
           "name": "CaseTypeStatus",
           "modelAsString": false,
@@ -39293,20 +41602,8 @@
               "name": "Creating"
             },
             {
-              "value": "OPEN",
-              "name": "Open"
-            },
-            {
               "value": "PENDING",
               "name": "Pending"
-            },
-            {
-              "value": "SOLVED",
-              "name": "Solved"
-            },
-            {
-              "value": "CLOSED",
-              "name": "Closed"
             }
           ]
         }
@@ -39317,7 +41614,7 @@
         ],
         "type": "string",
         "additionalProperties": false,
-        "description": "Type of the partner case. More case types will be added in the future.",
+        "description": "Type of the case. More case types will be added in the future.",
         "example": "GENERAL_ENQUIRY",
         "x-ms-enum": {
           "name": "CaseTypeType",
@@ -39326,6 +41623,244 @@
             {
               "value": "GENERAL_ENQUIRY",
               "name": "GeneralEnquiry"
+            }
+          ]
+        }
+      },
+      "CaseMessageType": {
+        "maxLength": 128,
+        "enum": [
+          "FREEFORM",
+          "RECIPIENT_LOCATION_HIT_REQUEST",
+          "REFERENCE_LOCATION_HIT_REQUEST",
+          "RECIPIENT_SANCTION_HIT_REQUEST",
+          "REFERENCE_SANCTION_HIT_REQUEST",
+          "DEPOSIT_SANCTION_HIT_REQUEST",
+          "DEPOSIT_SANCTION_HIT_SUBMISSION",
+          "REFERENCE_SANCTION_HIT_SUBMISSION",
+          "RECIPIENT_SANCTION_HIT_SUBMISSION",
+          "REFERENCE_LOCATION_HIT_SUBMISSION",
+          "RECIPIENT_LOCATION_HIT_SUBMISSION"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "The type of the case message.",
+        "example": "REFERENCE_SANCTION_HIT_REQUEST",
+        "x-ms-enum": {
+          "name": "CaseMessageType",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "FREEFORM",
+              "name": "Freeform"
+            },
+            {
+              "value": "RECIPIENT_LOCATION_HIT_REQUEST",
+              "name": "RecipientLocationHitRequest"
+            },
+            {
+              "value": "REFERENCE_LOCATION_HIT_REQUEST",
+              "name": "ReferenceLocationHitRequest"
+            },
+            {
+              "value": "RECIPIENT_SANCTION_HIT_REQUEST",
+              "name": "RecipientSanctionHitRequest"
+            },
+            {
+              "value": "REFERENCE_SANCTION_HIT_REQUEST",
+              "name": "ReferenceSanctionHitRequest"
+            },
+            {
+              "value": "DEPOSIT_SANCTION_HIT_REQUEST",
+              "name": "DepositSanctionHitRequest"
+            },
+            {
+              "value": "DEPOSIT_SANCTION_HIT_SUBMISSION",
+              "name": "DepositSanctionHitSubmission"
+            },
+            {
+              "value": "REFERENCE_SANCTION_HIT_SUBMISSION",
+              "name": "ReferenceSanctionHitSubmission"
+            },
+            {
+              "value": "RECIPIENT_SANCTION_HIT_SUBMISSION",
+              "name": "RecipientSanctionHitSubmission"
+            },
+            {
+              "value": "REFERENCE_LOCATION_HIT_SUBMISSION",
+              "name": "ReferenceLocationHitSubmission"
+            },
+            {
+              "value": "RECIPIENT_LOCATION_HIT_SUBMISSION",
+              "name": "RecipientLocationHitSubmission"
+            }
+          ]
+        }
+      },
+      "Case2Type": {
+        "maxLength": 255,
+        "enum": [
+          "SANCTIONS",
+          "GENERAL_ENQUIRY"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "The type of the support case.",
+        "example": "SANCTIONS",
+        "x-ms-enum": {
+          "name": "Case2Type",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "SANCTIONS",
+              "name": "Sanctions"
+            },
+            {
+              "value": "GENERAL_ENQUIRY",
+              "name": "GeneralEnquiry"
+            }
+          ]
+        }
+      },
+      "Case2SubType": {
+        "maxLength": 128,
+        "enum": [
+          "RECIPIENT_LOCATION_HIT",
+          "REFERENCE_LOCATION_HIT",
+          "RECIPIENT_SANCTION_HIT",
+          "REFERENCE_SANCTION_HIT",
+          "DEPOSIT_SANCTION_HIT"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "The sub-type of the support case.",
+        "example": "REFERENCE_SANCTION_HIT",
+        "x-ms-enum": {
+          "name": "Case2SubType",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "RECIPIENT_LOCATION_HIT",
+              "name": "RecipientLocationHit"
+            },
+            {
+              "value": "REFERENCE_LOCATION_HIT",
+              "name": "ReferenceLocationHit"
+            },
+            {
+              "value": "RECIPIENT_SANCTION_HIT",
+              "name": "RecipientSanctionHit"
+            },
+            {
+              "value": "REFERENCE_SANCTION_HIT",
+              "name": "ReferenceSanctionHit"
+            },
+            {
+              "value": "DEPOSIT_SANCTION_HIT",
+              "name": "DepositSanctionHit"
+            }
+          ]
+        }
+      },
+      "Case2Status": {
+        "maxLength": 255,
+        "enum": [
+          "CREATING",
+          "IN_REVIEW",
+          "WAITING_CUSTOMER_INPUT",
+          "RESOLVED",
+          "FAILED"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "The current status of the support case.",
+        "example": "IN_REVIEW",
+        "x-ms-enum": {
+          "name": "Case2Status",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "CREATING",
+              "name": "Creating"
+            },
+            {
+              "value": "IN_REVIEW",
+              "name": "InReview"
+            },
+            {
+              "value": "WAITING_CUSTOMER_INPUT",
+              "name": "WaitingCustomerInput"
+            },
+            {
+              "value": "RESOLVED",
+              "name": "Resolved"
+            },
+            {
+              "value": "FAILED",
+              "name": "Failed"
+            }
+          ]
+        }
+      },
+      "MessageSubmissionResponseType": {
+        "enum": [
+          "FREEFORM",
+          "DEPOSIT_SANCTION_HIT_SUBMISSION",
+          "REFERENCE_SANCTION_HIT_SUBMISSION",
+          "RECIPIENT_SANCTION_HIT_SUBMISSION",
+          "REFERENCE_LOCATION_HIT_SUBMISSION",
+          "RECIPIENT_LOCATION_HIT_SUBMISSION"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "The type of the created message.",
+        "example": "FREEFORM",
+        "x-ms-enum": {
+          "name": "MessageSubmissionResponseType",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "FREEFORM",
+              "name": "Freeform"
+            },
+            {
+              "value": "DEPOSIT_SANCTION_HIT_SUBMISSION",
+              "name": "DepositSanctionHitSubmission"
+            },
+            {
+              "value": "REFERENCE_SANCTION_HIT_SUBMISSION",
+              "name": "ReferenceSanctionHitSubmission"
+            },
+            {
+              "value": "RECIPIENT_SANCTION_HIT_SUBMISSION",
+              "name": "RecipientSanctionHitSubmission"
+            },
+            {
+              "value": "REFERENCE_LOCATION_HIT_SUBMISSION",
+              "name": "ReferenceLocationHitSubmission"
+            },
+            {
+              "value": "RECIPIENT_LOCATION_HIT_SUBMISSION",
+              "name": "RecipientLocationHitSubmission"
+            }
+          ]
+        }
+      },
+      "MessageSubmissionResponseAuthor": {
+        "enum": [
+          "PARTNER"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "The author of the message (always PARTNER for submitted messages).",
+        "example": "PARTNER",
+        "x-ms-enum": {
+          "name": "MessageSubmissionResponseAuthor",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "PARTNER",
+              "name": "Partner"
             }
           ]
         }
@@ -40784,6 +43319,24 @@
           ]
         }
       },
+      "BalanceIconType": {
+        "enum": [
+          "EMOJI"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Icon type.",
+        "x-ms-enum": {
+          "name": "BalanceIconType",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "EMOJI",
+              "name": "Emoji"
+            }
+          ]
+        }
+      },
       "BankAccountDetailsReceiveOptionsItemType": {
         "enum": [
           "LOCAL",
@@ -41056,6 +43609,25 @@
             {
               "value": "VERIFIED",
               "name": "Verified"
+            }
+          ]
+        }
+      },
+      "Case2ReferenceType": {
+        "maxLength": 128,
+        "enum": [
+          "TRANSFER"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "example": "TRANSFER",
+        "x-ms-enum": {
+          "name": "Case2ReferenceType",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "TRANSFER",
+              "name": "Transfer"
             }
           ]
         }
@@ -41981,25 +44553,6 @@
           ]
         }
       },
-      "AddressRequestDetailsOccupationsItemFormat": {
-        "enum": [
-          "FREE_FORM"
-        ],
-        "type": "string",
-        "additionalProperties": false,
-        "description": "Occupation type - always \u0060FREE_FORM\u0060.",
-        "example": "FREE_FORM",
-        "x-ms-enum": {
-          "name": "AddressRequestDetailsOccupationsItemFormat",
-          "modelAsString": false,
-          "values": [
-            {
-              "value": "FREE_FORM",
-              "name": "FreeForm"
-            }
-          ]
-        }
-      },
       "AddressDetailsOccupationsItemFormat": {
         "enum": [
           "FREE_FORM"
@@ -42010,6 +44563,25 @@
         "example": "FREE_FORM",
         "x-ms-enum": {
           "name": "AddressDetailsOccupationsItemFormat",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "FREE_FORM",
+              "name": "FreeForm"
+            }
+          ]
+        }
+      },
+      "AddressRequestDetailsOccupationsItemFormat": {
+        "enum": [
+          "FREE_FORM"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Occupation type - always \u0060FREE_FORM\u0060.",
+        "example": "FREE_FORM",
+        "x-ms-enum": {
+          "name": "AddressRequestDetailsOccupationsItemFormat",
           "modelAsString": false,
           "values": [
             {
@@ -45907,8 +48479,8 @@
     },
     {
       "name": "case",
-      "description": "Partner Cases are part of the Partner Support API, allowing partners to open, retrieve and respond to support and operations queries.\n\nThe endpoints described here allow partners to directly integrate their back end tooling with Wise\u0027s, allowing faster responses, better structure to data, and operational efficiencies.\n\n{% admonition type=\u0022warning\u0022 %}\nThe Partner Support APIs are currently in a closed Beta and subject to change. Please speak with your implementation manager if you would like to integrate with these APIs.\n{% /admonition %}\n\nCase Statuses {% #case-statuses .title-3 .m-t-5 %}\n\nPartner cases can move through different statuses.\n\n| Status | Transitions to | Description |\n|--------|---------------|-------------|\n| \u0060CREATING\u0060 | OPEN | Cases being created by Wise from a Partner call. Once created, cases move into the open status. |\n| \u0060OPEN\u0060 | PENDING, SOLVED, CLOSED | Cases being actioned by Wise. Partners do not need to action these cases. Note that we may update a case in this status and not change it. |\n| \u0060PENDING\u0060 | OPEN, SOLVED, CLOSED | Cases that require additional information from the partner. You should action these cases by reviewing the newest comment and updating the case. |\n| \u0060SOLVED\u0060 | OPEN, PENDING, CLOSED | Cases that have been solved and scheduled for closure. These can be re-opened by the partner or Wise if needed before closing. |\n| \u0060CLOSED\u0060 | \u2014 | Cases that have been solved and closed. Once closed, they cannot be reopened and a new case should be created if needed. |\n\n{% img src=\u0022/images/diagrams/case-flow.png\u0022 /%}\n",
-      "x-displayName": "Partner Cases"
+      "description": "Cases enable you to open, retrieve, and respond to support and operations queries through direct API.\n\nThe Partner Support API allows you to integrate your back-end tooling, enabling:\n- Faster responses through automated workflows\n- Structured data via typed messages and submissions\n- Operational efficiencies with programmatic case management\n\n**Case statuses**\n- cases can move through different statuses.\n  \n| Status | Description | Partner Action |\n|--------|-------------|----------------|\n| \u0060CREATING\u0060 | Case being created | Wait |\n| \u0060IN_REVIEW\u0060 | Case being actioned | No action needed |\n| \u0060WAITING_CUSTOMER_INPUT\u0060 | Information required | Respond |\n| \u0060RESOLVED\u0060 | Case solved and closed | None |\n| \u0060FAILED\u0060 | Case creation failed | Contact support |\n\n{% img src=\u0022/images/diagrams/case-status-flow-v2.svg\u0022 /%}\n\n**Message types**\n- Messages are typed and structured:\n\nRequest messages:\n- \u0060DEPOSIT_SANCTION_HIT_REQUEST\u0060\n- \u0060RECIPIENT_SANCTION_HIT_REQUEST\u0060\n- \u0060REFERENCE_SANCTION_HIT_REQUEST\u0060\n- \u0060RECIPIENT_LOCATION_HIT_REQUEST\u0060\n- \u0060REFERENCE_LOCATION_HIT_REQUEST\u0060\n- \u0060FREEFORM\u0060 - Free text communication\n\nSubmission messages (from partner):\n- \u0060*_SUBMISSION\u0060 - Structured response to requests\n- \u0060FREEFORM\u0060 - Free text communication",
+      "x-displayName": "Cases"
     },
     {
       "name": "payins",

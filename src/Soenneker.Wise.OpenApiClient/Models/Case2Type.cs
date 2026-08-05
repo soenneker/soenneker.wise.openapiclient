@@ -3,17 +3,17 @@ using System.Runtime.Serialization;
 using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
-    /// <summary>Status of the case</summary>
+    /// <summary>The type of the support case.</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    public enum CaseTypeStatus
+    public enum Case2Type
     {
-        [EnumMember(Value = "CREATING")]
+        [EnumMember(Value = "SANCTIONS")]
         #pragma warning disable CS1591
-        Creating,
+        Sanctions,
         #pragma warning restore CS1591
-        [EnumMember(Value = "PENDING")]
+        [EnumMember(Value = "GENERAL_ENQUIRY")]
         #pragma warning disable CS1591
-        Pending,
+        GeneralEnquiry,
         #pragma warning restore CS1591
     }
 }

@@ -3,7 +3,7 @@
 using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions.Serialization;
 using Microsoft.Kiota.Abstractions;
-using Soenneker.Wise.OpenApiClient.Cases.Item.Comments;
+using Soenneker.Wise.OpenApiClient.Cases.Item.Messages;
 using Soenneker.Wise.OpenApiClient.Models;
 using System.Collections.Generic;
 using System.IO;
@@ -18,10 +18,10 @@ namespace Soenneker.Wise.OpenApiClient.Cases.Item
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class WithCaseItemRequestBuilder : BaseRequestBuilder
     {
-        /// <summary>The comments property</summary>
-        public global::Soenneker.Wise.OpenApiClient.Cases.Item.Comments.CommentsRequestBuilder Comments
+        /// <summary>The messages property</summary>
+        public global::Soenneker.Wise.OpenApiClient.Cases.Item.Messages.MessagesRequestBuilder Messages
         {
-            get => new global::Soenneker.Wise.OpenApiClient.Cases.Item.Comments.CommentsRequestBuilder(PathParameters, RequestAdapter);
+            get => new global::Soenneker.Wise.OpenApiClient.Cases.Item.Messages.MessagesRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Cases.Item.WithCaseItemRequestBuilder"/> and sets the default values.
@@ -40,30 +40,38 @@ namespace Soenneker.Wise.OpenApiClient.Cases.Item
         {
         }
         /// <summary>
-        /// This endpoint returns a partner case based on the specified case ID.
+        /// Retrieves the complete details of a support case including all public messagesand reference information.#### ResponseReturns the full case object with:- Case metadata (id, type, subType, status, timestamps)- Profile and external reference information- All public messages associated with the caseMessages in the response can have three different content structures:1. Attributes Content (REQUEST messages)Present in messages like `DEPOSIT_SANCTION_HIT_REQUEST`, `REFERENCE_SANCTION_HIT_REQUEST`, etc.Contains dynamic attributes that define what information is required.2. Submission Data Content (SUBMISSION messages)Present in messages like `DEPOSIT_SANCTION_HIT_SUBMISSION`, `REFERENCE_LOCATION_HIT_SUBMISSION`, etc.Contains the data submitted by the partner in response to a request.3. Text Content (FREEFORM messages)Present in `FREEFORM` messages. Contains free text conversation between partners and Wise.
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.CaseType"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.Case2"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Error400BadRequest">When receiving a 400 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Error401Unauthorized">When receiving a 401 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Error403Forbidden">When receiving a 403 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Error404NotFound">When receiving a 404 status code</exception>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.Models.CaseType?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.Case2?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.Models.CaseType> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.Case2> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
+                { "400", global::Soenneker.Wise.OpenApiClient.Models.Error400BadRequest.CreateFromDiscriminatorValue },
+                { "401", global::Soenneker.Wise.OpenApiClient.Models.Error401Unauthorized.CreateFromDiscriminatorValue },
+                { "403", global::Soenneker.Wise.OpenApiClient.Models.Error403Forbidden.CreateFromDiscriminatorValue },
+                { "404", global::Soenneker.Wise.OpenApiClient.Models.Error404NotFound.CreateFromDiscriminatorValue },
                 { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
             };
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.CaseType>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.CaseType.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.Case2>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.Case2.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// This endpoint returns a partner case based on the specified case ID.
+        /// Retrieves the complete details of a support case including all public messagesand reference information.#### ResponseReturns the full case object with:- Case metadata (id, type, subType, status, timestamps)- Profile and external reference information- All public messages associated with the caseMessages in the response can have three different content structures:1. Attributes Content (REQUEST messages)Present in messages like `DEPOSIT_SANCTION_HIT_REQUEST`, `REFERENCE_SANCTION_HIT_REQUEST`, etc.Contains dynamic attributes that define what information is required.2. Submission Data Content (SUBMISSION messages)Present in messages like `DEPOSIT_SANCTION_HIT_SUBMISSION`, `REFERENCE_LOCATION_HIT_SUBMISSION`, etc.Contains the data submitted by the partner in response to a request.3. Text Content (FREEFORM messages)Present in `FREEFORM` messages. Contains free text conversation between partners and Wise.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>

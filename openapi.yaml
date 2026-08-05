@@ -1100,56 +1100,69 @@ tags:
       series of API calls on behalf of an individual user will avoid issues with
       expired access tokens.
   - name: case
-    x-displayName: Partner Cases
-    description: >
-      Partner Cases are part of the Partner Support API, allowing partners to
-      open, retrieve and respond to support and operations queries.
+    x-displayName: Cases
+    description: >-
+      Cases enable you to open, retrieve, and respond to support and operations
+      queries through direct API.
 
 
-      The endpoints described here allow partners to directly integrate their
-      back end tooling with Wise's, allowing faster responses, better structure
-      to data, and operational efficiencies.
+      The Partner Support API allows you to integrate your back-end tooling,
+      enabling:
+
+      - Faster responses through automated workflows
+
+      - Structured data via typed messages and submissions
+
+      - Operational efficiencies with programmatic case management
 
 
-      {% admonition type="warning" %}
+      **Case statuses**
 
-      The Partner Support APIs are currently in a closed Beta and subject to
-      change. Please speak with your implementation manager if you would like to
-      integrate with these APIs.
+      - cases can move through different statuses.
+        
+      | Status | Description | Partner Action |
 
-      {% /admonition %}
+      |--------|-------------|----------------|
 
+      | `CREATING` | Case being created | Wait |
 
-      Case Statuses {% #case-statuses .title-3 .m-t-5 %}
+      | `IN_REVIEW` | Case being actioned | No action needed |
 
+      | `WAITING_CUSTOMER_INPUT` | Information required | Respond |
 
-      Partner cases can move through different statuses.
+      | `RESOLVED` | Case solved and closed | None |
 
-
-      | Status | Transitions to | Description |
-
-      |--------|---------------|-------------|
-
-      | `CREATING` | OPEN | Cases being created by Wise from a Partner call.
-      Once created, cases move into the open status. |
-
-      | `OPEN` | PENDING, SOLVED, CLOSED | Cases being actioned by Wise.
-      Partners do not need to action these cases. Note that we may update a case
-      in this status and not change it. |
-
-      | `PENDING` | OPEN, SOLVED, CLOSED | Cases that require additional
-      information from the partner. You should action these cases by reviewing
-      the newest comment and updating the case. |
-
-      | `SOLVED` | OPEN, PENDING, CLOSED | Cases that have been solved and
-      scheduled for closure. These can be re-opened by the partner or Wise if
-      needed before closing. |
-
-      | `CLOSED` | — | Cases that have been solved and closed. Once closed, they
-      cannot be reopened and a new case should be created if needed. |
+      | `FAILED` | Case creation failed | Contact support |
 
 
-      {% img src="/images/diagrams/case-flow.png" /%}
+      {% img src="/images/diagrams/case-status-flow-v2.svg" /%}
+
+
+      **Message types**
+
+      - Messages are typed and structured:
+
+
+      Request messages:
+
+      - `DEPOSIT_SANCTION_HIT_REQUEST`
+
+      - `RECIPIENT_SANCTION_HIT_REQUEST`
+
+      - `REFERENCE_SANCTION_HIT_REQUEST`
+
+      - `RECIPIENT_LOCATION_HIT_REQUEST`
+
+      - `REFERENCE_LOCATION_HIT_REQUEST`
+
+      - `FREEFORM` - Free text communication
+
+
+      Submission messages (from partner):
+
+      - `*_SUBMISSION` - Structured response to requests
+
+      - `FREEFORM` - Free text communication
   - name: payins
     x-displayName: Payins
     description: >-
@@ -11451,7 +11464,7 @@ paths:
   /cases:
     post:
       operationId: caseCreate
-      summary: Create a partner case
+      summary: Create a  case
       description: >
         Cases are used to collect or transmit additional information between
         Partners and Wise. Use this endpoint to create a new case.
@@ -11478,8 +11491,8 @@ paths:
                 type:
                   type: string
                   description: >-
-                    Type of the partner case. Value must be `GENERAL_ENQUIRY`.
-                    More case types will be added in the future.
+                    Type of the case. Value must be `GENERAL_ENQUIRY`. More case
+                    types will be added in the future.
                   example: GENERAL_ENQUIRY
                 subject:
                   type: string
@@ -11529,7 +11542,7 @@ paths:
                   example: Initial summary of the issue
       responses:
         '200':
-          description: Created partner case.
+          description: Created case.
           content:
             application/json:
               schema:
@@ -11546,108 +11559,574 @@ paths:
   /cases/{caseId}:
     get:
       operationId: caseGet
-      summary: Retrieve a partner case by ID
-      description: |
-        This endpoint returns a partner case based on the specified case ID.
-      tags:
-        - case
-      security:
-        - ClientCredentialsToken: []
-      parameters:
-        - name: caseId
-          in: path
-          required: true
-          description: Partner Case ID.
-          schema:
-            type: integer
-            format: int64
-        - $ref: '#/components/parameters/X-External-Correlation-Id'
-      responses:
-        '200':
-          description: Partner case object.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/case'
-          headers:
-            X-External-Correlation-Id:
-              $ref: '#/components/headers/X-External-Correlation-Id'
-            x-trace-id:
-              $ref: '#/components/headers/x-trace-id'
-        '429':
-          $ref: '#/components/responses/429'
-  /cases/{caseId}/comments:
-    get:
-      operationId: caseCommentsGet
-      summary: Retrieve partner case comments
+      summary: Retrieve a case by ID
       description: >
-        This endpoint returns a comments list object, which is an array of
-        comments that have been associated with the case. Comments are ordered
-        newest to oldest and are not paginated (all comments returned at once).
+        Retrieves the complete details of a support case including all public
+        messages
+
+        and reference information.
+
+
+        #### Response
+
+
+        Returns the full case object with:
+
+        - Case metadata (id, type, subType, status, timestamps)
+
+        - Profile and external reference information
+
+        - All public messages associated with the case
+
+
+        Messages in the response can have three different content structures:
+
+
+        1. Attributes Content (REQUEST messages)
+
+        Present in messages like `DEPOSIT_SANCTION_HIT_REQUEST`,
+        `REFERENCE_SANCTION_HIT_REQUEST`, etc.
+
+        Contains dynamic attributes that define what information is required.
+
+
+        2. Submission Data Content (SUBMISSION messages)
+
+        Present in messages like `DEPOSIT_SANCTION_HIT_SUBMISSION`,
+        `REFERENCE_LOCATION_HIT_SUBMISSION`, etc.
+
+        Contains the data submitted by the partner in response to a request.
+
+
+        3. Text Content (FREEFORM messages)
+
+        Present in `FREEFORM` messages. Contains free text conversation between
+        partners and Wise.
       tags:
         - case
       security:
         - ClientCredentialsToken: []
+      x-codeSamples:
+        - lang: bash
+          label: cURL
+          source: |
+            curl -X GET \
+              'https://api.sandbox.wise.com/2026Q3/cases/{caseId}' \
+              -H 'Content-Type: application/json' \
+              -H 'Authorization: Bearer <token>'
       parameters:
         - name: caseId
           in: path
           required: true
-          description: Partner Case ID.
+          description: The unique identifier of the case.
           schema:
             type: integer
             format: int64
+          example: 12345678
         - $ref: '#/components/parameters/X-External-Correlation-Id'
       responses:
         '200':
-          description: Comments list object.
+          description: Case details retrieved successfully
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type:
-                      - string
-                      - 'null'
-                    description: >-
-                      Message providing context for the response if the comments
-                      list is empty due to the case status being in `CREATING`.
-                      `null` if case has been created.
-                    example: null
-                  comments:
-                    type: array
-                    description: Array of comments associated with the case.
-                    items:
-                      type: object
-                      description: Comment object.
-                      properties:
-                        id:
-                          type: integer
-                          format: int64
-                          description: ID of the comment.
-                          example: 16554865464081
-                        plainBody:
-                          type: string
-                          description: >-
-                            The plain body of the comment. This can include
-                            simple markdown.
-                          example: |-
-                            We have resolved the issue with this transfer.
-
-                            Thank you!
-                        author:
-                          type: string
-                          description: >-
-                            The author of the comment. Can be either `PARTNER`
-                            or `WISE_AGENT`.
-                          example: WISE_AGENT
-                        createdAt:
-                          type: string
-                          format: date-time
-                          description: >-
-                            When the comment was created. Note that comments
-                            cannot be updated.
-                          example: '2023-06-28T15:22:29.901'
+                $ref: '#/components/schemas/case-2'
+              examples:
+                referenceSanctionHitResolved:
+                  summary: REFERENCE_SANCTION_HIT - Resolved case
+                  description: >-
+                    Real example showing request attributes and partner
+                    submission
+                  value:
+                    id: 485
+                    profileId: 220002553
+                    type: SANCTIONS
+                    subType: REFERENCE_SANCTION_HIT
+                    status: RESOLVED
+                    externalId: null
+                    createdAt: '2026-07-29T16:06:06.003'
+                    updatedAt: '2026-07-29T16:09:32.998'
+                    reference:
+                      type: TRANSFER
+                      referenceId: '2147513101'
+                    messages:
+                      - id: 67631430-77fd-4bbb-a8e0-fdfa67563d66
+                        caseId: 485
+                        createdAt: '2026-07-29T16:06:06.014'
+                        content:
+                          attributes:
+                            business:
+                              name:
+                                type: String
+                                required: true
+                              address:
+                                type: Address
+                                required: true
+                              natureOfBusiness:
+                                type: String
+                                required: false
+                              website:
+                                type: String
+                                required: false
+                            vessel:
+                              imoNumber:
+                                type: String
+                                required: true
+                            other:
+                              explanation:
+                                type: String
+                                required: true
+                            individual:
+                              name:
+                                type: String
+                                required: true
+                              dob:
+                                type: LocalDate
+                                required: false
+                              countryOfResidenceIso3:
+                                type: String
+                                required: false
+                              nationality:
+                                type: String
+                                required: false
+                        type: REFERENCE_SANCTION_HIT_REQUEST
+                        author: WISE_SYSTEM
+                      - id: 8c08894d-1e62-45c4-8332-cd1565916273
+                        caseId: 485
+                        createdAt: '2026-07-29T16:08:14.308'
+                        content:
+                          submissionData:
+                            individual:
+                              name: Mr. Robert Downy Junior
+                              countryOfResidenceIso3: GBR
+                        type: REFERENCE_SANCTION_HIT_SUBMISSION
+                        author: PARTNER
+                depositSanctionHitJourney:
+                  summary: DEPOSIT_SANCTION_HIT - Complete message journey
+                  description: Shows request, submission, and freeform conversation
+                  value:
+                    id: 12345001
+                    profileId: 987654321
+                    type: SANCTIONS
+                    subType: DEPOSIT_SANCTION_HIT
+                    status: IN_REVIEW
+                    externalId: PARTNER-DEPOSIT-001
+                    createdAt: '2026-07-25T10:00:00.000'
+                    updatedAt: '2026-07-27T14:30:00.000'
+                    reference:
+                      type: TRANSFER
+                      referenceId: '111222333'
+                    messages:
+                      - id: 11111111-1111-1111-1111-111111111111
+                        caseId: 12345001
+                        createdAt: '2026-07-25T10:00:00.000'
+                        content:
+                          attributes:
+                            individual:
+                              name:
+                                type: String
+                                required: true
+                              dob:
+                                type: LocalDate
+                                required: false
+                            business:
+                              name:
+                                type: String
+                                required: true
+                              address:
+                                type: Address
+                                required: true
+                              natureOfBusiness:
+                                type: String
+                                required: false
+                              website:
+                                type: String
+                                required: false
+                        type: DEPOSIT_SANCTION_HIT_REQUEST
+                        author: WISE_SYSTEM
+                      - id: 22222222-2222-2222-2222-222222222222
+                        caseId: 12345001
+                        createdAt: '2026-07-25T14:00:00.000'
+                        content:
+                          submissionData:
+                            individual:
+                              name: John Doe
+                              dob: '1985-03-15'
+                        type: DEPOSIT_SANCTION_HIT_SUBMISSION
+                        author: PARTNER
+                      - id: 33333333-3333-3333-3333-333333333333
+                        caseId: 12345001
+                        createdAt: '2026-07-26T09:00:00.000'
+                        content:
+                          text:
+                            freeText: >-
+                              Thank you for the submission. We have reviewed the
+                              information and require additional documentation
+                              to verify the individual's identity.
+                        type: FREEFORM
+                        author: WISE_AGENT
+                      - id: 44444444-4444-4444-4444-444444444444
+                        caseId: 12345001
+                        createdAt: '2026-07-27T14:30:00.000'
+                        content:
+                          text:
+                            freeText: >-
+                              Please find the requested identity documents
+                              attached. The individual is a verified customer
+                              since 2020.
+                        type: FREEFORM
+                        author: PARTNER
+                recipientSanctionHitJourney:
+                  summary: RECIPIENT_SANCTION_HIT - Complete message journey
+                  description: >-
+                    Shows individual submission with required
+                    countryOfResidenceIso3
+                  value:
+                    id: 12345002
+                    profileId: 987654322
+                    type: SANCTIONS
+                    subType: RECIPIENT_SANCTION_HIT
+                    status: IN_REVIEW
+                    externalId: PARTNER-RECIPIENT-001
+                    createdAt: '2026-07-24T08:00:00.000'
+                    updatedAt: '2026-07-26T11:00:00.000'
+                    reference:
+                      type: TRANSFER
+                      referenceId: '222333444'
+                    messages:
+                      - id: 55555555-5555-5555-5555-555555555555
+                        caseId: 12345002
+                        createdAt: '2026-07-24T08:00:00.000'
+                        content:
+                          attributes:
+                            individual:
+                              name:
+                                type: String
+                                required: true
+                              countryOfResidenceIso3:
+                                type: String
+                                required: true
+                              dob:
+                                type: LocalDate
+                                required: false
+                              nationality:
+                                type: String
+                                required: false
+                            business:
+                              name:
+                                type: String
+                                required: true
+                              address:
+                                type: Address
+                                required: true
+                              natureOfBusiness:
+                                type: String
+                                required: false
+                              website:
+                                type: String
+                                required: false
+                        type: RECIPIENT_SANCTION_HIT_REQUEST
+                        author: WISE_SYSTEM
+                      - id: 66666666-6666-6666-6666-666666666666
+                        caseId: 12345002
+                        createdAt: '2026-07-24T15:00:00.000'
+                        content:
+                          submissionData:
+                            individual:
+                              name: Jane Smith
+                              countryOfResidenceIso3: USA
+                              dob: '1990-07-22'
+                              nationality: American
+                        type: RECIPIENT_SANCTION_HIT_SUBMISSION
+                        author: PARTNER
+                      - id: 77777777-7777-7777-7777-777777777777
+                        caseId: 12345002
+                        createdAt: '2026-07-25T10:00:00.000'
+                        content:
+                          text:
+                            freeText: >-
+                              We need to verify the recipient's address. Please
+                              provide proof of address.
+                        type: FREEFORM
+                        author: WISE_AGENT
+                      - id: 88888888-8888-8888-8888-888888888888
+                        caseId: 12345002
+                        createdAt: '2026-07-26T11:00:00.000'
+                        content:
+                          text:
+                            freeText: >-
+                              Attached is the utility bill showing the
+                              recipient's address in New York, USA.
+                        type: FREEFORM
+                        author: PARTNER
+                referenceSanctionHitVesselJourney:
+                  summary: REFERENCE_SANCTION_HIT - Vessel submission
+                  description: Shows vessel submission for reference sanction hit
+                  value:
+                    id: 12345003
+                    profileId: 987654323
+                    type: SANCTIONS
+                    subType: REFERENCE_SANCTION_HIT
+                    status: RESOLVED
+                    externalId: null
+                    createdAt: '2026-07-20T09:00:00.000'
+                    updatedAt: '2026-07-23T16:00:00.000'
+                    reference:
+                      type: TRANSFER
+                      referenceId: '333444555'
+                    messages:
+                      - id: 99999999-9999-9999-9999-999999999999
+                        caseId: 12345003
+                        createdAt: '2026-07-20T09:00:00.000'
+                        content:
+                          attributes:
+                            individual:
+                              name:
+                                type: String
+                                required: true
+                              dob:
+                                type: LocalDate
+                                required: false
+                              countryOfResidenceIso3:
+                                type: String
+                                required: false
+                              nationality:
+                                type: String
+                                required: false
+                            business:
+                              name:
+                                type: String
+                                required: true
+                              address:
+                                type: Address
+                                required: true
+                              natureOfBusiness:
+                                type: String
+                                required: false
+                              website:
+                                type: String
+                                required: false
+                            vessel:
+                              imoNumber:
+                                type: String
+                                required: true
+                            other:
+                              explanation:
+                                type: String
+                                required: true
+                        type: REFERENCE_SANCTION_HIT_REQUEST
+                        author: WISE_SYSTEM
+                      - id: aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa
+                        caseId: 12345003
+                        createdAt: '2026-07-20T14:00:00.000'
+                        content:
+                          submissionData:
+                            vessel:
+                              vesselImoNumber: '9074729'
+                        type: REFERENCE_SANCTION_HIT_SUBMISSION
+                        author: PARTNER
+                      - id: bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb
+                        caseId: 12345003
+                        createdAt: '2026-07-22T10:00:00.000'
+                        content:
+                          text:
+                            freeText: >-
+                              We have verified the vessel IMO number. The vessel
+                              is not on any sanctions list. The case has been
+                              resolved.
+                        type: FREEFORM
+                        author: WISE_AGENT
+                referenceLocationHitJourney:
+                  summary: REFERENCE_LOCATION_HIT - Complete message journey
+                  description: Shows location submission for reference location hit
+                  value:
+                    id: 12345004
+                    profileId: 987654324
+                    type: SANCTIONS
+                    subType: REFERENCE_LOCATION_HIT
+                    status: WAITING_CUSTOMER_INPUT
+                    externalId: PARTNER-REF-LOC-001
+                    createdAt: '2026-07-26T07:00:00.000'
+                    updatedAt: '2026-07-28T09:00:00.000'
+                    reference:
+                      type: TRANSFER
+                      referenceId: '444555666'
+                    messages:
+                      - id: dddddddd-dddd-dddd-dddd-dddddddddddd
+                        caseId: 12345004
+                        createdAt: '2026-07-26T07:00:00.000'
+                        content:
+                          attributes:
+                            other:
+                              relatedToLocation:
+                                type: String
+                                required: true
+                              paymentExplanation:
+                                type: String
+                                required: true
+                              location:
+                                type: String
+                                required: true
+                              referenceDescription:
+                                type: String
+                                required: true
+                        type: REFERENCE_LOCATION_HIT_REQUEST
+                        author: WISE_SYSTEM
+                      - id: eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee
+                        caseId: 12345004
+                        createdAt: '2026-07-26T12:00:00.000'
+                        content:
+                          submissionData:
+                            other:
+                              relatedToLocation: >-
+                                Payment reference mentions a supplier in
+                                Belarus.
+                              paymentExplanation: Payment for agricultural equipment parts.
+                              location: Minsk, Belarus
+                              referenceDescription: Invoice INV-2026-001 for tractor parts.
+                        type: REFERENCE_LOCATION_HIT_SUBMISSION
+                        author: PARTNER
+                      - id: ffffffff-ffff-ffff-ffff-ffffffffffff
+                        caseId: 12345004
+                        createdAt: '2026-07-28T09:00:00.000'
+                        content:
+                          text:
+                            freeText: >-
+                              Please provide the original invoice and shipping
+                              documentation for verification.
+                        type: FREEFORM
+                        author: WISE_AGENT
+                recipientLocationHitJourney:
+                  summary: RECIPIENT_LOCATION_HIT - Complete message journey
+                  description: Shows location submission for recipient location hit
+                  value:
+                    id: 12345005
+                    profileId: 987654325
+                    type: SANCTIONS
+                    subType: RECIPIENT_LOCATION_HIT
+                    status: IN_REVIEW
+                    externalId: PARTNER-REC-LOC-001
+                    createdAt: '2026-07-27T06:00:00.000'
+                    updatedAt: '2026-07-28T15:00:00.000'
+                    reference:
+                      type: TRANSFER
+                      referenceId: '555666777'
+                    messages:
+                      - id: 11112222-3333-4444-5555-666677778888
+                        caseId: 12345005
+                        createdAt: '2026-07-27T06:00:00.000'
+                        content:
+                          attributes:
+                            other:
+                              relatedToLocation:
+                                type: String
+                                required: true
+                              paymentExplanation:
+                                type: String
+                                required: true
+                              location:
+                                type: String
+                                required: true
+                              businessWebsite:
+                                type: String
+                                required: false
+                        type: RECIPIENT_LOCATION_HIT_REQUEST
+                        author: WISE_SYSTEM
+                      - id: 22223333-4444-5555-6666-777788889999
+                        caseId: 12345005
+                        createdAt: '2026-07-27T11:00:00.000'
+                        content:
+                          submissionData:
+                            other:
+                              relatedToLocation: >-
+                                Recipient has a branch office in the flagged
+                                location.
+                              paymentExplanation: Payment for software development services.
+                              location: Moscow, Russia
+                              businessWebsite: https://www.techcorp-global.com
+                        type: RECIPIENT_LOCATION_HIT_SUBMISSION
+                        author: PARTNER
+                      - id: 33334444-5555-6666-7777-888899990000
+                        caseId: 12345005
+                        createdAt: '2026-07-28T10:00:00.000'
+                        content:
+                          text:
+                            freeText: >-
+                              Thank you for the information. Can you confirm
+                              that the services were rendered outside of Russia
+                              and provide the contract details?
+                        type: FREEFORM
+                        author: WISE_AGENT
+                      - id: 44445555-6666-7777-8888-999900001111
+                        caseId: 12345005
+                        createdAt: '2026-07-28T15:00:00.000'
+                        content:
+                          text:
+                            freeText: >-
+                              Confirmed. The development work was performed by
+                              the London office. Contract attached showing UK
+                              delivery address.
+                        type: FREEFORM
+                        author: PARTNER
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '400':
+          description: Bad request - invalid input parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error-400-bad-request'
+              example:
+                error: BAD_REQUEST
+                message: Invalid request body
+                errors:
+                  - field: type
+                    message: must not be null
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '401':
+          description: Unauthorized - missing or invalid authentication
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error-401-unauthorized'
+              example:
+                error: UNAUTHORIZED
+                message: Authentication required
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '403':
+          description: Forbidden - insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error-403-forbidden'
+              example:
+                error: FORBIDDEN
+                message: Insufficient permissions to access this resource
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '404':
+          description: Not found - the requested resource does not exist
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error-404-not-found'
+              example:
+                error: NOT_FOUND
+                message: Case not found
           headers:
             X-External-Correlation-Id:
               $ref: '#/components/headers/X-External-Correlation-Id'
@@ -11655,45 +12134,171 @@ paths:
               $ref: '#/components/headers/x-trace-id'
         '429':
           $ref: '#/components/responses/429'
-    put:
-      operationId: caseCommentCreate
-      summary: Add a partner case comment
-      description: |
-        This endpoint allows for a comment to be placed on a partner case.
+  /cases/{caseId}/messages:
+    post:
+      operationId: caseSubmitMessage
+      summary: Submit a message to a case
+      description: >
+        Submits a new message to an existing support case. The message type
+        determines
+
+        the expected structure of the submission data.
+
+
+        See the [Case submission
+        type](/guides/product/partner/submission-types.md) guide for details on
+        each submission type along with an example..
       tags:
         - case
       security:
         - ClientCredentialsToken: []
+      x-codeSamples:
+        - lang: bash
+          label: cURL
+          source: |
+            curl -X POST "https://api.wise.com/2026Q3/cases/12345678/messages" \
+              -H "Authorization: Bearer YOUR_API_TOKEN" \
+              -H "Content-Type: application/json" \
+              -d '{
+                "type": "FREEFORM",
+                "submissionData": {
+                  "freeText": "Following up on the requested documentation. We have verified the recipient identity through our internal KYC process. The beneficial owner structure has been confirmed with no exposure to sanctioned entities. Please find attached (via secure upload) the supporting documentation including: 1) Company registration certificate, 2) Director identification, 3) Source of funds declaration."
+                }
+              }'
       parameters:
         - name: caseId
           in: path
           required: true
-          description: Partner Case ID.
+          description: The unique identifier of the case.
           schema:
             type: integer
             format: int64
+          example: 12345678
         - $ref: '#/components/parameters/X-External-Correlation-Id'
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                comment:
-                  type: string
-                  description: >-
-                    The comment that you want to add to the case. This can
-                    include markdown. The maximum size of the comment is 65,535
-                    characters. If additional characters are sent, the field
-                    will be truncated.
-                  example: |-
-                    Please see the attached information as requested.
-
-                    Transfer Details....
+              $ref: '#/components/schemas/message-submission-request'
+            examples:
+              freeform:
+                summary: FREEFORM
+                description: Free text message submission
+                value:
+                  type: FREEFORM
+                  submissionData:
+                    freeText: >-
+                      The transfer has been verified and approved by our
+                      compliance team.
       responses:
-        '200':
-          description: Successfully updated. No response body.
+        '201':
+          description: Message submitted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/message-submission-response'
+              examples:
+                freeformResponse:
+                  summary: FREEFORM message created
+                  value:
+                    id: 660e8400-e29b-41d4-a716-446655440001
+                    caseId: 12345678
+                    createdAt: '2026-07-27T15:00:00.000'
+                    content:
+                      text:
+                        freeText: >-
+                          The transfer has been verified and approved by our
+                          compliance team.
+                    type: FREEFORM
+                    author: PARTNER
+                sanctionHitResponse:
+                  summary: Sanction hit submission created
+                  value:
+                    id: 770e8400-e29b-41d4-a716-446655440002
+                    caseId: 12345678
+                    createdAt: '2026-07-27T15:05:00.000'
+                    content:
+                      submissionData:
+                        individual:
+                          name: John Doe
+                          dob: 15/03/1985
+                          nationality: British
+                    type: DEPOSIT_SANCTION_HIT_SUBMISSION
+                    author: PARTNER
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '400':
+          description: Bad request - invalid input parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error-400-bad-request'
+              example:
+                error: BAD_REQUEST
+                message: Invalid request body
+                errors:
+                  - field: type
+                    message: must not be null
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '401':
+          description: Unauthorized - missing or invalid authentication
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error-401-unauthorized'
+              example:
+                error: UNAUTHORIZED
+                message: Authentication required
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '403':
+          description: Forbidden - insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error-403-forbidden'
+              example:
+                error: FORBIDDEN
+                message: Insufficient permissions to access this resource
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '404':
+          description: Not found - the requested resource does not exist
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error-404-not-found'
+              example:
+                error: NOT_FOUND
+                message: Case not found
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '422':
+          description: Unprocessable Entity Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error-422-unprocessable-entity'
+              example:
+                error: NOT_FOUND
+                message: Case not found
           headers:
             X-External-Correlation-Id:
               $ref: '#/components/headers/X-External-Correlation-Id'
@@ -23673,9 +24278,9 @@ webhooks:
       operationId: eventPartnerSupportCaseChanged
       summary: Partner support case changed
       description: >
-        Triggered every time a partner case is updated, including if commented
-        on or if the status is changed. Note that you will also receive a
-        webhook response when you have created a new case or updated a case.
+        Triggered every time a case is updated, including if commented on or if
+        the status is changed. Note that you will also receive a webhook
+        response when you have created a new case or updated a case.
 
 
         {% admonition type="warning" name="Endpoint in BETA" %}
@@ -27537,23 +28142,18 @@ components:
         id:
           type: integer
           format: int64
-          description: Partner Case ID. Generated by Wise.
+          description: Case ID. Generated by Wise.
           example: 123456789
         status:
           type: string
-          description: '[Status of the case](/api-reference/case#case-statuses).'
+          description: Status of the case
           enum:
             - CREATING
-            - OPEN
             - PENDING
-            - SOLVED
-            - CLOSED
-          example: PENDING
+          example: CREATING
         type:
           type: string
-          description: >-
-            Type of the partner case. More case types will be added in the
-            future.
+          description: Type of the case. More case types will be added in the future.
           enum:
             - GENERAL_ENQUIRY
           example: GENERAL_ENQUIRY
@@ -27566,13 +28166,1180 @@ components:
         createdAt:
           type: string
           format: date-time
-          description: When the partner case was originally created.
+          description: When the  case was originally created.
           example: '2023-06-28T15:21:24.901'
         updatedAt:
           type: string
           format: date-time
-          description: When the partner case was last updated.
+          description: When the case was last updated.
           example: '2023-06-28T15:21:24.901'
+    content-attributes:
+      type: object
+      title: Attributes Content (REQUEST messages)
+      description: >
+        Content structure for REQUEST messages (e.g.,
+        DEPOSIT_SANCTION_HIT_REQUEST).
+
+        Contains dynamic attributes that define what information is required
+        from the partner.
+
+
+        The attributes object contains ALL possible entity types for the case
+        subtype.
+
+        The partner should submit data for ONE of the entity types.
+      properties:
+        attributes:
+          type: object
+          description: >-
+            Dynamic attributes defining required information for each entity
+            type.
+          properties:
+            individual:
+              type: object
+              description: Attributes for individual entity type.
+              properties:
+                name:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      example: String
+                    required:
+                      type: boolean
+                      example: true
+                dob:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      example: LocalDate
+                    required:
+                      type: boolean
+                      example: false
+                countryOfResidenceIso3:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      example: String
+                    required:
+                      type: boolean
+                      example: false
+                nationality:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      example: String
+                    required:
+                      type: boolean
+                      example: false
+            business:
+              type: object
+              description: Attributes for business/organisation entity type.
+              properties:
+                name:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      example: String
+                    required:
+                      type: boolean
+                      example: true
+                address:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      example: Address
+                    required:
+                      type: boolean
+                      example: true
+                natureOfBusiness:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      example: String
+                    required:
+                      type: boolean
+                      example: false
+                website:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      example: String
+                    required:
+                      type: boolean
+                      example: false
+            vessel:
+              type: object
+              description: Attributes for vessel entity type.
+              properties:
+                imoNumber:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      example: String
+                    required:
+                      type: boolean
+                      example: true
+            other:
+              type: object
+              description: Attributes for other entity type or location hit.
+              additionalProperties: true
+      required:
+        - attributes
+      example:
+        attributes:
+          business:
+            name:
+              type: String
+              required: true
+            address:
+              type: Address
+              required: true
+            natureOfBusiness:
+              type: String
+              required: false
+            website:
+              type: String
+              required: false
+          vessel:
+            imoNumber:
+              type: String
+              required: true
+          other:
+            explanation:
+              type: String
+              required: true
+          individual:
+            name:
+              type: String
+              required: true
+            dob:
+              type: LocalDate
+              required: false
+            countryOfResidenceIso3:
+              type: String
+              required: false
+            nationality:
+              type: String
+              required: false
+    content-submission-data:
+      type: object
+      title: Submission Data Content (SUBMISSION messages)
+      description: >-
+        Content structure for SUBMISSION messages containing partner-submitted
+        data.
+      properties:
+        submissionData:
+          type: object
+          description: The data submitted by the partner. Contains ONE entity type.
+          oneOf:
+            - title: Individual submission
+              type: object
+              properties:
+                individual:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      example: Mr. Robert Downy Junior
+                    dob:
+                      type: string
+                      example: '1985-03-15'
+                    countryOfResidenceIso3:
+                      type: string
+                      example: GBR
+                    nationality:
+                      type: string
+                      example: British
+                  required:
+                    - name
+            - title: Organisation submission
+              type: object
+              properties:
+                organisation:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    streetAddress:
+                      type: string
+                    city:
+                      type: string
+                    postCode:
+                      type: string
+                    countryIso3:
+                      type: string
+                    natureOfBusiness:
+                      type: string
+                    website:
+                      type: string
+                  required:
+                    - name
+                    - streetAddress
+                    - city
+                    - postCode
+                    - countryIso3
+            - title: Vessel submission
+              type: object
+              properties:
+                vessel:
+                  type: object
+                  properties:
+                    vesselImoNumber:
+                      type: string
+                      example: '9074729'
+                  required:
+                    - vesselImoNumber
+            - title: Multiple submission
+              type: object
+              properties:
+                multiple:
+                  type: object
+                  properties:
+                    explanation:
+                      type: string
+                  required:
+                    - explanation
+            - title: Other/Location submission
+              type: object
+              properties:
+                other:
+                  type: object
+                  additionalProperties: true
+      required:
+        - submissionData
+      example:
+        submissionData:
+          individual:
+            name: Mr. Robert Downy Junior
+            countryOfResidenceIso3: GBR
+    content-text:
+      type: object
+      title: Text Content (FREEFORM messages)
+      description: >-
+        Content structure for FREEFORM messages containing free text
+        conversation.
+      properties:
+        text:
+          type: object
+          description: Text content object.
+          properties:
+            freeText:
+              type: string
+              description: The free text message content.
+              example: Thank you for the submission. We have reviewed the information.
+          required:
+            - freeText
+      required:
+        - text
+      example:
+        text:
+          freeText: Please find the requested identity documents attached.
+    case-message-content:
+      type: object
+      description: >
+        The content of a case message. The structure varies based on the message
+        type:
+
+
+        - **attributes**: Present in *_REQUEST messages. Contains dynamic
+        attributes defining required information.
+
+        - **submissionData**: Present in *_SUBMISSION messages. Contains
+        partner-submitted data.
+
+        - **text**: Present in FREEFORM messages. Contains free text
+        conversation.
+      oneOf:
+        - $ref: '#/components/schemas/content-attributes'
+        - $ref: '#/components/schemas/content-submission-data'
+        - $ref: '#/components/schemas/content-text'
+    case-message-author:
+      type: string
+      description: The author of the case message.
+      enum:
+        - WISE_SYSTEM
+        - PARTNER
+        - WISE_AGENT
+      example: PARTNER
+    case-message:
+      type: object
+      description: A message within a support case.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier of the message (UUID v4).
+          minLength: 36
+          maxLength: 36
+          example: 67631430-77fd-4bbb-a8e0-fdfa67563d66
+        caseId:
+          type: integer
+          format: int64
+          description: The ID of the case this message belongs to.
+          example: 485
+        createdAt:
+          type: string
+          format: date-time
+          description: >
+            Timestamp when the message was created.
+
+            Format: ISO 8601 datetime without timezone
+            (YYYY-MM-DDTHH:mm:ss.SSS).
+          example: '2026-07-29T16:06:06.014'
+        content:
+          $ref: '#/components/schemas/case-message-content'
+        type:
+          type: string
+          description: The type of the case message.
+          maxLength: 128
+          enum:
+            - FREEFORM
+            - RECIPIENT_LOCATION_HIT_REQUEST
+            - REFERENCE_LOCATION_HIT_REQUEST
+            - RECIPIENT_SANCTION_HIT_REQUEST
+            - REFERENCE_SANCTION_HIT_REQUEST
+            - DEPOSIT_SANCTION_HIT_REQUEST
+            - DEPOSIT_SANCTION_HIT_SUBMISSION
+            - REFERENCE_SANCTION_HIT_SUBMISSION
+            - RECIPIENT_SANCTION_HIT_SUBMISSION
+            - REFERENCE_LOCATION_HIT_SUBMISSION
+            - RECIPIENT_LOCATION_HIT_SUBMISSION
+          example: REFERENCE_SANCTION_HIT_REQUEST
+        author:
+          $ref: '#/components/schemas/case-message-author'
+      required:
+        - id
+        - caseId
+        - createdAt
+        - content
+        - type
+        - author
+    case-2:
+      type: object
+      description: >-
+        A support case with its complete details including messages and
+        references.
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique identifier of the case.
+          example: 485
+        profileId:
+          type: integer
+          format: int64
+          description: The profile ID associated with this case.
+          example: 220002553
+        type:
+          type: string
+          description: The type of the support case.
+          maxLength: 255
+          enum:
+            - SANCTIONS
+            - GENERAL_ENQUIRY
+          example: SANCTIONS
+        subType:
+          type: string
+          description: The sub-type of the support case.
+          maxLength: 128
+          enum:
+            - RECIPIENT_LOCATION_HIT
+            - REFERENCE_LOCATION_HIT
+            - RECIPIENT_SANCTION_HIT
+            - REFERENCE_SANCTION_HIT
+            - DEPOSIT_SANCTION_HIT
+          example: REFERENCE_SANCTION_HIT
+        status:
+          type: string
+          description: The current status of the support case.
+          maxLength: 255
+          enum:
+            - CREATING
+            - IN_REVIEW
+            - WAITING_CUSTOMER_INPUT
+            - RESOLVED
+            - FAILED
+          example: IN_REVIEW
+        externalId:
+          type: string
+          description: Partner-created identifier for this case, if applicable.
+          maxLength: 255
+          example: PARTNER-CASE-001
+        createdAt:
+          type: string
+          format: date-time
+          description: >
+            Timestamp when the case was created.
+
+            Format: ISO 8601 datetime without timezone
+            (YYYY-MM-DDTHH:mm:ss.SSS).
+          example: '2026-07-29T16:06:06.003'
+        updatedAt:
+          type: string
+          format: date-time
+          description: >
+            Timestamp when the case was last updated.
+
+            Format: ISO 8601 datetime without timezone
+            (YYYY-MM-DDTHH:mm:ss.SSS).
+          example: '2026-07-29T16:09:32.998'
+        reference:
+          type: object
+          description: Reference information linking the case to a related entity.
+          properties:
+            type:
+              type: string
+              maxLength: 128
+              enum:
+                - TRANSFER
+              example: TRANSFER
+            referenceId:
+              type: string
+              maxLength: 128
+              example: '2147513101'
+          required:
+            - type
+            - referenceId
+        messages:
+          type: array
+          description: List of messages associated with this case.
+          items:
+            $ref: '#/components/schemas/case-message'
+      required:
+        - id
+        - profileId
+        - type
+        - status
+        - createdAt
+        - messages
+    validation-error:
+      type: object
+      title: Validation Error
+      description: Details about a specific field validation error.
+      properties:
+        field:
+          type: string
+          description: >
+            The field path that caused the validation error.
+
+            Uses dot notation for nested fields (e.g.,
+            `submissionData.individual.name`).
+          example: type
+        message:
+          type: string
+          description: Description of what validation rule was violated.
+          example: must not be null
+        rejectedValue:
+          description: The value that was rejected (if applicable).
+          example: null
+      required:
+        - field
+        - message
+      example:
+        field: submissionData.individual.name
+        message: must not be blank
+        rejectedValue: ''
+    error-response:
+      type: object
+      title: Error Response
+      description: |
+        Standard error response structure returned by the API.
+
+        All error responses follow this consistent format with an error code,
+        human-readable message, and optional validation errors array.
+      properties:
+        error:
+          type: string
+          description: |
+            Machine-readable error code indicating the type of error.
+
+            Common codes:
+            - `BAD_REQUEST` - Invalid request format or parameters
+            - `VALIDATION_ERROR` - Request body validation failed
+            - `RESOURCE_NOT_FOUND` - Requested resource does not exist
+            - `UNAUTHORIZED` - Authentication required or failed
+            - `FORBIDDEN` - Insufficient permissions
+            - `CONFLICT` - Operation conflicts with current state
+            - `INTERNAL_SERVER_ERROR` - Unexpected server error
+          example: BAD_REQUEST
+        message:
+          type: string
+          description: Human-readable error message describing what went wrong.
+          example: Invalid request body
+        timestamp:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the error occurred.
+          example: '2026-08-03T10:30:00.000Z'
+        path:
+          type: string
+          description: The request path that caused the error.
+          example: /public/2026Q3/v2/cases/12345678
+        errors:
+          type: array
+          description: |
+            List of field-level validation errors.
+            Only present for validation errors (HTTP 400).
+          items:
+            $ref: '#/components/schemas/validation-error'
+      required:
+        - error
+        - message
+    error-400-bad-request:
+      allOf:
+        - $ref: '#/components/schemas/error-response'
+        - type: object
+          title: Bad Request Error (400)
+          description: |
+            Returned when the request is malformed or contains invalid data.
+
+            **Common causes:**
+            - Missing required fields (`type`, `submissionData`)
+            - Invalid enum values for `type`
+            - Malformed JSON in request body
+            - Invalid field values that fail validation
+          properties:
+            error:
+              example: BAD_REQUEST
+            message:
+              example: Invalid request body
+          example:
+            error: BAD_REQUEST
+            message: Validation failed for request body
+            timestamp: '2026-08-03T10:30:00.000Z'
+            path: /public/2026Q3/v2/cases/12345678/messages
+            errors:
+              - field: type
+                message: must not be null
+              - field: submissionData
+                message: must not be null
+    error-401-unauthorized:
+      allOf:
+        - $ref: '#/components/schemas/error-response'
+        - type: object
+          title: Unauthorized Error (401)
+          description: |
+            Returned when authentication is missing or invalid.
+
+            **Common causes:**
+            - Missing `Authorization` header
+            - Invalid or expired API token
+            - Malformed authorization header format
+          properties:
+            error:
+              example: UNAUTHORIZED
+            message:
+              example: Authentication required
+          example:
+            error: UNAUTHORIZED
+            message: Invalid or missing authentication credentials
+            timestamp: '2026-08-03T10:30:00.000Z'
+            path: /public/2026Q3/v2/cases/12345678
+    error-403-forbidden:
+      allOf:
+        - $ref: '#/components/schemas/error-response'
+        - type: object
+          title: Forbidden Error (403)
+          description: >
+            Returned when the authenticated client lacks permission to access
+            the resource.
+
+
+            **Common causes:**
+
+            - Case belongs to a different partner (client key mismatch)
+
+            - Attempting to access a case type not permitted for this client
+          properties:
+            error:
+              example: FORBIDDEN
+            message:
+              example: Access denied
+          example:
+            error: FORBIDDEN
+            message: You do not have permission to access this resource
+            timestamp: '2026-08-03T10:30:00.000Z'
+            path: /public/2026Q3/v2/cases/12345678
+    error-404-not-found:
+      allOf:
+        - $ref: '#/components/schemas/error-response'
+        - type: object
+          title: Not Found Error (404)
+          description: |
+            Returned when the requested case does not exist.
+
+            **Common causes:**
+            - Invalid `caseId` that doesn't exist
+            - Case was deleted or archived
+            - Typo in the case ID
+          properties:
+            error:
+              example: RESOURCE_NOT_FOUND
+            message:
+              example: Case not found
+          example:
+            error: RESOURCE_NOT_FOUND
+            message: Case with id 99999999 not found
+            timestamp: '2026-08-03T10:30:00.000Z'
+            path: /public/2026Q3/v2/cases/99999999
+    message-submission-type:
+      type: string
+      description: The type of message submission.
+      enum:
+        - FREEFORM
+        - DEPOSIT_SANCTION_HIT_SUBMISSION
+        - REFERENCE_SANCTION_HIT_SUBMISSION
+        - RECIPIENT_SANCTION_HIT_SUBMISSION
+        - REFERENCE_LOCATION_HIT_SUBMISSION
+        - RECIPIENT_LOCATION_HIT_SUBMISSION
+      example: FREEFORM
+    submission-data-freeform:
+      type: object
+      title: FREEFORM Submission Data
+      description: |
+        Submission data for FREEFORM message type.
+        Used for general text-based communication on a case.
+
+        **Prerequisites:**
+        - Case must not be in RESOLVED or FAILED status
+
+        **Validation Rules:**
+        - `freeText` is REQUIRED and must be non-blank
+      properties:
+        freeText:
+          type: string
+          description: >
+            The free-form text message to submit.
+
+            Can include additional context, questions, or documentation
+            references.
+          minLength: 1
+          maxLength: 10000
+          example: The transfer has been verified and approved by our compliance team.
+      required:
+        - freeText
+      example:
+        freeText: Please find attached the requested documentation for this transfer.
+    submission-individual:
+      type: object
+      title: Individual Submission
+      description: |
+        Submission data for an individual entity.
+
+        **Validation Rules:**
+        - `name` is REQUIRED for all individual submissions
+        - `countryOfResidenceIso3` is REQUIRED for:
+          - RECIPIENT_SANCTION_HIT_SUBMISSION
+          - REFERENCE_SANCTION_HIT_SUBMISSION
+      properties:
+        individual:
+          type: object
+          properties:
+            name:
+              type: string
+              description: Full name of the individual.
+              minLength: 1
+              maxLength: 255
+              example: John Doe
+            countryOfResidenceIso3:
+              type: string
+              description: |
+                ISO 3166-1 alpha-3 country code for country of residence.
+                REQUIRED for RECIPIENT and REFERENCE sanction hit submissions.
+              minLength: 3
+              maxLength: 3
+              example: GBR
+            dob:
+              type: string
+              description: |
+                Date of birth.
+                Accepted formats: DD/MM/YYYY or YYYY-MM-DD
+              maxLength: 10
+              example: 15/03/1985
+            nationality:
+              type: string
+              description: Nationality of the individual.
+              maxLength: 100
+              example: British
+          required:
+            - name
+      required:
+        - individual
+      example:
+        individual:
+          name: John Doe
+          countryOfResidenceIso3: GBR
+          dob: 15/03/1985
+          nationality: British
+    submission-organisation:
+      type: object
+      title: Organisation Submission
+      description: |
+        Submission data for an organisation entity.
+
+        **Validation Rules:**
+        - All fields marked as required must be non-blank strings
+        - `countryIso3` must be a valid ISO 3166-1 alpha-3 country code
+      properties:
+        organisation:
+          type: object
+          properties:
+            name:
+              type: string
+              description: Name of the organisation.
+              minLength: 1
+              maxLength: 255
+              example: Acme Corporation Ltd
+            streetAddress:
+              type: string
+              description: Street address of the organisation.
+              minLength: 1
+              maxLength: 500
+              example: 123 Business Park
+            city:
+              type: string
+              description: City where the organisation is located.
+              minLength: 1
+              maxLength: 100
+              example: London
+            postCode:
+              type: string
+              description: Postal code of the organisation's address.
+              minLength: 1
+              maxLength: 20
+              example: EC1A 1BB
+            countryIso3:
+              type: string
+              description: ISO 3166-1 alpha-3 country code.
+              minLength: 3
+              maxLength: 3
+              example: GBR
+            natureOfBusiness:
+              type: string
+              description: Description of the organisation's business activities.
+              maxLength: 500
+              example: Financial Services
+            website:
+              type: string
+              description: Organisation's website URL.
+              format: uri
+              maxLength: 500
+              example: https://www.acme-corp.com
+          required:
+            - name
+            - streetAddress
+            - city
+            - postCode
+            - countryIso3
+      required:
+        - organisation
+      example:
+        organisation:
+          name: Acme Corporation Ltd
+          streetAddress: 123 Business Park
+          city: London
+          postCode: EC1A 1BB
+          countryIso3: GBR
+          natureOfBusiness: Financial Services
+          website: https://www.acme-corp.com
+    submission-vessel:
+      type: object
+      title: Vessel Submission
+      description: >
+        Submission data for a vessel entity.
+
+        Only valid for REFERENCE_SANCTION_HIT_SUBMISSION.
+
+
+        **Validation Rules:**
+
+        - `vesselImoNumber` is REQUIRED and must be non-blank
+
+        - IMO numbers are 7-digit identifiers issued by the International
+        Maritime Organization
+      properties:
+        vessel:
+          type: object
+          properties:
+            vesselImoNumber:
+              type: string
+              description: |
+                International Maritime Organization (IMO) number of the vessel.
+                IMO numbers are 7 digits, sometimes prefixed with "IMO".
+              minLength: 1
+              maxLength: 20
+              example: '9074729'
+          required:
+            - vesselImoNumber
+      required:
+        - vessel
+      example:
+        vessel:
+          vesselImoNumber: '9074729'
+    submission-multiple:
+      type: object
+      title: Multiple Submission
+      description: |
+        Submission data when multiple entities are involved.
+        Only valid for REFERENCE_SANCTION_HIT_SUBMISSION.
+
+        **Validation Rules:**
+        - `explanation` is REQUIRED and must be non-blank
+        - Provide clear details about all entities involved
+      properties:
+        multiple:
+          type: object
+          properties:
+            explanation:
+              type: string
+              description: |
+                Explanation describing the multiple entities involved.
+                Should include details about all parties and their relationship.
+              minLength: 1
+              maxLength: 2000
+              example: >-
+                Transfer involves multiple beneficiaries as part of a group
+                payment arrangement.
+          required:
+            - explanation
+      required:
+        - multiple
+      example:
+        multiple:
+          explanation: >-
+            Transfer involves multiple beneficiaries as part of a group payment
+            arrangement for a consortium project.
+    submission-other:
+      type: object
+      title: Other Submission
+      description: >
+        Submission data for other entity types not covered by standard
+        categories.
+
+        Only valid for REFERENCE_SANCTION_HIT_SUBMISSION.
+
+
+        **Validation Rules:**
+
+        - `explanation` is REQUIRED and must be non-blank
+
+        - Use when the entity doesn't fit individual, organisation, vessel, or
+        multiple categories
+      properties:
+        other:
+          type: object
+          properties:
+            explanation:
+              type: string
+              description: |
+                Free-form explanation for the entity.
+                Describe the entity type and relevant details.
+              minLength: 1
+              maxLength: 2000
+              example: >-
+                This is a government entity that does not fit standard
+                categories.
+          required:
+            - explanation
+      required:
+        - other
+      example:
+        other:
+          explanation: >-
+            This is a government entity that does not fit standard categories.
+            It is the Ministry of Commerce.
+    submission-data-sanction-hit:
+      type: object
+      title: Sanction Hit Submission Data
+      description: >
+        Submission data for sanction hit cases. Used for:
+
+        - DEPOSIT_SANCTION_HIT_SUBMISSION
+
+        - REFERENCE_SANCTION_HIT_SUBMISSION
+
+        - RECIPIENT_SANCTION_HIT_SUBMISSION
+
+
+        **Important**: Only ONE of the entity types should be provided per
+        submission.
+
+
+        ### Validation Rules by Submission Type:
+
+
+        **DEPOSIT_SANCTION_HIT_SUBMISSION**:
+
+        - Must contain either `individual` OR `organisation` (exactly one)
+
+
+        **RECIPIENT_SANCTION_HIT_SUBMISSION**:
+
+        - Must contain either `individual` OR `organisation` (exactly one)
+
+        - If `individual`, `countryOfResidenceIso3` is REQUIRED
+
+
+        **REFERENCE_SANCTION_HIT_SUBMISSION**:
+
+        - Must contain exactly one of: `individual`, `organisation`, `multiple`,
+        `vessel`, or `other`
+
+        - If `individual`, `countryOfResidenceIso3` is REQUIRED
+      oneOf:
+        - $ref: '#/components/schemas/submission-individual'
+        - $ref: '#/components/schemas/submission-organisation'
+        - $ref: '#/components/schemas/submission-vessel'
+        - $ref: '#/components/schemas/submission-multiple'
+        - $ref: '#/components/schemas/submission-other'
+    submission-reference-location:
+      type: object
+      title: Reference Location Hit Submission
+      description: >
+        Submission data for REFERENCE_LOCATION_HIT_SUBMISSION.
+
+        Used when a payment reference triggers a location-based compliance
+        check.
+
+
+        **Validation Rules:**
+
+        - All fields in `other` are REQUIRED
+
+        - All required fields must be non-blank strings
+      properties:
+        other:
+          type: object
+          properties:
+            relatedToLocation:
+              type: string
+              description: >-
+                Explanation of how the reference is related to the flagged
+                location.
+              minLength: 1
+              maxLength: 2000
+              example: Payment reference mentions a supplier in Belarus.
+            paymentExplanation:
+              type: string
+              description: Explanation of the purpose of the payment.
+              minLength: 1
+              maxLength: 2000
+              example: Payment for agricultural equipment parts.
+            location:
+              type: string
+              description: The specific location being addressed.
+              minLength: 1
+              maxLength: 255
+              example: Minsk, Belarus
+            referenceDescription:
+              type: string
+              description: >-
+                Description of the payment reference that triggered the location
+                hit.
+              minLength: 1
+              maxLength: 2000
+              example: >-
+                Invoice INV-2026-001 for tractor parts shipped from Minsk
+                warehouse.
+          required:
+            - relatedToLocation
+            - paymentExplanation
+            - location
+            - referenceDescription
+      required:
+        - other
+      example:
+        other:
+          relatedToLocation: Payment reference mentions a supplier in Belarus.
+          paymentExplanation: Payment for agricultural equipment parts from authorised supplier.
+          location: Minsk, Belarus
+          referenceDescription: Invoice INV-2026-001 for tractor parts shipped from Minsk warehouse.
+    submission-recipient-location:
+      type: object
+      title: Recipient Location Hit Submission
+      description: |
+        Submission data for RECIPIENT_LOCATION_HIT_SUBMISSION.
+        Used when a recipient's location triggers a compliance check.
+
+        **Validation Rules:**
+        - `relatedToLocation`, `paymentExplanation`, and `location` are REQUIRED
+        - `businessWebsite` is optional
+        - All required fields must be non-blank strings
+      properties:
+        other:
+          type: object
+          properties:
+            relatedToLocation:
+              type: string
+              description: >-
+                Explanation of how the recipient is related to the flagged
+                location.
+              minLength: 1
+              maxLength: 2000
+              example: Recipient has a registered business address in the location.
+            paymentExplanation:
+              type: string
+              description: Explanation of the purpose of the payment.
+              minLength: 1
+              maxLength: 2000
+              example: Payment for software development services.
+            location:
+              type: string
+              description: The specific location being addressed.
+              minLength: 1
+              maxLength: 255
+              example: Suspicous City, Country
+            businessWebsite:
+              type: string
+              description: Website of the recipient's business (optional).
+              format: uri
+              maxLength: 500
+              example: https://www.techcorp-global.com
+          required:
+            - relatedToLocation
+            - paymentExplanation
+            - location
+      required:
+        - other
+      example:
+        other:
+          relatedToLocation: Recipient has a registered branch office in the flagged location.
+          paymentExplanation: Payment for software development services rendered under contract.
+          location: Suspicous City, Country
+          businessWebsite: https://www.techcorp-global.com
+    submission-data-location-hit:
+      type: object
+      title: Location Hit Submission Data
+      description: |
+        Submission data for location hit cases. Used for:
+        - REFERENCE_LOCATION_HIT_SUBMISSION
+        - RECIPIENT_LOCATION_HIT_SUBMISSION
+
+        Both types require an `other` object with location-specific details.
+      anyOf:
+        - $ref: '#/components/schemas/submission-reference-location'
+        - $ref: '#/components/schemas/submission-recipient-location'
+    message-submission-request:
+      type: object
+      description: |
+        Request body for submitting a message to a case.
+
+        The structure of `submissionData` depends on the `type` field.
+      properties:
+        type:
+          $ref: '#/components/schemas/message-submission-type'
+        submissionData:
+          type: object
+          description: >
+            The data for the message submission. Structure varies based on
+            submission type.
+          oneOf:
+            - $ref: '#/components/schemas/submission-data-freeform'
+            - $ref: '#/components/schemas/submission-data-sanction-hit'
+            - $ref: '#/components/schemas/submission-data-location-hit'
+      required:
+        - type
+        - submissionData
+    message-submission-response:
+      type: object
+      description: Response returned after successfully submitting a message.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier of the created message (UUID v4).
+          minLength: 36
+          maxLength: 36
+          example: 660e8400-e29b-41d4-a716-446655440001
+        caseId:
+          type: integer
+          format: int64
+          description: The ID of the case this message belongs to.
+          example: 12345678
+        createdAt:
+          type: string
+          format: date-time
+          description: |
+            Timestamp when the message was created.
+            Format: ISO 8601 datetime without timezone (server timezone is UTC).
+          example: '2026-07-27T15:00:00.000'
+        content:
+          type: object
+          description: |
+            The content of the created message.
+            - For FREEFORM: contains `text.freeText`
+            - For SUBMISSION types: contains `submissionData`
+          additionalProperties: true
+        type:
+          type: string
+          description: The type of the created message.
+          enum:
+            - FREEFORM
+            - DEPOSIT_SANCTION_HIT_SUBMISSION
+            - REFERENCE_SANCTION_HIT_SUBMISSION
+            - RECIPIENT_SANCTION_HIT_SUBMISSION
+            - REFERENCE_LOCATION_HIT_SUBMISSION
+            - RECIPIENT_LOCATION_HIT_SUBMISSION
+          example: FREEFORM
+        author:
+          type: string
+          description: The author of the message (always PARTNER for submitted messages).
+          enum:
+            - PARTNER
+          example: PARTNER
+      required:
+        - id
+        - caseId
+        - createdAt
+        - content
+        - type
+        - author
+    error-422-unprocessable-entity:
+      allOf:
+        - $ref: '#/components/schemas/error-response'
+        - type: object
+          title: Unprocessable Entity Error (422)
+          description: >
+            Returned when the request is syntactically correct but semantically
+            invalid.
+
+
+            **Common causes:**
+
+            - Submission type does not match case sub-type (e.g., submitting
+            DEPOSIT_SANCTION_HIT_SUBMISSION for a RECIPIENT_SANCTION_HIT case)
+
+            - Missing required fields for the submission type (e.g.,
+            `countryOfResidenceIso3` missing for RECIPIENT sanction hit
+            individual)
+
+            - Providing both `individual` AND `organisation` when only one is
+            allowed
+
+            - Invalid ISO country code format
+
+            - Invalid date format for `dob`
+          properties:
+            error:
+              example: UNPROCESSABLE_ENTITY
+            message:
+              example: Submission type mismatch
+          example:
+            error: UNPROCESSABLE_ENTITY
+            message: >-
+              Submission type DEPOSIT_SANCTION_HIT_SUBMISSION is not valid for
+              case sub-type RECIPIENT_SANCTION_HIT
+            timestamp: '2026-08-03T10:30:00.000Z'
+            path: /public/2026Q3/v2/cases/12345678/messages
     address:
       type: object
       description: Address associated with a profile.
@@ -36111,13 +37878,13 @@ components:
                 case_id:
                   type: integer
                   format: int64
-                  description: ID of the partner case.
+                  description: ID of the case.
                   example: 136
                 case_type:
                   type: string
                   description: >-
-                    Type of the partner case. Value must be `GENERAL_ENQUIRY`.
-                    More case types to be added in the future.
+                    Type of the case. Value must be `GENERAL_ENQUIRY`. More case
+                    types to be added in the future.
                   example: GENERAL_ENQUIRY
                 details:
                   type: object
@@ -36127,23 +37894,17 @@ components:
                         - integer
                         - 'null'
                       format: int64
-                      description: >-
-                        ID of the transfer that is associated with the partner
-                        case.
+                      description: ID of the transfer that is associated with the case.
                       example: 12345678
                     user_id:
                       type: integer
                       format: int64
-                      description: >-
-                        ID of the user account that is associated with the
-                        partner case.
+                      description: ID of the user account that is associated with the case.
                       example: 12345678
                     profile_id:
                       type: integer
                       format: int64
-                      description: >-
-                        ID of the profile that is associated with the partner
-                        case.
+                      description: ID of the profile that is associated with the case.
                       example: 12345678
                 status:
                   type: string
@@ -36165,7 +37926,7 @@ components:
             occurred_at:
               type: string
               format: date-time
-              description: When the partner case update occurred.
+              description: When the case update occurred.
               example: '2023-06-23T09:45:34.789Z'
     v2.0.0-21:
       title: Schema version 2.0.0
@@ -36208,13 +37969,13 @@ components:
                 case_id:
                   type: integer
                   format: int64
-                  description: ID of the partner case
+                  description: ID of the case
                   example: 136
                 case_type:
                   type: string
                   description: >-
-                    Type of the partner case. Value must be `GENERAL_ENQUIRY`.
-                    More case types will be added in the future.
+                    Type of the case. Value must be `GENERAL_ENQUIRY`. More case
+                    types will be added in the future.
                   example: GENERAL_ENQUIRY
                 details:
                   type: object
@@ -36224,23 +37985,17 @@ components:
                         - integer
                         - 'null'
                       format: int64
-                      description: >-
-                        ID of the transfer that is associated with the partner
-                        case.
+                      description: ID of the transfer that is associated with the case.
                       example: 12345678
                     user_id:
                       type: integer
                       format: int64
-                      description: >-
-                        ID of the user account that is associated with the
-                        partner case.
+                      description: ID of the user account that is associated with the case.
                       example: 12345678
                     profile_id:
                       type: integer
                       format: int64
-                      description: >-
-                        ID of the profile that is associated with the partner
-                        case.
+                      description: ID of the profile that is associated with the case.
                       example: 12345678
                 status:
                   type: string
@@ -36262,7 +38017,7 @@ components:
             occurred_at:
               type: string
               format: date-time
-              description: When the partner case update occurred.
+              description: When the case update occurred.
               example: '2023-06-23T09:45:34Z'
     v4.2.0:
       title: Schema version 4.2.0

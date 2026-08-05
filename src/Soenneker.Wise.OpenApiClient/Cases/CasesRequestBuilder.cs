@@ -19,7 +19,7 @@ namespace Soenneker.Wise.OpenApiClient.Cases
     public partial class CasesRequestBuilder : BaseRequestBuilder
     {
         /// <summary>Gets an item from the Soenneker.Wise.OpenApiClient.cases.item collection</summary>
-        /// <param name="position">Partner Case ID.</param>
+        /// <param name="position">The unique identifier of the case.</param>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Cases.Item.WithCaseItemRequestBuilder"/></returns>
         public global::Soenneker.Wise.OpenApiClient.Cases.Item.WithCaseItemRequestBuilder this[long position]
         {
