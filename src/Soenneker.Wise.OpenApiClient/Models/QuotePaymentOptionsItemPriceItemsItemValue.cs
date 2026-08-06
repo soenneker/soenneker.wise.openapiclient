@@ -8,16 +8,16 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Object containing value elements.
+    /// Value details for the `price.items` object.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class QuotePaymentOptionsItemPriceItemsItemValue : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Amount associated to this pricing element. Can be negative for discounts.</summary>
+        /// <summary>Amount associated with this price. Can be negative for discounts.</summary>
         public double? Amount { get; set; }
-        /// <summary>Currency of the pricing element.</summary>
+        /// <summary>Currency of the price.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Currency { get; set; }
@@ -25,7 +25,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string Currency { get; set; }
 #endif
-        /// <summary>Text field containing the price and its currency.</summary>
+        /// <summary>Plain text description of the price and currency.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Label { get; set; }

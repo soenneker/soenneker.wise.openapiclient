@@ -8,14 +8,14 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Deferred fee information from a pricingConfiguration override.
+    /// Deferred fee information from a `pricingConfiguration` override.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class QuotePaymentOptionsItemPriceDeferredFee : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>The amount of fees that has been deferred by a pricingConfiguration override.</summary>
+        /// <summary>The amount of fees deferred by a `pricingConfiguration` override.</summary>
         public double? Amount { get; set; }
         /// <summary>The currency of the deferred fee amount.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER

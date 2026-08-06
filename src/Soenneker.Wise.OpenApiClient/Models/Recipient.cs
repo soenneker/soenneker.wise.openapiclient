@@ -7,13 +7,12 @@ using System.IO;
 using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
-    /// <summary>
-    /// The `accountSummary` and `longAccountSummary` fields can be used to represent the recipient&apos;s details in your UI. The `displayFields` array allows you to build a UI containing all the dynamic fields of a recipient individually. In order to use these fields, you would need to POST using the v1 endpoint to create the recipient account, and then GET using the v2 endpoint to retrieve these fields.The v2 resource also includes the `hash` field that can be used to track recipient details changes. This is useful for re-running any validation checks your system performs on the recipient, for example against fraud engines. The hash will remain constant unless the recipient&apos;s name or information in the `details` object changes.
-    /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    #pragma warning disable CS1591
     public partial class Recipient : IAdditionalDataHolder, IParsable
+    #pragma warning restore CS1591
     {
-        /// <summary>Summary of account details for ease of lookup.</summary>
+        /// <summary>Summary of account details for ease of lookup. Can be used to display recipient details in your UI.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? AccountSummary { get; set; }
@@ -21,11 +20,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string AccountSummary { get; set; }
 #endif
-        /// <summary>Status of the recipient.</summary>
+        /// <summary>Status of the recipient account.</summary>
         public bool? Active { get; set; }
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Map of key lookup fields on the account.</summary>
+        /// <summary>Map of key lookup fields for the account.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Soenneker.Wise.OpenApiClient.Models.RecipientCommonFieldMapProperty? CommonFieldMap { get; set; }
@@ -33,7 +32,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public global::Soenneker.Wise.OpenApiClient.Models.RecipientCommonFieldMapProperty CommonFieldMap { get; set; }
 #endif
-        /// <summary>Verification results for the recipient&apos;s details. Only populated for currencies with recipient verification enabled (CNY, KRW, INR, IDR, EUR). See the [Recipient verification guides](/guides/product/send-money/recipient-verification) for how to handle these.</summary>
+        /// <summary>Contains verification results for the recipient&apos;s details. Only populated for currencies with recipient verification enabled (CNY, KRW, INR, IDR, EUR). See the [Recipient verification guides](/guides/product/send-money/recipient-verification) for details about how to handle this verification data by currency.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Soenneker.Wise.OpenApiClient.Models.RecipientConfirmations? Confirmations { get; set; }
@@ -41,7 +40,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public global::Soenneker.Wise.OpenApiClient.Models.RecipientConfirmations Confirmations { get; set; }
 #endif
-        /// <summary>2 character country code.</summary>
+        /// <summary>2-character country code.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Country { get; set; }
@@ -51,7 +50,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #endif
         /// <summary>Account entity that owns the recipient account.</summary>
         public long? CreatorId { get; set; }
-        /// <summary>3 character currency code.</summary>
+        /// <summary>3-character currency code.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Currency { get; set; }
@@ -59,7 +58,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string Currency { get; set; }
 #endif
-        /// <summary>Account details (currency/type-specific). The keys present vary by currency route and recipient type (e.g., sort code, IBAN, SWIFT, email).</summary>
+        /// <summary>Contains the details of the receipient account specific its currency and type. The fields required (in the request) or present (in the response) vary depending on currency route and recipient type (e.g., sort code, IBAN, SWIFT, email).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Soenneker.Wise.OpenApiClient.Models.RecipientDetails? Details { get; set; }
@@ -67,7 +66,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public global::Soenneker.Wise.OpenApiClient.Models.RecipientDetails Details { get; set; }
 #endif
-        /// <summary>Lookup fields (key/label/value) for rendering a UI.</summary>
+        /// <summary>Lookup fields (key/label/value) for rendering in your UI. Allows you to build a UI containing all the dynamic fields for a recipient individually.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<global::Soenneker.Wise.OpenApiClient.Models.RecipientDisplayFieldsItem>? DisplayFields { get; set; }
@@ -75,7 +74,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public List<global::Soenneker.Wise.OpenApiClient.Models.RecipientDisplayFieldsItem> DisplayFields { get; set; }
 #endif
-        /// <summary>Account hash for change tracking.</summary>
+        /// <summary>Account hash for tracking changes to recipient details. This is useful for re-running any validation checks on the recipient, for example against fraud engines. The hash remains constant unless the recipient&apos;s name or information in the details object changes.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Hash { get; set; }
@@ -87,7 +86,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public long? Id { get; set; }
         /// <summary>Indicates whether recipient is internal.</summary>
         public bool? IsInternal { get; set; }
-        /// <summary>Entity type of recipient.</summary>
+        /// <summary>Entity type of recipient account.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? LegalEntityType { get; set; }
@@ -95,7 +94,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string LegalEntityType { get; set; }
 #endif
-        /// <summary>Account details summary.</summary>
+        /// <summary>Longer account details summary. Can be used to display recipient details in your UI.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? LongAccountSummary { get; set; }
@@ -111,11 +110,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public global::Soenneker.Wise.OpenApiClient.Models.RecipientName Name { get; set; }
 #endif
-        /// <summary>If recipient account belongs to profile owner.</summary>
+        /// <summary>Inidicates if recipient account belongs to profile owner.</summary>
         public bool? OwnedByCustomer { get; set; }
         /// <summary>Specific profile that owns the recipient account.</summary>
         public long? ProfileId { get; set; }
-        /// <summary>Recipient type.</summary>
+        /// <summary>Recipient account type.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Type { get; set; }
@@ -123,7 +122,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string Type { get; set; }
 #endif
-        /// <summary>The information of the ultimate beneficiary for this recipient.</summary>
+        /// <summary>The details for the ultimate beneficiary of this recipient.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Soenneker.Wise.OpenApiClient.Models.RecipientUltimateBeneficiary? UltimateBeneficiary { get; set; }

@@ -10198,7 +10198,7 @@
           "quote"
         ],
         "summary": "Create a quote (unauthenticated)",
-        "description": "Use this endpoint to get example quotes for people to see the exchange rate and fees Wise offers before a user has created or linked an account. This can drive a version of the quote screen that shows the user what Wise offers before they sign up.\nNote that this endpoint does not require a token to create the resource, however, since it is just an example, the returned quote has no ID so can\u0027t be used later to create a transfer.\n\nIn order to get an accurate partner fee, we require a client credentials token to be provided. If you are a partner and would like your fee to be included in the quote returned, you must provide your auth token. If not, you do not require the Authorization header.\n\n{% admonition type=\u0022info\u0022 %}\nUnauthenticated quotes cannot be used to create transfers, they are meant for illustration purposes in partner interfaces only. Make sure to create an authenticated quote during the transfer creation flow.\n{% /admonition %}\n",
+        "description": "Use this endpoint to get example quotes for illustrative purposes. This allows you to show the exchange rate and fees Wise offers before a user has created or linked an account. Often used to display a quote screen showing your customers what Wise offers before they sign up.\n\nNote that this endpoint does not require a token to create the resource. However, since it is just an example, the returned quote has no ID and can\u0027t be used to create a transfer.\n\nTo get quotes with an accurate partner fee, include the Authorization header in the request with your client credentials token. Otherwise, you do not need to include the Authorization header.\n\n{% admonition type=\u0022info\u0022 %}\nUnauthenticated quotes cannot be used to create transfers. They are meant for illustration purposes in partner interfaces only. \n\nWhen creating a transfer, be sure to use an authenticated quote.\n{% /admonition %}\n",
         "operationId": "QuoteCreateUnauthenticated",
         "parameters": [
           {
@@ -10243,7 +10243,7 @@
           "quote"
         ],
         "summary": "Create a quote (authenticated)",
-        "description": "{% admonition type=\u0022info\u0022 %}\nYou must use a user access token to authenticate this call and supply the profile with which the quote should be associated. This ensures that quote can be used to create a transfer.\n{% /admonition %}\n\nIf you are funding the transfer from a Multi Currency Balance, you must set the \u0060payIn\u0060 as \u0060BALANCE\u0060 to get the correct pricing in the quote. Not doing so will default to \u0060BANK_TRANSFER\u0060 and the fees will be inconsistent between quote and transfer.\n\n{% admonition type=\u0022info\u0022 %}\nWhen SWIFT_OUR is set as payOut value, it enables payment protection for swift recipients for global currency transfers. By using this payOut method, you can guarantee your customers that the fee will be charged to the sender and can ensure that the recipient gets the complete target amount.\n{% /admonition %}\n\n#### Response\n\nThe following describes the fields of the quote response that may be useful when building your integration.\n\nThe \u0060payOut\u0060 field is used to select the correct entry in the \u0060paymentOptions\u0060 array in order to know which fees to display to your customer. Find the paymentOption that matches the \u0060payOut\u0060 field shown at the top level of the quote resource and \u0060payIn\u0060 based on the settlement model the bank is using. By default, this is \u0060BANK_TRANSFER\u0060, unless you are using a prefunded or bulk settlement model. The \u0060payOut\u0060 field will change based on the type of recipient you add to the quote in the \u0060PATCH /quote\u0060 call, for example to-USD \u0060swift_code\u0060 or to-CAD \u0060interac\u0060 have different fees.\n\nFor example sending USD to a country other than the United States is supported but with different fees to domestic USD transfers.\nPlease see the later section on [Global Currencies](/guides/product/send-money/swift-network-transfers) to learn more about how to offer this useful feature.\n\nFor each paymentOption there is a price field. It gives a full breakdown of all the taxes, fees and discounts. It is preferable to refer to this structure to show breakdowns and totals, rather than the fee structure, found as well in each paymentOption element, that only gives a summary and is not able to surface important specifics such as taxes.\n\nWhen showing the price of a transfer always show the \u0027price.total.value.amount\u0027 of a payment option.\n\n#### Disabled Payment Options\n\nEach payment option is either enabled or disabled based on the \u0060disabled\u0060 value. Disabled payment options should be shown to the user in a disabled state in most cases. This ensures users are given the options that they are familiar with regardless of their availability, as well as with options that can be beneficial to their accounts.\n\nThe \u0060option.disabledReason\u0060 contains both the \u0060code\u0060 and \u0060message\u0060, with the message being the user-friendly text to surface to the user if necessary.\n\n#### Transfer Nature for BRL\nWhen creating or updating a quote, the transfer nature can be set. This is a requirement for transfers to or from BRL and impacts the fees we charge on the quote, specifically the IOF.\n\nNote that IOF is determined based on the transfer nature, sender information, and recipient information. The default IOF will be included in a quote until all relevant information has been included.\n\n{% admonition type=\u0022info\u0022 %}\nOmitting transfer nature will not prevent the transfer from being created or even funded. However, when attempting to process the transfer, it will be blocked and the money will be refunded to the sender.\n{% /admonition %}\n\n#### Pricing Configuration\nWhen creating or updating a quote, partners that have flexible partner pricing enabled are able to override the pricing configuration dynamically.\n\nTo learn more on how to use this feature, please see the [Flexible Partner Pricing Guide](/guides/product/send-money/quotes/pricing)\n",
+        "description": "Create an authenticated quote when the quote is to be used for a transfer.\n\nAuthenticated quotes require a user access token to authenticate. You must also include the profile the quote should be associated with.\n\nIf you are funding the transfer from a multi-currency balance, set the \u0060payIn\u0060 field to \u0060BALANCE\u0060. Otherwise this field defaults to \u0060BANK_TRANSFER\u0060, causing the fees to be inconsistent between quote and transfer.\n\n{% admonition type=\u0022info\u0022 %}\nWhen \u0060payOut\u0060 value is set to \u0060SWIFT_OUR\u0060, it enables payment protection for SWIFT recipients of global currency transfers. \n\nBy using this \u0060payOut\u0060 method, you can guarantee to your customers that the fee will be charged to the sender, ensuring the recipient receives the full target amount.\n{% /admonition %}\n\n#### paymentOptions in the response\n\nA few things to note about the data in the \u0060paymentOptions\u0060 object:\n\n- The \u0060payOut\u0060 field is used to select the correct entry in the \u0060paymentOptions\u0060 array so you know which fees to display to your customer. \n- Find the \u0060paymentOption\u0060 that matches the \u0060payOut\u0060 field shown at the top level of the quote resource and \u0060payIn\u0060 based on the settlement model the bank is using. By default, this is \u0060BANK_TRANSFER\u0060, unless you are using a prefunded or bulk settlement model. \n- The \u0060payOut\u0060 field changes based on the type of recipient you add to the quote in the **update quote request**. For example, to-USD \u0060swift_code\u0060 or to-CAD \u0060interac\u0060 have different fees.\n- Each \u0060paymentOption\u0060 includes a \u0060price\u0060 field, which gives a full breakdown of all the taxes, fees, and discounts. Refer to this structure for breakdowns and totals, rather than the \u0060fee\u0060 structure as that only gives a summary and does not surface important specifics such as taxes.\n- When showing the price of a transfer always show the \u0027price.total.value.amount\u0027 of a payment option.\n- Each payment option is either enabled or disabled based on the \u0060disabled\u0060 value.\n  - Disabled payment options should be shown to the user in a disabled state in most cases. This ensures users are given the options they are familiar with regardless of their availability, as well as options that can be beneficial to their accounts.\n  - The \u0060option.disabledReason\u0060 contains both a \u0060code\u0060 and a \u0060message\u0060. The message is the user-friendly text to surface to the user, if necessary.\n\n#### Transfer nature for BRL\n\n\u0060transferNature\u0060 is a **required** field for transfers to or from BRL. It also impacts the fees charged on the quote, specifically the IOF.\n\nIOF is determined based on the transfer nature, sender information, and recipient information. The default IOF is included in a quote until all relevant information has been included.\n\n{% admonition type=\u0022info\u0022 %}\nOmitting \u0060transferNature\u0060 will not prevent the transfer from being created or even funded. However, when attempting to process the transfer, it will be blocked and the money will be refunded to the sender.\n{% /admonition %}\n\n#### Pricing configuration\n\nWhen creating or updating a quote, partners with [flexible partner pricing](/guides/product/send-money/quotes/pricing) enabled can override the pricing configuration dynamically.\n",
         "operationId": "QuoteCreate",
         "parameters": [
           {
@@ -10353,7 +10353,7 @@
           "quote"
         ],
         "summary": "Update a quote",
-        "description": "You should update a quote using a \u0060PATCH\u0060 call to add a recipient. This will update the saved quote\u0027s data based on who and where the money will be sent to.\n\nUpdating the quote with a recipient may cause the available payment options, prices and estimated delivery times to change from the original quoted amounts. This is due to the fact that sending some currencies to some destinations costs a different amount based on the payment networks we use, for example sending USD to a country outside the USA uses international rather than domestic payment networks and as such costs more, or sending CAD over the Interac network is a more expensive operation.\n\nWhen updating a quote the \u0060payOut\u0060 field may change to denote the payment option you should select when sending to this recipient. For example sending USD to a \u0060swift_code\u0060 recipient or CAD to an \u0060interac\u0060 recipient will change \u0060payOut\u0060 to \u0060SWIFT\u0060 or \u0060INTERAC\u0060 respectively. This field defaults to \u0060BANK_TRANSFER\u0060 so it can be used in all cases to help select the correct \u0060paymentOption\u0060 and hence show the correct pricing to users.\n\nIf you want to provide more transparency in terms of fees charged when your customers create quote with swift recipient for global currencies, you might consider to set payOut field with SWIFT_OUR value. This will ensure that the recipient receives complete target amount.\n\nIn this case, where pricing changes after a user selects recipient, you should show a message to your customer before confirming the transfer. Please see the section on [Global Currencies](/guides/product/send-money/swift-network-transfers) to learn more how and why this works and the messaging you need to display.\n\n#### Transfer Nature for BRL\nWhen creating or updating a quote, the transfer nature can be set. This is a requirement for transfers to or from BRL and impacts the fees we charge on the quote, specifically the IOF.\n\nNote that IOF is determined based on the transfer nature, sender information, and recipient information. The default IOF will be included in a quote until all relevant information has been included.\n\n{% admonition type=\u0022info\u0022 %}\nOmitting transfer nature will not prevent the transfer from being created or even funded. However, when attempting to process the transfer, it will be blocked and the money will be refunded to the sender.\n{% /admonition %}\n",
+        "description": "When generating a quote before a recipient, you must update the quote with the recipient \u0060sourceAccount\u0060 value, as the recipient details may impact the quote properties like available payment options, price, and estimated delivery time. \nThis is because sending some currencies to certain destinations costs a different amount based on the payment networks used (for example, it\u0027s more expensive to send USD to a country outside the USA using international payment networks, or send CAD over the Interac network).\n\nWhen updating a quote, the \u0060payOut\u0060 field may change to denote the payment option you should select when sending to the recipient. For example, sending USD to a \u0060swift_code\u0060 recipient or CAD to an \u0060interac\u0060 recipient changes \u0060payOut\u0060 to \u0060SWIFT\u0060 or \u0060INTERAC\u0060 respectively. This field defaults to \u0060BANK_TRANSFER\u0060 so it can be used in all cases to help select the correct \u0060paymentOption\u0060 and hence show the correct pricing.\n\nIf pricing changes after updating a quote for a recipient, be sure to inform your customer before confirming the transfer.\n\nTo provide more transparency for fees charged for SWIFT recipients, consider setting the \u0060payOut\u0060 field to \u0060SWIFT_OUR\u0060. This ensures the recipient receives the full target amount.\n\n#### Transfer Nature for BRL\n\n\u0060transferNature\u0060 is a **required** field for transfers to or from BRL. It also impacts the fees charged on the quote, specifically the IOF.\n\nIOF is determined based on the transfer nature, sender information, and recipient information. The default IOF is included in a quote until all relevant information has been included.\n\n{% admonition type=\u0022info\u0022 %}\nOmitting \u0060transferNature\u0060 will not prevent the transfer from being created or even funded. However, when attempting to process the transfer, it will be blocked and the money will be refunded to the sender.\n{% /admonition %}\n",
         "operationId": "QuoteUpdate",
         "parameters": [
           {
@@ -18869,7 +18869,7 @@
           },
           "payOut": {
             "type": "string",
-            "description": "Mechanism we use to deliver the transfer. Not usually of interest to the user.",
+            "description": "Mechanism Wise uses to deliver the transfer. Provided for information purposes.",
             "example": "BANK_TRANSFER"
           },
           "preferredPayIn": {
@@ -18890,7 +18890,7 @@
           },
           "user": {
             "type": "integer",
-            "description": "User ID who created the quote.",
+            "description": "User ID that created the quote.",
             "format": "int64",
             "example": 55
           },
@@ -18905,23 +18905,23 @@
           },
           "rateExpirationTime": {
             "type": "string",
-            "description": "Time the locked rate will expire.",
+            "description": "Date and time the locked rate expires.",
             "format": "date-time",
             "example": "2019-04-08T13:18:57Z"
           },
           "guaranteedTargetAmountAllowed": {
             "type": "boolean",
-            "description": "Whether guaranteed target amount is allowed.",
+            "description": "Indicates whether guaranteed target amount is allowed.",
             "example": true
           },
           "targetAmountAllowed": {
             "type": "boolean",
-            "description": "Whether target amount is allowed.",
+            "description": "Indicates whether target amount is allowed.",
             "example": true
           },
           "guaranteedTargetAmount": {
             "type": "boolean",
-            "description": "Whether the target amount is guaranteed.",
+            "description": "Indicates whether the target amount is guaranteed.",
             "example": false
           },
           "providedAmountType": {
@@ -18935,14 +18935,14 @@
             "items": {
               "$ref": "#/components/schemas/QuotePaymentOptionsItem"
             },
-            "description": "List of the methods a user can pay for the transfer."
+            "description": "List of the methods available to pay for the transfer."
           },
           "status": {
             "$ref": "#/components/schemas/QuoteStatus"
           },
           "expirationTime": {
             "type": "string",
-            "description": "The time the quote expires.",
+            "description": "The date and time the quote expires.",
             "format": "date-time",
             "example": "2019-04-05T13:48:58Z"
           },
@@ -18951,7 +18951,7 @@
             "items": {
               "$ref": "#/components/schemas/QuoteNoticesItem"
             },
-            "description": "Array of messages to display to the user. May be empty (\u0060[]\u0060) if there are no messages."
+            "description": "Messages to display to the user. May be empty (\u0060[]\u0060) if there are no messages."
           }
         },
         "x-tags": [
@@ -18985,27 +18985,27 @@
           },
           "currency": {
             "type": "string",
-            "description": "3 character currency code.",
+            "description": "3-character currency code.",
             "example": "GBP"
           },
           "country": {
             "type": "string",
-            "description": "2 character country code.",
+            "description": "2-character country code.",
             "example": "GB"
           },
           "type": {
             "type": "string",
-            "description": "Recipient type.",
+            "description": "Recipient account type.",
             "example": "SortCode"
           },
           "legalEntityType": {
             "type": "string",
-            "description": "Entity type of recipient.",
+            "description": "Entity type of recipient account.",
             "example": "PERSON"
           },
           "active": {
             "type": "boolean",
-            "description": "Status of the recipient.",
+            "description": "Status of the recipient account.",
             "example": true
           },
           "details": {
@@ -19016,17 +19016,17 @@
           },
           "hash": {
             "type": "string",
-            "description": "Account hash for change tracking.",
+            "description": "Account hash for tracking changes to recipient details. This is useful for re-running any validation checks on the recipient, for example against fraud engines. The hash remains constant unless the recipient\u0027s name or information in the details object changes.",
             "example": "666ef880f8aa6113fa112ba6531d3ed2c26dd9fgbd7de5136bfb827a6e800479"
           },
           "accountSummary": {
             "type": "string",
-            "description": "Summary of account details for ease of lookup.",
+            "description": "Summary of account details for ease of lookup. Can be used to display recipient details in your UI.",
             "example": "(04-00-75) 37778842"
           },
           "longAccountSummary": {
             "type": "string",
-            "description": "Account details summary.",
+            "description": "Longer account details summary. Can be used to display recipient details in your UI.",
             "example": "GBP account ending in 8842"
           },
           "displayFields": {
@@ -19034,7 +19034,7 @@
             "items": {
               "$ref": "#/components/schemas/RecipientDisplayFieldsItem"
             },
-            "description": "Lookup fields (key/label/value) for rendering a UI."
+            "description": "Lookup fields (key/label/value) for rendering in your UI. Allows you to build a UI containing all the dynamic fields for a recipient individually."
           },
           "isInternal": {
             "type": "boolean",
@@ -19043,7 +19043,7 @@
           },
           "ownedByCustomer": {
             "type": "boolean",
-            "description": "If recipient account belongs to profile owner.",
+            "description": "Inidicates if recipient account belongs to profile owner.",
             "example": false
           },
           "ultimateBeneficiary": {
@@ -19053,7 +19053,6 @@
             "$ref": "#/components/schemas/RecipientConfirmations"
           }
         },
-        "description": "The \u0060accountSummary\u0060 and \u0060longAccountSummary\u0060 fields can be used to represent the recipient\u0027s details in your UI. The \u0060displayFields\u0060 array allows you to build a UI containing all the dynamic fields of a recipient individually. \nIn order to use these fields, you would need to POST using the v1 endpoint to create the recipient account, and then GET using the v2 endpoint to retrieve these fields.\n\nThe v2 resource also includes the \u0060hash\u0060 field that can be used to track recipient details changes. This is useful for re-running any validation checks your system performs on the recipient, for example against fraud engines. The hash will remain constant unless the recipient\u0027s name or information in the \u0060details\u0060 object changes.\n",
         "x-tags": [
           "recipient"
         ]
@@ -19063,17 +19062,17 @@
         "properties": {
           "currency": {
             "type": "string",
-            "description": "3 character currency code.",
+            "description": "3-character currency code.",
             "example": "GBP"
           },
           "type": {
             "type": "string",
-            "description": "Recipient account type (currency/route-specific), e.g. sort_code, iban, email.",
+            "description": "Recipient account type (currency/route-specific, e.g., \u0060sort_code\u0060, \u0060iban\u0060, \u0060email\u0060).",
             "example": "sort_code"
           },
           "profile": {
             "type": "integer",
-            "description": "Personal or business profile ID of the sender. It is highly advised to pass the business profile ID in this field if your business account is managed by multiple users, so that the recipient can be accessed by all users authorized on the business account.",
+            "description": "Personal or business profile ID of the sender. We recommend passing the business profile ID if your business account is managed by multiple users so the recipient can be accessed by all users authorized on the business account.",
             "format": "int64",
             "example": 30000000
           },
@@ -19084,7 +19083,7 @@
           },
           "ownedByCustomer": {
             "type": "boolean",
-            "description": "Indicates whether the recipient account is owned by the profile owner (self-transfer), such as a user sending money to their own account in another country or currency. Set to \u0060true\u0060 for self-transfers. We strongly recommend setting this field, as distinguishing self-transfers from third-party transfers improves routing and processing efficiency.\n",
+            "description": "Indicates whether the recipient account is owned by the profile owner. While optional, we recommend setting to \u0060true\u0060 for self-transfers (such as a user sending money to their own account in another country or currency). Distinguishing self-transfers from third-party transfers improves routing and processing efficiency.\n",
             "example": true
           },
           "details": {
@@ -19094,7 +19093,7 @@
             "$ref": "#/components/schemas/RecipientCreateRequestUltimateBeneficiary"
           }
         },
-        "description": "Create a recipient (beneficiary) account request for POST /v1/accounts. The required fields inside \u0060details\u0060 depend on currency/route; use the account-requirements endpoints (e.g. /v1/quotes/{quoteId}/account-requirements) to discover the exact required fields.\n"
+        "description": "Create a recipient (beneficiary) account request. The required fields inside the \u0060details\u0060 object depend on currency and route. Use the account-requirements endpoints to discover the exact required fields.\n"
       },
       "AccountRequirementsResponse": {
         "type": "array",
@@ -19113,13 +19112,13 @@
           },
           "acceptedAt": {
             "type": "string",
-            "description": "Timestamp indicating time of outcome acceptance, \u0060null\u0060 if has not been accepted.",
+            "description": "Timestamp indicating date and time of outcome acceptance, \u0060null\u0060 until acceptance received.",
             "format": "date-time",
             "example": null
           },
           "quoteId": {
             "type": "string",
-            "description": "If the confirmation check was run as part of a quote compatibility check, then the \u0060quoteId\u0060 will be on the result. If \u0060quoteId\u0060 is present, then the outcome acceptance will need the \u0060quoteId\u0060 to be specified as well.",
+            "description": "If the confirmation check was run as part of a quote compatibility check, then the \u0060quoteId\u0060 is included in the result. If \u0060quoteId\u0060 is present, the outcome acceptance needs the \u0060quoteId\u0060 to be specified as well.",
             "example": null
           },
           "outcomes": {
@@ -19127,10 +19126,10 @@
             "items": {
               "$ref": "#/components/schemas/ConfirmationsOutcomesItem"
             },
-            "description": "Array of confirmation outcomes. At the moment it is safe to assume that there is only one element in the outcomes list."
+            "description": "Array of confirmation outcomes. Currently, it is safe to assume there is only one element in the outcomes array."
           }
         },
-        "description": "Verification results for the recipient\u0027s details. Only populated for currencies with recipient verification enabled (CNY, KRW, INR, IDR, EUR). See the [Recipient verification guides](/guides/product/send-money/recipient-verification) for how to handle these.\n"
+        "description": "Contains verification results for the recipient\u0027s details. Only populated for currencies with recipient verification enabled (CNY, KRW, INR, IDR, EUR). \n\nSee the [Recipient verification guides](/guides/product/send-money/recipient-verification) for details about how to handle this verification data by currency.\n"
       },
       "Rule": {
         "title": "Authorisation Rule",
@@ -24252,25 +24251,25 @@
             "$ref": "#/components/schemas/QuotePricingConfigurationFee"
           }
         },
-        "description": "Allows for pricing configurations to be overridden by partners on a transfer level."
+        "description": "Allows partners to override pricing configurations on a transfer level."
       },
       "QuotePaymentOptionsItem": {
         "type": "object",
         "properties": {
           "disabled": {
             "type": "boolean",
-            "description": "Whether this option is enabled or not for this quote.",
+            "description": "Indicates whether this option is enabled or not for this quote.",
             "example": false
           },
           "estimatedDelivery": {
             "type": "string",
-            "description": "The estimated delivery time for this combination of payIn and payOut methods, assuming payIn is performed now.",
+            "description": "The estimated delivery time for this combination of \u0060payIn\u0060 and \u0060payOut\u0060 methods (assuming \u0060payIn\u0060 is performed now).",
             "format": "date-time",
             "example": "2019-04-08T12:30:00Z"
           },
           "formattedEstimatedDelivery": {
             "type": "string",
-            "description": "A string to display to users for the estimated delivery date.",
+            "description": "A customer-friendly string for the estimated delivery date, which you can pass through to your front-end.",
             "example": "by Apr 8"
           },
           "estimatedDeliveryDelays": {
@@ -24278,7 +24277,7 @@
             "items": {
               "$ref": "#/components/schemas/QuotePaymentOptionsItemEstimatedDeliveryDelaysItem"
             },
-            "description": "Array of objects for delivery delays to display to users."
+            "description": "Array of objects for delivery delays you can display to your customers."
           },
           "fee": {
             "$ref": "#/components/schemas/QuotePaymentOptionsItemFee"
@@ -24288,12 +24287,12 @@
           },
           "sourceAmount": {
             "type": "number",
-            "description": "sourceAmount when using this payment option.",
+            "description": "Source amount when using this payment option.",
             "example": 100
           },
           "targetAmount": {
             "type": "number",
-            "description": "targetAmount when using this payment option.",
+            "description": "Target amount when using this payment option.",
             "example": 129.24
           },
           "sourceCurrency": {
@@ -24321,7 +24320,7 @@
             "items": {
               "$ref": "#/components/schemas/QuotePaymentOptionsItemAllowedProfileTypesItem"
             },
-            "description": "Array of the allowed types of profile to use this payment option."
+            "description": "Array of the profile types allowed to use this payment option."
           },
           "payInProduct": {
             "type": "string",
@@ -24348,7 +24347,7 @@
           },
           "link": {
             "type": "string",
-            "description": "URL that provides more information to the message. May be \u0060null\u0060 if there\u0027s no URL.",
+            "description": "URL that provides more details about the message. May be \u0060null\u0060 if there\u0027s no URL.",
             "example": null
           },
           "type": {
@@ -24397,7 +24396,7 @@
         "properties": {
           "reference": {
             "type": "string",
-            "description": "Recipient reference (present for some routes).",
+            "description": "Recipient reference (applies for some routes).",
             "example": null
           },
           "sortCode": {
@@ -24416,11 +24415,11 @@
             "example": "ad245621b974efa3ef870895c3wer419a3f01af18a8a5790b47645dba6304194"
           }
         },
-        "description": "Account details (currency/type-specific). The keys present vary by currency route and recipient type (e.g., sort code, IBAN, SWIFT, email)."
+        "description": "Contains the details of the receipient account specific its currency and type. The fields required (in the request) or present (in the response) vary depending on currency route and recipient type (e.g., sort code, IBAN, SWIFT, email)."
       },
       "RecipientCommonFieldMap": {
         "type": "object",
-        "description": "Map of key lookup fields on the account.",
+        "description": "Map of key lookup fields for the account.",
         "example": {
           "accountNumberField": "accountNumber",
           "bankCodeField": "sortCode"
@@ -24474,7 +24473,7 @@
             "$ref": "#/components/schemas/RecipientUltimateBeneficiaryBankAddress"
           }
         },
-        "description": "The information of the ultimate beneficiary for this recipient."
+        "description": "The details for the ultimate beneficiary of this recipient."
       },
       "RecipientConfirmations": {
         "type": "object",
@@ -24486,13 +24485,13 @@
           },
           "acceptedAt": {
             "type": "string",
-            "description": "Timestamp indicating time of outcome acceptance, \u0060null\u0060 if has not been accepted.",
+            "description": "Timestamp indicating date and time of outcome acceptance, \u0060null\u0060 until acceptance received.",
             "format": "date-time",
             "example": null
           },
           "quoteId": {
             "type": "string",
-            "description": "If the confirmation check was run as part of a quote compatibility check, then the \u0060quoteId\u0060 will be on the result. If \u0060quoteId\u0060 is present, then the outcome acceptance will need the \u0060quoteId\u0060 to be specified as well.",
+            "description": "If the confirmation check was run as part of a quote compatibility check, then the \u0060quoteId\u0060 is included in the result. If \u0060quoteId\u0060 is present, the outcome acceptance needs the \u0060quoteId\u0060 to be specified as well.",
             "example": null
           },
           "outcomes": {
@@ -24500,10 +24499,10 @@
             "items": {
               "$ref": "#/components/schemas/RecipientConfirmationsOutcomesItem"
             },
-            "description": "Array of confirmation outcomes. At the moment it is safe to assume that there is only one element in the outcomes list."
+            "description": "Array of confirmation outcomes. Currently, it is safe to assume there is only one element in the outcomes array."
           }
         },
-        "description": "Verification results for the recipient\u0027s details. Only populated for currencies with recipient verification enabled (CNY, KRW, INR, IDR, EUR). See the [Recipient verification guides](/guides/product/send-money/recipient-verification) for how to handle these.\n"
+        "description": "Contains verification results for the recipient\u0027s details. Only populated for currencies with recipient verification enabled (CNY, KRW, INR, IDR, EUR). \n\nSee the [Recipient verification guides](/guides/product/send-money/recipient-verification) for details about how to handle this verification data by currency.\n"
       },
       "RecipientCreateRequestDetails": {
         "type": "object",
@@ -24523,11 +24522,11 @@
           },
           "dateOfBirth": {
             "type": "string",
-            "description": "Date of birth in ISO 8601 date format (Optional for GBP example).",
+            "description": "Date of birth in ISO 8601 date format. Only required for certain currency routes. Call the **retrieve recipient account requirements** endpoint to confirm.",
             "example": "1961-01-01"
           }
         },
-        "description": "Currency/route-specific recipient fields. Common examples include legalType, sortCode, accountNumber, email, dateOfBirth, etc. Use account-requirements APIs to determine what is required.\n"
+        "description": "Contains the details of the receipient account specific its currency and type. Common examples include \u0060legalType\u0060, \u0060sortCode\u0060, \u0060accountNumber\u0060, \u0060email\u0060, \u0060dateOfBirth\u0060, etc. Use the **retreive recipient account requirements** endpoint to determine what is required for a specific recipient.\n"
       },
       "RecipientCreateRequestUltimateBeneficiary": {
         "required": [
@@ -24560,14 +24559,14 @@
             "$ref": "#/components/schemas/RecipientCreateRequestUltimateBeneficiaryBankAddress"
           }
         },
-        "description": "The information of the ultimate beneficiary for this recipient, if present. If absent, the ultimate beneficiary is the recipient."
+        "description": "The details about the ultimate beneficiary for this recipient, if present. If absent, the ultimate beneficiary _is_ the recipient."
       },
       "ConfirmationsOutcomesItem": {
         "type": "object",
         "properties": {
           "type": {
             "type": "string",
-            "description": "\u0022The type of confirmation. Possible values: \u0060ACCOUNT_EXISTENCE\u0060, \u0060NAME_MATCHING\u0060, \u0060NAME_RESOLUTION\u0060.\u0022",
+            "description": "\u0022The type of confirmation. Possible values: \u0060ACCOUNT_EXISTENCE\u0060, \u0060NAME_MATCHING\u0060, \u0060NAME_RESOLUTION\u0060.\n\u0022",
             "example": "NAME_MATCHING"
           },
           "timestamp": {
@@ -24578,12 +24577,12 @@
           },
           "outcome": {
             "type": "string",
-            "description": "\u0022The actual outcome of the confirmation. Possible values: \u0060SUCCESS\u0060, \u0060PARTIAL_FAILURE\u0060, \u0060FAILURE\u0060, \u0060COULD_NOT_CHECK\u0060.\u0022",
+            "description": "\u0022The actual outcome of the confirmation check. Possible values: \u0060SUCCESS\u0060, \u0060PARTIAL_FAILURE\u0060, \u0060FAILURE\u0060, \u0060COULD_NOT_CHECK\u0060.\n\u0022",
             "example": "PARTIAL_FAILURE"
           },
           "requiresCustomerAcceptance": {
             "type": "boolean",
-            "description": "Whether we require customer acceptance. Whether this value is true or false is dependent on the currency and the nature of the confirmation.",
+            "description": "Indicates whether we require customer acceptance. \n\nWhether this value is \u0060true\u0060 or \u0060false\u0060 depends on the currency and the nature of the confirmation.\n\nIf \u0060true\u0060, you must present your customer with the ability to accept or decline the confirmation result.\n",
             "example": true
           },
           "fieldsChecked": {
@@ -24591,11 +24590,11 @@
             "items": {
               "type": "string"
             },
-            "description": "Fields we used to confirm the account."
+            "description": "Fields used to confirm the account."
           },
           "providedName": {
             "type": "string",
-            "description": "The name that the customer provided when creating the recipient account. Only populated for NAME_MATCHING and NAME_RESOLUTION types for certain outcomes.",
+            "description": "The name the customer provided when creating the recipient account. Only populated for \u0060NAME_MATCHING\u0060 and \u0060NAME_RESOLUTION\u0060 types for certain outcomes.",
             "example": "John Doe"
           },
           "resolvedName": {
@@ -24605,7 +24604,7 @@
           },
           "message": {
             "type": "string",
-            "description": "Customer facing message about the outcome of the check.",
+            "description": "Customer-facing message about the outcome of the check.",
             "example": "The name entered is slightly different to the name on the account."
           },
           "recommendedUpdates": {
@@ -24613,7 +24612,7 @@
             "items": {
               "$ref": "#/components/schemas/ConfirmationsOutcomesItemRecommendedUpdatesItem"
             },
-            "description": "Shows what are the correct values for some of the fields we\u0027ve checked."
+            "description": "Shows the correct values for some of the fields checked."
           }
         }
       },
@@ -27246,17 +27245,17 @@
         "properties": {
           "type": {
             "type": "string",
-            "description": "Identifies the type of fee that will be configured. Options include only \u0060OVERRIDE\u0060.",
+            "description": "Identifies the type of fee to be configured. Options include only \u0060OVERRIDE\u0060.",
             "example": "OVERRIDE"
           },
           "variable": {
             "type": "number",
-            "description": "The selected variable percentage (in decimal format) that should be used in the pricingConfiguration.",
+            "description": "The selected variable percentage, in decimal format, that should be used in the \u0060pricingConfiguration\u0060.",
             "example": 0.011
           },
           "fixed": {
             "type": "number",
-            "description": "The selected fixed fee (in source currency) that should be used in the pricingConfiguration.",
+            "description": "The selected fixed fee, in source currency, that should be used in the \u0060pricingConfiguration\u0060.",
             "example": 15.42
           }
         }
@@ -27266,7 +27265,7 @@
         "properties": {
           "reason": {
             "type": "string",
-            "description": "Reason of the delivery delay.",
+            "description": "Reason for the delivery delay.",
             "example": "sample reason"
           }
         }
@@ -27276,7 +27275,7 @@
         "properties": {
           "transferwise": {
             "type": "number",
-            "description": "The fee to be paid by the sender based on the current state of the quote.",
+            "description": "The fee to be paid _by the sender_ based on the current state of the quote.",
             "example": 3.04
           },
           "payIn": {
@@ -27286,21 +27285,21 @@
           },
           "discount": {
             "type": "number",
-            "description": "Any discounts that have been applied to this quote for the user.",
+            "description": "Any discounts that have been applied to this quote.",
             "example": 2.27
           },
           "partner": {
             "type": "number",
-            "description": "If you have agreed a custom price, it will be displayed here.",
+            "description": "Agreed-upon custom pricing, if applicable.",
             "example": 0
           },
           "total": {
             "type": "number",
-            "description": "The total fees to be paid - use this figure when displaying fees on your app.",
+            "description": "The total fees to be paid. Use this value when displaying fees in your app.",
             "example": 0.77
           }
         },
-        "description": "Object containing fee information."
+        "description": "Fee details for the quote."
       },
       "QuotePaymentOptionsItemPrice": {
         "type": "object",
@@ -27319,7 +27318,7 @@
             "items": {
               "$ref": "#/components/schemas/QuotePaymentOptionsItemPriceItemsItem"
             },
-            "description": "Object containing the details of the different elements of the total price."
+            "description": "Details the different elements contained in the total price."
           },
           "deferredFee": {
             "$ref": "#/components/schemas/QuotePaymentOptionsItemPriceDeferredFee"
@@ -27328,21 +27327,21 @@
             "$ref": "#/components/schemas/QuotePaymentOptionsItemPriceCalculatedOn"
           }
         },
-        "description": "Object containing the price information."
+        "description": "Price details for the quote."
       },
       "QuotePaymentOptionsItemDisabledReason": {
         "type": "object",
         "properties": {
           "code": {
             "type": "string",
-            "description": "Code to denote the reason a payment method is unavailable."
+            "description": "Denotes the reason a payment method is unavailable."
           },
           "message": {
             "type": "string",
-            "description": "User friendly message to display when a method is unavailable."
+            "description": "User-friendly message to display when a method is unavailable."
           }
         },
-        "description": "Object present if a payment option is disabled."
+        "description": "Present only if a payment option is disabled."
       },
       "RecipientUltimateBeneficiaryName": {
         "required": [
@@ -27352,11 +27351,11 @@
         "properties": {
           "fullName": {
             "type": "string",
-            "description": "Ultimate beneficiary full name.",
+            "description": "Ultimate beneficiary\u0027s full name.",
             "example": "John Doe"
           }
         },
-        "description": "Ultimate beneficiary name details."
+        "description": "Ultimate beneficiary name."
       },
       "RecipientUltimateBeneficiaryAddress": {
         "type": "object",
@@ -27407,7 +27406,7 @@
         "properties": {
           "type": {
             "type": "string",
-            "description": "\u0022The type of confirmation. Possible values: \u0060ACCOUNT_EXISTENCE\u0060, \u0060NAME_MATCHING\u0060, \u0060NAME_RESOLUTION\u0060.\u0022",
+            "description": "\u0022The type of confirmation. Possible values: \u0060ACCOUNT_EXISTENCE\u0060, \u0060NAME_MATCHING\u0060, \u0060NAME_RESOLUTION\u0060.\n\u0022",
             "example": "NAME_MATCHING"
           },
           "timestamp": {
@@ -27418,12 +27417,12 @@
           },
           "outcome": {
             "type": "string",
-            "description": "\u0022The actual outcome of the confirmation. Possible values: \u0060SUCCESS\u0060, \u0060PARTIAL_FAILURE\u0060, \u0060FAILURE\u0060, \u0060COULD_NOT_CHECK\u0060.\u0022",
+            "description": "\u0022The actual outcome of the confirmation check. Possible values: \u0060SUCCESS\u0060, \u0060PARTIAL_FAILURE\u0060, \u0060FAILURE\u0060, \u0060COULD_NOT_CHECK\u0060.\n\u0022",
             "example": "PARTIAL_FAILURE"
           },
           "requiresCustomerAcceptance": {
             "type": "boolean",
-            "description": "Whether we require customer acceptance. Whether this value is true or false is dependent on the currency and the nature of the confirmation.",
+            "description": "Indicates whether we require customer acceptance. \n\nWhether this value is \u0060true\u0060 or \u0060false\u0060 depends on the currency and the nature of the confirmation.\n\nIf \u0060true\u0060, you must present your customer with the ability to accept or decline the confirmation result.\n",
             "example": true
           },
           "fieldsChecked": {
@@ -27431,11 +27430,11 @@
             "items": {
               "type": "string"
             },
-            "description": "Fields we used to confirm the account."
+            "description": "Fields used to confirm the account."
           },
           "providedName": {
             "type": "string",
-            "description": "The name that the customer provided when creating the recipient account. Only populated for NAME_MATCHING and NAME_RESOLUTION types for certain outcomes.",
+            "description": "The name the customer provided when creating the recipient account. Only populated for \u0060NAME_MATCHING\u0060 and \u0060NAME_RESOLUTION\u0060 types for certain outcomes.",
             "example": "John Doe"
           },
           "resolvedName": {
@@ -27445,7 +27444,7 @@
           },
           "message": {
             "type": "string",
-            "description": "Customer facing message about the outcome of the check.",
+            "description": "Customer-facing message about the outcome of the check.",
             "example": "The name entered is slightly different to the name on the account."
           },
           "recommendedUpdates": {
@@ -27453,7 +27452,7 @@
             "items": {
               "$ref": "#/components/schemas/RecipientConfirmationsOutcomesItemRecommendedUpdatesItem"
             },
-            "description": "Shows what are the correct values for some of the fields we\u0027ve checked."
+            "description": "Shows the correct values for some of the fields checked."
           }
         }
       },
@@ -30754,12 +30753,12 @@
         "properties": {
           "type": {
             "type": "string",
-            "description": "Type of the pricing element.",
+            "description": "The type of the pricing element.",
             "example": "TOTAL"
           },
           "label": {
             "type": "string",
-            "description": "Short text describing the price structure.",
+            "description": "Plain text describing the price structure.",
             "example": "Total fees"
           },
           "value": {
@@ -30769,23 +30768,23 @@
             "$ref": "#/components/schemas/QuotePaymentOptionsItemPriceTotalExplanationProperty"
           }
         },
-        "description": "The total fees to be paid - use this figure when displaying fees on your app."
+        "description": "The total fees to be paid. Use this value when displaying fees in your app."
       },
       "QuotePaymentOptionsItemPriceItemsItem": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string",
-            "description": "ID of this item."
+            "description": "ID of the item."
           },
           "type": {
             "type": "string",
-            "description": "Type of the pricing item. It could be \u0060DISCOUNT\u0060 for example.",
+            "description": "The type of the price item (for example, \u0060FEE\u0060 or \u0060DISCOUNT\u0060).",
             "example": "FEE"
           },
           "label": {
             "type": "string",
-            "description": "Short text describing the pricing element.",
+            "description": "Plain text describing the price element.",
             "example": "fee"
           },
           "value": {
@@ -30801,7 +30800,7 @@
         "properties": {
           "amount": {
             "type": "number",
-            "description": "The amount of fees that has been deferred by a pricingConfiguration override.",
+            "description": "The amount of fees deferred by a \u0060pricingConfiguration\u0060 override.",
             "example": 14.79
           },
           "currency": {
@@ -30810,7 +30809,7 @@
             "example": "BRL"
           }
         },
-        "description": "Deferred fee information from a pricingConfiguration override."
+        "description": "Deferred fee information from a \u0060pricingConfiguration\u0060 override."
       },
       "QuotePaymentOptionsItemPriceCalculatedOn": {
         "type": "object",
@@ -32069,50 +32068,50 @@
           },
           "label": {
             "type": "string",
-            "description": "Text version of the price.",
+            "description": "Plain text version of the price.",
             "example": "0.77 GBP"
           }
         },
-        "description": "Object containing value elements."
+        "description": "Value details for the \u0060price.total\u0060 object."
       },
       "QuotePaymentOptionsItemPriceTotalExplanation": {
         "type": "object",
-        "description": "Object element giving more details about the price."
+        "description": "Provides more details about the price."
       },
       "QuotePaymentOptionsItemPriceItemsItemValue": {
         "type": "object",
         "properties": {
           "amount": {
             "type": "number",
-            "description": "Amount associated to this pricing element. Can be negative for discounts.",
+            "description": "Amount associated with this price. Can be negative for discounts.",
             "example": 0
           },
           "currency": {
             "type": "string",
-            "description": "Currency of the pricing element.",
+            "description": "Currency of the price.",
             "example": "GBP"
           },
           "label": {
             "type": "string",
-            "description": "Text field containing the price and its currency.",
+            "description": "Plain text description of the price and currency.",
             "example": "0 GBP"
           }
         },
-        "description": "Object containing value elements."
+        "description": "Value details for the \u0060price.items\u0060 object."
       },
       "QuotePaymentOptionsItemPriceItemsItemExplanation": {
         "type": "object",
         "properties": {
           "plainText": {
             "type": "string",
-            "description": "Text element giving more details about the item."
+            "description": "Plain text details about the item."
           },
           "markdown": {
             "type": "string",
-            "description": "Formatted textual information."
+            "description": "Formatted textual information about the item."
           }
         },
-        "description": "Additional information on a price breakdown item."
+        "description": "Additional deails for a price breakdown item."
       },
       "QuotePaymentOptionsItemPriceCalculatedOnUnroundedAmountToConvert": {
         "type": "object",
@@ -36046,7 +36045,7 @@
           },
           "sourceAmount": {
             "type": "number",
-            "description": "Amount in source currency. Either sourceAmount or targetAmount is required, never both.",
+            "description": "Amount in source currency. Either \u0060sourceAmount\u0060 or \u0060targetAmount\u0060 is required, never both.",
             "example": null
           },
           "targetAmount": {
@@ -36078,7 +36077,7 @@
           },
           "sourceAmount": {
             "type": "number",
-            "description": "Amount in source currency. Either sourceAmount or targetAmount is required, never both.",
+            "description": "Amount in source currency. Either \u0060sourceAmount\u0060 or \u0060targetAmount\u0060 is required, never both.",
             "example": 100
           },
           "targetAmount": {
@@ -36088,18 +36087,18 @@
           },
           "targetAccount": {
             "type": "integer",
-            "description": "Optional. This is the ID of transfer recipient, found in response from POST v1/accounts (recipient creation). If provided can be used as an alternative to [updating the quote](/api-reference/quote/quoteupdate).",
+            "description": "_Optional_. This is the ID of transfer recipient, found in the create recipient response. If provided, can be used as an alternative to [updating the quote](/api-reference/quote/quoteupdate).",
             "format": "int64",
             "example": 12345
           },
           "payOut": {
             "type": "string",
-            "description": "Optional. Preferred payout method. Default value is \u0060BANK_TRANSFER\u0060. Examples of other accepted values include \u0060BALANCE\u0060, \u0060SWIFT\u0060, \u0060SWIFT_OUR\u0060, \u0060ALIPAY\u0060, and \u0060INTERAC\u0060.",
+            "description": "_Optional_. Preferred payout method. \n\nDefault value is \u0060BANK_TRANSFER\u0060. \n\nExamples of other accepted values include \u0060BALANCE\u0060, \u0060SWIFT\u0060, \u0060SWIFT_OUR\u0060, \u0060ALIPAY\u0060, and \u0060INTERAC\u0060.\n",
             "example": null
           },
           "preferredPayIn": {
             "type": "string",
-            "description": "Optional. Preferred payin method. Use \u0060BANK_TRANSFER\u0060 to return this method at the top of the response\u0027s results.",
+            "description": "_Optional_. Preferred payin method. Use \u0060BANK_TRANSFER\u0060 to return this method at the top of the response\u0027s results.",
             "example": null
           },
           "paymentMetadata": {
@@ -36115,13 +36114,13 @@
         "properties": {
           "targetAccount": {
             "type": "integer",
-            "description": "ID of transfer recipient, found in response from POST v1/accounts (recipient creation).",
+            "description": "ID of transfer recipient, found in the create recipient response.",
             "format": "int64",
             "example": 12345
           },
           "payOut": {
             "type": "string",
-            "description": "Optional. Preferred payout method. Default value is \u0060BANK_TRANSFER\u0060. Examples of other accepted values include \u0060BALANCE\u0060, \u0060SWIFT\u0060, \u0060SWIFT_OUR\u0060, \u0060ALIPAY\u0060, and \u0060INTERAC\u0060.",
+            "description": "_Optional_. Preferred payout method. \n\nDefault value is \u0060BANK_TRANSFER\u0060. \n\nExamples of other accepted values include \u0060BALANCE\u0060, \u0060SWIFT\u0060, \u0060SWIFT_OUR\u0060, \u0060ALIPAY\u0060, and \u0060INTERAC\u0060.\n",
             "example": "SWIFT_OUR"
           },
           "paymentMetadata": {
@@ -37576,7 +37575,7 @@
       },
       "RecipientCommonFieldMapProperty": {
         "type": "object",
-        "description": "Map of key lookup fields on the account."
+        "description": "Map of key lookup fields for the account."
       },
       "Error403ForbiddenForbiddenError403Error": {
         "type": "object",
@@ -37634,7 +37633,7 @@
       },
       "QuotePaymentOptionsItemPriceTotalExplanationProperty": {
         "type": "object",
-        "description": "Object element giving more details about the price."
+        "description": "Provides more details about the price."
       },
       "V500DataResourceTriggerReferencesItemTriggerDataProperty": {
         "type": "object",
@@ -39350,18 +39349,18 @@
             "$ref": "#/components/schemas/QuoteCreateUnauthenticatedRequestPricingConfigurationFee"
           }
         },
-        "description": "Required when configured for your client ID. Includes a pricingConfiguration to be used for pricing calculations with the quote."
+        "description": "Required when configured for your client ID. Includes a \u0060pricingConfiguration\u0060 to be used for pricing calculations with the quote."
       },
       "QuoteCreateRequestPaymentMetadata": {
         "type": "object",
         "properties": {
           "transferNature": {
             "type": "string",
-            "description": "Optional. Used to pass transfer nature for calculating proper tax amounts (IOF) for transfers to and from BRL. Accepted values are shown dynamically in transfer requirements.",
+            "description": "_Optional_. Used to pass transfer nature for calculating proper tax amounts (IOF) for transfers to and from BRL. Accepted values are shown dynamically in transfer requirements.",
             "example": "MOVING_MONEY_BETWEEN_OWN_ACCOUNTS"
           }
         },
-        "description": "Optional. Used to pass additional metadata about the intended transfer."
+        "description": "_Optional_. Used to pass additional metadata about the intended transfer."
       },
       "QuoteCreateRequestPricingConfiguration": {
         "type": "object",
@@ -39377,11 +39376,11 @@
         "properties": {
           "transferNature": {
             "type": "string",
-            "description": "Optional. Used to pass transfer nature for calculating proper tax amounts (IOF) for transfers to and from BRL. Accepted values are shown dynamically in transfer requirements.",
+            "description": "_Optional_. Used to pass transfer nature for calculating proper tax amounts (IOF) for transfers to and from BRL. Accepted values are shown dynamically in transfer requirements.",
             "example": "MOVING_MONEY_BETWEEN_OWN_ACCOUNTS"
           }
         },
-        "description": "Optional. Used to pass additional metadata about the intended transfer."
+        "description": "_Optional_. Used to pass additional metadata about the intended transfer."
       },
       "QuoteUpdateMergePatchJsonRequestPricingConfiguration": {
         "type": "object",
@@ -39390,7 +39389,7 @@
             "$ref": "#/components/schemas/QuoteUpdateMergePatchJsonRequestPricingConfigurationFee"
           }
         },
-        "description": "Required when configured for your client ID. Includes a pricingConfiguration to be used for pricing calculations with the quote. If previously passed, the existing pricingConfiguration will remain and not be updated."
+        "description": "Required when configured for your client ID. Includes \u0060pricingConfiguration\u0060 to be used for pricing calculations with the quote. If previously passed, the existing \u0060pricingConfiguration\u0060 will remain and not be updated."
       },
       "RateGet200ResponseItem": {
         "required": [
@@ -40486,17 +40485,17 @@
         "properties": {
           "type": {
             "type": "string",
-            "description": "Identifies the type of fee that will be configured. Options include only \u0060OVERRIDE\u0060.",
+            "description": "Identifies the type of fee to be configured. Options include only \u0060OVERRIDE\u0060.\u0022",
             "example": "OVERRIDE"
           },
           "variable": {
             "type": "number",
-            "description": "The selected variable percentage (in decimal format) that should be used in the pricingConfiguration.",
+            "description": "The selected variable percentage, in decimal format, that should be used in the \u0060pricingConfiguration\u0060.",
             "example": 0.011
           },
           "fixed": {
             "type": "number",
-            "description": "The selected fixed fee that should be used in the pricingConfiguration. Always considered in source currency.",
+            "description": "The selected fixed fee that should be used in the \u0060pricingConfiguration\u0060. Always considered in source currency.",
             "example": 15.42
           }
         }
@@ -40506,17 +40505,17 @@
         "properties": {
           "type": {
             "type": "string",
-            "description": "Identifies the type of fee that will be configured. Options include only \u0060OVERRIDE\u0060.",
+            "description": "Identifies the type of fee to be configured. Options include only \u0060OVERRIDE\u0060.",
             "example": "OVERRIDE"
           },
           "variable": {
             "type": "number",
-            "description": "The selected variable percentage (in decimal format) that should be used in the pricingConfiguration.",
+            "description": "The selected variable percentage, in decimal format, that should be used in the \u0060pricingConfiguration\u0060.",
             "example": 0.011
           },
           "fixed": {
             "type": "number",
-            "description": "The selected fixed fee that should be used in the pricingConfiguration. Always considered in source currency.",
+            "description": "The selected fixed fee that should be used in the \u0060pricingConfiguration\u0060. Always considered in source currency.",
             "example": 15.42
           }
         }
@@ -40526,17 +40525,17 @@
         "properties": {
           "type": {
             "type": "string",
-            "description": "Identifies the type of fee that will be configured. Options include only \u0060OVERRIDE\u0060.",
+            "description": "Identifies the type of fee to be configured. Options include only \u0060OVERRIDE\u0060.",
             "example": "OVERRIDE"
           },
           "variable": {
             "type": "number",
-            "description": "The selected variable percentage (in decimal format) that should be used in the pricingConfiguration.",
+            "description": "The selected variable percentage, in decimal format, that should be used in the \u0060pricingConfiguration\u0060.",
             "example": 0.011
           },
           "fixed": {
             "type": "number",
-            "description": "The selected fixed fee (in source currency) that should be used in the pricingConfiguration.",
+            "description": "The selected fixed fee, in source currency, that should be used in the \u0060pricingConfiguration\u0060.",
             "example": 15.42
           }
         }
@@ -42021,7 +42020,7 @@
         ],
         "type": "string",
         "additionalProperties": false,
-        "description": "Whether the quote was created as source or target.",
+        "description": "Indicates whether the quote was created as source or target.",
         "example": "SOURCE",
         "x-ms-enum": {
           "name": "QuoteProvidedAmountType",
@@ -42047,7 +42046,7 @@
         ],
         "type": "string",
         "additionalProperties": false,
-        "description": "Current status of this quote.",
+        "description": "Current status of the quote.",
         "example": "PENDING",
         "x-ms-enum": {
           "name": "QuoteStatus",
@@ -43662,7 +43661,7 @@
         ],
         "type": "string",
         "additionalProperties": false,
-        "description": "Type of message. If it is \u0060BLOCKED\u0060, don\u0027t allow the quote to be used to create the transfer.",
+        "description": "The type of message. If it is \u0060BLOCKED\u0060, don\u0027t allow the quote to be used to create the transfer.",
         "example": "WARNING",
         "x-ms-enum": {
           "name": "QuoteNoticesItemType",
@@ -43690,7 +43689,7 @@
         ],
         "type": "string",
         "additionalProperties": false,
-        "description": "Recipient legal type (when applicable).",
+        "description": "Recipient legal type.",
         "example": "PRIVATE",
         "x-ms-enum": {
           "name": "RecipientCreateRequestDetailsLegalType",
@@ -48499,7 +48498,7 @@
     },
     {
       "name": "quote",
-      "description": "The quote resource defines the basic information required for a Wise transfer - the currencies to send between, the amount to send and the profile who is sending the money. The profile _must_ be included when creating a quote.\n\nQuote is one of the required resources to create a transfer, along with the recipient who is to receive the funds.\n\nThe quote response contains other information such as the exchange rate, the estimated delivery time and the methods the user can pay for the transfer. Not all of this information may apply to your use case.\n\nUpon creating a quote the current mid-market exchange rate is locked and will be used for the transfer that is created from the quote. The rate will be locked for 30 minutes to give a user time to complete the transfer creation flow.\n",
+      "description": "The quote resource defines the currencies involved in a transfer, the amount to send, and the profile sending the money.\n\nThe quote resource is one of the resources required when creating a transfer, along with the recipient account that is receiving the funds.\n\n### Types of quotes\n\nWith the Wise API you can create either **unauthenticated** or **authenticated** quotes.\n\n**Unauthenticated quotes** are for illustrative purposes only. Use this option to display example rates before a user has created or linked an account. This endpoint does not required an auth token and the response has no ID, so it cannot be used to create a transfer.\n\n**Authenticated quotes** require an auth token and provide a quote ID in the response, which you then use when creating a transfer. \n\nUpon creating an authenticated quote, the current mid-market exchange rate is locked and will be used for the transfer created from the quote. The rate is locked for 30 minutes to give a user time to submit the transfer.\n\nThe quote response contains details like the exchange rate, the estimated delivery time, applicable fees, methods for the user to pay for the transfer, and quote expiration time. _Not all fields are applicable to all use cases_.\n",
       "x-displayName": "Quotes"
     },
     {
@@ -48509,7 +48508,7 @@
     },
     {
       "name": "recipient",
-      "description": "Recipient or beneficiary is the one who will receive the funds.\n\nRecipient account endpoints use a mixture of our v1 and v2 APIs. Please ensure you address the right version to get the expected results.\n\n{% admonition type=\u0022info\u0022 %}\nAll recipient IDs are cross compatible with v1 and v2.\n{% /admonition %}\n",
+      "description": "The recipient is the person receiving the funds. Sometimes called the beneficiary.\n\n\n{% admonition type=\u0022info\u0022 %}\nIf using the pre-global versioned APIs (legacy), be sure to check the endpoint version path, as our recipient account endpoints use a mixture of v1 and v2.\n\nAll recipient IDs are cross compatible with either version.\n{% /admonition %}\n",
       "x-displayName": "Recipient Accounts"
     },
     {

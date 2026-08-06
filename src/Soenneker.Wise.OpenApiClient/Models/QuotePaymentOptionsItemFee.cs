@@ -8,22 +8,22 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Object containing fee information.
+    /// Fee details for the quote.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class QuotePaymentOptionsItemFee : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Any discounts that have been applied to this quote for the user.</summary>
+        /// <summary>Any discounts that have been applied to this quote.</summary>
         public double? Discount { get; set; }
-        /// <summary>If you have agreed a custom price, it will be displayed here.</summary>
+        /// <summary>Agreed-upon custom pricing, if applicable.</summary>
         public double? Partner { get; set; }
         /// <summary>The fee for this payment option, based on the product type of the payment option.</summary>
         public double? PayIn { get; set; }
-        /// <summary>The total fees to be paid - use this figure when displaying fees on your app.</summary>
+        /// <summary>The total fees to be paid. Use this value when displaying fees in your app.</summary>
         public double? Total { get; set; }
-        /// <summary>The fee to be paid by the sender based on the current state of the quote.</summary>
+        /// <summary>The fee to be paid _by the sender_ based on the current state of the quote.</summary>
         public double? Transferwise { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemFee"/> and sets the default values.

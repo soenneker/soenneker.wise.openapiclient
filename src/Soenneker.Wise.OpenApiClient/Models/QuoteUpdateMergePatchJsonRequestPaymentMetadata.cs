@@ -8,14 +8,14 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Optional. Used to pass additional metadata about the intended transfer.
+    /// _Optional_. Used to pass additional metadata about the intended transfer.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class QuoteUpdateMergePatchJsonRequestPaymentMetadata : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Optional. Used to pass transfer nature for calculating proper tax amounts (IOF) for transfers to and from BRL. Accepted values are shown dynamically in transfer requirements.</summary>
+        /// <summary>_Optional_. Used to pass transfer nature for calculating proper tax amounts (IOF) for transfers to and from BRL. Accepted values are shown dynamically in transfer requirements.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? TransferNature { get; set; }

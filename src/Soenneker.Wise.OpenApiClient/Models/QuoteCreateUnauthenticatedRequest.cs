@@ -14,7 +14,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Required when configured for your client ID. Includes a pricingConfiguration to be used for pricing calculations with the quote.</summary>
+        /// <summary>Required when configured for your client ID. Includes a `pricingConfiguration` to be used for pricing calculations with the quote.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Soenneker.Wise.OpenApiClient.Models.QuoteCreateUnauthenticatedRequestPricingConfiguration? PricingConfiguration { get; set; }
@@ -22,7 +22,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public global::Soenneker.Wise.OpenApiClient.Models.QuoteCreateUnauthenticatedRequestPricingConfiguration PricingConfiguration { get; set; }
 #endif
-        /// <summary>Amount in source currency. Either sourceAmount or targetAmount is required, never both.</summary>
+        /// <summary>Amount in source currency. Either `sourceAmount` or `targetAmount` is required, never both.</summary>
         public double? SourceAmount { get; set; }
         /// <summary>Source (sending) currency code.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER

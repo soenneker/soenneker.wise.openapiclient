@@ -61,7 +61,7 @@ namespace Soenneker.Wise.OpenApiClient.Quotes.Item.AccountRequirements
         /// POST the same recipient account payload that you will POST to `/v1/accounts`.Use this endpoint after setting any field that has `refreshRequirementsOnChange=true` in the GET response,to discover any additional required fields.See the [GET endpoint](/api-reference/recipient/recipientaccountrequirementsget) for a full overview of how the account requirements flow works.
         /// </summary>
         /// <returns>A List&lt;global::Soenneker.Wise.OpenApiClient.Models.AccountRequirementsResponseItem&gt;</returns>
-        /// <param name="body">Create a recipient (beneficiary) account request for POST /v1/accounts. The required fields inside `details` depend on currency/route; use the account-requirements endpoints (e.g. /v1/quotes/{quoteId}/account-requirements) to discover the exact required fields.</param>
+        /// <param name="body">Create a recipient (beneficiary) account request. The required fields inside the `details` object depend on currency and route. Use the account-requirements endpoints to discover the exact required fields.</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent">When receiving a 429 status code</exception>
@@ -106,7 +106,7 @@ namespace Soenneker.Wise.OpenApiClient.Quotes.Item.AccountRequirements
         /// POST the same recipient account payload that you will POST to `/v1/accounts`.Use this endpoint after setting any field that has `refreshRequirementsOnChange=true` in the GET response,to discover any additional required fields.See the [GET endpoint](/api-reference/recipient/recipientaccountrequirementsget) for a full overview of how the account requirements flow works.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
-        /// <param name="body">Create a recipient (beneficiary) account request for POST /v1/accounts. The required fields inside `details` depend on currency/route; use the account-requirements endpoints (e.g. /v1/quotes/{quoteId}/account-requirements) to discover the exact required fields.</param>
+        /// <param name="body">Create a recipient (beneficiary) account request. The required fields inside the `details` object depend on currency and route. Use the account-requirements endpoints to discover the exact required fields.</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable

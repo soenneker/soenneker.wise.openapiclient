@@ -14,9 +14,9 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>The selected fixed fee (in source currency) that should be used in the pricingConfiguration.</summary>
+        /// <summary>The selected fixed fee, in source currency, that should be used in the `pricingConfiguration`.</summary>
         public double? Fixed { get; set; }
-        /// <summary>Identifies the type of fee that will be configured. Options include only `OVERRIDE`.</summary>
+        /// <summary>Identifies the type of fee to be configured. Options include only `OVERRIDE`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Type { get; set; }
@@ -24,7 +24,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string Type { get; set; }
 #endif
-        /// <summary>The selected variable percentage (in decimal format) that should be used in the pricingConfiguration.</summary>
+        /// <summary>The selected variable percentage, in decimal format, that should be used in the `pricingConfiguration`.</summary>
         public double? Variable { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.QuoteUpdateMergePatchJsonRequestPricingConfigurationFee"/> and sets the default values.

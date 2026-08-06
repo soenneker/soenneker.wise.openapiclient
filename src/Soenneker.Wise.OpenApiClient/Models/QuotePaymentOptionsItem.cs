@@ -14,7 +14,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Array of the allowed types of profile to use this payment option.</summary>
+        /// <summary>Array of the profile types allowed to use this payment option.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemAllowedProfileTypesItem?>? AllowedProfileTypes { get; set; }
@@ -22,9 +22,9 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public List<global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemAllowedProfileTypesItem?> AllowedProfileTypes { get; set; }
 #endif
-        /// <summary>Whether this option is enabled or not for this quote.</summary>
+        /// <summary>Indicates whether this option is enabled or not for this quote.</summary>
         public bool? Disabled { get; set; }
-        /// <summary>Object present if a payment option is disabled.</summary>
+        /// <summary>Present only if a payment option is disabled.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemDisabledReason? DisabledReason { get; set; }
@@ -32,9 +32,9 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemDisabledReason DisabledReason { get; set; }
 #endif
-        /// <summary>The estimated delivery time for this combination of payIn and payOut methods, assuming payIn is performed now.</summary>
+        /// <summary>The estimated delivery time for this combination of `payIn` and `payOut` methods (assuming `payIn` is performed now).</summary>
         public DateTimeOffset? EstimatedDelivery { get; set; }
-        /// <summary>Array of objects for delivery delays to display to users.</summary>
+        /// <summary>Array of objects for delivery delays you can display to your customers.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemEstimatedDeliveryDelaysItem>? EstimatedDeliveryDelays { get; set; }
@@ -42,7 +42,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public List<global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemEstimatedDeliveryDelaysItem> EstimatedDeliveryDelays { get; set; }
 #endif
-        /// <summary>Object containing fee information.</summary>
+        /// <summary>Fee details for the quote.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemFee? Fee { get; set; }
@@ -52,7 +52,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #endif
         /// <summary>Fee percentage for this payment option.</summary>
         public double? FeePercentage { get; set; }
-        /// <summary>A string to display to users for the estimated delivery date.</summary>
+        /// <summary>A customer-friendly string for the estimated delivery date, which you can pass through to your front-end.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? FormattedEstimatedDelivery { get; set; }
@@ -84,7 +84,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string PayOut { get; set; }
 #endif
-        /// <summary>Object containing the price information.</summary>
+        /// <summary>Price details for the quote.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemPrice? Price { get; set; }
@@ -92,7 +92,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemPrice Price { get; set; }
 #endif
-        /// <summary>sourceAmount when using this payment option.</summary>
+        /// <summary>Source amount when using this payment option.</summary>
         public double? SourceAmount { get; set; }
         /// <summary>Source currency for this payment option.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -102,7 +102,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string SourceCurrency { get; set; }
 #endif
-        /// <summary>targetAmount when using this payment option.</summary>
+        /// <summary>Target amount when using this payment option.</summary>
         public double? TargetAmount { get; set; }
         /// <summary>Target currency for this payment option.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER

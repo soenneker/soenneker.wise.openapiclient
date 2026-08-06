@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// The information of the ultimate beneficiary for this recipient.
+    /// The details for the ultimate beneficiary of this recipient.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class RecipientUltimateBeneficiary : IAdditionalDataHolder, IParsable
@@ -55,7 +55,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string BankName { get; set; }
 #endif
-        /// <summary>Ultimate beneficiary name details.</summary>
+        /// <summary>Ultimate beneficiary name.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Soenneker.Wise.OpenApiClient.Models.RecipientUltimateBeneficiaryName? Name { get; set; }

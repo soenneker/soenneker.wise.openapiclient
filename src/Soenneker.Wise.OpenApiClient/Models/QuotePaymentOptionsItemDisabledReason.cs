@@ -8,14 +8,14 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Object present if a payment option is disabled.
+    /// Present only if a payment option is disabled.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class QuotePaymentOptionsItemDisabledReason : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Code to denote the reason a payment method is unavailable.</summary>
+        /// <summary>Denotes the reason a payment method is unavailable.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Code { get; set; }
@@ -23,7 +23,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string Code { get; set; }
 #endif
-        /// <summary>User friendly message to display when a method is unavailable.</summary>
+        /// <summary>User-friendly message to display when a method is unavailable.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Message { get; set; }

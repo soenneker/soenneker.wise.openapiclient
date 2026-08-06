@@ -8,18 +8,18 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Verification results for the recipient&apos;s details. Only populated for currencies with recipient verification enabled (CNY, KRW, INR, IDR, EUR). See the [Recipient verification guides](/guides/product/send-money/recipient-verification) for how to handle these.
+    /// Contains verification results for the recipient&apos;s details. Only populated for currencies with recipient verification enabled (CNY, KRW, INR, IDR, EUR). See the [Recipient verification guides](/guides/product/send-money/recipient-verification) for details about how to handle this verification data by currency.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class Confirmations : IAdditionalDataHolder, IParsable
     {
-        /// <summary>Timestamp indicating time of outcome acceptance, `null` if has not been accepted.</summary>
+        /// <summary>Timestamp indicating date and time of outcome acceptance, `null` until acceptance received.</summary>
         public DateTimeOffset? AcceptedAt { get; set; }
         /// <summary>Whether we&apos;ve received an explicit customer acceptance.</summary>
         public bool? AcceptedOutcomes { get; set; }
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Array of confirmation outcomes. At the moment it is safe to assume that there is only one element in the outcomes list.</summary>
+        /// <summary>Array of confirmation outcomes. Currently, it is safe to assume there is only one element in the outcomes array.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<global::Soenneker.Wise.OpenApiClient.Models.ConfirmationsOutcomesItem>? Outcomes { get; set; }
@@ -27,7 +27,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public List<global::Soenneker.Wise.OpenApiClient.Models.ConfirmationsOutcomesItem> Outcomes { get; set; }
 #endif
-        /// <summary>If the confirmation check was run as part of a quote compatibility check, then the `quoteId` will be on the result. If `quoteId` is present, then the outcome acceptance will need the `quoteId` to be specified as well.</summary>
+        /// <summary>If the confirmation check was run as part of a quote compatibility check, then the `quoteId` is included in the result. If `quoteId` is present, the outcome acceptance needs the `quoteId` to be specified as well.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? QuoteId { get; set; }

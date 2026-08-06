@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Required when configured for your client ID. Includes a pricingConfiguration to be used for pricing calculations with the quote. If previously passed, the existing pricingConfiguration will remain and not be updated.
+    /// Required when configured for your client ID. Includes `pricingConfiguration` to be used for pricing calculations with the quote. If previously passed, the existing `pricingConfiguration` will remain and not be updated.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class QuoteUpdateMergePatchJsonRequestPricingConfiguration : IAdditionalDataHolder, IParsable

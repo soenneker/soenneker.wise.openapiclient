@@ -14,7 +14,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Optional. Used to pass additional metadata about the intended transfer.</summary>
+        /// <summary>_Optional_. Used to pass additional metadata about the intended transfer.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Soenneker.Wise.OpenApiClient.Models.QuoteUpdateMergePatchJsonRequestPaymentMetadata? PaymentMetadata { get; set; }
@@ -22,7 +22,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public global::Soenneker.Wise.OpenApiClient.Models.QuoteUpdateMergePatchJsonRequestPaymentMetadata PaymentMetadata { get; set; }
 #endif
-        /// <summary>Optional. Preferred payout method. Default value is `BANK_TRANSFER`. Examples of other accepted values include `BALANCE`, `SWIFT`, `SWIFT_OUR`, `ALIPAY`, and `INTERAC`.</summary>
+        /// <summary>_Optional_. Preferred payout method. Default value is `BANK_TRANSFER`. Examples of other accepted values include `BALANCE`, `SWIFT`, `SWIFT_OUR`, `ALIPAY`, and `INTERAC`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? PayOut { get; set; }
@@ -30,7 +30,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string PayOut { get; set; }
 #endif
-        /// <summary>Required when configured for your client ID. Includes a pricingConfiguration to be used for pricing calculations with the quote. If previously passed, the existing pricingConfiguration will remain and not be updated.</summary>
+        /// <summary>Required when configured for your client ID. Includes `pricingConfiguration` to be used for pricing calculations with the quote. If previously passed, the existing `pricingConfiguration` will remain and not be updated.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Soenneker.Wise.OpenApiClient.Models.QuoteUpdateMergePatchJsonRequestPricingConfiguration? PricingConfiguration { get; set; }
@@ -38,7 +38,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public global::Soenneker.Wise.OpenApiClient.Models.QuoteUpdateMergePatchJsonRequestPricingConfiguration PricingConfiguration { get; set; }
 #endif
-        /// <summary>ID of transfer recipient, found in response from POST v1/accounts (recipient creation).</summary>
+        /// <summary>ID of transfer recipient, found in the create recipient response.</summary>
         public long? TargetAccount { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.QuoteUpdateMergePatchJsonRequest"/> and sets the default values.

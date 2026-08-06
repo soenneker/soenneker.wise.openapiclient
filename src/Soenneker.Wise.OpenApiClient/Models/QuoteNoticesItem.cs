@@ -14,7 +14,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>URL that provides more information to the message. May be `null` if there&apos;s no URL.</summary>
+        /// <summary>URL that provides more details about the message. May be `null` if there&apos;s no URL.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Link { get; set; }
@@ -30,7 +30,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string Text { get; set; }
 #endif
-        /// <summary>Type of message. If it is `BLOCKED`, don&apos;t allow the quote to be used to create the transfer.</summary>
+        /// <summary>The type of message. If it is `BLOCKED`, don&apos;t allow the quote to be used to create the transfer.</summary>
         public global::Soenneker.Wise.OpenApiClient.Models.QuoteNoticesItemType? Type { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.QuoteNoticesItem"/> and sets the default values.

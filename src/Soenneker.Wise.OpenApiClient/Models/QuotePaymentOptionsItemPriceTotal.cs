@@ -8,14 +8,14 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// The total fees to be paid - use this figure when displaying fees on your app.
+    /// The total fees to be paid. Use this value when displaying fees in your app.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class QuotePaymentOptionsItemPriceTotal : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Object element giving more details about the price.</summary>
+        /// <summary>Provides more details about the price.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemPriceTotalExplanationProperty? Explanation { get; set; }
@@ -23,7 +23,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemPriceTotalExplanationProperty Explanation { get; set; }
 #endif
-        /// <summary>Short text describing the price structure.</summary>
+        /// <summary>Plain text describing the price structure.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Label { get; set; }
@@ -31,7 +31,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string Label { get; set; }
 #endif
-        /// <summary>Type of the pricing element.</summary>
+        /// <summary>The type of the pricing element.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Type { get; set; }
@@ -39,7 +39,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string Type { get; set; }
 #endif
-        /// <summary>Object containing value elements.</summary>
+        /// <summary>Value details for the `price.total` object.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemPriceTotalValue? Value { get; set; }

@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Object containing the price information.
+    /// Price details for the quote.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class QuotePaymentOptionsItemPrice : IAdditionalDataHolder, IParsable
@@ -23,7 +23,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemPriceCalculatedOn CalculatedOn { get; set; }
 #endif
-        /// <summary>Deferred fee information from a pricingConfiguration override.</summary>
+        /// <summary>Deferred fee information from a `pricingConfiguration` override.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemPriceDeferredFee? DeferredFee { get; set; }
@@ -31,7 +31,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemPriceDeferredFee DeferredFee { get; set; }
 #endif
-        /// <summary>Object containing the details of the different elements of the total price.</summary>
+        /// <summary>Details the different elements contained in the total price.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemPriceItemsItem>? Items { get; set; }
@@ -41,7 +41,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #endif
         /// <summary>ID of the price structure.</summary>
         public long? PriceSetId { get; set; }
-        /// <summary>The total fees to be paid - use this figure when displaying fees on your app.</summary>
+        /// <summary>The total fees to be paid. Use this value when displaying fees in your app.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemPriceTotal? Total { get; set; }

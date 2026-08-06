@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Account details (currency/type-specific). The keys present vary by currency route and recipient type (e.g., sort code, IBAN, SWIFT, email).
+    /// Contains the details of the receipient account specific its currency and type. The fields required (in the request) or present (in the response) vary depending on currency route and recipient type (e.g., sort code, IBAN, SWIFT, email).
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class RecipientDetails : IAdditionalDataHolder, IParsable
@@ -31,7 +31,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string HashedByLooseHashAlgorithm { get; set; }
 #endif
-        /// <summary>Recipient reference (present for some routes).</summary>
+        /// <summary>Recipient reference (applies for some routes).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Reference { get; set; }

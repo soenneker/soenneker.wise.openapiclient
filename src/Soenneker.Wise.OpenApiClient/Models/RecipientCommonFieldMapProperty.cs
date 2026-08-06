@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Map of key lookup fields on the account.
+    /// Map of key lookup fields for the account.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class RecipientCommonFieldMapProperty : IAdditionalDataHolder, IParsable

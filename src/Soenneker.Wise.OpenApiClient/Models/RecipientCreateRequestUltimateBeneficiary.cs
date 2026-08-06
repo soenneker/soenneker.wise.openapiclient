@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// The information of the ultimate beneficiary for this recipient, if present. If absent, the ultimate beneficiary is the recipient.
+    /// The details about the ultimate beneficiary for this recipient, if present. If absent, the ultimate beneficiary _is_ the recipient.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class RecipientCreateRequestUltimateBeneficiary : IAdditionalDataHolder, IParsable

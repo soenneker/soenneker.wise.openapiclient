@@ -14,7 +14,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Fields we used to confirm the account.</summary>
+        /// <summary>Fields used to confirm the account.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<string>? FieldsChecked { get; set; }
@@ -22,7 +22,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public List<string> FieldsChecked { get; set; }
 #endif
-        /// <summary>Customer facing message about the outcome of the check.</summary>
+        /// <summary>Customer-facing message about the outcome of the check.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Message { get; set; }
@@ -30,7 +30,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string Message { get; set; }
 #endif
-        /// <summary>&quot;The actual outcome of the confirmation. Possible values: `SUCCESS`, `PARTIAL_FAILURE`, `FAILURE`, `COULD_NOT_CHECK`.&quot;</summary>
+        /// <summary>&quot;The actual outcome of the confirmation check. Possible values: `SUCCESS`, `PARTIAL_FAILURE`, `FAILURE`, `COULD_NOT_CHECK`.&quot;</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Outcome { get; set; }
@@ -38,7 +38,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string Outcome { get; set; }
 #endif
-        /// <summary>The name that the customer provided when creating the recipient account. Only populated for NAME_MATCHING and NAME_RESOLUTION types for certain outcomes.</summary>
+        /// <summary>The name the customer provided when creating the recipient account. Only populated for `NAME_MATCHING` and `NAME_RESOLUTION` types for certain outcomes.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? ProvidedName { get; set; }
@@ -46,7 +46,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string ProvidedName { get; set; }
 #endif
-        /// <summary>Shows what are the correct values for some of the fields we&apos;ve checked.</summary>
+        /// <summary>Shows the correct values for some of the fields checked.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<global::Soenneker.Wise.OpenApiClient.Models.RecipientConfirmationsOutcomesItemRecommendedUpdatesItem>? RecommendedUpdates { get; set; }
@@ -54,7 +54,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public List<global::Soenneker.Wise.OpenApiClient.Models.RecipientConfirmationsOutcomesItemRecommendedUpdatesItem> RecommendedUpdates { get; set; }
 #endif
-        /// <summary>Whether we require customer acceptance. Whether this value is true or false is dependent on the currency and the nature of the confirmation.</summary>
+        /// <summary>Indicates whether we require customer acceptance. Whether this value is `true` or `false` depends on the currency and the nature of the confirmation.If `true`, you must present your customer with the ability to accept or decline the confirmation result.</summary>
         public bool? RequiresCustomerAcceptance { get; set; }
         /// <summary>The name that we resolved during name matching or name resolution.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER

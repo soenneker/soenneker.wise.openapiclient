@@ -14,7 +14,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Optional. Used to pass additional metadata about the intended transfer.</summary>
+        /// <summary>_Optional_. Used to pass additional metadata about the intended transfer.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Soenneker.Wise.OpenApiClient.Models.QuoteCreateRequestPaymentMetadata? PaymentMetadata { get; set; }
@@ -22,7 +22,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public global::Soenneker.Wise.OpenApiClient.Models.QuoteCreateRequestPaymentMetadata PaymentMetadata { get; set; }
 #endif
-        /// <summary>Optional. Preferred payout method. Default value is `BANK_TRANSFER`. Examples of other accepted values include `BALANCE`, `SWIFT`, `SWIFT_OUR`, `ALIPAY`, and `INTERAC`.</summary>
+        /// <summary>_Optional_. Preferred payout method. Default value is `BANK_TRANSFER`. Examples of other accepted values include `BALANCE`, `SWIFT`, `SWIFT_OUR`, `ALIPAY`, and `INTERAC`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? PayOut { get; set; }
@@ -30,7 +30,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string PayOut { get; set; }
 #endif
-        /// <summary>Optional. Preferred payin method. Use `BANK_TRANSFER` to return this method at the top of the response&apos;s results.</summary>
+        /// <summary>_Optional_. Preferred payin method. Use `BANK_TRANSFER` to return this method at the top of the response&apos;s results.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? PreferredPayIn { get; set; }
@@ -46,7 +46,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public global::Soenneker.Wise.OpenApiClient.Models.QuoteCreateRequestPricingConfiguration PricingConfiguration { get; set; }
 #endif
-        /// <summary>Amount in source currency. Either sourceAmount or targetAmount is required, never both.</summary>
+        /// <summary>Amount in source currency. Either `sourceAmount` or `targetAmount` is required, never both.</summary>
         public double? SourceAmount { get; set; }
         /// <summary>Source (sending) currency code.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -56,7 +56,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string SourceCurrency { get; set; }
 #endif
-        /// <summary>Optional. This is the ID of transfer recipient, found in response from POST v1/accounts (recipient creation). If provided can be used as an alternative to [updating the quote](/api-reference/quote/quoteupdate).</summary>
+        /// <summary>_Optional_. This is the ID of transfer recipient, found in the create recipient response. If provided, can be used as an alternative to [updating the quote](/api-reference/quote/quoteupdate).</summary>
         public long? TargetAccount { get; set; }
         /// <summary>Amount in target currency.</summary>
         public double? TargetAmount { get; set; }

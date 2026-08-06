@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Object containing value elements.
+    /// Value details for the `price.total` object.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class QuotePaymentOptionsItemPriceTotalValue : IAdditionalDataHolder, IParsable
@@ -25,7 +25,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string Currency { get; set; }
 #endif
-        /// <summary>Text version of the price.</summary>
+        /// <summary>Plain text version of the price.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Label { get; set; }

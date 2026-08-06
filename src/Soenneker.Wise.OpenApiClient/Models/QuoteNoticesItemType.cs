@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
-    /// <summary>Type of message. If it is `BLOCKED`, don&apos;t allow the quote to be used to create the transfer.</summary>
+    /// <summary>The type of message. If it is `BLOCKED`, don&apos;t allow the quote to be used to create the transfer.</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public enum QuoteNoticesItemType
     {

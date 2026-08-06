@@ -1197,25 +1197,40 @@ tags:
   - name: quote
     x-displayName: Quotes
     description: >
-      The quote resource defines the basic information required for a Wise
-      transfer - the currencies to send between, the amount to send and the
-      profile who is sending the money. The profile _must_ be included when
-      creating a quote.
+      The quote resource defines the currencies involved in a transfer, the
+      amount to send, and the profile sending the money.
 
 
-      Quote is one of the required resources to create a transfer, along with
-      the recipient who is to receive the funds.
+      The quote resource is one of the resources required when creating a
+      transfer, along with the recipient account that is receiving the funds.
 
 
-      The quote response contains other information such as the exchange rate,
-      the estimated delivery time and the methods the user can pay for the
-      transfer. Not all of this information may apply to your use case.
+      ### Types of quotes
 
 
-      Upon creating a quote the current mid-market exchange rate is locked and
-      will be used for the transfer that is created from the quote. The rate
-      will be locked for 30 minutes to give a user time to complete the transfer
-      creation flow.
+      With the Wise API you can create either **unauthenticated** or
+      **authenticated** quotes.
+
+
+      **Unauthenticated quotes** are for illustrative purposes only. Use this
+      option to display example rates before a user has created or linked an
+      account. This endpoint does not required an auth token and the response
+      has no ID, so it cannot be used to create a transfer.
+
+
+      **Authenticated quotes** require an auth token and provide a quote ID in
+      the response, which you then use when creating a transfer. 
+
+
+      Upon creating an authenticated quote, the current mid-market exchange rate
+      is locked and will be used for the transfer created from the quote. The
+      rate is locked for 30 minutes to give a user time to submit the transfer.
+
+
+      The quote response contains details like the exchange rate, the estimated
+      delivery time, applicable fees, methods for the user to pay for the
+      transfer, and quote expiration time. _Not all fields are applicable to all
+      use cases_.
   - name: rate
     x-displayName: Exchange Rates
     description: |
@@ -1223,16 +1238,19 @@ tags:
   - name: recipient
     x-displayName: Recipient Accounts
     description: >
-      Recipient or beneficiary is the one who will receive the funds.
+      The recipient is the person receiving the funds. Sometimes called the
+      beneficiary.
 
-
-      Recipient account endpoints use a mixture of our v1 and v2 APIs. Please
-      ensure you address the right version to get the expected results.
 
 
       {% admonition type="info" %}
 
-      All recipient IDs are cross compatible with v1 and v2.
+      If using the pre-global versioned APIs (legacy), be sure to check the
+      endpoint version path, as our recipient account endpoints use a mixture of
+      v1 and v2.
+
+
+      All recipient IDs are cross compatible with either version.
 
       {% /admonition %}
   - name: simulation
@@ -15694,27 +15712,29 @@ paths:
       operationId: quoteCreateUnauthenticated
       summary: Create a quote (unauthenticated)
       description: >
-        Use this endpoint to get example quotes for people to see the exchange
-        rate and fees Wise offers before a user has created or linked an
-        account. This can drive a version of the quote screen that shows the
-        user what Wise offers before they sign up.
-
-        Note that this endpoint does not require a token to create the resource,
-        however, since it is just an example, the returned quote has no ID so
-        can't be used later to create a transfer.
+        Use this endpoint to get example quotes for illustrative purposes. This
+        allows you to show the exchange rate and fees Wise offers before a user
+        has created or linked an account. Often used to display a quote screen
+        showing your customers what Wise offers before they sign up.
 
 
-        In order to get an accurate partner fee, we require a client credentials
-        token to be provided. If you are a partner and would like your fee to be
-        included in the quote returned, you must provide your auth token. If
-        not, you do not require the Authorization header.
+        Note that this endpoint does not require a token to create the resource.
+        However, since it is just an example, the returned quote has no ID and
+        can't be used to create a transfer.
+
+
+        To get quotes with an accurate partner fee, include the Authorization
+        header in the request with your client credentials token. Otherwise, you
+        do not need to include the Authorization header.
 
 
         {% admonition type="info" %}
 
-        Unauthenticated quotes cannot be used to create transfers, they are
-        meant for illustration purposes in partner interfaces only. Make sure to
-        create an authenticated quote during the transfer creation flow.
+        Unauthenticated quotes cannot be used to create transfers. They are
+        meant for illustration purposes in partner interfaces only. 
+
+
+        When creating a transfer, be sure to use an authenticated quote.
 
         {% /admonition %}
       tags:
@@ -15745,8 +15765,8 @@ paths:
                     - number
                     - 'null'
                   description: >-
-                    Amount in source currency. Either sourceAmount or
-                    targetAmount is required, never both.
+                    Amount in source currency. Either `sourceAmount` or
+                    `targetAmount` is required, never both.
                   example: null
                 targetAmount:
                   type:
@@ -15758,7 +15778,7 @@ paths:
                   type: object
                   description: >-
                     Required when configured for your client ID. Includes a
-                    pricingConfiguration to be used for pricing calculations
+                    `pricingConfiguration` to be used for pricing calculations
                     with the quote.
                   properties:
                     fee:
@@ -15767,20 +15787,20 @@ paths:
                         type:
                           type: string
                           description: >-
-                            Identifies the type of fee that will be configured.
-                            Options include only `OVERRIDE`.
+                            Identifies the type of fee to be configured. Options
+                            include only `OVERRIDE`."
                           example: OVERRIDE
                         variable:
                           type: number
                           description: >-
-                            The selected variable percentage (in decimal format)
-                            that should be used in the pricingConfiguration.
+                            The selected variable percentage, in decimal format,
+                            that should be used in the `pricingConfiguration`.
                           example: 0.011
                         fixed:
                           type: number
                           description: >-
                             The selected fixed fee that should be used in the
-                            pricingConfiguration. Always considered in source
+                            `pricingConfiguration`. Always considered in source
                             currency.
                           example: 15.42
       responses:
@@ -15804,99 +15824,80 @@ paths:
       operationId: quoteCreate
       summary: Create a quote (authenticated)
       description: >
+        Create an authenticated quote when the quote is to be used for a
+        transfer.
+
+
+        Authenticated quotes require a user access token to authenticate. You
+        must also include the profile the quote should be associated with.
+
+
+        If you are funding the transfer from a multi-currency balance, set the
+        `payIn` field to `BALANCE`. Otherwise this field defaults to
+        `BANK_TRANSFER`, causing the fees to be inconsistent between quote and
+        transfer.
+
+
         {% admonition type="info" %}
 
-        You must use a user access token to authenticate this call and supply
-        the profile with which the quote should be associated. This ensures that
-        quote can be used to create a transfer.
+        When `payOut` value is set to `SWIFT_OUR`, it enables payment protection
+        for SWIFT recipients of global currency transfers. 
+
+
+        By using this `payOut` method, you can guarantee to your customers that
+        the fee will be charged to the sender, ensuring the recipient receives
+        the full target amount.
 
         {% /admonition %}
 
 
-        If you are funding the transfer from a Multi Currency Balance, you must
-        set the `payIn` as `BALANCE` to get the correct pricing in the quote.
-        Not doing so will default to `BANK_TRANSFER` and the fees will be
-        inconsistent between quote and transfer.
+        #### paymentOptions in the response
 
 
-        {% admonition type="info" %}
-
-        When SWIFT_OUR is set as payOut value, it enables payment protection for
-        swift recipients for global currency transfers. By using this payOut
-        method, you can guarantee your customers that the fee will be charged to
-        the sender and can ensure that the recipient gets the complete target
-        amount.
-
-        {% /admonition %}
+        A few things to note about the data in the `paymentOptions` object:
 
 
-        #### Response
+        - The `payOut` field is used to select the correct entry in the
+        `paymentOptions` array so you know which fees to display to your
+        customer. 
 
+        - Find the `paymentOption` that matches the `payOut` field shown at the
+        top level of the quote resource and `payIn` based on the settlement
+        model the bank is using. By default, this is `BANK_TRANSFER`, unless you
+        are using a prefunded or bulk settlement model. 
 
-        The following describes the fields of the quote response that may be
-        useful when building your integration.
+        - The `payOut` field changes based on the type of recipient you add to
+        the quote in the **update quote request**. For example, to-USD
+        `swift_code` or to-CAD `interac` have different fees.
 
+        - Each `paymentOption` includes a `price` field, which gives a full
+        breakdown of all the taxes, fees, and discounts. Refer to this structure
+        for breakdowns and totals, rather than the `fee` structure as that only
+        gives a summary and does not surface important specifics such as taxes.
 
-        The `payOut` field is used to select the correct entry in the
-        `paymentOptions` array in order to know which fees to display to your
-        customer. Find the paymentOption that matches the `payOut` field shown
-        at the top level of the quote resource and `payIn` based on the
-        settlement model the bank is using. By default, this is `BANK_TRANSFER`,
-        unless you are using a prefunded or bulk settlement model. The `payOut`
-        field will change based on the type of recipient you add to the quote in
-        the `PATCH /quote` call, for example to-USD `swift_code` or to-CAD
-        `interac` have different fees.
-
-
-        For example sending USD to a country other than the United States is
-        supported but with different fees to domestic USD transfers.
-
-        Please see the later section on [Global
-        Currencies](/guides/product/send-money/swift-network-transfers) to learn
-        more about how to offer this useful feature.
-
-
-        For each paymentOption there is a price field. It gives a full breakdown
-        of all the taxes, fees and discounts. It is preferable to refer to this
-        structure to show breakdowns and totals, rather than the fee structure,
-        found as well in each paymentOption element, that only gives a summary
-        and is not able to surface important specifics such as taxes.
-
-
-        When showing the price of a transfer always show the
+        - When showing the price of a transfer always show the
         'price.total.value.amount' of a payment option.
 
+        - Each payment option is either enabled or disabled based on the
+        `disabled` value.
+          - Disabled payment options should be shown to the user in a disabled state in most cases. This ensures users are given the options they are familiar with regardless of their availability, as well as options that can be beneficial to their accounts.
+          - The `option.disabledReason` contains both a `code` and a `message`. The message is the user-friendly text to surface to the user, if necessary.
 
-        #### Disabled Payment Options
-
-
-        Each payment option is either enabled or disabled based on the
-        `disabled` value. Disabled payment options should be shown to the user
-        in a disabled state in most cases. This ensures users are given the
-        options that they are familiar with regardless of their availability, as
-        well as with options that can be beneficial to their accounts.
+        #### Transfer nature for BRL
 
 
-        The `option.disabledReason` contains both the `code` and `message`, with
-        the message being the user-friendly text to surface to the user if
-        necessary.
+        `transferNature` is a **required** field for transfers to or from BRL.
+        It also impacts the fees charged on the quote, specifically the IOF.
 
 
-        #### Transfer Nature for BRL
-
-        When creating or updating a quote, the transfer nature can be set. This
-        is a requirement for transfers to or from BRL and impacts the fees we
-        charge on the quote, specifically the IOF.
-
-
-        Note that IOF is determined based on the transfer nature, sender
-        information, and recipient information. The default IOF will be included
-        in a quote until all relevant information has been included.
+        IOF is determined based on the transfer nature, sender information, and
+        recipient information. The default IOF is included in a quote until all
+        relevant information has been included.
 
 
         {% admonition type="info" %}
 
-        Omitting transfer nature will not prevent the transfer from being
+        Omitting `transferNature` will not prevent the transfer from being
         created or even funded. However, when attempting to process the
         transfer, it will be blocked and the money will be refunded to the
         sender.
@@ -15904,15 +15905,12 @@ paths:
         {% /admonition %}
 
 
-        #### Pricing Configuration
-
-        When creating or updating a quote, partners that have flexible partner
-        pricing enabled are able to override the pricing configuration
-        dynamically.
+        #### Pricing configuration
 
 
-        To learn more on how to use this feature, please see the [Flexible
-        Partner Pricing Guide](/guides/product/send-money/quotes/pricing)
+        When creating or updating a quote, partners with [flexible partner
+        pricing](/guides/product/send-money/quotes/pricing) enabled can override
+        the pricing configuration dynamically.
       tags:
         - quote
       security:
@@ -15950,8 +15948,8 @@ paths:
                     - number
                     - 'null'
                   description: >-
-                    Amount in source currency. Either sourceAmount or
-                    targetAmount is required, never both.
+                    Amount in source currency. Either `sourceAmount` or
+                    `targetAmount` is required, never both.
                   example: 100
                 targetAmount:
                   type:
@@ -15963,38 +15961,43 @@ paths:
                   type: integer
                   format: int64
                   description: >-
-                    Optional. This is the ID of transfer recipient, found in
-                    response from POST v1/accounts (recipient creation). If
-                    provided can be used as an alternative to [updating the
+                    _Optional_. This is the ID of transfer recipient, found in
+                    the create recipient response. If provided, can be used as
+                    an alternative to [updating the
                     quote](/api-reference/quote/quoteupdate).
                   example: 12345
                 payOut:
                   type:
                     - string
                     - 'null'
-                  description: >-
-                    Optional. Preferred payout method. Default value is
-                    `BANK_TRANSFER`. Examples of other accepted values include
-                    `BALANCE`, `SWIFT`, `SWIFT_OUR`, `ALIPAY`, and `INTERAC`.
+                  description: >
+                    _Optional_. Preferred payout method. 
+
+
+                    Default value is `BANK_TRANSFER`. 
+
+
+                    Examples of other accepted values include `BALANCE`,
+                    `SWIFT`, `SWIFT_OUR`, `ALIPAY`, and `INTERAC`.
                   example: null
                 preferredPayIn:
                   type:
                     - string
                     - 'null'
                   description: >-
-                    Optional. Preferred payin method. Use `BANK_TRANSFER` to
+                    _Optional_. Preferred payin method. Use `BANK_TRANSFER` to
                     return this method at the top of the response's results.
                   example: null
                 paymentMetadata:
                   type: object
                   description: >-
-                    Optional. Used to pass additional metadata about the
+                    _Optional_. Used to pass additional metadata about the
                     intended transfer.
                   properties:
                     transferNature:
                       type: string
                       description: >-
-                        Optional. Used to pass transfer nature for calculating
+                        _Optional_. Used to pass transfer nature for calculating
                         proper tax amounts (IOF) for transfers to and from BRL.
                         Accepted values are shown dynamically in transfer
                         requirements.
@@ -16012,20 +16015,20 @@ paths:
                         type:
                           type: string
                           description: >-
-                            Identifies the type of fee that will be configured.
-                            Options include only `OVERRIDE`.
+                            Identifies the type of fee to be configured. Options
+                            include only `OVERRIDE`.
                           example: OVERRIDE
                         variable:
                           type: number
                           description: >-
-                            The selected variable percentage (in decimal format)
-                            that should be used in the pricingConfiguration.
+                            The selected variable percentage, in decimal format,
+                            that should be used in the `pricingConfiguration`.
                           example: 0.011
                         fixed:
                           type: number
                           description: >-
                             The selected fixed fee that should be used in the
-                            pricingConfiguration. Always considered in source
+                            `pricingConfiguration`. Always considered in source
                             currency.
                           example: 15.42
       responses:
@@ -16090,58 +16093,49 @@ paths:
       operationId: quoteUpdate
       summary: Update a quote
       description: >
-        You should update a quote using a `PATCH` call to add a recipient. This
-        will update the saved quote's data based on who and where the money will
-        be sent to.
+        When generating a quote before a recipient, you must update the quote
+        with the recipient `sourceAccount` value, as the recipient details may
+        impact the quote properties like available payment options, price, and
+        estimated delivery time. 
+
+        This is because sending some currencies to certain destinations costs a
+        different amount based on the payment networks used (for example, it's
+        more expensive to send USD to a country outside the USA using
+        international payment networks, or send CAD over the Interac network).
 
 
-        Updating the quote with a recipient may cause the available payment
-        options, prices and estimated delivery times to change from the original
-        quoted amounts. This is due to the fact that sending some currencies to
-        some destinations costs a different amount based on the payment networks
-        we use, for example sending USD to a country outside the USA uses
-        international rather than domestic payment networks and as such costs
-        more, or sending CAD over the Interac network is a more expensive
-        operation.
+        When updating a quote, the `payOut` field may change to denote the
+        payment option you should select when sending to the recipient. For
+        example, sending USD to a `swift_code` recipient or CAD to an `interac`
+        recipient changes `payOut` to `SWIFT` or `INTERAC` respectively. This
+        field defaults to `BANK_TRANSFER` so it can be used in all cases to help
+        select the correct `paymentOption` and hence show the correct pricing.
 
 
-        When updating a quote the `payOut` field may change to denote the
-        payment option you should select when sending to this recipient. For
-        example sending USD to a `swift_code` recipient or CAD to an `interac`
-        recipient will change `payOut` to `SWIFT` or `INTERAC` respectively.
-        This field defaults to `BANK_TRANSFER` so it can be used in all cases to
-        help select the correct `paymentOption` and hence show the correct
-        pricing to users.
+        If pricing changes after updating a quote for a recipient, be sure to
+        inform your customer before confirming the transfer.
 
 
-        If you want to provide more transparency in terms of fees charged when
-        your customers create quote with swift recipient for global currencies,
-        you might consider to set payOut field with SWIFT_OUR value. This will
-        ensure that the recipient receives complete target amount.
-
-
-        In this case, where pricing changes after a user selects recipient, you
-        should show a message to your customer before confirming the transfer.
-        Please see the section on [Global
-        Currencies](/guides/product/send-money/swift-network-transfers) to learn
-        more how and why this works and the messaging you need to display.
+        To provide more transparency for fees charged for SWIFT recipients,
+        consider setting the `payOut` field to `SWIFT_OUR`. This ensures the
+        recipient receives the full target amount.
 
 
         #### Transfer Nature for BRL
 
-        When creating or updating a quote, the transfer nature can be set. This
-        is a requirement for transfers to or from BRL and impacts the fees we
-        charge on the quote, specifically the IOF.
+
+        `transferNature` is a **required** field for transfers to or from BRL.
+        It also impacts the fees charged on the quote, specifically the IOF.
 
 
-        Note that IOF is determined based on the transfer nature, sender
-        information, and recipient information. The default IOF will be included
-        in a quote until all relevant information has been included.
+        IOF is determined based on the transfer nature, sender information, and
+        recipient information. The default IOF is included in a quote until all
+        relevant information has been included.
 
 
         {% admonition type="info" %}
 
-        Omitting transfer nature will not prevent the transfer from being
+        Omitting `transferNature` will not prevent the transfer from being
         created or even funded. However, when attempting to process the
         transfer, it will be blocked and the money will be refunded to the
         sender.
@@ -16180,26 +16174,31 @@ paths:
                   type: integer
                   format: int64
                   description: >-
-                    ID of transfer recipient, found in response from POST
-                    v1/accounts (recipient creation).
+                    ID of transfer recipient, found in the create recipient
+                    response.
                   example: 12345
                 payOut:
                   type: string
-                  description: >-
-                    Optional. Preferred payout method. Default value is
-                    `BANK_TRANSFER`. Examples of other accepted values include
-                    `BALANCE`, `SWIFT`, `SWIFT_OUR`, `ALIPAY`, and `INTERAC`.
+                  description: >
+                    _Optional_. Preferred payout method. 
+
+
+                    Default value is `BANK_TRANSFER`. 
+
+
+                    Examples of other accepted values include `BALANCE`,
+                    `SWIFT`, `SWIFT_OUR`, `ALIPAY`, and `INTERAC`.
                   example: SWIFT_OUR
                 paymentMetadata:
                   type: object
                   description: >-
-                    Optional. Used to pass additional metadata about the
+                    _Optional_. Used to pass additional metadata about the
                     intended transfer.
                   properties:
                     transferNature:
                       type: string
                       description: >-
-                        Optional. Used to pass transfer nature for calculating
+                        _Optional_. Used to pass transfer nature for calculating
                         proper tax amounts (IOF) for transfers to and from BRL.
                         Accepted values are shown dynamically in transfer
                         requirements.
@@ -16207,10 +16206,10 @@ paths:
                 pricingConfiguration:
                   type: object
                   description: >-
-                    Required when configured for your client ID. Includes a
-                    pricingConfiguration to be used for pricing calculations
+                    Required when configured for your client ID. Includes
+                    `pricingConfiguration` to be used for pricing calculations
                     with the quote. If previously passed, the existing
-                    pricingConfiguration will remain and not be updated.
+                    `pricingConfiguration` will remain and not be updated.
                   properties:
                     fee:
                       type: object
@@ -16218,20 +16217,20 @@ paths:
                         type:
                           type: string
                           description: >-
-                            Identifies the type of fee that will be configured.
-                            Options include only `OVERRIDE`.
+                            Identifies the type of fee to be configured. Options
+                            include only `OVERRIDE`.
                           example: OVERRIDE
                         variable:
                           type: number
                           description: >-
-                            The selected variable percentage (in decimal format)
-                            that should be used in the pricingConfiguration.
+                            The selected variable percentage, in decimal format,
+                            that should be used in the `pricingConfiguration`.
                           example: 0.011
                         fixed:
                           type: number
                           description: >-
-                            The selected fixed fee (in source currency) that
-                            should be used in the pricingConfiguration.
+                            The selected fixed fee, in source currency, that
+                            should be used in the `pricingConfiguration`.
                           example: 15.42
       responses:
         '200':
@@ -29693,8 +29692,8 @@ components:
         payOut:
           type: string
           description: >-
-            Mechanism we use to deliver the transfer. Not usually of interest to
-            the user.
+            Mechanism Wise uses to deliver the transfer. Provided for
+            information purposes.
           example: BANK_TRANSFER
         preferredPayIn:
           type: string
@@ -29712,7 +29711,7 @@ components:
         user:
           type: integer
           format: int64
-          description: User ID who created the quote.
+          description: User ID that created the quote.
           example: 55
         profile:
           type: integer
@@ -29729,23 +29728,23 @@ components:
         rateExpirationTime:
           type: string
           format: date-time
-          description: Time the locked rate will expire.
+          description: Date and time the locked rate expires.
           example: '2019-04-08T13:18:57Z'
         guaranteedTargetAmountAllowed:
           type: boolean
-          description: Whether guaranteed target amount is allowed.
+          description: Indicates whether guaranteed target amount is allowed.
           example: true
         targetAmountAllowed:
           type: boolean
-          description: Whether target amount is allowed.
+          description: Indicates whether target amount is allowed.
           example: true
         guaranteedTargetAmount:
           type: boolean
-          description: Whether the target amount is guaranteed.
+          description: Indicates whether the target amount is guaranteed.
           example: false
         providedAmountType:
           type: string
-          description: Whether the quote was created as source or target.
+          description: Indicates whether the quote was created as source or target.
           enum:
             - SOURCE
             - TARGET
@@ -29753,8 +29752,8 @@ components:
         pricingConfiguration:
           type: object
           description: >-
-            Allows for pricing configurations to be overridden by partners on a
-            transfer level.
+            Allows partners to override pricing configurations on a transfer
+            level.
           properties:
             fee:
               type: object
@@ -29762,60 +29761,66 @@ components:
                 type:
                   type: string
                   description: >-
-                    Identifies the type of fee that will be configured. Options
-                    include only `OVERRIDE`.
+                    Identifies the type of fee to be configured. Options include
+                    only `OVERRIDE`.
                   example: OVERRIDE
                 variable:
                   type: number
                   description: >-
-                    The selected variable percentage (in decimal format) that
-                    should be used in the pricingConfiguration.
+                    The selected variable percentage, in decimal format, that
+                    should be used in the `pricingConfiguration`.
                   example: 0.011
                 fixed:
                   type: number
                   description: >-
-                    The selected fixed fee (in source currency) that should be
-                    used in the pricingConfiguration.
+                    The selected fixed fee, in source currency, that should be
+                    used in the `pricingConfiguration`.
                   example: 15.42
         paymentOptions:
           type: array
-          description: List of the methods a user can pay for the transfer.
+          description: List of the methods available to pay for the transfer.
           items:
             type: object
             properties:
               disabled:
                 type: boolean
-                description: Whether this option is enabled or not for this quote.
+                description: >-
+                  Indicates whether this option is enabled or not for this
+                  quote.
                 example: false
               estimatedDelivery:
                 type: string
                 format: date-time
                 description: >-
-                  The estimated delivery time for this combination of payIn and
-                  payOut methods, assuming payIn is performed now.
+                  The estimated delivery time for this combination of `payIn`
+                  and `payOut` methods (assuming `payIn` is performed now).
                 example: '2019-04-08T12:30:00Z'
               formattedEstimatedDelivery:
                 type: string
-                description: A string to display to users for the estimated delivery date.
+                description: >-
+                  A customer-friendly string for the estimated delivery date,
+                  which you can pass through to your front-end.
                 example: by Apr 8
               estimatedDeliveryDelays:
                 type: array
-                description: Array of objects for delivery delays to display to users.
+                description: >-
+                  Array of objects for delivery delays you can display to your
+                  customers.
                 items:
                   type: object
                   properties:
                     reason:
                       type: string
-                      description: Reason of the delivery delay.
+                      description: Reason for the delivery delay.
                       example: sample reason
               fee:
                 type: object
-                description: Object containing fee information.
+                description: Fee details for the quote.
                 properties:
                   transferwise:
                     type: number
                     description: >-
-                      The fee to be paid by the sender based on the current
+                      The fee to be paid _by the sender_ based on the current
                       state of the quote.
                     example: 3.04
                   payIn:
@@ -29826,25 +29831,21 @@ components:
                     example: 0
                   discount:
                     type: number
-                    description: >-
-                      Any discounts that have been applied to this quote for the
-                      user.
+                    description: Any discounts that have been applied to this quote.
                     example: 2.27
                   partner:
                     type: number
-                    description: >-
-                      If you have agreed a custom price, it will be displayed
-                      here.
+                    description: Agreed-upon custom pricing, if applicable.
                     example: 0
                   total:
                     type: number
                     description: >-
-                      The total fees to be paid - use this figure when
-                      displaying fees on your app.
+                      The total fees to be paid. Use this value when displaying
+                      fees in your app.
                     example: 0.77
               price:
                 type: object
-                description: Object containing the price information.
+                description: Price details for the quote.
                 properties:
                   priceSetId:
                     type: integer
@@ -29854,20 +29855,20 @@ components:
                   total:
                     type: object
                     description: >-
-                      The total fees to be paid - use this figure when
-                      displaying fees on your app.
+                      The total fees to be paid. Use this value when displaying
+                      fees in your app.
                     properties:
                       type:
                         type: string
-                        description: Type of the pricing element.
+                        description: The type of the pricing element.
                         example: TOTAL
                       label:
                         type: string
-                        description: Short text describing the price structure.
+                        description: Plain text describing the price structure.
                         example: Total fees
                       value:
                         type: object
-                        description: Object containing value elements.
+                        description: Value details for the `price.total` object.
                         properties:
                           amount:
                             type: number
@@ -29879,73 +29880,73 @@ components:
                             example: GBP
                           label:
                             type: string
-                            description: Text version of the price.
+                            description: Plain text version of the price.
                             example: 0.77 GBP
                       explanation:
                         type: object
-                        description: Object element giving more details about the price.
+                        description: Provides more details about the price.
                   items:
                     type: array
                     description: >-
-                      Object containing the details of the different elements of
-                      the total price.
+                      Details the different elements contained in the total
+                      price.
                     items:
                       type: object
                       properties:
                         id:
                           type: string
-                          description: ID of this item.
+                          description: ID of the item.
                         type:
                           type: string
                           description: >-
-                            Type of the pricing item. It could be `DISCOUNT` for
-                            example.
+                            The type of the price item (for example, `FEE` or
+                            `DISCOUNT`).
                           example: FEE
                         label:
                           type: string
-                          description: Short text describing the pricing element.
+                          description: Plain text describing the price element.
                           example: fee
                         value:
                           type: object
-                          description: Object containing value elements.
+                          description: Value details for the `price.items` object.
                           properties:
                             amount:
                               type: number
                               description: >-
-                                Amount associated to this pricing element. Can
-                                be negative for discounts.
+                                Amount associated with this price. Can be
+                                negative for discounts.
                               example: 0
                             currency:
                               type: string
-                              description: Currency of the pricing element.
+                              description: Currency of the price.
                               example: GBP
                             label:
                               type: string
                               description: >-
-                                Text field containing the price and its
+                                Plain text description of the price and
                                 currency.
                               example: 0 GBP
                         explanation:
                           type: object
-                          description: Additional information on a price breakdown item.
+                          description: Additional deails for a price breakdown item.
                           properties:
                             plainText:
                               type: string
-                              description: Text element giving more details about the item.
+                              description: Plain text details about the item.
                             markdown:
                               type: string
-                              description: Formatted textual information.
+                              description: Formatted textual information about the item.
                   deferredFee:
                     type: object
                     description: >-
-                      Deferred fee information from a pricingConfiguration
+                      Deferred fee information from a `pricingConfiguration`
                       override.
                     properties:
                       amount:
                         type: number
                         description: >-
-                          The amount of fees that has been deferred by a
-                          pricingConfiguration override.
+                          The amount of fees deferred by a
+                          `pricingConfiguration` override.
                         example: 14.79
                       currency:
                         type: string
@@ -29968,11 +29969,11 @@ components:
                             example: BRL
               sourceAmount:
                 type: number
-                description: sourceAmount when using this payment option.
+                description: Source amount when using this payment option.
                 example: 100
               targetAmount:
                 type: number
-                description: targetAmount when using this payment option.
+                description: Target amount when using this payment option.
                 example: 129.24
               sourceCurrency:
                 type: string
@@ -29992,9 +29993,7 @@ components:
                 example: BANK_TRANSFER
               allowedProfileTypes:
                 type: array
-                description: >-
-                  Array of the allowed types of profile to use this payment
-                  option.
+                description: Array of the profile types allowed to use this payment option.
                 items:
                   type: string
                   enum:
@@ -30013,19 +30012,19 @@ components:
                 example: 0.0092
               disabledReason:
                 type: object
-                description: Object present if a payment option is disabled.
+                description: Present only if a payment option is disabled.
                 properties:
                   code:
                     type: string
-                    description: Code to denote the reason a payment method is unavailable.
+                    description: Denotes the reason a payment method is unavailable.
                   message:
                     type: string
                     description: >-
-                      User friendly message to display when a method is
+                      User-friendly message to display when a method is
                       unavailable.
         status:
           type: string
-          description: Current status of this quote.
+          description: Current status of the quote.
           enum:
             - PENDING
             - ACCEPTED
@@ -30035,13 +30034,13 @@ components:
         expirationTime:
           type: string
           format: date-time
-          description: The time the quote expires.
+          description: The date and time the quote expires.
           example: '2019-04-05T13:48:58Z'
         notices:
           type: array
           description: >-
-            Array of messages to display to the user. May be empty (`[]`) if
-            there are no messages.
+            Messages to display to the user. May be empty (`[]`) if there are no
+            messages.
           items:
             type: object
             properties:
@@ -30058,14 +30057,14 @@ components:
                   - string
                   - 'null'
                 description: >-
-                  URL that provides more information to the message. May be
+                  URL that provides more details about the message. May be
                   `null` if there's no URL.
                 example: null
               type:
                 type: string
                 description: >-
-                  Type of message. If it is `BLOCKED`, don't allow the quote to
-                  be used to create the transfer.
+                  The type of message. If it is `BLOCKED`, don't allow the quote
+                  to be used to create the transfer.
                 enum:
                   - WARNING
                   - INFO
@@ -30076,22 +30075,6 @@ components:
       title: Recipient Account
       x-tags:
         - recipient
-      description: >
-        The `accountSummary` and `longAccountSummary` fields can be used to
-        represent the recipient's details in your UI. The `displayFields` array
-        allows you to build a UI containing all the dynamic fields of a
-        recipient individually. 
-
-        In order to use these fields, you would need to POST using the v1
-        endpoint to create the recipient account, and then GET using the v2
-        endpoint to retrieve these fields.
-
-
-        The v2 resource also includes the `hash` field that can be used to track
-        recipient details changes. This is useful for re-running any validation
-        checks your system performs on the recipient, for example against fraud
-        engines. The hash will remain constant unless the recipient's name or
-        information in the `details` object changes.
       properties:
         id:
           type: integer
@@ -30152,36 +30135,37 @@ components:
               example: null
         currency:
           type: string
-          description: 3 character currency code.
+          description: 3-character currency code.
           example: GBP
         country:
           type: string
-          description: 2 character country code.
+          description: 2-character country code.
           example: GB
         type:
           type: string
-          description: Recipient type.
+          description: Recipient account type.
           example: SortCode
         legalEntityType:
           type: string
-          description: Entity type of recipient.
+          description: Entity type of recipient account.
           example: PERSON
         active:
           type: boolean
-          description: Status of the recipient.
+          description: Status of the recipient account.
           example: true
         details:
           type: object
           description: >-
-            Account details (currency/type-specific). The keys present vary by
-            currency route and recipient type (e.g., sort code, IBAN, SWIFT,
-            email).
+            Contains the details of the receipient account specific its currency
+            and type. The fields required (in the request) or present (in the
+            response) vary depending on currency route and recipient type (e.g.,
+            sort code, IBAN, SWIFT, email).
           properties:
             reference:
               type:
                 - string
                 - 'null'
-              description: Recipient reference (present for some routes).
+              description: Recipient reference (applies for some routes).
               example: null
             sortCode:
               type: string
@@ -30198,25 +30182,36 @@ components:
           additionalProperties: true
         commonFieldMap:
           type: object
-          description: Map of key lookup fields on the account.
+          description: Map of key lookup fields for the account.
           example:
             accountNumberField: accountNumber
             bankCodeField: sortCode
         hash:
           type: string
-          description: Account hash for change tracking.
+          description: >-
+            Account hash for tracking changes to recipient details. This is
+            useful for re-running any validation checks on the recipient, for
+            example against fraud engines. The hash remains constant unless the
+            recipient's name or information in the details object changes.
           example: 666ef880f8aa6113fa112ba6531d3ed2c26dd9fgbd7de5136bfb827a6e800479
         accountSummary:
           type: string
-          description: Summary of account details for ease of lookup.
+          description: >-
+            Summary of account details for ease of lookup. Can be used to
+            display recipient details in your UI.
           example: (04-00-75) 37778842
         longAccountSummary:
           type: string
-          description: Account details summary.
+          description: >-
+            Longer account details summary. Can be used to display recipient
+            details in your UI.
           example: GBP account ending in 8842
         displayFields:
           type: array
-          description: Lookup fields (key/label/value) for rendering a UI.
+          description: >-
+            Lookup fields (key/label/value) for rendering in your UI. Allows you
+            to build a UI containing all the dynamic fields for a recipient
+            individually.
           items:
             type: object
             properties:
@@ -30242,13 +30237,13 @@ components:
           example: false
         ownedByCustomer:
           type: boolean
-          description: If recipient account belongs to profile owner.
+          description: Inidicates if recipient account belongs to profile owner.
           example: false
         ultimateBeneficiary:
           type:
             - object
             - 'null'
-          description: The information of the ultimate beneficiary for this recipient.
+          description: The details for the ultimate beneficiary of this recipient.
           required:
             - name
           properties:
@@ -30272,13 +30267,13 @@ components:
               example: '026073150'
             name:
               type: object
-              description: Ultimate beneficiary name details.
+              description: Ultimate beneficiary name.
               required:
                 - fullName
               properties:
                 fullName:
                   type: string
-                  description: Ultimate beneficiary full name.
+                  description: Ultimate beneficiary's full name.
                   example: John Doe
             address:
               type:
@@ -30317,11 +30312,14 @@ components:
         confirmations:
           type: object
           description: >
-            Verification results for the recipient's details. Only populated for
-            currencies with recipient verification enabled (CNY, KRW, INR, IDR,
-            EUR). See the [Recipient verification
-            guides](/guides/product/send-money/recipient-verification) for how
-            to handle these.
+            Contains verification results for the recipient's details. Only
+            populated for currencies with recipient verification enabled (CNY,
+            KRW, INR, IDR, EUR). 
+
+
+            See the [Recipient verification
+            guides](/guides/product/send-money/recipient-verification) for
+            details about how to handle this verification data by currency.
           properties:
             acceptedOutcomes:
               type: boolean
@@ -30333,8 +30331,8 @@ components:
                 - 'null'
               format: date-time
               description: >-
-                Timestamp indicating time of outcome acceptance, `null` if has
-                not been accepted.
+                Timestamp indicating date and time of outcome acceptance, `null`
+                until acceptance received.
               example: null
             quoteId:
               type:
@@ -30342,21 +30340,21 @@ components:
                 - 'null'
               description: >-
                 If the confirmation check was run as part of a quote
-                compatibility check, then the `quoteId` will be on the result.
-                If `quoteId` is present, then the outcome acceptance will need
+                compatibility check, then the `quoteId` is included in the
+                result. If `quoteId` is present, the outcome acceptance needs
                 the `quoteId` to be specified as well.
               example: null
             outcomes:
               type: array
               description: >-
-                Array of confirmation outcomes. At the moment it is safe to
-                assume that there is only one element in the outcomes list.
+                Array of confirmation outcomes. Currently, it is safe to assume
+                there is only one element in the outcomes array.
               items:
                 type: object
                 properties:
                   type:
                     type: string
-                    description: >-
+                    description: >
                       The type of confirmation. Possible values:
                       `ACCOUNT_EXISTENCE`, `NAME_MATCHING`, `NAME_RESOLUTION`.
                     example: NAME_MATCHING
@@ -30367,21 +30365,27 @@ components:
                     example: '2024-11-11T23:58:11.105916743Z'
                   outcome:
                     type: string
-                    description: >-
-                      The actual outcome of the confirmation. Possible values:
-                      `SUCCESS`, `PARTIAL_FAILURE`, `FAILURE`,
+                    description: >
+                      The actual outcome of the confirmation check. Possible
+                      values: `SUCCESS`, `PARTIAL_FAILURE`, `FAILURE`,
                       `COULD_NOT_CHECK`.
                     example: PARTIAL_FAILURE
                   requiresCustomerAcceptance:
                     type: boolean
-                    description: >-
-                      Whether we require customer acceptance. Whether this value
-                      is true or false is dependent on the currency and the
-                      nature of the confirmation.
+                    description: >
+                      Indicates whether we require customer acceptance. 
+
+
+                      Whether this value is `true` or `false` depends on the
+                      currency and the nature of the confirmation.
+
+
+                      If `true`, you must present your customer with the ability
+                      to accept or decline the confirmation result.
                     example: true
                   fieldsChecked:
                     type: array
-                    description: Fields we used to confirm the account.
+                    description: Fields used to confirm the account.
                     items:
                       type: string
                     example:
@@ -30390,9 +30394,9 @@ components:
                   providedName:
                     type: string
                     description: >-
-                      The name that the customer provided when creating the
-                      recipient account. Only populated for NAME_MATCHING and
-                      NAME_RESOLUTION types for certain outcomes.
+                      The name the customer provided when creating the recipient
+                      account. Only populated for `NAME_MATCHING` and
+                      `NAME_RESOLUTION` types for certain outcomes.
                     example: John Doe
                   resolvedName:
                     type: string
@@ -30402,15 +30406,13 @@ components:
                     example: Joe Doe
                   message:
                     type: string
-                    description: Customer facing message about the outcome of the check.
+                    description: Customer-facing message about the outcome of the check.
                     example: >-
                       The name entered is slightly different to the name on the
                       account.
                   recommendedUpdates:
                     type: array
-                    description: >-
-                      Shows what are the correct values for some of the fields
-                      we've checked.
+                    description: Shows the correct values for some of the fields checked.
                     items:
                       type: object
                       properties:
@@ -30425,30 +30427,28 @@ components:
     recipient-create-request:
       type: object
       description: >
-        Create a recipient (beneficiary) account request for POST /v1/accounts.
-        The required fields inside `details` depend on currency/route; use the
-        account-requirements endpoints (e.g.
-        /v1/quotes/{quoteId}/account-requirements) to discover the exact
-        required fields.
+        Create a recipient (beneficiary) account request. The required fields
+        inside the `details` object depend on currency and route. Use the
+        account-requirements endpoints to discover the exact required fields.
       properties:
         currency:
           type: string
-          description: 3 character currency code.
+          description: 3-character currency code.
           example: GBP
         type:
           type: string
           description: >-
-            Recipient account type (currency/route-specific), e.g. sort_code,
-            iban, email.
+            Recipient account type (currency/route-specific, e.g., `sort_code`,
+            `iban`, `email`).
           example: sort_code
         profile:
           type: integer
           format: int64
           description: >-
-            Personal or business profile ID of the sender. It is highly advised
-            to pass the business profile ID in this field if your business
-            account is managed by multiple users, so that the recipient can be
-            accessed by all users authorized on the business account.
+            Personal or business profile ID of the sender. We recommend passing
+            the business profile ID if your business account is managed by
+            multiple users so the recipient can be accessed by all users
+            authorized on the business account.
           example: 30000000
         accountHolderName:
           type: string
@@ -30458,22 +30458,23 @@ components:
           type: boolean
           description: >
             Indicates whether the recipient account is owned by the profile
-            owner (self-transfer), such as a user sending money to their own
-            account in another country or currency. Set to `true` for
-            self-transfers. We strongly recommend setting this field, as
-            distinguishing self-transfers from third-party transfers improves
-            routing and processing efficiency.
+            owner. While optional, we recommend setting to `true` for
+            self-transfers (such as a user sending money to their own account in
+            another country or currency). Distinguishing self-transfers from
+            third-party transfers improves routing and processing efficiency.
           example: true
         details:
           type: object
           description: >
-            Currency/route-specific recipient fields. Common examples include
-            legalType, sortCode, accountNumber, email, dateOfBirth, etc. Use
-            account-requirements APIs to determine what is required.
+            Contains the details of the receipient account specific its currency
+            and type. Common examples include `legalType`, `sortCode`,
+            `accountNumber`, `email`, `dateOfBirth`, etc. Use the **retreive
+            recipient account requirements** endpoint to determine what is
+            required for a specific recipient.
           properties:
             legalType:
               type: string
-              description: Recipient legal type (when applicable).
+              description: Recipient legal type.
               enum:
                 - PRIVATE
                 - BUSINESS
@@ -30489,8 +30490,9 @@ components:
             dateOfBirth:
               type: string
               description: >-
-                Date of birth in ISO 8601 date format (Optional for GBP
-                example).
+                Date of birth in ISO 8601 date format. Only required for certain
+                currency routes. Call the **retrieve recipient account
+                requirements** endpoint to confirm.
               example: '1961-01-01'
           additionalProperties: true
         ultimateBeneficiary:
@@ -30498,8 +30500,8 @@ components:
             - object
             - 'null'
           description: >-
-            The information of the ultimate beneficiary for this recipient, if
-            present. If absent, the ultimate beneficiary is the recipient.
+            The details about the ultimate beneficiary for this recipient, if
+            present. If absent, the ultimate beneficiary _is_ the recipient.
           required:
             - name
           properties:
@@ -30777,11 +30779,14 @@ components:
     confirmations:
       type: object
       description: >
-        Verification results for the recipient's details. Only populated for
-        currencies with recipient verification enabled (CNY, KRW, INR, IDR,
-        EUR). See the [Recipient verification
-        guides](/guides/product/send-money/recipient-verification) for how to
-        handle these.
+        Contains verification results for the recipient's details. Only
+        populated for currencies with recipient verification enabled (CNY, KRW,
+        INR, IDR, EUR). 
+
+
+        See the [Recipient verification
+        guides](/guides/product/send-money/recipient-verification) for details
+        about how to handle this verification data by currency.
       properties:
         acceptedOutcomes:
           type: boolean
@@ -30793,8 +30798,8 @@ components:
             - 'null'
           format: date-time
           description: >-
-            Timestamp indicating time of outcome acceptance, `null` if has not
-            been accepted.
+            Timestamp indicating date and time of outcome acceptance, `null`
+            until acceptance received.
           example: null
         quoteId:
           type:
@@ -30802,21 +30807,21 @@ components:
             - 'null'
           description: >-
             If the confirmation check was run as part of a quote compatibility
-            check, then the `quoteId` will be on the result. If `quoteId` is
-            present, then the outcome acceptance will need the `quoteId` to be
-            specified as well.
+            check, then the `quoteId` is included in the result. If `quoteId` is
+            present, the outcome acceptance needs the `quoteId` to be specified
+            as well.
           example: null
         outcomes:
           type: array
           description: >-
-            Array of confirmation outcomes. At the moment it is safe to assume
-            that there is only one element in the outcomes list.
+            Array of confirmation outcomes. Currently, it is safe to assume
+            there is only one element in the outcomes array.
           items:
             type: object
             properties:
               type:
                 type: string
-                description: >-
+                description: >
                   The type of confirmation. Possible values:
                   `ACCOUNT_EXISTENCE`, `NAME_MATCHING`, `NAME_RESOLUTION`.
                 example: NAME_MATCHING
@@ -30827,20 +30832,26 @@ components:
                 example: '2024-11-11T23:58:11.105916743Z'
               outcome:
                 type: string
-                description: >-
-                  The actual outcome of the confirmation. Possible values:
+                description: >
+                  The actual outcome of the confirmation check. Possible values:
                   `SUCCESS`, `PARTIAL_FAILURE`, `FAILURE`, `COULD_NOT_CHECK`.
                 example: PARTIAL_FAILURE
               requiresCustomerAcceptance:
                 type: boolean
-                description: >-
-                  Whether we require customer acceptance. Whether this value is
-                  true or false is dependent on the currency and the nature of
-                  the confirmation.
+                description: >
+                  Indicates whether we require customer acceptance. 
+
+
+                  Whether this value is `true` or `false` depends on the
+                  currency and the nature of the confirmation.
+
+
+                  If `true`, you must present your customer with the ability to
+                  accept or decline the confirmation result.
                 example: true
               fieldsChecked:
                 type: array
-                description: Fields we used to confirm the account.
+                description: Fields used to confirm the account.
                 items:
                   type: string
                 example:
@@ -30849,9 +30860,9 @@ components:
               providedName:
                 type: string
                 description: >-
-                  The name that the customer provided when creating the
-                  recipient account. Only populated for NAME_MATCHING and
-                  NAME_RESOLUTION types for certain outcomes.
+                  The name the customer provided when creating the recipient
+                  account. Only populated for `NAME_MATCHING` and
+                  `NAME_RESOLUTION` types for certain outcomes.
                 example: John Doe
               resolvedName:
                 type: string
@@ -30861,15 +30872,13 @@ components:
                 example: Joe Doe
               message:
                 type: string
-                description: Customer facing message about the outcome of the check.
+                description: Customer-facing message about the outcome of the check.
                 example: >-
                   The name entered is slightly different to the name on the
                   account.
               recommendedUpdates:
                 type: array
-                description: >-
-                  Shows what are the correct values for some of the fields we've
-                  checked.
+                description: Shows the correct values for some of the fields checked.
                 items:
                   type: object
                   properties:

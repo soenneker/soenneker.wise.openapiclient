@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
-    /// <summary>Whether the quote was created as source or target.</summary>
+    /// <summary>Indicates whether the quote was created as source or target.</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public enum QuoteProvidedAmountType
     {

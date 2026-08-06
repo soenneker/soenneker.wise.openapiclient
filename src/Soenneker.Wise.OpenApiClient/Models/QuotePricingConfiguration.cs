@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Allows for pricing configurations to be overridden by partners on a transfer level.
+    /// Allows partners to override pricing configurations on a transfer level.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class QuotePricingConfiguration : IAdditionalDataHolder, IParsable

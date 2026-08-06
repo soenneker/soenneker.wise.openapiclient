@@ -8,14 +8,14 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Additional information on a price breakdown item.
+    /// Additional deails for a price breakdown item.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class QuotePaymentOptionsItemPriceItemsItemExplanation : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Formatted textual information.</summary>
+        /// <summary>Formatted textual information about the item.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Markdown { get; set; }
@@ -23,7 +23,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string Markdown { get; set; }
 #endif
-        /// <summary>Text element giving more details about the item.</summary>
+        /// <summary>Plain text details about the item.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? PlainText { get; set; }

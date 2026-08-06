@@ -16,7 +16,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public long? AccountId { get; set; }
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Verification results for the recipient&apos;s details. Only populated for currencies with recipient verification enabled (CNY, KRW, INR, IDR, EUR). See the [Recipient verification guides](/guides/product/send-money/recipient-verification) for how to handle these.</summary>
+        /// <summary>Contains verification results for the recipient&apos;s details. Only populated for currencies with recipient verification enabled (CNY, KRW, INR, IDR, EUR). See the [Recipient verification guides](/guides/product/send-money/recipient-verification) for details about how to handle this verification data by currency.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Soenneker.Wise.OpenApiClient.Models.Confirmations? Confirmations { get; set; }

@@ -16,15 +16,15 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Quote created timestamp.</summary>
         public DateTimeOffset? CreatedTime { get; set; }
-        /// <summary>The time the quote expires.</summary>
+        /// <summary>The date and time the quote expires.</summary>
         public DateTimeOffset? ExpirationTime { get; set; }
-        /// <summary>Whether the target amount is guaranteed.</summary>
+        /// <summary>Indicates whether the target amount is guaranteed.</summary>
         public bool? GuaranteedTargetAmount { get; set; }
-        /// <summary>Whether guaranteed target amount is allowed.</summary>
+        /// <summary>Indicates whether guaranteed target amount is allowed.</summary>
         public bool? GuaranteedTargetAmountAllowed { get; set; }
         /// <summary>ID of this quote (GUID format).</summary>
         public Guid? Id { get; set; }
-        /// <summary>Array of messages to display to the user. May be empty (`[]`) if there are no messages.</summary>
+        /// <summary>Messages to display to the user. May be empty (`[]`) if there are no messages.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<global::Soenneker.Wise.OpenApiClient.Models.QuoteNoticesItem>? Notices { get; set; }
@@ -32,7 +32,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public List<global::Soenneker.Wise.OpenApiClient.Models.QuoteNoticesItem> Notices { get; set; }
 #endif
-        /// <summary>List of the methods a user can pay for the transfer.</summary>
+        /// <summary>List of the methods available to pay for the transfer.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItem>? PaymentOptions { get; set; }
@@ -40,7 +40,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public List<global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItem> PaymentOptions { get; set; }
 #endif
-        /// <summary>Mechanism we use to deliver the transfer. Not usually of interest to the user.</summary>
+        /// <summary>Mechanism Wise uses to deliver the transfer. Provided for information purposes.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? PayOut { get; set; }
@@ -56,7 +56,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string PreferredPayIn { get; set; }
 #endif
-        /// <summary>Allows for pricing configurations to be overridden by partners on a transfer level.</summary>
+        /// <summary>Allows partners to override pricing configurations on a transfer level.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Soenneker.Wise.OpenApiClient.Models.QuotePricingConfiguration? PricingConfiguration { get; set; }
@@ -66,11 +66,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #endif
         /// <summary>Personal or business profile ID.</summary>
         public long? Profile { get; set; }
-        /// <summary>Whether the quote was created as source or target.</summary>
+        /// <summary>Indicates whether the quote was created as source or target.</summary>
         public global::Soenneker.Wise.OpenApiClient.Models.QuoteProvidedAmountType? ProvidedAmountType { get; set; }
         /// <summary>Exchange rate value used for the conversion.</summary>
         public double? Rate { get; set; }
-        /// <summary>Time the locked rate will expire.</summary>
+        /// <summary>Date and time the locked rate expires.</summary>
         public DateTimeOffset? RateExpirationTime { get; set; }
         /// <summary>Whether the rate is fixed or floating.</summary>
         public global::Soenneker.Wise.OpenApiClient.Models.QuoteRateType? RateType { get; set; }
@@ -84,11 +84,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string SourceCurrency { get; set; }
 #endif
-        /// <summary>Current status of this quote.</summary>
+        /// <summary>Current status of the quote.</summary>
         public global::Soenneker.Wise.OpenApiClient.Models.QuoteStatus? Status { get; set; }
         /// <summary>Amount in target currency to be received by the recipient.</summary>
         public double? TargetAmount { get; set; }
-        /// <summary>Whether target amount is allowed.</summary>
+        /// <summary>Indicates whether target amount is allowed.</summary>
         public bool? TargetAmountAllowed { get; set; }
         /// <summary>Target (receive) currency code.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -98,7 +98,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string TargetCurrency { get; set; }
 #endif
-        /// <summary>User ID who created the quote.</summary>
+        /// <summary>User ID that created the quote.</summary>
         public long? User { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.Quote"/> and sets the default values.

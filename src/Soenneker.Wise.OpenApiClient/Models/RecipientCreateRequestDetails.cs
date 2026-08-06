@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Currency/route-specific recipient fields. Common examples include legalType, sortCode, accountNumber, email, dateOfBirth, etc. Use account-requirements APIs to determine what is required.
+    /// Contains the details of the receipient account specific its currency and type. Common examples include `legalType`, `sortCode`, `accountNumber`, `email`, `dateOfBirth`, etc. Use the **retreive recipient account requirements** endpoint to determine what is required for a specific recipient.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class RecipientCreateRequestDetails : IAdditionalDataHolder, IParsable
@@ -23,7 +23,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #endif
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Date of birth in ISO 8601 date format (Optional for GBP example).</summary>
+        /// <summary>Date of birth in ISO 8601 date format. Only required for certain currency routes. Call the **retrieve recipient account requirements** endpoint to confirm.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? DateOfBirth { get; set; }
@@ -31,7 +31,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string DateOfBirth { get; set; }
 #endif
-        /// <summary>Recipient legal type (when applicable).</summary>
+        /// <summary>Recipient legal type.</summary>
         public global::Soenneker.Wise.OpenApiClient.Models.RecipientCreateRequestDetailsLegalType? LegalType { get; set; }
         /// <summary>Sort code (GBP example).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER

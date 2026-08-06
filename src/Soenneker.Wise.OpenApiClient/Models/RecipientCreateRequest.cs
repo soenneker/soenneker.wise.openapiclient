@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Create a recipient (beneficiary) account request for POST /v1/accounts. The required fields inside `details` depend on currency/route; use the account-requirements endpoints (e.g. /v1/quotes/{quoteId}/account-requirements) to discover the exact required fields.
+    /// Create a recipient (beneficiary) account request. The required fields inside the `details` object depend on currency and route. Use the account-requirements endpoints to discover the exact required fields.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class RecipientCreateRequest : IAdditionalDataHolder, IParsable
@@ -23,7 +23,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #endif
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>3 character currency code.</summary>
+        /// <summary>3-character currency code.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Currency { get; set; }
@@ -31,7 +31,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string Currency { get; set; }
 #endif
-        /// <summary>Currency/route-specific recipient fields. Common examples include legalType, sortCode, accountNumber, email, dateOfBirth, etc. Use account-requirements APIs to determine what is required.</summary>
+        /// <summary>Contains the details of the receipient account specific its currency and type. Common examples include `legalType`, `sortCode`, `accountNumber`, `email`, `dateOfBirth`, etc. Use the **retreive recipient account requirements** endpoint to determine what is required for a specific recipient.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Soenneker.Wise.OpenApiClient.Models.RecipientCreateRequestDetails? Details { get; set; }
@@ -39,11 +39,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public global::Soenneker.Wise.OpenApiClient.Models.RecipientCreateRequestDetails Details { get; set; }
 #endif
-        /// <summary>Indicates whether the recipient account is owned by the profile owner (self-transfer), such as a user sending money to their own account in another country or currency. Set to `true` for self-transfers. We strongly recommend setting this field, as distinguishing self-transfers from third-party transfers improves routing and processing efficiency.</summary>
+        /// <summary>Indicates whether the recipient account is owned by the profile owner. While optional, we recommend setting to `true` for self-transfers (such as a user sending money to their own account in another country or currency). Distinguishing self-transfers from third-party transfers improves routing and processing efficiency.</summary>
         public bool? OwnedByCustomer { get; set; }
-        /// <summary>Personal or business profile ID of the sender. It is highly advised to pass the business profile ID in this field if your business account is managed by multiple users, so that the recipient can be accessed by all users authorized on the business account.</summary>
+        /// <summary>Personal or business profile ID of the sender. We recommend passing the business profile ID if your business account is managed by multiple users so the recipient can be accessed by all users authorized on the business account.</summary>
         public long? Profile { get; set; }
-        /// <summary>Recipient account type (currency/route-specific), e.g. sort_code, iban, email.</summary>
+        /// <summary>Recipient account type (currency/route-specific, e.g., `sort_code`, `iban`, `email`).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Type { get; set; }
@@ -51,7 +51,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string Type { get; set; }
 #endif
-        /// <summary>The information of the ultimate beneficiary for this recipient, if present. If absent, the ultimate beneficiary is the recipient.</summary>
+        /// <summary>The details about the ultimate beneficiary for this recipient, if present. If absent, the ultimate beneficiary _is_ the recipient.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Soenneker.Wise.OpenApiClient.Models.RecipientCreateRequestUltimateBeneficiary? UltimateBeneficiary { get; set; }
