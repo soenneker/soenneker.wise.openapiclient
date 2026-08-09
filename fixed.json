@@ -155,7 +155,7 @@
                       "type": "CARD_PAYMENT",
                       "resource": {
                         "type": "CARD_TRANSACTION",
-                        "id": 343049
+                        "id": "343049"
                       },
                       "title": "\u003Cstrong\u003ETest Payment\u003C/strong\u003E",
                       "description": "",
@@ -439,7 +439,7 @@
                     "country": "US",
                     "state": "AZ",
                     "city": "Phoenix",
-                    "postCode": 10025,
+                    "postCode": "10025",
                     "firstLine": "50 Sunflower Ave",
                     "occupations": [
                       {
@@ -503,7 +503,7 @@
                       "country": "US",
                       "state": "AZ",
                       "city": "Phoenix",
-                      "postCode": 10025,
+                      "postCode": "10025",
                       "firstLine": "50 Sunflower Ave",
                       "occupations": [
                         {
@@ -569,7 +569,7 @@
                     "country": "US",
                     "state": "AZ",
                     "city": "Phoenix",
-                    "postCode": 10025,
+                    "postCode": "10025",
                     "firstLine": "50 Sunflower Ave",
                     "occupations": [
                       {
@@ -2266,7 +2266,7 @@
                         "sourceAmount": 23.24,
                         "sourceCurrency": "USD",
                         "customerName": "Joe Bloggs",
-                        "partnerReference": 11111,
+                        "partnerReference": "11111",
                         "comment": "Extra Data"
                       },
                       {
@@ -2275,14 +2275,14 @@
                         "sourceAmount": 125.67,
                         "sourceCurrency": "USD",
                         "customerName": "Mat Newman",
-                        "partnerReference": 11112,
+                        "partnerReference": "11112",
                         "comment": "Extra Data"
                       }
                     ],
                     "refundedTransfers": [
                       {
                         "id": 178880,
-                        "partnerReference": 11108
+                        "partnerReference": "11108"
                       }
                     ],
                     "balanceTransfer": 0
@@ -2302,7 +2302,7 @@
                         "sourceAmount": 23.24,
                         "sourceCurrency": "PHP",
                         "customerName": "Joe Bloggs",
-                        "partnerReference": 11111,
+                        "partnerReference": "11111",
                         "comment": "Extra Data",
                         "exchangeRate": 0.875469
                       },
@@ -2312,7 +2312,7 @@
                         "sourceAmount": 125.67,
                         "sourceCurrency": "PHP",
                         "customerName": "Mat Newman",
-                        "partnerReference": 11112,
+                        "partnerReference": "11112",
                         "comment": "Extra Data",
                         "exchangeRate": 0.875469
                       }
@@ -2320,11 +2320,11 @@
                     "refundedTransfers": [
                       {
                         "id": 178880,
-                        "partnerReference": 11108
+                        "partnerReference": "11108"
                       },
                       {
                         "id": 178881,
-                        "partnerReference": 11109
+                        "partnerReference": "11109"
                       }
                     ],
                     "balanceTransfer": 0
@@ -3454,7 +3454,7 @@
             "schema": {
               "type": "string"
             },
-            "example": 142
+            "example": "142"
           },
           {
             "$ref": "#/components/parameters/X-External-Correlation-Id"
@@ -3677,23 +3677,23 @@
                         "location": {
                           "country": "France",
                           "city": "Rouen",
-                          "zipCode": 0,
+                          "zipCode": "00000",
                           "region": null,
                           "state": null
                         },
                         "category": {
                           "name": "MISCELLANEOUS_FOOD_STORES_CONVEN",
-                          "code": 5999,
+                          "code": "5999",
                           "description": "5999 R Miscellaneous and Special"
                         }
                       },
                       "authorisationMethod": "MANUAL_ENTRY",
-                      "approvalCode": 913647,
+                      "approvalCode": "913647",
                       "billingAmount": {
                         "amount": 1.1,
                         "currency": "EUR"
                       },
-                      "arn": 4300014000000000000000,
+                      "arn": "04300014127798385983852",
                       "pinValidationResult": "ONLINE_PIN_VALIDATED",
                       "balanceChannelReferenceId": "6e71018d-2f4d-4fc3-6711-f517f4664712"
                     }
@@ -4425,7 +4425,7 @@
             "schema": {
               "type": "string"
             },
-            "example": 6789
+            "example": "6789"
           },
           {
             "$ref": "#/components/parameters/X-External-Correlation-Id"
@@ -4673,7 +4673,7 @@
               },
               "example": {
                 "transaction": {
-                  "transactionId": 12345,
+                  "transactionId": "12345",
                   "email": "support@partner.com"
                 },
                 "form": {
@@ -4905,7 +4905,7 @@
                       "subStatus": "SUBMITTED",
                       "statusMessage": "Submitted",
                       "createdAt": "2024-03-08T08:30:14.989Z",
-                      "createdBy": 6097861,
+                      "createdBy": "6097861",
                       "lastUpdatedAt": "2024-03-08T08:30:14.989Z",
                       "canWithdraw": true
                     },
@@ -4918,7 +4918,7 @@
                       "subStatus": "SUBMITTED",
                       "statusMessage": "Submitted",
                       "createdAt": "2024-03-27T02:24:16.878Z",
-                      "createdBy": 6097861,
+                      "createdBy": "6097861",
                       "lastUpdatedAt": "2024-03-27T02:24:16.878Z",
                       "canWithdraw": true
                     }
@@ -5057,7 +5057,7 @@
                   "subStatus": "WITHDRAWN",
                   "statusMessage": "Withdrawn",
                   "createdAt": "2024-03-08T08:30:14.989Z",
-                  "createdBy": 6097861,
+                  "createdBy": "6097861",
                   "lastUpdatedAt": "2024-03-27T13:12:28.390Z",
                   "canWithdraw": false
                 }
@@ -7523,7 +7523,7 @@
                       "updatedAt": "2026-07-29T16:09:32.998",
                       "reference": {
                         "type": "TRANSFER",
-                        "referenceId": 2147513101
+                        "referenceId": "2147513101"
                       },
                       "messages": [
                         {
@@ -7617,7 +7617,7 @@
                       "updatedAt": "2026-07-27T14:30:00.000",
                       "reference": {
                         "type": "TRANSFER",
-                        "referenceId": 111222333
+                        "referenceId": "111222333"
                       },
                       "messages": [
                         {
@@ -7715,7 +7715,7 @@
                       "updatedAt": "2026-07-26T11:00:00.000",
                       "reference": {
                         "type": "TRANSFER",
-                        "referenceId": 222333444
+                        "referenceId": "222333444"
                       },
                       "messages": [
                         {
@@ -7823,7 +7823,7 @@
                       "updatedAt": "2026-07-23T16:00:00.000",
                       "reference": {
                         "type": "TRANSFER",
-                        "referenceId": 333444555
+                        "referenceId": "333444555"
                       },
                       "messages": [
                         {
@@ -7892,7 +7892,7 @@
                           "content": {
                             "submissionData": {
                               "vessel": {
-                                "vesselImoNumber": 9074729
+                                "vesselImoNumber": "9074729"
                               }
                             }
                           },
@@ -7928,7 +7928,7 @@
                       "updatedAt": "2026-07-28T09:00:00.000",
                       "reference": {
                         "type": "TRANSFER",
-                        "referenceId": 444555666
+                        "referenceId": "444555666"
                       },
                       "messages": [
                         {
@@ -8006,7 +8006,7 @@
                       "updatedAt": "2026-07-28T15:00:00.000",
                       "reference": {
                         "type": "TRANSFER",
-                        "referenceId": 555666777
+                        "referenceId": "555666777"
                       },
                       "messages": [
                         {
@@ -8511,13 +8511,13 @@
                     "currentState": "VISIBLE",
                     "contactDetails": {
                       "email": "sarah.contact@example.com",
-                      "phoneNumber": 447700900123
+                      "phoneNumber": "\u002B447700900123"
                     },
                     "firstName": "Sarah",
                     "lastName": "Jenkins",
                     "preferredName": "Sal",
                     "dateOfBirth": "1985-05-20",
-                    "phoneNumber": 447700900456,
+                    "phoneNumber": "\u002B447700900456",
                     "secondaryAddresses": [],
                     "fullName": "Sarah Jenkins"
                   },
@@ -8540,7 +8540,7 @@
                     "updatedAt": "2025-06-18T14:22:00",
                     "contactDetails": {
                       "email": "contact@innovate-solutions.co.uk",
-                      "phoneNumber": 441617891234
+                      "phoneNumber": "\u002B441617891234"
                     },
                     "businessName": "Innovate Solutions Ltd",
                     "registrationNumber": "SC1234567890ABCD",
@@ -8672,7 +8672,7 @@
                     "businessName": "ABC Logistics Ltd",
                     "businessNameInKatakana": null,
                     "businessFreeFormDescription": "Biz free form desc",
-                    "registrationNumber": 12144939,
+                    "registrationNumber": "12144939",
                     "acn": null,
                     "abn": null,
                     "arbn": null,
@@ -8683,7 +8683,7 @@
                       "city": "London",
                       "countryIso2Code": "gb",
                       "countryIso3Code": "gbr",
-                      "postCode": 11111
+                      "postCode": "11111"
                     },
                     "externalCustomerId": "67890-biz-acct",
                     "actorEmail": "biz-acct@abcl.com",
@@ -8695,7 +8695,7 @@
                         "city": "London",
                         "countryIso2Code": "gb",
                         "countryIso3Code": "gbr",
-                        "postCode": 11111
+                        "postCode": "11111"
                       }
                     ],
                     "webpage": "https://abc-logistics.com",
@@ -8707,13 +8707,13 @@
                         "addressFirstLine": "50 Sunflower Ave",
                         "city": "Phoenix",
                         "countryIso3Code": "usa",
-                        "postCode": 10025,
+                        "postCode": "10025",
                         "stateCode": "AZ"
                       },
                       "dateOfBirth": "1977-07-01",
                       "contactDetails": {
                         "email": "o.wilson@example.com",
-                        "phoneNumber": 3725064992
+                        "phoneNumber": "\u002B3725064992"
                       }
                     }
                   }
@@ -8724,7 +8724,7 @@
                     "businessName": "ABC Logistics Ltd",
                     "businessNameInKatakana": null,
                     "businessFreeFormDescription": "Biz free form desc",
-                    "registrationNumber": 12144939,
+                    "registrationNumber": "12144939",
                     "acn": null,
                     "abn": null,
                     "arbn": null,
@@ -8735,7 +8735,7 @@
                       "city": "London",
                       "countryIso2Code": "gb",
                       "countryIso3Code": "gbr",
-                      "postCode": 11111
+                      "postCode": "11111"
                     },
                     "externalCustomerId": "67890-biz-acct",
                     "actorEmail": "biz-acct@abcl.com",
@@ -8747,7 +8747,7 @@
                         "city": "London",
                         "countryIso2Code": "gb",
                         "countryIso3Code": "gbr",
-                        "postCode": 11111
+                        "postCode": "11111"
                       }
                     ],
                     "webpage": "https://abc-logistics.com",
@@ -8983,7 +8983,7 @@
                     "updateContext": "UPDATE_DETAILS",
                     "contactDetails": {
                       "email": "o.wilson@example.com",
-                      "phoneNumber": 3725064992
+                      "phoneNumber": "\u002B3725064992"
                     }
                   }
                 },
@@ -8998,13 +8998,13 @@
                       "addressFirstLine": "50 Sunflower Ave",
                       "city": "Phoenix",
                       "countryIso3Code": "usa",
-                      "postCode": 10025,
+                      "postCode": "10025",
                       "stateCode": "AZ"
                     },
                     "dateOfBirth": "1977-07-01",
                     "contactDetails": {
                       "email": "o.wilson@example.com",
-                      "phoneNumber": 3725064992
+                      "phoneNumber": "\u002B3725064992"
                     }
                   }
                 }
@@ -9078,7 +9078,7 @@
                   "summary": "Financial Capacity Brazil",
                   "value": {
                     "type": "FINANCIAL_CAPACITY_BR",
-                    "uniqueIdentifier": 150000
+                    "uniqueIdentifier": "150000.00"
                   }
                 }
               }
@@ -10590,7 +10590,8 @@
             "description": "Account ID to start the page of responses from. \u0060null\u0060 if no more pages.",
             "schema": {
               "type": "integer",
-              "format": "int64"
+              "format": "int64",
+              "nullable": true
             }
           },
           {
@@ -10635,8 +10636,8 @@
                       "active": true,
                       "details": {
                         "reference": null,
-                        "sortCode": 40075,
-                        "accountNumber": 37778842,
+                        "sortCode": "040075",
+                        "accountNumber": "37778842",
                         "hashedByLooseHashAlgorithm": "ad245621b974efa3ef870895c3wer419a3f01af18a8a5790b47645dba6304194"
                       },
                       "commonFieldMap": {
@@ -10655,7 +10656,7 @@
                         {
                           "key": "details/accountNumber",
                           "label": "Account number",
-                          "value": 37778842
+                          "value": "37778842"
                         }
                       ],
                       "isInternal": false,
@@ -10722,8 +10723,8 @@
                     "accountHolderName": "John Doe",
                     "details": {
                       "legalType": "PRIVATE",
-                      "sortCode": 40075,
-                      "accountNumber": 37778842,
+                      "sortCode": "040075",
+                      "accountNumber": "37778842",
                       "dateOfBirth": "1961-01-01"
                     }
                   }
@@ -11473,7 +11474,7 @@
                       "currency": "SGD"
                     },
                     "mcc": 5499,
-                    "cardNumber": 4242424242424242
+                    "cardNumber": "4242424242424242"
                   }
                 },
                 "E-commerce purchase": {
@@ -11486,7 +11487,7 @@
                       "currency": "SGD"
                     },
                     "mcc": 5499,
-                    "cardNumber": 4242424242424242
+                    "cardNumber": "4242424242424242"
                   }
                 },
                 "ATM withdrawal": {
@@ -11499,7 +11500,7 @@
                       "currency": "SGD"
                     },
                     "mcc": 6011,
-                    "cardNumber": 4242424242424242
+                    "cardNumber": "4242424242424242"
                   }
                 },
                 "Refund": {
@@ -11512,7 +11513,7 @@
                       "currency": "SGD"
                     },
                     "mcc": 5499,
-                    "cardNumber": 4242424242424242
+                    "cardNumber": "4242424242424242"
                   }
                 }
               }
@@ -11531,23 +11532,23 @@
                   "reference": {
                     "transaction": {
                       "acquirer": {
-                        "institutionId": 430010,
+                        "institutionId": "430010",
                         "name": "ACQUIRER NAME",
                         "city": "CITY NAME",
                         "merchantCategoryCode": 5499,
                         "country": "GB",
                         "acceptorTerminalId": "TERMID01",
                         "acceptorIdCode": "CARD ACCEPTOR",
-                        "forwardingInstitutionId": 400050
+                        "forwardingInstitutionId": "400050"
                       },
                       "card": {
                         "token": "59123122-223d-45f9-b840-0ad4a4f80937",
                         "schemeName": "VISA",
-                        "pan": 4242424242424242,
-                        "pin": 1234,
-                        "cvv1": 123,
-                        "icvv": 456,
-                        "cvv2": 789,
+                        "pan": "4242424242424242",
+                        "pin": "1234",
+                        "cvv1": "123",
+                        "icvv": "456",
+                        "cvv2": "789",
                         "expiration": [
                           2029,
                           7
@@ -11569,12 +11570,12 @@
                         "hasChip": true
                       },
                       "transactionStartTime": 1667541100,
-                      "stan": 363054,
-                      "schemeTransactionId": 932290252416153,
-                      "retrievalReferenceNum": 230805363054
+                      "stan": "363054",
+                      "schemeTransactionId": "932290252416153",
+                      "retrievalReferenceNum": "230805363054"
                     },
-                    "requestMti": 200,
-                    "authorizationIdResponse": 123646
+                    "requestMti": "0200",
+                    "authorizationIdResponse": "123646"
                   },
                   "error": null
                 }
@@ -11640,23 +11641,23 @@
                 "ref": {
                   "transaction": {
                     "acquirer": {
-                      "institutionId": 430010,
+                      "institutionId": "430010",
                       "name": "ACQUIRER NAME",
                       "city": "CITY NAME",
                       "merchantCategoryCode": 5499,
                       "country": "GB",
                       "acceptorTerminalId": "TERMID01",
                       "acceptorIdCode": "CARD ACCEPTOR",
-                      "forwardingInstitutionId": 400050
+                      "forwardingInstitutionId": "400050"
                     },
                     "card": {
                       "token": "59123122-223d-45f9-b840-0ad4a4f80937",
                       "schemeName": "VISA",
-                      "pan": 4242424242424242,
-                      "pin": 1234,
-                      "cvv1": 123,
-                      "icvv": 456,
-                      "cvv2": 789,
+                      "pan": "4242424242424242",
+                      "pin": "1234",
+                      "cvv1": "123",
+                      "icvv": "456",
+                      "cvv2": "789",
                       "expiration": [
                         2029,
                         7
@@ -11678,12 +11679,12 @@
                       "hasChip": true
                     },
                     "transactionStartTime": 1667541100,
-                    "stan": 363054,
-                    "schemeTransactionId": 932290252416153,
-                    "retrievalReferenceNum": 230805363054
+                    "stan": "363054",
+                    "schemeTransactionId": "932290252416153",
+                    "retrievalReferenceNum": "230805363054"
                   },
-                  "requestMti": 200,
-                  "authorizationIdResponse": 123646
+                  "requestMti": "0200",
+                  "authorizationIdResponse": "123646"
                 }
               }
             }
@@ -11701,23 +11702,23 @@
                   "reference": {
                     "transaction": {
                       "acquirer": {
-                        "institutionId": 430010,
+                        "institutionId": "430010",
                         "name": "ACQUIRER NAME",
                         "city": "CITY NAME",
                         "merchantCategoryCode": 5499,
                         "country": "GB",
                         "acceptorTerminalId": "TERMID01",
                         "acceptorIdCode": "CARD ACCEPTOR",
-                        "forwardingInstitutionId": 400050
+                        "forwardingInstitutionId": "400050"
                       },
                       "card": {
                         "token": "59123122-223d-45f9-b840-0ad4a4f80937",
                         "schemeName": "VISA",
-                        "pan": 4242424242424242,
-                        "pin": 1234,
-                        "cvv1": 123,
-                        "icvv": 456,
-                        "cvv2": 789,
+                        "pan": "4242424242424242",
+                        "pin": "1234",
+                        "cvv1": "123",
+                        "icvv": "456",
+                        "cvv2": "789",
                         "expiration": [
                           2029,
                           7
@@ -11739,12 +11740,12 @@
                         "hasChip": true
                       },
                       "transactionStartTime": 1667541100,
-                      "stan": 363054,
-                      "schemeTransactionId": 932290252416153,
-                      "retrievalReferenceNum": 230805363054
+                      "stan": "363054",
+                      "schemeTransactionId": "932290252416153",
+                      "retrievalReferenceNum": "230805363054"
                     },
-                    "requestMti": 200,
-                    "authorizationIdResponse": 123646
+                    "requestMti": "0200",
+                    "authorizationIdResponse": "123646"
                   },
                   "error": null
                 }
@@ -11810,23 +11811,23 @@
                 "ref": {
                   "transaction": {
                     "acquirer": {
-                      "institutionId": 430010,
+                      "institutionId": "430010",
                       "name": "ACQUIRER NAME",
                       "city": "CITY NAME",
                       "merchantCategoryCode": 5499,
                       "country": "GB",
                       "acceptorTerminalId": "TERMID01",
                       "acceptorIdCode": "CARD ACCEPTOR",
-                      "forwardingInstitutionId": 400050
+                      "forwardingInstitutionId": "400050"
                     },
                     "card": {
                       "token": "59123122-223d-45f9-b840-0ad4a4f80937",
                       "schemeName": "VISA",
-                      "pan": 4242424242424242,
-                      "pin": 1234,
-                      "cvv1": 123,
-                      "icvv": 456,
-                      "cvv2": 789,
+                      "pan": "4242424242424242",
+                      "pin": "1234",
+                      "cvv1": "123",
+                      "icvv": "456",
+                      "cvv2": "789",
                       "expiration": [
                         2029,
                         7
@@ -11848,12 +11849,12 @@
                       "hasChip": true
                     },
                     "transactionStartTime": 1667541100,
-                    "stan": 363054,
-                    "schemeTransactionId": 932290252416153,
-                    "retrievalReferenceNum": 230805363054
+                    "stan": "363054",
+                    "schemeTransactionId": "932290252416153",
+                    "retrievalReferenceNum": "230805363054"
                   },
-                  "requestMti": 200,
-                  "authorizationIdResponse": 123646
+                  "requestMti": "0200",
+                  "authorizationIdResponse": "123646"
                 }
               }
             }
@@ -11871,23 +11872,23 @@
                   "reference": {
                     "transaction": {
                       "acquirer": {
-                        "institutionId": 430010,
+                        "institutionId": "430010",
                         "name": "ACQUIRER NAME",
                         "city": "CITY NAME",
                         "merchantCategoryCode": 5499,
                         "country": "GB",
                         "acceptorTerminalId": "TERMID01",
                         "acceptorIdCode": "CARD ACCEPTOR",
-                        "forwardingInstitutionId": 400050
+                        "forwardingInstitutionId": "400050"
                       },
                       "card": {
                         "token": "59123122-223d-45f9-b840-0ad4a4f80937",
                         "schemeName": "VISA",
-                        "pan": 4242424242424242,
-                        "pin": 1234,
-                        "cvv1": 123,
-                        "icvv": 456,
-                        "cvv2": 789,
+                        "pan": "4242424242424242",
+                        "pin": "1234",
+                        "cvv1": "123",
+                        "icvv": "456",
+                        "cvv2": "789",
                         "expiration": [
                           2029,
                           7
@@ -11909,12 +11910,12 @@
                         "hasChip": true
                       },
                       "transactionStartTime": 1667541100,
-                      "stan": 363054,
-                      "schemeTransactionId": 932290252416153,
-                      "retrievalReferenceNum": 230805363054
+                      "stan": "363054",
+                      "schemeTransactionId": "932290252416153",
+                      "retrievalReferenceNum": "230805363054"
                     },
-                    "requestMti": 200,
-                    "authorizationIdResponse": 123646
+                    "requestMti": "0200",
+                    "authorizationIdResponse": "123646"
                   },
                   "error": null
                 }
@@ -12395,11 +12396,11 @@
                 "instructedAmount": 101,
                 "instructedCurrencyCode": "EUR",
                 "beneficiaryName": "John Doe",
-                "beneficiaryAccount": 8599680548,
+                "beneficiaryAccount": "8599680548",
                 "beneficiaryAddress": {
                   "addressLine": "1234 Elm St, IL",
                   "city": "Springfield",
-                  "postalCode": 62704,
+                  "postalCode": "62704",
                   "country": "US"
                 },
                 "senderName": "Jane Doe",
@@ -12408,7 +12409,7 @@
                 "senderAddress": {
                   "addressLine": "5678 Oak St",
                   "city": "Springfield",
-                  "postalCode": 62704,
+                  "postalCode": "62704",
                   "country": "US"
                 },
                 "charges": [
@@ -12471,8 +12472,8 @@
                 "type": "MCC",
                 "operation": "BLOCK",
                 "values": [
-                  1234,
-                  5678
+                  "1234",
+                  "5678"
                 ]
               }
             }
@@ -12535,10 +12536,10 @@
                     "type": "MCC",
                     "operation": "BLOCK",
                     "values": [
-                      7801,
-                      7802,
-                      7995,
-                      9754
+                      "7801",
+                      "7802",
+                      "7995",
+                      "9754"
                     ]
                   }
                 ]
@@ -12585,7 +12586,7 @@
                 "$ref": "#/components/schemas/SpendControlsRuleApplyRequest"
               },
               "example": {
-                "ruleId": 123
+                "ruleId": "123"
               }
             }
           }
@@ -12631,7 +12632,7 @@
                 "$ref": "#/components/schemas/SpendControlsRuleUnapplyRequest"
               },
               "example": {
-                "ruleId": 123
+                "ruleId": "123"
               }
             }
           }
@@ -14225,7 +14226,7 @@
           "third-party-transfer"
         ],
         "summary": "Create a third party transfer",
-        "description": "    When creating a transfer on behalf of a third party, you must take note that:\n\n    * The \u0060originator\u0060 datablock is **required**. This details the ultimate sender of funds in the transfer.\n    * Depending on the legal entity type of the originator (\u0060PRIVATE\u0060 or \u0060BUSINESS\u0060), the required fields vary. Please refer the sample request examples.\n    * \u0060OriginalTransferId\u0060 field must be used. This is your own ID for the transfer.\n\n    You need to save the transfer ID for tracking its status later via webhooks.\n\n    #### Avoiding duplicate transfers\n\n    The \u0060originalTransferId\u0060 field is used to avoid duplicate transfer requests. If your initial call fails (error or timeout), retry the call using the same \u0060originalTransferId\u0060 value. Subsequent retry messages are treated as repeat messages and will not create duplicate transfers.\n",
+        "description": "\n    When creating a transfer on behalf of a third party, you must take note that:\n\n    * The \u0060originator\u0060 datablock is **required**. This details the ultimate sender of funds in the transfer.\n    * Depending on the legal entity type of the originator (\u0060PRIVATE\u0060 or \u0060BUSINESS\u0060), the required fields vary. Please refer the sample request examples.\n    * \u0060OriginalTransferId\u0060 field must be used. This is your own ID for the transfer.\n\n    You need to save the transfer ID for tracking its status later via webhooks.\n\n    #### Avoiding duplicate transfers\n\n    The \u0060originalTransferId\u0060 field is used to avoid duplicate transfer requests. If your initial call fails (error or timeout), retry the call using the same \u0060originalTransferId\u0060 value. Subsequent retry messages are treated as repeat messages and will not create duplicate transfers.\n",
         "operationId": "CreateThirdPartyTransfer",
         "parameters": [
           {
@@ -14257,13 +14258,13 @@
                     "profileId": 123456789,
                     "targetAccount": 7839323,
                     "quote": "3522e360-356a-4e37-9f99-94a21898d8fa",
-                    "originalTransferId": 4711,
+                    "originalTransferId": "4711",
                     "details": {
                       "reference": "Ski trip"
                     },
                     "originator": {
                       "legalEntityType": "PRIVATE",
-                      "accountDetails": 123456789,
+                      "accountDetails": "123456789",
                       "reference": "CST-2991992",
                       "name": {
                         "givenName": "John",
@@ -14279,7 +14280,7 @@
                         "firstLine": "Salu tee 100, Apt 4B",
                         "city": "Tallinn",
                         "countryCode": "EE",
-                        "postCode": 12112
+                        "postCode": "12112"
                       }
                     }
                   }
@@ -14290,13 +14291,13 @@
                     "profileId": 123456789,
                     "targetAccount": 7839323,
                     "quote": "3522e360-356a-4e37-9f99-94a21898d8fa",
-                    "originalTransferId": 4711,
+                    "originalTransferId": "4711",
                     "details": {
                       "reference": "Ski trip"
                     },
                     "originator": {
                       "legalEntityType": "BUSINESS",
-                      "reference": 78976,
+                      "reference": "78976",
                       "name": {
                         "fullName": "Hot Air Balloon Services Ltd"
                       },
@@ -14306,7 +14307,7 @@
                         "firstLine": "Salu tee 100, Apt 4B",
                         "city": "Tallinn",
                         "countryCode": "EE",
-                        "postCode": 12112
+                        "postCode": "12112"
                       }
                     }
                   }
@@ -14356,9 +14357,9 @@
                           "city": "Tallinn",
                           "stateCode": "",
                           "countryCode": "EE",
-                          "postCode": 12112
+                          "postCode": "12112"
                         },
-                        "accountDetails": 23456789
+                        "accountDetails": "23456789"
                       },
                       "created": "2025-10-29T12:28:16.000Z"
                     }
@@ -14400,9 +14401,9 @@
                           "city": "Tallinn",
                           "stateCode": "",
                           "countryCode": "EE",
-                          "postCode": 12112
+                          "postCode": "12112"
                         },
-                        "accountDetails": 23456789
+                        "accountDetails": "23456789"
                       },
                       "created": "2025-10-29T12:28:16.000Z"
                     }
@@ -14428,7 +14429,7 @@
           "third-party-transfer"
         ],
         "summary": "Get a third party transfer by ID",
-        "description": "    Get third party transfer info by ID. To receive dynamic updates as the state of the transfer changes, see the [webhooks documentation](https://docs.wise.com/api-reference/webhook).\n",
+        "description": "\n    Get third party transfer info by ID. To receive dynamic updates as the state of the transfer changes, see the [webhooks documentation](https://docs.wise.com/api-reference/webhook).\n",
         "operationId": "GetThirdPartyTransfer",
         "parameters": [
           {
@@ -14500,9 +14501,9 @@
                           "city": "Tallinn",
                           "stateCode": "",
                           "countryCode": "EE",
-                          "postCode": 12112
+                          "postCode": "12112"
                         },
-                        "accountDetails": 23456789
+                        "accountDetails": "23456789"
                       },
                       "created": "2025-10-29T12:28:16.000Z"
                     }
@@ -14544,9 +14545,9 @@
                           "city": "Tallinn",
                           "stateCode": "",
                           "countryCode": "EE",
-                          "postCode": 12112
+                          "postCode": "12112"
                         },
-                        "accountDetails": 23456789
+                        "accountDetails": "23456789"
                       },
                       "created": "2025-10-29T12:28:16.000Z"
                     }
@@ -14572,7 +14573,7 @@
           "transfer"
         ],
         "summary": "Fund a Transfer",
-        "description": "    {% admonition type=\u0022warning\u0022 %}\n      This endpoint is SCA protected when it applies. If your profile is registered within the UK and/or EEA, SCA most likely applies to you.\n      Please read more about [implementing SCA](/guides/developer/auth-and-security/sca-and-2fa).\n    {% /admonition %}\n\n    This API call is the final step for executing payouts when using a balance with Wise. Upon calling the endpoint, Wise will begin the processing of the transfer, depending on the status of funds.\n\n    When using the transfer by transfer settlement model, the following funding type(s) must be used:\n\n    * **BALANCE** \u2014 Funds are pulled from a multi-currency account held with Wise.\n\n    When funding through the Bulk Settlement model, the following funding type(s) must be used:\n\n    * **TRUSTED_PRE_FUND_BULK** \u2014 Funds for the transfer will be settled through a bulk payment at a later date. This method is not applicable for First Party partner account transfers.\n\n    If funding from \u0060BALANCE\u0060, and your multi-currency account does not have the required funds to complete the action, then this call will fail with an \u0022insufficient funds\u0022 error. Once funds are added and available, you must call this endpoint again.\n    ",
+        "description": "\n    {% admonition type=\u0022warning\u0022 %}\n      This endpoint is SCA protected when it applies. If your profile is registered within the UK and/or EEA, SCA most likely applies to you.\n      Please read more about [implementing SCA](/guides/developer/auth-and-security/sca-and-2fa).\n    {% /admonition %}\n\n    This API call is the final step for executing payouts when using a balance with Wise. Upon calling the endpoint, Wise will begin the processing of the transfer, depending on the status of funds.\n\n    When using the transfer by transfer settlement model, the following funding type(s) must be used:\n\n    * **BALANCE** \u2014 Funds are pulled from a multi-currency account held with Wise.\n\n    When funding through the Bulk Settlement model, the following funding type(s) must be used:\n\n    * **TRUSTED_PRE_FUND_BULK** \u2014 Funds for the transfer will be settled through a bulk payment at a later date. This method is not applicable for First Party partner account transfers.\n\n    If funding from \u0060BALANCE\u0060, and your multi-currency account does not have the required funds to complete the action, then this call will fail with an \u0022insufficient funds\u0022 error. Once funds are added and available, you must call this endpoint again.\n    ",
         "operationId": "TransferFund",
         "parameters": [
           {
@@ -15928,7 +15929,7 @@
           "transactionReference": {
             "type": "string",
             "description": "Transaction reference as received in the 3DS challenge webhook event.",
-            "example": 148579538
+            "example": "148579538"
           },
           "challengeStatus": {
             "$ref": "#/components/schemas/ChallengeResultRequestChallengeStatus"
@@ -16409,6 +16410,7 @@
           "name": {
             "type": "string",
             "description": "Name of the balance. Required for SAVINGS balances.",
+            "nullable": true,
             "example": null
           },
           "icon": {
@@ -16509,6 +16511,7 @@
             "type": "integer",
             "description": "Bank account details ID. Returns \u0060null\u0060 for preview account details that have not yet been issued.",
             "format": "int64",
+            "nullable": true,
             "example": 14000001
           },
           "currency": {
@@ -16582,22 +16585,26 @@
           "branchName": {
             "type": "string",
             "description": "Name of the bank branch. Provided only when the currency route requires it (such as JPY).",
+            "nullable": true,
             "example": null
           },
           "accountNumber": {
             "type": "string",
             "description": "Bank account number.",
-            "example": 9910728
+            "nullable": true,
+            "example": "9910728"
           },
           "accountType": {
             "type": "string",
             "description": "Bank account type. Provided only when the currency route requires it.",
+            "nullable": true,
             "example": null
           },
           "bankCode": {
             "type": "string",
             "description": "Bank identifier or routing number, depending on pay-in type and currency.",
-            "example": 8301
+            "nullable": true,
+            "example": "8301"
           },
           "bankAddress": {
             "$ref": "#/components/schemas/PayInDetailsBankAddress"
@@ -16608,41 +16615,49 @@
           "iban": {
             "type": "string",
             "description": "ISO 13616 International Bank Account Number (when available).",
+            "nullable": true,
             "example": null
           },
           "bban": {
             "type": "string",
             "description": "Basic Bank Account Number (BBAN). Provided only when the currency route requires it (such as NOK).",
-            "example": 83019910728
+            "nullable": true,
+            "example": "83019910728"
           },
           "institutionNumber": {
             "type": "string",
             "description": "Financial Institution number (3 digits). Provided only when the currency route requires it (such as CAD).",
+            "nullable": true,
             "example": null
           },
           "transitNumber": {
             "type": "string",
             "description": "Branch Transit Number (5 digits). Provided only when the currency route requires it (such as CAD).",
+            "nullable": true,
             "example": null
           },
           "beneficiaryBankBIC": {
             "type": "string",
             "description": "Beneficiary Bank Business Identifier Code (BIC). Provided only when the currency route requires it (such as CAD).",
+            "nullable": true,
             "example": null
           },
           "intermediaryBankBIC": {
             "type": "string",
             "description": "Intermediary Bank Business Identifier Code (BIC). Provided only when the currency route requires it (such as CAD).",
+            "nullable": true,
             "example": null
           },
           "fpsIdentifier": {
             "type": "string",
             "description": "Faster Payment System identifier. Provided only when the currency route requires it (such as HKD).",
+            "nullable": true,
             "example": null
           },
           "clearingNumber": {
             "type": "string",
             "description": "Clearing number. Provided only when the currency route requires it (such as SEK).",
+            "nullable": true,
             "example": null
           }
         },
@@ -16745,6 +16760,7 @@
             "type": "integer",
             "description": "Transfer ID of the direct debit payment. Present only after the direct debit is initiated.",
             "format": "int64",
+            "nullable": true,
             "example": null
           },
           "createdTime": {
@@ -16792,17 +16808,17 @@
           "lastFourDigits": {
             "type": "string",
             "description": "Last 4 digits of the card number.",
-            "example": 6320
+            "example": "6320"
           },
           "bankIdentificationNumber": {
             "type": "string",
             "description": "Bank identification number (BIN) of the card.",
-            "example": 459661
+            "example": "459661"
           },
           "phoneNumber": {
             "type": "string",
             "description": "Phone number associated with the card.",
-            "example": 441234567890
+            "example": "\u002B441234567890"
           },
           "cardProgram": {
             "$ref": "#/components/schemas/CardCardProgram"
@@ -16864,6 +16880,7 @@
           "kioskId": {
             "type": "string",
             "description": "Identifier that specifies which kiosk machine is producing the card. When the status is \u0060READY\u0060, this value is null.",
+            "nullable": true,
             "example": "WIS00001"
           },
           "occurredAt": {
@@ -16875,11 +16892,13 @@
           "errorCode": {
             "type": "string",
             "description": "\u0022Code returned when card production is not successful. Nullable.\n\n**Request errors** - Returned when \u0060status\u0060 is \u0060REQUEST_ERROR\u0060:\n- \u0060UNKNOWN_ERROR\u0060 - An error occurred on the server\n- \u0060REQUEST_ALREADY_EXISTS\u0060 - The request has already been submitted\n- \u0060KIOSK_ID_NOT_FOUND\u0060 - The kiosk ID does not exist\n- \u0060CARD_TYPE_NOT_FOUND\u0060 - The card type does not exist\n- \u0060INVALID_FIELD_VALUE\u0060 - Some field values are unexpected\n- \u0060INVALID_PIN_FORMAT\u0060 - The PIN does not follow ISO0 or ISO2 standard\n- \u0060EMPTY_OR_NULL_FIELD_VALUE\u0060 - Some required fields are empty or null\n- \u0060EMPTY_OR_NULL_OR_WRONG_SIZE_FIELD_VALUE\u0060 - Some required fields are empty, null, or have incorrect lengths\n- \u0060CHARSET_NOT_SUPPORTED\u0060 - The character set for some fields is not supported\n- \u0060INVALID_FIELD_FORMAT\u0060 - Some field formats are invalid\n- \u0060INVALID_FIELD_ENCODING\u0060 - The encoding for some fields is not expected\n- \u0060CDATA_ENCODING_OR_FORMATING_ERROR\u0060 - The encoding or formatting for XML text field values is incorrect\n- \u0060PIN_LENGTH_ERROR\u0060 - The PIN length is incorrect\n- \u0060PIN_VERIFICATION_FAILED\u0060 - The PIN cannot be verified because the server is unreachable\n- \u0060DATA_PREPARATION_FAILED\u0060 - The server failed to parse the request\n- \u0060PARTIAL_DATA_RECEIVED\u0060 - Only part of the expected data has been received\n- \u0060NO_BRANCH_LINKED_TO_KIOSK\u0060 - The kiosk has not been linked to any branch\n- \u0060IMAGE_SERVER_ERROR\u0060 - The image server is unreachable or failed to process the data\n- \u0060PAN_ALREADY_EXISTS\u0060 - The PAN already exists\n- \u0060PRINTER_OR_SATELLITE_NOT_READY\u0060 - The printer or satellite is not ready to start the production\n- \u0060REQUEST_CREATED_BUT_NOT_STARTED\u0060 - The request has been created, but production is pending until the printer or satellite is ready\n- \u0060UNABLE_TO_ACCEPT_REQUEST\u0060 - The system is currently busy and cannot accept new requests at this time\n\n**Production errors** - Returned when \u0060status\u0060 is \u0060PRODUCTION_ERROR\u0060:\n- \u0060CB_NOT_AVAILABLE\u0060 - Main server error: central base not available\n- \u0060CB_DB_NOT_AVAILABLE\u0060 - Main server error: database not available\n- \u0060CB_NETWORK_NOT_AVAILABLE\u0060 - Main server error: network not available\n- \u0060CB_AUTHENTICATION_FAILED\u0060 - Main server error: user authentication verification failed\n- \u0060CB_SERVICE_NOT_ALLOWED\u0060 - Main server error: the accessed service requires a higher security level\n- \u0060CB_TIME\u0060 - Main server error: timeout occurred on the Central Base side\n- \u0060DP_NOT_AVAILABLE\u0060 - Data processing error: the Data preparation module is not available\n- \u0060DP_IO_ERROR\u0060 - Data processing error: Input/Output error when communicating with the DP\n- \u0060DP_TIMEOUT\u0060 - Data processing error: timeout error\n- \u0060SAT_SERVER_NOT_REACHABLE\u0060 - Satellite agent error: the server is not reachable\n- \u0060SAT_AUTHENTICATION_FAILED\u0060 - Satellite agent error: user authentication failed on satellite\n- \u0060SAT_NETWORK_NOT_AVAILABLE\u0060 - Satellite agent error: the network is not available\n- \u0060PRT_NOT_REACHABLE\u0060 - Printer error: printer is not reachable\n- \u0060PRT_SETUP_ERROR\u0060 - Printer error: printer setup is incorrect\n- \u0060PRT_TIMEOUT\u0060 - Printer error: printer timeout\n- \u0060PRT_RIBBON\u0060 - Printer error: ribbon error\n- \u0060PRT_LOCK_ERROR\u0060 - Printer error: printer physically unlocked\n- \u0060PRT_RIBBON_MISSING\u0060 - Printer error: ribbon is missing\n- \u0060PRT_RIBBON_ENDED\u0060 - Printer error: ribbon has ended\n- \u0060PRT_COVER_OPEN\u0060 - Printer error: printer cover is open\n- \u0060PRT_PAUSED\u0060 - Printer error: printer paused\n- \u0060PRD_UNEXPECTED_DATA\u0060 - Production error: production data is incorrect\n- \u0060PRD_FEEDER_EMPTY\u0060 - Production error: feeder is empty\n- \u0060PRD_FEEDER_JAM\u0060 - Production error: feeder card jam\n- \u0060PRD_HOPPER_FULL\u0060 - Production error: hopper is full\n- \u0060PRD_HOPPER_DOOR\u0060 - Production error: hopper door is open\n- \u0060PRD_HOPPER_JAM\u0060 - Production error: hopper card jam\n- \u0060PRD_MAGSTRIPE\u0060 - Production error: error occurred during magstripe encoding\n- \u0060PRD_SMARTCARD\u0060 - Production error: error occurred during chip personalization\n- \u0060PRD_EMBOSSER\u0060 - Production error: error occurred during embossing\n- \u0060PRD_TIMEOUT\u0060 - Production error: production timeout has been reached\n- \u0060PRD_REJECT_FULL\u0060 - Production error: reject box is full\n- \u0060PRD_SMARTCARD_CARD_NOT_IN_READER\u0060 - Production error: card is not in reader\n- \u0060PRD_FINAL_VALIDATION_NOK\u0060 - Production error: user has rejected card production\n- \u0060INV_NOT_INITIALIZED\u0060 - Production error: inventory not initialized\n- \u0060UNKNOWN_ERROR\u0060 - Unknown error\n\u0022",
+            "nullable": true,
             "example": "PIN_VERIFICATION_FAILED"
           },
           "description": {
             "type": "string",
             "description": "Detailed description of the error code.",
+            "nullable": true,
             "example": "The PIN cannot be verified because the server is unreachable"
           }
         },
@@ -16915,11 +16934,13 @@
           "cardToken": {
             "type": "string",
             "description": "Token of the card associated with card order. Nullable.",
+            "nullable": true,
             "example": "4dc0be88-903f-49e4-8237-735f1139e3dd"
           },
           "replacesCard": {
             "type": "string",
             "description": "A string for replacement card. Not supported at the moment.",
+            "nullable": true,
             "example": null
           },
           "creationTime": {
@@ -16945,11 +16966,12 @@
           "phoneNumber": {
             "type": "string",
             "description": "Phone number associated with the card order.",
-            "example": 441234567890
+            "example": "\u002B441234567890"
           },
           "lifetimeLimit": {
             "type": "number",
             "description": "Maximum amount of spending on the card once issued. Nullable.",
+            "nullable": true,
             "example": 100
           },
           "deliveryEstimate": {
@@ -16990,11 +17012,13 @@
           "declineReason": {
             "type": "string",
             "description": "Code of the [decline reason](/api-reference/card-transaction#card-transaction-decline-reasons) if applicable",
+            "nullable": true,
             "example": null
           },
           "detailedDeclineReason": {
             "type": "string",
             "description": "Code of the [detailed decline reason](/api-reference/card-transaction#card-transaction-detailed-decline-reasons) if applicable",
+            "nullable": true,
             "example": null
           },
           "creationTime": {
@@ -17013,6 +17037,7 @@
             "type": "string",
             "description": "Time at which reserved funds will be released after the authorisation hold expires",
             "format": "date-time",
+            "nullable": true,
             "example": "2022-11-28T08:17:54.241Z"
           },
           "transactionAmount": {
@@ -17039,7 +17064,8 @@
           "approvalCode": {
             "type": "string",
             "description": "Also called authorization code. This can be used to prove ownership of a customer\u0027s card/account to a merchant",
-            "example": 913647
+            "nullable": true,
+            "example": "913647"
           },
           "billingAmount": {
             "$ref": "#/components/schemas/CardTransactionBillingAmount"
@@ -17047,7 +17073,8 @@
           "arn": {
             "type": "string",
             "description": "Acquirer reference number",
-            "example": 4300014000000000000000
+            "nullable": true,
+            "example": "04300014127798385983852"
           },
           "pinValidationResult": {
             "$ref": "#/components/schemas/CardTransactionPinValidationResult"
@@ -17055,6 +17082,7 @@
           "balanceChannelReferenceId": {
             "type": "string",
             "description": "Balance channel reference ID associated with the card transaction",
+            "nullable": true,
             "example": "6e71018d-2f4d-4fc3-6711-f517f4664712"
           },
           "debits": {
@@ -17084,26 +17112,31 @@
           "sourceCurrency": {
             "type": "string",
             "description": "ISO 4217 source currency code",
+            "nullable": true,
             "example": "GBP"
           },
           "targetCurrency": {
             "type": "string",
             "description": "ISO 4217 target currency code",
+            "nullable": true,
             "example": "EUR"
           },
           "sourceCountry": {
             "type": "string",
             "description": "Source country (ISO 3166-1 Alpha-2 code)",
+            "nullable": true,
             "example": null
           },
           "targetCountry": {
             "type": "string",
             "description": "Target country (ISO 3166-1 Alpha-2 code)",
+            "nullable": true,
             "example": null
           },
           "providerCountry": {
             "type": "string",
             "description": "Provider country (ISO 3166-1 Alpha-2 code)",
+            "nullable": true,
             "example": null
           },
           "providerTypes": {
@@ -17240,7 +17273,7 @@
           "createdBy": {
             "type": "string",
             "description": "Creator of the dispute. Currently set to the user ID.",
-            "example": 9867661
+            "example": "9867661"
           },
           "lastUpdatedAt": {
             "type": "string",
@@ -17277,7 +17310,8 @@
             "items": {
               "$ref": "#/components/schemas/KycRequirementAdditionalRequirementsItem"
             },
-            "description": "List of additional submissions that are needed to fulfill this requirement. These can appear when the originally submitted evidence is a wrong document, wrong format, incomplete or otherwise insufficient. Only provided if not empty.\n"
+            "description": "List of additional submissions that are needed to fulfill this requirement. These can appear when the originally submitted evidence is a wrong document, wrong format, incomplete or otherwise insufficient. Only provided if not empty.\n",
+            "nullable": true
           },
           "versions": {
             "type": "array",
@@ -17287,7 +17321,7 @@
             "description": "**Conditional:** Only present when \u0060apiCollectionSupported\u0060 is \u0060true\u0060. Lists the available versions and their validity.\n"
           },
           "attributes": {
-            "$ref": "#/components/schemas/KycRequirementAttributesProperty"
+            "$ref": "#/components/schemas/KycRequirementAttributes"
           }
         },
         "description": "An object returned as part of the [KYC Review](/api-reference/kyc-review/kyc-review) object, which includes information about a required evidence, its state, and any additional information that might be required.",
@@ -17324,6 +17358,7 @@
             "type": "string",
             "description": "Timestamp by which the underlying requirement set needs to be verified to not block the customer. Only relevant if the status is \u0060PASSED_WITH_REQUIREMENTS\u0060.",
             "format": "date-time",
+            "nullable": true,
             "example": "2024-09-03T16:22:02.257725"
           },
           "triggerReferences": {
@@ -17336,6 +17371,7 @@
           "redirectUrl": {
             "type": "string",
             "description": "URL where the user will be redirected at the end of the flow. Can contain query params and path fragments. It has to be a valid URL as per [RFC 2396](https://www.ietf.org/rfc/rfc2396.txt). Provided by the caller in the [Update redirect URL](kycreviewredirecturlupdate) call.\n",
+            "nullable": true,
             "example": "https://example.com"
           },
           "requirements": {
@@ -17346,7 +17382,8 @@
                 "$ref": "#/components/schemas/KycRequirement"
               }
             },
-            "description": "Nested list of [KYC Requirement](api-reference/kyc-review/kyc-requirement) objects in \u0060[[Requirement]]\u0060 format, where each inner list represents a combination of possible requirements to be provided. To fulfil the whole KYC Review, at least one item from each inner list should be provided.\n\nFor example, if the requirements are \u0060[[a, b], [c, d]]\u0060 then it should be read as \u0060(a or b) and (c or d)\u0060.\n"
+            "description": "Nested list of [KYC Requirement](api-reference/kyc-review/kyc-requirement) objects in \u0060[[Requirement]]\u0060 format, where each inner list represents a combination of possible requirements to be provided. To fulfil the whole KYC Review, at least one item from each inner list should be provided.\n\nFor example, if the requirements are \u0060[[a, b], [c, d]]\u0060 then it should be read as \u0060(a or b) and (c or d)\u0060.\n",
+            "nullable": true
           }
         },
         "description": "The return object of most KYC Review endpoints, which includes information about the given KYC Review such as status, trigger references, and a list of [KYC Requirements](api-reference/kyc-review/kyc-requirement).",
@@ -17386,6 +17423,7 @@
             "type": "string",
             "description": "Timestamp by which the underlying requirement set needs to be verified to not block the customer. Only relevant if the status is \u0060PASSED_WITH_REQUIREMENTS\u0060.",
             "format": "date-time",
+            "nullable": true,
             "example": "2024-09-03T16:22:02.257725"
           },
           "triggerReferences": {
@@ -17398,6 +17436,7 @@
           "redirectUrl": {
             "type": "string",
             "description": "URL where the user will be redirected at the end of the flow. Can contain query params and path fragments. It has to be a valid URL as per [RFC 2396](https://www.ietf.org/rfc/rfc2396.txt). Provided by the caller in the [Update redirect URL](kycreviewredirecturlupdate) call.\n",
+            "nullable": true,
             "example": "https://example.com"
           },
           "requirements": {
@@ -17408,7 +17447,8 @@
                 "$ref": "#/components/schemas/KycRequirement"
               }
             },
-            "description": "Nested list of [KYC Requirement](api-reference/kyc-review/kyc-requirement) objects in \u0060[[Requirement]]\u0060 format, where each inner list represents a combination of possible requirements to be provided. To fulfil the whole KYC Review, at least one item from each inner list should be provided.\n\nFor example, if the requirements are \u0060[[a, b], [c, d]]\u0060 then it should be read as \u0060(a or b) and (c or d)\u0060.\n"
+            "description": "Nested list of [KYC Requirement](api-reference/kyc-review/kyc-requirement) objects in \u0060[[Requirement]]\u0060 format, where each inner list represents a combination of possible requirements to be provided. To fulfil the whole KYC Review, at least one item from each inner list should be provided.\n\nFor example, if the requirements are \u0060[[a, b], [c, d]]\u0060 then it should be read as \u0060(a or b) and (c or d)\u0060.\n",
+            "nullable": true
           }
         },
         "description": "The return object of the KYC Review Update endpoint, which includes information about the given KYC Review such as status, trigger references, a list of [KYC Requirements](/api-reference/kyc-review/kyc-requirement) as well as a linik to the [Hosted KYC](/guides/product/kyc/wise-kyc/hosted-kyc).",
@@ -17562,7 +17602,7 @@
           "phoneNumber": {
             "type": "string",
             "description": "A text representation of phone number.",
-            "example": 6588888888
+            "example": "\u002B6588888888"
           },
           "type": {
             "type": "string",
@@ -18233,7 +18273,7 @@
         "description": "Submission data for a vessel entity.\nOnly valid for REFERENCE_SANCTION_HIT_SUBMISSION.\n\n**Validation Rules:**\n- \u0060vesselImoNumber\u0060 is REQUIRED and must be non-blank\n- IMO numbers are 7-digit identifiers issued by the International Maritime Organization\n",
         "example": {
           "vessel": {
-            "vesselImoNumber": 9074729
+            "vesselImoNumber": "9074729"
           }
         }
       },
@@ -18518,6 +18558,7 @@
           "stateCode": {
             "type": "string",
             "description": "State code of the address (can be null for some countries).",
+            "nullable": true,
             "example": null
           }
         },
@@ -18573,6 +18614,7 @@
           "avatar": {
             "type": "string",
             "description": "Link to person avatar image.",
+            "nullable": true,
             "example": null
           },
           "currentState": {
@@ -18604,7 +18646,7 @@
           "phoneNumber": {
             "type": "string",
             "description": "Phone number of the profile holder.",
-            "example": 447700900456
+            "example": "\u002B447700900456"
           },
           "secondaryAddresses": {
             "type": "array",
@@ -18833,6 +18875,7 @@
             "type": "integer",
             "description": "Percentage of ownership.",
             "format": "int32",
+            "nullable": true,
             "example": 30
           }
         }
@@ -19114,11 +19157,13 @@
             "type": "string",
             "description": "Timestamp indicating date and time of outcome acceptance, \u0060null\u0060 until acceptance received.",
             "format": "date-time",
+            "nullable": true,
             "example": null
           },
           "quoteId": {
             "type": "string",
             "description": "If the confirmation check was run as part of a quote compatibility check, then the \u0060quoteId\u0060 is included in the result. If \u0060quoteId\u0060 is present, the outcome acceptance needs the \u0060quoteId\u0060 to be specified as well.",
+            "nullable": true,
             "example": null
           },
           "outcomes": {
@@ -19164,8 +19209,8 @@
           "type": "MCC",
           "operation": "BLOCK",
           "values": [
-            1234,
-            5678
+            "1234",
+            "5678"
           ]
         },
         "x-tags": [
@@ -19262,12 +19307,14 @@
             "type": "integer",
             "description": "Refund recipient account ID",
             "format": "int64",
+            "nullable": true,
             "example": null
           },
           "quote": {
             "type": "integer",
             "description": "V1 quote ID",
             "format": "int64",
+            "nullable": true,
             "example": null
           },
           "quoteUuid": {
@@ -19302,11 +19349,13 @@
             "type": "integer",
             "description": "Your business profile ID",
             "format": "int64",
+            "nullable": true,
             "example": null
           },
           "transferRequest": {
             "type": "integer",
             "description": "Deprecated",
+            "nullable": true,
             "example": null,
             "deprecated": true
           },
@@ -19381,6 +19430,7 @@
             "type": "integer",
             "description": "Refund recipient account ID",
             "format": "int64",
+            "nullable": true,
             "example": null
           },
           "quote": {
@@ -19414,11 +19464,13 @@
             "type": "integer",
             "description": "Your business profile ID",
             "format": "int64",
+            "nullable": true,
             "example": null
           },
           "transferRequest": {
             "type": "integer",
             "description": "Deprecated",
+            "nullable": true,
             "example": null,
             "deprecated": true
           },
@@ -19569,7 +19621,7 @@
             "maxLength": 250,
             "type": "string",
             "description": "Originator address zip code",
-            "example": 12112
+            "example": "12112"
           }
         }
       },
@@ -19607,7 +19659,7 @@
           "accountDetails": {
             "type": "string",
             "description": "Payment originator account number",
-            "example": 23456789
+            "example": "23456789"
           },
           "address": {
             "$ref": "#/components/schemas/Address22"
@@ -19660,7 +19712,7 @@
           "accountDetails": {
             "type": "string",
             "description": "Payment originator account number",
-            "example": 23456789
+            "example": "23456789"
           },
           "address": {
             "$ref": "#/components/schemas/Address22"
@@ -19704,7 +19756,7 @@
           "accountDetails": {
             "type": "string",
             "description": "Payment originator account number",
-            "example": 23456789
+            "example": "23456789"
           },
           "address": {
             "$ref": "#/components/schemas/Address22"
@@ -19747,7 +19799,7 @@
           "accountDetails": {
             "type": "string",
             "description": "Payment originator account number",
-            "example": 23456789
+            "example": "23456789"
           },
           "address": {
             "$ref": "#/components/schemas/Address22"
@@ -19803,7 +19855,7 @@
             "pattern": "\\S",
             "type": "string",
             "description": "Unique transfer ID in your system. We use this field also to perform idempotency check to avoid duplicate transfers in case of network failures or timeouts.\n    You can only submit one transfer with same originalTransferId.",
-            "example": 4711
+            "example": "4711"
           },
           "targetAccount": {
             "type": "integer",
@@ -19924,7 +19976,7 @@
           "postCode": {
             "type": "string",
             "description": "Originator address zip code",
-            "example": 12112
+            "example": "12112"
           }
         }
       },
@@ -19956,7 +20008,7 @@
           "accountDetails": {
             "type": "string",
             "description": "Payment originator account number",
-            "example": 23456789
+            "example": "23456789"
           },
           "address": {
             "$ref": "#/components/schemas/AddressResponse"
@@ -20760,6 +20812,7 @@
           "pricingVariant": {
             "type": "string",
             "description": "The qualifier that allows to apply different pricing policy within the same payment method. Often the value might be the payment method itself",
+            "nullable": true,
             "example": null
           },
           "amount": {
@@ -20843,7 +20896,7 @@
           "buildingNumber": {
             "type": "string",
             "description": "Building number.",
-            "example": 6
+            "example": "6"
           },
           "townName": {
             "type": "string",
@@ -20853,7 +20906,7 @@
           "postalCode": {
             "type": "string",
             "description": "Postal or ZIP code.",
-            "example": 10115
+            "example": "10115"
           },
           "countrySubDivision": {
             "type": "string",
@@ -20925,7 +20978,7 @@
           "nationalCode": {
             "type": "string",
             "description": "Domestic clearing system membership identifier (e.g. UK sort code,\nUS ABA routing number).\n",
-            "example": 40004
+            "example": "040004"
           },
           "nationalCodeType": {
             "$ref": "#/components/schemas/NationalCodeType"
@@ -21005,7 +21058,7 @@
             "pattern": "^-?\\d\u002B(\\.\\d\u002B)?$",
             "type": "string",
             "description": "Decimal amount value, scaled to the currency\u0027s minor unit.",
-            "example": 1000
+            "example": "1000.00"
           },
           "currency": {
             "maxLength": 3,
@@ -21088,7 +21141,7 @@
           "value": {
             "type": "string",
             "description": "Decimal fee amount.",
-            "example": 7.25
+            "example": "7.25"
           },
           "currency": {
             "maxLength": 3,
@@ -21110,7 +21163,7 @@
           "value": {
             "type": "string",
             "description": "Decimal fee amount deducted by the correspondent bank.",
-            "example": 15
+            "example": "15.00"
           },
           "currency": {
             "maxLength": 3,
@@ -21235,7 +21288,7 @@
             "pattern": "^\\d\u002B(\\.\\d\u002B)?$",
             "type": "string",
             "description": "Wise\u0027s effective FX rate applied to this incoming transfer\n(source currency \u2192 target balance currency) as a decimal string.\n\u00221\u0022 when no conversion was needed.\n",
-            "example": 0.6325
+            "example": "0.6325"
           },
           "chargeBearer": {
             "$ref": "#/components/schemas/ChargeBearer"
@@ -21266,6 +21319,7 @@
           "name": {
             "type": "string",
             "description": "User\u0027s full name.",
+            "nullable": true,
             "example": "Example Person"
           },
           "email": {
@@ -23172,7 +23226,7 @@
           "id": {
             "type": "string",
             "description": "The unique identifier of the resource.",
-            "example": 343049
+            "example": "343049"
           }
         },
         "description": "The resource associated with the activity."
@@ -23194,7 +23248,7 @@
             "maxLength": 30,
             "type": "string",
             "description": "Postal or zip code (max 30 characters).",
-            "example": 10025
+            "example": "10025"
           },
           "city": {
             "type": "string",
@@ -23239,7 +23293,7 @@
             "maxLength": 30,
             "type": "string",
             "description": "Postal / zip code (max 30 characters).",
-            "example": 10025
+            "example": "10025"
           },
           "city": {
             "type": "string",
@@ -23296,6 +23350,7 @@
           }
         },
         "description": "Icon for the balance.",
+        "nullable": true,
         "example": null
       },
       "BalanceAmount": {
@@ -23437,7 +23492,7 @@
           "postCode": {
             "type": "string",
             "description": "Postcode or ZIP code.",
-            "example": 252
+            "example": "0252"
           },
           "city": {
             "type": "string",
@@ -23447,6 +23502,7 @@
           "stateCode": {
             "type": "string",
             "description": "State, province, or region code.",
+            "nullable": true,
             "example": null
           },
           "country": {
@@ -23455,7 +23511,8 @@
             "example": "Norway"
           }
         },
-        "description": "Address for the receiving bank. Provided only when the currency route requires it."
+        "description": "Address for the receiving bank. Provided only when the currency route requires it.",
+        "nullable": true
       },
       "PayInDetailsTransferWiseAddress": {
         "type": "object",
@@ -23483,6 +23540,7 @@
           "stateCode": {
             "type": "string",
             "description": "State, province, or region code.",
+            "nullable": true,
             "example": null
           },
           "country": {
@@ -23491,7 +23549,8 @@
             "example": "United Kingdom"
           }
         },
-        "description": "Wise\u0027s address. Provided only when the currency route requires it."
+        "description": "Wise\u0027s address. Provided only when the currency route requires it.",
+        "nullable": true
       },
       "CardStatus": {
         "type": "object",
@@ -23559,11 +23618,13 @@
           "secondLine": {
             "type": "string",
             "description": "Card holder\u0027s address.",
+            "nullable": true,
             "example": "The Tea Bldg"
           },
           "thirdLine": {
             "type": "string",
             "description": "Card holder\u0027s address.",
+            "nullable": true,
             "example": null
           },
           "city": {
@@ -23579,6 +23640,7 @@
           "state": {
             "type": "string",
             "description": "Card holder\u0027s state.",
+            "nullable": true,
             "example": null
           },
           "country": {
@@ -23598,17 +23660,20 @@
           "deliveryVendor": {
             "type": "string",
             "description": "The name of the delivery vendor.",
+            "nullable": true,
             "example": "DHL"
           },
           "trackingUrl": {
             "type": "string",
             "description": "The URL to track the card delivery.",
+            "nullable": true,
             "example": "https://www.dhl.com/gb-en/home/tracking/tracking-express.html?submit=1\u0026tracking-id=1999473803"
           },
           "trackingNumber": {
             "type": "string",
             "description": "The tracking number of the card delivery.",
-            "example": 1999473803
+            "nullable": true,
+            "example": "1999473803"
           }
         },
         "description": "Delivery details of a physical card order. For virtual cards, this value is null."
@@ -23761,7 +23826,8 @@
             "example": true
           }
         },
-        "description": "Relayed authorisation response data, only available if the partner has opted in for [relayed authorisation](/guides/product/issue-cards/relayed-authorisation)"
+        "description": "Relayed authorisation response data, only available if the partner has opted in for [relayed authorisation](/guides/product/issue-cards/relayed-authorisation)",
+        "nullable": true
       },
       "ComparisonProvidersItem": {
         "type": "object",
@@ -23810,12 +23876,12 @@
           "routingNumber": {
             "type": "string",
             "description": "A valid ABA routing number. For CAD direct debits, the routing number is a combination of an institution number \u002B transit number",
-            "example": 0
+            "example": "000000000"
           },
           "accountNumber": {
             "type": "string",
             "description": "A valid bank account number",
-            "example": 0
+            "example": "0000000000"
           },
           "accountType": {
             "$ref": "#/components/schemas/DirectDebitAccountDetailsAccountType"
@@ -23858,13 +23924,15 @@
             "type": "string",
             "description": "If present, indicates the expiry date of this version (ISO 8601).",
             "format": "date",
+            "nullable": true,
             "example": "2026-06-30"
           }
         }
       },
       "KycRequirementAttributes": {
         "type": "object",
-        "description": "**Conditional:** Only present for certain requirement types that provide additional contextual information. The keys within this object vary depending on the parent requirement \u0060key\u0060. See the [KYC requirement types](/guides/product/kyc/wise-kyc/kyc-requirement-types) guide for details on which requirement types support attributes and what keys they contain.\n"
+        "description": "**Conditional:** Only present for certain requirement types that provide additional contextual information. The keys within this object vary depending on the parent requirement \u0060key\u0060. See the [KYC requirement types](/guides/product/kyc/wise-kyc/kyc-requirement-types) guide for details on which requirement types support attributes and what keys they contain.\n",
+        "nullable": true
       },
       "KycReviewTriggerReferencesItem": {
         "type": "object",
@@ -23895,7 +23963,8 @@
             "example": "2024-09-03T16:29:41.203225146"
           }
         },
-        "description": "Contains the URL and expiry of said URL the end customer needs to be directed to in order to go through Hosted KYC flow. \u0060link\u0060 is returned only when \u0060status\u0060 is \u0060WAITING_CUSTOMER_INPUT\u0060 and [Update redirect URL](kycreviewredirecturlupdate) is called.\n"
+        "description": "Contains the URL and expiry of said URL the end customer needs to be directed to in order to go through Hosted KYC flow. \u0060link\u0060 is returned only when \u0060status\u0060 is \u0060WAITING_CUSTOMER_INPUT\u0060 and [Update redirect URL](kycreviewredirecturlupdate) is called.\n",
+        "nullable": true
       },
       "KycReviewWithLinkTriggerReferencesItem": {
         "type": "object",
@@ -23987,7 +24056,7 @@
           "referenceId": {
             "maxLength": 128,
             "type": "string",
-            "example": 2147513101
+            "example": "2147513101"
           }
         },
         "description": "Reference information linking the case to a related entity."
@@ -24097,7 +24166,7 @@
             "minLength": 1,
             "type": "string",
             "description": "International Maritime Organization (IMO) number of the vessel.\nIMO numbers are 7 digits, sometimes prefixed with \u0022IMO\u0022.\n",
-            "example": 9074729
+            "example": "9074729"
           }
         }
       },
@@ -24223,7 +24292,7 @@
           "phoneNumber": {
             "type": "string",
             "description": "Contact phone number.",
-            "example": 447700900123
+            "example": "\u002B447700900123"
           }
         },
         "description": "Contact information for the profile."
@@ -24239,7 +24308,7 @@
           "phoneNumber": {
             "type": "string",
             "description": "Contact phone number.",
-            "example": 441617891234
+            "example": "\u002B441617891234"
           }
         },
         "description": "Contact information for the business."
@@ -24348,6 +24417,7 @@
           "link": {
             "type": "string",
             "description": "URL that provides more details about the message. May be \u0060null\u0060 if there\u0027s no URL.",
+            "nullable": true,
             "example": null
           },
           "type": {
@@ -24366,26 +24436,31 @@
           "givenName": {
             "type": "string",
             "description": "Recipient first name.",
+            "nullable": true,
             "example": null
           },
           "familyName": {
             "type": "string",
             "description": "Recipient surname.",
+            "nullable": true,
             "example": null
           },
           "middleName": {
             "type": "string",
             "description": "Recipient middle name.",
+            "nullable": true,
             "example": null
           },
           "patronymicName": {
             "type": "string",
             "description": "Recipient patronymic name (when applicable).",
+            "nullable": true,
             "example": null
           },
           "cannotHavePatronymicName": {
             "type": "boolean",
             "description": "Indicates if the recipient cannot have a patronymic name (when applicable).",
+            "nullable": true,
             "example": null
           }
         },
@@ -24397,17 +24472,18 @@
           "reference": {
             "type": "string",
             "description": "Recipient reference (applies for some routes).",
+            "nullable": true,
             "example": null
           },
           "sortCode": {
             "type": "string",
             "description": "Recipient bank sort code (GBP example).",
-            "example": 40075
+            "example": "040075"
           },
           "accountNumber": {
             "type": "string",
             "description": "Recipient bank account number (GBP example).",
-            "example": 37778842
+            "example": "37778842"
           },
           "hashedByLooseHashAlgorithm": {
             "type": "string",
@@ -24451,17 +24527,20 @@
           "accountNumber": {
             "type": "string",
             "description": "Ultimate beneficiary account number.",
-            "example": 37778842
+            "nullable": true,
+            "example": "37778842"
           },
           "bankName": {
             "type": "string",
             "description": "Ultimate beneficiary bank name.",
+            "nullable": true,
             "example": "Wise Payments Limited"
           },
           "bankCode": {
             "type": "string",
             "description": "Ultimate beneficiary bank code.",
-            "example": 26073150
+            "nullable": true,
+            "example": "026073150"
           },
           "name": {
             "$ref": "#/components/schemas/RecipientUltimateBeneficiaryName"
@@ -24473,7 +24552,8 @@
             "$ref": "#/components/schemas/RecipientUltimateBeneficiaryBankAddress"
           }
         },
-        "description": "The details for the ultimate beneficiary of this recipient."
+        "description": "The details for the ultimate beneficiary of this recipient.",
+        "nullable": true
       },
       "RecipientConfirmations": {
         "type": "object",
@@ -24487,11 +24567,13 @@
             "type": "string",
             "description": "Timestamp indicating date and time of outcome acceptance, \u0060null\u0060 until acceptance received.",
             "format": "date-time",
+            "nullable": true,
             "example": null
           },
           "quoteId": {
             "type": "string",
             "description": "If the confirmation check was run as part of a quote compatibility check, then the \u0060quoteId\u0060 is included in the result. If \u0060quoteId\u0060 is present, the outcome acceptance needs the \u0060quoteId\u0060 to be specified as well.",
+            "nullable": true,
             "example": null
           },
           "outcomes": {
@@ -24513,12 +24595,12 @@
           "sortCode": {
             "type": "string",
             "description": "Sort code (GBP example).",
-            "example": 40075
+            "example": "040075"
           },
           "accountNumber": {
             "type": "string",
             "description": "Account number (GBP example).",
-            "example": 37778842
+            "example": "37778842"
           },
           "dateOfBirth": {
             "type": "string",
@@ -24537,17 +24619,20 @@
           "accountNumber": {
             "type": "string",
             "description": "Ultimate beneficiary account number.",
-            "example": 37778842
+            "nullable": true,
+            "example": "37778842"
           },
           "bankName": {
             "type": "string",
             "description": "Ultimate beneficiary bank name.",
+            "nullable": true,
             "example": "Wise Payments Limited"
           },
           "bankCode": {
             "type": "string",
             "description": "Ultimate beneficiary bank code.",
-            "example": 26073150
+            "nullable": true,
+            "example": "026073150"
           },
           "name": {
             "$ref": "#/components/schemas/RecipientCreateRequestUltimateBeneficiaryName"
@@ -24559,7 +24644,8 @@
             "$ref": "#/components/schemas/RecipientCreateRequestUltimateBeneficiaryBankAddress"
           }
         },
-        "description": "The details about the ultimate beneficiary for this recipient, if present. If absent, the ultimate beneficiary _is_ the recipient."
+        "description": "The details about the ultimate beneficiary for this recipient, if present. If absent, the ultimate beneficiary _is_ the recipient.",
+        "nullable": true
       },
       "ConfirmationsOutcomesItem": {
         "type": "object",
@@ -24640,9 +24726,11 @@
             "type": "string",
             "description": "The time when the limit gets reset. Null for transaction limit.",
             "format": "date-time",
+            "nullable": true,
             "example": null
           }
-        }
+        },
+        "nullable": true
       },
       "CardLimitsDaily": {
         "type": "object",
@@ -24657,9 +24745,11 @@
             "type": "string",
             "description": "The time when the limit gets reset. ISO-8601 timestamp with timezone.",
             "format": "date-time",
+            "nullable": true,
             "example": "2023-09-29T22:59:59.999999999Z"
           }
-        }
+        },
+        "nullable": true
       },
       "CardLimitsMonthly": {
         "type": "object",
@@ -24674,9 +24764,11 @@
             "type": "string",
             "description": "The time when the limit gets reset. ISO-8601 timestamp with timezone.",
             "format": "date-time",
+            "nullable": true,
             "example": "2023-09-30T22:59:59.999999999Z"
           }
-        }
+        },
+        "nullable": true
       },
       "CardLimitsLifetime": {
         "type": "object",
@@ -24691,9 +24783,11 @@
             "type": "string",
             "description": "The time when the limit gets reset. Null for lifetime limit.",
             "format": "date-time",
+            "nullable": true,
             "example": null
           }
-        }
+        },
+        "nullable": true
       },
       "OneTimeTokenChallengesItem": {
         "type": "object",
@@ -24751,6 +24845,7 @@
           "businessRegistrationCode": {
             "type": "string",
             "description": "Payment originator business registry or incorporation number",
+            "nullable": true,
             "example": null
           },
           "address": {
@@ -24759,7 +24854,7 @@
           "accountDetails": {
             "type": "string",
             "description": "Originator account number",
-            "example": 23456789
+            "example": "23456789"
           }
         },
         "description": "Data block to capture payment originator details"
@@ -24813,7 +24908,7 @@
           "phoneNumber": {
             "type": "string",
             "description": "Phone number.",
-            "example": 37111111111
+            "example": "\u002B37111111111"
           },
           "dateOfBirth": {
             "type": "string",
@@ -24840,7 +24935,8 @@
             "$ref": "#/components/schemas/UserDetailsAddress"
           }
         },
-        "description": "User details."
+        "description": "User details.",
+        "nullable": true
       },
       "SubscriptionDelivery": {
         "type": "object",
@@ -25044,6 +25140,7 @@
           "previous_state": {
             "type": "string",
             "description": "Previous transfer status. Note that this will be null for newly created transfers.",
+            "nullable": true,
             "example": "incoming_payment_waiting"
           },
           "occurred_at": {
@@ -25068,6 +25165,7 @@
           "previous_state": {
             "type": "string",
             "description": "Previous transfer status. Note that this will be null for newly created transfers.",
+            "nullable": true,
             "example": "incoming_payment_waiting"
           },
           "occurred_at": {
@@ -25183,12 +25281,12 @@
           "account_details_id": {
             "type": "string",
             "description": "Account detail ID where the pay-in was received.",
-            "example": 1
+            "example": "1"
           },
           "target_account_id": {
             "type": "string",
             "description": "Balance ID which is linked to the account detail.",
-            "example": 12345
+            "example": "12345"
           },
           "transfer": {
             "$ref": "#/components/schemas/V4006DataTransfer"
@@ -25219,12 +25317,12 @@
           "account_details_id": {
             "type": "string",
             "description": "Account detail ID where the pay-in was received.",
-            "example": 1
+            "example": "1"
           },
           "target_account_id": {
             "type": "string",
             "description": "Balance ID which is linked to the account detail.",
-            "example": 12345
+            "example": "12345"
           },
           "transfer": {
             "$ref": "#/components/schemas/V2006DataTransfer"
@@ -25308,6 +25406,7 @@
           "kiosk_id": {
             "type": "string",
             "description": "Identifier that specifies which kiosk machine is producing the card.",
+            "nullable": true,
             "example": "WIS00001"
           },
           "occurred_at": {
@@ -25319,6 +25418,7 @@
           "error_code": {
             "type": "string",
             "description": "Code returned when card production is not successful. See possible values in [production errors](/api-reference/card-kiosk-collection/cardkioskcollectionproduce).\n",
+            "nullable": true,
             "example": null
           },
           "description": {
@@ -25342,6 +25442,7 @@
           "kiosk_id": {
             "type": "string",
             "description": "Identifier that specifies which kiosk machine is producing the card.",
+            "nullable": true,
             "example": "WIS00001"
           },
           "occurred_at": {
@@ -25353,6 +25454,7 @@
           "error_code": {
             "type": "string",
             "description": "Code returned when card production is not successful. See possible values in [production errors](/api-reference/card-kiosk-collection/cardkioskcollectionproduce).\n",
+            "nullable": true,
             "example": null
           },
           "description": {
@@ -25435,6 +25537,7 @@
           "delivery_vendor": {
             "type": "string",
             "description": "Delivery vendor used to dispatch the order (physical card only).",
+            "nullable": true,
             "example": "DHL"
           },
           "occurred_at": {
@@ -25462,6 +25565,7 @@
           "delivery_vendor": {
             "type": "string",
             "description": "Delivery vendor used to dispatch the order (physical card only).",
+            "nullable": true,
             "example": "DHL"
           },
           "occurred_at": {
@@ -25502,11 +25606,13 @@
           "decline_reason": {
             "type": "string",
             "description": "Code of the decline reason if applicable.",
+            "nullable": true,
             "example": null
           },
           "detailed_decline_reason": {
             "type": "string",
             "description": "Code of the detailed decline reason if applicable. See list of [card transaction decline reasons](/api-reference/card-transaction#card-transaction-detailed-decline-reasons).\n",
+            "nullable": true,
             "example": null
           },
           "creation_time": {
@@ -25525,6 +25631,7 @@
             "type": "string",
             "description": "Time at which reserved funds will be released after the authorisation hold expires.",
             "format": "date-time",
+            "nullable": true,
             "example": "2022-08-22T11:10:41.123Z"
           },
           "transaction_amount": {
@@ -25554,12 +25661,13 @@
           "approval_code": {
             "type": "string",
             "description": "Also called authorization code. This can be used to prove ownership of a customer\u0027s card/account to a merchant.",
-            "example": 913647
+            "example": "913647"
           },
           "arn": {
             "type": "string",
             "description": "Acquirer reference number",
-            "example": 4300014000000000000000
+            "nullable": true,
+            "example": "04300014127798385983852"
           },
           "pin_validation_result": {
             "type": "string",
@@ -25620,11 +25728,13 @@
           "decline_reason": {
             "type": "string",
             "description": "Code of the decline reason if applicable",
+            "nullable": true,
             "example": null
           },
           "detailed_decline_reason": {
             "type": "string",
             "description": "Code of the detailed decline reason if applicable. List of available options is available [here](/api-reference/card-transaction#card-transaction-detailed-decline-reasons).\n",
+            "nullable": true,
             "example": null
           },
           "creation_time": {
@@ -25643,6 +25753,7 @@
             "type": "string",
             "description": "Time at which reserved funds will be released after the authorisation hold expires",
             "format": "date-time",
+            "nullable": true,
             "example": null
           },
           "transaction_amount": {
@@ -25672,11 +25783,12 @@
           "approval_code": {
             "type": "string",
             "description": "Also called authorization code. This can be used to prove ownership of a customer\u0027s card/account to a merchant",
-            "example": 723647
+            "example": "723647"
           },
           "arn": {
             "type": "string",
             "description": "Acquirer reference number",
+            "nullable": true,
             "example": null
           },
           "pin_validation_result": {
@@ -25739,11 +25851,13 @@
           "decline_reason": {
             "type": "string",
             "description": "Code of the decline reason if applicable",
+            "nullable": true,
             "example": null
           },
           "detailed_decline_reason": {
             "type": "string",
             "description": "Code of the detailed decline reason if applicable. List of available options is available [here](/api-reference/card-transaction#card-transaction-detailed-decline-reasons).\n",
+            "nullable": true,
             "example": null
           },
           "transaction_state": {
@@ -25785,12 +25899,13 @@
           "approval_code": {
             "type": "string",
             "description": "Also called authorization code. This can be used to prove ownership of a customer\u0027s card/account to a merchant",
-            "example": 913647
+            "example": "913647"
           },
           "purge_time": {
             "type": "string",
             "description": "Time at which reserved funds will be released after the authorisation hold expires",
             "format": "date-time",
+            "nullable": true,
             "example": "2022-08-22T11:10:41Z"
           },
           "balance_transaction_id": {
@@ -25822,7 +25937,8 @@
           "arn": {
             "type": "string",
             "description": "Acquirer reference number",
-            "example": 4300014000000000000000
+            "nullable": true,
+            "example": "04300014127798385983852"
           },
           "creation_time": {
             "type": "string",
@@ -25855,7 +25971,7 @@
           "last_four_digits": {
             "type": "string",
             "description": "The last four digits for the card Primary Account Number (PAN).",
-            "example": 8237
+            "example": "8237"
           },
           "creation_time": {
             "type": "string",
@@ -26291,7 +26407,7 @@
           "transfer_reference": {
             "type": "string",
             "description": "ID of the transfer",
-            "example": 47500002
+            "example": "47500002"
           }
         }
       },
@@ -26332,7 +26448,7 @@
           "transfer_reference": {
             "type": "string",
             "description": "ID of the transfer",
-            "example": 47500002
+            "example": "47500002"
           },
           "channel_name": {
             "type": "string",
@@ -26430,7 +26546,7 @@
           "return_code": {
             "type": "string",
             "description": "Return code of the underlying payment system.",
-            "example": 200
+            "example": "200"
           }
         }
       },
@@ -26455,7 +26571,7 @@
           "returnCode": {
             "type": "string",
             "description": "Return code of the underlying payment system",
-            "example": 200
+            "example": "200"
           }
         }
       },
@@ -26631,7 +26747,7 @@
           "created_by": {
             "type": "string",
             "description": "Creator of the dispute. Currently set to the user id.",
-            "example": 6097861
+            "example": "6097861"
           },
           "can_withdraw": {
             "type": "boolean",
@@ -26679,7 +26795,7 @@
           "created_by": {
             "type": "string",
             "description": "Creator of the dispute, it is currently set to the user id",
-            "example": 6097861
+            "example": "6097861"
           },
           "can_withdraw": {
             "type": "boolean",
@@ -26835,7 +26951,7 @@
         "properties": {
           "vesselImoNumber": {
             "type": "string",
-            "example": 9074729
+            "example": "9074729"
           }
         }
       },
@@ -26896,7 +27012,8 @@
             "$ref": "#/components/schemas/BankAccountDetailsReceiveOptionsItemDescriptionCta"
           }
         },
-        "description": "Description for this receive option."
+        "description": "Description for this receive option.",
+        "nullable": true
       },
       "BankAccountDetailsReceiveOptionsItemDetailsItem": {
         "type": "object",
@@ -26932,26 +27049,31 @@
           "country": {
             "type": "string",
             "description": "Country where merchant is located",
+            "nullable": true,
             "example": "France"
           },
           "city": {
             "type": "string",
             "description": "City where merchant is located",
+            "nullable": true,
             "example": "Rouen"
           },
           "zipCode": {
             "type": "string",
             "description": "Zip code where merchant is located",
-            "example": 0
+            "nullable": true,
+            "example": "00000"
           },
           "region": {
             "type": "string",
             "description": "Region where merchant is located",
+            "nullable": true,
             "example": null
           },
           "state": {
             "type": "string",
             "description": "State where merchant is located",
+            "nullable": true,
             "example": null
           }
         },
@@ -26968,7 +27090,7 @@
           "code": {
             "type": "string",
             "description": "MCC code of the merchant",
-            "example": 5999
+            "example": "5999"
           },
           "description": {
             "type": "string",
@@ -27086,11 +27208,13 @@
           "sourceCountry": {
             "type": "string",
             "description": "Source country (ISO 3166-1 Alpha-2 code)",
+            "nullable": true,
             "example": null
           },
           "targetCountry": {
             "type": "string",
             "description": "Target country (ISO 3166-1 Alpha-2 code)",
+            "nullable": true,
             "example": null
           },
           "markup": {
@@ -27101,11 +27225,13 @@
           "receivedAmount": {
             "type": "number",
             "description": "The total estimated received amount for the provider for this quote (non-null only if a send amount request was made)",
+            "nullable": true,
             "example": 11555.84
           },
           "sendAmount": {
             "type": "number",
             "description": "The total estimated send amount for the provider for this quote (non-null only if a recipient gets amount request was made)",
+            "nullable": true,
             "example": null
           },
           "isConsideredMidMarketRate": {
@@ -27377,7 +27503,8 @@
             "type": "string"
           }
         },
-        "description": "Ultimate beneficiary address."
+        "description": "Ultimate beneficiary address.",
+        "nullable": true
       },
       "RecipientUltimateBeneficiaryBankAddress": {
         "type": "object",
@@ -27399,7 +27526,8 @@
             "type": "string"
           }
         },
-        "description": "Ultimate beneficiary bank address."
+        "description": "Ultimate beneficiary bank address.",
+        "nullable": true
       },
       "RecipientConfirmationsOutcomesItem": {
         "type": "object",
@@ -27490,7 +27618,8 @@
             "type": "string"
           }
         },
-        "description": "Ultimate beneficiary address."
+        "description": "Ultimate beneficiary address.",
+        "nullable": true
       },
       "RecipientCreateRequestUltimateBeneficiaryBankAddress": {
         "type": "object",
@@ -27512,7 +27641,8 @@
             "type": "string"
           }
         },
-        "description": "Ultimate beneficiary bank address."
+        "description": "Ultimate beneficiary bank address.",
+        "nullable": true
       },
       "ConfirmationsOutcomesItemRecommendedUpdatesItem": {
         "type": "object",
@@ -27714,6 +27844,7 @@
           "patronymicName": {
             "type": "string",
             "description": "Payment originator patronymic name",
+            "nullable": true,
             "example": null
           },
           "fullName": {
@@ -27739,6 +27870,7 @@
           "stateCode": {
             "type": "string",
             "description": "Payment originator address state code",
+            "nullable": true,
             "example": null
           },
           "countryCode": {
@@ -27749,7 +27881,7 @@
           "postCode": {
             "type": "string",
             "description": "Payment originator address zip code",
-            "example": 12112
+            "example": "12112"
           }
         }
       },
@@ -27778,29 +27910,35 @@
           },
           "displayFormat": {
             "type": "string",
-            "description": "Display format pattern"
+            "description": "Display format pattern",
+            "nullable": true
           },
           "example": {
             "type": "string",
-            "description": "Example value"
+            "description": "Example value",
+            "nullable": true
           },
           "minLength": {
             "type": "integer",
             "description": "Minimum valid length of field value",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "maxLength": {
             "type": "integer",
             "description": "Maximum valid length of field value",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "validationRegexp": {
             "type": "string",
-            "description": "Regexp validation pattern"
+            "description": "Regexp validation pattern",
+            "nullable": true
           },
           "validationAsync": {
             "type": "string",
             "description": "Deprecated. This validation will instead be performed when submitting the request",
+            "nullable": true,
             "deprecated": true
           },
           "valuesAllowed": {
@@ -27808,7 +27946,8 @@
             "items": {
               "$ref": "#/components/schemas/TransferRequirementFieldsItemGroupItemValuesAllowedItem"
             },
-            "description": "List of allowed values"
+            "description": "List of allowed values",
+            "nullable": true
           }
         }
       },
@@ -27876,7 +28015,8 @@
             "items": {
               "$ref": "#/components/schemas/AccountRequirementsResponseItemFieldsItemGroupItemValuesAllowedItem"
             },
-            "description": "Allowed values for select/radio inputs; null for free-text/date inputs."
+            "description": "Allowed values for select/radio inputs; null for free-text/date inputs.",
+            "nullable": true
           }
         },
         "description": "A single field descriptor."
@@ -27897,7 +28037,7 @@
           "postCode": {
             "type": "string",
             "description": "Address post code.",
-            "example": 11111
+            "example": "11111"
           },
           "city": {
             "type": "string",
@@ -28195,7 +28335,7 @@
           "account_number": {
             "type": "string",
             "description": "Sender account number",
-            "example": 12345678
+            "example": "12345678"
           },
           "bank_code": {
             "type": "string",
@@ -28269,7 +28409,7 @@
           "account_number": {
             "type": "string",
             "description": "Sender account number",
-            "example": 12345678
+            "example": "12345678"
           },
           "bank_code": {
             "type": "string",
@@ -28357,6 +28497,7 @@
           "card_token": {
             "type": "string",
             "description": "Unique identifier of the card.",
+            "nullable": true,
             "example": "35050a4a-9521-426e-8109-1396e3687a3e"
           }
         }
@@ -28383,6 +28524,7 @@
           "card_token": {
             "type": "string",
             "description": "Unique identifier of the card.",
+            "nullable": true,
             "example": "35050a4a-9521-426e-8109-1396e3687a3e"
           }
         }
@@ -28419,7 +28561,7 @@
           "reference": {
             "type": "string",
             "description": "Transaction reference. You should use this field when notifying us of the challenge result.",
-            "example": 148990660
+            "example": "148990660"
           },
           "channel": {
             "type": "string",
@@ -28466,7 +28608,7 @@
           "reference": {
             "type": "string",
             "description": "Transaction reference. You should use this field when notifying us of the challenge result.",
-            "example": 148990660
+            "example": "148990660"
           },
           "channel": {
             "type": "string",
@@ -28503,6 +28645,7 @@
           "card_token": {
             "type": "string",
             "description": "Unique identifier of the card.",
+            "nullable": true,
             "example": "35050a4a-9521-426e-8109-1396e3687a3e"
           },
           "card_program": {
@@ -28534,6 +28677,7 @@
           "card_token": {
             "type": "string",
             "description": "Unique identifier of the card.",
+            "nullable": true,
             "example": "35050a4a-9521-426e-8109-1396e3687a3e"
           },
           "card_program": {
@@ -28565,7 +28709,7 @@
           "card_last_digits": {
             "type": "string",
             "description": "Last 4 digits of the card.",
-            "example": 1234
+            "example": "1234"
           },
           "type": {
             "type": "string",
@@ -28742,7 +28886,7 @@
           "card_last_digits": {
             "type": "string",
             "description": "Last 4 digits of the card",
-            "example": 1234
+            "example": "1234"
           },
           "type": {
             "type": "string",
@@ -28919,7 +29063,7 @@
           "card_last_digits": {
             "type": "string",
             "description": "Last 4 digits of the card",
-            "example": 1234
+            "example": "1234"
           },
           "type": {
             "type": "string",
@@ -29009,7 +29153,7 @@
           "balance_id": {
             "type": "string",
             "description": "ID of the balance credited or debited",
-            "example": 123
+            "example": "123"
           },
           "type": {
             "type": "string",
@@ -29059,7 +29203,8 @@
           "credited_amount": {
             "$ref": "#/components/schemas/V20011DataCreditCreditedAmount"
           }
-        }
+        },
+        "nullable": true
       },
       "V20011DataMerchant": {
         "type": "object",
@@ -29893,7 +30038,7 @@
           "id": {
             "type": "string",
             "description": "ID of the webhook.",
-            "example": 55555
+            "example": "55555"
           },
           "uetr": {
             "type": "string",
@@ -29994,7 +30139,7 @@
           "id": {
             "type": "string",
             "description": "ID of the webhook.",
-            "example": 55555
+            "example": "55555"
           },
           "uetr": {
             "type": "string",
@@ -30092,7 +30237,7 @@
           "id": {
             "type": "string",
             "description": "ID of the webhook.",
-            "example": 55555
+            "example": "55555"
           },
           "uetr": {
             "type": "string",
@@ -30190,7 +30335,7 @@
           "id": {
             "type": "string",
             "description": "ID of the webhook.",
-            "example": 55555
+            "example": "55555"
           },
           "uetr": {
             "type": "string",
@@ -30424,6 +30569,7 @@
           "displayFormat": {
             "type": "string",
             "description": "Display format pattern.",
+            "nullable": true,
             "example": null
           },
           "example": {
@@ -30435,22 +30581,26 @@
             "type": "integer",
             "description": "Minimum valid length of field value.",
             "format": "int32",
+            "nullable": true,
             "example": null
           },
           "maxLength": {
             "type": "integer",
             "description": "Maximum valid length of field value.",
             "format": "int32",
+            "nullable": true,
             "example": null
           },
           "validationRegexp": {
             "type": "string",
             "description": "Regexp validation pattern.",
+            "nullable": true,
             "example": null
           },
           "validationAsync": {
             "type": "string",
             "description": "Deprecated. This validation will instead be performed when submitting the request.",
+            "nullable": true,
             "example": null,
             "deprecated": true
           },
@@ -30474,7 +30624,7 @@
           "id": {
             "type": "string",
             "description": "Resource identifier for the changed recipient.",
-            "example": 700525176
+            "example": "700525176"
           },
           "occurred_at": {
             "type": "string",
@@ -30501,7 +30651,8 @@
             "example": "BE12 3456 7890 1234"
           }
         },
-        "description": "Call-to-action details."
+        "description": "Call-to-action details.",
+        "nullable": true
       },
       "BankAccountDetailsReceiveOptionsItemDetailsItemDescription": {
         "type": "object",
@@ -30520,17 +30671,20 @@
             "$ref": "#/components/schemas/BankAccountDetailsReceiveOptionsItemDetailsItemDescriptionCta"
           }
         },
-        "description": "Tooltip/popup hint content when present."
+        "description": "Tooltip/popup hint content when present.",
+        "nullable": true
       },
       "ComparisonProvidersItemLogosNormal": {
         "type": "object",
         "properties": {
           "svgUrl": {
             "type": "string",
+            "nullable": true,
             "example": "https://wise.com/public-resources/assets/logos/wise-personal/logo.svg"
           },
           "pngUrl": {
             "type": "string",
+            "nullable": true,
             "example": "https://wise.com/public-resources/assets/logos/wise-personal/logo.png"
           }
         }
@@ -30540,10 +30694,12 @@
         "properties": {
           "svgUrl": {
             "type": "string",
+            "nullable": true,
             "example": "https://wise.com/public-resources/assets/logos/wise-personal/logo_inverse.svg"
           },
           "pngUrl": {
             "type": "string",
+            "nullable": true,
             "example": "https://wise.com/public-resources/assets/logos/wise-personal/logo_inverse.png"
           }
         }
@@ -30553,10 +30709,12 @@
         "properties": {
           "svgUrl": {
             "type": "string",
+            "nullable": true,
             "example": "https://wise.com/public-resources/assets/logos/wise-personal/logo_white.svg"
           },
           "pngUrl": {
             "type": "string",
+            "nullable": true,
             "example": "https://wise.com/public-resources/assets/logos/wise-personal/logo_white.png"
           }
         }
@@ -30566,10 +30724,12 @@
         "properties": {
           "svgUrl": {
             "type": "string",
+            "nullable": true,
             "example": "https://dq8dwmysp7hk1.cloudfront.net/logos/wise-mark.svg"
           },
           "pngUrl": {
             "type": "string",
+            "nullable": true,
             "example": null
           }
         }
@@ -30952,6 +31112,7 @@
           "category": {
             "type": "string",
             "description": "Merchant category code",
+            "nullable": true,
             "example": null
           },
           "country": {
@@ -30967,6 +31128,7 @@
           "url": {
             "type": "string",
             "description": "Merchant url",
+            "nullable": true,
             "example": "http://intrepid-fav.net"
           }
         }
@@ -30993,6 +31155,7 @@
           "category": {
             "type": "string",
             "description": "Merchant category code",
+            "nullable": true,
             "example": null
           },
           "country": {
@@ -31008,6 +31171,7 @@
           "url": {
             "type": "string",
             "description": "Merchant URL",
+            "nullable": true,
             "example": "http://intrepid-fav.net"
           }
         }
@@ -31044,11 +31208,13 @@
           "postCode": {
             "type": "string",
             "description": "Post code where merchant is located.",
-            "example": 0
+            "nullable": true,
+            "example": "00000"
           },
           "state": {
             "type": "string",
             "description": "State where merchant is located.",
+            "nullable": true,
             "example": null
           }
         }
@@ -31059,7 +31225,7 @@
           "code": {
             "type": "string",
             "description": "Merchant category code",
-            "example": 5999
+            "example": "5999"
           },
           "description": {
             "type": "string",
@@ -31148,11 +31314,13 @@
           "postCode": {
             "type": "string",
             "description": "Post code where merchant is located",
-            "example": 0
+            "nullable": true,
+            "example": "00000"
           },
           "state": {
             "type": "string",
             "description": "State where merchant is located",
+            "nullable": true,
             "example": null
           }
         }
@@ -31163,7 +31331,7 @@
           "code": {
             "type": "string",
             "description": "Merchant category code",
-            "example": 5499
+            "example": "5499"
           },
           "description": {
             "type": "string",
@@ -31332,11 +31500,13 @@
           "postCode": {
             "type": "string",
             "description": "Post code where merchant is located",
-            "example": 0
+            "nullable": true,
+            "example": "00000"
           },
           "state": {
             "type": "string",
             "description": "State where merchant is located",
+            "nullable": true,
             "example": null
           }
         }
@@ -31347,7 +31517,7 @@
           "code": {
             "type": "string",
             "description": "Merchant category code",
-            "example": 6011
+            "example": "6011"
           },
           "description": {
             "type": "string",
@@ -31423,6 +31593,7 @@
             "type": "integer",
             "description": "ID of the transfer that is associated with the case.",
             "format": "int64",
+            "nullable": true,
             "example": 12345678
           },
           "user_id": {
@@ -31446,6 +31617,7 @@
             "type": "integer",
             "description": "ID of the transfer that is associated with the case.",
             "format": "int64",
+            "nullable": true,
             "example": 12345678
           },
           "user_id": {
@@ -32031,7 +32203,8 @@
             "example": "BE12 3456 7890 1234"
           }
         },
-        "description": "Call-to-action details."
+        "description": "Call-to-action details.",
+        "nullable": true
       },
       "ComparisonProvidersItemQuotesItemDeliveryEstimationDuration": {
         "type": "object",
@@ -32039,11 +32212,13 @@
           "min": {
             "type": "string",
             "description": "Minimum quoted time for transaction delivery (ISO 8601 duration format)",
+            "nullable": true,
             "example": "PT20H8M16.305111S"
           },
           "max": {
             "type": "string",
             "description": "Maximum quoted time for transaction delivery (ISO 8601 duration format)",
+            "nullable": true,
             "example": "PT20H8M16.305111S"
           }
         },
@@ -32192,7 +32367,7 @@
           "building_number": {
             "type": "string",
             "description": "Building number.",
-            "example": 6
+            "example": "6"
           },
           "town_name": {
             "type": "string",
@@ -32202,7 +32377,7 @@
           "postal_code": {
             "type": "string",
             "description": "Postal code.",
-            "example": 1000
+            "example": "1000"
           },
           "country_sub_division": {
             "type": "string",
@@ -32258,7 +32433,7 @@
           "building_number": {
             "type": "string",
             "description": "Building number.",
-            "example": 10
+            "example": "10"
           },
           "town_name": {
             "type": "string",
@@ -32268,7 +32443,7 @@
           "postal_code": {
             "type": "string",
             "description": "Postal code.",
-            "example": 1000
+            "example": "1000"
           },
           "country_sub_division": {
             "type": "string",
@@ -32370,7 +32545,7 @@
           "building_number": {
             "type": "string",
             "description": "Building number.",
-            "example": 100
+            "example": "100"
           },
           "town_name": {
             "type": "string",
@@ -32380,7 +32555,7 @@
           "postal_code": {
             "type": "string",
             "description": "Postal code.",
-            "example": 10001
+            "example": "10001"
           },
           "country_sub_division": {
             "type": "string",
@@ -32418,7 +32593,7 @@
           "building_number": {
             "type": "string",
             "description": "Building number.",
-            "example": 6
+            "example": "6"
           },
           "town_name": {
             "type": "string",
@@ -32428,7 +32603,7 @@
           "postal_code": {
             "type": "string",
             "description": "Postal code.",
-            "example": 1000
+            "example": "1000"
           },
           "country_sub_division": {
             "type": "string",
@@ -32484,7 +32659,7 @@
           "building_number": {
             "type": "string",
             "description": "Building number.",
-            "example": 10
+            "example": "10"
           },
           "town_name": {
             "type": "string",
@@ -32494,7 +32669,7 @@
           "postal_code": {
             "type": "string",
             "description": "Postal code.",
-            "example": 1000
+            "example": "1000"
           },
           "country_sub_division": {
             "type": "string",
@@ -32596,7 +32771,7 @@
           "building_number": {
             "type": "string",
             "description": "Building number.",
-            "example": 100
+            "example": "100"
           },
           "town_name": {
             "type": "string",
@@ -32606,7 +32781,7 @@
           "postal_code": {
             "type": "string",
             "description": "Postal code.",
-            "example": 10001
+            "example": "10001"
           },
           "country_sub_division": {
             "type": "string",
@@ -32636,7 +32811,7 @@
           "building_number": {
             "type": "string",
             "description": "Building number.",
-            "example": 6
+            "example": "6"
           },
           "town_name": {
             "type": "string",
@@ -32646,7 +32821,7 @@
           "postal_code": {
             "type": "string",
             "description": "Postal code.",
-            "example": 1000
+            "example": "1000"
           },
           "country_sub_division": {
             "type": "string",
@@ -32694,7 +32869,7 @@
           "building_number": {
             "type": "string",
             "description": "Building number.",
-            "example": 10
+            "example": "10"
           },
           "town_name": {
             "type": "string",
@@ -32704,7 +32879,7 @@
           "postal_code": {
             "type": "string",
             "description": "Postal code.",
-            "example": 1000
+            "example": "1000"
           },
           "country_sub_division": {
             "type": "string",
@@ -32798,7 +32973,7 @@
           "building_number": {
             "type": "string",
             "description": "Building number.",
-            "example": 100
+            "example": "100"
           },
           "town_name": {
             "type": "string",
@@ -32808,7 +32983,7 @@
           "postal_code": {
             "type": "string",
             "description": "Postal code.",
-            "example": 10001
+            "example": "10001"
           },
           "country_sub_division": {
             "type": "string",
@@ -32950,7 +33125,7 @@
           "building_number": {
             "type": "string",
             "description": "Building number.",
-            "example": 1
+            "example": "1"
           },
           "town_name": {
             "type": "string",
@@ -32960,7 +33135,7 @@
           "postal_code": {
             "type": "string",
             "description": "Postal code.",
-            "example": 1000
+            "example": "1000"
           },
           "country_sub_division": {
             "type": "string",
@@ -32997,7 +33172,7 @@
           "building_number": {
             "type": "string",
             "description": "Building number.",
-            "example": 99
+            "example": "99"
           },
           "town_name": {
             "type": "string",
@@ -33007,7 +33182,7 @@
           "postal_code": {
             "type": "string",
             "description": "Postal code.",
-            "example": 60311
+            "example": "60311"
           },
           "country_sub_division": {
             "type": "string",
@@ -33044,7 +33219,7 @@
           "building_number": {
             "type": "string",
             "description": "Building number.",
-            "example": 1
+            "example": "1"
           },
           "town_name": {
             "type": "string",
@@ -33054,7 +33229,7 @@
           "postal_code": {
             "type": "string",
             "description": "Postal code.",
-            "example": 1000
+            "example": "1000"
           },
           "country_sub_division": {
             "type": "string",
@@ -33091,7 +33266,7 @@
           "building_number": {
             "type": "string",
             "description": "Building number.",
-            "example": 99
+            "example": "99"
           },
           "town_name": {
             "type": "string",
@@ -33101,7 +33276,7 @@
           "postal_code": {
             "type": "string",
             "description": "Postal code.",
-            "example": 60311
+            "example": "60311"
           },
           "country_sub_division": {
             "type": "string",
@@ -33130,7 +33305,7 @@
           "building_number": {
             "type": "string",
             "description": "Building number.",
-            "example": 1
+            "example": "1"
           },
           "town_name": {
             "type": "string",
@@ -33140,7 +33315,7 @@
           "postal_code": {
             "type": "string",
             "description": "Postal code.",
-            "example": 1000
+            "example": "1000"
           },
           "country_sub_division": {
             "type": "string",
@@ -33169,7 +33344,7 @@
           "building_number": {
             "type": "string",
             "description": "Building number.",
-            "example": 99
+            "example": "99"
           },
           "town_name": {
             "type": "string",
@@ -33179,7 +33354,7 @@
           "postal_code": {
             "type": "string",
             "description": "Postal code.",
-            "example": 60311
+            "example": "60311"
           },
           "country_sub_division": {
             "type": "string",
@@ -33670,7 +33845,7 @@
           "id": {
             "type": "string",
             "description": "Account detail ID.",
-            "example": 2
+            "example": "2"
           },
           "currency": {
             "type": "string",
@@ -33890,6 +34065,7 @@
           "fileName": {
             "type": "string",
             "description": "If this batch was submitted as a file, this is the given file name.",
+            "nullable": true,
             "example": null
           },
           "alreadyPaid": {
@@ -34105,12 +34281,12 @@
           "cvv2": {
             "type": "string",
             "description": "The card CVV2 security code.",
-            "example": 111
+            "example": "111"
           },
           "pan": {
             "type": "string",
             "description": "The card Primary Account Number.",
-            "example": 4396910000012345
+            "example": "4396910000012345"
           },
           "expiryDate": {
             "type": "string",
@@ -34156,7 +34332,7 @@
           "pin": {
             "type": "string",
             "description": "The card PIN.",
-            "example": 1234
+            "example": "1234"
           }
         }
       },
@@ -34199,7 +34375,7 @@
           "phoneNumber": {
             "type": "string",
             "description": "For partners onboarded after 1/3/2025, we will use the profile phone number for any Card-related One-Time Password (OTP) requests. See [3ds](/guides/product/issue-cards/3ds).\nEnsure that the phone number is valid and starts with a \u0022\u002B\u0022 followed by the country code.\n",
-            "example": 441234567890
+            "example": "\u002B441234567890"
           },
           "address": {
             "$ref": "#/components/schemas/CardOrderCreateRequestAddress"
@@ -34269,11 +34445,13 @@
           "secondLine": {
             "type": "string",
             "description": "Card holder\u0027s address (max 30 characters).",
+            "nullable": true,
             "example": "The Tea Bldg"
           },
           "thirdLine": {
             "type": "string",
             "description": "Card holder\u0027s address (max 30 characters).",
+            "nullable": true,
             "example": null
           },
           "city": {
@@ -34289,6 +34467,7 @@
           "state": {
             "type": "string",
             "description": "Card holder\u0027s state (max 30 characters).",
+            "nullable": true,
             "example": null
           },
           "country": {
@@ -34337,7 +34516,7 @@
           "cardOrderId": {
             "type": "string",
             "description": "The card order ID.",
-            "example": 142
+            "example": "142"
           }
         }
       },
@@ -34553,7 +34732,8 @@
         "properties": {
           "clientId": {
             "type": "string",
-            "description": "This field is currently not in use and will always return \u0060null\u0060."
+            "description": "This field is currently not in use and will always return \u0060null\u0060.",
+            "nullable": true
           },
           "keyId": {
             "type": "string",
@@ -34576,7 +34756,8 @@
           },
           "deactivationTimestamp": {
             "type": "string",
-            "description": "This field is currently not in use and will always return \u0060null\u0060."
+            "description": "This field is currently not in use and will always return \u0060null\u0060.",
+            "nullable": true
           }
         }
       },
@@ -34891,6 +35072,7 @@
           "ineligibilityReason": {
             "type": "string",
             "description": "Reason the profile is not eligible.",
+            "nullable": true,
             "example": null
           }
         }
@@ -35001,7 +35183,7 @@
           "otpCode": {
             "type": "string",
             "description": "6 digit OTP code in text format.",
-            "example": 111111
+            "example": "111111"
           }
         }
       },
@@ -35021,7 +35203,7 @@
           "otpCode": {
             "type": "string",
             "description": "6 digit OTP code in text format.",
-            "example": 111111
+            "example": "111111"
           }
         }
       },
@@ -35041,7 +35223,7 @@
           "otpCode": {
             "type": "string",
             "description": "6 digit OTP code in text format.",
-            "example": 111111
+            "example": "111111"
           }
         }
       },
@@ -35193,11 +35375,13 @@
           "firstNameInKana": {
             "type": "string",
             "description": "First name in Katakana. Required for from-JPY personal transfers.",
+            "nullable": true,
             "example": null
           },
           "lastNameInKana": {
             "type": "string",
             "description": "Last name in Katakana. Required for from-JPY personal transfers.",
+            "nullable": true,
             "example": null
           },
           "address": {
@@ -35257,6 +35441,7 @@
           "businessNameInKatakana": {
             "type": "string",
             "description": "Business name in Katakana (only for Japanese businesses).",
+            "nullable": true,
             "example": null
           },
           "businessFreeFormDescription": {
@@ -35267,21 +35452,24 @@
           "registrationNumber": {
             "type": "string",
             "description": "Business registration number.",
-            "example": 12144939
+            "example": "12144939"
           },
           "acn": {
             "type": "string",
             "description": "Australian Company Number (only for Australian businesses).",
+            "nullable": true,
             "example": null
           },
           "abn": {
             "type": "string",
             "description": "Australian Business Number (only for Australian businesses).",
+            "nullable": true,
             "example": null
           },
           "arbn": {
             "type": "string",
             "description": "Australian Registered Body Number (only for Australian businesses).",
+            "nullable": true,
             "example": null
           },
           "companyType": {
@@ -35354,11 +35542,13 @@
           "firstNameInKana": {
             "type": "string",
             "description": "First name in Katakana. Required for from-JPY personal transfers.",
+            "nullable": true,
             "example": null
           },
           "lastNameInKana": {
             "type": "string",
             "description": "Last name in Katakana. Required for from-JPY personal transfers.",
+            "nullable": true,
             "example": null
           },
           "address": {
@@ -35407,6 +35597,7 @@
           "businessNameInKatakana": {
             "type": "string",
             "description": "Business name in Katakana (only for Japanese businesses).",
+            "nullable": true,
             "example": null
           },
           "businessFreeFormDescription": {
@@ -35417,21 +35608,24 @@
           "registrationNumber": {
             "type": "string",
             "description": "Business registration number.",
-            "example": 12144939
+            "example": "12144939"
           },
           "acn": {
             "type": "string",
             "description": "Australian Company Number (only for Australian businesses).",
+            "nullable": true,
             "example": null
           },
           "abn": {
             "type": "string",
             "description": "Australian Business Number (only for Australian businesses).",
+            "nullable": true,
             "example": null
           },
           "arbn": {
             "type": "string",
             "description": "Australian Registered Body Number (only for Australian businesses).",
+            "nullable": true,
             "example": null
           },
           "companyType": {
@@ -35583,6 +35777,7 @@
         "properties": {
           "errorMessage": {
             "type": "string",
+            "nullable": true,
             "example": null
           },
           "success": {
@@ -35673,6 +35868,7 @@
         "properties": {
           "errorMessage": {
             "type": "string",
+            "nullable": true,
             "example": null
           },
           "success": {
@@ -35972,7 +36168,7 @@
           "cardLastDigits": {
             "type": "string",
             "description": "Last 4 digits of the card PAN.",
-            "example": 1234
+            "example": "1234"
           },
           "userAddress": {
             "$ref": "#/components/schemas/PushProvisioningGooglePayGet200ResponseUserAddress"
@@ -36046,11 +36242,13 @@
           "sourceAmount": {
             "type": "number",
             "description": "Amount in source currency. Either \u0060sourceAmount\u0060 or \u0060targetAmount\u0060 is required, never both.",
+            "nullable": true,
             "example": null
           },
           "targetAmount": {
             "type": "number",
             "description": "Amount in target currency.",
+            "nullable": true,
             "example": 110
           },
           "pricingConfiguration": {
@@ -36078,11 +36276,13 @@
           "sourceAmount": {
             "type": "number",
             "description": "Amount in source currency. Either \u0060sourceAmount\u0060 or \u0060targetAmount\u0060 is required, never both.",
+            "nullable": true,
             "example": 100
           },
           "targetAmount": {
             "type": "number",
             "description": "Amount in target currency.",
+            "nullable": true,
             "example": null
           },
           "targetAccount": {
@@ -36094,11 +36294,13 @@
           "payOut": {
             "type": "string",
             "description": "_Optional_. Preferred payout method. \n\nDefault value is \u0060BANK_TRANSFER\u0060. \n\nExamples of other accepted values include \u0060BALANCE\u0060, \u0060SWIFT\u0060, \u0060SWIFT_OUR\u0060, \u0060ALIPAY\u0060, and \u0060INTERAC\u0060.\n",
+            "nullable": true,
             "example": null
           },
           "preferredPayIn": {
             "type": "string",
             "description": "_Optional_. Preferred payin method. Use \u0060BANK_TRANSFER\u0060 to return this method at the top of the response\u0027s results.",
+            "nullable": true,
             "example": null
           },
           "paymentMetadata": {
@@ -36304,7 +36506,8 @@
           },
           "error": {
             "type": "string",
-            "description": "An error returned by the transaction, if it exists."
+            "description": "An error returned by the transaction, if it exists.",
+            "nullable": true
           }
         }
       },
@@ -36331,7 +36534,8 @@
           },
           "error": {
             "type": "string",
-            "description": "An error returned by the transaction, if it exists."
+            "description": "An error returned by the transaction, if it exists.",
+            "nullable": true
           }
         }
       },
@@ -36358,7 +36562,8 @@
           },
           "error": {
             "type": "string",
-            "description": "An error returned by the transaction, if it exists."
+            "description": "An error returned by the transaction, if it exists.",
+            "nullable": true
           }
         }
       },
@@ -36858,7 +37063,8 @@
           },
           "mt103": {
             "type": "string",
-            "description": "The MT103 of the transfer, if available"
+            "description": "The MT103 of the transfer, if available",
+            "nullable": true
           }
         }
       },
@@ -37044,7 +37250,8 @@
         "properties": {
           "cursor": {
             "type": "string",
-            "description": "Pagination cursor. Pass this value as the \u0060nextCursor\u0060 query parameter to fetch the next page of results. Returns \u0060null\u0060 when there are no more pages."
+            "description": "Pagination cursor. Pass this value as the \u0060nextCursor\u0060 query parameter to fetch the next page of results. Returns \u0060null\u0060 when there are no more pages.",
+            "nullable": true
           },
           "activities": {
             "type": "array",
@@ -37560,10 +37767,6 @@
         "type": "object",
         "example": "Case not found"
       },
-      "KycRequirementAttributesProperty": {
-        "type": "object",
-        "description": "**Conditional:** Only present for certain requirement types that provide additional contextual information. The keys within this object vary depending on the parent requirement \u0060key\u0060. See the [KYC requirement types](/guides/product/kyc/wise-kyc/kyc-requirement-types) guide for details on which requirement types support attributes and what keys they contain.\n"
-      },
       "ValidationErrorRejectedValue": {
         "type": "object",
         "description": "The value that was rejected (if applicable).",
@@ -37960,7 +38163,8 @@
       },
       "BalanceStatementGet200ResponseBankDetails": {
         "type": "object",
-        "description": "Local bank details for the account."
+        "description": "Local bank details for the account.",
+        "nullable": true
       },
       "BalanceStatementGet200ResponseTransactionsItem": {
         "type": "object",
@@ -38057,12 +38261,12 @@
           "sortCode": {
             "type": "string",
             "description": "Sort code of the bank.",
-            "example": 231370
+            "example": "231370"
           },
           "accountNumber": {
             "type": "string",
             "description": "Bank account number.",
-            "example": 1
+            "example": "00000001"
           },
           "type": {
             "type": "string",
@@ -38101,7 +38305,8 @@
             "example": "IBAN"
           }
         },
-        "description": "International bank account details. Only returned if SWIFT payments are supported for that currency."
+        "description": "International bank account details. Only returned if SWIFT payments are supported for that currency.",
+        "nullable": true
       },
       "BankAccountDetailsOrderCreate200ResponseRequirementsItem": {
         "type": "object",
@@ -38245,7 +38450,7 @@
           "partnerReference": {
             "type": "string",
             "description": "The transaction/payment identifier in your system, uniquely identifies the transfer in your platform.",
-            "example": 11111
+            "example": "11111"
           },
           "comment": {
             "type": "string",
@@ -38282,7 +38487,7 @@
           "partnerReference": {
             "type": "string",
             "description": "The transaction/payment identifier in your system, uniquely identifies the transfer in your platform.",
-            "example": 11108
+            "example": "11108"
           }
         }
       },
@@ -38295,10 +38500,12 @@
           },
           "secondLine": {
             "type": "string",
+            "nullable": true,
             "example": "The Tea Bldg"
           },
           "thirdLine": {
             "type": "string",
+            "nullable": true,
             "example": null
           },
           "city": {
@@ -38311,6 +38518,7 @@
           },
           "state": {
             "type": "string",
+            "nullable": true,
             "example": null
           },
           "country": {
@@ -38416,12 +38624,12 @@
           "routingNumber": {
             "type": "string",
             "description": "A valid ABA routing number. For CAD direct debits, the routing number is a combination of an institution number \u002B transit number.",
-            "example": 0
+            "example": "000000000"
           },
           "accountNumber": {
             "type": "string",
             "description": "A valid bank account number.",
-            "example": 0
+            "example": "0000000000"
           },
           "accountType": {
             "$ref": "#/components/schemas/DirectDebitAccountCreateRequestDetailsAccountType"
@@ -38435,7 +38643,7 @@
           "transactionId": {
             "type": "string",
             "description": "ID of the transaction.",
-            "example": 12345
+            "example": "12345"
           },
           "email": {
             "type": "string",
@@ -38567,12 +38775,14 @@
             "type": "integer",
             "description": "ID of the transfer the case relates to. Can also be \u0060null\u0060.",
             "format": "int64",
+            "nullable": true,
             "example": 58114690
           },
           "profileId": {
             "type": "integer",
             "description": "ID of the profile the case relates to. Can also be \u0060null\u0060.",
             "format": "int64",
+            "nullable": true,
             "example": 14556049
           },
           "userId": {
@@ -38709,7 +38919,7 @@
           "postCode": {
             "type": "string",
             "description": "Postal code.",
-            "example": 10025
+            "example": "10025"
           },
           "stateCode": {
             "maxLength": 5,
@@ -38734,7 +38944,7 @@
           "phoneNumber": {
             "type": "string",
             "description": "Contact phone number in international phone number format, example \u0022\u002B1408XXXXXXX\u0022.",
-            "example": 3725064992
+            "example": "\u002B3725064992"
           }
         }
       },
@@ -38774,11 +38984,13 @@
           "firstNameInKana": {
             "type": "string",
             "description": "First name in Katakana.",
+            "nullable": true,
             "example": null
           },
           "lastNameInKana": {
             "type": "string",
             "description": "Last name in Katakana.",
+            "nullable": true,
             "example": null
           },
           "address": {
@@ -38844,7 +39056,7 @@
           "postCode": {
             "type": "string",
             "description": "Postal code.",
-            "example": 11111
+            "example": "11111"
           },
           "stateCode": {
             "type": "string",
@@ -38873,7 +39085,7 @@
           },
           "postCode": {
             "type": "string",
-            "example": 11111
+            "example": "11111"
           },
           "stateCode": {
             "type": "string"
@@ -38937,7 +39149,7 @@
           "postCode": {
             "type": "string",
             "description": "Postal code or ZIP code.",
-            "example": 10025
+            "example": "10025"
           },
           "stateCode": {
             "maxLength": 5,
@@ -38958,7 +39170,7 @@
           "phoneNumber": {
             "type": "string",
             "description": "Contact phone number in international phone number format, example \u0022\u002B1408XXXXXXX\u0022.",
-            "example": 3725064992
+            "example": "\u002B3725064992"
           }
         }
       },
@@ -39003,7 +39215,7 @@
           "postCode": {
             "type": "string",
             "description": "Postal code.",
-            "example": 11111
+            "example": "11111"
           },
           "stateCode": {
             "maxLength": 5,
@@ -39033,7 +39245,7 @@
           },
           "postCode": {
             "type": "string",
-            "example": 11111
+            "example": "11111"
           },
           "stateCode": {
             "maxLength": 5,
@@ -39062,7 +39274,7 @@
           "postCode": {
             "type": "string",
             "description": "Postal code.",
-            "example": 10025
+            "example": "10025"
           },
           "stateCode": {
             "type": "string",
@@ -39082,7 +39294,7 @@
           "phoneNumber": {
             "type": "string",
             "description": "Contact phone number in international phone number format, example \u0022\u002B1408XXXXXXX\u0022 of the person representing the business. Please speak with your integration account manager for details on how customer communication is handled for your integration.",
-            "example": 3725064992
+            "example": "\u002B3725064992"
           }
         }
       },
@@ -39183,6 +39395,7 @@
             "type": "integer",
             "description": "Percentage of ownership.",
             "format": "int32",
+            "nullable": true,
             "example": 30
           }
         }
@@ -39219,6 +39432,7 @@
             "type": "integer",
             "description": "Percentage of ownership.",
             "format": "int32",
+            "nullable": true,
             "example": 30
           }
         }
@@ -39332,7 +39546,7 @@
           "phoneNumber": {
             "type": "string",
             "description": "Phone number associated with the card.",
-            "example": 441234567890
+            "example": "\u002B441234567890"
           },
           "postalCode": {
             "type": "string",
@@ -39569,7 +39783,8 @@
           },
           "description": {
             "type": "string",
-            "description": "Description of the KYC review item."
+            "description": "Description of the KYC review item.",
+            "nullable": true
           }
         }
       },
@@ -39897,6 +40112,7 @@
             "type": "integer",
             "description": "Percentage of ownership.",
             "format": "int32",
+            "nullable": true,
             "example": 30
           }
         }
@@ -39933,6 +40149,7 @@
             "type": "integer",
             "description": "Percentage of ownership.",
             "format": "int32",
+            "nullable": true,
             "example": 30
           }
         }
@@ -40125,7 +40342,7 @@
           "postCode": {
             "type": "string",
             "description": "Postal/ZIP code.",
-            "example": 12112
+            "example": "12112"
           },
           "stateCode": {
             "type": "string",
@@ -40233,10 +40450,12 @@
           },
           "rate": {
             "type": "number",
-            "description": "Exchange rate applied."
+            "description": "Exchange rate applied.",
+            "nullable": true
           }
         },
-        "description": "Exchange details for card transactions abroad."
+        "description": "Exchange details for card transactions abroad.",
+        "nullable": true
       },
       "BalanceStatementGet200ResponseTransactionsItemRunningBalance": {
         "type": "object",
@@ -40288,7 +40507,7 @@
           "postCode": {
             "type": "string",
             "description": "Post code / zip code.",
-            "example": 1050
+            "example": "1050"
           },
           "city": {
             "type": "string",
@@ -40298,15 +40517,18 @@
           "state": {
             "type": "string",
             "description": "State.",
+            "nullable": true,
             "example": null
           },
           "phone": {
             "type": "string",
             "description": "Phone number.",
+            "nullable": true,
             "example": "\u002B32 472 123 456"
           }
         },
-        "description": "Bank address."
+        "description": "Bank address.",
+        "nullable": true
       },
       "PayinDepositDetailGet200ResponsePayinBankAccountDetailsItem": {
         "type": "object",
@@ -40335,6 +40557,7 @@
           "formattedValue": {
             "type": "string",
             "description": "Account details value, formatted according to the type of the field. Intended to be human-readable. This can be null.",
+            "nullable": true,
             "example": "BE11 1111 1111 1111"
           },
           "description": {
@@ -40361,7 +40584,7 @@
           "postCode": {
             "type": "string",
             "description": "Post code / zip code.",
-            "example": 1050
+            "example": "1050"
           },
           "city": {
             "type": "string",
@@ -40371,15 +40594,18 @@
           "state": {
             "type": "string",
             "description": "State.",
+            "nullable": true,
             "example": null
           },
           "phone": {
             "type": "string",
             "description": "Phone number.",
+            "nullable": true,
             "example": null
           }
         },
-        "description": "Wise local address."
+        "description": "Wise local address.",
+        "nullable": true
       },
       "ProfilePersonalCreate200ResponseDetailsAddress": {
         "type": "object",
@@ -40398,7 +40624,7 @@
           },
           "postCode": {
             "type": "string",
-            "example": 10025
+            "example": "10025"
           },
           "stateCode": {
             "type": "string",
@@ -40415,7 +40641,7 @@
           },
           "phoneNumber": {
             "type": "string",
-            "example": 3725064992
+            "example": "\u002B3725064992"
           }
         }
       },
@@ -40456,7 +40682,7 @@
           "postCode": {
             "type": "string",
             "description": "Postal code.",
-            "example": 10025
+            "example": "10025"
           },
           "stateCode": {
             "type": "string",
@@ -40476,7 +40702,7 @@
           "phoneNumber": {
             "type": "string",
             "description": "Contact phone number in international phone number format. Required unless Business Representative ID is provided.",
-            "example": 3725064992
+            "example": "\u002B3725064992"
           }
         }
       },
@@ -40628,7 +40854,8 @@
           },
           "firstLine": {
             "type": "string",
-            "description": "Merchant address street."
+            "description": "Merchant address street.",
+            "nullable": true
           },
           "postCode": {
             "type": "string",
@@ -41265,6 +41492,7 @@
         "type": "string",
         "additionalProperties": false,
         "description": "PIN validation result. One of:\n- \u0060ONLINE_PIN_VALIDATED\u0060\n- \u0060ONLINE_PIN_INVALID\u0060\n- \u0060OFFLINE_PIN_VALIDATED\u0060\n- \u0060OFFLINE_PIN_INVALID\u0060\n- \u0060NOT_RECEIVED\u0060\n",
+        "nullable": true,
         "example": "ONLINE_PIN_VALIDATED",
         "x-ms-enum": {
           "name": "CardTransactionPinValidationResult",
@@ -44064,6 +44292,7 @@
         "type": "string",
         "additionalProperties": false,
         "description": "Reason the breach was closed. Null if state is \u0060OPEN\u0060.",
+        "nullable": true,
         "example": "MANUALLY_RESOLVED",
         "x-ms-enum": {
           "name": "V40012DataClosingReason",
