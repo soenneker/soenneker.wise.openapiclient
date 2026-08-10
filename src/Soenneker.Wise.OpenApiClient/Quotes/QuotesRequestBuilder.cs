@@ -19,7 +19,7 @@ namespace Soenneker.Wise.OpenApiClient.Quotes
     public partial class QuotesRequestBuilder : BaseRequestBuilder
     {
         /// <summary>Gets an item from the Soenneker.Wise.OpenApiClient.quotes.item collection</summary>
-        /// <param name="position">Quote ID (supports long or UUID based IDs).</param>
+        /// <param name="position">Quote ID (supports long or UUID-based IDs).</param>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Quotes.Item.WithQuoteItemRequestBuilder"/></returns>
         public global::Soenneker.Wise.OpenApiClient.Quotes.Item.WithQuoteItemRequestBuilder this[string position]
         {

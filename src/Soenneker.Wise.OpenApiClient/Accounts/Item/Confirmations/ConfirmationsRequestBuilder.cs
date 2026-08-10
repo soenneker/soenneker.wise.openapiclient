@@ -34,7 +34,7 @@ namespace Soenneker.Wise.OpenApiClient.Accounts.Item.Confirmations
         {
         }
         /// <summary>
-        /// When `requiresCustomerAcceptance` is `true` in the confirmation outcomes, the recipient cannot be used for a transfer until the customer explicitly confirms the details. You must present the mismatch to the customer and get their approval.{% admonition type=&quot;warning&quot; %}If the confirmation result contained a `quoteId` then the acceptance request must also specify that as part of the query parameters, otherwise the request will be rejected.{% /admonition %}
+        /// When the confirmation outcome indicates `requiresCustomerAcceptance` is `true`, the recipient cannot be used for a transfer until the customer explicitly confirms the details. Present the mismatch to the customer and get their approval before proceeding further into the transfer flow.{% admonition type=&quot;warning&quot; %}If the confirmation result contained a `quoteId`, then the acceptance request must also specify that as part of the query parameters, otherwise the request will be rejected.{% /admonition %}
         /// </summary>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.Recipient"/></returns>
         /// <param name="body">The request body</param>
@@ -59,7 +59,7 @@ namespace Soenneker.Wise.OpenApiClient.Accounts.Item.Confirmations
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.Recipient>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.Recipient.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// When `requiresCustomerAcceptance` is `true` in the confirmation outcomes, the recipient cannot be used for a transfer until the customer explicitly confirms the details. You must present the mismatch to the customer and get their approval.{% admonition type=&quot;warning&quot; %}If the confirmation result contained a `quoteId` then the acceptance request must also specify that as part of the query parameters, otherwise the request will be rejected.{% /admonition %}
+        /// When the confirmation outcome indicates `requiresCustomerAcceptance` is `true`, the recipient cannot be used for a transfer until the customer explicitly confirms the details. Present the mismatch to the customer and get their approval before proceeding further into the transfer flow.{% admonition type=&quot;warning&quot; %}If the confirmation result contained a `quoteId`, then the acceptance request must also specify that as part of the query parameters, otherwise the request will be rejected.{% /admonition %}
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>
@@ -90,7 +90,7 @@ namespace Soenneker.Wise.OpenApiClient.Accounts.Item.Confirmations
             return new global::Soenneker.Wise.OpenApiClient.Accounts.Item.Confirmations.ConfirmationsRequestBuilder(rawUrl, RequestAdapter);
         }
         /// <summary>
-        /// When `requiresCustomerAcceptance` is `true` in the confirmation outcomes, the recipient cannot be used for a transfer until the customer explicitly confirms the details. You must present the mismatch to the customer and get their approval.{% admonition type=&quot;warning&quot; %}If the confirmation result contained a `quoteId` then the acceptance request must also specify that as part of the query parameters, otherwise the request will be rejected.{% /admonition %}
+        /// When the confirmation outcome indicates `requiresCustomerAcceptance` is `true`, the recipient cannot be used for a transfer until the customer explicitly confirms the details. Present the mismatch to the customer and get their approval before proceeding further into the transfer flow.{% admonition type=&quot;warning&quot; %}If the confirmation result contained a `quoteId`, then the acceptance request must also specify that as part of the query parameters, otherwise the request will be rejected.{% /admonition %}
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
         public partial class ConfirmationsRequestBuilderPatchQueryParameters 

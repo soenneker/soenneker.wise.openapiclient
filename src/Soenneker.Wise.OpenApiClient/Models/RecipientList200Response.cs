@@ -22,9 +22,9 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public List<global::Soenneker.Wise.OpenApiClient.Models.Recipient> Content { get; set; }
 #endif
-        /// <summary>Seek position for the current page.</summary>
+        /// <summary>Seek position for the current page of the response. For pagination, use this value for the `seekPosition` query parameter of your next request to fetch this current page again.</summary>
         public long? SeekPositionForCurrent { get; set; }
-        /// <summary>Seek position for the next page (use as `seekPosition` to fetch the next page).</summary>
+        /// <summary>Seek position for the next page of the response. For pagination, use this value for the `seekPosition` query parameter of your next request to fetch the next page.</summary>
         public long? SeekPositionForNext { get; set; }
         /// <summary>Page size returned.</summary>
         public int? Size { get; set; }

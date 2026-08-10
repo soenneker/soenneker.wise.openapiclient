@@ -31,7 +31,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string Currency { get; set; }
 #endif
-        /// <summary>Contains the details of the receipient account specific its currency and type. Common examples include `legalType`, `sortCode`, `accountNumber`, `email`, `dateOfBirth`, etc. Use the **retreive recipient account requirements** endpoint to determine what is required for a specific recipient.</summary>
+        /// <summary>Contains the details of the recipient account specific to its currency and type. Common examples include `legalType`, `sortCode`, `accountNumber`, `email`, `dateOfBirth`, etc. Use the **retrieve recipient account requirements** endpoint to determine what is required for a specific recipient.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Soenneker.Wise.OpenApiClient.Models.RecipientCreateRequestDetails? Details { get; set; }
@@ -39,11 +39,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public global::Soenneker.Wise.OpenApiClient.Models.RecipientCreateRequestDetails Details { get; set; }
 #endif
-        /// <summary>Indicates whether the recipient account is owned by the profile owner. While optional, we recommend setting to `true` for self-transfers (such as a user sending money to their own account in another country or currency). Distinguishing self-transfers from third-party transfers improves routing and processing efficiency.</summary>
+        /// <summary>Indicates whether the recipient account is owned by the profile owner.While optional, we recommend setting to `true` for self-transfers (such as a user sending money to their own account in another country or currency).Distinguishing self-transfers from third-party transfers improves routing and processing efficiency.</summary>
         public bool? OwnedByCustomer { get; set; }
-        /// <summary>Personal or business profile ID of the sender. We recommend passing the business profile ID if your business account is managed by multiple users so the recipient can be accessed by all users authorized on the business account.</summary>
+        /// <summary>Personal or business profile ID of the sender. We recommend passing the business profile ID if multiple users manage your business account so all users authorized on the business account can access the recipient.</summary>
         public long? Profile { get; set; }
-        /// <summary>Recipient account type (currency/route-specific, e.g., `sort_code`, `iban`, `email`).</summary>
+        /// <summary>Recipient account type. These are currency/route-specific, for example, `sort_code`, `iban`, `email`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Type { get; set; }

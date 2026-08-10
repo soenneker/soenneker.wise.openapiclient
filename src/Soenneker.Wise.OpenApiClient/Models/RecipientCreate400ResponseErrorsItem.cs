@@ -22,7 +22,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public List<string> Arguments { get; set; }
 #endif
-        /// <summary>Error code (e.g. NOT_VALID).</summary>
+        /// <summary>Error code (for example, `NOT_VALID`).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Code { get; set; }

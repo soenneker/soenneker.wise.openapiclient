@@ -54,7 +54,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public List<global::Soenneker.Wise.OpenApiClient.Models.ConfirmationsOutcomesItemRecommendedUpdatesItem> RecommendedUpdates { get; set; }
 #endif
-        /// <summary>Indicates whether we require customer acceptance. Whether this value is `true` or `false` depends on the currency and the nature of the confirmation.If `true`, you must present your customer with the ability to accept or decline the confirmation result.</summary>
+        /// <summary>Indicates whether we require customer acceptance. The value for this field (`true` or `false`) depends on the currency and the nature of the confirmation.If `true`, you must present your customer with the ability to accept or decline the confirmation result.</summary>
         public bool? RequiresCustomerAcceptance { get; set; }
         /// <summary>The name that we resolved during name matching or name resolution.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER

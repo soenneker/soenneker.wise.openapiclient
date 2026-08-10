@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Contains the details of the receipient account specific its currency and type. Common examples include `legalType`, `sortCode`, `accountNumber`, `email`, `dateOfBirth`, etc. Use the **retreive recipient account requirements** endpoint to determine what is required for a specific recipient.
+    /// Contains the details of the recipient account specific to its currency and type. Common examples include `legalType`, `sortCode`, `accountNumber`, `email`, `dateOfBirth`, etc. Use the **retrieve recipient account requirements** endpoint to determine what is required for a specific recipient.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class RecipientCreateRequestDetails : IAdditionalDataHolder, IParsable

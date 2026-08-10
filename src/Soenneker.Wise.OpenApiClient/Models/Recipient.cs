@@ -58,7 +58,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string Currency { get; set; }
 #endif
-        /// <summary>Contains the details of the receipient account specific its currency and type. The fields required (in the request) or present (in the response) vary depending on currency route and recipient type (e.g., sort code, IBAN, SWIFT, email).</summary>
+        /// <summary>Contains the details of the recipient account specific to its currency and type. The fields required (in the request) or present (in the response) vary depending on currency route and recipient type (e.g., sort code, IBAN, SWIFT, email).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Soenneker.Wise.OpenApiClient.Models.RecipientDetails? Details { get; set; }
@@ -66,7 +66,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public global::Soenneker.Wise.OpenApiClient.Models.RecipientDetails Details { get; set; }
 #endif
-        /// <summary>Lookup fields (key/label/value) for rendering in your UI. Allows you to build a UI containing all the dynamic fields for a recipient individually.</summary>
+        /// <summary>Lookup fields (key/label/value) for rendering in your front-end. Allows you to build a UI containing all the dynamic fields for a recipient individually.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<global::Soenneker.Wise.OpenApiClient.Models.RecipientDisplayFieldsItem>? DisplayFields { get; set; }

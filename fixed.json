@@ -10511,7 +10511,7 @@
           "recipient"
         ],
         "summary": "List recipient accounts",
-        "description": "Fetch a list of the user\u0027s recipient accounts. Use the \u0060profileId\u0060 parameter to filter by the profile who created the accounts, you should do this based on the personal or business profile ID you have linked to, based on your use case. Other filters are listed below for your convenience, for example \u0060currency\u0060 is a useful filter to use when presenting the user a list of recipients to choose from in the case they have already submitted the target currency in your flow.\n\n#### Pagination\nPagination is supported for this endpoint. The response includes the \u0060seekPositionForNext\u0060 and \u0060size\u0060 parameters to manage this.\n\nIt works by setting \u0060size\u0060 and \u0060seekPosition\u0060 parameters in the call. Set the value in the \u0060seekPositionForNext\u0060 of the previous response into the \u0060seekPosition\u0060 parameter of your subsequent call in order to get the next page. To get the current page again, use the \u0060seekPositionForCurrent\u0060 value.\n\n#### Sorting\nYou can also set the \u0060sort\u0060 parameter to control the sorting of the response, for example:\n\n\u0060?sort=id,asc\u0060 sort by \u0060id\u0060 ascending.\u003Cbr\u003E\n\u0060?sort=id,desc\u0060 sort by \u0060id\u0060 descending.\u003Cbr\u003E\n\u0060?sort=currency,asc\u0060 sort by currency ascending.\n\nAll query parameters are optional.\n",
+        "description": "Fetches a list of the user\u0027s recipient accounts. \n\n#### Notes about query params\n\n- All query parameters are optional.\n- Pagination is supported.\n  - Set the \u0060size\u0060 parameter to determine the number of accounts per page (max 20).\n  - Set the \u0060seekPosition\u0060 parameter to the value returned in the \u0060seekPositionForNext\u0060 field of the previous response to retrieve the next page.\n",
         "operationId": "RecipientList",
         "parameters": [
           {
@@ -10526,7 +10526,7 @@
           {
             "name": "profileId",
             "in": "query",
-            "description": "Filter by personal or business profile. Defaults to the personal profile.",
+            "description": "Filters by the personal or business profile that created the account. Defaults to the personal profile.",
             "schema": {
               "type": "integer",
               "format": "int64"
@@ -10544,7 +10544,7 @@
           {
             "name": "currency",
             "in": "query",
-            "description": "Filter responses by currency. Comma separated values supported (e.g. \u0060USD,GBP\u0060).",
+            "description": "Filters the response by target currency.\n\nUseful for presenting a list of recipients to your customer when they have already indicated the target currency in your flow.\n\nSupports comma-separated values (for example, \u0060USD,GBP\u0060).\n",
             "schema": {
               "type": "string"
             }
@@ -10552,7 +10552,7 @@
           {
             "name": "active",
             "in": "query",
-            "description": "Filter by whether this profile is active. Defaults to \u0060true\u0060.",
+            "description": "Filters by whether the selected profile is active. Defaults to \u0060true\u0060.",
             "schema": {
               "type": "boolean",
               "default": true
@@ -10561,7 +10561,7 @@
           {
             "name": "type",
             "in": "query",
-            "description": "Filter responses by account type. Comma separated values supported (e.g. \u0060iban,swift_code\u0060).",
+            "description": "Filters the response by account type. Supports comma-separated values (for example, \u0060iban,swift_code\u0060).",
             "schema": {
               "type": "string"
             }
@@ -10569,7 +10569,7 @@
           {
             "name": "ownedByCustomer",
             "in": "query",
-            "description": "Filter to get accounts owned by the customer or not. Leave out to get all accounts.",
+            "description": "Filters the response by whether the account is owned by the customer. Leave out to retrieve all accounts.",
             "schema": {
               "type": "boolean"
             }
@@ -10577,7 +10577,7 @@
           {
             "name": "size",
             "in": "query",
-            "description": "Page size of the response. Defaults to a maximum of 20.",
+            "description": "The number of accounts returned in a page of the response. Defaults to 20 (the maximum).",
             "schema": {
               "maximum": 20,
               "type": "integer",
@@ -10587,7 +10587,7 @@
           {
             "name": "seekPosition",
             "in": "query",
-            "description": "Account ID to start the page of responses from. \u0060null\u0060 if no more pages.",
+            "description": "For pagination, use the value from the \u0060seekPositionForNext\u0060 field of the previous response to retrieve the next page.",
             "schema": {
               "type": "integer",
               "format": "int64",
@@ -10597,7 +10597,7 @@
           {
             "name": "sort",
             "in": "query",
-            "description": "Sorting strategy for the response. Comma separated options - firstly either \u0060id\u0060 or \u0060currency\u0060, followed by \u0060asc\u0060 or \u0060desc\u0060 for direction.",
+            "description": "Controls the sorting strategy for the response. \n\nUses comma-separated options (either \u0060id\u0060 or \u0060currency\u0060 first, followed by \u0060asc\u0060 or \u0060desc\u0060 for direction).\n\n- \u0060?sort=id,asc\u0060 sorts in ascending order by \u0060id\u0060.\n- \u0060?sort=id,desc\u0060 sorts in descending order by \u0060id\u0060.\n- \u0060?sort=currency,asc\u0060 sorts in ascending order by currency.\n",
             "schema": {
               "type": "string",
               "example": "id,asc"
@@ -10690,13 +10690,13 @@
           "recipient"
         ],
         "summary": "Create a recipient account",
-        "description": "\u0022Creates a recipient account. A **recipient** is a person or institution who is the ultimate beneficiary of your payment.\n\nRecipient data includes three data blocks:\n- General data - the personal details of an individual and basic information about a business.\n- Bank details - account numbers, routing numbers, and other region-specific bank details.\n- Address details - country and street address of an individual or business.\n\nNotes:\n- Date of Birth is optional; consult the account-requirements APIs to confirm if it is needed or contact Wise Support.\n- \u0060ownedByCustomer\u0060 is optional but strongly recommended for self-transfers.\n- Email recipients: testing transfers to email recipients in sandbox is not currently possible.\n\nRefund recipients:\n- Use \u0060refund=true\u0060 query parameter.\n\n#### Bank account data\nThere are many different variations of bank account details needed depending on recipient target currency. For example:\n\n- **GBP** \u2014 sort code and account number\n- **BGN, CHF, DKK, EUR, GEL, GBP, NOK, PKR, PLN, RON, SEK** \u2014 IBAN\n- **USD** \u2014 routing number, account number, account type\n- **INR** \u2014 IFSC code, account number\n- etc.\n\n#### Address data\nRecipient address data is required only if target currency is **USD, PHP, THB or TRY**, or if the source currency is **USD or AUD**.\n\nAddress fields can include:\n- Country\n- State (US, Canada, Brazil)\n- City\n- Address line\n- Zip code\n\n#### accountHolderName rules\n- **Personal recipients:** Full names must include more than one name, and both first and last name must have more than one character. Numbers are not allowed.\n- **Business recipients:** Business names must be in full and can be a single name. The full name cannot be just a single character, but can be made up of a set of single characters (e.g. \u0060\\\u0022A\\\u0022\u0060 is not permitted but \u0060\\\u0022A 1\\\u0022\u0060 or \u0060\\\u0022A1\\\u0022\u0060 is permitted).\n- Special characters \u0060_()\u0027*,.\u0060 are allowed for personal and business names.\n- In general the following regex describes permitted characters:\n  \u0060[0-9A-Za-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u00FF-_()\u0027*,.\\s]\u0060.\n\nRecipient requirements vary depending on recipient type/currency route. A GBP example is provided here.\u003Cbr\u003E\nMany fields may be \u0060null\u0060 in examples. To determine which fields are required for which currency, use the\n**[Recipient Requirements](/api-reference/recipient/recipientAccountRequirementsGet)** endpoint.\n\n#### Create a refund recipient account\n\u0060POST /accounts?refund=true\u0060\n\nSometimes we may need to refund the transfer back to the sender - see the [transfer status here](/guides/product/send-money/tracking-transfers) for cases when this may happen.\n\nA refund recipient is a person or institution where we will refund transfer the money back to if necessary. This is not always a mandatory resource to create. If the funds are sent over a fast local payment network we can usually infer the refund recipient from the bank transaction that funded the transfer. Please discuss this with your Wise implementation team if you are unsure if the refund recipient is needed.\n\nIf funds are sent using a slow domestic payment network, or you are using a bulk settlement model, we may require you to share the bank details of the source bank account.\n\nThe format of the request payload for refund recipient creation will be different depending on the currency you will send transfers from. You may use the [account requirements](/api-reference/recipient/recipientaccountrequirementsget) endpoint to understand the payload requirements when creating the refund recipient for a specific currency.\n\nThe refund recipient account ID returned in the response is used as \u0060sourceAccount\u0060 when [creating transfers](/guides/product/send-money/transfers).\n\n#### Create an email recipient account\n\u0060POST /accounts\u0060\n\n{% admonition type=\\\u0022warning\\\u0022 %}\nPlease contact us before attempting to use email recipients. We do not recommend using this feature except for certain use cases.\n{% /admonition %}\n\nIf you don\u0027t know recipient bank account details you can set up an email recipient; Wise will collect bank details directly from the recipient.\n\nWise will email your recipient with a link to collect their bank account details securely. After the bank account details have been provided Wise will complete your transfer.\n\nIt\u0027s best to confirm that this recipient type is available to your transaction by checking if the \u0060\\\u0022type\\\u0022: \\\u0022email\\\u0022\u0060 class is present in the response from \u0060GET /quotes/{quoteId}/account-requirements\u0060 \u2014 see **[account requirements](/api-reference/recipient/recipientAccountRequirementsGet)** for more information on how to use this endpoint.\n\nIf planning to send multiple currencies to a single recipient, you will need to create a separate email recipient resource for this beneficiary, for every currency you intend to send to them. We highly encourage you to provide the \u0060{profileId}\u0060 if your recipient is receiving a payment from your Business account, especially if you have multiple businesses, or have multiple users administrating your business account.\n\nPlease be aware of the following caveats:\n- Testing of transfers to email recipients in sandbox is not currently possible.\n- Recipients will be required to enter bank details **every time a payment is made**.\n- We highly encourage you to provide the \u0060profileId\u0060 if your recipient is receiving a payment from your Business account, especially if you have multiple businesses, or have multiple users administrating your business account.\n- Please refer to our **[help page](https://wise.com/help/articles/2932105/can-i-send-money-to-someone-with-only-their-email-address)** on how this works and any additional constraints not mentioned in this section.\n\u0022",
+        "description": "\u0022Creates a recipient account. A **recipient** is the person or institution who is the ultimate beneficiary of your payment.\n\nRecipient data includes:\n- The personal details of an individual or basic information about a business.\n- Bank details like account numbers, routing numbers, and other region-specific information.\n- Address details like country and street address.\n\n{% admonition type=\\\u0022info\\\u0022}\nCertain fields shown in the schema are conditionally required depending on \u0060currency\u0060, \u0060type\u0060, \u0060legalType\u0060, and \u0060country\u0060.\n\nThe reference uses a GBP example for illustration purposes.\nAs such, some fields are \u0060null\u0060 in the provided examples. To determine which fields are required for a currency corridor, use the\n**[Retrieve recipient account requirements](/api-reference/recipient/recipientAccountRequirementsGet)** endpoint.\n{% /admonition %}\n\n#### Bank account details\n\nThere are many variations of required bank account details, depending on recipient target currency. For example:\n\n- **GBP** requires sort code and account number.\n- **BGN, CHF, DKK, EUR, GEL, GBP, NOK, PKR, PLN, RON, SEK** require IBAN.\n- **USD** requires routing number, account number, and account type\n- **INR** requires IFSC code and account number.\n\n#### Address details\n\nRecipient address data is required only if target currency is **USD, PHP, THB or TRY**, or if the source currency is **USD or AUD**.\n\nAddress fields can include:\n- Country\n- State (required for US, Canada, Brazil)\n- City\n- Address line\n- Zip code\n\n#### accountHolderName rules\n\n- **Personal recipients**: Full names must include more than one name, and both first and last name must have more than one character. Numbers are not allowed.\n- **Business recipients**: Business names must be in full and can be a single name. The full name cannot be just a single character, but can be made up of a set of single characters (for example, \u0060\\\u0022A\\\u0022\u0060 is not permitted but \u0060\\\u0022A 1\\\u0022\u0060 or \u0060\\\u0022A1\\\u0022\u0060 is permitted).\n- Special characters \u0060_()\u0027*,.\u0060 are allowed for personal and business names. In general, the following regex describes permitted characters: \u0060[0-9A-Za-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u00FF-_()\u0027*,.\\s]\u0060.\n\n\n#### Creating a refund recipient account\n\nSometimes we may need to refund the transfer back to the sender. The _refund recipient_ is the person or institution who we refund the transfer money back to. \n\nIt is not always mandatory to create a refund recipient. \n\n- If the funds are sent over a fast local payment network, we can usually infer the refund recipient from the bank transaction that funded the transfer. Please discuss this with your Wise implementation team if you are unsure if the refund recipient is needed.\n- If funds are sent using a slow domestic payment network, or you are using a bulk settlement model, we may require you to share the bank details of the source bank account.\n\nTo indicate a recipient account is a _refund recipient_, include the query parameter \u0060refund=true\u0060 in the request.\n\nThen, use the account ID returned in the response as \u0060sourceAccount\u0060 when [creating transfers](/guides/product/send-money/transfers).\n\n#### Creating an email recipient account\n\n{% admonition type=\\\u0022warning\\\u0022 %}\nContact us before attempting to use email recipients as it is only recommended for certain use cases.\n{% /admonition %}\n\nIf you don\u0027t know recipient bank account details, you can set up an _email recipient_. Wise then collects bank details directly from the recipient.\n\nWise will email your recipient with a link to collect their bank account details securely. After the bank account details have been provided, Wise completes the transfer.\n\nConfirm this recipient type is available for your transaction by checking if the \u0060\\\u0022type\\\u0022: \\\u0022email\\\u0022\u0060 class is present in the response of the [retrieve recipient account requirements endpoint](/api-reference/recipient/recipientAccountRequirementsGet).\n\nIf planning to send multiple currencies to a single recipient, you must create a separate email recipient resource for the beneficiary, for every currency you intend to send them.\n\nBe aware of the following:\n\n- Testing of transfers to email recipients in sandbox is not currently possible.\n- Recipients are required to enter bank details **every time a payment is made**.\n- We highly encourage you to provide the \u0060profileId\u0060 if your recipient is receiving a payment from your business account, especially if you have multiple businesses or have multiple users administrating your business account.\n- Refer to our **[help page](https://wise.com/help/articles/2932105/can-i-send-money-to-someone-with-only-their-email-address)** for more details about how this works and any additional constraints not mentioned here.\n\u0022",
         "operationId": "RecipientCreate",
         "parameters": [
           {
             "name": "refund",
             "in": "query",
-            "description": "When true, creates a refund recipient account.",
+            "description": "When \u0060true\u0060, the request creates a refund recipient account.",
             "schema": {
               "type": "boolean",
               "default": false
@@ -10826,7 +10826,7 @@
           "recipient"
         ],
         "summary": "Deactivate a recipient account",
-        "description": "\u0022Deletes a recipient by changing its status to inactive (\u0060\\\u0022active\\\u0022: false\u0060).\n\nRequesting to delete a recipient that is already inactive returns HTTP 403 (Forbidden).\n\n{% admonition type=\\\u0022info\\\u0022 %}\nOnly active recipients can be deleted and a recipient cannot be reactivated, however you can create a new recipient with the same details instead if necessary.\n{% /admonition %}\n\u0022",
+        "description": "\u0022Deletes a recipient by changing its status to inactive (\u0060\\\u0022active\\\u0022: false\u0060).\n\nA request to delete a recipient that is already inactive returns \u0060HTTP 403 (Forbidden)\u0060.\n\n{% admonition type=\\\u0022info\\\u0022 %}\nOnly active recipients can be deleted. While a recipient cannot be reactivated, you can create a new recipient with the same details if necessary.\n{% /admonition %}\n\u0022",
         "operationId": "RecipientDeactivate",
         "parameters": [
           {
@@ -10871,13 +10871,13 @@
           "recipient"
         ],
         "summary": "Retrieve recipient account requirements dynamically",
-        "description": "\u0022{% admonition type=\\\u0022info\\\u0022 %}\nPlease note that to use v1.1 \u0060Accept-Minor-Version: 1\u0060 request header must be set.\n{% /admonition %}\n\n\u0060GET /v1/quotes/{quoteId}/account-requirements\u0060\u003Cbr\u003E\n\u0060POST /v1/quotes/{quoteId}/account-requirements\u0060\u003Cbr\u003E\n\u0060GET /v1/account-requirements?source=EUR\u0026target=USD\u0026sourceAmount=1000\u0060\n\nYou can use the data returned by this API to build a dynamic user interface for recipient creation. The \u0060GET\u0060 and \u0060POST\u0060 account-requirements endpoints help you to figure out which fields are required to create a valid recipient for different currencies. This is a step-by-step guide on how these endpoints work.\n\nUse the \u0060GET\u0060 endpoint to learn what datapoints are required to send a payment to your beneficiary. As you build that form, use the POST endpoint to learn if any additional datapoints are required as a result of passing a field that has \u0060\\\u0022refreshRequirementsOnChange\\\u0022: true\u0060 in the \u0060GET\u0060 response. You should be posting the same recipient account payload that will be posted to \u0060/v1/accounts\u0060.\n\nAn example of this would be \u0060address.country\u0060. Some countries, like the United States, have a lower level organization, \u0060\\\u0022state\\\u0022\u0060 or \u0060\\\u0022territory\\\u0022\u0060. After POSTing the recipient payload with address.country = \\\u0022US\\\u0022, the list of possible states will appear in the response.\n\nThe third endpoint above is used to get account requirements for a specific currency route and amount without referring to a quote but with the amount, source and target currencies passed as URL parameters. Generally this approach is not recommended, you should have your user create a quote resource first and use this to generate the recipient account requirements. This is because some payout methods will only surface when the profile-context is known, for example (at the time of this writing), Business Payments to Chinese Yuan use a different payout method than what is revealed by \u0060GET /v1/account-requirements?source=USD\u0026target=CNY\u0026sourceAmount=1000\u0060.\n\nAll new integrations should use the v1.1 of \u0060GET\u0060 and \u0060POST\u0060 account requirements, enabled using the \u0060Accept-Minor-Version\u0060 header. It enables you to fetch the requirements including both the recipient name and email fields in the dynamic form, simplifying implementation of the form. Name and email address dynamic fields are required to support currencies such as KRW, JPY and RUB, and also remove the need for manual name validation.\n\nThese endpoints allow use of both v1 and v2 quotes using long or UUID based IDs, supporting legacy implementations using v1 quotes.\n\nThese endpoints accept an optional query parameter **originatorLegalEntityType**. When the transfer is initiated by a [Third Party Partner](/guides/product/kyc/partner-accounts) we are not aware whether the actual sender is a business or person. In such cases, this parameter should be passed to receive correct requirements. The legal entity type should be one of the following values: \u0060BUSINESS\u0060, \u0060PRIVATE\u0060. This parameter is optional and the default value is the type of the partner profile.\n\n#### Collecting Recipient Address\n\nNormally our account requirements will instruct when a recipient address is required. However, in some situations it\u0027s desirable to force the requirement so that an address can be provided to Wise. To do this, add the query parameter \u0060?addressRequired=true\u0060 to your request and address will always be returned as a required field.\n\n{% admonition type=\\\u0022warning\\\u0022 %}\nAddress requirement fields are subject to change. Your integration should be built in a way to handle unrecognized or changed fields.\n{% /admonition %}\n\u0022",
+        "description": "The details required to create a recipient account vary by currency, type, and receiving entity. To determine which fields are required to successfully create a specific recipient, send a request to this endpoint. The response returns an array of objects that indicate which recipient account types are available for the corridor, as well as the fields and related attributes that apply to the currency and account type.\n\nYou can then choose to use Wise\u2019s dynamic forms to gather the required data from your customer, hard-code the requirements into your system, or use a combination of both hard-coded and dynamic forms.\n\nIf \u0060refreshRequirementsOnChange\u0060 is \u0060true\u0060 for any item in the response\u2019s \u0060fields\u0060 array, this indicates additional field requirements that are conditional to the specific data \u0060key\u0060. For example, when \u0060address.country\u0060 is set to \u0060US\u0060, the \u0060address.state\u0060 field becomes required. To retrieve additional requirements, use the [POST operation](/api-reference/recipient/recipientaccountrequirementspost) to requery and retrieve the updated requirements. For the \u0060address.country = \u0022US\u0022\u0060 example, the response returns a list of valid state names.\n\n#### Operation variants\n\nYou can query this endpoint either _with_ or _without_ a quote ID. \n\n**With quote ID**\n\n\u0060GET /quotes/{quoteId}/account-requirements\u0060\n\nRecommended when using the quote-first transfer flow. The response returns the requirements for the currency corridor specified in that [authenticated quote resource](/api-reference/quote/quotecreate).\n\n**Without quote ID**\n\n\u0060GET /account-requirements?source=EUR\u0026target=USD\u0026sourceAmount=1000\u0060\n\nUse this variation if you do not have a quote ID (as in recipient-first transfer flows). In this request, you specify the source currency, target currency, and source amount as query parameters and the response returns the relevant requirements.\n\n{% admonition type=\u0022info\u0022 name=\u0022Recipient-first limitations\u0022 %}\nThe variation without a quote ID is not valid for some currencies, as some payout methods only surface when profile-context is known. For example, at the time of this writing, business payments to Chinese Yuan use a different payout method than what is revealed by \u0060GET /account-requirements?source=USD\u0026target=CNY\u0026sourceAmount=1000\u0060.\n\nConfirm with your implementation team if certain corridors should not use the recipient-first transfer flow.\n{% /admonition %}\n\n#### Accept minor versions header\n\nAll new integrations should use the \u0060Accept-Minor-Version\u0060 header with the value set to \u00601\u0060. This ensures the response includes both the recipient name and email fields, which are required to support currencies such as KRW, JPY and RUB. It also removes the need for manual name validation.\n",
         "operationId": "RecipientAccountRequirementsGet",
         "parameters": [
           {
             "name": "quoteId",
             "in": "path",
-            "description": "Quote ID (supports long or UUID based IDs).",
+            "description": "Quote ID (supports long or UUID-based IDs).",
             "required": true,
             "schema": {
               "type": "string"
@@ -10886,7 +10886,7 @@
           {
             "name": "originatorLegalEntityType",
             "in": "query",
-            "description": "Legal entity type override for the actual sender.",
+            "description": "Legal entity type override for the actual sender. \n\nCorrespondent partners must include the \u0060originatorLegalEntityType\u0060 query parameter to ensure the correct requirements are returned in the response. This parameter indicates whether the actual sender is \u0060PRIVATE\u0060 or \u0060BUSINESS\u0060. When not included, the request is assumed to be for a \u0060BUSINESS\u0060 entity, as Wise has no way of knowing if the true sender on a [third-party transfer](/api-reference/third-party-transfer) is a business or private individual. \n",
             "schema": {
               "$ref": "#/components/schemas/RecipientAccountRequirementsGetOriginatorLegalEntityTypeParameter"
             }
@@ -10894,7 +10894,7 @@
           {
             "name": "addressRequired",
             "in": "query",
-            "description": "Set to true so address is always required.",
+            "description": "When set to \u0060true\u0060, the response always returns address as required, even if not required by the specific currency route.\n\nInclude this query parameter set to \u0060true\u0060 to force the address requirement regardless of currency.\n\n{% admonition type=\u0022warning\u0022 %}\nAddress requirement fields are subject to change. Be sure to build your integration in a way that handles unrecognized or changed fields.\n{% /admonition %}\n",
             "schema": {
               "type": "boolean",
               "default": false
@@ -10903,7 +10903,7 @@
           {
             "name": "Accept-Minor-Version",
             "in": "header",
-            "description": "Set to \u00601\u0060 to enable v1.1.",
+            "description": "Set to \u00601\u0060 to ensure the response includes both the recipient name and email fields, which are required to support currencies such as KRW, JPY and RUB.",
             "schema": {
               "$ref": "#/components/schemas/RecipientAccountRequirementsGetAcceptMinorVersionParameter"
             }
@@ -10937,14 +10937,14 @@
         "tags": [
           "recipient"
         ],
-        "summary": "Retrieve recipient account requirements dynamically (step-by-step)",
-        "description": "POST the same recipient account payload that you will POST to \u0060/v1/accounts\u0060.\n\nUse this endpoint after setting any field that has \u0060refreshRequirementsOnChange=true\u0060 in the GET response,\nto discover any additional required fields.\n\nSee the [GET endpoint](/api-reference/recipient/recipientaccountrequirementsget) for a full overview of how the account requirements flow works.\n",
+        "summary": "Retrieve additional recipient account requirements dynamically",
+        "description": "If \u0060refreshRequirementsOnChange=true\u0060 for any \u0060group.key\u0060 in the [GET response](/api-reference/recipient/recipientaccountrequirementsget#recipient/recipientaccountrequirementsget/response\u0026c=200), send this POST request with the updated [create recipient account](/api-reference/recipient/recipientcreate) request payload. The response returns the additional required fields for that key based on the updated key value.\n\nFor example, when \u0060address.country\u0060 is set to \u0060US\u0060, the \u0060address.state\u0060 field becomes required. To retrieve the list of valid state names, use the [POST operation](/api-reference/recipient/recipientaccountrequirementspost) to requery with the updated \u0060/accounts\u0060 payload. The response returns the valid state names in the key\u2019s \u0060valuesAllowed\u0060 array.\n",
         "operationId": "RecipientAccountRequirementsPost",
         "parameters": [
           {
             "name": "quoteId",
             "in": "path",
-            "description": "Quote ID (supports long or UUID based IDs).",
+            "description": "Quote ID (supports long or UUID-based IDs).",
             "required": true,
             "schema": {
               "type": "string"
@@ -10953,7 +10953,7 @@
           {
             "name": "originatorLegalEntityType",
             "in": "query",
-            "description": "Legal entity type override for the actual sender.",
+            "description": "Legal entity type override for the actual sender.\n\nCorrespondent partners must include the \u0060originatorLegalEntityType\u0060 query parameter to ensure the correct requirements are returned in the response. This parameter indicates whether the actual sender is \u0060PRIVATE\u0060 or \u0060BUSINESS\u0060. When not included, the request is assumed to be for a \u0060BUSINESS\u0060 entity, as Wise has no way of knowing if the true sender on a [third-party transfer](/api-reference/third-party-transfer) is a business or private individual.\n",
             "schema": {
               "$ref": "#/components/schemas/RecipientAccountRequirementsPostOriginatorLegalEntityTypeParameter"
             }
@@ -10961,7 +10961,7 @@
           {
             "name": "Accept-Minor-Version",
             "in": "header",
-            "description": "Set to \u00601\u0060 to enable v1.1.",
+            "description": "Set to \u00601\u0060 to ensure the response includes both the recipient name and email fields, which are required to support currencies such as KRW, JPY and RUB.",
             "schema": {
               "$ref": "#/components/schemas/RecipientAccountRequirementsPostAcceptMinorVersionParameter"
             }
@@ -11007,7 +11007,7 @@
           "recipient"
         ],
         "summary": "Check account and quote compatibility",
-        "description": "Use this endpoint to check the compatibility of a recipient account with a quote before creating a transfer. This validation includes:\n\n- Re-validating the recipient account details\n- Checking all required fields are present (e.g., recipient address for USD transfers)\n- Verifying account details with the recipient\u0027s bank (for supported currencies)\n\nThis endpoint is optional but useful to identify potential issues before transfer creation.\n\n{% admonition type=\u0022info\u0022 %}\nThe confirmations field is only populated for currencies with recipient verification enabled. If absent, only standard validations apply.\n{% /admonition %}\n",
+        "description": "Use this endpoint to check the compatibility of a recipient account with a quote before creating a transfer. This validation includes:\n\n- Re-validating the recipient account details.\n- Checking all required fields are present (for example, recipient address for USD transfers).\n- Verifying account details with the recipient\u0027s bank (for supported currencies).\n\nThis operation is optional, but useful to identify potential issues before transfer creation.\n\n{% admonition type=\u0022info\u0022 %}\nThe confirmations object is only populated for currencies that support [recipient verification](/guides/product/send-money/recipient-verification). If absent, only standard validations apply.\n{% /admonition %}\n",
         "operationId": "RecipientCompatibilityCheck",
         "parameters": [
           {
@@ -11036,7 +11036,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Compatibility result including any verification outcomes. See [Verifying Recipient Details](/guides/developer/api-guides/recipient-verification) for details on handling the \u0060confirmations\u0060 object.",
+            "description": "Returns the compatibility result, including any verification outcomes. See the [Recipient verification guide](/guides/product/send-money/recipient-verification) for details about handling the \u0060confirmations\u0060 object.",
             "content": {
               "application/json": {
                 "schema": {
@@ -11091,7 +11091,7 @@
           "recipient"
         ],
         "summary": "Accept confirmation outcomes",
-        "description": "When \u0060requiresCustomerAcceptance\u0060 is \u0060true\u0060 in the confirmation outcomes, the recipient cannot be used for a transfer until the customer explicitly confirms the details. You must present the mismatch to the customer and get their approval.\n\n{% admonition type=\u0022warning\u0022 %}\nIf the confirmation result contained a \u0060quoteId\u0060 then the acceptance request must also specify that as part of the query parameters, otherwise the request will be rejected.\n{% /admonition %}\n",
+        "description": "When the confirmation outcome indicates \u0060requiresCustomerAcceptance\u0060 is \u0060true\u0060, the recipient cannot be used for a transfer until the customer explicitly confirms the details. Present the mismatch to the customer and get their approval before proceeding further into the transfer flow.\n\n{% admonition type=\u0022warning\u0022 %}\nIf the confirmation result contained a \u0060quoteId\u0060, then the acceptance request must also specify that as part of the query parameters, otherwise the request will be rejected.\n{% /admonition %}\n",
         "operationId": "RecipientConfirmationsAccept",
         "parameters": [
           {
@@ -15868,55 +15868,32 @@
   },
   "components": {
     "schemas": {
-      "MessageSubmissionRequestSubmissionData": {
-        "required": [
-          "type"
-        ],
+      "ContentSubmissionDataSubmissionDataIndividualSubmission": {
+        "title": "Individual submission",
         "type": "object",
-        "oneOf": [
-          {
-            "$ref": "#/components/schemas/SubmissionDataFreeform"
-          },
-          {
-            "$ref": "#/components/schemas/SubmissionDataSanctionHit"
-          },
-          {
-            "$ref": "#/components/schemas/SubmissionDataLocationHit"
-          }
-        ],
         "properties": {
-          "type": {
-            "type": "string",
-            "description": "Union discriminator"
-          }
-        },
-        "description": "The data for the message submission. Structure varies based on submission type.\n",
-        "discriminator": {
-          "propertyName": "type",
-          "mapping": {
-            "SubmissionDataFreeform": "#/components/schemas/SubmissionDataFreeform",
-            "SubmissionDataSanctionHit": "#/components/schemas/SubmissionDataSanctionHit",
-            "SubmissionDataLocationHit": "#/components/schemas/SubmissionDataLocationHit"
+          "individual": {
+            "$ref": "#/components/schemas/ContentSubmissionDataSubmissionDataIndividualSubmissionIndividual"
           }
         }
       },
-      "Error404NotFoundNotFoundError404": {
-        "title": "Not Found Error (404)",
+      "Error422UnprocessableEntityUnprocessableEntityError422": {
+        "title": "Unprocessable Entity Error (422)",
         "type": "object",
         "properties": {
           "error": {
-            "$ref": "#/components/schemas/Error404NotFoundNotFoundError404Error"
+            "$ref": "#/components/schemas/Error422UnprocessableEntityUnprocessableEntityError422Error"
           },
           "message": {
-            "$ref": "#/components/schemas/Error404NotFoundNotFoundError404Message"
+            "$ref": "#/components/schemas/Error422UnprocessableEntityUnprocessableEntityError422Message"
           }
         },
-        "description": "Returned when the requested case does not exist.\n\n**Common causes:**\n- Invalid \u0060caseId\u0060 that doesn\u0027t exist\n- Case was deleted or archived\n- Typo in the case ID\n",
+        "description": "Returned when the request is syntactically correct but semantically invalid.\n\n**Common causes:**\n- Submission type does not match case sub-type (e.g., submitting DEPOSIT_SANCTION_HIT_SUBMISSION for a RECIPIENT_SANCTION_HIT case)\n- Missing required fields for the submission type (e.g., \u0060countryOfResidenceIso3\u0060 missing for RECIPIENT sanction hit individual)\n- Providing both \u0060individual\u0060 AND \u0060organisation\u0060 when only one is allowed\n- Invalid ISO country code format\n- Invalid date format for \u0060dob\u0060\n",
         "example": {
-          "error": "RESOURCE_NOT_FOUND",
-          "message": "Case with id 99999999 not found",
+          "error": "UNPROCESSABLE_ENTITY",
+          "message": "Submission type DEPOSIT_SANCTION_HIT_SUBMISSION is not valid for case sub-type RECIPIENT_SANCTION_HIT",
           "timestamp": "2026-08-03T10:30:00.000Z",
-          "path": "/public/2026Q3/v2/cases/99999999"
+          "path": "/public/2026Q3/v2/cases/12345678/messages"
         }
       },
       "ChallengeResultRequest": {
@@ -19077,7 +19054,7 @@
             "items": {
               "$ref": "#/components/schemas/RecipientDisplayFieldsItem"
             },
-            "description": "Lookup fields (key/label/value) for rendering in your UI. Allows you to build a UI containing all the dynamic fields for a recipient individually."
+            "description": "Lookup fields (key/label/value) for rendering in your front-end. Allows you to build a UI containing all the dynamic fields for a recipient individually."
           },
           "isInternal": {
             "type": "boolean",
@@ -19110,12 +19087,12 @@
           },
           "type": {
             "type": "string",
-            "description": "Recipient account type (currency/route-specific, e.g., \u0060sort_code\u0060, \u0060iban\u0060, \u0060email\u0060).",
+            "description": "Recipient account type. These are currency/route-specific, for example, \u0060sort_code\u0060, \u0060iban\u0060, \u0060email\u0060.",
             "example": "sort_code"
           },
           "profile": {
             "type": "integer",
-            "description": "Personal or business profile ID of the sender. We recommend passing the business profile ID if your business account is managed by multiple users so the recipient can be accessed by all users authorized on the business account.",
+            "description": "Personal or business profile ID of the sender. We recommend passing the business profile ID if multiple users manage your business account so all users authorized on the business account can access the recipient.",
             "format": "int64",
             "example": 30000000
           },
@@ -19126,7 +19103,7 @@
           },
           "ownedByCustomer": {
             "type": "boolean",
-            "description": "Indicates whether the recipient account is owned by the profile owner. While optional, we recommend setting to \u0060true\u0060 for self-transfers (such as a user sending money to their own account in another country or currency). Distinguishing self-transfers from third-party transfers improves routing and processing efficiency.\n",
+            "description": "Indicates whether the recipient account is owned by the profile owner.\n\nWhile optional, we recommend setting to \u0060true\u0060 for self-transfers (such as a user sending money to their own account in another country or currency).\nDistinguishing self-transfers from third-party transfers improves routing and processing efficiency.\n",
             "example": true
           },
           "details": {
@@ -19150,12 +19127,12 @@
         "properties": {
           "acceptedOutcomes": {
             "type": "boolean",
-            "description": "Whether we\u0027ve received an explicit customer acceptance.",
+            "description": "Indicates whether we\u0027ve received an explicit customer acceptance.",
             "example": false
           },
           "acceptedAt": {
             "type": "string",
-            "description": "Timestamp indicating date and time of outcome acceptance, \u0060null\u0060 until acceptance received.",
+            "description": "Timestamp indicating date and time of outcome acceptance. Value is \u0060null\u0060 until acceptance received.",
             "format": "date-time",
             "nullable": true,
             "example": null
@@ -20656,6 +20633,57 @@
           }
         }
       },
+      "MessageSubmissionRequestSubmissionData": {
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/SubmissionDataFreeform"
+          },
+          {
+            "$ref": "#/components/schemas/SubmissionDataSanctionHit"
+          },
+          {
+            "$ref": "#/components/schemas/SubmissionDataLocationHit"
+          }
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Union discriminator"
+          }
+        },
+        "description": "The data for the message submission. Structure varies based on submission type.\n",
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "SubmissionDataFreeform": "#/components/schemas/SubmissionDataFreeform",
+            "SubmissionDataSanctionHit": "#/components/schemas/SubmissionDataSanctionHit",
+            "SubmissionDataLocationHit": "#/components/schemas/SubmissionDataLocationHit"
+          }
+        }
+      },
+      "Error404NotFoundNotFoundError404": {
+        "title": "Not Found Error (404)",
+        "type": "object",
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/Error404NotFoundNotFoundError404Error"
+          },
+          "message": {
+            "$ref": "#/components/schemas/Error404NotFoundNotFoundError404Message"
+          }
+        },
+        "description": "Returned when the requested case does not exist.\n\n**Common causes:**\n- Invalid \u0060caseId\u0060 that doesn\u0027t exist\n- Case was deleted or archived\n- Typo in the case ID\n",
+        "example": {
+          "error": "RESOURCE_NOT_FOUND",
+          "message": "Case with id 99999999 not found",
+          "timestamp": "2026-08-03T10:30:00.000Z",
+          "path": "/public/2026Q3/v2/cases/99999999"
+        }
+      },
       "Error403ForbiddenForbiddenError403": {
         "title": "Forbidden Error (403)",
         "type": "object",
@@ -20762,37 +20790,6 @@
             "ContentSubmissionDataSubmissionDataOtherLocationSubmission": "#/components/schemas/ContentSubmissionDataSubmissionDataOtherLocationSubmission"
           }
         }
-      },
-      "Value429Response": {
-        "type": "object"
-      },
-      "AccountRequirementsResponseItem": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "type": "string",
-            "description": "Requirement group identifier (route/payout-method specific).",
-            "example": "south_korean_paygate"
-          },
-          "title": {
-            "type": "string",
-            "description": "Human-readable title for the requirement group.",
-            "example": "PayGate"
-          },
-          "usageInfo": {
-            "type": "string",
-            "description": "Optional usage/help text.",
-            "example": null
-          },
-          "fields": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/AccountRequirementsResponseItemFieldsItem"
-            },
-            "description": "List of UI field groups to collect required data."
-          }
-        },
-        "description": "A requirement group for a specific payout method / route."
       },
       "Payment": {
         "title": "Payment",
@@ -22754,12 +22751,12 @@
           }
         }
       },
-      "V40022": {
-        "title": "Schema version 4.0.0",
+      "V5002": {
+        "title": "Schema version 5.0.0",
         "type": "object",
         "properties": {
           "schema_version": {
-            "$ref": "#/components/schemas/V40022SchemaVersion"
+            "$ref": "#/components/schemas/V5002SchemaVersion"
           },
           "subscription_id": {
             "type": "string",
@@ -22779,38 +22776,40 @@
             "example": "2023-06-23T09:45:36.123Z"
           },
           "data": {
-            "$ref": "#/components/schemas/V40022Data"
+            "$ref": "#/components/schemas/V5002Data"
           }
         }
       },
-      "V20021": {
-        "title": "Schema version 2.0.0",
+      "Value429Response": {
+        "type": "object"
+      },
+      "AccountRequirementsResponseItem": {
         "type": "object",
         "properties": {
-          "schema_version": {
-            "$ref": "#/components/schemas/V20021SchemaVersion"
-          },
-          "subscription_id": {
+          "type": {
             "type": "string",
-            "description": "ID of the webhook subscription that triggered this event",
-            "format": "uuid",
-            "example": "017631af-326c-4a69-93f3-bd1ce987a743"
+            "description": "Requirement group identifier (route/payout-method specific).",
+            "example": "south_korean_paygate"
           },
-          "event_type": {
+          "title": {
             "type": "string",
-            "description": "Event type identifier",
-            "example": "partner-support#case-changed"
+            "description": "Human-readable title for the requirement group.",
+            "example": "PayGate"
           },
-          "sent_at": {
+          "usageInfo": {
             "type": "string",
-            "description": "Timestamp when the event was sent",
-            "format": "date-time",
-            "example": "2023-06-23T09:45:36Z"
+            "description": "Optional usage/help text.",
+            "example": null
           },
-          "data": {
-            "$ref": "#/components/schemas/V20021Data"
+          "fields": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AccountRequirementsResponseItemFieldsItem"
+            },
+            "description": "List of UI field groups to collect required data."
           }
-        }
+        },
+        "description": "A requirement group for a specific payout method / route."
       },
       "V420": {
         "title": "Schema version 4.2.0",
@@ -23153,34 +23152,6 @@
           }
         }
       },
-      "Error422UnprocessableEntityUnprocessableEntityError422": {
-        "title": "Unprocessable Entity Error (422)",
-        "type": "object",
-        "properties": {
-          "error": {
-            "$ref": "#/components/schemas/Error422UnprocessableEntityUnprocessableEntityError422Error"
-          },
-          "message": {
-            "$ref": "#/components/schemas/Error422UnprocessableEntityUnprocessableEntityError422Message"
-          }
-        },
-        "description": "Returned when the request is syntactically correct but semantically invalid.\n\n**Common causes:**\n- Submission type does not match case sub-type (e.g., submitting DEPOSIT_SANCTION_HIT_SUBMISSION for a RECIPIENT_SANCTION_HIT case)\n- Missing required fields for the submission type (e.g., \u0060countryOfResidenceIso3\u0060 missing for RECIPIENT sanction hit individual)\n- Providing both \u0060individual\u0060 AND \u0060organisation\u0060 when only one is allowed\n- Invalid ISO country code format\n- Invalid date format for \u0060dob\u0060\n",
-        "example": {
-          "error": "UNPROCESSABLE_ENTITY",
-          "message": "Submission type DEPOSIT_SANCTION_HIT_SUBMISSION is not valid for case sub-type RECIPIENT_SANCTION_HIT",
-          "timestamp": "2026-08-03T10:30:00.000Z",
-          "path": "/public/2026Q3/v2/cases/12345678/messages"
-        }
-      },
-      "ContentSubmissionDataSubmissionDataIndividualSubmission": {
-        "title": "Individual submission",
-        "type": "object",
-        "properties": {
-          "individual": {
-            "$ref": "#/components/schemas/ContentSubmissionDataSubmissionDataIndividualSubmissionIndividual"
-          }
-        }
-      },
       "ContentSubmissionDataSubmissionDataOrganisationSubmission": {
         "title": "Organisation submission",
         "type": "object",
@@ -23214,6 +23185,30 @@
         "properties": {
           "other": {
             "$ref": "#/components/schemas/ContentSubmissionDataSubmissionDataOtherLocationSubmissionOtherProperty"
+          }
+        }
+      },
+      "ContentSubmissionDataSubmissionDataIndividualSubmissionIndividual": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Mr. Robert Downy Junior"
+          },
+          "dob": {
+            "type": "string",
+            "example": "1985-03-15"
+          },
+          "countryOfResidenceIso3": {
+            "type": "string",
+            "example": "GBR"
+          },
+          "nationality": {
+            "type": "string",
+            "example": "British"
           }
         }
       },
@@ -24491,7 +24486,7 @@
             "example": "ad245621b974efa3ef870895c3wer419a3f01af18a8a5790b47645dba6304194"
           }
         },
-        "description": "Contains the details of the receipient account specific its currency and type. The fields required (in the request) or present (in the response) vary depending on currency route and recipient type (e.g., sort code, IBAN, SWIFT, email)."
+        "description": "Contains the details of the recipient account specific to its currency and type. The fields required (in the request) or present (in the response) vary depending on currency route and recipient type (e.g., sort code, IBAN, SWIFT, email)."
       },
       "RecipientCommonFieldMap": {
         "type": "object",
@@ -24560,12 +24555,12 @@
         "properties": {
           "acceptedOutcomes": {
             "type": "boolean",
-            "description": "Whether we\u0027ve received an explicit customer acceptance.",
+            "description": "Indicates whether we\u0027ve received an explicit customer acceptance.",
             "example": false
           },
           "acceptedAt": {
             "type": "string",
-            "description": "Timestamp indicating date and time of outcome acceptance, \u0060null\u0060 until acceptance received.",
+            "description": "Timestamp indicating date and time of outcome acceptance. Value is \u0060null\u0060 until acceptance received.",
             "format": "date-time",
             "nullable": true,
             "example": null
@@ -24608,7 +24603,7 @@
             "example": "1961-01-01"
           }
         },
-        "description": "Contains the details of the receipient account specific its currency and type. Common examples include \u0060legalType\u0060, \u0060sortCode\u0060, \u0060accountNumber\u0060, \u0060email\u0060, \u0060dateOfBirth\u0060, etc. Use the **retreive recipient account requirements** endpoint to determine what is required for a specific recipient.\n"
+        "description": "Contains the details of the recipient account specific to its currency and type. \n\nCommon examples include \u0060legalType\u0060, \u0060sortCode\u0060, \u0060accountNumber\u0060, \u0060email\u0060, \u0060dateOfBirth\u0060, etc. Use the **retrieve recipient account requirements** endpoint to determine what is required for a specific recipient.\n"
       },
       "RecipientCreateRequestUltimateBeneficiary": {
         "required": [
@@ -24668,7 +24663,7 @@
           },
           "requiresCustomerAcceptance": {
             "type": "boolean",
-            "description": "Indicates whether we require customer acceptance. \n\nWhether this value is \u0060true\u0060 or \u0060false\u0060 depends on the currency and the nature of the confirmation.\n\nIf \u0060true\u0060, you must present your customer with the ability to accept or decline the confirmation result.\n",
+            "description": "Indicates whether we require customer acceptance. \n\nThe value for this field (\u0060true\u0060 or \u0060false\u0060) depends on the currency and the nature of the confirmation.\n\nIf \u0060true\u0060, you must present your customer with the ability to accept or decline the confirmation result.\n",
             "example": true
           },
           "fieldsChecked": {
@@ -24873,24 +24868,6 @@
             }
           }
         }
-      },
-      "AccountRequirementsResponseItemFieldsItem": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "description": "Display name of this group.",
-            "example": "E-mail"
-          },
-          "group": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/AccountRequirementsResponseItemFieldsItemGroupItem"
-            },
-            "description": "The actual fields within this group."
-          }
-        },
-        "description": "Group of related fields shown together in UI."
       },
       "UserDetails": {
         "type": "object",
@@ -26575,39 +26552,31 @@
           }
         }
       },
-      "V40022Data": {
+      "V5002Data": {
         "type": "object",
         "properties": {
           "resource": {
-            "$ref": "#/components/schemas/V40022DataResource"
-          },
-          "type": {
-            "$ref": "#/components/schemas/V40022DataType"
-          },
-          "occurred_at": {
-            "type": "string",
-            "description": "When the case update occurred.",
-            "format": "date-time",
-            "example": "2023-06-23T09:45:34.789Z"
+            "$ref": "#/components/schemas/V5002DataResource"
           }
         }
       },
-      "V20021Data": {
+      "AccountRequirementsResponseItemFieldsItem": {
         "type": "object",
         "properties": {
-          "resource": {
-            "$ref": "#/components/schemas/V20021DataResource"
-          },
-          "type": {
-            "$ref": "#/components/schemas/V20021DataType"
-          },
-          "occurred_at": {
+          "name": {
             "type": "string",
-            "description": "When the case update occurred.",
-            "format": "date-time",
-            "example": "2023-06-23T09:45:34Z"
+            "description": "Display name of this group.",
+            "example": "E-mail"
+          },
+          "group": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AccountRequirementsResponseItemFieldsItemGroupItem"
+            },
+            "description": "The actual fields within this group."
           }
-        }
+        },
+        "description": "Group of related fields shown together in UI."
       },
       "V420Data": {
         "required": [
@@ -26883,30 +26852,6 @@
         "properties": {
           "resource": {
             "$ref": "#/components/schemas/V40028DataResource"
-          }
-        }
-      },
-      "ContentSubmissionDataSubmissionDataIndividualSubmissionIndividual": {
-        "required": [
-          "name"
-        ],
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "example": "Mr. Robert Downy Junior"
-          },
-          "dob": {
-            "type": "string",
-            "example": "1985-03-15"
-          },
-          "countryOfResidenceIso3": {
-            "type": "string",
-            "example": "GBR"
-          },
-          "nationality": {
-            "type": "string",
-            "example": "British"
           }
         }
       },
@@ -27550,7 +27495,7 @@
           },
           "requiresCustomerAcceptance": {
             "type": "boolean",
-            "description": "Indicates whether we require customer acceptance. \n\nWhether this value is \u0060true\u0060 or \u0060false\u0060 depends on the currency and the nature of the confirmation.\n\nIf \u0060true\u0060, you must present your customer with the ability to accept or decline the confirmation result.\n",
+            "description": "Indicates whether we require customer acceptance. \n\nThe value for this field (\u0060true\u0060 or \u0060false\u0060) depends on the currency and the nature of the confirmation.\n\nIf \u0060true\u0060, you must present your customer with the ability to accept or decline the confirmation result.\n",
             "example": true
           },
           "fieldsChecked": {
@@ -27950,76 +27895,6 @@
             "nullable": true
           }
         }
-      },
-      "AccountRequirementsResponseItemFieldsItemGroupItem": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "description": "Key to include in JSON when submitting recipient details.",
-            "example": "email"
-          },
-          "name": {
-            "type": "string",
-            "description": "Human-readable label.",
-            "example": "E-mail"
-          },
-          "type": {
-            "type": "string",
-            "description": "UI field type.",
-            "example": "text"
-          },
-          "refreshRequirementsOnChange": {
-            "type": "boolean",
-            "description": "If true, changing this field can alter requirements; call the POST account-requirements endpoint with updated data to refresh requirements.\n",
-            "example": false
-          },
-          "required": {
-            "type": "boolean",
-            "description": "Indicates whether this field is mandatory.",
-            "example": true
-          },
-          "displayFormat": {
-            "type": "string",
-            "description": "Optional display formatting hint.",
-            "example": null
-          },
-          "example": {
-            "type": "string",
-            "description": "Example value for the field (may be empty string).",
-            "example": "example@example.ex"
-          },
-          "minLength": {
-            "type": "integer",
-            "description": "Minimum allowed length, when applicable.",
-            "example": null
-          },
-          "maxLength": {
-            "type": "integer",
-            "description": "Maximum allowed length, when applicable.",
-            "example": null
-          },
-          "validationRegexp": {
-            "type": "string",
-            "description": "Regex pattern for validation, when applicable.",
-            "example": "^[^\\s]\u002B@[^\\s]\u002B\\.[^\\s]{2,}$"
-          },
-          "validationAsync": {
-            "type": "string",
-            "description": "Deprecated. This validation will instead be performed when submitting the request.",
-            "example": null,
-            "deprecated": true
-          },
-          "valuesAllowed": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/AccountRequirementsResponseItemFieldsItemGroupItemValuesAllowedItem"
-            },
-            "description": "Allowed values for select/radio inputs; null for free-text/date inputs.",
-            "nullable": true
-          }
-        },
-        "description": "A single field descriptor."
       },
       "UserDetailsAddress": {
         "type": "object",
@@ -29936,59 +29811,132 @@
           }
         }
       },
-      "V40022DataResource": {
+      "V5002DataResource": {
         "type": "object",
         "properties": {
-          "type": {
-            "type": "string",
-            "description": "Type of resource for webhook. Will always be \u0060partner-support-case\u0060.",
-            "example": "partner-support-case"
-          },
-          "case_id": {
+          "id": {
             "type": "integer",
             "description": "ID of the case.",
             "format": "int64",
-            "example": 136
+            "example": 123
           },
-          "case_type": {
-            "type": "string",
-            "description": "Type of the case. Value must be \u0060GENERAL_ENQUIRY\u0060. More case types to be added in the future.",
-            "example": "GENERAL_ENQUIRY"
-          },
-          "details": {
-            "$ref": "#/components/schemas/V40022DataResourceDetails"
+          "profileId": {
+            "type": "integer",
+            "description": "ID of the profile that is associated with the case.",
+            "format": "int64",
+            "example": 12345678
           },
           "status": {
-            "$ref": "#/components/schemas/V40022DataResourceStatus"
+            "$ref": "#/components/schemas/V5002DataResourceStatus"
+          },
+          "externalId": {
+            "type": "string",
+            "description": "External reference ID provided by the partner for the case.",
+            "example": "partner_12344567"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Timestamp when the case was created.",
+            "format": "date-time",
+            "example": "2026-04-28T10:00:00.000Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Timestamp when the case was last updated. Use this field to reconcile event order.",
+            "format": "date-time",
+            "example": "2026-04-28T14:30:00.000Z"
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of the case.",
+            "example": "SANCTION"
+          },
+          "subType": {
+            "type": "string",
+            "description": "Sub-type of the case providing more specific categorization.",
+            "example": "RECIPIENT_LOCATION_HIT"
+          },
+          "reference": {
+            "$ref": "#/components/schemas/V5002DataResourceReference"
+          },
+          "messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CaseMessage"
+            },
+            "description": "List of messages associated with this case."
           }
         }
       },
-      "V20021DataResource": {
+      "AccountRequirementsResponseItemFieldsItemGroupItem": {
         "type": "object",
         "properties": {
+          "key": {
+            "type": "string",
+            "description": "Key to include in JSON when submitting recipient details.",
+            "example": "email"
+          },
+          "name": {
+            "type": "string",
+            "description": "Human-readable label.",
+            "example": "E-mail"
+          },
           "type": {
             "type": "string",
-            "description": "Type of resource for webhook. Will always be \u0060partner-support-case\u0060",
-            "example": "partner-support-case"
+            "description": "UI field type.",
+            "example": "text"
           },
-          "case_id": {
-            "type": "integer",
-            "description": "ID of the case",
-            "format": "int64",
-            "example": 136
+          "refreshRequirementsOnChange": {
+            "type": "boolean",
+            "description": "If true, changing this field can alter requirements; call the POST account-requirements endpoint with updated data to refresh requirements.\n",
+            "example": false
           },
-          "case_type": {
+          "required": {
+            "type": "boolean",
+            "description": "Indicates whether this field is mandatory.",
+            "example": true
+          },
+          "displayFormat": {
             "type": "string",
-            "description": "Type of the case. Value must be \u0060GENERAL_ENQUIRY\u0060. More case types will be added in the future.",
-            "example": "GENERAL_ENQUIRY"
+            "description": "Optional display formatting hint.",
+            "example": null
           },
-          "details": {
-            "$ref": "#/components/schemas/V20021DataResourceDetails"
+          "example": {
+            "type": "string",
+            "description": "Example value for the field (may be empty string).",
+            "example": "example@example.ex"
           },
-          "status": {
-            "$ref": "#/components/schemas/V20021DataResourceStatus"
+          "minLength": {
+            "type": "integer",
+            "description": "Minimum allowed length, when applicable.",
+            "example": null
+          },
+          "maxLength": {
+            "type": "integer",
+            "description": "Maximum allowed length, when applicable.",
+            "example": null
+          },
+          "validationRegexp": {
+            "type": "string",
+            "description": "Regex pattern for validation, when applicable.",
+            "example": "^[^\\s]\u002B@[^\\s]\u002B\\.[^\\s]{2,}$"
+          },
+          "validationAsync": {
+            "type": "string",
+            "description": "Deprecated. This validation will instead be performed when submitting the request.",
+            "example": null,
+            "deprecated": true
+          },
+          "valuesAllowed": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AccountRequirementsResponseItemFieldsItemGroupItemValuesAllowedItem"
+            },
+            "description": "Allowed values for select/radio inputs; null for free-text/date inputs.",
+            "nullable": true
           }
-        }
+        },
+        "description": "A single field descriptor."
       },
       "V420DataAction": {
         "required": [
@@ -31091,21 +31039,6 @@
           }
         }
       },
-      "AccountRequirementsResponseItemFieldsItemGroupItemValuesAllowedItem": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "description": "Machine-readable value.",
-            "example": "PRIVATE"
-          },
-          "name": {
-            "type": "string",
-            "description": "Human-readable value label.",
-            "example": "Person"
-          }
-        }
-      },
       "V4009DataTransactionMerchant": {
         "type": "object",
         "properties": {
@@ -31586,51 +31519,34 @@
           }
         }
       },
-      "V40022DataResourceDetails": {
+      "V5002DataResourceReference": {
         "type": "object",
         "properties": {
-          "transfer_id": {
-            "type": "integer",
-            "description": "ID of the transfer that is associated with the case.",
-            "format": "int64",
-            "nullable": true,
-            "example": 12345678
+          "type": {
+            "type": "string",
+            "description": "Type of the referenced resource.",
+            "example": "TRANSFER"
           },
-          "user_id": {
-            "type": "integer",
-            "description": "ID of the user account that is associated with the case.",
-            "format": "int64",
-            "example": 12345678
-          },
-          "profile_id": {
-            "type": "integer",
-            "description": "ID of the profile that is associated with the case.",
-            "format": "int64",
-            "example": 12345678
+          "referenceId": {
+            "type": "string",
+            "description": "ID of the referenced resource.",
+            "example": "123456789"
           }
-        }
+        },
+        "description": "Reference to the resource associated with this case."
       },
-      "V20021DataResourceDetails": {
+      "AccountRequirementsResponseItemFieldsItemGroupItemValuesAllowedItem": {
         "type": "object",
         "properties": {
-          "transfer_id": {
-            "type": "integer",
-            "description": "ID of the transfer that is associated with the case.",
-            "format": "int64",
-            "nullable": true,
-            "example": 12345678
+          "key": {
+            "type": "string",
+            "description": "Machine-readable value.",
+            "example": "PRIVATE"
           },
-          "user_id": {
-            "type": "integer",
-            "description": "ID of the user account that is associated with the case.",
-            "format": "int64",
-            "example": 12345678
-          },
-          "profile_id": {
-            "type": "integer",
-            "description": "ID of the profile that is associated with the case.",
-            "format": "int64",
-            "example": 12345678
+          "name": {
+            "type": "string",
+            "description": "Human-readable value label.",
+            "example": "Person"
           }
         }
       },
@@ -36351,12 +36267,12 @@
           },
           "seekPositionForNext": {
             "type": "integer",
-            "description": "Seek position for the next page (use as \u0060seekPosition\u0060 to fetch the next page).",
+            "description": "Seek position for the next page of the response. For pagination, use this value for the \u0060seekPosition\u0060 query parameter of your next request to fetch the next page.",
             "format": "int64"
           },
           "seekPositionForCurrent": {
             "type": "integer",
-            "description": "Seek position for the current page.",
+            "description": "Seek position for the current page of the response. For pagination, use this value for the \u0060seekPosition\u0060 query parameter of your next request to fetch this current page again.",
             "format": "int64"
           },
           "sort": {
@@ -36400,7 +36316,7 @@
         "properties": {
           "acceptedOutcomes": {
             "type": "boolean",
-            "description": "Set to \u0060true\u0060 to accept the confirmation outcomes.",
+            "description": "Set to \u0060true\u0060 to indicate the customer accepted the confirmation outcome.",
             "example": true
           }
         }
@@ -37759,13 +37675,13 @@
           }
         ]
       },
-      "Error404NotFoundNotFoundError404Error": {
+      "Error422UnprocessableEntityUnprocessableEntityError422Error": {
         "type": "object",
-        "example": "RESOURCE_NOT_FOUND"
+        "example": "UNPROCESSABLE_ENTITY"
       },
-      "Error404NotFoundNotFoundError404Message": {
+      "Error422UnprocessableEntityUnprocessableEntityError422Message": {
         "type": "object",
-        "example": "Case not found"
+        "example": "Submission type mismatch"
       },
       "ValidationErrorRejectedValue": {
         "type": "object",
@@ -37779,6 +37695,14 @@
       "RecipientCommonFieldMapProperty": {
         "type": "object",
         "description": "Map of key lookup fields for the account."
+      },
+      "Error404NotFoundNotFoundError404Error": {
+        "type": "object",
+        "example": "RESOURCE_NOT_FOUND"
+      },
+      "Error404NotFoundNotFoundError404Message": {
+        "type": "object",
+        "example": "Case not found"
       },
       "Error403ForbiddenForbiddenError403Error": {
         "type": "object",
@@ -37803,14 +37727,6 @@
       "Error400BadRequestBadRequestError400Message": {
         "type": "object",
         "example": "Invalid request body"
-      },
-      "Error422UnprocessableEntityUnprocessableEntityError422Error": {
-        "type": "object",
-        "example": "UNPROCESSABLE_ENTITY"
-      },
-      "Error422UnprocessableEntityUnprocessableEntityError422Message": {
-        "type": "object",
-        "example": "Submission type mismatch"
       },
       "ContentSubmissionDataSubmissionDataOtherLocationSubmissionOtherProperty": {
         "type": "object"
@@ -39658,7 +39574,7 @@
         "properties": {
           "code": {
             "type": "string",
-            "description": "Error code (e.g. NOT_VALID).",
+            "description": "Error code (for example, \u0060NOT_VALID\u0060).",
             "example": "NOT_VALID"
           },
           "message": {
@@ -43280,40 +43196,21 @@
           ]
         }
       },
-      "V40022SchemaVersion": {
+      "V5002SchemaVersion": {
         "enum": [
-          "4.0.0"
+          "5.0.0"
         ],
         "type": "string",
         "additionalProperties": false,
         "description": "Version of the event schema. Determined by the \u0060schema_version\u0060 on your [webhook subscription](/api-reference/webhook).",
-        "example": "4.0.0",
+        "example": "5.0.0",
         "x-ms-enum": {
-          "name": "V40022SchemaVersion",
+          "name": "V5002SchemaVersion",
           "modelAsString": false,
           "values": [
             {
-              "value": "4.0.0",
-              "name": "Value400"
-            }
-          ]
-        }
-      },
-      "V20021SchemaVersion": {
-        "enum": [
-          "2.0.0"
-        ],
-        "type": "string",
-        "additionalProperties": false,
-        "description": "Version of the event schema. Determined by the \u0060schema_version\u0060 on your [webhook subscription](/api-reference/webhook).",
-        "example": "2.0.0",
-        "x-ms-enum": {
-          "name": "V20021SchemaVersion",
-          "modelAsString": false,
-          "values": [
-            {
-              "value": "2.0.0",
-              "name": "Value200"
+              "value": "5.0.0",
+              "name": "Value500"
             }
           ]
         }
@@ -44675,64 +44572,6 @@
           ]
         }
       },
-      "V40022DataType": {
-        "enum": [
-          "STATUS_UPDATED",
-          "NEW_COMMENT",
-          "NEW_CASE"
-        ],
-        "type": "string",
-        "additionalProperties": false,
-        "description": "The type of the webhook being sent.",
-        "example": "NEW_CASE",
-        "x-ms-enum": {
-          "name": "V40022DataType",
-          "modelAsString": false,
-          "values": [
-            {
-              "value": "STATUS_UPDATED",
-              "name": "StatusUpdated"
-            },
-            {
-              "value": "NEW_COMMENT",
-              "name": "NewComment"
-            },
-            {
-              "value": "NEW_CASE",
-              "name": "NewCase"
-            }
-          ]
-        }
-      },
-      "V20021DataType": {
-        "enum": [
-          "STATUS_UPDATED",
-          "NEW_COMMENT",
-          "NEW_CASE"
-        ],
-        "type": "string",
-        "additionalProperties": false,
-        "description": "The type of the webhook being sent.",
-        "example": "NEW_CASE",
-        "x-ms-enum": {
-          "name": "V20021DataType",
-          "modelAsString": false,
-          "values": [
-            {
-              "value": "STATUS_UPDATED",
-              "name": "StatusUpdated"
-            },
-            {
-              "value": "NEW_COMMENT",
-              "name": "NewComment"
-            },
-            {
-              "value": "NEW_CASE",
-              "name": "NewCase"
-            }
-          ]
-        }
-      },
       "V40025DataStatus": {
         "enum": [
           "ACTIVE",
@@ -45013,70 +44852,41 @@
           ]
         }
       },
-      "V40022DataResourceStatus": {
+      "V5002DataResourceStatus": {
         "enum": [
-          "OPEN",
-          "PENDING",
-          "SOLVED",
-          "CLOSED"
+          "CREATING",
+          "IN_REVIEW",
+          "WAITING_CUSTOMER_INPUT",
+          "RESOLVED",
+          "FAILED"
         ],
         "type": "string",
         "additionalProperties": false,
         "description": "Status of the case.",
-        "example": "PENDING",
+        "example": "RESOLVED",
         "x-ms-enum": {
-          "name": "V40022DataResourceStatus",
+          "name": "V5002DataResourceStatus",
           "modelAsString": false,
           "values": [
             {
-              "value": "OPEN",
-              "name": "Open"
+              "value": "CREATING",
+              "name": "Creating"
             },
             {
-              "value": "PENDING",
-              "name": "Pending"
+              "value": "IN_REVIEW",
+              "name": "InReview"
             },
             {
-              "value": "SOLVED",
-              "name": "Solved"
+              "value": "WAITING_CUSTOMER_INPUT",
+              "name": "WaitingCustomerInput"
             },
             {
-              "value": "CLOSED",
-              "name": "Closed"
-            }
-          ]
-        }
-      },
-      "V20021DataResourceStatus": {
-        "enum": [
-          "OPEN",
-          "PENDING",
-          "SOLVED",
-          "CLOSED"
-        ],
-        "type": "string",
-        "additionalProperties": false,
-        "description": "Status of the case.",
-        "example": "PENDING",
-        "x-ms-enum": {
-          "name": "V20021DataResourceStatus",
-          "modelAsString": false,
-          "values": [
-            {
-              "value": "OPEN",
-              "name": "Open"
+              "value": "RESOLVED",
+              "name": "Resolved"
             },
             {
-              "value": "PENDING",
-              "name": "Pending"
-            },
-            {
-              "value": "SOLVED",
-              "name": "Solved"
-            },
-            {
-              "value": "CLOSED",
-              "name": "Closed"
+              "value": "FAILED",
+              "name": "Failed"
             }
           ]
         }

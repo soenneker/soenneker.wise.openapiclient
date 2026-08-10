@@ -13,9 +13,9 @@ namespace Soenneker.Wise.OpenApiClient.Models
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class Confirmations : IAdditionalDataHolder, IParsable
     {
-        /// <summary>Timestamp indicating date and time of outcome acceptance, `null` until acceptance received.</summary>
+        /// <summary>Timestamp indicating date and time of outcome acceptance. Value is `null` until acceptance received.</summary>
         public DateTimeOffset? AcceptedAt { get; set; }
-        /// <summary>Whether we&apos;ve received an explicit customer acceptance.</summary>
+        /// <summary>Indicates whether we&apos;ve received an explicit customer acceptance.</summary>
         public bool? AcceptedOutcomes { get; set; }
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }

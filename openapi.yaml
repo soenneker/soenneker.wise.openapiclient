@@ -16423,43 +16423,15 @@ paths:
     get:
       operationId: recipientList
       summary: List recipient accounts
-      description: >
-        Fetch a list of the user's recipient accounts. Use the `profileId`
-        parameter to filter by the profile who created the accounts, you should
-        do this based on the personal or business profile ID you have linked to,
-        based on your use case. Other filters are listed below for your
-        convenience, for example `currency` is a useful filter to use when
-        presenting the user a list of recipients to choose from in the case they
-        have already submitted the target currency in your flow.
+      description: |
+        Fetches a list of the user's recipient accounts. 
 
+        #### Notes about query params
 
-        #### Pagination
-
-        Pagination is supported for this endpoint. The response includes the
-        `seekPositionForNext` and `size` parameters to manage this.
-
-
-        It works by setting `size` and `seekPosition` parameters in the call.
-        Set the value in the `seekPositionForNext` of the previous response into
-        the `seekPosition` parameter of your subsequent call in order to get the
-        next page. To get the current page again, use the
-        `seekPositionForCurrent` value.
-
-
-        #### Sorting
-
-        You can also set the `sort` parameter to control the sorting of the
-        response, for example:
-
-
-        `?sort=id,asc` sort by `id` ascending.<br>
-
-        `?sort=id,desc` sort by `id` descending.<br>
-
-        `?sort=currency,asc` sort by currency ascending.
-
-
-        All query parameters are optional.
+        - All query parameters are optional.
+        - Pagination is supported.
+          - Set the `size` parameter to determine the number of accounts per page (max 20).
+          - Set the `seekPosition` parameter to the value returned in the `seekPositionForNext` field of the previous response to retrieve the next page.
       tags:
         - recipient
       security:
@@ -16476,8 +16448,8 @@ paths:
           in: query
           required: false
           description: >-
-            Filter by personal or business profile. Defaults to the personal
-            profile.
+            Filters by the personal or business profile that created the
+            account. Defaults to the personal profile.
           schema:
             type: integer
             format: int64
@@ -16491,15 +16463,23 @@ paths:
         - name: currency
           in: query
           required: false
-          description: >-
-            Filter responses by currency. Comma separated values supported (e.g.
-            `USD,GBP`).
+          description: >
+            Filters the response by target currency.
+
+
+            Useful for presenting a list of recipients to your customer when
+            they have already indicated the target currency in your flow.
+
+
+            Supports comma-separated values (for example, `USD,GBP`).
           schema:
             type: string
         - name: active
           in: query
           required: false
-          description: Filter by whether this profile is active. Defaults to `true`.
+          description: >-
+            Filters by whether the selected profile is active. Defaults to
+            `true`.
           schema:
             type: boolean
             default: true
@@ -16507,22 +16487,24 @@ paths:
           in: query
           required: false
           description: >-
-            Filter responses by account type. Comma separated values supported
-            (e.g. `iban,swift_code`).
+            Filters the response by account type. Supports comma-separated
+            values (for example, `iban,swift_code`).
           schema:
             type: string
         - name: ownedByCustomer
           in: query
           required: false
           description: >-
-            Filter to get accounts owned by the customer or not. Leave out to
-            get all accounts.
+            Filters the response by whether the account is owned by the
+            customer. Leave out to retrieve all accounts.
           schema:
             type: boolean
         - name: size
           in: query
           required: false
-          description: Page size of the response. Defaults to a maximum of 20.
+          description: >-
+            The number of accounts returned in a page of the response. Defaults
+            to 20 (the maximum).
           schema:
             type: integer
             format: int32
@@ -16531,8 +16513,8 @@ paths:
           in: query
           required: false
           description: >-
-            Account ID to start the page of responses from. `null` if no more
-            pages.
+            For pagination, use the value from the `seekPositionForNext` field
+            of the previous response to retrieve the next page.
           schema:
             type:
               - integer
@@ -16541,10 +16523,19 @@ paths:
         - name: sort
           in: query
           required: false
-          description: >-
-            Sorting strategy for the response. Comma separated options - firstly
-            either `id` or `currency`, followed by `asc` or `desc` for
-            direction.
+          description: >
+            Controls the sorting strategy for the response. 
+
+
+            Uses comma-separated options (either `id` or `currency` first,
+            followed by `asc` or `desc` for direction).
+
+
+            - `?sort=id,asc` sorts in ascending order by `id`.
+
+            - `?sort=id,desc` sorts in descending order by `id`.
+
+            - `?sort=currency,asc` sorts in ascending order by currency.
           schema:
             type: string
             example: id,asc
@@ -16566,12 +16557,17 @@ paths:
                     type: integer
                     format: int64
                     description: >-
-                      Seek position for the next page (use as `seekPosition` to
-                      fetch the next page).
+                      Seek position for the next page of the response. For
+                      pagination, use this value for the `seekPosition` query
+                      parameter of your next request to fetch the next page.
                   seekPositionForCurrent:
                     type: integer
                     format: int64
-                    description: Seek position for the current page.
+                    description: >-
+                      Seek position for the current page of the response. For
+                      pagination, use this value for the `seekPosition` query
+                      parameter of your next request to fetch this current page
+                      again.
                   sort:
                     type: object
                     description: Sort metadata.
@@ -16658,57 +16654,58 @@ paths:
       operationId: recipientCreate
       summary: Create a recipient account
       description: >
-        Creates a recipient account. A **recipient** is a person or institution
-        who is the ultimate beneficiary of your payment.
+        Creates a recipient account. A **recipient** is the person or
+        institution who is the ultimate beneficiary of your payment.
 
 
-        Recipient data includes three data blocks:
+        Recipient data includes:
 
-        - General data - the personal details of an individual and basic
-        information about a business.
-
-        - Bank details - account numbers, routing numbers, and other
-        region-specific bank details.
-
-        - Address details - country and street address of an individual or
+        - The personal details of an individual or basic information about a
         business.
 
+        - Bank details like account numbers, routing numbers, and other
+        region-specific information.
 
-        Notes:
-
-        - Date of Birth is optional; consult the account-requirements APIs to
-        confirm if it is needed or contact Wise Support.
-
-        - `ownedByCustomer` is optional but strongly recommended for
-        self-transfers.
-
-        - Email recipients: testing transfers to email recipients in sandbox is
-        not currently possible.
+        - Address details like country and street address.
 
 
-        Refund recipients:
+        {% admonition type="info"}
 
-        - Use `refund=true` query parameter.
-
-
-        #### Bank account data
-
-        There are many different variations of bank account details needed
-        depending on recipient target currency. For example:
+        Certain fields shown in the schema are conditionally required depending
+        on `currency`, `type`, `legalType`, and `country`.
 
 
-        - **GBP** — sort code and account number
+        The reference uses a GBP example for illustration purposes.
 
-        - **BGN, CHF, DKK, EUR, GEL, GBP, NOK, PKR, PLN, RON, SEK** — IBAN
+        As such, some fields are `null` in the provided examples. To determine
+        which fields are required for a currency corridor, use the
 
-        - **USD** — routing number, account number, account type
+        **[Retrieve recipient account
+        requirements](/api-reference/recipient/recipientAccountRequirementsGet)**
+        endpoint.
 
-        - **INR** — IFSC code, account number
-
-        - etc.
+        {% /admonition %}
 
 
-        #### Address data
+        #### Bank account details
+
+
+        There are many variations of required bank account details, depending on
+        recipient target currency. For example:
+
+
+        - **GBP** requires sort code and account number.
+
+        - **BGN, CHF, DKK, EUR, GEL, GBP, NOK, PKR, PLN, RON, SEK** require
+        IBAN.
+
+        - **USD** requires routing number, account number, and account type
+
+        - **INR** requires IFSC code and account number.
+
+
+        #### Address details
+
 
         Recipient address data is required only if target currency is **USD,
         PHP, THB or TRY**, or if the source currency is **USD or AUD**.
@@ -16718,7 +16715,7 @@ paths:
 
         - Country
 
-        - State (US, Canada, Brazil)
+        - State (required for US, Canada, Brazil)
 
         - City
 
@@ -16729,124 +16726,101 @@ paths:
 
         #### accountHolderName rules
 
-        - **Personal recipients:** Full names must include more than one name,
+
+        - **Personal recipients**: Full names must include more than one name,
         and both first and last name must have more than one character. Numbers
         are not allowed.
 
-        - **Business recipients:** Business names must be in full and can be a
+        - **Business recipients**: Business names must be in full and can be a
         single name. The full name cannot be just a single character, but can be
-        made up of a set of single characters (e.g. `"A"` is not permitted but
-        `"A 1"` or `"A1"` is permitted).
+        made up of a set of single characters (for example, `"A"` is not
+        permitted but `"A 1"` or `"A1"` is permitted).
 
         - Special characters `_()'*,.` are allowed for personal and business
-        names.
-
-        - In general the following regex describes permitted characters:
-          `[0-9A-Za-zÀ-ÖØ-öø-ÿ-_()'*,.\s]`.
-
-        Recipient requirements vary depending on recipient type/currency route.
-        A GBP example is provided here.<br>
-
-        Many fields may be `null` in examples. To determine which fields are
-        required for which currency, use the
-
-        **[Recipient
-        Requirements](/api-reference/recipient/recipientAccountRequirementsGet)**
-        endpoint.
+        names. In general, the following regex describes permitted characters:
+        `[0-9A-Za-zÀ-ÖØ-öø-ÿ-_()'*,.\s]`.
 
 
-        #### Create a refund recipient account
 
-        `POST /accounts?refund=true`
-
-
-        Sometimes we may need to refund the transfer back to the sender - see
-        the [transfer status
-        here](/guides/product/send-money/tracking-transfers) for cases when this
-        may happen.
+        #### Creating a refund recipient account
 
 
-        A refund recipient is a person or institution where we will refund
-        transfer the money back to if necessary. This is not always a mandatory
-        resource to create. If the funds are sent over a fast local payment
-        network we can usually infer the refund recipient from the bank
-        transaction that funded the transfer. Please discuss this with your Wise
-        implementation team if you are unsure if the refund recipient is needed.
+        Sometimes we may need to refund the transfer back to the sender. The
+        _refund recipient_ is the person or institution who we refund the
+        transfer money back to. 
 
 
-        If funds are sent using a slow domestic payment network, or you are
+        It is not always mandatory to create a refund recipient. 
+
+
+        - If the funds are sent over a fast local payment network, we can
+        usually infer the refund recipient from the bank transaction that funded
+        the transfer. Please discuss this with your Wise implementation team if
+        you are unsure if the refund recipient is needed.
+
+        - If funds are sent using a slow domestic payment network, or you are
         using a bulk settlement model, we may require you to share the bank
         details of the source bank account.
 
 
-        The format of the request payload for refund recipient creation will be
-        different depending on the currency you will send transfers from. You
-        may use the [account
-        requirements](/api-reference/recipient/recipientaccountrequirementsget)
-        endpoint to understand the payload requirements when creating the refund
-        recipient for a specific currency.
+        To indicate a recipient account is a _refund recipient_, include the
+        query parameter `refund=true` in the request.
 
 
-        The refund recipient account ID returned in the response is used as
-        `sourceAccount` when [creating
-        transfers](/guides/product/send-money/transfers).
+        Then, use the account ID returned in the response as `sourceAccount`
+        when [creating transfers](/guides/product/send-money/transfers).
 
 
-        #### Create an email recipient account
-
-        `POST /accounts`
+        #### Creating an email recipient account
 
 
         {% admonition type="warning" %}
 
-        Please contact us before attempting to use email recipients. We do not
-        recommend using this feature except for certain use cases.
+        Contact us before attempting to use email recipients as it is only
+        recommended for certain use cases.
 
         {% /admonition %}
 
 
-        If you don't know recipient bank account details you can set up an email
-        recipient; Wise will collect bank details directly from the recipient.
+        If you don't know recipient bank account details, you can set up an
+        _email recipient_. Wise then collects bank details directly from the
+        recipient.
 
 
         Wise will email your recipient with a link to collect their bank account
-        details securely. After the bank account details have been provided Wise
-        will complete your transfer.
+        details securely. After the bank account details have been provided,
+        Wise completes the transfer.
 
 
-        It's best to confirm that this recipient type is available to your
-        transaction by checking if the `"type": "email"` class is present in the
-        response from `GET /quotes/{quoteId}/account-requirements` — see
-        **[account
-        requirements](/api-reference/recipient/recipientAccountRequirementsGet)**
-        for more information on how to use this endpoint.
+        Confirm this recipient type is available for your transaction by
+        checking if the `"type": "email"` class is present in the response of
+        the [retrieve recipient account requirements
+        endpoint](/api-reference/recipient/recipientAccountRequirementsGet).
 
 
-        If planning to send multiple currencies to a single recipient, you will
-        need to create a separate email recipient resource for this beneficiary,
-        for every currency you intend to send to them. We highly encourage you
-        to provide the `{profileId}` if your recipient is receiving a payment
-        from your Business account, especially if you have multiple businesses,
-        or have multiple users administrating your business account.
+        If planning to send multiple currencies to a single recipient, you must
+        create a separate email recipient resource for the beneficiary, for
+        every currency you intend to send them.
 
 
-        Please be aware of the following caveats:
+        Be aware of the following:
+
 
         - Testing of transfers to email recipients in sandbox is not currently
         possible.
 
-        - Recipients will be required to enter bank details **every time a
-        payment is made**.
+        - Recipients are required to enter bank details **every time a payment
+        is made**.
 
         - We highly encourage you to provide the `profileId` if your recipient
-        is receiving a payment from your Business account, especially if you
-        have multiple businesses, or have multiple users administrating your
+        is receiving a payment from your business account, especially if you
+        have multiple businesses or have multiple users administrating your
         business account.
 
-        - Please refer to our **[help
+        - Refer to our **[help
         page](https://wise.com/help/articles/2932105/can-i-send-money-to-someone-with-only-their-email-address)**
-        on how this works and any additional constraints not mentioned in this
-        section.
+        for more details about how this works and any additional constraints not
+        mentioned here.
       tags:
         - recipient
       security:
@@ -16855,7 +16829,7 @@ paths:
         - name: refund
           in: query
           required: false
-          description: When true, creates a refund recipient account.
+          description: When `true`, the request creates a refund recipient account.
           schema:
             type: boolean
             default: false
@@ -16921,7 +16895,7 @@ paths:
                       properties:
                         code:
                           type: string
-                          description: Error code (e.g. NOT_VALID).
+                          description: Error code (for example, `NOT_VALID`).
                           example: NOT_VALID
                         message:
                           type: string
@@ -17012,15 +16986,15 @@ paths:
         false`).
 
 
-        Requesting to delete a recipient that is already inactive returns HTTP
-        403 (Forbidden).
+        A request to delete a recipient that is already inactive returns `HTTP
+        403 (Forbidden)`.
 
 
         {% admonition type="info" %}
 
-        Only active recipients can be deleted and a recipient cannot be
-        reactivated, however you can create a new recipient with the same
-        details instead if necessary.
+        Only active recipients can be deleted. While a recipient cannot be
+        reactivated, you can create a new recipient with the same details if
+        necessary.
 
         {% /admonition %}
       tags:
@@ -17055,93 +17029,82 @@ paths:
       operationId: recipientAccountRequirementsGet
       summary: Retrieve recipient account requirements dynamically
       description: >
-        {% admonition type="info" %}
+        The details required to create a recipient account vary by currency,
+        type, and receiving entity. To determine which fields are required to
+        successfully create a specific recipient, send a request to this
+        endpoint. The response returns an array of objects that indicate which
+        recipient account types are available for the corridor, as well as the
+        fields and related attributes that apply to the currency and account
+        type.
 
-        Please note that to use v1.1 `Accept-Minor-Version: 1` request header
-        must be set.
+
+        You can then choose to use Wise’s dynamic forms to gather the required
+        data from your customer, hard-code the requirements into your system, or
+        use a combination of both hard-coded and dynamic forms.
+
+
+        If `refreshRequirementsOnChange` is `true` for any item in the
+        response’s `fields` array, this indicates additional field requirements
+        that are conditional to the specific data `key`. For example, when
+        `address.country` is set to `US`, the `address.state` field becomes
+        required. To retrieve additional requirements, use the [POST
+        operation](/api-reference/recipient/recipientaccountrequirementspost) to
+        requery and retrieve the updated requirements. For the `address.country
+        = "US"` example, the response returns a list of valid state names.
+
+
+        #### Operation variants
+
+
+        You can query this endpoint either _with_ or _without_ a quote ID. 
+
+
+        **With quote ID**
+
+
+        `GET /quotes/{quoteId}/account-requirements`
+
+
+        Recommended when using the quote-first transfer flow. The response
+        returns the requirements for the currency corridor specified in that
+        [authenticated quote resource](/api-reference/quote/quotecreate).
+
+
+        **Without quote ID**
+
+
+        `GET /account-requirements?source=EUR&target=USD&sourceAmount=1000`
+
+
+        Use this variation if you do not have a quote ID (as in recipient-first
+        transfer flows). In this request, you specify the source currency,
+        target currency, and source amount as query parameters and the response
+        returns the relevant requirements.
+
+
+        {% admonition type="info" name="Recipient-first limitations" %}
+
+        The variation without a quote ID is not valid for some currencies, as
+        some payout methods only surface when profile-context is known. For
+        example, at the time of this writing, business payments to Chinese Yuan
+        use a different payout method than what is revealed by `GET
+        /account-requirements?source=USD&target=CNY&sourceAmount=1000`.
+
+
+        Confirm with your implementation team if certain corridors should not
+        use the recipient-first transfer flow.
 
         {% /admonition %}
 
 
-        `GET /v1/quotes/{quoteId}/account-requirements`<br>
-
-        `POST /v1/quotes/{quoteId}/account-requirements`<br>
-
-        `GET /v1/account-requirements?source=EUR&target=USD&sourceAmount=1000`
+        #### Accept minor versions header
 
 
-        You can use the data returned by this API to build a dynamic user
-        interface for recipient creation. The `GET` and `POST`
-        account-requirements endpoints help you to figure out which fields are
-        required to create a valid recipient for different currencies. This is a
-        step-by-step guide on how these endpoints work.
-
-
-        Use the `GET` endpoint to learn what datapoints are required to send a
-        payment to your beneficiary. As you build that form, use the POST
-        endpoint to learn if any additional datapoints are required as a result
-        of passing a field that has `"refreshRequirementsOnChange": true` in the
-        `GET` response. You should be posting the same recipient account payload
-        that will be posted to `/v1/accounts`.
-
-
-        An example of this would be `address.country`. Some countries, like the
-        United States, have a lower level organization, `"state"` or
-        `"territory"`. After POSTing the recipient payload with address.country
-        = "US", the list of possible states will appear in the response.
-
-
-        The third endpoint above is used to get account requirements for a
-        specific currency route and amount without referring to a quote but with
-        the amount, source and target currencies passed as URL parameters.
-        Generally this approach is not recommended, you should have your user
-        create a quote resource first and use this to generate the recipient
-        account requirements. This is because some payout methods will only
-        surface when the profile-context is known, for example (at the time of
-        this writing), Business Payments to Chinese Yuan use a different payout
-        method than what is revealed by `GET
-        /v1/account-requirements?source=USD&target=CNY&sourceAmount=1000`.
-
-
-        All new integrations should use the v1.1 of `GET` and `POST` account
-        requirements, enabled using the `Accept-Minor-Version` header. It
-        enables you to fetch the requirements including both the recipient name
-        and email fields in the dynamic form, simplifying implementation of the
-        form. Name and email address dynamic fields are required to support
-        currencies such as KRW, JPY and RUB, and also remove the need for manual
+        All new integrations should use the `Accept-Minor-Version` header with
+        the value set to `1`. This ensures the response includes both the
+        recipient name and email fields, which are required to support
+        currencies such as KRW, JPY and RUB. It also removes the need for manual
         name validation.
-
-
-        These endpoints allow use of both v1 and v2 quotes using long or UUID
-        based IDs, supporting legacy implementations using v1 quotes.
-
-
-        These endpoints accept an optional query parameter
-        **originatorLegalEntityType**. When the transfer is initiated by a
-        [Third Party Partner](/guides/product/kyc/partner-accounts) we are not
-        aware whether the actual sender is a business or person. In such cases,
-        this parameter should be passed to receive correct requirements. The
-        legal entity type should be one of the following values: `BUSINESS`,
-        `PRIVATE`. This parameter is optional and the default value is the type
-        of the partner profile.
-
-
-        #### Collecting Recipient Address
-
-
-        Normally our account requirements will instruct when a recipient address
-        is required. However, in some situations it's desirable to force the
-        requirement so that an address can be provided to Wise. To do this, add
-        the query parameter `?addressRequired=true` to your request and address
-        will always be returned as a required field.
-
-
-        {% admonition type="warning" %}
-
-        Address requirement fields are subject to change. Your integration
-        should be built in a way to handle unrecognized or changed fields.
-
-        {% /admonition %}
       tags:
         - recipient
       security:
@@ -17150,13 +17113,24 @@ paths:
         - name: quoteId
           in: path
           required: true
-          description: Quote ID (supports long or UUID based IDs).
+          description: Quote ID (supports long or UUID-based IDs).
           schema:
             type: string
         - name: originatorLegalEntityType
           in: query
           required: false
-          description: Legal entity type override for the actual sender.
+          description: >
+            Legal entity type override for the actual sender. 
+
+
+            Correspondent partners must include the `originatorLegalEntityType`
+            query parameter to ensure the correct requirements are returned in
+            the response. This parameter indicates whether the actual sender is
+            `PRIVATE` or `BUSINESS`. When not included, the request is assumed
+            to be for a `BUSINESS` entity, as Wise has no way of knowing if the
+            true sender on a [third-party
+            transfer](/api-reference/third-party-transfer) is a business or
+            private individual. 
           schema:
             type: string
             enum:
@@ -17165,14 +17139,32 @@ paths:
         - name: addressRequired
           in: query
           required: false
-          description: Set to true so address is always required.
+          description: >
+            When set to `true`, the response always returns address as required,
+            even if not required by the specific currency route.
+
+
+            Include this query parameter set to `true` to force the address
+            requirement regardless of currency.
+
+
+            {% admonition type="warning" %}
+
+            Address requirement fields are subject to change. Be sure to build
+            your integration in a way that handles unrecognized or changed
+            fields.
+
+            {% /admonition %}
           schema:
             type: boolean
             default: false
         - name: Accept-Minor-Version
           in: header
           required: false
-          description: Set to `1` to enable v1.1.
+          description: >-
+            Set to `1` to ensure the response includes both the recipient name
+            and email fields, which are required to support currencies such as
+            KRW, JPY and RUB.
           schema:
             type: integer
             enum:
@@ -17215,21 +17207,22 @@ paths:
           $ref: '#/components/responses/429'
     post:
       operationId: recipientAccountRequirementsPost
-      summary: Retrieve recipient account requirements dynamically (step-by-step)
+      summary: Retrieve additional recipient account requirements dynamically
       description: >
-        POST the same recipient account payload that you will POST to
-        `/v1/accounts`.
+        If `refreshRequirementsOnChange=true` for any `group.key` in the [GET
+        response](/api-reference/recipient/recipientaccountrequirementsget#recipient/recipientaccountrequirementsget/response&c=200),
+        send this POST request with the updated [create recipient
+        account](/api-reference/recipient/recipientcreate) request payload. The
+        response returns the additional required fields for that key based on
+        the updated key value.
 
 
-        Use this endpoint after setting any field that has
-        `refreshRequirementsOnChange=true` in the GET response,
-
-        to discover any additional required fields.
-
-
-        See the [GET
-        endpoint](/api-reference/recipient/recipientaccountrequirementsget) for
-        a full overview of how the account requirements flow works.
+        For example, when `address.country` is set to `US`, the `address.state`
+        field becomes required. To retrieve the list of valid state names, use
+        the [POST
+        operation](/api-reference/recipient/recipientaccountrequirementspost) to
+        requery with the updated `/accounts` payload. The response returns the
+        valid state names in the key’s `valuesAllowed` array.
       tags:
         - recipient
       security:
@@ -17238,13 +17231,24 @@ paths:
         - name: quoteId
           in: path
           required: true
-          description: Quote ID (supports long or UUID based IDs).
+          description: Quote ID (supports long or UUID-based IDs).
           schema:
             type: string
         - name: originatorLegalEntityType
           in: query
           required: false
-          description: Legal entity type override for the actual sender.
+          description: >
+            Legal entity type override for the actual sender.
+
+
+            Correspondent partners must include the `originatorLegalEntityType`
+            query parameter to ensure the correct requirements are returned in
+            the response. This parameter indicates whether the actual sender is
+            `PRIVATE` or `BUSINESS`. When not included, the request is assumed
+            to be for a `BUSINESS` entity, as Wise has no way of knowing if the
+            true sender on a [third-party
+            transfer](/api-reference/third-party-transfer) is a business or
+            private individual.
           schema:
             type: string
             enum:
@@ -17253,7 +17257,10 @@ paths:
         - name: Accept-Minor-Version
           in: header
           required: false
-          description: Set to `1` to enable v1.1.
+          description: >-
+            Set to `1` to ensure the response includes both the recipient name
+            and email fields, which are required to support currencies such as
+            KRW, JPY and RUB.
           schema:
             type: integer
             enum:
@@ -17288,23 +17295,25 @@ paths:
         a quote before creating a transfer. This validation includes:
 
 
-        - Re-validating the recipient account details
+        - Re-validating the recipient account details.
 
-        - Checking all required fields are present (e.g., recipient address for
-        USD transfers)
+        - Checking all required fields are present (for example, recipient
+        address for USD transfers).
 
         - Verifying account details with the recipient's bank (for supported
-        currencies)
+        currencies).
 
 
-        This endpoint is optional but useful to identify potential issues before
-        transfer creation.
+        This operation is optional, but useful to identify potential issues
+        before transfer creation.
 
 
         {% admonition type="info" %}
 
-        The confirmations field is only populated for currencies with recipient
-        verification enabled. If absent, only standard validations apply.
+        The confirmations object is only populated for currencies that support
+        [recipient
+        verification](/guides/product/send-money/recipient-verification). If
+        absent, only standard validations apply.
 
         {% /admonition %}
       tags:
@@ -17330,10 +17339,10 @@ paths:
       responses:
         '200':
           description: >-
-            Compatibility result including any verification outcomes. See
-            [Verifying Recipient
-            Details](/guides/developer/api-guides/recipient-verification) for
-            details on handling the `confirmations` object.
+            Returns the compatibility result, including any verification
+            outcomes. See the [Recipient verification
+            guide](/guides/product/send-money/recipient-verification) for
+            details about handling the `confirmations` object.
           content:
             application/json:
               schema:
@@ -17384,15 +17393,15 @@ paths:
       operationId: recipientConfirmationsAccept
       summary: Accept confirmation outcomes
       description: >
-        When `requiresCustomerAcceptance` is `true` in the confirmation
-        outcomes, the recipient cannot be used for a transfer until the customer
-        explicitly confirms the details. You must present the mismatch to the
-        customer and get their approval.
+        When the confirmation outcome indicates `requiresCustomerAcceptance` is
+        `true`, the recipient cannot be used for a transfer until the customer
+        explicitly confirms the details. Present the mismatch to the customer
+        and get their approval before proceeding further into the transfer flow.
 
 
         {% admonition type="warning" %}
 
-        If the confirmation result contained a `quoteId` then the acceptance
+        If the confirmation result contained a `quoteId`, then the acceptance
         request must also specify that as part of the query parameters,
         otherwise the request will be rejected.
 
@@ -17428,7 +17437,9 @@ paths:
               properties:
                 acceptedOutcomes:
                   type: boolean
-                  description: Set to `true` to accept the confirmation outcomes.
+                  description: >-
+                    Set to `true` to indicate the customer accepted the
+                    confirmation outcome.
                   example: true
       responses:
         '200':
@@ -24277,18 +24288,11 @@ webhooks:
       operationId: eventPartnerSupportCaseChanged
       summary: Partner support case changed
       description: >
-        Triggered every time a case is updated, including if commented on or if
-        the status is changed. Note that you will also receive a webhook
-        response when you have created a new case or updated a case.
+        Triggered every time a case is created or updated, including when a new
+        message is added or the status changes.
 
-
-        {% admonition type="warning" name="Endpoint in BETA" %}
-
-        As this endpoing is currently in beta, the information below may change.
-        We will be adding in new types of cases, so ensure you handle additional
-        undocumented types.
-
-        {% /admonition %}
+        Note that you will also receive a webhook response when you have updated
+        a case.
 
 
         * Event type: `partner-support#case-changed`
@@ -24298,8 +24302,10 @@ webhooks:
         * Application level subscriptions: Supported
 
 
-        Events may not be delivered in the order they occurred. Use
-        `data.occurred_at` to reconcile the order.
+        Events may not be delivered in the order they occurred. To reconcile
+        order:
+          - Schema version `5.0.0`: Use `data.resource.updatedAt`
+          - Schema versions `4.0.0` and `2.0.0`: Use `data.occurred_at`
 
         See the [Event ordering
         guide](/guides/developer/webhooks/event-ordering) for details.
@@ -24322,9 +24328,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
+                  5.0.0: '#/components/schemas/v5.0.0-2'
                   4.0.0: '#/components/schemas/v4.0.0-22'
                   2.0.0: '#/components/schemas/v2.0.0-21'
               oneOf:
+                - $ref: '#/components/schemas/v5.0.0-2'
                 - $ref: '#/components/schemas/v4.0.0-22'
                 - $ref: '#/components/schemas/v2.0.0-21'
       responses:
@@ -30156,10 +30164,10 @@ components:
         details:
           type: object
           description: >-
-            Contains the details of the receipient account specific its currency
-            and type. The fields required (in the request) or present (in the
-            response) vary depending on currency route and recipient type (e.g.,
-            sort code, IBAN, SWIFT, email).
+            Contains the details of the recipient account specific to its
+            currency and type. The fields required (in the request) or present
+            (in the response) vary depending on currency route and recipient
+            type (e.g., sort code, IBAN, SWIFT, email).
           properties:
             reference:
               type:
@@ -30209,9 +30217,9 @@ components:
         displayFields:
           type: array
           description: >-
-            Lookup fields (key/label/value) for rendering in your UI. Allows you
-            to build a UI containing all the dynamic fields for a recipient
-            individually.
+            Lookup fields (key/label/value) for rendering in your front-end.
+            Allows you to build a UI containing all the dynamic fields for a
+            recipient individually.
           items:
             type: object
             properties:
@@ -30323,7 +30331,9 @@ components:
           properties:
             acceptedOutcomes:
               type: boolean
-              description: Whether we've received an explicit customer acceptance.
+              description: >-
+                Indicates whether we've received an explicit customer
+                acceptance.
               example: false
             acceptedAt:
               type:
@@ -30331,8 +30341,8 @@ components:
                 - 'null'
               format: date-time
               description: >-
-                Timestamp indicating date and time of outcome acceptance, `null`
-                until acceptance received.
+                Timestamp indicating date and time of outcome acceptance. Value
+                is `null` until acceptance received.
               example: null
             quoteId:
               type:
@@ -30376,8 +30386,8 @@ components:
                       Indicates whether we require customer acceptance. 
 
 
-                      Whether this value is `true` or `false` depends on the
-                      currency and the nature of the confirmation.
+                      The value for this field (`true` or `false`) depends on
+                      the currency and the nature of the confirmation.
 
 
                       If `true`, you must present your customer with the ability
@@ -30438,17 +30448,17 @@ components:
         type:
           type: string
           description: >-
-            Recipient account type (currency/route-specific, e.g., `sort_code`,
-            `iban`, `email`).
+            Recipient account type. These are currency/route-specific, for
+            example, `sort_code`, `iban`, `email`.
           example: sort_code
         profile:
           type: integer
           format: int64
           description: >-
             Personal or business profile ID of the sender. We recommend passing
-            the business profile ID if your business account is managed by
-            multiple users so the recipient can be accessed by all users
-            authorized on the business account.
+            the business profile ID if multiple users manage your business
+            account so all users authorized on the business account can access
+            the recipient.
           example: 30000000
         accountHolderName:
           type: string
@@ -30458,19 +30468,27 @@ components:
           type: boolean
           description: >
             Indicates whether the recipient account is owned by the profile
-            owner. While optional, we recommend setting to `true` for
-            self-transfers (such as a user sending money to their own account in
-            another country or currency). Distinguishing self-transfers from
-            third-party transfers improves routing and processing efficiency.
+            owner.
+
+
+            While optional, we recommend setting to `true` for self-transfers
+            (such as a user sending money to their own account in another
+            country or currency).
+
+            Distinguishing self-transfers from third-party transfers improves
+            routing and processing efficiency.
           example: true
         details:
           type: object
           description: >
-            Contains the details of the receipient account specific its currency
-            and type. Common examples include `legalType`, `sortCode`,
-            `accountNumber`, `email`, `dateOfBirth`, etc. Use the **retreive
-            recipient account requirements** endpoint to determine what is
-            required for a specific recipient.
+            Contains the details of the recipient account specific to its
+            currency and type. 
+
+
+            Common examples include `legalType`, `sortCode`, `accountNumber`,
+            `email`, `dateOfBirth`, etc. Use the **retrieve recipient account
+            requirements** endpoint to determine what is required for a specific
+            recipient.
           properties:
             legalType:
               type: string
@@ -30790,7 +30808,7 @@ components:
       properties:
         acceptedOutcomes:
           type: boolean
-          description: Whether we've received an explicit customer acceptance.
+          description: Indicates whether we've received an explicit customer acceptance.
           example: false
         acceptedAt:
           type:
@@ -30798,8 +30816,8 @@ components:
             - 'null'
           format: date-time
           description: >-
-            Timestamp indicating date and time of outcome acceptance, `null`
-            until acceptance received.
+            Timestamp indicating date and time of outcome acceptance. Value is
+            `null` until acceptance received.
           example: null
         quoteId:
           type:
@@ -30842,7 +30860,7 @@ components:
                   Indicates whether we require customer acceptance. 
 
 
-                  Whether this value is `true` or `false` depends on the
+                  The value for this field (`true` or `false`) depends on the
                   currency and the nature of the confirmation.
 
 
@@ -37846,9 +37864,103 @@ components:
               type: string
               description: Return code of the underlying payment system
               example: '200'
+    v5.0.0-2:
+      title: Schema version 5.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 5.0.0
+          example: 5.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event.
+          example: 017631af-326c-4a69-93f3-bd1ce987a743
+        event_type:
+          type: string
+          description: Event type identifier
+          example: partner-support#case-changed
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent.
+          example: '2023-06-23T09:45:36.123Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  format: int64
+                  description: ID of the case.
+                  example: 123
+                profileId:
+                  type: integer
+                  format: int64
+                  description: ID of the profile that is associated with the case.
+                  example: 12345678
+                status:
+                  type: string
+                  description: Status of the case.
+                  enum:
+                    - CREATING
+                    - IN_REVIEW
+                    - WAITING_CUSTOMER_INPUT
+                    - RESOLVED
+                    - FAILED
+                  example: RESOLVED
+                externalId:
+                  type: string
+                  description: External reference ID provided by the partner for the case.
+                  example: partner_12344567
+                createdAt:
+                  type: string
+                  format: date-time
+                  description: Timestamp when the case was created.
+                  example: '2026-04-28T10:00:00.000Z'
+                updatedAt:
+                  type: string
+                  format: date-time
+                  description: >-
+                    Timestamp when the case was last updated. Use this field to
+                    reconcile event order.
+                  example: '2026-04-28T14:30:00.000Z'
+                type:
+                  type: string
+                  description: Type of the case.
+                  example: SANCTION
+                subType:
+                  type: string
+                  description: Sub-type of the case providing more specific categorization.
+                  example: RECIPIENT_LOCATION_HIT
+                reference:
+                  type: object
+                  description: Reference to the resource associated with this case.
+                  properties:
+                    type:
+                      type: string
+                      description: Type of the referenced resource.
+                      example: TRANSFER
+                    referenceId:
+                      type: string
+                      description: ID of the referenced resource.
+                      example: '123456789'
+                messages:
+                  type: array
+                  description: List of messages associated with this case.
+                  items:
+                    $ref: '#/components/schemas/case-message'
     v4.0.0-22:
       title: Schema version 4.0.0
       type: object
+      deprecated: true
       properties:
         schema_version:
           type: string
@@ -37940,6 +38052,7 @@ components:
     v2.0.0-21:
       title: Schema version 2.0.0
       type: object
+      deprecated: true
       properties:
         schema_version:
           type: string

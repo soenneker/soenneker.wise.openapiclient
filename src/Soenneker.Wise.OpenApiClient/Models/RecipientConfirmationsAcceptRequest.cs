@@ -12,7 +12,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
     public partial class RecipientConfirmationsAcceptRequest : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
     {
-        /// <summary>Set to `true` to accept the confirmation outcomes.</summary>
+        /// <summary>Set to `true` to indicate the customer accepted the confirmation outcome.</summary>
         public bool? AcceptedOutcomes { get; set; }
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
