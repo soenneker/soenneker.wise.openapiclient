@@ -16,7 +16,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Your business profile ID</summary>
         public long? Business { get; set; }
-        /// <summary>Timestamp when transfer was created</summary>
+        /// <summary>Timestamp when transfer was created.</summary>
         public DateTimeOffset? Created { get; set; }
         /// <summary>The details property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -26,11 +26,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransferDetails Details { get; set; }
 #endif
-        /// <summary>Are there any pending issues which stop executing the transfer?</summary>
+        /// <summary>Indicates any pending issues that could stop the transfer from executing.</summary>
         public bool? HasActiveIssues { get; set; }
         /// <summary>Transfer ID</summary>
         public long? Id { get; set; }
-        /// <summary>Unique identifier randomly generated per transfer request by the calling client</summary>
+        /// <summary>Unique identifier randomly generated per transfer request by the calling client.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? OriginalTransferId { get; set; }
@@ -38,7 +38,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string OriginalTransferId { get; set; }
 #endif
-        /// <summary>Data block to capture payment originator details</summary>
+        /// <summary>Data block to capture payment originator details.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransferOriginator? Originator { get; set; }
@@ -46,7 +46,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransferOriginator Originator { get; set; }
 #endif
-        /// <summary>ID of the Payin Session generated for the transfer, which can be used for certain payin methods when funding the transfer</summary>
+        /// <summary>ID of the Payin Session generated for the transfer, which can be used for certain payin methods when funding the transfer.</summary>
         public Guid? PayinSessionId { get; set; }
         /// <summary>Quote ID</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -58,7 +58,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #endif
         /// <summary>Exchange rate value</summary>
         public double? Rate { get; set; }
-        /// <summary>Deprecated, use `details.reference` instead</summary>
+        /// <summary>Deprecated, use `details.reference` instead.</summary>
         [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -79,7 +79,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #endif
         /// <summary>Transfer amount in source currency</summary>
         public double? SourceValue { get; set; }
-        /// <summary>Transfer current status. See [Tracking Transfers](/guides/product/send-money/tracking-transfers) for all possible statuses.</summary>
+        /// <summary>Transfer&apos;s current status.See [Tracking transfers](/guides/product/send-money/tracking/transfer-statuses) for all possible statuses.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Status { get; set; }

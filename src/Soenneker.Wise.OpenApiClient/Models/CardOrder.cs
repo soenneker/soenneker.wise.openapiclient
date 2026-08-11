@@ -82,7 +82,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #endif
         /// <summary>Profile ID.</summary>
         public long? ProfileId { get; set; }
-        /// <summary>A string for replacement card. Not supported at the moment.</summary>
+        /// <summary>Token of the card being replaced by this replacement card order. Nullable.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? ReplacesCard { get; set; }

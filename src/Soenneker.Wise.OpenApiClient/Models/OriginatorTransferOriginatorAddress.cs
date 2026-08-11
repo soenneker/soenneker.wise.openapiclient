@@ -22,7 +22,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string City { get; set; }
 #endif
-        /// <summary>Payment originator address country code ISO 3166-1 alpha-2</summary>
+        /// <summary>Payment originator address country code (ISO 3166-1 alpha-2)</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? CountryCode { get; set; }

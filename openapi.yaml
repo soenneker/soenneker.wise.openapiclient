@@ -22956,9 +22956,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
+                  5.0.0: '#/components/schemas/v5.0.0'
                   4.0.0: '#/components/schemas/v4.0.0-3'
                   2.0.0: '#/components/schemas/v2.0.0-3'
               oneOf:
+                - $ref: '#/components/schemas/v5.0.0'
                 - $ref: '#/components/schemas/v4.0.0-3'
                 - $ref: '#/components/schemas/v2.0.0-3'
       responses:
@@ -24000,11 +24002,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  5.0.0: '#/components/schemas/v5.0.0'
+                  5.0.0: '#/components/schemas/v5.0.0-2'
                   4.0.0: '#/components/schemas/v4.0.0-17'
                   2.0.0: '#/components/schemas/v2.0.0-17'
               oneOf:
-                - $ref: '#/components/schemas/v5.0.0'
+                - $ref: '#/components/schemas/v5.0.0-2'
                 - $ref: '#/components/schemas/v4.0.0-17'
                 - $ref: '#/components/schemas/v2.0.0-17'
       responses:
@@ -24328,11 +24330,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  5.0.0: '#/components/schemas/v5.0.0-2'
+                  5.0.0: '#/components/schemas/v5.0.0-3'
                   4.0.0: '#/components/schemas/v4.0.0-22'
                   2.0.0: '#/components/schemas/v2.0.0-21'
               oneOf:
-                - $ref: '#/components/schemas/v5.0.0-2'
+                - $ref: '#/components/schemas/v5.0.0-3'
                 - $ref: '#/components/schemas/v4.0.0-22'
                 - $ref: '#/components/schemas/v2.0.0-21'
       responses:
@@ -26470,8 +26472,10 @@ components:
           type:
             - string
             - 'null'
-          description: A string for replacement card. Not supported at the moment.
-          example: null
+          description: >-
+            Token of the card being replaced by this replacement card order.
+            Nullable.
+          example: 4dc0be88-903f-49e4-8237-735f1139e3dd
         creationTime:
           type: string
           format: date-time
@@ -31382,14 +31386,16 @@ components:
           example: 8fa9be20-ba43-4b15-abbb-9424e1481050
         status:
           type: string
-          description: >-
-            Transfer current status. See [Tracking
-            Transfers](/guides/product/send-money/tracking-transfers) for all
-            possible statuses.
+          description: >
+            Transfer's current status.
+
+            See [Tracking
+            transfers](/guides/product/send-money/tracking/transfer-statuses)
+            for all possible statuses.
           example: cancelled
         reference:
           type: string
-          description: Deprecated, use `details.reference` instead
+          description: Deprecated, use `details.reference` instead.
           deprecated: true
           example: reference text
         rate:
@@ -31399,7 +31405,7 @@ components:
         created:
           type: string
           format: date-time
-          description: Timestamp when transfer was created
+          description: Timestamp when transfer was created.
           example: '2025-10-29T12:28:16.000Z'
         business:
           type:
@@ -31424,18 +31430,21 @@ components:
               example: Testing
         originator:
           type: object
-          description: Data block to capture payment originator details
+          description: Data block to capture payment originator details.
           properties:
             legalEntityType:
               type: string
               enum:
                 - PRIVATE
                 - BUSINESS
-              description: Payment originator legal type
+              description: Payment originator legal type.
               example: PRIVATE
             reference:
               type: string
-              description: Unique customer ID in your system
+              description: >-
+                Unique customer ID in your system. This allows Wise to uniquely
+                identify each originator. Must be the same ID across all
+                transfers sent by the originator.
               example: CST-2991992
             name:
               type: object
@@ -31495,7 +31504,7 @@ components:
                   example: null
                 countryCode:
                   type: string
-                  description: Payment originator address country code ISO 3166-1 alpha-2
+                  description: Payment originator address country code (ISO 3166-1 alpha-2)
                   example: EE
                 postCode:
                   type: string
@@ -31507,7 +31516,9 @@ components:
               example: '23456789'
         hasActiveIssues:
           type: boolean
-          description: Are there any pending issues which stop executing the transfer?
+          description: >-
+            Indicates any pending issues that could stop the transfer from
+            executing.
           example: false
         sourceCurrency:
           type: string
@@ -31529,14 +31540,14 @@ components:
           type: string
           description: >-
             Unique identifier randomly generated per transfer request by the
-            calling client
+            calling client.
           example: 54a6bc09-cef9-49a8-9041-f1f0c654cd88
         payinSessionId:
           type: string
           format: uuid
           description: >-
             ID of the Payin Session generated for the transfer, which can be
-            used for certain payin methods when funding the transfer
+            used for certain payin methods when funding the transfer.
           example: 23330542-8e9e-419f-95eb-312b880f92ad
     transfer-requirement:
       title: Transfer Requirement
@@ -33223,6 +33234,100 @@ components:
               format: date-time
               description: The date and time the refund was triggered.
               example: '2024-01-01T12:34:56Z'
+    v5.0.0:
+      title: Schema version 5.0.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 5.0.0
+          example: 5.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event.
+          example: 01234567-89ab-cdef-0123-456789abcdef
+        event_type:
+          type: string
+          description: Event type identifier.
+          example: transfers#payout-failure
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent.
+          example: '2023-08-10T10:17:28.123Z'
+        data:
+          type: object
+          properties:
+            transfer_id:
+              type: integer
+              format: int64
+              description: ID of the transfer.
+              example: 111
+            profile_id:
+              type: integer
+              format: int64
+              description: ID of the profile that initiated the transfer.
+              example: 222
+            failure_reason_code:
+              type: string
+              description: >-
+                Code of the failure error. See [Payout
+                failures](/guides/product/send-money/tracking/payout-failures)
+                for available codes.
+              example: TECHNICAL_ISSUE_RETRYABLE
+              enum:
+                - ACCOUNT_BLOCKED
+                - ACCOUNT_CLOSED
+                - ACCOUNT_DOES_NOT_EXIST
+                - ACCOUNT_FROZEN
+                - ACCOUNT_LIMIT_REACHED
+                - BUSINESS_PAYMENTS_FORBIDDEN
+                - CANNOT_ACCEPT_FROM_3RD_PARTY
+                - CREDITING_ACCOUNT_FORBIDDEN
+                - DUPLICATE_ENTRY
+                - EXTERNAL_IDENTIFIER_DETAILS_HAVE_CHANGED
+                - FUNDS_NOT_EXPECTED_RETURNED
+                - MANDATE_NOT_FILLED_IN
+                - REASON_NOT_SPECIFIED
+                - REQUEST_FOR_INFORMATION_EXPIRED
+                - REQUIRES_REPLANNING
+                - RETURN_REQUESTED_BY_RECIPIENT
+                - SENDER_REQUESTED_TO_CANCEL
+                - TAX_ID_NOT_MATCHING
+                - TAX_ID_SUSPENDED
+                - TECHNICAL_ISSUE
+                - TECHNICAL_ISSUE_RETRYABLE
+                - WRONG_ACCOUNT_DETAILS
+                - WRONG_ACCOUNT_NUMBER
+                - WRONG_ACCOUNT_TYPE
+                - WRONG_BANK_CODE
+                - WRONG_BRANCH_CODE
+                - WRONG_CARD_NUMBER
+                - WRONG_CARD_TYPE
+                - WRONG_CURRENCY
+                - WRONG_ID_NUMBER
+                - WRONG_NAME
+                - WRONG_PHONE_NUMBER
+                - WRONG_REFERENCE
+                - WRONG_PAYMENT_PURPOSE
+                - WRONG_RUT_NUMBER
+            failure_description:
+              type: string
+              description: >-
+                Description of the failure code. See [Payout
+                failures](/guides/product/send-money/tracking/payout-failures)
+                for available descriptions.
+              example: Payment failed due to a technical issue, Wise will retry
+            occurred_at:
+              type: string
+              format: date-time
+              description: When the state change occurred.
+              example: '2023-08-10T10:17:23.123Z'
     v4.0.0-3:
       title: Schema version 4.0.0
       type: object
@@ -36526,7 +36631,7 @@ components:
               format: date-time
               description: When the verification state change occurred
               example: '2020-01-01T12:34:56Z'
-    v5.0.0:
+    v5.0.0-2:
       title: Schema version 5.0.0
       type: object
       properties:
@@ -37864,7 +37969,7 @@ components:
               type: string
               description: Return code of the underlying payment system
               example: '200'
-    v5.0.0-2:
+    v5.0.0-3:
       title: Schema version 5.0.0
       type: object
       properties:

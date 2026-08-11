@@ -9,7 +9,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Data block to capture payment originator details
+    /// Data block to capture payment originator details.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class OriginatorTransferOriginator : IAdditionalDataHolder, IParsable
@@ -42,7 +42,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #endif
         /// <summary>Payment originator date of birth</summary>
         public Date? DateOfBirth { get; set; }
-        /// <summary>Payment originator legal type</summary>
+        /// <summary>Payment originator legal type.</summary>
         public global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransferOriginatorLegalEntityType? LegalEntityType { get; set; }
         /// <summary>The name property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -52,7 +52,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransferOriginatorName Name { get; set; }
 #endif
-        /// <summary>Unique customer ID in your system</summary>
+        /// <summary>Unique customer ID in your system. This allows Wise to uniquely identify each originator. Must be the same ID across all transfers sent by the originator.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Reference { get; set; }
