@@ -3021,7 +3021,7 @@
           "card-order"
         ],
         "summary": "Create a card order",
-        "description": "Creates a new card order. The \u0060program\u0060 field value is retrieved from the [retrieve all card programs](/api-reference/card-order/cardorderprogramsget) endpoint.\n\n{% admonition type=\u0022warning\u0022 %}\nThis request requires an extra field in the header, \u0060X-idempotence-uuid\u0060. This should be generated and used for any subsequent retries in the event that the initial request fails.\n{% /admonition %}\n\nWhen you issue a card under a business profile, the cardholder will automatically default to the [business representative](/api-reference/profile/profilebusinesscreatev3).\n\nIf the cardholder is not the business representative, create a cardholder [personal profile](/api-reference/profile/profilepersonalcreate) and add the profileId of the cardholder profile to the \u0060cardHolderProfileId\u0060 field on the card order request.\n\nFor country-specific address fields and validation rules, see the [card address validation guide](/guides/developer/api-guides/card-address-validation).\n",
+        "description": "Creates a new card order. The \u0060program\u0060 field value is retrieved from the [retrieve all card programs](/api-reference/card-order/cardorderprogramsget) endpoint.\n\n{% admonition type=\u0022warning\u0022 %}\nThis request requires an extra field in the header, \u0060X-idempotence-uuid\u0060. This should be generated and used for any subsequent retries in the event that the initial request fails.\n{% /admonition %}\n\nWhen you issue a card under a business profile, the cardholder will automatically default to the [business representative](/api-reference/profile/profilebusinesscreatev5).\n\nIf the cardholder is not the business representative, create a cardholder [personal profile](/api-reference/profile/profilepersonalcreate) and add the profileId of the cardholder profile to the \u0060cardHolderProfileId\u0060 field on the card order request.\n\nFor country-specific address fields and validation rules, see the [card address validation guide](/guides/developer/api-guides/card-address-validation).\n",
         "operationId": "CardOrderCreate",
         "parameters": [
           {
@@ -8544,12 +8544,16 @@
                     },
                     "businessName": "Innovate Solutions Ltd",
                     "registrationNumber": "SC1234567890ABCD",
-                    "descriptionOfBusiness": "SOFTWARE_DEVELOPMENT",
+                    "descriptionOfBusiness": "IT_DEVELOPMENT",
                     "webpage": "https://www.innovate-solutions.co.uk",
                     "companyType": "LIMITED_COMPANY",
                     "businessFreeFormDescription": "We create cutting-edge software for businesses.",
-                    "firstLevelCategory": "TECHNOLOGY",
-                    "secondLevelCategory": "SOFTWARE_SERVICES",
+                    "firstLevelCategory": "CONSULTING_IT_BUSINESS_SERVICES",
+                    "secondLevelCategory": "IT_DEVELOPMENT",
+                    "industryCategories": [
+                      "SOFTWARE_DEVELOPMENT_PUBLISHING",
+                      "IT_CONSULTANCY_TECHNICAL_SUPPORT_SERVICES"
+                    ],
                     "operationalAddresses": [
                       {
                         "id": 36152773,
@@ -8643,8 +8647,8 @@
           "profile"
         ],
         "summary": "Create a business profile",
-        "description": "Create a business profile and its authorized representative in a single request.\n\n{% admonition type=\u0022info\u0022 %}\nThis request accepts an optional field in the header, \u0060X-idempotence-uuid\u0060. This should be unique for each Profile you create. In the event that the request fails, you should use the same value again when retrying. If the \u0060X-idempotence-uuid\u0060 header is not provided and a Profile already exists, then you will receive a response with an HTTP status code \u0060409\u0060.\n{% /admonition %}\n\nSee [Business Category](/guides/developer/api-guides/business-categories) for the list of valid \u0060firstLevelCategory\u0060 and \u0060secondLevelCategory\u0060 values.\n",
-        "operationId": "ProfileBusinessCreateV3",
+        "description": "Creates the business profile and its authorized representative in a single request.\n\n{% admonition type=\u0022info\u0022 %}\nThis request accepts an optional field in the header, \u0060X-idempotence-uuid\u0060. This should be unique for each Profile you create. In the event that the request fails, you should use the same value again when retrying. If the \u0060X-idempotence-uuid\u0060 header is not provided and a Profile already exists, then you will receive a response with an HTTP status code \u0060409\u0060.\n{% /admonition %}\n\nSee [Business Categories](/guides/developer/api-guides/business-categories) for the list of valid \u0060industryCategories\u0060 values, and [Migrating to industry categories](/guides/developer/api-guides/business-profile-industry-categories-migration) if you are moving from a previous version of this endpoint.\n",
+        "operationId": "ProfileBusinessCreateV5",
         "parameters": [
           {
             "name": "X-idempotence-uuid",
@@ -8663,7 +8667,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProfileBusinessCreateV3Request"
+                "$ref": "#/components/schemas/ProfileBusinessCreateV5Request"
               },
               "examples": {
                 "withRepresentativeDetails": {
@@ -8687,8 +8691,10 @@
                     },
                     "externalCustomerId": "67890-biz-acct",
                     "actorEmail": "biz-acct@abcl.com",
-                    "firstLevelCategory": "CONSULTING_IT_BUSINESS_SERVICES",
-                    "secondLevelCategory": "DESIGN",
+                    "industryCategories": [
+                      "SOFTWARE_DEVELOPMENT_PUBLISHING",
+                      "IT_CONSULTANCY_TECHNICAL_SUPPORT_SERVICES"
+                    ],
                     "operationalAddresses": [
                       {
                         "addressFirstLine": "1 A road",
@@ -8739,8 +8745,10 @@
                     },
                     "externalCustomerId": "67890-biz-acct",
                     "actorEmail": "biz-acct@abcl.com",
-                    "firstLevelCategory": "CONSULTING_IT_BUSINESS_SERVICES",
-                    "secondLevelCategory": "DESIGN",
+                    "industryCategories": [
+                      "SOFTWARE_DEVELOPMENT_PUBLISHING",
+                      "IT_CONSULTANCY_TECHNICAL_SUPPORT_SERVICES"
+                    ],
                     "operationalAddresses": [
                       {
                         "addressFirstLine": "1 A road",
@@ -8761,6 +8769,16 @@
           }
         },
         "responses": {
+          "200": {
+            "description": "Created business profile.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessProfileIndustryCategories"
+                }
+              }
+            }
+          },
           "429": {
             "$ref": "#/components/responses/429"
           }
@@ -8873,8 +8891,8 @@
           "profile"
         ],
         "summary": "Update a business profile",
-        "description": "Update user profile information for a business profile.\n\n{% admonition type=\u0022warning\u0022 %}\nIf user profile has been verified then there are restrictions on what information is allowed to change.\n{% /admonition %}\n\nWhere permitted, use the update window functionality by [opening the update window](/api-reference/profile/profileupdatewindowopen), submitting the updated information using this endpoint, and finally [closing the update window](/api-reference/profile/profileupdatewindowclose).\n\nSee [Business Category](/guides/developer/api-guides/business-categories) for the list of valid \u0060firstLevelCategory\u0060 and \u0060secondLevelCategory\u0060 values.\n",
-        "operationId": "ProfileBusinessUpdate",
+        "description": "Update user profile information for a business profile.\n\n{% admonition type=\u0022warning\u0022 %}\nIf user profile has been verified then there are restrictions on what information is allowed to change.\n{% /admonition %}\n\nWhere permitted, use the update window functionality by [opening the update window](/api-reference/profile/profileupdatewindowopen), submitting the updated information using this endpoint, and finally [closing the update window](/api-reference/profile/profileupdatewindowclose).\n\nSee [Business Categories](/guides/developer/api-guides/business-categories) for the list of valid \u0060industryCategories\u0060 values, and [Migrating to industry categories](/guides/developer/api-guides/business-profile-industry-categories-migration) if you are moving from a previous version of this endpoint.\n",
+        "operationId": "ProfileBusinessUpdateV3",
         "parameters": [
           {
             "name": "profileId",
@@ -8894,12 +8912,22 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProfileBusinessUpdateRequest"
+                "$ref": "#/components/schemas/ProfileBusinessUpdateV3Request"
               }
             }
           }
         },
         "responses": {
+          "200": {
+            "description": "Updated business profile.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessProfileIndustryCategories"
+                }
+              }
+            }
+          },
           "429": {
             "$ref": "#/components/responses/429"
           }
@@ -18704,8 +18732,9 @@
           },
           "descriptionOfBusiness": {
             "type": "string",
-            "description": "Brief description of the business.",
-            "example": "SOFTWARE_DEVELOPMENT"
+            "description": "Deprecated. New integrations should use \u0060industryCategories\u0060. See [Migrating to industry categories](/guides/developer/api-guides/business-profile-industry-categories-migration).\n",
+            "example": "IT_DEVELOPMENT",
+            "deprecated": true
           },
           "webpage": {
             "type": "string",
@@ -18727,13 +18756,22 @@
           },
           "firstLevelCategory": {
             "type": "string",
-            "description": "Primary [business category](/guides/developer/api-guides/business-categories).",
-            "example": "CONSULTING_IT_BUSINESS_SERVICES"
+            "description": "Deprecated. New integrations should use \u0060industryCategories\u0060. See [Migrating to industry categories](/guides/developer/api-guides/business-profile-industry-categories-migration).\n",
+            "example": "CONSULTING_IT_BUSINESS_SERVICES",
+            "deprecated": true
           },
           "secondLevelCategory": {
             "type": "string",
-            "description": "Secondary [business category](/guides/developer/api-guides/business-categories).",
-            "example": "IT_DEVELOPMENT"
+            "description": "Deprecated. New integrations should use \u0060industryCategories\u0060. See [Migrating to industry categories](/guides/developer/api-guides/business-profile-industry-categories-migration).\n",
+            "example": "IT_DEVELOPMENT",
+            "deprecated": true
+          },
+          "industryCategories": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "One or more industry categories classifying the business. See [Business Categories](/guides/developer/api-guides/business-categories) for the full list of valid values."
           },
           "operationalAddresses": {
             "type": "array",
@@ -18783,6 +18821,109 @@
         "x-tags": [
           "profile"
         ]
+      },
+      "BusinessProfileIndustryCategories": {
+        "title": "Business Profile",
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/BusinessProfileIndustryCategoriesType"
+          },
+          "id": {
+            "type": "integer",
+            "description": "Unique identifier for the profile.",
+            "format": "int64",
+            "example": 14599371
+          },
+          "publicId": {
+            "type": "string",
+            "description": "Publicly accessible identifier for the profile.",
+            "example": "f0e9d8c7-b6a5-4321-fedc-ba9876543210"
+          },
+          "userId": {
+            "type": "integer",
+            "description": "The ID of the user associated with this profile.",
+            "format": "int64",
+            "example": 9889627
+          },
+          "address": {
+            "$ref": "#/components/schemas/Address2"
+          },
+          "email": {
+            "type": "string",
+            "description": "Primary email address for the business.",
+            "example": "info@innovate-solutions.co.uk"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Timestamp when the profile was created (ISO 8601 format).",
+            "format": "date-time",
+            "example": "2024-03-10T09:00:00"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Timestamp when the profile was last updated (ISO 8601 format).",
+            "format": "date-time",
+            "example": "2025-06-18T14:22:00"
+          },
+          "currentState": {
+            "$ref": "#/components/schemas/BusinessProfileIndustryCategoriesCurrentState"
+          },
+          "contactDetails": {
+            "$ref": "#/components/schemas/BusinessProfileIndustryCategoriesContactDetails"
+          },
+          "businessName": {
+            "type": "string",
+            "description": "Registered business name.",
+            "example": "Innovate Solutions Ltd"
+          },
+          "registrationNumber": {
+            "type": "string",
+            "description": "Business registration number.",
+            "example": "SC1234567890ABCD"
+          },
+          "webpage": {
+            "type": "string",
+            "description": "Business website URL.",
+            "example": "https://www.innovate-solutions.co.uk"
+          },
+          "companyType": {
+            "type": "string",
+            "description": "Type of company.",
+            "example": "LIMITED_COMPANY"
+          },
+          "companyRole": {
+            "$ref": "#/components/schemas/BusinessProfileIndustryCategoriesCompanyRole"
+          },
+          "businessFreeFormDescription": {
+            "type": "string",
+            "description": "Free-form description of the business activities.",
+            "example": "We create cutting-edge software for businesses."
+          },
+          "industryCategories": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "One or more industry categories classifying the business. See [Business Categories](/guides/developer/api-guides/business-categories) for the full list of valid values."
+          },
+          "operationalAddresses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Address2"
+            },
+            "description": "An array of operational addresses for the business."
+          },
+          "fullName": {
+            "type": "string",
+            "description": "Full legal name of the business.",
+            "example": "Innovate Solutions Ltd"
+          }
+        }
       },
       "Director": {
         "type": "object",
@@ -24322,6 +24463,22 @@
         "description": "Contact information for the profile."
       },
       "BusinessProfileContactDetails": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "Contact email address.",
+            "example": "contact@innovate-solutions.co.uk"
+          },
+          "phoneNumber": {
+            "type": "string",
+            "description": "Contact phone number.",
+            "example": "\u002B441617891234"
+          }
+        },
+        "description": "Contact information for the business."
+      },
+      "BusinessProfileIndustryCategoriesContactDetails": {
         "type": "object",
         "properties": {
           "email": {
@@ -35406,7 +35563,7 @@
           }
         }
       },
-      "ProfileBusinessCreateV3Request": {
+      "ProfileBusinessCreateV5Request": {
         "type": "object",
         "properties": {
           "businessName": {
@@ -35449,13 +35606,13 @@
             "example": null
           },
           "companyType": {
-            "$ref": "#/components/schemas/ProfileBusinessCreateV3RequestCompanyType"
+            "$ref": "#/components/schemas/ProfileBusinessCreateV5RequestCompanyType"
           },
           "companyRole": {
-            "$ref": "#/components/schemas/ProfileBusinessCreateV3RequestCompanyRole"
+            "$ref": "#/components/schemas/ProfileBusinessCreateV5RequestCompanyRole"
           },
           "address": {
-            "$ref": "#/components/schemas/ProfileBusinessCreateV3RequestAddress"
+            "$ref": "#/components/schemas/ProfileBusinessCreateV5RequestAddress"
           },
           "externalCustomerId": {
             "type": "string",
@@ -35467,20 +35624,18 @@
             "description": "Email of the actor.",
             "example": "biz-acct@abcl.com"
           },
-          "firstLevelCategory": {
-            "type": "string",
-            "description": "[Category](/guides/developer/api-guides/business-categories) of the business.",
-            "example": "CONSULTING_IT_BUSINESS_SERVICES"
-          },
-          "secondLevelCategory": {
-            "type": "string",
-            "description": "[Secondary category](/guides/developer/api-guides/business-categories) of the business.",
-            "example": "DESIGN"
+          "industryCategories": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "One or more industry categories classifying the business. See [Business Categories](/guides/developer/api-guides/business-categories) for the full list of valid values."
           },
           "operationalAddresses": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ProfileBusinessCreateV3RequestOperationalAddressesItem"
+              "$ref": "#/components/schemas/ProfileBusinessCreateV5RequestOperationalAddressesItem"
             },
             "description": "List of operational addresses."
           },
@@ -35490,7 +35645,7 @@
             "example": "https://abc-logistics.com"
           },
           "businessRepresentative": {
-            "$ref": "#/components/schemas/ProfileBusinessCreateV3RequestBusinessRepresentative"
+            "$ref": "#/components/schemas/ProfileBusinessCreateV5RequestBusinessRepresentative"
           }
         }
       },
@@ -35556,7 +35711,7 @@
           }
         }
       },
-      "ProfileBusinessUpdateRequest": {
+      "ProfileBusinessUpdateV3Request": {
         "type": "object",
         "properties": {
           "id": {
@@ -35605,33 +35760,31 @@
             "example": null
           },
           "companyType": {
-            "$ref": "#/components/schemas/ProfileBusinessUpdateRequestCompanyType"
+            "$ref": "#/components/schemas/ProfileBusinessUpdateV3RequestCompanyType"
           },
           "address": {
-            "$ref": "#/components/schemas/ProfileBusinessUpdateRequestAddress"
+            "$ref": "#/components/schemas/ProfileBusinessUpdateV3RequestAddress"
           },
           "companyRole": {
-            "$ref": "#/components/schemas/ProfileBusinessUpdateRequestCompanyRole"
+            "$ref": "#/components/schemas/ProfileBusinessUpdateV3RequestCompanyRole"
           },
           "externalCustomerId": {
             "type": "string",
             "description": "An external reference identifier mapping the customer of this profile to your system.",
             "example": "67890-biz-acct"
           },
-          "firstLevelCategory": {
-            "type": "string",
-            "description": "[Category](/guides/developer/api-guides/business-categories) of the business.",
-            "example": "CONSULTING_IT_BUSINESS_SERVICES"
-          },
-          "secondLevelCategory": {
-            "type": "string",
-            "description": "[Secondary category](/guides/developer/api-guides/business-categories) of the business.",
-            "example": "DESIGN"
+          "industryCategories": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "One or more industry categories classifying the business. See [Business Categories](/guides/developer/api-guides/business-categories) for the full list of valid values."
           },
           "operationalAddresses": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ProfileBusinessUpdateRequestOperationalAddressesItem"
+              "$ref": "#/components/schemas/ProfileBusinessUpdateV3RequestOperationalAddressesItem"
             },
             "description": "List of operational addresses."
           },
@@ -39006,7 +39159,7 @@
         },
         "description": "Profile details."
       },
-      "ProfileBusinessCreateV3RequestAddress": {
+      "ProfileBusinessCreateV5RequestAddress": {
         "type": "object",
         "properties": {
           "addressFirstLine": {
@@ -39040,7 +39193,7 @@
           }
         }
       },
-      "ProfileBusinessCreateV3RequestOperationalAddressesItem": {
+      "ProfileBusinessCreateV5RequestOperationalAddressesItem": {
         "type": "object",
         "properties": {
           "addressFirstLine": {
@@ -39068,7 +39221,7 @@
           }
         }
       },
-      "ProfileBusinessCreateV3RequestBusinessRepresentative": {
+      "ProfileBusinessCreateV5RequestBusinessRepresentative": {
         "type": "object",
         "properties": {
           "businessRepresentativeId": {
@@ -39091,10 +39244,10 @@
             "example": "Olivia"
           },
           "address": {
-            "$ref": "#/components/schemas/ProfileBusinessCreateV3RequestBusinessRepresentativeAddress"
+            "$ref": "#/components/schemas/ProfileBusinessCreateV5RequestBusinessRepresentativeAddress"
           },
           "contactDetails": {
-            "$ref": "#/components/schemas/ProfileBusinessCreateV3RequestBusinessRepresentativeContactDetails"
+            "$ref": "#/components/schemas/ProfileBusinessCreateV5RequestBusinessRepresentativeContactDetails"
           },
           "dateOfBirth": {
             "type": "string",
@@ -39165,7 +39318,7 @@
           }
         }
       },
-      "ProfileBusinessUpdateRequestAddress": {
+      "ProfileBusinessUpdateV3RequestAddress": {
         "type": "object",
         "properties": {
           "addressFirstLine": {
@@ -39200,7 +39353,7 @@
           }
         }
       },
-      "ProfileBusinessUpdateRequestOperationalAddressesItem": {
+      "ProfileBusinessUpdateV3RequestOperationalAddressesItem": {
         "type": "object",
         "properties": {
           "addressFirstLine": {
@@ -40637,7 +40790,7 @@
       "ProfilePersonalCreate200ResponseDetailsLocalizedInformationItem": {
         "type": "object"
       },
-      "ProfileBusinessCreateV3RequestBusinessRepresentativeAddress": {
+      "ProfileBusinessCreateV5RequestBusinessRepresentativeAddress": {
         "type": "object",
         "properties": {
           "addressFirstLine": {
@@ -40667,7 +40820,7 @@
           }
         }
       },
-      "ProfileBusinessCreateV3RequestBusinessRepresentativeContactDetails": {
+      "ProfileBusinessCreateV5RequestBusinessRepresentativeContactDetails": {
         "type": "object",
         "properties": {
           "email": {
@@ -42176,6 +42329,83 @@
         "example": "OWNER",
         "x-ms-enum": {
           "name": "BusinessProfileCompanyRole",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "OWNER",
+              "name": "Owner"
+            },
+            {
+              "value": "DIRECTOR",
+              "name": "Director"
+            },
+            {
+              "value": "OTHER",
+              "name": "Other"
+            }
+          ]
+        }
+      },
+      "BusinessProfileIndustryCategoriesType": {
+        "enum": [
+          "BUSINESS"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Type of profile.",
+        "example": "BUSINESS",
+        "x-ms-enum": {
+          "name": "BusinessProfileIndustryCategoriesType",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "BUSINESS",
+              "name": "Business"
+            }
+          ]
+        }
+      },
+      "BusinessProfileIndustryCategoriesCurrentState": {
+        "enum": [
+          "HIDDEN",
+          "VISIBLE",
+          "DEACTIVATED"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Current status of this profile.",
+        "example": "VISIBLE",
+        "x-ms-enum": {
+          "name": "BusinessProfileIndustryCategoriesCurrentState",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "HIDDEN",
+              "name": "Hidden"
+            },
+            {
+              "value": "VISIBLE",
+              "name": "Visible"
+            },
+            {
+              "value": "DEACTIVATED",
+              "name": "Deactivated"
+            }
+          ]
+        }
+      },
+      "BusinessProfileIndustryCategoriesCompanyRole": {
+        "enum": [
+          "OWNER",
+          "DIRECTOR",
+          "OTHER"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Role of the person managing the business profile.",
+        "example": "OWNER",
+        "x-ms-enum": {
+          "name": "BusinessProfileIndustryCategoriesCompanyRole",
           "modelAsString": false,
           "values": [
             {
@@ -46058,7 +46288,7 @@
           ]
         }
       },
-      "ProfileBusinessCreateV3RequestCompanyType": {
+      "ProfileBusinessCreateV5RequestCompanyType": {
         "enum": [
           "LIMITED",
           "PARTNERSHIP",
@@ -46081,7 +46311,7 @@
         "description": "Company legal form.",
         "example": "LIMITED",
         "x-ms-enum": {
-          "name": "ProfileBusinessCreateV3RequestCompanyType",
+          "name": "ProfileBusinessCreateV5RequestCompanyType",
           "modelAsString": false,
           "values": [
             {
@@ -46147,7 +46377,7 @@
           ]
         }
       },
-      "ProfileBusinessCreateV3RequestCompanyRole": {
+      "ProfileBusinessCreateV5RequestCompanyRole": {
         "enum": [
           "OWNER",
           "DIRECTOR",
@@ -46158,7 +46388,7 @@
         "description": "Role of person.",
         "example": "OWNER",
         "x-ms-enum": {
-          "name": "ProfileBusinessCreateV3RequestCompanyRole",
+          "name": "ProfileBusinessCreateV5RequestCompanyRole",
           "modelAsString": false,
           "values": [
             {
@@ -46176,7 +46406,7 @@
           ]
         }
       },
-      "ProfileBusinessUpdateRequestCompanyType": {
+      "ProfileBusinessUpdateV3RequestCompanyType": {
         "enum": [
           "LIMITED",
           "PARTNERSHIP",
@@ -46199,7 +46429,7 @@
         "description": "Company legal form.",
         "example": "LIMITED",
         "x-ms-enum": {
-          "name": "ProfileBusinessUpdateRequestCompanyType",
+          "name": "ProfileBusinessUpdateV3RequestCompanyType",
           "modelAsString": false,
           "values": [
             {
@@ -46265,7 +46495,7 @@
           ]
         }
       },
-      "ProfileBusinessUpdateRequestCompanyRole": {
+      "ProfileBusinessUpdateV3RequestCompanyRole": {
         "enum": [
           "OWNER",
           "DIRECTOR",
@@ -46276,7 +46506,7 @@
         "description": "Role of person.",
         "example": "OWNER",
         "x-ms-enum": {
-          "name": "ProfileBusinessUpdateRequestCompanyRole",
+          "name": "ProfileBusinessUpdateV3RequestCompanyRole",
           "modelAsString": false,
           "values": [
             {

@@ -3,21 +3,21 @@ using System.Runtime.Serialization;
 using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
-    /// <summary>Role of person.</summary>
+    /// <summary>Current status of this profile.</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    public enum ProfileBusinessUpdateRequestCompanyRole
+    public enum BusinessProfileIndustryCategoriesCurrentState
     {
-        [EnumMember(Value = "OWNER")]
+        [EnumMember(Value = "HIDDEN")]
         #pragma warning disable CS1591
-        Owner,
+        Hidden,
         #pragma warning restore CS1591
-        [EnumMember(Value = "DIRECTOR")]
+        [EnumMember(Value = "VISIBLE")]
         #pragma warning disable CS1591
-        Director,
+        Visible,
         #pragma warning restore CS1591
-        [EnumMember(Value = "OTHER")]
+        [EnumMember(Value = "DEACTIVATED")]
         #pragma warning disable CS1591
-        Other,
+        Deactivated,
         #pragma warning restore CS1591
     }
 }

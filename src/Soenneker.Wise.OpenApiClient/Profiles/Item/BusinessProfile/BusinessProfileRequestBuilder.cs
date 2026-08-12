@@ -40,20 +40,20 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.Item.BusinessProfile
         {
         }
         /// <summary>
-        /// Update user profile information for a business profile.{% admonition type=&quot;warning&quot; %}If user profile has been verified then there are restrictions on what information is allowed to change.{% /admonition %}Where permitted, use the update window functionality by [opening the update window](/api-reference/profile/profileupdatewindowopen), submitting the updated information using this endpoint, and finally [closing the update window](/api-reference/profile/profileupdatewindowclose).See [Business Category](/guides/developer/api-guides/business-categories) for the list of valid `firstLevelCategory` and `secondLevelCategory` values.
+        /// Update user profile information for a business profile.{% admonition type=&quot;warning&quot; %}If user profile has been verified then there are restrictions on what information is allowed to change.{% /admonition %}Where permitted, use the update window functionality by [opening the update window](/api-reference/profile/profileupdatewindowopen), submitting the updated information using this endpoint, and finally [closing the update window](/api-reference/profile/profileupdatewindowclose).See [Business Categories](/guides/developer/api-guides/business-categories) for the list of valid `industryCategories` values, and [Migrating to industry categories](/guides/developer/api-guides/business-profile-industry-categories-migration) if you are moving from a previous version of this endpoint.
         /// </summary>
-        /// <returns>A <see cref="Stream"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.BusinessProfileIndustryCategories"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<Stream?> PutAsync(global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessUpdateRequest body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.BusinessProfileIndustryCategories?> PutAsync(global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessUpdateV3Request body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<Stream> PutAsync(global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessUpdateRequest body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.BusinessProfileIndustryCategories> PutAsync(global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessUpdateV3Request body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
@@ -62,21 +62,21 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.Item.BusinessProfile
             {
                 { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
             };
-            return await RequestAdapter.SendPrimitiveAsync<Stream>(requestInfo, errorMapping, cancellationToken).ConfigureAwait(false);
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.BusinessProfileIndustryCategories>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.BusinessProfileIndustryCategories.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Update user profile information for a business profile.{% admonition type=&quot;warning&quot; %}If user profile has been verified then there are restrictions on what information is allowed to change.{% /admonition %}Where permitted, use the update window functionality by [opening the update window](/api-reference/profile/profileupdatewindowopen), submitting the updated information using this endpoint, and finally [closing the update window](/api-reference/profile/profileupdatewindowclose).See [Business Category](/guides/developer/api-guides/business-categories) for the list of valid `firstLevelCategory` and `secondLevelCategory` values.
+        /// Update user profile information for a business profile.{% admonition type=&quot;warning&quot; %}If user profile has been verified then there are restrictions on what information is allowed to change.{% /admonition %}Where permitted, use the update window functionality by [opening the update window](/api-reference/profile/profileupdatewindowopen), submitting the updated information using this endpoint, and finally [closing the update window](/api-reference/profile/profileupdatewindowclose).See [Business Categories](/guides/developer/api-guides/business-categories) for the list of valid `industryCategories` values, and [Migrating to industry categories](/guides/developer/api-guides/business-profile-industry-categories-migration) if you are moving from a previous version of this endpoint.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToPutRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessUpdateRequest body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        public RequestInformation ToPutRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessUpdateV3Request body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
         {
 #nullable restore
 #else
-        public RequestInformation ToPutRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessUpdateRequest body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        public RequestInformation ToPutRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessUpdateV3Request body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));

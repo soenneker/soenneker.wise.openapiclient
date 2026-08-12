@@ -6138,7 +6138,7 @@ paths:
 
         When you issue a card under a business profile, the cardholder will
         automatically default to the [business
-        representative](/api-reference/profile/profilebusinesscreatev3).
+        representative](/api-reference/profile/profilebusinesscreatev5).
 
 
         If the cardholder is not the business representative, create a
@@ -12772,12 +12772,15 @@ paths:
                     phoneNumber: '+441617891234'
                   businessName: Innovate Solutions Ltd
                   registrationNumber: SC1234567890ABCD
-                  descriptionOfBusiness: SOFTWARE_DEVELOPMENT
+                  descriptionOfBusiness: IT_DEVELOPMENT
                   webpage: https://www.innovate-solutions.co.uk
                   companyType: LIMITED_COMPANY
                   businessFreeFormDescription: We create cutting-edge software for businesses.
-                  firstLevelCategory: TECHNOLOGY
-                  secondLevelCategory: SOFTWARE_SERVICES
+                  firstLevelCategory: CONSULTING_IT_BUSINESS_SERVICES
+                  secondLevelCategory: IT_DEVELOPMENT
+                  industryCategories:
+                    - SOFTWARE_DEVELOPMENT_PUBLISHING
+                    - IT_CONSULTANCY_TECHNICAL_SUPPORT_SERVICES
                   operationalAddresses:
                     - id: 36152773
                       addressFirstLine: Unit 5, Innovation Park
@@ -13074,11 +13077,11 @@ paths:
           $ref: '#/components/responses/429'
   /profiles/business-profile:
     post:
-      operationId: profileBusinessCreateV3
+      operationId: profileBusinessCreateV5
       summary: Create a business profile
       description: >
-        Create a business profile and its authorized representative in a single
-        request.
+        Creates the business profile and its authorized representative in a
+        single request.
 
 
         {% admonition type="info" %}
@@ -13094,8 +13097,10 @@ paths:
 
 
         See [Business
-        Category](/guides/developer/api-guides/business-categories) for the list
-        of valid `firstLevelCategory` and `secondLevelCategory` values.
+        Categories](/guides/developer/api-guides/business-categories) for the
+        list of valid `industryCategories` values, and [Migrating to industry
+        categories](/guides/developer/api-guides/business-profile-industry-categories-migration)
+        if you are moving from a previous version of this endpoint.
       tags:
         - profile
       security:
@@ -13225,19 +13230,19 @@ paths:
                   type: string
                   description: Email of the actor.
                   example: biz-acct@abcl.com
-                firstLevelCategory:
-                  type: string
+                industryCategories:
+                  type: array
                   description: >-
-                    [Category](/guides/developer/api-guides/business-categories)
-                    of the business.
-                  example: CONSULTING_IT_BUSINESS_SERVICES
-                secondLevelCategory:
-                  type: string
-                  description: >-
-                    [Secondary
-                    category](/guides/developer/api-guides/business-categories)
-                    of the business.
-                  example: DESIGN
+                    One or more industry categories classifying the business.
+                    See [Business
+                    Categories](/guides/developer/api-guides/business-categories)
+                    for the full list of valid values.
+                  minItems: 1
+                  items:
+                    type: string
+                  example:
+                    - SOFTWARE_DEVELOPMENT_PUBLISHING
+                    - IT_CONSULTANCY_TECHNICAL_SUPPORT_SERVICES
                 operationalAddresses:
                   type: array
                   description: List of operational addresses.
@@ -13385,8 +13390,9 @@ paths:
                     postCode: '11111'
                   externalCustomerId: 67890-biz-acct
                   actorEmail: biz-acct@abcl.com
-                  firstLevelCategory: CONSULTING_IT_BUSINESS_SERVICES
-                  secondLevelCategory: DESIGN
+                  industryCategories:
+                    - SOFTWARE_DEVELOPMENT_PUBLISHING
+                    - IT_CONSULTANCY_TECHNICAL_SUPPORT_SERVICES
                   operationalAddresses:
                     - addressFirstLine: 1 A road
                       city: London
@@ -13428,8 +13434,9 @@ paths:
                     postCode: '11111'
                   externalCustomerId: 67890-biz-acct
                   actorEmail: biz-acct@abcl.com
-                  firstLevelCategory: CONSULTING_IT_BUSINESS_SERVICES
-                  secondLevelCategory: DESIGN
+                  industryCategories:
+                    - SOFTWARE_DEVELOPMENT_PUBLISHING
+                    - IT_CONSULTANCY_TECHNICAL_SUPPORT_SERVICES
                   operationalAddresses:
                     - addressFirstLine: 1 A road
                       city: London
@@ -13442,6 +13449,10 @@ paths:
       responses:
         '200':
           description: Created business profile.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/business-profile-industry-categories'
           headers:
             X-External-Correlation-Id:
               $ref: '#/components/headers/X-External-Correlation-Id'
@@ -13636,7 +13647,7 @@ paths:
           $ref: '#/components/responses/429'
   /profiles/{profileId}/business-profile:
     put:
-      operationId: profileBusinessUpdate
+      operationId: profileBusinessUpdateV3
       summary: Update a business profile
       description: >
         Update user profile information for a business profile.
@@ -13658,8 +13669,10 @@ paths:
 
 
         See [Business
-        Category](/guides/developer/api-guides/business-categories) for the list
-        of valid `firstLevelCategory` and `secondLevelCategory` values.
+        Categories](/guides/developer/api-guides/business-categories) for the
+        list of valid `industryCategories` values, and [Migrating to industry
+        categories](/guides/developer/api-guides/business-profile-industry-categories-migration)
+        if you are moving from a previous version of this endpoint.
       tags:
         - profile
       security:
@@ -13786,19 +13799,19 @@ paths:
                     An external reference identifier mapping the customer of
                     this profile to your system.
                   example: 67890-biz-acct
-                firstLevelCategory:
-                  type: string
+                industryCategories:
+                  type: array
                   description: >-
-                    [Category](/guides/developer/api-guides/business-categories)
-                    of the business.
-                  example: CONSULTING_IT_BUSINESS_SERVICES
-                secondLevelCategory:
-                  type: string
-                  description: >-
-                    [Secondary
-                    category](/guides/developer/api-guides/business-categories)
-                    of the business.
-                  example: DESIGN
+                    One or more industry categories classifying the business.
+                    See [Business
+                    Categories](/guides/developer/api-guides/business-categories)
+                    for the full list of valid values.
+                  minItems: 1
+                  items:
+                    type: string
+                  example:
+                    - SOFTWARE_DEVELOPMENT_PUBLISHING
+                    - IT_CONSULTANCY_TECHNICAL_SUPPORT_SERVICES
                 operationalAddresses:
                   type: array
                   description: List of operational addresses.
@@ -13838,6 +13851,10 @@ paths:
       responses:
         '200':
           description: Updated business profile.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/business-profile-industry-categories'
           headers:
             X-External-Correlation-Id:
               $ref: '#/components/headers/X-External-Correlation-Id'
@@ -29557,8 +29574,12 @@ components:
           example: SC1234567890ABCD
         descriptionOfBusiness:
           type: string
-          description: Brief description of the business.
-          example: SOFTWARE_DEVELOPMENT
+          deprecated: true
+          description: >
+            Deprecated. New integrations should use `industryCategories`. See
+            [Migrating to industry
+            categories](/guides/developer/api-guides/business-profile-industry-categories-migration).
+          example: IT_DEVELOPMENT
         webpage:
           type: string
           description: Business website URL.
@@ -29581,16 +29602,32 @@ components:
           example: We create cutting-edge software for businesses.
         firstLevelCategory:
           type: string
-          description: >-
-            Primary [business
-            category](/guides/developer/api-guides/business-categories).
+          deprecated: true
+          description: >
+            Deprecated. New integrations should use `industryCategories`. See
+            [Migrating to industry
+            categories](/guides/developer/api-guides/business-profile-industry-categories-migration).
           example: CONSULTING_IT_BUSINESS_SERVICES
         secondLevelCategory:
           type: string
-          description: >-
-            Secondary [business
-            category](/guides/developer/api-guides/business-categories).
+          deprecated: true
+          description: >
+            Deprecated. New integrations should use `industryCategories`. See
+            [Migrating to industry
+            categories](/guides/developer/api-guides/business-profile-industry-categories-migration).
           example: IT_DEVELOPMENT
+        industryCategories:
+          type: array
+          description: >-
+            One or more industry categories classifying the business. See
+            [Business
+            Categories](/guides/developer/api-guides/business-categories) for
+            the full list of valid values.
+          items:
+            type: string
+          example:
+            - SOFTWARE_DEVELOPMENT_PUBLISHING
+            - IT_CONSULTANCY_TECHNICAL_SUPPORT_SERVICES
         operationalAddresses:
           type: array
           description: An array of operational addresses for the business.
@@ -29616,6 +29653,119 @@ components:
       oneOf:
         - $ref: '#/components/schemas/personal-profile'
         - $ref: '#/components/schemas/business-profile'
+    business-profile-industry-categories:
+      title: Business Profile
+      type: object
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          description: Type of profile.
+          enum:
+            - BUSINESS
+          example: BUSINESS
+        id:
+          type: integer
+          format: int64
+          description: Unique identifier for the profile.
+          example: 14599371
+        publicId:
+          type: string
+          description: Publicly accessible identifier for the profile.
+          example: f0e9d8c7-b6a5-4321-fedc-ba9876543210
+        userId:
+          type: integer
+          format: int64
+          description: The ID of the user associated with this profile.
+          example: 9889627
+        address:
+          description: Main registered address of the business.
+          $ref: '#/components/schemas/address'
+        email:
+          type: string
+          description: Primary email address for the business.
+          example: info@innovate-solutions.co.uk
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp when the profile was created (ISO 8601 format).
+          example: '2024-03-10T09:00:00'
+        updatedAt:
+          type: string
+          format: date-time
+          description: Timestamp when the profile was last updated (ISO 8601 format).
+          example: '2025-06-18T14:22:00'
+        currentState:
+          type: string
+          description: Current status of this profile.
+          enum:
+            - HIDDEN
+            - VISIBLE
+            - DEACTIVATED
+          example: VISIBLE
+        contactDetails:
+          type: object
+          description: Contact information for the business.
+          properties:
+            email:
+              type: string
+              description: Contact email address.
+              example: contact@innovate-solutions.co.uk
+            phoneNumber:
+              type: string
+              description: Contact phone number.
+              example: '+441617891234'
+        businessName:
+          type: string
+          description: Registered business name.
+          example: Innovate Solutions Ltd
+        registrationNumber:
+          type: string
+          description: Business registration number.
+          example: SC1234567890ABCD
+        webpage:
+          type: string
+          description: Business website URL.
+          example: https://www.innovate-solutions.co.uk
+        companyType:
+          type: string
+          description: Type of company.
+          example: LIMITED_COMPANY
+        companyRole:
+          type: string
+          description: Role of the person managing the business profile.
+          enum:
+            - OWNER
+            - DIRECTOR
+            - OTHER
+          example: OWNER
+        businessFreeFormDescription:
+          type: string
+          description: Free-form description of the business activities.
+          example: We create cutting-edge software for businesses.
+        industryCategories:
+          type: array
+          minItems: 1
+          description: >-
+            One or more industry categories classifying the business. See
+            [Business
+            Categories](/guides/developer/api-guides/business-categories) for
+            the full list of valid values.
+          items:
+            type: string
+          example:
+            - SOFTWARE_DEVELOPMENT_PUBLISHING
+            - IT_CONSULTANCY_TECHNICAL_SUPPORT_SERVICES
+        operationalAddresses:
+          type: array
+          description: An array of operational addresses for the business.
+          items:
+            $ref: '#/components/schemas/address'
+        fullName:
+          type: string
+          description: Full legal name of the business.
+          example: Innovate Solutions Ltd
     director:
       type: object
       properties:

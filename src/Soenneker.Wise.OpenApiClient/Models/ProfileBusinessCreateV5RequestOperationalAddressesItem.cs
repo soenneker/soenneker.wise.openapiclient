@@ -9,12 +9,12 @@ namespace Soenneker.Wise.OpenApiClient.Models
 {
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
-    public partial class ProfileBusinessCreateV3RequestAddress : IAdditionalDataHolder, IParsable
+    public partial class ProfileBusinessCreateV5RequestOperationalAddressesItem : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>First line of address.</summary>
+        /// <summary>The addressFirstLine property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? AddressFirstLine { get; set; }
@@ -22,7 +22,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string AddressFirstLine { get; set; }
 #endif
-        /// <summary>City.</summary>
+        /// <summary>The city property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? City { get; set; }
@@ -30,7 +30,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string City { get; set; }
 #endif
-        /// <summary>2 letter country code.</summary>
+        /// <summary>The countryIso2Code property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? CountryIso2Code { get; set; }
@@ -38,7 +38,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string CountryIso2Code { get; set; }
 #endif
-        /// <summary>3 letter country code. Must be lowercase.</summary>
+        /// <summary>The countryIso3Code property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? CountryIso3Code { get; set; }
@@ -46,7 +46,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string CountryIso3Code { get; set; }
 #endif
-        /// <summary>Postal code.</summary>
+        /// <summary>The postCode property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? PostCode { get; set; }
@@ -54,7 +54,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string PostCode { get; set; }
 #endif
-        /// <summary>State code.</summary>
+        /// <summary>The stateCode property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? StateCode { get; set; }
@@ -63,21 +63,21 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public string StateCode { get; set; }
 #endif
         /// <summary>
-        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestAddress"/> and sets the default values.
+        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV5RequestOperationalAddressesItem"/> and sets the default values.
         /// </summary>
-        public ProfileBusinessCreateV3RequestAddress()
+        public ProfileBusinessCreateV5RequestOperationalAddressesItem()
         {
             AdditionalData = new Dictionary<string, object>();
         }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestAddress"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV5RequestOperationalAddressesItem"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestAddress CreateFromDiscriminatorValue(IParseNode parseNode)
+        public static global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV5RequestOperationalAddressesItem CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestAddress();
+            return new global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV5RequestOperationalAddressesItem();
         }
         /// <summary>
         /// The deserialization information for the current model

@@ -9,7 +9,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 {
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
-    public partial class ProfileBusinessCreateV3Request : IAdditionalDataHolder, IParsable
+    public partial class ProfileBusinessUpdateV3Request : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
     {
         /// <summary>Australian Business Number (only for Australian businesses).</summary>
@@ -28,23 +28,15 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string Acn { get; set; }
 #endif
-        /// <summary>Email of the actor.</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? ActorEmail { get; set; }
-#nullable restore
-#else
-        public string ActorEmail { get; set; }
-#endif
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The address property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestAddress? Address { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessUpdateV3RequestAddress? Address { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestAddress Address { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessUpdateV3RequestAddress Address { get; set; }
 #endif
         /// <summary>Australian Registered Body Number (only for Australian businesses).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -54,7 +46,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string Arbn { get; set; }
 #endif
-        /// <summary>Business free form description. Required if `companyType` is `OTHER`. If this is not provided for an `OTHER` companyType, the profile should not be allowed to create a transfer.For the rest of the companyTypes, it is highly recommended to always provide the business&apos; description, to avoid payment issues such as suspensions. Wise will send a request for information (RFI) if this detail is not provided.</summary>
+        /// <summary>Business free form description.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? BusinessFreeFormDescription { get; set; }
@@ -78,18 +70,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string BusinessNameInKatakana { get; set; }
 #endif
-        /// <summary>Business representative details. Provide either the full representative details or just the `businessRepresentativeId` to link an existing representative.</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentative? BusinessRepresentative { get; set; }
-#nullable restore
-#else
-        public global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentative BusinessRepresentative { get; set; }
-#endif
         /// <summary>Role of person.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestCompanyRole? CompanyRole { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessUpdateV3RequestCompanyRole? CompanyRole { get; set; }
         /// <summary>Company legal form.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestCompanyType? CompanyType { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessUpdateV3RequestCompanyType? CompanyType { get; set; }
         /// <summary>An external reference identifier mapping the customer of this profile to your system.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -98,21 +82,23 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string ExternalCustomerId { get; set; }
 #endif
-        /// <summary>[Category](/guides/developer/api-guides/business-categories) of the business.</summary>
+        /// <summary>Business profile ID. This must match the business profile ID supplied in the URL.</summary>
+        public long? Id { get; set; }
+        /// <summary>One or more industry categories classifying the business. See [Business Categories](/guides/developer/api-guides/business-categories) for the full list of valid values.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? FirstLevelCategory { get; set; }
+        public List<string>? IndustryCategories { get; set; }
 #nullable restore
 #else
-        public string FirstLevelCategory { get; set; }
+        public List<string> IndustryCategories { get; set; }
 #endif
         /// <summary>List of operational addresses.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestOperationalAddressesItem>? OperationalAddresses { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessUpdateV3RequestOperationalAddressesItem>? OperationalAddresses { get; set; }
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestOperationalAddressesItem> OperationalAddresses { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessUpdateV3RequestOperationalAddressesItem> OperationalAddresses { get; set; }
 #endif
         /// <summary>Business registration number.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -121,14 +107,6 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #nullable restore
 #else
         public string RegistrationNumber { get; set; }
-#endif
-        /// <summary>[Secondary category](/guides/developer/api-guides/business-categories) of the business.</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? SecondLevelCategory { get; set; }
-#nullable restore
-#else
-        public string SecondLevelCategory { get; set; }
 #endif
         /// <summary>Business webpage. Required if `companyType` is `OTHER`. If this is not provided for an `OTHER` companyType, the profile should not be allowed to create a transfer.For the rest of the companyTypes, it is highly recommended to always provide the business&apos; website, to avoid payment issues such as suspensions. Wise will send a request for information (RFI) if this detail is not provided.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -139,21 +117,21 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public string Webpage { get; set; }
 #endif
         /// <summary>
-        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3Request"/> and sets the default values.
+        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessUpdateV3Request"/> and sets the default values.
         /// </summary>
-        public ProfileBusinessCreateV3Request()
+        public ProfileBusinessUpdateV3Request()
         {
             AdditionalData = new Dictionary<string, object>();
         }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3Request"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessUpdateV3Request"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3Request CreateFromDiscriminatorValue(IParseNode parseNode)
+        public static global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessUpdateV3Request CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3Request();
+            return new global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessUpdateV3Request();
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -165,20 +143,18 @@ namespace Soenneker.Wise.OpenApiClient.Models
             {
                 { "abn", n => { Abn = n.GetStringValue(); } },
                 { "acn", n => { Acn = n.GetStringValue(); } },
-                { "actorEmail", n => { ActorEmail = n.GetStringValue(); } },
-                { "address", n => { Address = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestAddress>(global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestAddress.CreateFromDiscriminatorValue); } },
+                { "address", n => { Address = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessUpdateV3RequestAddress>(global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessUpdateV3RequestAddress.CreateFromDiscriminatorValue); } },
                 { "arbn", n => { Arbn = n.GetStringValue(); } },
                 { "businessFreeFormDescription", n => { BusinessFreeFormDescription = n.GetStringValue(); } },
                 { "businessName", n => { BusinessName = n.GetStringValue(); } },
                 { "businessNameInKatakana", n => { BusinessNameInKatakana = n.GetStringValue(); } },
-                { "businessRepresentative", n => { BusinessRepresentative = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentative>(global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentative.CreateFromDiscriminatorValue); } },
-                { "companyRole", n => { CompanyRole = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestCompanyRole>(); } },
-                { "companyType", n => { CompanyType = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestCompanyType>(); } },
+                { "companyRole", n => { CompanyRole = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessUpdateV3RequestCompanyRole>(); } },
+                { "companyType", n => { CompanyType = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessUpdateV3RequestCompanyType>(); } },
                 { "externalCustomerId", n => { ExternalCustomerId = n.GetStringValue(); } },
-                { "firstLevelCategory", n => { FirstLevelCategory = n.GetStringValue(); } },
-                { "operationalAddresses", n => { OperationalAddresses = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestOperationalAddressesItem>(global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestOperationalAddressesItem.CreateFromDiscriminatorValue)?.AsList(); } },
+                { "id", n => { Id = n.GetLongValue(); } },
+                { "industryCategories", n => { IndustryCategories = n.GetCollectionOfPrimitiveValues<string>()?.AsList(); } },
+                { "operationalAddresses", n => { OperationalAddresses = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessUpdateV3RequestOperationalAddressesItem>(global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessUpdateV3RequestOperationalAddressesItem.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "registrationNumber", n => { RegistrationNumber = n.GetStringValue(); } },
-                { "secondLevelCategory", n => { SecondLevelCategory = n.GetStringValue(); } },
                 { "webpage", n => { Webpage = n.GetStringValue(); } },
             };
         }
@@ -191,20 +167,18 @@ namespace Soenneker.Wise.OpenApiClient.Models
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("abn", Abn);
             writer.WriteStringValue("acn", Acn);
-            writer.WriteStringValue("actorEmail", ActorEmail);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestAddress>("address", Address);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessUpdateV3RequestAddress>("address", Address);
             writer.WriteStringValue("arbn", Arbn);
             writer.WriteStringValue("businessFreeFormDescription", BusinessFreeFormDescription);
             writer.WriteStringValue("businessName", BusinessName);
             writer.WriteStringValue("businessNameInKatakana", BusinessNameInKatakana);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentative>("businessRepresentative", BusinessRepresentative);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestCompanyRole>("companyRole", CompanyRole);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestCompanyType>("companyType", CompanyType);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessUpdateV3RequestCompanyRole>("companyRole", CompanyRole);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessUpdateV3RequestCompanyType>("companyType", CompanyType);
             writer.WriteStringValue("externalCustomerId", ExternalCustomerId);
-            writer.WriteStringValue("firstLevelCategory", FirstLevelCategory);
-            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestOperationalAddressesItem>("operationalAddresses", OperationalAddresses);
+            writer.WriteLongValue("id", Id);
+            writer.WriteCollectionOfPrimitiveValues<string>("industryCategories", IndustryCategories);
+            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessUpdateV3RequestOperationalAddressesItem>("operationalAddresses", OperationalAddresses);
             writer.WriteStringValue("registrationNumber", RegistrationNumber);
-            writer.WriteStringValue("secondLevelCategory", SecondLevelCategory);
             writer.WriteStringValue("webpage", Webpage);
             writer.WriteAdditionalData(AdditionalData);
         }

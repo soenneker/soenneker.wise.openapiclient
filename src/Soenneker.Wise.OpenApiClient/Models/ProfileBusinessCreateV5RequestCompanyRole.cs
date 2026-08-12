@@ -5,7 +5,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>Role of person.</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    public enum ProfileBusinessCreateV3RequestCompanyRole
+    public enum ProfileBusinessCreateV5RequestCompanyRole
     {
         [EnumMember(Value = "OWNER")]
         #pragma warning disable CS1591

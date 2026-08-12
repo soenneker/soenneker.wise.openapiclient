@@ -11,27 +11,27 @@ namespace Soenneker.Wise.OpenApiClient.Models
     /// Business representative details. Provide either the full representative details or just the `businessRepresentativeId` to link an existing representative.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    public partial class ProfileBusinessCreateV3RequestBusinessRepresentative : IAdditionalDataHolder, IParsable
+    public partial class ProfileBusinessCreateV5RequestBusinessRepresentative : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The address property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentativeAddress? Address { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV5RequestBusinessRepresentativeAddress? Address { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentativeAddress Address { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV5RequestBusinessRepresentativeAddress Address { get; set; }
 #endif
         /// <summary>ID of a Business Representative. This can be obtained from a previous call to create a business profile, in which case the same Business Representative is linked to the current business effectively sharing it across multiple businesses. When the Business Representative ID is provided, it is the only field required and none of the other fields should be provided.</summary>
         public int? BusinessRepresentativeId { get; set; }
         /// <summary>The contactDetails property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentativeContactDetails? ContactDetails { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV5RequestBusinessRepresentativeContactDetails? ContactDetails { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentativeContactDetails ContactDetails { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV5RequestBusinessRepresentativeContactDetails ContactDetails { get; set; }
 #endif
         /// <summary>Date of birth. Required unless Business Representative ID is provided.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -66,21 +66,21 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public string PreferredName { get; set; }
 #endif
         /// <summary>
-        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentative"/> and sets the default values.
+        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV5RequestBusinessRepresentative"/> and sets the default values.
         /// </summary>
-        public ProfileBusinessCreateV3RequestBusinessRepresentative()
+        public ProfileBusinessCreateV5RequestBusinessRepresentative()
         {
             AdditionalData = new Dictionary<string, object>();
         }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentative"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV5RequestBusinessRepresentative"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentative CreateFromDiscriminatorValue(IParseNode parseNode)
+        public static global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV5RequestBusinessRepresentative CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentative();
+            return new global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV5RequestBusinessRepresentative();
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -90,9 +90,9 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "address", n => { Address = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentativeAddress>(global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentativeAddress.CreateFromDiscriminatorValue); } },
+                { "address", n => { Address = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV5RequestBusinessRepresentativeAddress>(global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV5RequestBusinessRepresentativeAddress.CreateFromDiscriminatorValue); } },
                 { "businessRepresentativeId", n => { BusinessRepresentativeId = n.GetIntValue(); } },
-                { "contactDetails", n => { ContactDetails = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentativeContactDetails>(global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentativeContactDetails.CreateFromDiscriminatorValue); } },
+                { "contactDetails", n => { ContactDetails = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV5RequestBusinessRepresentativeContactDetails>(global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV5RequestBusinessRepresentativeContactDetails.CreateFromDiscriminatorValue); } },
                 { "dateOfBirth", n => { DateOfBirth = n.GetStringValue(); } },
                 { "firstName", n => { FirstName = n.GetStringValue(); } },
                 { "lastName", n => { LastName = n.GetStringValue(); } },
@@ -106,9 +106,9 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentativeAddress>("address", Address);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV5RequestBusinessRepresentativeAddress>("address", Address);
             writer.WriteIntValue("businessRepresentativeId", BusinessRepresentativeId);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentativeContactDetails>("contactDetails", ContactDetails);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV5RequestBusinessRepresentativeContactDetails>("contactDetails", ContactDetails);
             writer.WriteStringValue("dateOfBirth", DateOfBirth);
             writer.WriteStringValue("firstName", FirstName);
             writer.WriteStringValue("lastName", LastName);
