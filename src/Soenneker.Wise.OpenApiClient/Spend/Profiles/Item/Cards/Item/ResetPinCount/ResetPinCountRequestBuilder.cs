@@ -12,7 +12,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.Cards.Item.ResetPinCount
 {
     /// <summary>
-    /// Builds and executes requests for operations under \spend\profiles\{profileId}\cards\{cardToken}\reset-pin-count
+    /// Builds and executes requests for operations under \spend\profiles\{businessProfile-id}\cards\{cardToken}\reset-pin-count
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class ResetPinCountRequestBuilder : BaseRequestBuilder
@@ -22,7 +22,7 @@ namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.Cards.Item.ResetPinCo
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public ResetPinCountRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{profileId}/cards/{cardToken}/reset-pin-count", pathParameters)
+        public ResetPinCountRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{businessProfile%2Did}/cards/{cardToken}/reset-pin-count", pathParameters)
         {
         }
         /// <summary>
@@ -30,7 +30,7 @@ namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.Cards.Item.ResetPinCo
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public ResetPinCountRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{profileId}/cards/{cardToken}/reset-pin-count", rawUrl)
+        public ResetPinCountRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{businessProfile%2Did}/cards/{cardToken}/reset-pin-count", rawUrl)
         {
         }
         /// <summary>

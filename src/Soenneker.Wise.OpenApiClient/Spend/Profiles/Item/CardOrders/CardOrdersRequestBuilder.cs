@@ -14,7 +14,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.CardOrders
 {
     /// <summary>
-    /// Builds and executes requests for operations under \spend\profiles\{profileId}\card-orders
+    /// Builds and executes requests for operations under \spend\profiles\{businessProfile-id}\card-orders
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class CardOrdersRequestBuilder : BaseRequestBuilder
@@ -41,7 +41,7 @@ namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.CardOrders
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public CardOrdersRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{profileId}/card-orders{?pageNumber*,pageSize*}", pathParameters)
+        public CardOrdersRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{businessProfile%2Did}/card-orders{?pageNumber*,pageSize*}", pathParameters)
         {
         }
         /// <summary>
@@ -49,7 +49,7 @@ namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.CardOrders
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public CardOrdersRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{profileId}/card-orders{?pageNumber*,pageSize*}", rawUrl)
+        public CardOrdersRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{businessProfile%2Did}/card-orders{?pageNumber*,pageSize*}", rawUrl)
         {
         }
         /// <summary>

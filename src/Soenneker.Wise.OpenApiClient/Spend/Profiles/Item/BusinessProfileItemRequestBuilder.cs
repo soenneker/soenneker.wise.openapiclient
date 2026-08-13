@@ -2,6 +2,7 @@
 #pragma warning disable CS0618
 using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions;
+using Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.CardHolderProfiles;
 using Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.CardOrders;
 using Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.Cards;
 using Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.DisputeForm;
@@ -15,11 +16,16 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item
 {
     /// <summary>
-    /// Builds and executes requests for operations under \spend\profiles\{profileId}
+    /// Builds and executes requests for operations under \spend\profiles\{businessProfile-id}
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    public partial class WithProfileItemRequestBuilder : BaseRequestBuilder
+    public partial class BusinessProfileItemRequestBuilder : BaseRequestBuilder
     {
+        /// <summary>The cardHolderProfiles property</summary>
+        public global::Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.CardHolderProfiles.CardHolderProfilesRequestBuilder CardHolderProfiles
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.CardHolderProfiles.CardHolderProfilesRequestBuilder(PathParameters, RequestAdapter);
+        }
         /// <summary>The cardOrders property</summary>
         public global::Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.CardOrders.CardOrdersRequestBuilder CardOrders
         {
@@ -51,19 +57,19 @@ namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item
             get => new global::Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.Threedsecure.ThreedsecureRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>
-        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.WithProfileItemRequestBuilder"/> and sets the default values.
+        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.BusinessProfileItemRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public WithProfileItemRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{profileId}", pathParameters)
+        public BusinessProfileItemRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{businessProfile%2Did}", pathParameters)
         {
         }
         /// <summary>
-        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.WithProfileItemRequestBuilder"/> and sets the default values.
+        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.BusinessProfileItemRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public WithProfileItemRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{profileId}", rawUrl)
+        public BusinessProfileItemRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{businessProfile%2Did}", rawUrl)
         {
         }
     }

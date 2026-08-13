@@ -14,7 +14,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.CardOrders.Item
 {
     /// <summary>
-    /// Builds and executes requests for operations under \spend\profiles\{profileId}\card-orders\{cardOrderId}
+    /// Builds and executes requests for operations under \spend\profiles\{businessProfile-id}\card-orders\{cardOrderId}
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class WithCardOrderItemRequestBuilder : BaseRequestBuilder
@@ -34,7 +34,7 @@ namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.CardOrders.Item
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public WithCardOrderItemRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{profileId}/card-orders/{cardOrderId}", pathParameters)
+        public WithCardOrderItemRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{businessProfile%2Did}/card-orders/{cardOrderId}", pathParameters)
         {
         }
         /// <summary>
@@ -42,7 +42,7 @@ namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.CardOrders.Item
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public WithCardOrderItemRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{profileId}/card-orders/{cardOrderId}", rawUrl)
+        public WithCardOrderItemRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{businessProfile%2Did}/card-orders/{cardOrderId}", rawUrl)
         {
         }
         /// <summary>

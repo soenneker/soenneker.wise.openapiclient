@@ -12,7 +12,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.Cards.Item.SpendingPermissions
 {
     /// <summary>
-    /// Builds and executes requests for operations under \spend\profiles\{profileId}\cards\{cardToken}\spending-permissions
+    /// Builds and executes requests for operations under \spend\profiles\{businessProfile-id}\cards\{cardToken}\spending-permissions
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class SpendingPermissionsRequestBuilder : BaseRequestBuilder
@@ -22,7 +22,7 @@ namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.Cards.Item.SpendingPe
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public SpendingPermissionsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{profileId}/cards/{cardToken}/spending-permissions", pathParameters)
+        public SpendingPermissionsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{businessProfile%2Did}/cards/{cardToken}/spending-permissions", pathParameters)
         {
         }
         /// <summary>
@@ -30,7 +30,7 @@ namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.Cards.Item.SpendingPe
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public SpendingPermissionsRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{profileId}/cards/{cardToken}/spending-permissions", rawUrl)
+        public SpendingPermissionsRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{businessProfile%2Did}/cards/{cardToken}/spending-permissions", rawUrl)
         {
         }
         /// <summary>

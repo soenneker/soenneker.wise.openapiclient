@@ -12,7 +12,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.Cards.Item.Transactions
 {
     /// <summary>
-    /// Builds and executes requests for operations under \spend\profiles\{profileId}\cards\{cardToken}\transactions
+    /// Builds and executes requests for operations under \spend\profiles\{businessProfile-id}\cards\{cardToken}\transactions
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class TransactionsRequestBuilder : BaseRequestBuilder
@@ -22,7 +22,7 @@ namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.Cards.Item.Transactio
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public TransactionsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{profileId}/cards/{cardToken}/transactions?fromCreationTime={fromCreationTime}&toCreationTime={toCreationTime}{&lastId*,pageSize*}", pathParameters)
+        public TransactionsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{businessProfile%2Did}/cards/{cardToken}/transactions?fromCreationTime={fromCreationTime}&toCreationTime={toCreationTime}{&lastId*,pageSize*}", pathParameters)
         {
         }
         /// <summary>
@@ -30,7 +30,7 @@ namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.Cards.Item.Transactio
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public TransactionsRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{profileId}/cards/{cardToken}/transactions?fromCreationTime={fromCreationTime}&toCreationTime={toCreationTime}{&lastId*,pageSize*}", rawUrl)
+        public TransactionsRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{businessProfile%2Did}/cards/{cardToken}/transactions?fromCreationTime={fromCreationTime}&toCreationTime={toCreationTime}{&lastId*,pageSize*}", rawUrl)
         {
         }
         /// <summary>

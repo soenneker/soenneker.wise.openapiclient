@@ -14,7 +14,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.Cards
 {
     /// <summary>
-    /// Builds and executes requests for operations under \spend\profiles\{profileId}\cards
+    /// Builds and executes requests for operations under \spend\profiles\{businessProfile-id}\cards
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class CardsRequestBuilder : BaseRequestBuilder
@@ -41,7 +41,7 @@ namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.Cards
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public CardsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{profileId}/cards{?pageNumber*,pageSize*}", pathParameters)
+        public CardsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{businessProfile%2Did}/cards{?pageNumber*,pageSize*}", pathParameters)
         {
         }
         /// <summary>
@@ -49,7 +49,7 @@ namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.Cards
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public CardsRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{profileId}/cards{?pageNumber*,pageSize*}", rawUrl)
+        public CardsRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{businessProfile%2Did}/cards{?pageNumber*,pageSize*}", rawUrl)
         {
         }
         /// <summary>

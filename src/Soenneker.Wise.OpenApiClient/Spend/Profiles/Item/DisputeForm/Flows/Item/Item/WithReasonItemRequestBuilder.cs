@@ -12,7 +12,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.DisputeForm.Flows.Item.Item
 {
     /// <summary>
-    /// Builds and executes requests for operations under \spend\profiles\{profileId}\dispute-form\flows\{scheme}\{reason}
+    /// Builds and executes requests for operations under \spend\profiles\{businessProfile-id}\dispute-form\flows\{scheme}\{reason}
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class WithReasonItemRequestBuilder : BaseRequestBuilder
@@ -22,7 +22,7 @@ namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.DisputeForm.Flows.Ite
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public WithReasonItemRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{profileId}/dispute-form/flows/{scheme}/{reason}", pathParameters)
+        public WithReasonItemRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{businessProfile%2Did}/dispute-form/flows/{scheme}/{reason}", pathParameters)
         {
         }
         /// <summary>
@@ -30,7 +30,7 @@ namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.DisputeForm.Flows.Ite
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public WithReasonItemRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{profileId}/dispute-form/flows/{scheme}/{reason}", rawUrl)
+        public WithReasonItemRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{businessProfile%2Did}/dispute-form/flows/{scheme}/{reason}", rawUrl)
         {
         }
         /// <summary>

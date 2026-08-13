@@ -13123,6 +13123,456 @@
         ]
       }
     },
+    "/spend/profiles/{businessProfileId}/card-holder-profiles/{cardHolderProfileId}/spend-limits": {
+      "get": {
+        "tags": [
+          "spend-limits"
+        ],
+        "summary": "Retrieve cardholder limits",
+        "description": "Retrieves the spend limits that are configured for a cardholder. These\nlimits apply across all cards belonging to that cardholder, not to an\nindividual card.\n",
+        "operationId": "SpendLimitsCardHolderGet",
+        "parameters": [
+          {
+            "name": "businessProfileId",
+            "in": "path",
+            "description": "The business profile ID.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "cardHolderProfileId",
+            "in": "path",
+            "description": "The personal profile ID of the cardholder.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/X-External-Correlation-Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cardholder spend limits.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CardHolderLimits"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The client lacks the \u0060CARDS_API_VIEW_SPENDING_LIMITS\u0060 permission on the business profile, or the cardholder profile is not accessible to it.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccessError"
+                },
+                "example": {
+                  "type": "/errors/types/access",
+                  "status": 403,
+                  "code": "unauthorized",
+                  "detail": "Operation is unauthorized"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "A path parameter references a profile of the wrong type. \u0060businessProfileId\u0060 must reference a business profile and \u0060cardHolderProfileId\u0060 must reference a personal profile.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationError2"
+                },
+                "example": {
+                  "type": "/errors/types/validation",
+                  "title": "Validation error",
+                  "status": 422,
+                  "instance": "/v4/spend/profiles/12345/card-holder-profiles/67890/spend-limits",
+                  "errors": [
+                    {
+                      "code": "invalid_value",
+                      "ref": "businessProfileId",
+                      "detail": "businessProfileId must reference a business profile"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "description": "An unexpected error occurred.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerError"
+                },
+                "example": {
+                  "type": "/errors/types/server",
+                  "status": 500,
+                  "detail": "An unexpected error occurred"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "UserToken": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "spend-limits"
+        ],
+        "summary": "Create or update cardholder limits",
+        "description": "Create or update daily and monthly spend limits for a cardholder.\n\nOnly the \u0060PURCHASE\u0060 limit type is supported for cardholder limits.Any\nother value for \u0060type\u0060, including \u0060ATM_WITHDRAWAL\u0060, is rejected with a\n422. When no limits are configured yet, both \u0060daily\u0060 and \u0060monthly\u0060 must be\nsupplied. Once limits exist, either window can be updated on its own.\n",
+        "operationId": "SpendLimitsCardHolderUpdate",
+        "parameters": [
+          {
+            "name": "businessProfileId",
+            "in": "path",
+            "description": "The business profile ID.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "cardHolderProfileId",
+            "in": "path",
+            "description": "The personal profile ID of the cardholder.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/X-External-Correlation-Id"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SpendLimitsCardHolderUpdateRequest"
+              },
+              "example": {
+                "type": "PURCHASE",
+                "aggregateWindow": {
+                  "daily": {
+                    "value": {
+                      "amount": 1000,
+                      "currency": "GBP"
+                    }
+                  },
+                  "monthly": {
+                    "value": {
+                      "amount": 3000,
+                      "currency": "GBP"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated cardholder spend limits. See [Retrieve cardholder limits](/api-reference/spend-limits/spendlimitscardholderget).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CardHolderLimits"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request could not be processed. Returned when a required field is absent (\u0060type\u0060, \u0060aggregateWindow\u0060, or a window\u0027s \u0060value\u0060), when \u0060aggregateWindow\u0060 contains neither \u0060daily\u0060 nor \u0060monthly\u0060, when a path parameter is not a valid integer, or when the body cannot be parsed. Field-level detail is provided in \u0060errors\u0060 where available; for unparseable bodies the array is empty.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationError2"
+                },
+                "examples": {
+                  "missingField": {
+                    "summary": "A required field is absent",
+                    "value": {
+                      "type": "/errors/types/validation",
+                      "title": "Validation Error",
+                      "status": 400,
+                      "instance": "/v4/spend/profiles/12345/card-holder-profiles/67890/spend-limits",
+                      "errors": [
+                        {
+                          "code": "parameter_missing",
+                          "ref": "aggregateWindow.daily.value",
+                          "detail": "value not be null"
+                        }
+                      ]
+                    }
+                  },
+                  "noWindowConfigured": {
+                    "summary": "Neither daily nor monthly provided",
+                    "value": {
+                      "type": "/errors/types/validation",
+                      "title": "Validation Error",
+                      "status": 400,
+                      "instance": "/v4/spend/profiles/12345/card-holder-profiles/67890/spend-limits",
+                      "errors": [
+                        {
+                          "code": "parameter_invalid",
+                          "ref": "aggregateWindow.configured",
+                          "detail": "at least one of daily or monthly must be provided"
+                        }
+                      ]
+                    }
+                  },
+                  "pathParameterTypeMismatch": {
+                    "summary": "Path parameter is not a valid integer",
+                    "value": {
+                      "type": "/errors/types/validation",
+                      "title": "Request Parameter Type Mismatch",
+                      "status": 400,
+                      "instance": "/v4/spend/profiles/asdq/card-holder-profiles/67890/spend-limits",
+                      "errors": [
+                        {
+                          "code": "parameter_invalid_type_mismatch",
+                          "ref": "businessProfileId",
+                          "detail": "The parameter value is not of the expected type."
+                        }
+                      ]
+                    }
+                  },
+                  "unreadableBody": {
+                    "summary": "Body is malformed or contains an unknown enum value",
+                    "value": {
+                      "type": "/errors/types/validation",
+                      "title": "Request Message Not Readable",
+                      "status": 400,
+                      "instance": "/v4/spend/profiles/12345/card-holder-profiles/67890/spend-limits",
+                      "description": "The request body could not be parsed. Please check that the request is valid JSON/XML and matches the expected format.",
+                      "errors": []
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The client lacks the \u0060CARDS_API_MANAGE_SPENDING_LIMITS\u0060 permission on the business profile, or the cardholder profile is not accessible to it.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccessError"
+                },
+                "example": {
+                  "type": "/errors/types/access",
+                  "status": 403,
+                  "code": "unauthorized",
+                  "detail": "Operation is unauthorized"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "\u0022The request is valid JSON but cannot be processed. A 422 is deterministic and actionable: the same request will fail the same way until the offending value is changed. \nThe \u0060errors\u0060 array identifies the parameter or field that caused the error. There are three cases, shown below.\u0022",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationError2"
+                },
+                "examples": {
+                  "unsupportedType": {
+                    "summary": "Unsupported limit type",
+                    "description": "Only \u0060PURCHASE\u0060 limits can be set for a cardholder.",
+                    "value": {
+                      "type": "/errors/types/validation",
+                      "title": "Validation error",
+                      "status": 422,
+                      "instance": "/v4/spend/profiles/12345/card-holder-profiles/67890/spend-limits",
+                      "errors": [
+                        {
+                          "code": "invalid_value",
+                          "ref": "type",
+                          "detail": "Unsupported limit type: ATM_WITHDRAWAL. Only PURCHASE is supported for cardholder limits."
+                        }
+                      ]
+                    }
+                  },
+                  "incompleteInitialLimits": {
+                    "summary": "Incomplete initial limits",
+                    "description": "No limits are configured yet, so both \u0060daily\u0060 and \u0060monthly\u0060 must be supplied on the first request.",
+                    "value": {
+                      "type": "/errors/types/validation",
+                      "title": "Validation error",
+                      "status": 422,
+                      "instance": "/v4/spend/profiles/12345/card-holder-profiles/67890/spend-limits",
+                      "errors": [
+                        {
+                          "code": "invalid_value",
+                          "ref": "aggregateWindow",
+                          "detail": "Both daily and monthly limits are required when setting spend limits for the first time."
+                        }
+                      ]
+                    }
+                  },
+                  "profileTypeMismatch": {
+                    "summary": "Wrong profile type",
+                    "description": "Returned when a path parameter references the wrong profile type. \u0060businessProfileId\u0060 must be a business profile, and \u0060cardHolderProfileId\u0060 must be a personal profile.",
+                    "value": {
+                      "type": "/errors/types/validation",
+                      "title": "Validation error",
+                      "status": 422,
+                      "instance": "/v4/spend/profiles/12345/card-holder-profiles/67890/spend-limits",
+                      "errors": [
+                        {
+                          "code": "invalid_value",
+                          "ref": "businessProfileId",
+                          "detail": "businessProfileId must reference a business profile"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "description": "An unexpected error occurred.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerError"
+                },
+                "example": {
+                  "type": "/errors/types/server",
+                  "status": 500,
+                  "detail": "An unexpected error occurred"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "UserToken": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "spend-limits"
+        ],
+        "summary": "Remove cardholder limits",
+        "description": "Removes all configured spend limits for a cardholder. Both the daily and\nmonthly windows are removed together; individual windows cannot be removed\nseparately.\n\nSucceeds whether or not limits are currently configured.\n",
+        "operationId": "SpendLimitsCardHolderDelete",
+        "parameters": [
+          {
+            "name": "businessProfileId",
+            "in": "path",
+            "description": "The business profile ID.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "cardHolderProfileId",
+            "in": "path",
+            "description": "The personal profile ID of the cardholder.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/X-External-Correlation-Id"
+          }
+        ],
+        "responses": {
+          "403": {
+            "description": "The client lacks the \u0060CARDS_API_MANAGE_SPENDING_LIMITS\u0060 permission on the business profile, or the cardholder profile is not accessible to it.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccessError"
+                },
+                "example": {
+                  "type": "/errors/types/access",
+                  "status": 403,
+                  "code": "unauthorized",
+                  "detail": "Operation is unauthorized"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "A path parameter references a profile of the wrong type. \u0060businessProfileId\u0060 must reference a business profile and \u0060cardHolderProfileId\u0060 must reference a personal profile.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationError2"
+                },
+                "example": {
+                  "type": "/errors/types/validation",
+                  "title": "Validation error",
+                  "status": 422,
+                  "instance": "/v4/spend/profiles/12345/card-holder-profiles/67890/spend-limits",
+                  "errors": [
+                    {
+                      "code": "invalid_value",
+                      "ref": "businessProfileId",
+                      "detail": "businessProfileId must reference a business profile"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "description": "An unexpected error occurred.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerError"
+                },
+                "example": {
+                  "type": "/errors/types/server",
+                  "status": 500,
+                  "detail": "An unexpected error occurred"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "UserToken": []
+          }
+        ]
+      }
+    },
     "/profiles/{profileId}/pin": {
       "post": {
         "tags": [
@@ -19371,6 +19821,120 @@
           "spend-limits"
         ]
       },
+      "CardHolderLimits": {
+        "title": "Card Holder Limits",
+        "type": "object",
+        "properties": {
+          "spendLimits": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CardHolderLimitsSpendLimitsItem"
+            },
+            "description": "Spend limits configured for this cardholder. These limits apply to the cardholder\u0027s combined spending across all cards belonging to them, rather than to an individual card or the entire business profile. Empty when no cardholder limits are configured. Currently contains at most one entry, representing the \u0060PURCHASE\u0060 limit type."
+          }
+        },
+        "x-tags": [
+          "spend-limits"
+        ]
+      },
+      "AccessError": {
+        "title": "Access Error",
+        "required": [
+          "type",
+          "status",
+          "code",
+          "detail"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "The type of error.",
+            "example": "/errors/types/access"
+          },
+          "status": {
+            "type": "integer",
+            "description": "The HTTP status code.",
+            "example": 403
+          },
+          "code": {
+            "type": "string",
+            "description": "The error code.",
+            "example": "unauthorized"
+          },
+          "detail": {
+            "type": "string",
+            "description": "A description of the error.",
+            "example": "Operation is unauthorized"
+          }
+        }
+      },
+      "ValidationError2": {
+        "title": "Validation Error",
+        "required": [
+          "type",
+          "title",
+          "status",
+          "instance",
+          "errors"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "A URI identifying the error type.",
+            "example": "/errors/types/validation"
+          },
+          "title": {
+            "type": "string",
+            "description": "A short summary of the error.",
+            "example": "Validation Error"
+          },
+          "status": {
+            "type": "integer",
+            "description": "The HTTP status code.",
+            "example": 422
+          },
+          "instance": {
+            "type": "string",
+            "description": "The API path associated with the error.",
+            "example": "/public/v4/spend/profiles/14974487/card-holder-profiles/14974487/spend-limits"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationError2ErrorsItem"
+            },
+            "description": "The individual validation errors."
+          }
+        }
+      },
+      "ServerError": {
+        "title": "Server Error",
+        "required": [
+          "type",
+          "status",
+          "detail"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "The type of error.",
+            "example": "/errors/types/server"
+          },
+          "status": {
+            "type": "integer",
+            "description": "The HTTP status code.",
+            "example": 500
+          },
+          "detail": {
+            "type": "string",
+            "description": "A description of the error.",
+            "example": "An unexpected error occurred"
+          }
+        }
+      },
       "OneTimeToken": {
         "title": "One-Time Token",
         "type": "object",
@@ -24970,6 +25534,42 @@
         },
         "nullable": true
       },
+      "CardHolderLimitsSpendLimitsItem": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/CardHolderLimitsSpendLimitsItemType"
+          },
+          "aggregateWindow": {
+            "$ref": "#/components/schemas/CardHolderLimitsSpendLimitsItemAggregateWindow"
+          }
+        }
+      },
+      "ValidationError2ErrorsItem": {
+        "required": [
+          "code",
+          "ref",
+          "detail"
+        ],
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "The validation error code.",
+            "example": "invalid_value"
+          },
+          "ref": {
+            "type": "string",
+            "description": "The parameter or field that caused the error.",
+            "example": "businessProfileId"
+          },
+          "detail": {
+            "type": "string",
+            "description": "A description of the validation error.",
+            "example": "businessProfileId must reference a business profile"
+          }
+        }
+      },
       "OneTimeTokenChallengesItem": {
         "type": "object",
         "properties": {
@@ -27973,6 +28573,18 @@
         },
         "description": "The total authorised amount over the lifetime of the card."
       },
+      "CardHolderLimitsSpendLimitsItemAggregateWindow": {
+        "type": "object",
+        "properties": {
+          "daily": {
+            "$ref": "#/components/schemas/CardHolderLimitsSpendLimitsItemAggregateWindowDaily"
+          },
+          "monthly": {
+            "$ref": "#/components/schemas/CardHolderLimitsSpendLimitsItemAggregateWindowMonthly"
+          }
+        },
+        "description": "The limits per aggregation window. A window is \u0060null\u0060 when no limit is configured for it."
+      },
       "OneTimeTokenChallengesItemPrimaryChallenge": {
         "type": "object",
         "properties": {
@@ -30918,19 +31530,27 @@
         "properties": {
           "name": {
             "type": "string",
-            "description": "The name of the affected person(s) or business"
+            "description": "The name of the affected person(s) or business",
+            "example": "John Smith",
+            "x-jsonschema-examples": [
+              "Hannah Myers and John Smith",
+              "My Business Inc."
+            ]
           },
           "website": {
             "type": "string",
-            "description": "The URL of the affected website"
+            "description": "The URL of the affected website",
+            "example": "https://example.com"
           },
           "businessName": {
             "type": "string",
-            "description": "The name of the affected business"
+            "description": "The name of the affected business",
+            "example": "My Business Inc."
           },
           "owningBusinessName": {
             "type": "string",
-            "description": "The name of the affected owning business"
+            "description": "The name of the affected owning business",
+            "example": "Owning Business Inc."
           },
           "markdownText": {
             "type": "string",
@@ -31242,6 +31862,42 @@
           }
         },
         "description": "The max allowed limit for [monthly](https://wise.com/help/articles/2899986/what-are-my-spending-limits)."
+      },
+      "CardHolderLimitsSpendLimitsItemAggregateWindowDaily": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "$ref": "#/components/schemas/CardHolderLimitsSpendLimitsItemAggregateWindowDailyValue"
+          },
+          "usage": {
+            "$ref": "#/components/schemas/CardHolderLimitsSpendLimitsItemAggregateWindowDailyUsage"
+          },
+          "resetAt": {
+            "type": "string",
+            "description": "When the usage resets. This is the end of the current day in the business profile\u0027s timezone, expressed as a UTC timestamp. A profile with no timezone configured defaults to UTC. For example, a Singapore profile\u0027s daily window ends at 23:59:59.999\u002B08:00, serialised as \u00602023-07-31T15:59:59.999Z\u0060.",
+            "format": "date-time",
+            "example": "2023-07-31T15:59:59.999Z"
+          }
+        },
+        "nullable": true
+      },
+      "CardHolderLimitsSpendLimitsItemAggregateWindowMonthly": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "$ref": "#/components/schemas/CardHolderLimitsSpendLimitsItemAggregateWindowMonthlyValue"
+          },
+          "usage": {
+            "$ref": "#/components/schemas/CardHolderLimitsSpendLimitsItemAggregateWindowMonthlyUsage"
+          },
+          "resetAt": {
+            "type": "string",
+            "description": "When the usage resets. This is the end of the current month in the business profile\u0027s timezone, expressed as a UTC timestamp. A profile with no timezone configured defaults to UTC. For example, a Singapore profile\u0027s daily window ends at 23:59:59.999\u002B08:00, serialised as \u00602023-07-31T15:59:59.999Z\u0060.",
+            "format": "date-time",
+            "example": "2023-07-31T15:59:59.999Z"
+          }
+        },
+        "nullable": true
       },
       "TransferRequirementFieldsItemGroupItemValuesAllowedItem": {
         "type": "object",
@@ -32434,6 +33090,70 @@
           }
         },
         "description": "The amount, unrounded, that fees were calculated on and built up from."
+      },
+      "CardHolderLimitsSpendLimitsItemAggregateWindowDailyValue": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "number",
+            "example": 1000
+          },
+          "currency": {
+            "maxLength": 3,
+            "minLength": 3,
+            "type": "string",
+            "example": "GBP"
+          }
+        },
+        "description": "Daily limit."
+      },
+      "CardHolderLimitsSpendLimitsItemAggregateWindowDailyUsage": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "number",
+            "example": 100
+          },
+          "currency": {
+            "maxLength": 3,
+            "minLength": 3,
+            "type": "string",
+            "example": "GBP"
+          }
+        },
+        "description": "The total authorised amount during the daily window, across all cards belonging to the cardholder."
+      },
+      "CardHolderLimitsSpendLimitsItemAggregateWindowMonthlyValue": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "number",
+            "example": 3000
+          },
+          "currency": {
+            "maxLength": 3,
+            "minLength": 3,
+            "type": "string",
+            "example": "GBP"
+          }
+        },
+        "description": "Monthly limit."
+      },
+      "CardHolderLimitsSpendLimitsItemAggregateWindowMonthlyUsage": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "number",
+            "example": 100
+          },
+          "currency": {
+            "maxLength": 3,
+            "minLength": 3,
+            "type": "string",
+            "example": "GBP"
+          }
+        },
+        "description": "The total authorised amount during the monthly window, across all cards belonging to the cardholder."
       },
       "V5002DataResourceTriggerReferencesItemTriggerData": {
         "type": "object",
@@ -33763,19 +34483,23 @@
           "type": {
             "type": "string",
             "description": "Must be /errors/types/validation for this error type",
-            "format": "uri-reference"
+            "format": "uri-reference",
+            "example": "/errors/types/validation"
           },
           "title": {
             "type": "string",
-            "description": "Request parameter type mismatch"
+            "description": "Request parameter type mismatch",
+            "example": "Request parameter type mismatch"
           },
           "status": {
             "type": "string",
-            "description": "Bad request error"
+            "description": "Bad request error",
+            "example": 400
           },
           "instance": {
             "type": "string",
-            "description": "The uri that triggered the error"
+            "description": "The uri that triggered the error",
+            "example": "/v1/profiles/{profileId}/balances/hold-limit-breach?state=INVALID_STATE"
           },
           "errors": {
             "type": "array",
@@ -33792,19 +34516,23 @@
           "type": {
             "type": "string",
             "description": "Must be /errors/types/access for this error type",
-            "format": "uri-reference"
+            "format": "uri-reference",
+            "example": "/errors/types/access"
           },
           "title": {
             "type": "string",
-            "description": "Forbidden"
+            "description": "Forbidden",
+            "example": "Forbidden"
           },
           "status": {
             "type": "string",
-            "description": "Forbidden error"
+            "description": "Forbidden error",
+            "example": 403
           },
           "instance": {
             "type": "string",
-            "description": "The uri that triggered the error"
+            "description": "The uri that triggered the error",
+            "example": "/v1/profiles/{profileId}/balances/hold-limit-breach"
           },
           "detail": {
             "type": "string",
@@ -33843,19 +34571,23 @@
           "type": {
             "type": "string",
             "description": "Must be /errors/types/validation for this error type",
-            "format": "uri-reference"
+            "format": "uri-reference",
+            "example": "/errors/types/validation"
           },
           "title": {
             "type": "string",
-            "description": "Validation Error"
+            "description": "Validation Error",
+            "example": "Validation Error"
           },
           "status": {
             "type": "string",
-            "description": "Bad request error"
+            "description": "Bad request error",
+            "example": 400
           },
           "instance": {
             "type": "string",
-            "description": "The uri that triggered the error"
+            "description": "The uri that triggered the error",
+            "example": "/v1/profiles/{profileId}/balances/hold-limit-breach?state=INVALID_STATE"
           },
           "errors": {
             "type": "array",
@@ -33872,19 +34604,23 @@
           "type": {
             "type": "string",
             "description": "Must be /errors/types/access for this error type",
-            "format": "uri-reference"
+            "format": "uri-reference",
+            "example": "/errors/types/access"
           },
           "title": {
             "type": "string",
-            "description": "Forbidden"
+            "description": "Forbidden",
+            "example": "Forbidden"
           },
           "status": {
             "type": "string",
-            "description": "Forbidden error"
+            "description": "Forbidden error",
+            "example": 403
           },
           "instance": {
             "type": "string",
-            "description": "The uri that triggered the error"
+            "description": "The uri that triggered the error",
+            "example": "/v1/profiles/{profileId}/balances/hold-limit-breach/{holdLimitBreachId}"
           },
           "detail": {
             "type": "string",
@@ -33904,19 +34640,23 @@
           "type": {
             "type": "string",
             "description": "Must be /errors/types/validation for this error type",
-            "format": "uri-reference"
+            "format": "uri-reference",
+            "example": "/errors/types/validation"
           },
           "title": {
             "type": "string",
-            "description": "Validation Error"
+            "description": "Validation Error",
+            "example": "Validation Error"
           },
           "status": {
             "type": "string",
-            "description": "Validation error"
+            "description": "Validation error",
+            "example": 404
           },
           "instance": {
             "type": "string",
-            "description": "The uri that triggered the error"
+            "description": "The uri that triggered the error",
+            "example": "/v1/profiles/{profileId}/balances/hold-limit-breach/{holdLimitBreachId}"
           },
           "detail": {
             "type": "string",
@@ -35407,19 +36147,23 @@
           "type": {
             "type": "string",
             "description": "Must be /errors/types/validation for this error type.",
-            "format": "uri-reference"
+            "format": "uri-reference",
+            "example": "/errors/types/validation"
           },
           "title": {
             "type": "string",
-            "description": "Validation Error"
+            "description": "Validation Error",
+            "example": "Validation Error"
           },
           "status": {
             "type": "string",
-            "description": "Bad Format Validation Error"
+            "description": "Bad Format Validation Error",
+            "example": 400
           },
           "instance": {
             "type": "string",
-            "description": "The uri the triggered a validation error"
+            "description": "The uri the triggered a validation error",
+            "example": "/v1/profiles/12345678/payin-sessions/74a3fe63-f37e-49ff-f744-8ef020efabcde/paynow"
           },
           "errors": {
             "type": "array",
@@ -35436,19 +36180,23 @@
           "type": {
             "type": "string",
             "description": "Must be /errors/types/domain for this error type.",
-            "format": "uri-reference"
+            "format": "uri-reference",
+            "example": "/errors/types/domain"
           },
           "title": {
             "type": "string",
-            "description": "Unprocessable Entity"
+            "description": "Unprocessable Entity",
+            "example": "Unprocessable Entity"
           },
           "status": {
             "type": "string",
-            "description": "Unprocessable Entity Domain Error"
+            "description": "Unprocessable Entity Domain Error",
+            "example": 422
           },
           "instance": {
             "type": "string",
-            "description": "The uri that triggered the error"
+            "description": "The uri that triggered the error",
+            "example": "/v1/profiles/12345678/payin-sessions/74a3fe63-f37e-49ff-f744-8ef020efabcde/paynow"
           },
           "code": {
             "type": "string",
@@ -36150,19 +36898,23 @@
           "type": {
             "type": "string",
             "description": "Validation type error",
-            "format": "uri-reference"
+            "format": "uri-reference",
+            "example": "/errors/types/validation"
           },
           "title": {
             "type": "string",
-            "description": "A validation type exception"
+            "description": "A validation type exception",
+            "example": "Validation Error"
           },
           "status": {
             "type": "string",
-            "description": "The HTTP status error code"
+            "description": "The HTTP status error code",
+            "example": 400
           },
           "instance": {
             "type": "string",
-            "description": "The uri the triggered a validation error"
+            "description": "The uri the triggered a validation error",
+            "example": "/public/v3/spend/profiles/2/cards/f47da127-7b8c-4312-8f10-dd2d70e6912b/payment-tokens/DNI234089950342/activation"
           },
           "errors": {
             "type": "array",
@@ -36178,27 +36930,33 @@
         "properties": {
           "type": {
             "type": "string",
-            "description": "An access type exception"
+            "description": "An access type exception",
+            "example": "/errors/types/access"
           },
           "title": {
             "type": "string",
-            "description": "The title of the exception"
+            "description": "The title of the exception",
+            "example": "Forbidden"
           },
           "status": {
             "type": "string",
-            "description": "The HTTP status error code"
+            "description": "The HTTP status error code",
+            "example": 403
           },
           "detail": {
             "type": "string",
-            "description": "A detailed description of the validation failure"
+            "description": "A detailed description of the validation failure",
+            "example": "Operation is unauthorized"
           },
           "instance": {
             "type": "string",
-            "description": "The uri the triggered a validation error"
+            "description": "The uri the triggered a validation error",
+            "example": "/public/v3/spend/profiles/2/cards/f47da127-7b8c-4312-8f10-dd2d70e6912b/payment-tokens/DNI234089950342/activation"
           },
           "code": {
             "type": "string",
-            "description": "A specific application-level code"
+            "description": "A specific application-level code",
+            "example": "unauthorized"
           }
         }
       },
@@ -36207,27 +36965,33 @@
         "properties": {
           "type": {
             "type": "string",
-            "description": "An domain type exception"
+            "description": "An domain type exception",
+            "example": "/errors/types/domain"
           },
           "title": {
             "type": "string",
-            "description": "The title of the exception"
+            "description": "The title of the exception",
+            "example": "Not found"
           },
           "status": {
             "type": "string",
-            "description": "The HTTP status error code"
+            "description": "The HTTP status error code",
+            "example": 404
           },
           "detail": {
             "type": "string",
-            "description": "A detailed description of the validation failure"
+            "description": "A detailed description of the validation failure",
+            "example": "Payment Token Unique Reference does not exist"
           },
           "instance": {
             "type": "string",
-            "description": "The uri the triggered a validation error"
+            "description": "The uri the triggered a validation error",
+            "example": "/public/v3/spend/profiles/2/cards/f47da127-7b8c-4312-8f10-dd2d70e6912b/payment-tokens/DNI234089950342/activation"
           },
           "code": {
             "type": "string",
-            "description": "A specific application-level code"
+            "description": "A specific application-level code",
+            "example": "resource_not_found"
           }
         }
       },
@@ -36236,23 +37000,28 @@
         "properties": {
           "type": {
             "type": "string",
-            "description": "An server type exception"
+            "description": "An server type exception",
+            "example": "/errors/types/server"
           },
           "title": {
             "type": "string",
-            "description": "The title of the exception"
+            "description": "The title of the exception",
+            "example": "Internal Server Error"
           },
           "status": {
             "type": "string",
-            "description": "The HTTP status error code"
+            "description": "The HTTP status error code",
+            "example": 500
           },
           "detail": {
             "type": "string",
-            "description": "A detailed description of the validation failure"
+            "description": "A detailed description of the validation failure",
+            "example": "An unexpected error occurred during card tokenisation"
           },
           "instance": {
             "type": "string",
-            "description": "The uri the triggered a validation error"
+            "description": "The uri the triggered a validation error",
+            "example": "/public/v3/spend/profiles/2/cards/f47da127-7b8c-4312-8f10-dd2d70e6912b/payment-tokens/DNI234089950342/activation"
           }
         }
       },
@@ -36930,6 +37699,21 @@
           },
           "lifetime": {
             "$ref": "#/components/schemas/SpendLimitsCardUpdateRequestLifetime"
+          }
+        }
+      },
+      "SpendLimitsCardHolderUpdateRequest": {
+        "required": [
+          "type",
+          "aggregateWindow"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/SpendLimitsCardHolderUpdateRequestType"
+          },
+          "aggregateWindow": {
+            "$ref": "#/components/schemas/SpendLimitsCardHolderUpdateRequestAggregateWindow"
           }
         }
       },
@@ -38204,15 +38988,21 @@
         "properties": {
           "detail": {
             "type": "string",
-            "description": "A detailed description of the validation failure."
+            "description": "A detailed description of the validation failure.",
+            "example": "The parameter value is not of the expected type."
           },
           "code": {
             "type": "string",
-            "description": "A specific code for the validation failure type."
+            "description": "A specific code for the validation failure type.",
+            "example": "parameter_invalid_type_mismatch"
           },
           "ref": {
             "type": "string",
-            "description": "A reference to the field that failed validation."
+            "description": "A reference to the field that failed validation.",
+            "example": "state",
+            "x-jsonschema-examples": [
+              "closing_reason"
+            ]
           }
         }
       },
@@ -38221,15 +39011,18 @@
         "properties": {
           "detail": {
             "type": "string",
-            "description": "A detailed description of the validation failure."
+            "description": "A detailed description of the validation failure.",
+            "example": "Only state CLOSED is supported"
           },
           "code": {
             "type": "string",
-            "description": "A specific code for the validation failure type."
+            "description": "A specific code for the validation failure type.",
+            "example": "invalid_value"
           },
           "ref": {
             "type": "string",
-            "description": "A reference to the field that failed validation."
+            "description": "A reference to the field that failed validation.",
+            "example": "state"
           }
         }
       },
@@ -38959,11 +39752,13 @@
         "properties": {
           "detail": {
             "type": "string",
-            "description": "A detailed description of the validation failure."
+            "description": "A detailed description of the validation failure.",
+            "example": "Invalid request to create payment for session 1."
           },
           "code": {
             "type": "string",
-            "description": "A specific code for the validation failure type."
+            "description": "A specific code for the validation failure type.",
+            "example": "invalid_request"
           },
           "ref": {
             "type": "string",
@@ -39628,15 +40423,18 @@
         "properties": {
           "detail": {
             "type": "string",
-            "description": "A detailed description of the validation failure."
+            "description": "A detailed description of the validation failure.",
+            "example": "activation value must be APPROVE or DECLINE"
           },
           "code": {
             "type": "string",
-            "description": "A specific code for the validation failure type."
+            "description": "A specific code for the validation failure type.",
+            "example": "invalid_value"
           },
           "ref": {
             "type": "string",
-            "description": "A reference to the field that failed validation."
+            "description": "A reference to the field that failed validation.",
+            "example": "activation"
           }
         }
       },
@@ -40039,6 +40837,18 @@
             "$ref": "#/components/schemas/SpendLimitsCardUpdateRequestLifetimeValue"
           }
         }
+      },
+      "SpendLimitsCardHolderUpdateRequestAggregateWindow": {
+        "type": "object",
+        "properties": {
+          "daily": {
+            "$ref": "#/components/schemas/SpendLimitsCardHolderUpdateRequestAggregateWindowDaily"
+          },
+          "monthly": {
+            "$ref": "#/components/schemas/SpendLimitsCardHolderUpdateRequestAggregateWindowMonthly"
+          }
+        },
+        "description": "The limits to set, per aggregation window. At least one of \u0060daily\u0060 or \u0060monthly\u0060 must be provided."
       },
       "TransferCreateRequestDetails": {
         "type": "object",
@@ -40959,6 +41769,22 @@
         },
         "description": "The amount allowed to be spent over the lifetime of the card."
       },
+      "SpendLimitsCardHolderUpdateRequestAggregateWindowDaily": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "$ref": "#/components/schemas/SpendLimitsCardHolderUpdateRequestAggregateWindowDailyValue"
+          }
+        }
+      },
+      "SpendLimitsCardHolderUpdateRequestAggregateWindowMonthly": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "$ref": "#/components/schemas/SpendLimitsCardHolderUpdateRequestAggregateWindowMonthlyValue"
+          }
+        }
+      },
       "BalanceStatementGet200ResponseTransactionsItemDetailsAmount": {
         "type": "object",
         "properties": {
@@ -41087,6 +41913,34 @@
             "type": "number"
           },
           "currency": {
+            "type": "string"
+          }
+        },
+        "description": "The amount allowed to be spent monthly."
+      },
+      "SpendLimitsCardHolderUpdateRequestAggregateWindowDailyValue": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "number"
+          },
+          "currency": {
+            "maxLength": 3,
+            "minLength": 3,
+            "type": "string"
+          }
+        },
+        "description": "The amount allowed to be spent daily."
+      },
+      "SpendLimitsCardHolderUpdateRequestAggregateWindowMonthlyValue": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "number"
+          },
+          "currency": {
+            "maxLength": 3,
+            "minLength": 3,
             "type": "string"
           }
         },
@@ -44140,6 +44994,25 @@
           ]
         }
       },
+      "CardHolderLimitsSpendLimitsItemType": {
+        "enum": [
+          "PURCHASE"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "The category of spending the limit applies to.",
+        "example": "PURCHASE",
+        "x-ms-enum": {
+          "name": "CardHolderLimitsSpendLimitsItemType",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "PURCHASE",
+              "name": "Purchase"
+            }
+          ]
+        }
+      },
       "OriginatorTransferOriginatorLegalEntityType": {
         "enum": [
           "PRIVATE",
@@ -44682,7 +45555,8 @@
       "V40012DataClosingReason": {
         "enum": [
           "AUTOMATICALLY_RESOLVED",
-          "MANUALLY_RESOLVED"
+          "MANUALLY_RESOLVED",
+          null
         ],
         "type": "string",
         "additionalProperties": false,
@@ -46965,6 +47839,24 @@
           ]
         }
       },
+      "SpendLimitsCardHolderUpdateRequestType": {
+        "enum": [
+          "PURCHASE"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "The category of spending the limit applies to.",
+        "x-ms-enum": {
+          "name": "SpendLimitsCardHolderUpdateRequestType",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "PURCHASE",
+              "name": "Purchase"
+            }
+          ]
+        }
+      },
       "TransferRequirementsValidateRequestOriginatorLegalEntityType": {
         "enum": [
           "PRIVATE",
@@ -48456,9 +49348,12 @@
           "BUSINESS_ANNUAL_INCOME",
           "BUSINESS_AUTHORISATION_ID",
           "BUSINESS_AUTHORISATION_LETTER",
+          "BUSINESS_CONTROLLING_PERSON",
           "BUSINESS_DIRECTORS_CHECK",
+          "BUSINESS_INCOME_CLASSIFICATION",
           "BUSINESS_MONTHLY_VOLUME",
           "BUSINESS_REGISTRATION_DOCS",
+          "BUSINESS_SHAREHOLDER_CONTACT_DETAILS",
           "BUSINESS_SHAREHOLDERS_CHECK",
           "BUSINESS_SOURCE_OF_WEALTH",
           "BUSINESS_SOURCE_OF_WEALTH_INFO",
@@ -48509,8 +49404,16 @@
               "name": "BusinessAuthorisationLetter"
             },
             {
+              "value": "BUSINESS_CONTROLLING_PERSON",
+              "name": "BusinessControllingPerson"
+            },
+            {
               "value": "BUSINESS_DIRECTORS_CHECK",
               "name": "BusinessDirectorsCheck"
+            },
+            {
+              "value": "BUSINESS_INCOME_CLASSIFICATION",
+              "name": "BusinessIncomeClassification"
             },
             {
               "value": "BUSINESS_MONTHLY_VOLUME",
@@ -48519,6 +49422,10 @@
             {
               "value": "BUSINESS_REGISTRATION_DOCS",
               "name": "BusinessRegistrationDocs"
+            },
+            {
+              "value": "BUSINESS_SHAREHOLDER_CONTACT_DETAILS",
+              "name": "BusinessShareholderContactDetails"
             },
             {
               "value": "BUSINESS_SHAREHOLDERS_CHECK",

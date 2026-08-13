@@ -16,15 +16,15 @@ namespace Soenneker.Wise.OpenApiClient.Spend.Profiles
     public partial class ProfilesRequestBuilder : BaseRequestBuilder
     {
         /// <summary>Gets an item from the Soenneker.Wise.OpenApiClient.spend.profiles.item collection</summary>
-        /// <param name="position">The profile ID (personal or business) associated with the 3DS challenge.</param>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.WithProfileItemRequestBuilder"/></returns>
-        public global::Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.WithProfileItemRequestBuilder this[long position]
+        /// <param name="position">The business profile ID.</param>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.BusinessProfileItemRequestBuilder"/></returns>
+        public global::Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.BusinessProfileItemRequestBuilder this[long position]
         {
             get
             {
                 var urlTplParams = new Dictionary<string, object>(PathParameters);
-                urlTplParams.Add("profileId", position);
-                return new global::Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.WithProfileItemRequestBuilder(urlTplParams, RequestAdapter);
+                urlTplParams.Add("businessProfile%2Did", position);
+                return new global::Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.BusinessProfileItemRequestBuilder(urlTplParams, RequestAdapter);
             }
         }
         /// <summary>

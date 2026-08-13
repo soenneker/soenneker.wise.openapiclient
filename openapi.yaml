@@ -9739,9 +9739,12 @@ paths:
               - BUSINESS_ANNUAL_INCOME
               - BUSINESS_AUTHORISATION_ID
               - BUSINESS_AUTHORISATION_LETTER
+              - BUSINESS_CONTROLLING_PERSON
               - BUSINESS_DIRECTORS_CHECK
+              - BUSINESS_INCOME_CLASSIFICATION
               - BUSINESS_MONTHLY_VOLUME
               - BUSINESS_REGISTRATION_DOCS
+              - BUSINESS_SHAREHOLDER_CONTACT_DETAILS
               - BUSINESS_SHAREHOLDERS_CHECK
               - BUSINESS_SOURCE_OF_WEALTH
               - BUSINESS_SOURCE_OF_WEALTH_INFO
@@ -19877,6 +19880,483 @@ paths:
               $ref: '#/components/headers/x-trace-id'
         '429':
           $ref: '#/components/responses/429'
+  /spend/profiles/{businessProfileId}/card-holder-profiles/{cardHolderProfileId}/spend-limits:
+    get:
+      operationId: spendLimitsCardHolderGet
+      summary: Retrieve cardholder limits
+      description: |
+        Retrieves the spend limits that are configured for a cardholder. These
+        limits apply across all cards belonging to that cardholder, not to an
+        individual card.
+      tags:
+        - spend-limits
+      security:
+        - UserToken: []
+      parameters:
+        - name: businessProfileId
+          in: path
+          required: true
+          description: The business profile ID.
+          schema:
+            type: integer
+            format: int64
+        - name: cardHolderProfileId
+          in: path
+          required: true
+          description: The personal profile ID of the cardholder.
+          schema:
+            type: integer
+            format: int64
+        - $ref: '#/components/parameters/X-External-Correlation-Id'
+      responses:
+        '200':
+          description: Cardholder spend limits.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/card-holder-limits'
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '403':
+          description: >-
+            The client lacks the `CARDS_API_VIEW_SPENDING_LIMITS` permission on
+            the business profile, or the cardholder profile is not accessible to
+            it.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/access-error'
+              example:
+                type: /errors/types/access
+                status: 403
+                code: unauthorized
+                detail: Operation is unauthorized
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '422':
+          description: >-
+            A path parameter references a profile of the wrong type.
+            `businessProfileId` must reference a business profile and
+            `cardHolderProfileId` must reference a personal profile.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/validation-error-2'
+              example:
+                type: /errors/types/validation
+                title: Validation error
+                status: 422
+                instance: >-
+                  /v4/spend/profiles/12345/card-holder-profiles/67890/spend-limits
+                errors:
+                  - code: invalid_value
+                    ref: businessProfileId
+                    detail: businessProfileId must reference a business profile
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          description: An unexpected error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server-error'
+              example:
+                type: /errors/types/server
+                status: 500
+                detail: An unexpected error occurred
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+    patch:
+      operationId: spendLimitsCardHolderUpdate
+      summary: Create or update cardholder limits
+      description: >
+        Create or update daily and monthly spend limits for a cardholder.
+
+
+        Only the `PURCHASE` limit type is supported for cardholder limits.Any
+
+        other value for `type`, including `ATM_WITHDRAWAL`, is rejected with a
+
+        422. When no limits are configured yet, both `daily` and `monthly` must
+        be
+
+        supplied. Once limits exist, either window can be updated on its own.
+      tags:
+        - spend-limits
+      security:
+        - UserToken: []
+      parameters:
+        - name: businessProfileId
+          in: path
+          required: true
+          description: The business profile ID.
+          schema:
+            type: integer
+            format: int64
+        - name: cardHolderProfileId
+          in: path
+          required: true
+          description: The personal profile ID of the cardholder.
+          schema:
+            type: integer
+            format: int64
+        - $ref: '#/components/parameters/X-External-Correlation-Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - type
+                - aggregateWindow
+              properties:
+                type:
+                  type: string
+                  description: The category of spending the limit applies to.
+                  enum:
+                    - PURCHASE
+                aggregateWindow:
+                  type: object
+                  description: >-
+                    The limits to set, per aggregation window. At least one of
+                    `daily` or `monthly` must be provided.
+                  properties:
+                    daily:
+                      type: object
+                      properties:
+                        value:
+                          type: object
+                          description: The amount allowed to be spent daily.
+                          properties:
+                            amount:
+                              type: number
+                            currency:
+                              minLength: 3
+                              maxLength: 3
+                              type: string
+                    monthly:
+                      type: object
+                      properties:
+                        value:
+                          type: object
+                          description: The amount allowed to be spent monthly.
+                          properties:
+                            amount:
+                              type: number
+                            currency:
+                              minLength: 3
+                              maxLength: 3
+                              type: string
+            example:
+              type: PURCHASE
+              aggregateWindow:
+                daily:
+                  value:
+                    amount: 1000
+                    currency: GBP
+                monthly:
+                  value:
+                    amount: 3000
+                    currency: GBP
+      responses:
+        '200':
+          description: >-
+            Updated cardholder spend limits. See [Retrieve cardholder
+            limits](/api-reference/spend-limits/spendlimitscardholderget).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/card-holder-limits'
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '400':
+          description: >-
+            The request could not be processed. Returned when a required field
+            is absent (`type`, `aggregateWindow`, or a window's `value`), when
+            `aggregateWindow` contains neither `daily` nor `monthly`, when a
+            path parameter is not a valid integer, or when the body cannot be
+            parsed. Field-level detail is provided in `errors` where available;
+            for unparseable bodies the array is empty.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/validation-error-2'
+              examples:
+                missingField:
+                  summary: A required field is absent
+                  value:
+                    type: /errors/types/validation
+                    title: Validation Error
+                    status: 400
+                    instance: >-
+                      /v4/spend/profiles/12345/card-holder-profiles/67890/spend-limits
+                    errors:
+                      - code: parameter_missing
+                        ref: aggregateWindow.daily.value
+                        detail: value not be null
+                noWindowConfigured:
+                  summary: Neither daily nor monthly provided
+                  value:
+                    type: /errors/types/validation
+                    title: Validation Error
+                    status: 400
+                    instance: >-
+                      /v4/spend/profiles/12345/card-holder-profiles/67890/spend-limits
+                    errors:
+                      - code: parameter_invalid
+                        ref: aggregateWindow.configured
+                        detail: at least one of daily or monthly must be provided
+                pathParameterTypeMismatch:
+                  summary: Path parameter is not a valid integer
+                  value:
+                    type: /errors/types/validation
+                    title: Request Parameter Type Mismatch
+                    status: 400
+                    instance: >-
+                      /v4/spend/profiles/asdq/card-holder-profiles/67890/spend-limits
+                    errors:
+                      - code: parameter_invalid_type_mismatch
+                        ref: businessProfileId
+                        detail: The parameter value is not of the expected type.
+                unreadableBody:
+                  summary: Body is malformed or contains an unknown enum value
+                  value:
+                    type: /errors/types/validation
+                    title: Request Message Not Readable
+                    status: 400
+                    instance: >-
+                      /v4/spend/profiles/12345/card-holder-profiles/67890/spend-limits
+                    description: >-
+                      The request body could not be parsed. Please check that
+                      the request is valid JSON/XML and matches the expected
+                      format.
+                    errors: []
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '403':
+          description: >-
+            The client lacks the `CARDS_API_MANAGE_SPENDING_LIMITS` permission
+            on the business profile, or the cardholder profile is not accessible
+            to it.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/access-error'
+              example:
+                type: /errors/types/access
+                status: 403
+                code: unauthorized
+                detail: Operation is unauthorized
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '422':
+          description: >-
+            The request is valid JSON but cannot be processed. A 422 is
+            deterministic and actionable: the same request will fail the same
+            way until the offending value is changed. 
+
+            The `errors` array identifies the parameter or field that caused the
+            error. There are three cases, shown below.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/validation-error-2'
+              examples:
+                unsupportedType:
+                  summary: Unsupported limit type
+                  description: Only `PURCHASE` limits can be set for a cardholder.
+                  value:
+                    type: /errors/types/validation
+                    title: Validation error
+                    status: 422
+                    instance: >-
+                      /v4/spend/profiles/12345/card-holder-profiles/67890/spend-limits
+                    errors:
+                      - code: invalid_value
+                        ref: type
+                        detail: >-
+                          Unsupported limit type: ATM_WITHDRAWAL. Only PURCHASE
+                          is supported for cardholder limits.
+                incompleteInitialLimits:
+                  summary: Incomplete initial limits
+                  description: >-
+                    No limits are configured yet, so both `daily` and `monthly`
+                    must be supplied on the first request.
+                  value:
+                    type: /errors/types/validation
+                    title: Validation error
+                    status: 422
+                    instance: >-
+                      /v4/spend/profiles/12345/card-holder-profiles/67890/spend-limits
+                    errors:
+                      - code: invalid_value
+                        ref: aggregateWindow
+                        detail: >-
+                          Both daily and monthly limits are required when
+                          setting spend limits for the first time.
+                profileTypeMismatch:
+                  summary: Wrong profile type
+                  description: >-
+                    Returned when a path parameter references the wrong profile
+                    type. `businessProfileId` must be a business profile, and
+                    `cardHolderProfileId` must be a personal profile.
+                  value:
+                    type: /errors/types/validation
+                    title: Validation error
+                    status: 422
+                    instance: >-
+                      /v4/spend/profiles/12345/card-holder-profiles/67890/spend-limits
+                    errors:
+                      - code: invalid_value
+                        ref: businessProfileId
+                        detail: businessProfileId must reference a business profile
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          description: An unexpected error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server-error'
+              example:
+                type: /errors/types/server
+                status: 500
+                detail: An unexpected error occurred
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+    delete:
+      operationId: spendLimitsCardHolderDelete
+      summary: Remove cardholder limits
+      description: >
+        Removes all configured spend limits for a cardholder. Both the daily and
+
+        monthly windows are removed together; individual windows cannot be
+        removed
+
+        separately.
+
+
+        Succeeds whether or not limits are currently configured.
+      tags:
+        - spend-limits
+      security:
+        - UserToken: []
+      parameters:
+        - name: businessProfileId
+          in: path
+          required: true
+          description: The business profile ID.
+          schema:
+            type: integer
+            format: int64
+        - name: cardHolderProfileId
+          in: path
+          required: true
+          description: The personal profile ID of the cardholder.
+          schema:
+            type: integer
+            format: int64
+        - $ref: '#/components/parameters/X-External-Correlation-Id'
+      responses:
+        '204':
+          description: Spend limits removed. No response body.
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '403':
+          description: >-
+            The client lacks the `CARDS_API_MANAGE_SPENDING_LIMITS` permission
+            on the business profile, or the cardholder profile is not accessible
+            to it.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/access-error'
+              example:
+                type: /errors/types/access
+                status: 403
+                code: unauthorized
+                detail: Operation is unauthorized
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '422':
+          description: >-
+            A path parameter references a profile of the wrong type.
+            `businessProfileId` must reference a business profile and
+            `cardHolderProfileId` must reference a personal profile.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/validation-error-2'
+              example:
+                type: /errors/types/validation
+                title: Validation error
+                status: 422
+                instance: >-
+                  /v4/spend/profiles/12345/card-holder-profiles/67890/spend-limits
+                errors:
+                  - code: invalid_value
+                    ref: businessProfileId
+                    detail: businessProfileId must reference a business profile
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          description: An unexpected error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server-error'
+              example:
+                type: /errors/types/server
+                status: 500
+                detail: An unexpected error occurred
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
   /profiles/{profileId}/pin:
     post:
       operationId: scaPinCreate
@@ -31344,6 +31824,213 @@ components:
               format: date-time
               description: The time when the limit gets reset. Null for lifetime limit.
               example: null
+    card-holder-limits:
+      title: Card Holder Limits
+      x-tags:
+        - spend-limits
+      type: object
+      properties:
+        spendLimits:
+          type: array
+          description: >-
+            Spend limits configured for this cardholder. These limits apply to
+            the cardholder's combined spending across all cards belonging to
+            them, rather than to an individual card or the entire business
+            profile. Empty when no cardholder limits are configured. Currently
+            contains at most one entry, representing the `PURCHASE` limit type.
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                description: The category of spending the limit applies to.
+                enum:
+                  - PURCHASE
+                example: PURCHASE
+              aggregateWindow:
+                type: object
+                description: >-
+                  The limits per aggregation window. A window is `null` when no
+                  limit is configured for it.
+                properties:
+                  daily:
+                    type:
+                      - object
+                      - 'null'
+                    properties:
+                      value:
+                        type: object
+                        description: Daily limit.
+                        properties:
+                          amount:
+                            type: number
+                            example: 1000
+                          currency:
+                            minLength: 3
+                            maxLength: 3
+                            type: string
+                            example: GBP
+                      usage:
+                        type: object
+                        description: >-
+                          The total authorised amount during the daily window,
+                          across all cards belonging to the cardholder.
+                        properties:
+                          amount:
+                            type: number
+                            example: 100
+                          currency:
+                            minLength: 3
+                            maxLength: 3
+                            type: string
+                            example: GBP
+                      resetAt:
+                        type: string
+                        format: date-time
+                        description: >-
+                          When the usage resets. This is the end of the current
+                          day in the business profile's timezone, expressed as a
+                          UTC timestamp. A profile with no timezone configured
+                          defaults to UTC. For example, a Singapore profile's
+                          daily window ends at 23:59:59.999+08:00, serialised as
+                          `2023-07-31T15:59:59.999Z`.
+                        example: '2023-07-31T15:59:59.999Z'
+                  monthly:
+                    type:
+                      - object
+                      - 'null'
+                    properties:
+                      value:
+                        type: object
+                        description: Monthly limit.
+                        properties:
+                          amount:
+                            type: number
+                            example: 3000
+                          currency:
+                            minLength: 3
+                            maxLength: 3
+                            type: string
+                            example: GBP
+                      usage:
+                        type: object
+                        description: >-
+                          The total authorised amount during the monthly window,
+                          across all cards belonging to the cardholder.
+                        properties:
+                          amount:
+                            type: number
+                            example: 100
+                          currency:
+                            type: string
+                            minLength: 3
+                            maxLength: 3
+                            example: GBP
+                      resetAt:
+                        type: string
+                        format: date-time
+                        description: >-
+                          When the usage resets. This is the end of the current
+                          month in the business profile's timezone, expressed as
+                          a UTC timestamp. A profile with no timezone configured
+                          defaults to UTC. For example, a Singapore profile's
+                          daily window ends at 23:59:59.999+08:00, serialised as
+                          `2023-07-31T15:59:59.999Z`.
+                        example: '2023-07-31T15:59:59.999Z'
+    access-error:
+      title: Access Error
+      type: object
+      required:
+        - type
+        - status
+        - code
+        - detail
+      properties:
+        type:
+          type: string
+          description: The type of error.
+          example: /errors/types/access
+        status:
+          type: integer
+          description: The HTTP status code.
+          example: 403
+        code:
+          type: string
+          description: The error code.
+          example: unauthorized
+        detail:
+          type: string
+          description: A description of the error.
+          example: Operation is unauthorized
+    validation-error-2:
+      title: Validation Error
+      type: object
+      required:
+        - type
+        - title
+        - status
+        - instance
+        - errors
+      properties:
+        type:
+          type: string
+          description: A URI identifying the error type.
+          example: /errors/types/validation
+        title:
+          type: string
+          description: A short summary of the error.
+          example: Validation Error
+        status:
+          type: integer
+          description: The HTTP status code.
+          example: 422
+        instance:
+          type: string
+          description: The API path associated with the error.
+          example: >-
+            /public/v4/spend/profiles/14974487/card-holder-profiles/14974487/spend-limits
+        errors:
+          type: array
+          description: The individual validation errors.
+          items:
+            type: object
+            required:
+              - code
+              - ref
+              - detail
+            properties:
+              code:
+                type: string
+                description: The validation error code.
+                example: invalid_value
+              ref:
+                type: string
+                description: The parameter or field that caused the error.
+                example: businessProfileId
+              detail:
+                type: string
+                description: A description of the validation error.
+                example: businessProfileId must reference a business profile
+    server-error:
+      title: Server Error
+      type: object
+      required:
+        - type
+        - status
+        - detail
+      properties:
+        type:
+          type: string
+          description: The type of error.
+          example: /errors/types/server
+        status:
+          type: integer
+          description: The HTTP status code.
+          example: 500
+        detail:
+          type: string
+          description: A description of the error.
+          example: An unexpected error occurred
     one-time-token:
       title: One-Time Token
       x-tags:

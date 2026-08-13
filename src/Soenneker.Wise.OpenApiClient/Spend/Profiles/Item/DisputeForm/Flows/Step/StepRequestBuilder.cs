@@ -10,7 +10,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.DisputeForm.Flows.Step
 {
     /// <summary>
-    /// Builds and executes requests for operations under \spend\profiles\{profileId}\dispute-form\flows\step
+    /// Builds and executes requests for operations under \spend\profiles\{businessProfile-id}\dispute-form\flows\step
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class StepRequestBuilder : BaseRequestBuilder
@@ -32,7 +32,7 @@ namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.DisputeForm.Flows.Ste
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public StepRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{profileId}/dispute-form/flows/step", pathParameters)
+        public StepRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{businessProfile%2Did}/dispute-form/flows/step", pathParameters)
         {
         }
         /// <summary>
@@ -40,7 +40,7 @@ namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.DisputeForm.Flows.Ste
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public StepRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{profileId}/dispute-form/flows/step", rawUrl)
+        public StepRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{businessProfile%2Did}/dispute-form/flows/step", rawUrl)
         {
         }
     }

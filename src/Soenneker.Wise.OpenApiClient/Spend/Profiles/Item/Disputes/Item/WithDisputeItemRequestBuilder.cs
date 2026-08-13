@@ -13,7 +13,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.Disputes.Item
 {
     /// <summary>
-    /// Builds and executes requests for operations under \spend\profiles\{profileId}\disputes\{disputeId}
+    /// Builds and executes requests for operations under \spend\profiles\{businessProfile-id}\disputes\{disputeId}
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class WithDisputeItemRequestBuilder : BaseRequestBuilder
@@ -28,7 +28,7 @@ namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.Disputes.Item
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public WithDisputeItemRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{profileId}/disputes/{disputeId}", pathParameters)
+        public WithDisputeItemRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{businessProfile%2Did}/disputes/{disputeId}", pathParameters)
         {
         }
         /// <summary>
@@ -36,7 +36,7 @@ namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.Disputes.Item
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public WithDisputeItemRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{profileId}/disputes/{disputeId}", rawUrl)
+        public WithDisputeItemRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{businessProfile%2Did}/disputes/{disputeId}", rawUrl)
         {
         }
         /// <summary>

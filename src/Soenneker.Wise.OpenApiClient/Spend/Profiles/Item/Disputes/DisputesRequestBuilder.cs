@@ -13,7 +13,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.Disputes
 {
     /// <summary>
-    /// Builds and executes requests for operations under \spend\profiles\{profileId}\disputes
+    /// Builds and executes requests for operations under \spend\profiles\{businessProfile-id}\disputes
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class DisputesRequestBuilder : BaseRequestBuilder
@@ -35,7 +35,7 @@ namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.Disputes
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public DisputesRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{profileId}/disputes{?pageNumber*,pageSize*,status*,transactionId*}", pathParameters)
+        public DisputesRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{businessProfile%2Did}/disputes{?pageNumber*,pageSize*,status*,transactionId*}", pathParameters)
         {
         }
         /// <summary>
@@ -43,7 +43,7 @@ namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.Disputes
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public DisputesRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{profileId}/disputes{?pageNumber*,pageSize*,status*,transactionId*}", rawUrl)
+        public DisputesRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{businessProfile%2Did}/disputes{?pageNumber*,pageSize*,status*,transactionId*}", rawUrl)
         {
         }
         /// <summary>

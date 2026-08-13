@@ -10,7 +10,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.DisputeForm.Flows.Item
 {
     /// <summary>
-    /// Builds and executes requests for operations under \spend\profiles\{profileId}\dispute-form\flows\{scheme}
+    /// Builds and executes requests for operations under \spend\profiles\{businessProfile-id}\dispute-form\flows\{scheme}
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class WithSchemeItemRequestBuilder : BaseRequestBuilder
@@ -32,7 +32,7 @@ namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.DisputeForm.Flows.Ite
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public WithSchemeItemRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{profileId}/dispute-form/flows/{scheme}", pathParameters)
+        public WithSchemeItemRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{businessProfile%2Did}/dispute-form/flows/{scheme}", pathParameters)
         {
         }
         /// <summary>
@@ -40,7 +40,7 @@ namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.DisputeForm.Flows.Ite
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public WithSchemeItemRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{profileId}/dispute-form/flows/{scheme}", rawUrl)
+        public WithSchemeItemRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{businessProfile%2Did}/dispute-form/flows/{scheme}", rawUrl)
         {
         }
     }
