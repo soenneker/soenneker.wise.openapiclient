@@ -8,10 +8,11 @@ using System.IO;
 using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
+    /// <summary>
+    /// Data block to capture payment originator details
+    /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    #pragma warning disable CS1591
     public partial class OriginatorResponse : IAdditionalDataHolder, IParsable
-    #pragma warning restore CS1591
     {
         /// <summary>Payment originator account number</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -23,7 +24,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #endif
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>The address property</summary>
+        /// <summary>Payment originator address</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Soenneker.Wise.OpenApiClient.Models.AddressResponse? Address { get; set; }
@@ -43,7 +44,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public Date? BusinessRegistrationDate { get; set; }
         /// <summary>Payment originator date of birth</summary>
         public Date? DateOfBirth { get; set; }
-        /// <summary>The legalEntityType property</summary>
+        /// <summary>Payment originator legal type</summary>
         public global::Soenneker.Wise.OpenApiClient.Models.LegalEntityTypeResponse? LegalEntityType { get; set; }
         /// <summary>Data block to capture the originator name details</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER

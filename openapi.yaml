@@ -10436,7 +10436,7 @@ paths:
   /profiles/{profileId}/embedded-flows/link-requests/recipients:
     post:
       operationId: recipientEmbeddedLinkRequestCreate
-      summary: Recipient Creation
+      summary: Recipient creation
       description: >
         Returns a link that allows a user to complete a recipient creation flow
         via either a redirect or embedded iframe/webview.
@@ -10477,6 +10477,7 @@ paths:
                     This will also include query parameters based on flow
                     completion state and created recipient ID.
 
+
                     View [Embedded Flows - Recipient
                     Creation](/guides/product/embedded-flows/flows/recipient-creation)
                     for more information.
@@ -10490,6 +10491,234 @@ paths:
             example:
               redirectUrl: https://example.com/return
               targetCurrency: USD
+      responses:
+        '201':
+          description: Embedded link request created.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - url
+                  - expiresAt
+                properties:
+                  url:
+                    type: string
+                    format: uri
+                    description: Unique URL to open or embed for the user.
+                    example: >-
+                      https://wise-sandbox.com/embedded-flows?embeddedLinkRequestId=9f5f5812-2609-4e48-8418-b64437c0c7cd#token=0d0bdc88-bcf4-43dd-85be-7ca65441db20
+                  expiresAt:
+                    type: string
+                    format: date-time
+                    description: Timestamp when the returned flow URL expires.
+                    example: '2026-06-15T13:23:20.265Z'
+              example:
+                url: >-
+                  https://wise-sandbox.com/embedded-flows?embeddedLinkRequestId=9f5f5812-2609-4e48-8418-b64437c0c7cd#token=0d0bdc88-bcf4-43dd-85be-7ca65441db20
+                expiresAt: '2026-06-15T13:23:20.265Z'
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '400':
+          description: Invalid request, such as an invalid redirect URL.
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '401':
+          description: User is not authorised to access the resource.
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '404':
+          description: Profile not found.
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '429':
+          $ref: '#/components/responses/429'
+  /profiles/{profileId}/embedded-flows/link-requests/payment-instrument:
+    post:
+      operationId: paymentInstrumentEmbeddedLinkRequestCreate
+      summary: Payment instrument creation
+      description: >
+        Returns a link that allows a user to complete a payment instrument flow
+        via either a redirect or embedded iframe/webview.
+
+
+        View [Embedded Flows - Payment
+        Instruments](/guides/product/embedded-flows/flows/payment-instrument) to
+        see what data the frontend is returned upon flow completion.
+      tags:
+        - link-requests
+      security:
+        - UserToken: []
+      parameters:
+        - name: profileId
+          in: path
+          required: true
+          description: The profile ID.
+          schema:
+            type: integer
+            format: int64
+        - $ref: '#/components/parameters/X-External-Correlation-Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - redirectUrl
+                - method
+              properties:
+                redirectUrl:
+                  type: string
+                  format: uri
+                  description: >
+                    URL where the user will be redirected when the flow
+                    resolves.
+
+                    This will also include query parameters based on flow
+                    completion state and created payment instrument ID.
+
+
+                    View [Embedded Flows - Payment
+                    Instruments](/guides/product/embedded-flows/flows/payment-instrument)
+                    for more information.
+                  example: https://example.com/return
+                method:
+                  type: string
+                  enum:
+                    - BACS
+                    - SEPA
+                    - ACH
+                    - EFT
+                  description: The method the payment instrument is created for.
+                  example: BACS
+            example:
+              redirectUrl: https://example.com/return
+              method: BACS
+      responses:
+        '201':
+          description: Embedded link request created.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - url
+                  - expiresAt
+                properties:
+                  url:
+                    type: string
+                    format: uri
+                    description: Unique URL to open or embed for the user.
+                    example: >-
+                      https://wise-sandbox.com/embedded-flows?embeddedLinkRequestId=9f5f5812-2609-4e48-8418-b64437c0c7cd#token=0d0bdc88-bcf4-43dd-85be-7ca65441db20
+                  expiresAt:
+                    type: string
+                    format: date-time
+                    description: Timestamp when the returned flow URL expires.
+                    example: '2026-06-15T13:23:20.265Z'
+              example:
+                url: >-
+                  https://wise-sandbox.com/embedded-flows?embeddedLinkRequestId=9f5f5812-2609-4e48-8418-b64437c0c7cd#token=0d0bdc88-bcf4-43dd-85be-7ca65441db20
+                expiresAt: '2026-06-15T13:23:20.265Z'
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '400':
+          description: Invalid request, such as an invalid redirect URL.
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '401':
+          description: User is not authorised to access the resource.
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '404':
+          description: Profile not found.
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '429':
+          $ref: '#/components/responses/429'
+  /profiles/{profileId}/embedded-flows/link-requests/kyc-reviews:
+    post:
+      operationId: kycReviewsEmbeddedLinkRequestCreate
+      summary: KYC review completion
+      description: >
+        Returns a link that allows a user to complete a KYC review flow via
+        either a redirect or embedded iframe/webview.
+
+
+        View [Embedded Flows - KYC
+        Review](/guides/product/embedded-flows/flows/kyc-reviews) to see what
+        data the frontend is returned upon flow completion.
+      tags:
+        - link-requests
+      security:
+        - UserToken: []
+      parameters:
+        - name: profileId
+          in: path
+          required: true
+          description: The profile ID.
+          schema:
+            type: integer
+            format: int64
+        - $ref: '#/components/parameters/X-External-Correlation-Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - redirectUrl
+                - kycReviewId
+              properties:
+                redirectUrl:
+                  type: string
+                  format: uri
+                  description: >
+                    URL where the user will be redirected when the flow
+                    resolves.
+
+                    This will also include query parameters based on flow
+                    completion state and completed KYC review ID.
+
+
+                    View [Embedded Flows - KYC
+                    Review](/guides/product/embedded-flows/flows/kyc-reviews)
+                    for more information.
+                  example: https://example.com/return
+                kycReviewId:
+                  type: string
+                  description: The UUID for the KYC review to be completed.
+                  example: f47ac10b-58cc-4372-a567-0e02b2c3d479
+                  format: uuid
+            example:
+              redirectUrl: https://example.com/return
+              kycReviewId: f47ac10b-58cc-4372-a567-0e02b2c3d479
       responses:
         '201':
           description: Embedded link request created.

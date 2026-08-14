@@ -14,7 +14,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>&quot;Machine-readable error code returned with `status: REJECTED`. Each member&apos;s documentation notes the `type` values that can produce it and the underlying HTTP status.    This is the complete set of error codes the API can return today. Consumers should treat unknown codes defensively (new codes may be added); a wildcard fallback to a generic &apos;funding failed&apos; UI is recommended.&quot;</summary>
+        /// <summary>Machine-readable error code. Present if `status = REJECTED`.</summary>
         public global::Soenneker.Wise.OpenApiClient.Models.FundingErrorCode? ErrorCode { get; set; }
         /// <summary>Free-form human-readable explanation of a `REJECTED` outcome. Suitable for logging and developer-facing tools; not localised and not safe to surface to end users. May be absent.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -32,7 +32,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string PartnerReference { get; set; }
 #endif
-        /// <summary>Outcome of a funding attempt.</summary>
+        /// <summary>Outcome of the funding attempt.</summary>
         public global::Soenneker.Wise.OpenApiClient.Models.FundingStatus? Status { get; set; }
         /// <summary>The type property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER

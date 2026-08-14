@@ -2,6 +2,8 @@
 #pragma warning disable CS0618
 using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions;
+using Soenneker.Wise.OpenApiClient.Profiles.Item.EmbeddedFlows.LinkRequests.KycReviews;
+using Soenneker.Wise.OpenApiClient.Profiles.Item.EmbeddedFlows.LinkRequests.PaymentInstrument;
 using Soenneker.Wise.OpenApiClient.Profiles.Item.EmbeddedFlows.LinkRequests.Recipients;
 using System.Collections.Generic;
 using System.IO;
@@ -15,6 +17,16 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.Item.EmbeddedFlows.LinkRequests
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class LinkRequestsRequestBuilder : BaseRequestBuilder
     {
+        /// <summary>The kycReviews property</summary>
+        public global::Soenneker.Wise.OpenApiClient.Profiles.Item.EmbeddedFlows.LinkRequests.KycReviews.KycReviewsRequestBuilder KycReviews
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.Profiles.Item.EmbeddedFlows.LinkRequests.KycReviews.KycReviewsRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The paymentInstrument property</summary>
+        public global::Soenneker.Wise.OpenApiClient.Profiles.Item.EmbeddedFlows.LinkRequests.PaymentInstrument.PaymentInstrumentRequestBuilder PaymentInstrument
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.Profiles.Item.EmbeddedFlows.LinkRequests.PaymentInstrument.PaymentInstrumentRequestBuilder(PathParameters, RequestAdapter);
+        }
         /// <summary>The recipients property</summary>
         public global::Soenneker.Wise.OpenApiClient.Profiles.Item.EmbeddedFlows.LinkRequests.Recipients.RecipientsRequestBuilder Recipients
         {

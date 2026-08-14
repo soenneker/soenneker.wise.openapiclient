@@ -17,7 +17,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Timestamp when transfer was created.</summary>
         public DateTimeOffset? Created { get; set; }
-        /// <summary>The details property</summary>
+        /// <summary>Payment Details</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Soenneker.Wise.OpenApiClient.Models.DetailsResponse? Details { get; set; }
@@ -37,7 +37,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string OriginalTransferId { get; set; }
 #endif
-        /// <summary>The originator property</summary>
+        /// <summary>Data block to capture payment originator details</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Soenneker.Wise.OpenApiClient.Models.OriginatorResponse? Originator { get; set; }

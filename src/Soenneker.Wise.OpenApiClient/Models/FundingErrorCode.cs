@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
-    /// <summary>&quot;Machine-readable error code returned with `status: REJECTED`. Each member&apos;s documentation notes the `type` values that can produce it and the underlying HTTP status.    This is the complete set of error codes the API can return today. Consumers should treat unknown codes defensively (new codes may be added); a wildcard fallback to a generic &apos;funding failed&apos; UI is recommended.&quot;</summary>
+    /// <summary>Machine-readable error code. Present if `status = REJECTED`.</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public enum FundingErrorCode
     {

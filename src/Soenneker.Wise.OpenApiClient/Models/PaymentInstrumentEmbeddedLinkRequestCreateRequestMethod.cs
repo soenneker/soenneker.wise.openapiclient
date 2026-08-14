@@ -3,21 +3,25 @@ using System.Runtime.Serialization;
 using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
-    /// <summary>Outcome of the funding attempt.</summary>
+    /// <summary>The method the payment instrument is created for.</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    public enum FundingStatus
+    public enum PaymentInstrumentEmbeddedLinkRequestCreateRequestMethod
     {
-        [EnumMember(Value = "CREATED")]
+        [EnumMember(Value = "BACS")]
         #pragma warning disable CS1591
-        Created,
+        Bacs,
         #pragma warning restore CS1591
-        [EnumMember(Value = "COMPLETED")]
+        [EnumMember(Value = "SEPA")]
         #pragma warning disable CS1591
-        Completed,
+        Sepa,
         #pragma warning restore CS1591
-        [EnumMember(Value = "REJECTED")]
+        [EnumMember(Value = "ACH")]
         #pragma warning disable CS1591
-        Rejected,
+        Ach,
+        #pragma warning restore CS1591
+        [EnumMember(Value = "EFT")]
+        #pragma warning disable CS1591
+        Eft,
         #pragma warning restore CS1591
     }
 }

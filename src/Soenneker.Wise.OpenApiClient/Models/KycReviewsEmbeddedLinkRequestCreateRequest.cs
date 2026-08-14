@@ -7,38 +7,39 @@ using System.IO;
 using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
-    /// <summary>
-    /// Data block to capture payment details.
-    /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    public partial class Details : IAdditionalDataHolder, IParsable
+    #pragma warning disable CS1591
+    public partial class KycReviewsEmbeddedLinkRequestCreateRequest : IAdditionalDataHolder, IParsable
+    #pragma warning restore CS1591
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Recipient will see this reference text in their bank statement. Maximum allowed characters depends on the currency route.         [Business Payments Tips](https://wise.com/help/articles/2932870/tips-for-paying-invoices) for a full list</summary>
+        /// <summary>The UUID for the KYC review to be completed.</summary>
+        public Guid? KycReviewId { get; set; }
+        /// <summary>URL where the user will be redirected when the flow resolves.This will also include query parameters based on flow completion state and completed KYC review ID.View [Embedded Flows - KYC Review](/guides/product/embedded-flows/flows/kyc-reviews) for more information.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Reference { get; set; }
+        public string? RedirectUrl { get; set; }
 #nullable restore
 #else
-        public string Reference { get; set; }
+        public string RedirectUrl { get; set; }
 #endif
         /// <summary>
-        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.Details"/> and sets the default values.
+        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.KycReviewsEmbeddedLinkRequestCreateRequest"/> and sets the default values.
         /// </summary>
-        public Details()
+        public KycReviewsEmbeddedLinkRequestCreateRequest()
         {
             AdditionalData = new Dictionary<string, object>();
         }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.Details"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.KycReviewsEmbeddedLinkRequestCreateRequest"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static global::Soenneker.Wise.OpenApiClient.Models.Details CreateFromDiscriminatorValue(IParseNode parseNode)
+        public static global::Soenneker.Wise.OpenApiClient.Models.KycReviewsEmbeddedLinkRequestCreateRequest CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.Details();
+            return new global::Soenneker.Wise.OpenApiClient.Models.KycReviewsEmbeddedLinkRequestCreateRequest();
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -48,7 +49,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "reference", n => { Reference = n.GetStringValue(); } },
+                { "kycReviewId", n => { KycReviewId = n.GetGuidValue(); } },
+                { "redirectUrl", n => { RedirectUrl = n.GetStringValue(); } },
             };
         }
         /// <summary>
@@ -58,7 +60,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteStringValue("reference", Reference);
+            writer.WriteGuidValue("kycReviewId", KycReviewId);
+            writer.WriteStringValue("redirectUrl", RedirectUrl);
             writer.WriteAdditionalData(AdditionalData);
         }
     }
