@@ -36,17 +36,17 @@ namespace Soenneker.Wise.OpenApiClient.Simulation.Transfers.Item.Item
         /// <summary>
         /// Changes the transfer status to the specified state. The available state transitions are:- `processing` — from `incoming_payment_waiting`- `funds_converted` — from `processing`. Refer to regional guides for special regional requirements.- `outgoing_payment_sent` — from `funds_converted`- `bounced_back` — from `outgoing_payment_sent`- `funds_refunded` — from `bounced_back`.{% admonition type=&quot;info&quot; %}Important notes - Simulation is not supported for email transfers. - Fund the transfer first before calling any simulation endpoints. - Even if funding moves the transfer to a processing state, you must still call the /processing simulation endpoint. - Although the simulation request may respond immediately, processing is asynchronous - wait at least 5 seconds between simulation calls.{% /admonition %}### Sandbox refund simulation behaviour {% #sandbox-refund %}When simulating `funds_refunded`, a `transfers#refund` webhook is delivered with a simulated `refund_amount`. The amount is calculated as follows:- **SWIFT payouts:** A random fee between 5-15% is deducted from the source amount. This is non-deterministic — each simulation produces a different refund amount. This is intended for testing your partial refund handling flow.- **Non-SWIFT payouts:** The full source amount is refunded.The simulated refund amount only applies to the webhook payload. Balances and the sandbox UI will always reflect the full refund amount regardless of payout method, so the webhook `refund_amount` may differ from what is shown in balances and the sandbox UI for SWIFT transfers.  This simulation is not suitable for reconciliation testing between webhook amounts and balances.
         /// </summary>
-        /// <returns>A <see cref="Stream"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Simulation.Transfers.Item.Item.WithStatusGetResponse"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<Stream?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Simulation.Transfers.Item.Item.WithStatusGetResponse?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<Stream> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Simulation.Transfers.Item.Item.WithStatusGetResponse> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
@@ -54,7 +54,7 @@ namespace Soenneker.Wise.OpenApiClient.Simulation.Transfers.Item.Item
             {
                 { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
             };
-            return await RequestAdapter.SendPrimitiveAsync<Stream>(requestInfo, errorMapping, cancellationToken).ConfigureAwait(false);
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Simulation.Transfers.Item.Item.WithStatusGetResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.Simulation.Transfers.Item.Item.WithStatusGetResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Changes the transfer status to the specified state. The available state transitions are:- `processing` — from `incoming_payment_waiting`- `funds_converted` — from `processing`. Refer to regional guides for special regional requirements.- `outgoing_payment_sent` — from `funds_converted`- `bounced_back` — from `outgoing_payment_sent`- `funds_refunded` — from `bounced_back`.{% admonition type=&quot;info&quot; %}Important notes - Simulation is not supported for email transfers. - Fund the transfer first before calling any simulation endpoints. - Even if funding moves the transfer to a processing state, you must still call the /processing simulation endpoint. - Although the simulation request may respond immediately, processing is asynchronous - wait at least 5 seconds between simulation calls.{% /admonition %}### Sandbox refund simulation behaviour {% #sandbox-refund %}When simulating `funds_refunded`, a `transfers#refund` webhook is delivered with a simulated `refund_amount`. The amount is calculated as follows:- **SWIFT payouts:** A random fee between 5-15% is deducted from the source amount. This is non-deterministic — each simulation produces a different refund amount. This is intended for testing your partial refund handling flow.- **Non-SWIFT payouts:** The full source amount is refunded.The simulated refund amount only applies to the webhook payload. Balances and the sandbox UI will always reflect the full refund amount regardless of payout method, so the webhook `refund_amount` may differ from what is shown in balances and the sandbox UI for SWIFT transfers.  This simulation is not suitable for reconciliation testing between webhook amounts and balances.

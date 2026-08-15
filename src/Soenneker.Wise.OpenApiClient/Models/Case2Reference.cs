@@ -24,7 +24,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public string ReferenceId { get; set; }
 #endif
         /// <summary>The type property</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.Case2ReferenceType? Type { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.TransferType? Type { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.Case2Reference"/> and sets the default values.
         /// </summary>
@@ -51,7 +51,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "referenceId", n => { ReferenceId = n.GetStringValue(); } },
-                { "type", n => { Type = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.Case2ReferenceType>(); } },
+                { "type", n => { Type = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.TransferType>(); } },
             };
         }
         /// <summary>
@@ -62,7 +62,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("referenceId", ReferenceId);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.Case2ReferenceType>("type", Type);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.TransferType>("type", Type);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

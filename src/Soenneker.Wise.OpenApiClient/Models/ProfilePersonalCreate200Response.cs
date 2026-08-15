@@ -24,8 +24,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #endif
         /// <summary>Unique profile ID.</summary>
         public long? Id { get; set; }
-        /// <summary>Profile type.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.ProfilePersonalCreate200ResponseType? Type { get; set; }
+        /// <summary>Type of profile.</summary>
+        public global::Soenneker.Wise.OpenApiClient.Models.PersonalType? Type { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.ProfilePersonalCreate200Response"/> and sets the default values.
         /// </summary>
@@ -53,7 +53,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             {
                 { "details", n => { Details = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.ProfilePersonalCreate200ResponseDetails>(global::Soenneker.Wise.OpenApiClient.Models.ProfilePersonalCreate200ResponseDetails.CreateFromDiscriminatorValue); } },
                 { "id", n => { Id = n.GetLongValue(); } },
-                { "type", n => { Type = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ProfilePersonalCreate200ResponseType>(); } },
+                { "type", n => { Type = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PersonalType>(); } },
             };
         }
         /// <summary>
@@ -65,7 +65,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.ProfilePersonalCreate200ResponseDetails>("details", Details);
             writer.WriteLongValue("id", Id);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ProfilePersonalCreate200ResponseType>("type", Type);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PersonalType>("type", Type);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

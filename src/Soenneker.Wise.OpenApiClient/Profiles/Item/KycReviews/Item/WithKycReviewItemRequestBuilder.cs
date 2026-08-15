@@ -57,7 +57,7 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.Item.KycReviews.Item
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.KycReview>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.KycReview.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// &quot;Updates the KYC Review with a redirect URL.Returns the KYC Review object with a `link` field containing a URL where the end customer needs to be directed in order to complete the Hosted KYC flow. **The link is short-lived and single-use and valid for 5 minutes**. Use the `expiresAt` field in the response to determine the exact expiry time. To regenerate the link, call this endpoint again.Once the Hosted KYC flow is completed by the end customer, they will be redirected to the `redirectUrl` provided in this API call. During the redirection, the `redirectUrl` will be appended with query parameters: `status=success`, `status=failed`, or `status=closed`.&quot;
+        /// Updates the KYC Review with a redirect URL.Returns the KYC Review object with a `link` field containing a URL where the end customer needs to be directed in order to complete the Hosted KYC flow. **The link is short-lived and single-use and valid for 5 minutes**. Use the `expiresAt` field in the response to determine the exact expiry time. To regenerate the link, call this endpoint again.Once the Hosted KYC flow is completed by the end customer, they will be redirected to the `redirectUrl` provided in this API call. During the redirection, the `redirectUrl` will be appended with query parameters: `status=success`, `status=failed`, or `status=closed`.
         /// </summary>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.KycReviewWithLink"/></returns>
         /// <param name="body">The request body</param>
@@ -101,7 +101,7 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.Item.KycReviews.Item
             return requestInfo;
         }
         /// <summary>
-        /// &quot;Updates the KYC Review with a redirect URL.Returns the KYC Review object with a `link` field containing a URL where the end customer needs to be directed in order to complete the Hosted KYC flow. **The link is short-lived and single-use and valid for 5 minutes**. Use the `expiresAt` field in the response to determine the exact expiry time. To regenerate the link, call this endpoint again.Once the Hosted KYC flow is completed by the end customer, they will be redirected to the `redirectUrl` provided in this API call. During the redirection, the `redirectUrl` will be appended with query parameters: `status=success`, `status=failed`, or `status=closed`.&quot;
+        /// Updates the KYC Review with a redirect URL.Returns the KYC Review object with a `link` field containing a URL where the end customer needs to be directed in order to complete the Hosted KYC flow. **The link is short-lived and single-use and valid for 5 minutes**. Use the `expiresAt` field in the response to determine the exact expiry time. To regenerate the link, call this endpoint again.Once the Hosted KYC flow is completed by the end customer, they will be redirected to the `redirectUrl` provided in this API call. During the redirection, the `redirectUrl` will be appended with query parameters: `status=success`, `status=failed`, or `status=closed`.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>

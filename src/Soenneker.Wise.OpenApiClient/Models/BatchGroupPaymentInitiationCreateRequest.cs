@@ -24,8 +24,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string Reference { get; set; }
 #endif
-        /// <summary>The method of payment to use.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.BatchGroupPaymentInitiationCreateRequestType? Type { get; set; }
+        /// <summary>Payment type.</summary>
+        public global::Soenneker.Wise.OpenApiClient.Models.DirectDebitType? Type { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.BatchGroupPaymentInitiationCreateRequest"/> and sets the default values.
         /// </summary>
@@ -53,7 +53,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             {
                 { "accountId", n => { AccountId = n.GetLongValue(); } },
                 { "reference", n => { Reference = n.GetStringValue(); } },
-                { "type", n => { Type = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BatchGroupPaymentInitiationCreateRequestType>(); } },
+                { "type", n => { Type = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.DirectDebitType>(); } },
             };
         }
         /// <summary>
@@ -65,7 +65,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteLongValue("accountId", AccountId);
             writer.WriteStringValue("reference", Reference);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BatchGroupPaymentInitiationCreateRequestType>("type", Type);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.DirectDebitType>("type", Type);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

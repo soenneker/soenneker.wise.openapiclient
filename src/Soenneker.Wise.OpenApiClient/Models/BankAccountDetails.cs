@@ -35,7 +35,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public bool? Deprecated { get; set; }
         /// <summary>Bank account details ID. Returns `null` for preview account details that have not yet been issued.</summary>
         public long? Id { get; set; }
-        /// <summary>&quot;Available receive options for the given currency:- `LOCAL`: Local bank details to receive money in the account currency- `INTERNATIONAL`: SWIFT bank details to receive money internationally&quot;</summary>
+        /// <summary>Available receive options for the given currency:- `LOCAL`: Local bank details to receive money in the account currency- `INTERNATIONAL`: SWIFT bank details to receive money internationally</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsReceiveOptionsItem>? ReceiveOptions { get; set; }
@@ -43,7 +43,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public List<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsReceiveOptionsItem> ReceiveOptions { get; set; }
 #endif
-        /// <summary>&quot;Account details status:- `AVAILABLE`: Account details do not exist for the user but may be created- `ACTIVE`: Account details are ready to be used by this user&quot;</summary>
+        /// <summary>Account details status:- `AVAILABLE`: Account details do not exist for the user but may be created- `ACTIVE`: Account details are ready to be used by this user</summary>
         public global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsStatus? Status { get; set; }
         /// <summary>Account subtitle.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER

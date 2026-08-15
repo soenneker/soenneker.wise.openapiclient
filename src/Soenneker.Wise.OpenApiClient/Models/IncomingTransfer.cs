@@ -86,7 +86,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The payment scheme through which the incoming transfer was received.These are not necessarily clearing systems as we also include SWIFT here.</summary>
         public global::Soenneker.Wise.OpenApiClient.Models.Scheme? Scheme { get; set; }
         /// <summary>Current state of the incoming transfer. Additional states will be added in the future.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.IncomingTransferState? State { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CreditedState? State { get; set; }
         /// <summary>Universal End-to-End Transaction Reference. A globally uniqueidentifier (UUID v4) assigned by the debtor agent to track thepayment across the entire chain.</summary>
         public Guid? Uetr { get; set; }
         /// <summary>Unstructured remittance information provided by the debtor.Free-text field carried through the payment rail.</summary>
@@ -136,7 +136,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "previousInstructingAgents", n => { PreviousInstructingAgents = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.FinancialInstitution>(global::Soenneker.Wise.OpenApiClient.Models.FinancialInstitution.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "profileId", n => { ProfileId = n.GetLongValue(); } },
                 { "scheme", n => { Scheme = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.Scheme>(); } },
-                { "state", n => { State = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.IncomingTransferState>(); } },
+                { "state", n => { State = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CreditedState>(); } },
                 { "uetr", n => { Uetr = n.GetGuidValue(); } },
                 { "unstructuredReference", n => { UnstructuredReference = n.GetStringValue(); } },
             };
@@ -162,7 +162,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.FinancialInstitution>("previousInstructingAgents", PreviousInstructingAgents);
             writer.WriteLongValue("profileId", ProfileId);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.Scheme>("scheme", Scheme);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.IncomingTransferState>("state", State);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CreditedState>("state", State);
             writer.WriteGuidValue("uetr", Uetr);
             writer.WriteStringValue("unstructuredReference", UnstructuredReference);
             writer.WriteAdditionalData(AdditionalData);

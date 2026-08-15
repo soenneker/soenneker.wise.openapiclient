@@ -34,7 +34,7 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.Item.Transfers.Item.DepositDetai
         {
         }
         /// <summary>
-        /// &quot;Retrieve the bank details for the account that the customer should send funds to when paying for a Wise transfer via a bank transfer.`profileId` in the request URL refers to the profile that created the transfer. It can be either the personal profile ID, or the business profile ID.The `payinBankAccount` field allows the bank details to be displayed dynamically in a user interface, by displaying the label and value fields.Currently, this API supports the following currencies: AUD, BGN, BRL, CAD, CHF, CZK, DKK, EUR, GBP, HKD, HRK, HUF, IDR, INR, JPY, MYR, NOK, NZD, PLN, RON, SEK, SGD, TRY, USD.&quot;
+        /// Retrieve the bank details for the account that the customer should send funds to when paying for a Wise transfer via a bank transfer.`profileId` in the request URL refers to the profile that created the transfer. It can be either the personal profile ID, or the business profile ID.The `payinBankAccount` field allows the bank details to be displayed dynamically in a user interface, by displaying the label and value fields.Currently, this API supports the following currencies: AUD, BGN, BRL, CAD, CHF, CZK, DKK, EUR, GBP, HKD, HRK, HUF, IDR, INR, JPY, MYR, NOK, NZD, PLN, RON, SEK, SGD, TRY, USD.
         /// </summary>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.PayinDepositDetailGet200Response"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
@@ -57,7 +57,7 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.Item.Transfers.Item.DepositDetai
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.PayinDepositDetailGet200Response>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.PayinDepositDetailGet200Response.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// &quot;Retrieve the bank details for the account that the customer should send funds to when paying for a Wise transfer via a bank transfer.`profileId` in the request URL refers to the profile that created the transfer. It can be either the personal profile ID, or the business profile ID.The `payinBankAccount` field allows the bank details to be displayed dynamically in a user interface, by displaying the label and value fields.Currently, this API supports the following currencies: AUD, BGN, BRL, CAD, CHF, CZK, DKK, EUR, GBP, HKD, HRK, HUF, IDR, INR, JPY, MYR, NOK, NZD, PLN, RON, SEK, SGD, TRY, USD.&quot;
+        /// Retrieve the bank details for the account that the customer should send funds to when paying for a Wise transfer via a bank transfer.`profileId` in the request URL refers to the profile that created the transfer. It can be either the personal profile ID, or the business profile ID.The `payinBankAccount` field allows the bank details to be displayed dynamically in a user interface, by displaying the label and value fields.Currently, this API supports the following currencies: AUD, BGN, BRL, CAD, CHF, CZK, DKK, EUR, GBP, HKD, HRK, HUF, IDR, INR, JPY, MYR, NOK, NZD, PLN, RON, SEK, SGD, TRY, USD.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>

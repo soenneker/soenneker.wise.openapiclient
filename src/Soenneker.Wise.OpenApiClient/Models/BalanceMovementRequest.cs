@@ -23,7 +23,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public global::Soenneker.Wise.OpenApiClient.Models.BalanceMovementRequestAmount Amount { get; set; }
 #endif
-        /// <summary>&quot;Quote ID. Required for cross-currency movements. Quote must be created with `payOut: BALANCE`.&quot;</summary>
+        /// <summary>Quote ID. Required for cross-currency movements. Quote must be created with `payOut: BALANCE`.</summary>
         public Guid? QuoteId { get; set; }
         /// <summary>Source balance ID. Required when moving between balances (with targetBalanceId).</summary>
         public long? SourceBalanceId { get; set; }

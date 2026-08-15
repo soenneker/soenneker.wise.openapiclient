@@ -22,7 +22,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string Email { get; set; }
 #endif
-        /// <summary>&quot;User default language for UI and email communication.Allowed values: EN, US, PT, ES, FR, DE, IT, JA, RU, PL, HU, TR, RO, NL, HK.Default value: EN.&quot;</summary>
+        /// <summary>User default language for UI and email communication.Allowed values: EN, US, PT, ES, FR, DE, IT, JA, RU, PL, HU, TR, RO, NL, HK.Default value: EN.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Language { get; set; }

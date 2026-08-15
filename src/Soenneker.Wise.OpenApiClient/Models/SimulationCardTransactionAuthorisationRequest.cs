@@ -32,7 +32,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #endif
         /// <summary>Merchant category code.</summary>
         public int? Mcc { get; set; }
-        /// <summary>&quot;The point-of-sale used for the transaction.- For POS transactions: `CHIP_AND_PIN`- For e-commerce transactions: `E_COMMERCE_NO_3DS`- For ATM transactions: `CHIP_AND_PIN`- For refund transactions: `CHIP_AND_PIN` or `E_COMMERCE_NO_3DS`&quot;</summary>
+        /// <summary>The point-of-sale used for the transaction.- For POS transactions: `CHIP_AND_PIN`- For e-commerce transactions: `E_COMMERCE_NO_3DS`- For ATM transactions: `CHIP_AND_PIN`- For refund transactions: `CHIP_AND_PIN` or `E_COMMERCE_NO_3DS`</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Pos { get; set; }
@@ -40,7 +40,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string Pos { get; set; }
 #endif
-        /// <summary>&quot;The type of the transaction.- For POS and e-commerce transactions: `GOODS_AND_SERVICES`- For ATM transactions: `CASH_WITHDRAWAL`- For refund transactions: `REFUND`&quot;</summary>
+        /// <summary>The type of the transaction.- For POS and e-commerce transactions: `GOODS_AND_SERVICES`- For ATM transactions: `CASH_WITHDRAWAL`- For refund transactions: `REFUND`</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? TransactionType { get; set; }

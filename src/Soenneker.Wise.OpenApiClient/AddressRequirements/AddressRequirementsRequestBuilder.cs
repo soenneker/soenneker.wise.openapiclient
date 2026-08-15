@@ -34,7 +34,7 @@ namespace Soenneker.Wise.OpenApiClient.AddressRequirements
         {
         }
         /// <summary>
-        /// &quot;Returns the list of fields required to create a valid address. Use this as a starting point to discover required fields.The response contains 4 required top-level fields:- `country` (select field with list of values)- `city` (text field)- `postCode` (text field)- `firstLine` (text field)If a field has `refreshRequirementsOnChange: true`, call the POST endpoint with that field&apos;s value to discover additional required fields.For a step-by-step walkthrough, see the [Address Requirements guide](/guides/developer/api-guides/address-requirements).&quot;
+        /// Returns the list of fields required to create a valid address. Use this as a starting point to discover required fields.The response contains 4 required top-level fields:- `country` (select field with list of values)- `city` (text field)- `postCode` (text field)- `firstLine` (text field)If a field has `refreshRequirementsOnChange: true`, call the POST endpoint with that field&apos;s value to discover additional required fields.For a step-by-step walkthrough, see the [Address Requirements guide](/guides/developer/api-guides/address-requirements).
         /// </summary>
         /// <returns>A List&lt;global::Soenneker.Wise.OpenApiClient.Models.AddressRequirementsResponseItem&gt;</returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
@@ -58,7 +58,7 @@ namespace Soenneker.Wise.OpenApiClient.AddressRequirements
             return collectionResult?.AsList();
         }
         /// <summary>
-        /// &quot;Returns the list of fields required to create a valid address, based on the provided context.Use this endpoint to dynamically discover additional required fields based on selected values. For example:- Posting `{\&quot;details\&quot;: {\&quot;country\&quot;: \&quot;US\&quot;}}` will add \&quot;state\&quot; to the list of fields.- Posting `{\&quot;details\&quot;: {\&quot;country\&quot;: \&quot;CA\&quot;}}` will add \&quot;occupations\&quot; to the list of fields.Continue calling this endpoint with field values until all fields with `refreshRequirementsOnChange: true` have been populated.For a step-by-step walkthrough, see the [Address Requirements guide](/guides/developer/api-guides/address-requirements).&quot;
+        /// Returns the list of fields required to create a valid address, based on the provided context.Use this endpoint to dynamically discover additional required fields based on selected values. For example:- Posting `{&quot;details&quot;: {&quot;country&quot;: &quot;US&quot;}}` will add &quot;state&quot; to the list of fields.- Posting `{&quot;details&quot;: {&quot;country&quot;: &quot;CA&quot;}}` will add &quot;occupations&quot; to the list of fields.Continue calling this endpoint with field values until all fields with `refreshRequirementsOnChange: true` have been populated.For a step-by-step walkthrough, see the [Address Requirements guide](/guides/developer/api-guides/address-requirements).
         /// </summary>
         /// <returns>A List&lt;global::Soenneker.Wise.OpenApiClient.Models.AddressRequirementsResponseItem&gt;</returns>
         /// <param name="body">Request body for retrieving address requirements based on context.</param>
@@ -84,7 +84,7 @@ namespace Soenneker.Wise.OpenApiClient.AddressRequirements
             return collectionResult?.AsList();
         }
         /// <summary>
-        /// &quot;Returns the list of fields required to create a valid address. Use this as a starting point to discover required fields.The response contains 4 required top-level fields:- `country` (select field with list of values)- `city` (text field)- `postCode` (text field)- `firstLine` (text field)If a field has `refreshRequirementsOnChange: true`, call the POST endpoint with that field&apos;s value to discover additional required fields.For a step-by-step walkthrough, see the [Address Requirements guide](/guides/developer/api-guides/address-requirements).&quot;
+        /// Returns the list of fields required to create a valid address. Use this as a starting point to discover required fields.The response contains 4 required top-level fields:- `country` (select field with list of values)- `city` (text field)- `postCode` (text field)- `firstLine` (text field)If a field has `refreshRequirementsOnChange: true`, call the POST endpoint with that field&apos;s value to discover additional required fields.For a step-by-step walkthrough, see the [Address Requirements guide](/guides/developer/api-guides/address-requirements).
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
@@ -103,7 +103,7 @@ namespace Soenneker.Wise.OpenApiClient.AddressRequirements
             return requestInfo;
         }
         /// <summary>
-        /// &quot;Returns the list of fields required to create a valid address, based on the provided context.Use this endpoint to dynamically discover additional required fields based on selected values. For example:- Posting `{\&quot;details\&quot;: {\&quot;country\&quot;: \&quot;US\&quot;}}` will add \&quot;state\&quot; to the list of fields.- Posting `{\&quot;details\&quot;: {\&quot;country\&quot;: \&quot;CA\&quot;}}` will add \&quot;occupations\&quot; to the list of fields.Continue calling this endpoint with field values until all fields with `refreshRequirementsOnChange: true` have been populated.For a step-by-step walkthrough, see the [Address Requirements guide](/guides/developer/api-guides/address-requirements).&quot;
+        /// Returns the list of fields required to create a valid address, based on the provided context.Use this endpoint to dynamically discover additional required fields based on selected values. For example:- Posting `{&quot;details&quot;: {&quot;country&quot;: &quot;US&quot;}}` will add &quot;state&quot; to the list of fields.- Posting `{&quot;details&quot;: {&quot;country&quot;: &quot;CA&quot;}}` will add &quot;occupations&quot; to the list of fields.Continue calling this endpoint with field values until all fields with `refreshRequirementsOnChange: true` have been populated.For a step-by-step walkthrough, see the [Address Requirements guide](/guides/developer/api-guides/address-requirements).
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">Request body for retrieving address requirements based on context.</param>

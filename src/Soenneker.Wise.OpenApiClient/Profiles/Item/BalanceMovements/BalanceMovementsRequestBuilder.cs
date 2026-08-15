@@ -34,7 +34,7 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.Item.BalanceMovements
         {
         }
         /// <summary>
-        /// &quot;This endpoint allows conversion and movement of funds between balance accounts.**Convert across balance accounts:**Convert funds between two `STANDARD` balance accounts in different currencies. Requires a quote created with `\&quot;payOut\&quot;: \&quot;BALANCE\&quot;`.**Move money between balances:**- Add money to a same-currency jar (move from `STANDARD` to `SAVINGS` without conversion)- Add money to another-currency jar (convert money using a quote)- Withdraw money from a jar (move from `SAVINGS` to `STANDARD` without conversion)Either `amount` or `quoteId` is required. Use `quoteId` for cross-currency movements.&quot;
+        /// This endpoint allows conversion and movement of funds between balance accounts.**Convert across balance accounts:**Convert funds between two `STANDARD` balance accounts in different currencies. Requires a quote created with `&quot;payOut&quot;: &quot;BALANCE&quot;`.**Move money between balances:**- Add money to a same-currency jar (move from `STANDARD` to `SAVINGS` without conversion)- Add money to another-currency jar (convert money using a quote)- Withdraw money from a jar (move from `SAVINGS` to `STANDARD` without conversion)Either `amount` or `quoteId` is required. Use `quoteId` for cross-currency movements.
         /// </summary>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.BalanceMovement201Response"/></returns>
         /// <param name="body">Request body for balance movements (conversion or transfer).</param>
@@ -59,7 +59,7 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.Item.BalanceMovements
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.BalanceMovement201Response>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.BalanceMovement201Response.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// &quot;This endpoint allows conversion and movement of funds between balance accounts.**Convert across balance accounts:**Convert funds between two `STANDARD` balance accounts in different currencies. Requires a quote created with `\&quot;payOut\&quot;: \&quot;BALANCE\&quot;`.**Move money between balances:**- Add money to a same-currency jar (move from `STANDARD` to `SAVINGS` without conversion)- Add money to another-currency jar (convert money using a quote)- Withdraw money from a jar (move from `SAVINGS` to `STANDARD` without conversion)Either `amount` or `quoteId` is required. Use `quoteId` for cross-currency movements.&quot;
+        /// This endpoint allows conversion and movement of funds between balance accounts.**Convert across balance accounts:**Convert funds between two `STANDARD` balance accounts in different currencies. Requires a quote created with `&quot;payOut&quot;: &quot;BALANCE&quot;`.**Move money between balances:**- Add money to a same-currency jar (move from `STANDARD` to `SAVINGS` without conversion)- Add money to another-currency jar (convert money using a quote)- Withdraw money from a jar (move from `SAVINGS` to `STANDARD` without conversion)Either `amount` or `quoteId` is required. Use `quoteId` for cross-currency movements.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">Request body for balance movements (conversion or transfer).</param>

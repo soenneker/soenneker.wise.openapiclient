@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// &quot;The content of the created message.- For FREEFORM: contains `text.freeText`- For SUBMISSION types: contains `submissionData`&quot;
+    /// The content of the created message.- For FREEFORM: contains `text.freeText`- For SUBMISSION types: contains `submissionData`
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class MessageSubmissionResponseContentProperty : IAdditionalDataHolder, IParsable

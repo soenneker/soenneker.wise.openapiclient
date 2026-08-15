@@ -90,7 +90,7 @@ namespace Soenneker.Wise.OpenApiClient.Auth.Jose.Response.PublicKeys
         [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
         public partial class PublicKeysRequestBuilderGetQueryParameters 
         {
-            /// <summary>&quot;Algorithm to be used for signature verification or payload encryption. This must match the algorithm used during request.- Signature verification (Scope: `PAYLOAD_SIGNING`): `ES256`, `ES384`, `ES512`, `PS256`, `PS384`, `PS512`- Payload encryption (Scope: `PAYLOAD_ENCRYPTION`): `RSA_OAEP_256`&quot;</summary>
+            /// <summary>Algorithm to be used for signature verification or payload encryption. This must match the algorithm used during request.- Signature verification (Scope: `PAYLOAD_SIGNING`): `ES256`, `ES384`, `ES512`, `PS256`, `PS384`, `PS512`- Payload encryption (Scope: `PAYLOAD_ENCRYPTION`): `RSA_OAEP_256`</summary>
             [QueryParameter("algorithm")]
             public global::Soenneker.Wise.OpenApiClient.Models.JoseResponsePublicKeysGetAlgorithmParameter? Algorithm { get; set; }
             /// <summary>Scope of the key. Must be `PAYLOAD_SIGNING` or `PAYLOAD_ENCRYPTION`.</summary>

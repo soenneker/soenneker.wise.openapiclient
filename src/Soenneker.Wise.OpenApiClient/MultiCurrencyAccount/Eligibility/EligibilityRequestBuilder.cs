@@ -34,7 +34,7 @@ namespace Soenneker.Wise.OpenApiClient.MultiCurrencyAccount.Eligibility
         {
         }
         /// <summary>
-        /// &quot;Checks eligibility for a multi-currency account for either a specific profile or for a location. Customers in some countries and states/provinces may not be eligible for a multi currency account.To check a profile, pass the `profileId` as a query parameter.To check a specific location, pass the `country` using 2-letter ISO 3166 codes. If the country is `US`, a valid 2-letter `state` parameter must also be passed.- Example (France): `/v4/multi-currency-account/eligibility?country=FR`- Example (USA, California): `/v4/multi-currency-account/eligibility?country=US&amp;state=CA`&quot;
+        /// Checks eligibility for a multi-currency account for either a specific profile or for a location. Customers in some countries and states/provinces may not be eligible for a multi currency account.To check a profile, pass the `profileId` as a query parameter.To check a specific location, pass the `country` using 2-letter ISO 3166 codes. If the country is `US`, a valid 2-letter `state` parameter must also be passed.- Example (France): `/v4/multi-currency-account/eligibility?country=FR`- Example (USA, California): `/v4/multi-currency-account/eligibility?country=US&amp;state=CA`
         /// </summary>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.McaEligibilityGet200Response"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
@@ -57,7 +57,7 @@ namespace Soenneker.Wise.OpenApiClient.MultiCurrencyAccount.Eligibility
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.McaEligibilityGet200Response>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.McaEligibilityGet200Response.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// &quot;Checks eligibility for a multi-currency account for either a specific profile or for a location. Customers in some countries and states/provinces may not be eligible for a multi currency account.To check a profile, pass the `profileId` as a query parameter.To check a specific location, pass the `country` using 2-letter ISO 3166 codes. If the country is `US`, a valid 2-letter `state` parameter must also be passed.- Example (France): `/v4/multi-currency-account/eligibility?country=FR`- Example (USA, California): `/v4/multi-currency-account/eligibility?country=US&amp;state=CA`&quot;
+        /// Checks eligibility for a multi-currency account for either a specific profile or for a location. Customers in some countries and states/provinces may not be eligible for a multi currency account.To check a profile, pass the `profileId` as a query parameter.To check a specific location, pass the `country` using 2-letter ISO 3166 codes. If the country is `US`, a valid 2-letter `state` parameter must also be passed.- Example (France): `/v4/multi-currency-account/eligibility?country=FR`- Example (USA, California): `/v4/multi-currency-account/eligibility?country=US&amp;state=CA`
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
@@ -85,7 +85,7 @@ namespace Soenneker.Wise.OpenApiClient.MultiCurrencyAccount.Eligibility
             return new global::Soenneker.Wise.OpenApiClient.MultiCurrencyAccount.Eligibility.EligibilityRequestBuilder(rawUrl, RequestAdapter);
         }
         /// <summary>
-        /// &quot;Checks eligibility for a multi-currency account for either a specific profile or for a location. Customers in some countries and states/provinces may not be eligible for a multi currency account.To check a profile, pass the `profileId` as a query parameter.To check a specific location, pass the `country` using 2-letter ISO 3166 codes. If the country is `US`, a valid 2-letter `state` parameter must also be passed.- Example (France): `/v4/multi-currency-account/eligibility?country=FR`- Example (USA, California): `/v4/multi-currency-account/eligibility?country=US&amp;state=CA`&quot;
+        /// Checks eligibility for a multi-currency account for either a specific profile or for a location. Customers in some countries and states/provinces may not be eligible for a multi currency account.To check a profile, pass the `profileId` as a query parameter.To check a specific location, pass the `country` using 2-letter ISO 3166 codes. If the country is `US`, a valid 2-letter `state` parameter must also be passed.- Example (France): `/v4/multi-currency-account/eligibility?country=FR`- Example (USA, California): `/v4/multi-currency-account/eligibility?country=US&amp;state=CA`
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
         public partial class EligibilityRequestBuilderGetQueryParameters 

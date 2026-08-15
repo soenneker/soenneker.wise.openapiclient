@@ -14,7 +14,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>&quot;Current verification status.- `verified` — Profile is verified. `maximum_entitled_amount` can be ignored (note that some regional limits may still apply).- `not_verified` with `maximum_entitled_amount: 0` — Profile is not verified. Any payments from the user will be delayed by verification.- `not_verified` with `maximum_entitled_amount &gt; 0` — Profile is not yet verified but the user can make payments up to a cumulative limit. Once reached, further payments may be delayed by additional verification requirements.&quot;</summary>
+        /// <summary>Current verification status.- `verified` — Profile is verified. `maximum_entitled_amount` can be ignored (note that some regional limits may still apply).- `not_verified` with `maximum_entitled_amount: 0` — Profile is not verified. Any payments from the user will be delayed by verification.- `not_verified` with `maximum_entitled_amount &gt; 0` — Profile is not yet verified but the user can make payments up to a cumulative limit. Once reached, further payments may be delayed by additional verification requirements.</summary>
         public global::Soenneker.Wise.OpenApiClient.Models.ProfileVerificationStatusCheck200ResponseRoutesItemCurrentStatus? CurrentStatus { get; set; }
         /// <summary>Maximum entitled amount that can be transferred with the user&apos;s given verification state.</summary>
         public double? MaximumEntitledAmount { get; set; }

@@ -19,7 +19,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public global::Soenneker.Wise.OpenApiClient.Models.CaseMessageAuthor? Author { get; set; }
         /// <summary>The ID of the case this message belongs to.</summary>
         public long? CaseId { get; set; }
-        /// <summary>&quot;The content of a case message. The structure varies based on the message type:- **attributes**: Present in *_REQUEST messages. Contains dynamic attributes defining required information.- **submissionData**: Present in *_SUBMISSION messages. Contains partner-submitted data.- **text**: Present in FREEFORM messages. Contains free text conversation.&quot;</summary>
+        /// <summary>The content of a case message. The structure varies based on the message type:- **attributes**: Present in *_REQUEST messages. Contains dynamic attributes defining required information.- **submissionData**: Present in *_SUBMISSION messages. Contains partner-submitted data.- **text**: Present in FREEFORM messages. Contains free text conversation.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Soenneker.Wise.OpenApiClient.Models.CaseMessageContent? Content { get; set; }
@@ -27,7 +27,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public global::Soenneker.Wise.OpenApiClient.Models.CaseMessageContent Content { get; set; }
 #endif
-        /// <summary>&quot;Timestamp when the message was created.Format: ISO 8601 datetime without timezone (YYYY-MM-DDTHH:mm:ss.SSS).&quot;</summary>
+        /// <summary>Timestamp when the message was created.Format: ISO 8601 datetime without timezone (YYYY-MM-DDTHH:mm:ss.SSS).</summary>
         public DateTimeOffset? CreatedAt { get; set; }
         /// <summary>Unique identifier of the message (UUID v4).</summary>
         public Guid? Id { get; set; }

@@ -36,7 +36,7 @@ namespace Soenneker.Wise.OpenApiClient.Simulation.Transfers.Item.PayoutFailure
         /// <summary>
         /// Triggers transfers#payout-failure webhook for the transfer.The available payout failure reason codes are listed in the [transfers#payout-failure webhook guide](/guides/product/send-money/tracking/payout-failures).{% admonition type=&quot;info&quot; %}- Simulation requires transfer to be in `bounced_back` state.- While payout failure simulation call will respond with 200 in real time, the payout failure webhook is asynchronous.{% /admonition %}Request body is optional; omit it or send {} to trigger a random failure reason.
         /// </summary>
-        /// <returns>A <see cref="Stream"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Simulation.Transfers.Item.PayoutFailure.PayoutFailurePostResponse"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
@@ -45,11 +45,11 @@ namespace Soenneker.Wise.OpenApiClient.Simulation.Transfers.Item.PayoutFailure
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.SimulationTransferPayoutFailure500ResponseSchema">When receiving a 500 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<Stream?> PostAsync(global::Soenneker.Wise.OpenApiClient.Models.SimulationTransferPayoutFailureRequest body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Simulation.Transfers.Item.PayoutFailure.PayoutFailurePostResponse?> PostAsync(global::Soenneker.Wise.OpenApiClient.Models.SimulationTransferPayoutFailureRequest body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<Stream> PostAsync(global::Soenneker.Wise.OpenApiClient.Models.SimulationTransferPayoutFailureRequest body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Simulation.Transfers.Item.PayoutFailure.PayoutFailurePostResponse> PostAsync(global::Soenneker.Wise.OpenApiClient.Models.SimulationTransferPayoutFailureRequest body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
@@ -60,7 +60,7 @@ namespace Soenneker.Wise.OpenApiClient.Simulation.Transfers.Item.PayoutFailure
                 { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
                 { "500", global::Soenneker.Wise.OpenApiClient.Models.SimulationTransferPayoutFailure500ResponseSchema.CreateFromDiscriminatorValue },
             };
-            return await RequestAdapter.SendPrimitiveAsync<Stream>(requestInfo, errorMapping, cancellationToken).ConfigureAwait(false);
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Simulation.Transfers.Item.PayoutFailure.PayoutFailurePostResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.Simulation.Transfers.Item.PayoutFailure.PayoutFailurePostResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Triggers transfers#payout-failure webhook for the transfer.The available payout failure reason codes are listed in the [transfers#payout-failure webhook guide](/guides/product/send-money/tracking/payout-failures).{% admonition type=&quot;info&quot; %}- Simulation requires transfer to be in `bounced_back` state.- While payout failure simulation call will respond with 200 in real time, the payout failure webhook is asynchronous.{% /admonition %}Request body is optional; omit it or send {} to trigger a random failure reason.

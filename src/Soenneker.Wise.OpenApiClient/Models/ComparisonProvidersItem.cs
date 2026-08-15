@@ -50,7 +50,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public List<global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemQuotesItem> Quotes { get; set; }
 #endif
-        /// <summary>&quot;Provider type: bank, money transfer provider, or travel money&quot;</summary>
+        /// <summary>Provider type: bank, money transfer provider, or travel money</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Type { get; set; }

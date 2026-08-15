@@ -34,7 +34,7 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.Item.AccountDetailsOrders
         {
         }
         /// <summary>
-        /// &quot;Returns the bank account assignment requests for a profile and multi-currency account.The response includes bank-details orders in the following statuses: `PENDING_USER`, `PENDING_TW`, `REQUIREMENTS_FULFILLED`, `DONE`.&quot;
+        /// Returns the bank account assignment requests for a profile and multi-currency account.The response includes bank-details orders in the following statuses: `PENDING_USER`, `PENDING_TW`, `REQUIREMENTS_FULFILLED`, `DONE`.
         /// </summary>
         /// <returns>A List&lt;global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsOrdersList200ResponseSchemaItem&gt;</returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
@@ -58,7 +58,7 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.Item.AccountDetailsOrders
             return collectionResult?.AsList();
         }
         /// <summary>
-        /// &quot;Creates an order which will issue account details. It should use the same currency as the balance previously created. Fulfilling all the requirements will complete the order, reaching status `DONE`.The possible values for a requirement status are:- `PENDING_USER`: The requirement has some pending action from the user.- `PENDING_TW`: The requirement has some pending action from Wise.- `DONE`: The requirement is completed.The more common requirements are:- `VERIFICATION`: The user needs to be fully verified before completing this requirement.- `TOP_UP`: A fee will be charged and must be paid through wise.com before completing this requirement.&quot;
+        /// Creates an order which will issue account details. It should use the same currency as the balance previously created. Fulfilling all the requirements will complete the order, reaching status `DONE`.The possible values for a requirement status are:- `PENDING_USER`: The requirement has some pending action from the user.- `PENDING_TW`: The requirement has some pending action from Wise.- `DONE`: The requirement is completed.The more common requirements are:- `VERIFICATION`: The user needs to be fully verified before completing this requirement.- `TOP_UP`: A fee will be charged and must be paid through wise.com before completing this requirement.
         /// </summary>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsOrderCreate200Response"/></returns>
         /// <param name="body">The request body</param>
@@ -83,7 +83,7 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.Item.AccountDetailsOrders
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsOrderCreate200Response>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsOrderCreate200Response.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// &quot;Returns the bank account assignment requests for a profile and multi-currency account.The response includes bank-details orders in the following statuses: `PENDING_USER`, `PENDING_TW`, `REQUIREMENTS_FULFILLED`, `DONE`.&quot;
+        /// Returns the bank account assignment requests for a profile and multi-currency account.The response includes bank-details orders in the following statuses: `PENDING_USER`, `PENDING_TW`, `REQUIREMENTS_FULFILLED`, `DONE`.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
@@ -102,7 +102,7 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.Item.AccountDetailsOrders
             return requestInfo;
         }
         /// <summary>
-        /// &quot;Creates an order which will issue account details. It should use the same currency as the balance previously created. Fulfilling all the requirements will complete the order, reaching status `DONE`.The possible values for a requirement status are:- `PENDING_USER`: The requirement has some pending action from the user.- `PENDING_TW`: The requirement has some pending action from Wise.- `DONE`: The requirement is completed.The more common requirements are:- `VERIFICATION`: The user needs to be fully verified before completing this requirement.- `TOP_UP`: A fee will be charged and must be paid through wise.com before completing this requirement.&quot;
+        /// Creates an order which will issue account details. It should use the same currency as the balance previously created. Fulfilling all the requirements will complete the order, reaching status `DONE`.The possible values for a requirement status are:- `PENDING_USER`: The requirement has some pending action from the user.- `PENDING_TW`: The requirement has some pending action from Wise.- `DONE`: The requirement is completed.The more common requirements are:- `VERIFICATION`: The user needs to be fully verified before completing this requirement.- `TOP_UP`: A fee will be charged and must be paid through wise.com before completing this requirement.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>
@@ -133,7 +133,7 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.Item.AccountDetailsOrders
             return new global::Soenneker.Wise.OpenApiClient.Profiles.Item.AccountDetailsOrders.AccountDetailsOrdersRequestBuilder(rawUrl, RequestAdapter);
         }
         /// <summary>
-        /// &quot;Returns the bank account assignment requests for a profile and multi-currency account.The response includes bank-details orders in the following statuses: `PENDING_USER`, `PENDING_TW`, `REQUIREMENTS_FULFILLED`, `DONE`.&quot;
+        /// Returns the bank account assignment requests for a profile and multi-currency account.The response includes bank-details orders in the following statuses: `PENDING_USER`, `PENDING_TW`, `REQUIREMENTS_FULFILLED`, `DONE`.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
         public partial class AccountDetailsOrdersRequestBuilderGetQueryParameters 

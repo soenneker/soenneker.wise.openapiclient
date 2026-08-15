@@ -51,7 +51,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public List<global::Soenneker.Wise.OpenApiClient.Models.BulkSettlementJournalCreateRequestTransfersItem> Transfers { get; set; }
 #endif
         /// <summary>Type of settlement.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.BulkSettlementJournalCreateRequestType? Type { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.TrustedBulkSettlementType? Type { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.BulkSettlementJournalCreateRequest"/> and sets the default values.
         /// </summary>
@@ -83,7 +83,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "settlementDate", n => { SettlementDate = n.GetDateTimeOffsetValue(); } },
                 { "settlementReference", n => { SettlementReference = n.GetStringValue(); } },
                 { "transfers", n => { Transfers = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.BulkSettlementJournalCreateRequestTransfersItem>(global::Soenneker.Wise.OpenApiClient.Models.BulkSettlementJournalCreateRequestTransfersItem.CreateFromDiscriminatorValue)?.AsList(); } },
-                { "type", n => { Type = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BulkSettlementJournalCreateRequestType>(); } },
+                { "type", n => { Type = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.TrustedBulkSettlementType>(); } },
             };
         }
         /// <summary>
@@ -99,7 +99,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteDateTimeOffsetValue("settlementDate", SettlementDate);
             writer.WriteStringValue("settlementReference", SettlementReference);
             writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.BulkSettlementJournalCreateRequestTransfersItem>("transfers", Transfers);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BulkSettlementJournalCreateRequestType>("type", Type);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.TrustedBulkSettlementType>("type", Type);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

@@ -30,7 +30,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string Message { get; set; }
 #endif
-        /// <summary>&quot;The actual outcome of the confirmation check. Possible values: `SUCCESS`, `PARTIAL_FAILURE`, `FAILURE`, `COULD_NOT_CHECK`.&quot;</summary>
+        /// <summary>The actual outcome of the confirmation check. Possible values: `SUCCESS`, `PARTIAL_FAILURE`, `FAILURE`, `COULD_NOT_CHECK`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Outcome { get; set; }
@@ -66,7 +66,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #endif
         /// <summary>Timestamp of when the confirmation check was performed.</summary>
         public DateTimeOffset? Timestamp { get; set; }
-        /// <summary>&quot;The type of confirmation. Possible values: `ACCOUNT_EXISTENCE`, `NAME_MATCHING`, `NAME_RESOLUTION`.&quot;</summary>
+        /// <summary>The type of confirmation. Possible values: `ACCOUNT_EXISTENCE`, `NAME_MATCHING`, `NAME_RESOLUTION`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Type { get; set; }

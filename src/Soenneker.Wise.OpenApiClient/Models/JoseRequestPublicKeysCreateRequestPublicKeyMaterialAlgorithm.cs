@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
-    /// <summary>&quot;Algorithm to be used for:- Signature verification (Scope: `PAYLOAD_SIGNING`): `ES256`, `ES384`, `ES512`, `PS256`, `PS384`, `PS512`- Payload encryption (Scope: `PAYLOAD_ENCRYPTION`): `RSA_OAEP_256`&quot;</summary>
+    /// <summary>Algorithm to be used for:- Signature verification (Scope: `PAYLOAD_SIGNING`): `ES256`, `ES384`, `ES512`, `PS256`, `PS384`, `PS512`- Payload encryption (Scope: `PAYLOAD_ENCRYPTION`): `RSA_OAEP_256`</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public enum JoseRequestPublicKeysCreateRequestPublicKeyMaterialAlgorithm
     {

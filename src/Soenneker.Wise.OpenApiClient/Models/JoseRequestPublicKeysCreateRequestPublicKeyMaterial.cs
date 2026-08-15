@@ -14,7 +14,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>&quot;Algorithm to be used for:- Signature verification (Scope: `PAYLOAD_SIGNING`): `ES256`, `ES384`, `ES512`, `PS256`, `PS384`, `PS512`- Payload encryption (Scope: `PAYLOAD_ENCRYPTION`): `RSA_OAEP_256`&quot;</summary>
+        /// <summary>Algorithm to be used for:- Signature verification (Scope: `PAYLOAD_SIGNING`): `ES256`, `ES384`, `ES512`, `PS256`, `PS384`, `PS512`- Payload encryption (Scope: `PAYLOAD_ENCRYPTION`): `RSA_OAEP_256`</summary>
         public global::Soenneker.Wise.OpenApiClient.Models.JoseRequestPublicKeysCreateRequestPublicKeyMaterialAlgorithm? Algorithm { get; set; }
         /// <summary>Public key material in DER (Distinguished Encoding Rules) format and base64 encoded.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER

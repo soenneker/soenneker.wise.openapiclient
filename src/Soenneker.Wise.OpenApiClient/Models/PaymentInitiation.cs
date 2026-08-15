@@ -38,7 +38,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Transfer ID of the direct debit payment. Present only after the direct debit is initiated.</summary>
         public long? TransferId { get; set; }
         /// <summary>Payment type.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationType? Type { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.DirectDebitType? Type { get; set; }
         /// <summary>The ID of the user who initiated this payment.</summary>
         public long? UserId { get; set; }
         /// <summary>
@@ -74,7 +74,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "reference", n => { Reference = n.GetStringValue(); } },
                 { "status", n => { Status = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationStatus>(); } },
                 { "transferId", n => { TransferId = n.GetLongValue(); } },
-                { "type", n => { Type = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationType>(); } },
+                { "type", n => { Type = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.DirectDebitType>(); } },
                 { "userId", n => { UserId = n.GetLongValue(); } },
             };
         }
@@ -93,7 +93,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteStringValue("reference", Reference);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationStatus>("status", Status);
             writer.WriteLongValue("transferId", TransferId);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationType>("type", Type);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.DirectDebitType>("type", Type);
             writer.WriteLongValue("userId", UserId);
             writer.WriteAdditionalData(AdditionalData);
         }

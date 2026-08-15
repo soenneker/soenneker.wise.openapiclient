@@ -16,10 +16,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The author of the message (always PARTNER for submitted messages).</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.MessageSubmissionResponseAuthor? Author { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.PartnerAuthor? Author { get; set; }
         /// <summary>The ID of the case this message belongs to.</summary>
         public long? CaseId { get; set; }
-        /// <summary>&quot;The content of the created message.- For FREEFORM: contains `text.freeText`- For SUBMISSION types: contains `submissionData`&quot;</summary>
+        /// <summary>The content of the created message.- For FREEFORM: contains `text.freeText`- For SUBMISSION types: contains `submissionData`</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Soenneker.Wise.OpenApiClient.Models.MessageSubmissionResponseContentProperty? Content { get; set; }
@@ -27,7 +27,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public global::Soenneker.Wise.OpenApiClient.Models.MessageSubmissionResponseContentProperty Content { get; set; }
 #endif
-        /// <summary>&quot;Timestamp when the message was created.Format: ISO 8601 datetime without timezone (server timezone is UTC).&quot;</summary>
+        /// <summary>Timestamp when the message was created.Format: ISO 8601 datetime without timezone (server timezone is UTC).</summary>
         public DateTimeOffset? CreatedAt { get; set; }
         /// <summary>Unique identifier of the created message (UUID v4).</summary>
         public Guid? Id { get; set; }
@@ -58,7 +58,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "author", n => { Author = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.MessageSubmissionResponseAuthor>(); } },
+                { "author", n => { Author = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PartnerAuthor>(); } },
                 { "caseId", n => { CaseId = n.GetLongValue(); } },
                 { "content", n => { Content = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.MessageSubmissionResponseContentProperty>(global::Soenneker.Wise.OpenApiClient.Models.MessageSubmissionResponseContentProperty.CreateFromDiscriminatorValue); } },
                 { "createdAt", n => { CreatedAt = n.GetDateTimeOffsetValue(); } },
@@ -73,7 +73,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.MessageSubmissionResponseAuthor>("author", Author);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PartnerAuthor>("author", Author);
             writer.WriteLongValue("caseId", CaseId);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.MessageSubmissionResponseContentProperty>("content", Content);
             writer.WriteDateTimeOffsetValue("createdAt", CreatedAt);

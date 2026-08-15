@@ -23,7 +23,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public string Code { get; set; }
 #endif
         /// <summary>Occupation type - always `FREE_FORM`.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.AddressRequestDetailsOccupationsItemFormat? Format { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.FreeFormFormat? Format { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.AddressRequestDetailsOccupationsItem"/> and sets the default values.
         /// </summary>
@@ -50,7 +50,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "code", n => { Code = n.GetStringValue(); } },
-                { "format", n => { Format = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.AddressRequestDetailsOccupationsItemFormat>(); } },
+                { "format", n => { Format = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.FreeFormFormat>(); } },
             };
         }
         /// <summary>
@@ -61,7 +61,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("code", Code);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.AddressRequestDetailsOccupationsItemFormat>("format", Format);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.FreeFormFormat>("format", Format);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

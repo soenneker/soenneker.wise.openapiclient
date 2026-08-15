@@ -34,7 +34,7 @@ namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.Cards.Item.Production
         {
         }
         /// <summary>
-        /// &quot;Retrieves the current production status of a card at a kiosk machine.**Best practice**: Subscribe to the [card production status change](/api-reference/webhook-event/eventcardscardproductionstatuschange) webhook for real-time notifications. Use this endpoint only when you need to synchronously check the status.&quot;
+        /// Retrieves the current production status of a card at a kiosk machine.**Best practice**: Subscribe to the [card production status change](/api-reference/webhook-event/eventcardscardproductionstatuschange) webhook for real-time notifications. Use this endpoint only when you need to synchronously check the status.
         /// </summary>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.ProductionStatus"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
@@ -84,7 +84,7 @@ namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.Cards.Item.Production
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.ProductionStatus>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.ProductionStatus.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// &quot;Retrieves the current production status of a card at a kiosk machine.**Best practice**: Subscribe to the [card production status change](/api-reference/webhook-event/eventcardscardproductionstatuschange) webhook for real-time notifications. Use this endpoint only when you need to synchronously check the status.&quot;
+        /// Retrieves the current production status of a card at a kiosk machine.**Best practice**: Subscribe to the [card production status change](/api-reference/webhook-event/eventcardscardproductionstatuschange) webhook for real-time notifications. Use this endpoint only when you need to synchronously check the status.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>

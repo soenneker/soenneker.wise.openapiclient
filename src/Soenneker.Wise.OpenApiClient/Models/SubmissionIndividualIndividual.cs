@@ -22,7 +22,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string CountryOfResidenceIso3 { get; set; }
 #endif
-        /// <summary>&quot;Date of birth.Accepted formats: DD/MM/YYYY or YYYY-MM-DD&quot;</summary>
+        /// <summary>Date of birth.Accepted formats: DD/MM/YYYY or YYYY-MM-DD</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Dob { get; set; }

@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// &quot;Submission data for sanction hit cases. Used for:- DEPOSIT_SANCTION_HIT_SUBMISSION- REFERENCE_SANCTION_HIT_SUBMISSION- RECIPIENT_SANCTION_HIT_SUBMISSION**Important**: Only ONE of the entity types should be provided per submission.### Validation Rules by Submission Type:**DEPOSIT_SANCTION_HIT_SUBMISSION**:- Must contain either `individual` OR `organisation` (exactly one)**RECIPIENT_SANCTION_HIT_SUBMISSION**:- Must contain either `individual` OR `organisation` (exactly one)- If `individual`, `countryOfResidenceIso3` is REQUIRED**REFERENCE_SANCTION_HIT_SUBMISSION**:- Must contain exactly one of: `individual`, `organisation`, `multiple`, `vessel`, or `other`- If `individual`, `countryOfResidenceIso3` is REQUIRED&quot;
+    /// Submission data for sanction hit cases. Used for:- DEPOSIT_SANCTION_HIT_SUBMISSION- REFERENCE_SANCTION_HIT_SUBMISSION- RECIPIENT_SANCTION_HIT_SUBMISSION**Important**: Only ONE of the entity types should be provided per submission.### Validation Rules by Submission Type:**DEPOSIT_SANCTION_HIT_SUBMISSION**:- Must contain either `individual` OR `organisation` (exactly one)**RECIPIENT_SANCTION_HIT_SUBMISSION**:- Must contain either `individual` OR `organisation` (exactly one)- If `individual`, `countryOfResidenceIso3` is REQUIRED**REFERENCE_SANCTION_HIT_SUBMISSION**:- Must contain exactly one of: `individual`, `organisation`, `multiple`, `vessel`, or `other`- If `individual`, `countryOfResidenceIso3` is REQUIRED
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class SubmissionDataSanctionHit : IAdditionalDataHolder, IParsable
@@ -47,14 +47,6 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public global::Soenneker.Wise.OpenApiClient.Models.SubmissionOtherOther Other { get; set; }
 #endif
-        /// <summary>Union discriminator</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? Type { get; set; }
-#nullable restore
-#else
-        public string Type { get; set; }
-#endif
         /// <summary>The vessel property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -92,7 +84,6 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "multiple", n => { Multiple = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.SubmissionMultipleMultiple>(global::Soenneker.Wise.OpenApiClient.Models.SubmissionMultipleMultiple.CreateFromDiscriminatorValue); } },
                 { "organisation", n => { Organisation = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.SubmissionOrganisationOrganisation>(global::Soenneker.Wise.OpenApiClient.Models.SubmissionOrganisationOrganisation.CreateFromDiscriminatorValue); } },
                 { "other", n => { Other = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.SubmissionOtherOther>(global::Soenneker.Wise.OpenApiClient.Models.SubmissionOtherOther.CreateFromDiscriminatorValue); } },
-                { "type", n => { Type = n.GetStringValue(); } },
                 { "vessel", n => { Vessel = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.SubmissionVesselVessel>(global::Soenneker.Wise.OpenApiClient.Models.SubmissionVesselVessel.CreateFromDiscriminatorValue); } },
             };
         }
@@ -107,7 +98,6 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.SubmissionMultipleMultiple>("multiple", Multiple);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.SubmissionOrganisationOrganisation>("organisation", Organisation);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.SubmissionOtherOther>("other", Other);
-            writer.WriteStringValue("type", Type);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.SubmissionVesselVessel>("vessel", Vessel);
             writer.WriteAdditionalData(AdditionalData);
         }

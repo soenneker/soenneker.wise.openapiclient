@@ -23,7 +23,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public global::Soenneker.Wise.OpenApiClient.Models.CardHolderLimitsSpendLimitsItemAggregateWindow AggregateWindow { get; set; }
 #endif
         /// <summary>The category of spending the limit applies to.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.CardHolderLimitsSpendLimitsItemType? Type { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.PurchaseType? Type { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.CardHolderLimitsSpendLimitsItem"/> and sets the default values.
         /// </summary>
@@ -50,7 +50,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "aggregateWindow", n => { AggregateWindow = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardHolderLimitsSpendLimitsItemAggregateWindow>(global::Soenneker.Wise.OpenApiClient.Models.CardHolderLimitsSpendLimitsItemAggregateWindow.CreateFromDiscriminatorValue); } },
-                { "type", n => { Type = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CardHolderLimitsSpendLimitsItemType>(); } },
+                { "type", n => { Type = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PurchaseType>(); } },
             };
         }
         /// <summary>
@@ -61,7 +61,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardHolderLimitsSpendLimitsItemAggregateWindow>("aggregateWindow", AggregateWindow);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CardHolderLimitsSpendLimitsItemType>("type", Type);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PurchaseType>("type", Type);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

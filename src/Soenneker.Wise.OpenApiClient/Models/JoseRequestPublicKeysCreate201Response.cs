@@ -42,7 +42,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #endif
         /// <summary>Scope of the payload operation.</summary>
         public global::Soenneker.Wise.OpenApiClient.Models.JoseRequestPublicKeysCreate201ResponseScope? Scope { get; set; }
-        /// <summary>&quot;The key is valid from this date. Format: `yyyy-MM-dd HH:mm:ss` (UTC).&quot;</summary>
+        /// <summary>The key is valid from this date. Format: `yyyy-MM-dd HH:mm:ss` (UTC).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? ValidFrom { get; set; }
@@ -50,7 +50,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string ValidFrom { get; set; }
 #endif
-        /// <summary>&quot;The key is valid until this date. Format: `yyyy-MM-dd HH:mm:ss` (UTC).&quot;</summary>
+        /// <summary>The key is valid until this date. Format: `yyyy-MM-dd HH:mm:ss` (UTC).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? ValidTill { get; set; }

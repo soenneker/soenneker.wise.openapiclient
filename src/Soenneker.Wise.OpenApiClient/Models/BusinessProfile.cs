@@ -138,7 +138,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public string SecondLevelCategory { get; set; }
 #endif
         /// <summary>Type of profile.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.BusinessProfileType? Type { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.BusinessType? Type { get; set; }
         /// <summary>Timestamp when the profile was last updated (ISO 8601 format).</summary>
         public DateTimeOffset? UpdatedAt { get; set; }
         /// <summary>The ID of the user associated with this profile.</summary>
@@ -194,7 +194,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "publicId", n => { PublicId = n.GetStringValue(); } },
                 { "registrationNumber", n => { RegistrationNumber = n.GetStringValue(); } },
                 { "secondLevelCategory", n => { SecondLevelCategory = n.GetStringValue(); } },
-                { "type", n => { Type = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BusinessProfileType>(); } },
+                { "type", n => { Type = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BusinessType>(); } },
                 { "updatedAt", n => { UpdatedAt = n.GetDateTimeOffsetValue(); } },
                 { "userId", n => { UserId = n.GetLongValue(); } },
                 { "webpage", n => { Webpage = n.GetStringValue(); } },
@@ -225,7 +225,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteStringValue("publicId", PublicId);
             writer.WriteStringValue("registrationNumber", RegistrationNumber);
             writer.WriteStringValue("secondLevelCategory", SecondLevelCategory);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BusinessProfileType>("type", Type);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BusinessType>("type", Type);
             writer.WriteDateTimeOffsetValue("updatedAt", UpdatedAt);
             writer.WriteLongValue("userId", UserId);
             writer.WriteStringValue("webpage", Webpage);

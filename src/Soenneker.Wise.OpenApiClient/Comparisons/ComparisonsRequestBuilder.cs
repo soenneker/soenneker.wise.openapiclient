@@ -95,7 +95,7 @@ namespace Soenneker.Wise.OpenApiClient.Comparisons
             public bool? ExcludePartners { get; set; }
             /// <summary>Filter by most popular competitors</summary>
             [QueryParameter("filter")]
-            public global::Soenneker.Wise.OpenApiClient.Models.ComparisonGetFilterParameter? Filter { get; set; }
+            public global::Soenneker.Wise.OpenApiClient.Models.PopularFilter? Filter { get; set; }
             /// <summary>Overrides filters to ensure Wise data is returned, even if exclusionary filters are applied</summary>
             [QueryParameter("includeWise")]
             public bool? IncludeWise { get; set; }

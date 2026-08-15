@@ -39,6 +39,7 @@ namespace Soenneker.Wise.OpenApiClient.Rates
         /// <returns>A List&lt;global::Soenneker.Wise.OpenApiClient.Models.RateGet200ResponseSchemaItem&gt;</returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Rates.RateGet200ResponseSchema400Error">When receiving a 400 status code</exception>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -52,6 +53,7 @@ namespace Soenneker.Wise.OpenApiClient.Rates
             var requestInfo = ToGetRequestInformation(requestConfiguration);
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
+                { "400", global::Soenneker.Wise.OpenApiClient.Rates.RateGet200ResponseSchema400Error.CreateFromDiscriminatorValue },
                 { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
             };
             var collectionResult = await RequestAdapter.SendCollectionAsync<global::Soenneker.Wise.OpenApiClient.Models.RateGet200ResponseSchemaItem>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.RateGet200ResponseSchemaItem.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
@@ -91,7 +93,7 @@ namespace Soenneker.Wise.OpenApiClient.Rates
         [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
         public partial class RatesRequestBuilderGetQueryParameters 
         {
-            /// <summary>&quot;Period start date/time to get exchange rate history. &lt;br&gt;Supports Timestamp (combined date and time) or Date (date only). &lt;br&gt;Supported examples: `2019-03-13T14:53:01` or `2019-03-13`.&quot;</summary>
+            /// <summary>Period start date/time to get exchange rate history. &lt;br&gt;Supports Timestamp (combined date and time) or Date (date only). &lt;br&gt;Supported examples: `2019-03-13T14:53:01` or `2019-03-13`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
             [QueryParameter("from")]
@@ -124,7 +126,7 @@ namespace Soenneker.Wise.OpenApiClient.Rates
             [QueryParameter("target")]
             public string Target { get; set; }
 #endif
-            /// <summary>&quot;Timestamp to get historic exchange rate. &lt;br&gt;Supports only Timestamp (combined date and time). Timezone offset is supported but optional. &lt;br&gt;Supported examples: `2019-03-13T14:53:01` or `2019-03-13T14:53:01+0100`.&quot;</summary>
+            /// <summary>Timestamp to get historic exchange rate. &lt;br&gt;Supports only Timestamp (combined date and time). Timezone offset is supported but optional. &lt;br&gt;Supported examples: `2019-03-13T14:53:01` or `2019-03-13T14:53:01+0100`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
             [QueryParameter("time")]
@@ -134,7 +136,7 @@ namespace Soenneker.Wise.OpenApiClient.Rates
             [QueryParameter("time")]
             public string Time { get; set; }
 #endif
-            /// <summary>&quot;Period end date/time to get exchange rate history. &lt;br&gt;Supports Timestamp (combined date and time) or Date (date only). &lt;br&gt;Timezone offset is supported but optional. &lt;br&gt;Supported examples: `2019-03-13T14:53:01+0100` or `2019-03-13+0100`.&quot;</summary>
+            /// <summary>Period end date/time to get exchange rate history. &lt;br&gt;Supports Timestamp (combined date and time) or Date (date only). &lt;br&gt;Timezone offset is supported but optional. &lt;br&gt;Supported examples: `2019-03-13T14:53:01+0100` or `2019-03-13+0100`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
             [QueryParameter("to")]

@@ -15,7 +15,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>&quot;Timestamp when the case was created.Format: ISO 8601 datetime without timezone (YYYY-MM-DDTHH:mm:ss.SSS).&quot;</summary>
+        /// <summary>Timestamp when the case was created.Format: ISO 8601 datetime without timezone (YYYY-MM-DDTHH:mm:ss.SSS).</summary>
         public DateTimeOffset? CreatedAt { get; set; }
         /// <summary>Partner-created identifier for this case, if applicable.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -51,7 +51,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public global::Soenneker.Wise.OpenApiClient.Models.Case2SubType? SubType { get; set; }
         /// <summary>The type of the support case.</summary>
         public global::Soenneker.Wise.OpenApiClient.Models.Case2Type? Type { get; set; }
-        /// <summary>&quot;Timestamp when the case was last updated.Format: ISO 8601 datetime without timezone (YYYY-MM-DDTHH:mm:ss.SSS).&quot;</summary>
+        /// <summary>Timestamp when the case was last updated.Format: ISO 8601 datetime without timezone (YYYY-MM-DDTHH:mm:ss.SSS).</summary>
         public DateTimeOffset? UpdatedAt { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.Case2"/> and sets the default values.

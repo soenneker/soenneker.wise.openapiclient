@@ -29,7 +29,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Status of the case</summary>
         public global::Soenneker.Wise.OpenApiClient.Models.CaseTypeStatus? Status { get; set; }
         /// <summary>Type of the case. More case types will be added in the future.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.CaseTypeType? Type { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.GeneralEnquiryType? Type { get; set; }
         /// <summary>When the case was last updated.</summary>
         public DateTimeOffset? UpdatedAt { get; set; }
         /// <summary>
@@ -61,7 +61,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "externalId", n => { ExternalId = n.GetStringValue(); } },
                 { "id", n => { Id = n.GetLongValue(); } },
                 { "status", n => { Status = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CaseTypeStatus>(); } },
-                { "type", n => { Type = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CaseTypeType>(); } },
+                { "type", n => { Type = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.GeneralEnquiryType>(); } },
                 { "updatedAt", n => { UpdatedAt = n.GetDateTimeOffsetValue(); } },
             };
         }
@@ -76,7 +76,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteStringValue("externalId", ExternalId);
             writer.WriteLongValue("id", Id);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CaseTypeStatus>("status", Status);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CaseTypeType>("type", Type);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.GeneralEnquiryType>("type", Type);
             writer.WriteDateTimeOffsetValue("updatedAt", UpdatedAt);
             writer.WriteAdditionalData(AdditionalData);
         }

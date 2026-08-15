@@ -117,7 +117,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public List<global::Soenneker.Wise.OpenApiClient.Models.Address2> SecondaryAddresses { get; set; }
 #endif
         /// <summary>Type of profile.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.PersonalProfileType? Type { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.PersonalType? Type { get; set; }
         /// <summary>Timestamp when the profile was last updated (ISO 8601 format).</summary>
         public DateTimeOffset? UpdatedAt { get; set; }
         /// <summary>The ID of the user associated with this profile.</summary>
@@ -162,7 +162,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "preferredName", n => { PreferredName = n.GetStringValue(); } },
                 { "publicId", n => { PublicId = n.GetStringValue(); } },
                 { "secondaryAddresses", n => { SecondaryAddresses = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.Address2>(global::Soenneker.Wise.OpenApiClient.Models.Address2.CreateFromDiscriminatorValue)?.AsList(); } },
-                { "type", n => { Type = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PersonalProfileType>(); } },
+                { "type", n => { Type = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PersonalType>(); } },
                 { "updatedAt", n => { UpdatedAt = n.GetDateTimeOffsetValue(); } },
                 { "userId", n => { UserId = n.GetLongValue(); } },
             };
@@ -189,7 +189,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteStringValue("preferredName", PreferredName);
             writer.WriteStringValue("publicId", PublicId);
             writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.Address2>("secondaryAddresses", SecondaryAddresses);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PersonalProfileType>("type", Type);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PersonalType>("type", Type);
             writer.WriteDateTimeOffsetValue("updatedAt", UpdatedAt);
             writer.WriteLongValue("userId", UserId);
             writer.WriteAdditionalData(AdditionalData);
