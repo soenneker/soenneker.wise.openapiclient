@@ -18399,7 +18399,7 @@
             "description": "**Conditional:** Only present when \u0060apiCollectionSupported\u0060 is \u0060true\u0060. Lists the available versions and their validity.\n"
           },
           "attributes": {
-            "$ref": "#/components/schemas/KycRequirementAttributes"
+            "$ref": "#/components/schemas/KycRequirementAttributesProperty"
           }
         },
         "description": "An object returned as part of the [KYC Review](/api-reference/kyc-review/kyc-review) object, which includes information about a required evidence, its state, and any additional information that might be required.",
@@ -41264,6 +41264,10 @@
       "Error403ForbiddenForbiddenError403Message": {
         "type": "object",
         "example": "Access denied"
+      },
+      "KycRequirementAttributesProperty": {
+        "type": "object",
+        "description": "**Conditional:** Only present for certain requirement types that provide additional contextual information. The keys within this object vary depending on the parent requirement \u0060key\u0060. See the [KYC requirement types](/guides/product/kyc/wise-kyc/kyc-requirement-types) guide for details on which requirement types support attributes and what keys they contain.\n"
       },
       "ValidationErrorRejectedValue": {
         "type": "object",
