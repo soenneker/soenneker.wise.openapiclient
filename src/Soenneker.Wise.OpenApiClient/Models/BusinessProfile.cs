@@ -60,7 +60,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public DateTimeOffset? CreatedAt { get; set; }
         /// <summary>Current status of this profile.</summary>
         public global::Soenneker.Wise.OpenApiClient.Models.BusinessProfileCurrentState? CurrentState { get; set; }
-        /// <summary>Deprecated. New integrations should use `industryCategories`. See [Migrating to industry categories](/guides/developer/api-guides/business-profile-industry-categories-migration).</summary>
+        /// <summary>Deprecated. New integrations should use `industryCategories`. See [Migrating to industry categories](/guides/product/kyc/migrate-business-profile-industry-categories).</summary>
         [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -77,7 +77,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string Email { get; set; }
 #endif
-        /// <summary>Deprecated. New integrations should use `industryCategories`. See [Migrating to industry categories](/guides/developer/api-guides/business-profile-industry-categories-migration).</summary>
+        /// <summary>Deprecated. New integrations should use `industryCategories`. See [Migrating to industry categories](/guides/product/kyc/migrate-business-profile-industry-categories).</summary>
         [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -96,7 +96,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #endif
         /// <summary>Unique identifier for the profile.</summary>
         public long? Id { get; set; }
-        /// <summary>One or more industry categories classifying the business. See [Business Categories](/guides/developer/api-guides/business-categories) for the full list of valid values.</summary>
+        /// <summary>One or more industry categories classifying the business. See [Business Categories](/guides/product/kyc/business-categories) for the full list of valid values.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<string>? IndustryCategories { get; set; }
@@ -128,7 +128,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string RegistrationNumber { get; set; }
 #endif
-        /// <summary>Deprecated. New integrations should use `industryCategories`. See [Migrating to industry categories](/guides/developer/api-guides/business-profile-industry-categories-migration).</summary>
+        /// <summary>Deprecated. New integrations should use `industryCategories`. See [Migrating to industry categories](/guides/product/kyc/migrate-business-profile-industry-categories).</summary>
         [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable

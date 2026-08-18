@@ -10497,7 +10497,7 @@
           "profile"
         ],
         "summary": "Create a business profile",
-        "description": "Creates the business profile and its authorized representative in a single request.\n\n{% admonition type=\u0022info\u0022 %}\nThis request accepts an optional field in the header, \u0060X-idempotence-uuid\u0060. This should be unique for each Profile you create. In the event that the request fails, you should use the same value again when retrying. If the \u0060X-idempotence-uuid\u0060 header is not provided and a Profile already exists, then you will receive a response with an HTTP status code \u0060409\u0060.\n{% /admonition %}\n\nSee [Business Categories](/guides/developer/api-guides/business-categories) for the list of valid \u0060industryCategories\u0060 values, and [Migrating to industry categories](/guides/developer/api-guides/business-profile-industry-categories-migration) if you are moving from a previous version of this endpoint.\n",
+        "description": "Creates the business profile and its authorized representative in a single request.\n\n{% admonition type=\u0022info\u0022 %}\nThis request accepts an optional field in the header, \u0060X-idempotence-uuid\u0060. This should be unique for each Profile you create. In the event that the request fails, you should use the same value again when retrying. If the \u0060X-idempotence-uuid\u0060 header is not provided and a Profile already exists, then you will receive a response with an HTTP status code \u0060409\u0060.\n{% /admonition %}\n\nSee [Business Categories](/guides/product/kyc/business-categories) for the list of valid \u0060industryCategories\u0060 values, and [Migrating to industry categories](/guides/product/kyc/migrate-business-profile-industry-categories) if you are moving from a previous version of this endpoint.\n",
         "operationId": "ProfileBusinessCreateV5",
         "parameters": [
           {
@@ -10774,7 +10774,7 @@
           "profile"
         ],
         "summary": "Update a business profile",
-        "description": "Update user profile information for a business profile.\n\n{% admonition type=\u0022warning\u0022 %}\nIf user profile has been verified then there are restrictions on what information is allowed to change.\n{% /admonition %}\n\nWhere permitted, use the update window functionality by [opening the update window](/api-reference/profile/profileupdatewindowopen), submitting the updated information using this endpoint, and finally [closing the update window](/api-reference/profile/profileupdatewindowclose).\n\nSee [Business Categories](/guides/developer/api-guides/business-categories) for the list of valid \u0060industryCategories\u0060 values, and [Migrating to industry categories](/guides/developer/api-guides/business-profile-industry-categories-migration) if you are moving from a previous version of this endpoint.\n",
+        "description": "Update user profile information for a business profile.\n\n{% admonition type=\u0022warning\u0022 %}\nIf user profile has been verified then there are restrictions on what information is allowed to change.\n{% /admonition %}\n\nWhere permitted, use the update window functionality by [opening the update window](/api-reference/profile/profileupdatewindowopen), submitting the updated information using this endpoint, and finally [closing the update window](/api-reference/profile/profileupdatewindowclose).\n\nSee [Business Categories](/guides/product/kyc/business-categories) for the list of valid \u0060industryCategories\u0060 values, and [Migrating to industry categories](/guides/product/kyc/migrate-business-profile-industry-categories) if you are moving from a previous version of this endpoint.\n",
         "operationId": "ProfileBusinessUpdateV3",
         "parameters": [
           {
@@ -23115,7 +23115,7 @@
           },
           "descriptionOfBusiness": {
             "type": "string",
-            "description": "Deprecated. New integrations should use \u0060industryCategories\u0060. See [Migrating to industry categories](/guides/developer/api-guides/business-profile-industry-categories-migration).\n",
+            "description": "Deprecated. New integrations should use \u0060industryCategories\u0060. See [Migrating to industry categories](/guides/product/kyc/migrate-business-profile-industry-categories).\n",
             "example": "IT_DEVELOPMENT",
             "deprecated": true
           },
@@ -23139,13 +23139,13 @@
           },
           "firstLevelCategory": {
             "type": "string",
-            "description": "Deprecated. New integrations should use \u0060industryCategories\u0060. See [Migrating to industry categories](/guides/developer/api-guides/business-profile-industry-categories-migration).\n",
+            "description": "Deprecated. New integrations should use \u0060industryCategories\u0060. See [Migrating to industry categories](/guides/product/kyc/migrate-business-profile-industry-categories).\n",
             "example": "CONSULTING_IT_BUSINESS_SERVICES",
             "deprecated": true
           },
           "secondLevelCategory": {
             "type": "string",
-            "description": "Deprecated. New integrations should use \u0060industryCategories\u0060. See [Migrating to industry categories](/guides/developer/api-guides/business-profile-industry-categories-migration).\n",
+            "description": "Deprecated. New integrations should use \u0060industryCategories\u0060. See [Migrating to industry categories](/guides/product/kyc/migrate-business-profile-industry-categories).\n",
             "example": "IT_DEVELOPMENT",
             "deprecated": true
           },
@@ -23154,7 +23154,7 @@
             "items": {
               "type": "string"
             },
-            "description": "One or more industry categories classifying the business. See [Business Categories](/guides/developer/api-guides/business-categories) for the full list of valid values."
+            "description": "One or more industry categories classifying the business. See [Business Categories](/guides/product/kyc/business-categories) for the full list of valid values."
           },
           "operationalAddresses": {
             "type": "array",
@@ -23276,7 +23276,7 @@
           },
           "descriptionOfBusiness": {
             "type": "string",
-            "description": "Deprecated. New integrations should use \u0060industryCategories\u0060. See [Migrating to industry categories](/guides/developer/api-guides/business-profile-industry-categories-migration).\n",
+            "description": "Deprecated. New integrations should use \u0060industryCategories\u0060. See [Migrating to industry categories](/guides/product/kyc/migrate-business-profile-industry-categories).\n",
             "example": "IT_DEVELOPMENT",
             "deprecated": true
           },
@@ -23300,13 +23300,13 @@
           },
           "firstLevelCategory": {
             "type": "string",
-            "description": "Deprecated. New integrations should use \u0060industryCategories\u0060. See [Migrating to industry categories](/guides/developer/api-guides/business-profile-industry-categories-migration).\n",
+            "description": "Deprecated. New integrations should use \u0060industryCategories\u0060. See [Migrating to industry categories](/guides/product/kyc/migrate-business-profile-industry-categories).\n",
             "example": "CONSULTING_IT_BUSINESS_SERVICES",
             "deprecated": true
           },
           "secondLevelCategory": {
             "type": "string",
-            "description": "Deprecated. New integrations should use \u0060industryCategories\u0060. See [Migrating to industry categories](/guides/developer/api-guides/business-profile-industry-categories-migration).\n",
+            "description": "Deprecated. New integrations should use \u0060industryCategories\u0060. See [Migrating to industry categories](/guides/product/kyc/migrate-business-profile-industry-categories).\n",
             "example": "IT_DEVELOPMENT",
             "deprecated": true
           },
@@ -23315,7 +23315,7 @@
             "items": {
               "type": "string"
             },
-            "description": "One or more industry categories classifying the business. See [Business Categories](/guides/developer/api-guides/business-categories) for the full list of valid values."
+            "description": "One or more industry categories classifying the business. See [Business Categories](/guides/product/kyc/business-categories) for the full list of valid values."
           },
           "operationalAddresses": {
             "type": "array",
@@ -23426,7 +23426,7 @@
             "items": {
               "type": "string"
             },
-            "description": "One or more industry categories classifying the business. See [Business Categories](/guides/developer/api-guides/business-categories) for the full list of valid values."
+            "description": "One or more industry categories classifying the business. See [Business Categories](guides/product/kyc/business-categories) for the full list of valid values."
           },
           "operationalAddresses": {
             "type": "array",
@@ -41254,7 +41254,7 @@
             "items": {
               "type": "string"
             },
-            "description": "One or more industry categories classifying the business. See [Business Categories](/guides/developer/api-guides/business-categories) for the full list of valid values."
+            "description": "One or more industry categories classifying the business. See [Business Categories](/guides/product/kyc/business-categories) for the full list of valid values."
           },
           "operationalAddresses": {
             "type": "array",
@@ -41415,7 +41415,7 @@
             "items": {
               "type": "string"
             },
-            "description": "One or more industry categories classifying the business. See [Business Categories](/guides/developer/api-guides/business-categories) for the full list of valid values."
+            "description": "One or more industry categories classifying the business. See [Business Categories](guides/product/kyc/business-categories) for the full list of valid values."
           },
           "operationalAddresses": {
             "type": "array",
@@ -50729,7 +50729,6 @@
           "MANDATE_NOT_FILLED_IN",
           "REASON_NOT_SPECIFIED",
           "REQUEST_FOR_INFORMATION_EXPIRED",
-          "REQUIRES_REPLANNING",
           "RETURN_REQUESTED_BY_RECIPIENT",
           "SENDER_REQUESTED_TO_CANCEL",
           "TAX_ID_NOT_MATCHING",
@@ -50814,10 +50813,6 @@
             {
               "value": "REQUEST_FOR_INFORMATION_EXPIRED",
               "name": "RequestForInformationExpired"
-            },
-            {
-              "value": "REQUIRES_REPLANNING",
-              "name": "RequiresReplanning"
             },
             {
               "value": "RETURN_REQUESTED_BY_RECIPIENT",

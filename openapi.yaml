@@ -13328,10 +13328,10 @@ paths:
         {% /admonition %}
 
 
-        See [Business
-        Categories](/guides/developer/api-guides/business-categories) for the
-        list of valid `industryCategories` values, and [Migrating to industry
-        categories](/guides/developer/api-guides/business-profile-industry-categories-migration)
+        See [Business Categories](/guides/product/kyc/business-categories) for
+        the list of valid `industryCategories` values, and [Migrating to
+        industry
+        categories](/guides/product/kyc/migrate-business-profile-industry-categories)
         if you are moving from a previous version of this endpoint.
       tags:
         - profile
@@ -13467,8 +13467,8 @@ paths:
                   description: >-
                     One or more industry categories classifying the business.
                     See [Business
-                    Categories](/guides/developer/api-guides/business-categories)
-                    for the full list of valid values.
+                    Categories](/guides/product/kyc/business-categories) for the
+                    full list of valid values.
                   minItems: 1
                   items:
                     type: string
@@ -13900,10 +13900,10 @@ paths:
         window](/api-reference/profile/profileupdatewindowclose).
 
 
-        See [Business
-        Categories](/guides/developer/api-guides/business-categories) for the
-        list of valid `industryCategories` values, and [Migrating to industry
-        categories](/guides/developer/api-guides/business-profile-industry-categories-migration)
+        See [Business Categories](/guides/product/kyc/business-categories) for
+        the list of valid `industryCategories` values, and [Migrating to
+        industry
+        categories](/guides/product/kyc/migrate-business-profile-industry-categories)
         if you are moving from a previous version of this endpoint.
       tags:
         - profile
@@ -14036,8 +14036,8 @@ paths:
                   description: >-
                     One or more industry categories classifying the business.
                     See [Business
-                    Categories](/guides/developer/api-guides/business-categories)
-                    for the full list of valid values.
+                    Categories](guides/product/kyc/business-categories) for the
+                    full list of valid values.
                   minItems: 1
                   items:
                     type: string
@@ -30287,7 +30287,7 @@ components:
           description: >
             Deprecated. New integrations should use `industryCategories`. See
             [Migrating to industry
-            categories](/guides/developer/api-guides/business-profile-industry-categories-migration).
+            categories](/guides/product/kyc/migrate-business-profile-industry-categories).
           example: IT_DEVELOPMENT
         webpage:
           type: string
@@ -30315,7 +30315,7 @@ components:
           description: >
             Deprecated. New integrations should use `industryCategories`. See
             [Migrating to industry
-            categories](/guides/developer/api-guides/business-profile-industry-categories-migration).
+            categories](/guides/product/kyc/migrate-business-profile-industry-categories).
           example: CONSULTING_IT_BUSINESS_SERVICES
         secondLevelCategory:
           type: string
@@ -30323,14 +30323,13 @@ components:
           description: >
             Deprecated. New integrations should use `industryCategories`. See
             [Migrating to industry
-            categories](/guides/developer/api-guides/business-profile-industry-categories-migration).
+            categories](/guides/product/kyc/migrate-business-profile-industry-categories).
           example: IT_DEVELOPMENT
         industryCategories:
           type: array
           description: >-
             One or more industry categories classifying the business. See
-            [Business
-            Categories](/guides/developer/api-guides/business-categories) for
+            [Business Categories](/guides/product/kyc/business-categories) for
             the full list of valid values.
           items:
             type: string
@@ -30458,8 +30457,7 @@ components:
           minItems: 1
           description: >-
             One or more industry categories classifying the business. See
-            [Business
-            Categories](/guides/developer/api-guides/business-categories) for
+            [Business Categories](guides/product/kyc/business-categories) for
             the full list of valid values.
           items:
             type: string
@@ -34361,7 +34359,6 @@ components:
                 - MANDATE_NOT_FILLED_IN
                 - REASON_NOT_SPECIFIED
                 - REQUEST_FOR_INFORMATION_EXPIRED
-                - REQUIRES_REPLANNING
                 - RETURN_REQUESTED_BY_RECIPIENT
                 - SENDER_REQUESTED_TO_CANCEL
                 - TAX_ID_NOT_MATCHING

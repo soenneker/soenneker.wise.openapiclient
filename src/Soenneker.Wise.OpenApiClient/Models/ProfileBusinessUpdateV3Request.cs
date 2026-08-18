@@ -84,7 +84,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #endif
         /// <summary>Business profile ID. This must match the business profile ID supplied in the URL.</summary>
         public long? Id { get; set; }
-        /// <summary>One or more industry categories classifying the business. See [Business Categories](/guides/developer/api-guides/business-categories) for the full list of valid values.</summary>
+        /// <summary>One or more industry categories classifying the business. See [Business Categories](guides/product/kyc/business-categories) for the full list of valid values.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<string>? IndustryCategories { get; set; }
