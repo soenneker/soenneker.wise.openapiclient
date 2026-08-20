@@ -15180,41 +15180,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SimulationSwiftInRequest"
-              },
-              "example": {
-                "currencyCode": "EUR",
-                "amount": 100,
-                "instructedAmount": 101,
-                "instructedCurrencyCode": "EUR",
-                "beneficiaryName": "John Doe",
-                "beneficiaryAccount": "8599680548",
-                "beneficiaryAddress": {
-                  "addressLine": "1234 Elm St, IL",
-                  "city": "Springfield",
-                  "postalCode": "62704",
-                  "country": "US"
-                },
-                "senderName": "Jane Doe",
-                "senderBic": "DEUTDEDBFRA",
-                "senderAccount": "DE89370400440532013000",
-                "senderAddress": {
-                  "addressLine": "5678 Oak St",
-                  "city": "Springfield",
-                  "postalCode": "62704",
-                  "country": "US"
-                },
-                "charges": [
-                  {
-                    "currency": "EUR",
-                    "amount": 1,
-                    "agent": "DEUTDEDBFRA"
-                  }
-                ],
-                "previousInstructingAgents": [
-                  "COBADEFFXXX"
-                ],
-                "paymentReference": "Test123"
+                "$ref": "#/components/schemas/SwiftInRequest"
               }
             }
           },
@@ -23817,6 +23783,342 @@
         },
         "description": "Contains verification results for the recipient\u0027s details. Only populated for currencies with recipient verification enabled (CNY, KRW, INR, IDR, EUR). \n\nSee the [Recipient verification guides](/guides/product/send-money/recipient-verification) for details about how to handle this verification data by currency.\n"
       },
+      "Address22": {
+        "type": "object",
+        "properties": {
+          "addressLine": {
+            "maxLength": 70,
+            "minLength": 1,
+            "type": "string",
+            "description": "Address line: street, house, apartment."
+          },
+          "city": {
+            "maxLength": 140,
+            "minLength": 1,
+            "type": "string",
+            "description": "City name."
+          },
+          "postalCode": {
+            "maxLength": 16,
+            "minLength": 1,
+            "type": "string",
+            "description": "Postal code."
+          },
+          "country": {
+            "maxLength": 2,
+            "minLength": 2,
+            "pattern": "^[A-Z]{2}$",
+            "type": "string",
+            "description": "Country code (ISO 3166-1 alpha-2)."
+          }
+        }
+      },
+      "BankDetails": {
+        "title": "Bank details",
+        "type": "object",
+        "anyOf": [
+          {
+            "title": "BIC",
+            "required": [
+              "bic"
+            ],
+            "type": "object"
+          },
+          {
+            "title": "LEI",
+            "required": [
+              "lei"
+            ],
+            "type": "object"
+          },
+          {
+            "title": "Clearing system",
+            "required": [
+              "clearingSystemCode",
+              "clearingSystemMemberId"
+            ],
+            "type": "object"
+          },
+          {
+            "title": "Name and address",
+            "required": [
+              "name",
+              "address"
+            ],
+            "type": "object"
+          }
+        ],
+        "properties": {
+          "bic": {
+            "pattern": "^[A-Z]{4}[A-Z]{2}[A-Z0-9]{2}([A-Z0-9]{3})?$",
+            "type": "string",
+            "description": "Business Identifier Code, also known as Swift Code."
+          },
+          "name": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Name of the sender\u0027s bank.",
+            "example": "Example Bank"
+          },
+          "lei": {
+            "maxLength": 20,
+            "minLength": 20,
+            "pattern": "^[A-Z0-9]{18,18}[0-9]{2,2}$",
+            "type": "string",
+            "description": "Legal Entity Identifier (LEI) of the sender bank.",
+            "example": "5493001KJTIIGC8Y1R12"
+          },
+          "clearingSystemCode": {
+            "maxLength": 5,
+            "minLength": 1,
+            "pattern": "^[A-Z0-9]\u002B$",
+            "type": "string",
+            "description": "Code identifying the clearing system in which the sender bank is registered.",
+            "example": "DEBLZ"
+          },
+          "clearingSystemMemberId": {
+            "maxLength": 35,
+            "minLength": 1,
+            "pattern": "^[A-Z0-9]\u002B$",
+            "type": "string",
+            "description": "Identifier of the sender bank within the clearing system specified by \u0060clearingSystemCode\u0060.",
+            "example": "50070010"
+          },
+          "address": {
+            "$ref": "#/components/schemas/BankDetailsAddress"
+          }
+        }
+      },
+      "SwiftInRequest": {
+        "$defs": {
+          "Address": {
+            "type": "object",
+            "properties": {
+              "addressLine": {
+                "maxLength": 70,
+                "minLength": 1,
+                "type": "string",
+                "description": "Address line: street, house, apartment."
+              },
+              "city": {
+                "maxLength": 140,
+                "minLength": 1,
+                "type": "string",
+                "description": "City name."
+              },
+              "postalCode": {
+                "maxLength": 16,
+                "minLength": 1,
+                "type": "string",
+                "description": "Postal code."
+              },
+              "country": {
+                "maxLength": 2,
+                "minLength": 2,
+                "pattern": "^[A-Z]{2}$",
+                "type": "string",
+                "description": "Country code (ISO 3166-1 alpha-2)."
+              }
+            }
+          },
+          "BankDetails": {
+            "title": "Bank details",
+            "type": "object",
+            "anyOf": [
+              {
+                "title": "BIC",
+                "required": [
+                  "bic"
+                ]
+              },
+              {
+                "title": "LEI",
+                "required": [
+                  "lei"
+                ]
+              },
+              {
+                "title": "Clearing system",
+                "required": [
+                  "clearingSystemCode",
+                  "clearingSystemMemberId"
+                ]
+              },
+              {
+                "title": "Name and address",
+                "required": [
+                  "name",
+                  "address"
+                ]
+              }
+            ],
+            "properties": {
+              "bic": {
+                "description": "BIC of the sender\u0027s bank.",
+                "example": "DEUTDEDBFRA",
+                "$ref": "#/components/schemas/Bic"
+              },
+              "name": {
+                "minLength": 1,
+                "type": "string",
+                "description": "Name of the sender\u0027s bank.",
+                "example": "Example Bank"
+              },
+              "lei": {
+                "maxLength": 20,
+                "minLength": 20,
+                "pattern": "^[A-Z0-9]{18,18}[0-9]{2,2}$",
+                "type": "string",
+                "description": "Legal Entity Identifier (LEI) of the sender bank.",
+                "example": "5493001KJTIIGC8Y1R12"
+              },
+              "clearingSystemCode": {
+                "maxLength": 5,
+                "minLength": 1,
+                "pattern": "^[A-Z0-9]\u002B$",
+                "type": "string",
+                "description": "Code identifying the clearing system in which the sender bank is registered.",
+                "example": "DEBLZ"
+              },
+              "clearingSystemMemberId": {
+                "maxLength": 35,
+                "minLength": 1,
+                "pattern": "^[A-Z0-9]\u002B$",
+                "type": "string",
+                "description": "Identifier of the sender bank within the clearing system specified by \u0060clearingSystemCode\u0060.",
+                "example": "50070010"
+              },
+              "address": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Address-2"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "addressLine": {
+                        "example": "1 Bank Street"
+                      },
+                      "city": {
+                        "example": "Frankfurt"
+                      },
+                      "postalCode": {
+                        "example": "60311"
+                      },
+                      "country": {
+                        "example": "DE"
+                      }
+                    }
+                  }
+                ],
+                "description": "Address of the sender\u0027s bank."
+              }
+            }
+          }
+        },
+        "dependentRequired": {
+          "instructedCurrencyCode": [
+            "instructedAmount"
+          ]
+        },
+        "required": [
+          "currencyCode",
+          "amount"
+        ],
+        "type": "object",
+        "not": {
+          "required": [
+            "senderBic",
+            "senderBank"
+          ]
+        },
+        "properties": {
+          "currencyCode": {
+            "pattern": "^[A-Z]{3}$",
+            "type": "string",
+            "description": "ISO 4217 currency code"
+          },
+          "amount": {
+            "exclusiveMinimum": false,
+            "type": "number",
+            "description": "Amount received by Wise.",
+            "example": 100
+          },
+          "instructedCurrencyCode": {
+            "pattern": "^[A-Z]{3}$",
+            "type": "string",
+            "description": "ISO 4217 currency code"
+          },
+          "instructedAmount": {
+            "exclusiveMinimum": false,
+            "type": "number",
+            "description": "Amount sent by the sender.\nIf not provided, it is assumed to be the same as \u0060amount\u0060 plus **same currency** fees.\nAny outstanding fees in other currencies are ignored.\n\nRequired if \u0060instructedCurrencyCode\u0060 is provided.\n",
+            "example": 101
+          },
+          "beneficiaryName": {
+            "maxLength": 140,
+            "minLength": 1,
+            "type": "string",
+            "description": "Name of the ultimate beneficiary.",
+            "example": "John Doe"
+          },
+          "beneficiaryAccount": {
+            "type": "string",
+            "description": "Account number of the ultimate beneficiary. It can be either a local account number or an IBAN.\n*If the provided IBAN resolves to a BIC that does not match any connected test BICs, simulation is not allowed and an error is returned.*\n",
+            "example": "8599680548"
+          },
+          "beneficiaryAddress": {
+            "$ref": "#/components/schemas/SwiftInRequestBeneficiaryAddress"
+          },
+          "senderName": {
+            "maxLength": 140,
+            "minLength": 1,
+            "type": "string",
+            "description": "Name of the sender.",
+            "example": "Jane Doe"
+          },
+          "senderBic": {
+            "pattern": "^[A-Z]{4}[A-Z]{2}[A-Z0-9]{2}([A-Z0-9]{3})?$",
+            "type": "string",
+            "description": "Business Identifier Code, also known as Swift Code."
+          },
+          "senderBank": {
+            "description": "Details of the sender\u0027s bank.\nCannot be provided together with \u0060senderBic\u0060.\n",
+            "$ref": "#/components/schemas/BankDetails"
+          },
+          "senderAccount": {
+            "type": "string",
+            "description": "Account number of the sender. It can be either an IBAN or local account number.",
+            "example": "DE89370400440532013000"
+          },
+          "senderAddress": {
+            "$ref": "#/components/schemas/SwiftInRequestSenderAddress"
+          },
+          "paymentReference": {
+            "maxLength": 35,
+            "type": "string",
+            "description": "Custom payment reference.",
+            "example": "Test123"
+          },
+          "charges": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SwiftInRequestChargesItem"
+            },
+            "description": "List of fees declared by correspondents (e.g., handling fee)."
+          },
+          "previousInstructingAgents": {
+            "maxItems": 3,
+            "type": "array",
+            "items": {
+              "pattern": "^[A-Z]{4}[A-Z]{2}[A-Z0-9]{2}([A-Z0-9]{3})?$",
+              "type": "string",
+              "description": "Business Identifier Code, also known as Swift Code."
+            },
+            "description": "List of previous instructing agents. Maximum 3 items."
+          }
+        }
+      },
       "Rule": {
         "title": "Authorisation Rule",
         "type": "object",
@@ -24352,7 +24654,7 @@
         },
         "description": "Data block to capture the originator name details"
       },
-      "Address22": {
+      "Address3": {
         "required": [
           "countryCode",
           "firstLine"
@@ -24432,7 +24734,7 @@
             "example": "23456789"
           },
           "address": {
-            "$ref": "#/components/schemas/Address22"
+            "$ref": "#/components/schemas/Address3"
           }
         }
       },
@@ -24486,7 +24788,7 @@
             "example": "23456789"
           },
           "address": {
-            "$ref": "#/components/schemas/Address22"
+            "$ref": "#/components/schemas/Address3"
           },
           "legalEntityType": {
             "type": "string"
@@ -24531,7 +24833,7 @@
             "example": "23456789"
           },
           "address": {
-            "$ref": "#/components/schemas/Address22"
+            "$ref": "#/components/schemas/Address3"
           }
         },
         "description": "Data block to capture payment originator details for a business entity"
@@ -24575,7 +24877,7 @@
             "example": "23456789"
           },
           "address": {
-            "$ref": "#/components/schemas/Address22"
+            "$ref": "#/components/schemas/Address3"
           },
           "legalEntityType": {
             "type": "string"
@@ -24622,7 +24924,7 @@
             "example": "23456789"
           },
           "address": {
-            "$ref": "#/components/schemas/Address22"
+            "$ref": "#/components/schemas/Address3"
           },
           "legalEntityType": {
             "type": "string"
@@ -27728,6 +28030,296 @@
         },
         "deprecated": true
       },
+      "Address4": {
+        "type": "object",
+        "properties": {
+          "first_line": {
+            "type": "string",
+            "description": "Address lines concatenated into a single line. Use \u0060address_lines\u0060 instead.",
+            "deprecated": true
+          },
+          "address_lines": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Unstructured address lines."
+          },
+          "street_name": {
+            "type": "string",
+            "description": "Street name.",
+            "example": "Evergreen Ave"
+          },
+          "building_number": {
+            "type": "string",
+            "description": "Building number.",
+            "example": "6"
+          },
+          "town_name": {
+            "type": "string",
+            "description": "Town (city) name.",
+            "example": "BRUSSELS"
+          },
+          "postal_code": {
+            "type": "string",
+            "description": "Postal code.",
+            "example": "1000"
+          },
+          "country_sub_division": {
+            "type": "string",
+            "description": "Country subdivision such as a state, province, or region."
+          },
+          "country_code": {
+            "type": "string",
+            "description": "Country code. 2-letter ISO country code.",
+            "example": "BE"
+          }
+        },
+        "description": "Structured address details."
+      },
+      "BankDetails2": {
+        "type": "object",
+        "properties": {
+          "bic": {
+            "type": "string",
+            "description": "Bank Identifier Code (BIC)."
+          },
+          "name": {
+            "type": "string",
+            "description": "Bank or financial institution name."
+          },
+          "lei": {
+            "maxLength": 20,
+            "minLength": 20,
+            "pattern": "^[A-Z0-9]{18}[0-9]{2}$",
+            "type": "string",
+            "description": "Legal Entity Identifier (LEI)."
+          },
+          "clearing_system_code": {
+            "maxLength": 5,
+            "minLength": 1,
+            "pattern": "^[A-Z0-9]\u002B$",
+            "type": "string",
+            "description": "Code identifying the clearing system in which the institution is registered."
+          },
+          "clearing_system_member_id": {
+            "maxLength": 35,
+            "minLength": 1,
+            "pattern": "^[A-Z0-9]\u002B$",
+            "type": "string",
+            "description": "Identifier within the clearing system specified by \u0060clearing_system_code\u0060."
+          },
+          "address": {
+            "$ref": "#/components/schemas/Address4"
+          }
+        },
+        "description": "Bank or financial institution details."
+      },
+      "Party": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "maxLength": 140,
+            "minLength": 1,
+            "type": "string",
+            "description": "Party name."
+          },
+          "address": {
+            "$ref": "#/components/schemas/Address4"
+          },
+          "account": {
+            "maxLength": 36,
+            "minLength": 1,
+            "type": "string",
+            "description": "An IBAN, BBAN, AccountId, or another account descriptor."
+          },
+          "bank_details": {
+            "$ref": "#/components/schemas/BankDetails2"
+          }
+        }
+      },
+      "Amount": {
+        "required": [
+          "value",
+          "currency"
+        ],
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "number",
+            "description": "Monetary value.",
+            "format": "double"
+          },
+          "currency": {
+            "type": "string",
+            "description": "3-letter ISO currency code."
+          }
+        }
+      },
+      "V430": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$defs": {
+          "Address": {
+            "type": "object",
+            "properties": {
+              "first_line": {
+                "type": "string",
+                "description": "Address lines concatenated into a single line. Use \u0060address_lines\u0060 instead.",
+                "deprecated": true
+              },
+              "address_lines": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Unstructured address lines.",
+                "example": [
+                  "6 Evergreen Ave",
+                  "Brussels"
+                ]
+              },
+              "street_name": {
+                "type": "string",
+                "description": "Street name.",
+                "example": "Evergreen Ave"
+              },
+              "building_number": {
+                "type": "string",
+                "description": "Building number.",
+                "example": "6"
+              },
+              "town_name": {
+                "type": "string",
+                "description": "Town (city) name.",
+                "example": "BRUSSELS"
+              },
+              "postal_code": {
+                "type": "string",
+                "description": "Postal code.",
+                "example": "1000"
+              },
+              "country_sub_division": {
+                "type": "string",
+                "description": "Country subdivision such as a state, province, or region."
+              },
+              "country_code": {
+                "type": "string",
+                "description": "Country code. 2-letter ISO country code.",
+                "example": "BE"
+              }
+            },
+            "description": "Structured address details."
+          },
+          "BankDetails": {
+            "type": "object",
+            "properties": {
+              "bic": {
+                "type": "string",
+                "description": "Bank Identifier Code (BIC)."
+              },
+              "name": {
+                "type": "string",
+                "description": "Bank or financial institution name."
+              },
+              "lei": {
+                "maxLength": 20,
+                "minLength": 20,
+                "pattern": "^[A-Z0-9]{18}[0-9]{2}$",
+                "type": "string",
+                "description": "Legal Entity Identifier (LEI)."
+              },
+              "clearing_system_code": {
+                "maxLength": 5,
+                "minLength": 1,
+                "pattern": "^[A-Z0-9]\u002B$",
+                "type": "string",
+                "description": "Code identifying the clearing system in which the institution is registered."
+              },
+              "clearing_system_member_id": {
+                "maxLength": 35,
+                "minLength": 1,
+                "pattern": "^[A-Z0-9]\u002B$",
+                "type": "string",
+                "description": "Identifier within the clearing system specified by \u0060clearing_system_code\u0060."
+              },
+              "address": {
+                "description": "Bank or financial institution address.",
+                "$ref": "#/components/schemas/Address-4"
+              }
+            },
+            "description": "Bank or financial institution details."
+          },
+          "Party": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "maxLength": 140,
+                "minLength": 1,
+                "type": "string",
+                "description": "Party name."
+              },
+              "address": {
+                "description": "Party address.",
+                "$ref": "#/components/schemas/Address-4"
+              },
+              "account": {
+                "maxLength": 36,
+                "minLength": 1,
+                "type": "string",
+                "description": "An IBAN, BBAN, AccountId, or another account descriptor."
+              },
+              "bank_details": {
+                "$ref": "#/components/schemas/BankDetails-2"
+              }
+            }
+          },
+          "Amount": {
+            "required": [
+              "value",
+              "currency"
+            ],
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "number",
+                "description": "Monetary value.",
+                "format": "double"
+              },
+              "currency": {
+                "type": "string",
+                "description": "3-letter ISO currency code."
+              }
+            }
+          }
+        },
+        "title": "Schema version 4.3.0",
+        "type": "object",
+        "properties": {
+          "schema_version": {
+            "$ref": "#/components/schemas/Value430SchemaVersion"
+          },
+          "subscription_id": {
+            "type": "string",
+            "description": "ID of the webhook subscription that triggered this event.",
+            "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef"
+          },
+          "event_type": {
+            "type": "string",
+            "description": "Event type identifier",
+            "example": "swift-in#credit"
+          },
+          "sent_at": {
+            "type": "string",
+            "description": "Timestamp when the event was sent.",
+            "format": "date-time",
+            "example": "2023-08-21T12:34:58.123Z"
+          },
+          "data": {
+            "$ref": "#/components/schemas/V430Data"
+          }
+        }
+      },
       "V420": {
         "title": "Schema version 4.2.0",
         "type": "object",
@@ -27842,7 +28434,8 @@
           "data": {
             "$ref": "#/components/schemas/V3002Data"
           }
-        }
+        },
+        "deprecated": true
       },
       "V40024": {
         "title": "Schema version 4.0.0",
@@ -28140,6 +28733,208 @@
           "path": "/public/2026Q3/v2/cases/12345678/messages"
         }
       },
+      "BankDetailsAddress": {
+        "type": "object",
+        "properties": {
+          "addressLine": {
+            "maxLength": 70,
+            "minLength": 1,
+            "type": "string",
+            "description": "Address line: street, house, apartment."
+          },
+          "city": {
+            "maxLength": 140,
+            "minLength": 1,
+            "type": "string",
+            "description": "City name."
+          },
+          "postalCode": {
+            "maxLength": 16,
+            "minLength": 1,
+            "type": "string",
+            "description": "Postal code."
+          },
+          "country": {
+            "maxLength": 2,
+            "minLength": 2,
+            "pattern": "^[A-Z]{2}$",
+            "type": "string",
+            "description": "Country code (ISO 3166-1 alpha-2)."
+          }
+        },
+        "description": "Address of the sender\u0027s bank."
+      },
+      "SwiftInRequestBeneficiaryAddress": {
+        "type": "object",
+        "properties": {
+          "addressLine": {
+            "maxLength": 70,
+            "minLength": 1,
+            "type": "string",
+            "description": "Address line: street, house, apartment."
+          },
+          "city": {
+            "maxLength": 140,
+            "minLength": 1,
+            "type": "string",
+            "description": "City name."
+          },
+          "postalCode": {
+            "maxLength": 16,
+            "minLength": 1,
+            "type": "string",
+            "description": "Postal code."
+          },
+          "country": {
+            "maxLength": 2,
+            "minLength": 2,
+            "pattern": "^[A-Z]{2}$",
+            "type": "string",
+            "description": "Country code (ISO 3166-1 alpha-2)."
+          }
+        },
+        "description": "Address of the ultimate beneficiary."
+      },
+      "SwiftInRequestSenderAddress": {
+        "type": "object",
+        "properties": {
+          "addressLine": {
+            "maxLength": 70,
+            "minLength": 1,
+            "type": "string",
+            "description": "Address line: street, house, apartment."
+          },
+          "city": {
+            "maxLength": 140,
+            "minLength": 1,
+            "type": "string",
+            "description": "City name."
+          },
+          "postalCode": {
+            "maxLength": 16,
+            "minLength": 1,
+            "type": "string",
+            "description": "Postal code."
+          },
+          "country": {
+            "maxLength": 2,
+            "minLength": 2,
+            "pattern": "^[A-Z]{2}$",
+            "type": "string",
+            "description": "Country code (ISO 3166-1 alpha-2)."
+          }
+        },
+        "description": "Address of the sender."
+      },
+      "V430DataResourceRecipient": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "maxLength": 140,
+            "minLength": 1,
+            "type": "string",
+            "description": "Party name."
+          },
+          "address": {
+            "$ref": "#/components/schemas/Address4"
+          },
+          "account": {
+            "maxLength": 36,
+            "minLength": 1,
+            "type": "string",
+            "description": "An IBAN, BBAN, AccountId, or another account descriptor."
+          },
+          "bank_details": {
+            "$ref": "#/components/schemas/BankDetails2"
+          }
+        },
+        "description": "Ultimate recipient."
+      },
+      "V430DataResourceSender": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "maxLength": 140,
+            "minLength": 1,
+            "type": "string",
+            "description": "Party name."
+          },
+          "address": {
+            "$ref": "#/components/schemas/Address4"
+          },
+          "account": {
+            "maxLength": 36,
+            "minLength": 1,
+            "type": "string",
+            "description": "An IBAN, BBAN, AccountId, or another account descriptor."
+          },
+          "bank_details": {
+            "$ref": "#/components/schemas/BankDetails2"
+          }
+        },
+        "description": "Ultimate sender."
+      },
+      "V430DataResourceFeeWiseItem": {
+        "required": [
+          "value",
+          "currency",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "number",
+            "description": "Monetary value.",
+            "format": "double"
+          },
+          "currency": {
+            "type": "string",
+            "description": "3-letter ISO currency code."
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of fee.",
+            "example": "conversion"
+          }
+        }
+      },
+      "V430DataResourcePreviousInstructingAgentsItem": {
+        "type": "object",
+        "properties": {
+          "bic": {
+            "type": "string",
+            "description": "Bank Identifier Code (BIC)."
+          },
+          "name": {
+            "type": "string",
+            "description": "Bank or financial institution name."
+          },
+          "lei": {
+            "maxLength": 20,
+            "minLength": 20,
+            "pattern": "^[A-Z0-9]{18}[0-9]{2}$",
+            "type": "string",
+            "description": "Legal Entity Identifier (LEI)."
+          },
+          "clearing_system_code": {
+            "maxLength": 5,
+            "minLength": 1,
+            "pattern": "^[A-Z0-9]\u002B$",
+            "type": "string",
+            "description": "Code identifying the clearing system in which the institution is registered."
+          },
+          "clearing_system_member_id": {
+            "maxLength": 35,
+            "minLength": 1,
+            "pattern": "^[A-Z0-9]\u002B$",
+            "type": "string",
+            "description": "Identifier within the clearing system specified by \u0060clearing_system_code\u0060."
+          },
+          "address": {
+            "$ref": "#/components/schemas/Address4"
+          }
+        }
+      },
       "ContentSubmissionDataSubmissionDataIndividualSubmission": {
         "title": "Individual submission",
         "type": "object",
@@ -28182,6 +28977,100 @@
         "properties": {
           "other": {
             "$ref": "#/components/schemas/ContentSubmissionDataSubmissionDataOtherLocationSubmissionOtherProperty"
+          }
+        }
+      },
+      "BankDetailsAddressAllOf2": {
+        "type": "object",
+        "properties": {
+          "addressLine": {
+            "$ref": "#/components/schemas/BankDetailsAddressAllOf2AddressLine"
+          },
+          "city": {
+            "$ref": "#/components/schemas/BankDetailsAddressAllOf2City"
+          },
+          "postalCode": {
+            "$ref": "#/components/schemas/BankDetailsAddressAllOf2PostalCode"
+          },
+          "country": {
+            "$ref": "#/components/schemas/BankDetailsAddressAllOf2Country"
+          }
+        }
+      },
+      "SwiftInRequestBeneficiaryAddressAllOf2": {
+        "type": "object",
+        "properties": {
+          "addressLine": {
+            "$ref": "#/components/schemas/SwiftInRequestBeneficiaryAddressAllOf2AddressLine"
+          },
+          "city": {
+            "$ref": "#/components/schemas/SwiftInRequestBeneficiaryAddressAllOf2City"
+          },
+          "postalCode": {
+            "$ref": "#/components/schemas/SwiftInRequestBeneficiaryAddressAllOf2PostalCode"
+          },
+          "country": {
+            "$ref": "#/components/schemas/SwiftInRequestBeneficiaryAddressAllOf2Country"
+          }
+        }
+      },
+      "SwiftInRequestSenderAddressAllOf2": {
+        "type": "object",
+        "properties": {
+          "addressLine": {
+            "$ref": "#/components/schemas/SwiftInRequestSenderAddressAllOf2AddressLine"
+          },
+          "city": {
+            "$ref": "#/components/schemas/SwiftInRequestSenderAddressAllOf2City"
+          },
+          "postalCode": {
+            "$ref": "#/components/schemas/SwiftInRequestSenderAddressAllOf2PostalCode"
+          },
+          "country": {
+            "$ref": "#/components/schemas/SwiftInRequestSenderAddressAllOf2Country"
+          }
+        }
+      },
+      "V430DataResourceRecipientAllOf2": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "$ref": "#/components/schemas/V430DataResourceRecipientAllOf2Address"
+          },
+          "bank_details": {
+            "$ref": "#/components/schemas/V430DataResourceRecipientAllOf2BankDetails"
+          }
+        }
+      },
+      "V430DataResourceSenderAllOf2": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "$ref": "#/components/schemas/V430DataResourceSenderAllOf2Address"
+          },
+          "bank_details": {
+            "$ref": "#/components/schemas/V430DataResourceSenderAllOf2BankDetails"
+          }
+        }
+      },
+      "V430DataResourceFeeWiseItemAllOf2": {
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Type of fee.",
+            "example": "conversion"
+          }
+        }
+      },
+      "V430DataResourcePreviousInstructingAgentsItemAllOf2": {
+        "type": "object",
+        "properties": {
+          "bic": {
+            "$ref": "#/components/schemas/V430DataResourcePreviousInstructingAgentsItemAllOf2Bic"
           }
         }
       },
@@ -29748,6 +30637,32 @@
               "$ref": "#/components/schemas/ConfirmationsOutcomesItemRecommendedUpdatesItem"
             },
             "description": "Shows the correct values for some of the fields checked."
+          }
+        }
+      },
+      "SwiftInRequestChargesItem": {
+        "required": [
+          "amount",
+          "currency",
+          "agent"
+        ],
+        "type": "object",
+        "properties": {
+          "amount": {
+            "exclusiveMinimum": false,
+            "type": "number",
+            "description": "Fee amount.",
+            "example": 1
+          },
+          "currency": {
+            "pattern": "^[A-Z]{3}$",
+            "type": "string",
+            "description": "ISO 4217 currency code"
+          },
+          "agent": {
+            "pattern": "^[A-Z]{4}[A-Z]{2}[A-Z0-9]{2}([A-Z0-9]{3})?$",
+            "type": "string",
+            "description": "Business Identifier Code, also known as Swift Code."
           }
         }
       },
@@ -31809,6 +32724,28 @@
           }
         }
       },
+      "V430Data": {
+        "required": [
+          "action",
+          "resource",
+          "occurred_at"
+        ],
+        "type": "object",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/V430DataAction"
+          },
+          "resource": {
+            "$ref": "#/components/schemas/V430DataResource"
+          },
+          "occurred_at": {
+            "type": "string",
+            "description": "Date and time at which the amount was credited to the balance account. Time in UTC.\n\nFormat: \u0060YYYY\u0060-\u0060MM\u0060-\u0060DD\u0060T\u0060HH\u0060:\u0060MM\u0060:\u0060SS\u0060.\u0060mmm\u0060Z\n",
+            "format": "date-time",
+            "example": "2023-08-21T12:34:56.789Z"
+          }
+        }
+      },
       "V420Data": {
         "required": [
           "action",
@@ -32166,6 +33103,44 @@
       },
       "ContentSubmissionDataSubmissionDataOtherLocationSubmissionOther": {
         "type": "object"
+      },
+      "V430DataResourceRecipientAllOf2Address": {
+        "type": "object",
+        "properties": {
+          "address_lines": {
+            "$ref": "#/components/schemas/V430DataResourceRecipientAllOf2AddressAddressLines"
+          }
+        }
+      },
+      "V430DataResourceRecipientAllOf2BankDetails": {
+        "type": "object",
+        "properties": {
+          "bic": {
+            "$ref": "#/components/schemas/V430DataResourceRecipientAllOf2BankDetailsBic"
+          },
+          "address": {
+            "$ref": "#/components/schemas/V430DataResourceRecipientAllOf2BankDetailsAddress"
+          }
+        }
+      },
+      "V430DataResourceSenderAllOf2Address": {
+        "type": "object",
+        "properties": {
+          "address_lines": {
+            "$ref": "#/components/schemas/V430DataResourceSenderAllOf2AddressAddressLines"
+          }
+        }
+      },
+      "V430DataResourceSenderAllOf2BankDetails": {
+        "type": "object",
+        "properties": {
+          "bic": {
+            "$ref": "#/components/schemas/V430DataResourceSenderAllOf2BankDetailsBic"
+          },
+          "address": {
+            "$ref": "#/components/schemas/V430DataResourceSenderAllOf2BankDetailsAddress"
+          }
+        }
       },
       "AddressDetailsOccupationsItem": {
         "type": "object",
@@ -35393,6 +36368,110 @@
           }
         }
       },
+      "V430DataAction": {
+        "required": [
+          "type",
+          "id",
+          "profile_id",
+          "account_id"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Type of action. Always \u0060credit\u0060.",
+            "example": "credit"
+          },
+          "id": {
+            "type": "integer",
+            "description": "TransferID of the credit.",
+            "format": "int64",
+            "example": 12345
+          },
+          "profile_id": {
+            "type": "integer",
+            "description": "ProfileID for the transfer.",
+            "format": "int64",
+            "example": 222
+          },
+          "account_id": {
+            "type": "integer",
+            "description": "AccountID for the transfer.",
+            "format": "int64",
+            "example": 333
+          }
+        }
+      },
+      "V430DataResource": {
+        "required": [
+          "id",
+          "uetr",
+          "exchange_rate",
+          "settled_amount",
+          "transaction_time",
+          "incoming_transfer_type"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "ID of the webhook.",
+            "example": "55555"
+          },
+          "uetr": {
+            "type": "string",
+            "description": "Unique identifier created by the scheme for each payment and passed through the scheme to Wise.",
+            "format": "guid",
+            "example": "f875814b-7d44-4d1b-a499-123456789abcde"
+          },
+          "reference": {
+            "maxLength": 140,
+            "minLength": 0,
+            "type": "string",
+            "description": "Reference provided by the ultimate sender for the payment.",
+            "example": "/RFB/BET072"
+          },
+          "recipient": {
+            "$ref": "#/components/schemas/V430DataResourceRecipient"
+          },
+          "sender": {
+            "$ref": "#/components/schemas/V430DataResourceSender"
+          },
+          "exchange_rate": {
+            "type": "number",
+            "description": "In case the originally instructed amount was converted by Wise or any other intermediary agent, this field contains the exchange rate used. If no conversion took place, the exchange rate will be \u00601.0\u0060.\n",
+            "format": "double",
+            "example": 0.8
+          },
+          "instructed_amount": {
+            "description": "Amount originally instructed by the ultimate sender.",
+            "$ref": "#/components/schemas/Amount"
+          },
+          "settled_amount": {
+            "description": "Amount settled to the balance account.",
+            "$ref": "#/components/schemas/Amount"
+          },
+          "fee": {
+            "$ref": "#/components/schemas/V430DataResourceFee"
+          },
+          "transaction_time": {
+            "type": "string",
+            "description": "Date and time at which the associated transaction was created. Time in UTC.\n\nFormat: \u0060YYYY\u0060-\u0060MM\u0060-\u0060DD\u0060T\u0060HH\u0060:\u0060MM\u0060:\u0060SS\u0060.\u0060mmm\u0060Z\n",
+            "format": "date-time",
+            "example": "2023-08-21T12:34:56.456Z"
+          },
+          "previous_instructing_agents": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/V430DataResourcePreviousInstructingAgentsItem"
+            },
+            "description": "List of previous instructing agents in the payment chain, ordered from first to last."
+          },
+          "incoming_transfer_type": {
+            "$ref": "#/components/schemas/V430DataResourceIncomingTransferType"
+          }
+        }
+      },
       "V420DataAction": {
         "required": [
           "type",
@@ -36007,6 +37086,22 @@
           },
           "data": {
             "$ref": "#/components/schemas/V40028DataResourceData"
+          }
+        }
+      },
+      "V430DataResourceRecipientAllOf2BankDetailsAddress": {
+        "type": "object",
+        "properties": {
+          "address_lines": {
+            "$ref": "#/components/schemas/V430DataResourceRecipientAllOf2BankDetailsAddressAddressLines"
+          }
+        }
+      },
+      "V430DataResourceSenderAllOf2BankDetailsAddress": {
+        "type": "object",
+        "properties": {
+          "address_lines": {
+            "$ref": "#/components/schemas/V430DataResourceSenderAllOf2BankDetailsAddressAddressLines"
           }
         }
       },
@@ -37131,6 +38226,25 @@
             "description": "ID of the profile that is associated with the case.",
             "format": "int64",
             "example": 12345678
+          }
+        }
+      },
+      "V430DataResourceFee": {
+        "type": "object",
+        "properties": {
+          "wise": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/V430DataResourceFeeWiseItem"
+            },
+            "description": "List of fees applied by Wise (for example, conversion fees). If this list is empty, no fees were applied by Wise."
+          },
+          "correspondent": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Amount"
+            },
+            "description": "List of fees declared by correspondents (for example, handling fees). If this list is empty, no fees were declared by correspondents."
           }
         }
       },
@@ -38751,7 +39865,7 @@
             "example": "DE"
           }
         },
-        "description": "Sender bank address (same structure as \u0060recipient.address\u0060)."
+        "description": "Sender bank address (same structure as \u0060sender.address\u0060)."
       },
       "V410DataResourceRecipientBankDetailsAddress": {
         "type": "object",
@@ -42495,88 +43609,6 @@
           }
         }
       },
-      "SimulationSwiftInRequest": {
-        "dependentRequired": {
-          "instructedCurrencyCode": [
-            "instructedAmount"
-          ]
-        },
-        "required": [
-          "currencyCode",
-          "amount"
-        ],
-        "type": "object",
-        "properties": {
-          "currencyCode": {
-            "pattern": "^[A-Z]{3}$",
-            "type": "string",
-            "description": "ISO 4217 currency code"
-          },
-          "amount": {
-            "exclusiveMinimum": false,
-            "type": "number",
-            "description": "Amount received by Wise."
-          },
-          "instructedCurrencyCode": {
-            "pattern": "^[A-Z]{3}$",
-            "type": "string",
-            "description": "ISO 4217 currency code"
-          },
-          "instructedAmount": {
-            "exclusiveMinimum": false,
-            "type": "number",
-            "description": "Amount sent by the sender. \nIf not provided, it is assumed to be the same as \u0060amount\u0060 plus **same currency** fees.\nAny outstanding fees in other currencies are ignored.\n\nRequired if \u0060instructedCurrencyCode\u0060 is provided.\n"
-          },
-          "beneficiaryName": {
-            "type": "string",
-            "description": "Name of the ultimate beneficiary."
-          },
-          "beneficiaryAccount": {
-            "type": "string",
-            "description": "Account number of the ultimate beneficiary. It can be either a local account number or an IBAN.\n*If the provided IBAN resolves to a BIC that does not match any connected test BICs, simulation is not allowed and an error is returned.*\n"
-          },
-          "beneficiaryAddress": {
-            "$ref": "#/components/schemas/SimulationSwiftInRequestBeneficiaryAddress"
-          },
-          "senderName": {
-            "type": "string",
-            "description": "Name of the sender."
-          },
-          "senderBic": {
-            "pattern": "^[A-Z]{4}[A-Z]{2}[A-Z0-9]{2}([A-Z0-9]{3})?$",
-            "type": "string",
-            "description": "Business Identifier Code, also known as Swift Code."
-          },
-          "senderAccount": {
-            "type": "string",
-            "description": "Account number of the sender. It can be either an IBAN or local account number."
-          },
-          "senderAddress": {
-            "$ref": "#/components/schemas/SimulationSwiftInRequestSenderAddress"
-          },
-          "paymentReference": {
-            "type": "string",
-            "description": "Custom payment reference."
-          },
-          "charges": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/SimulationSwiftInRequestChargesItem"
-            },
-            "description": "List of fees declared by correspondents (e.g., handling fee)."
-          },
-          "previousInstructingAgents": {
-            "maxItems": 3,
-            "type": "array",
-            "items": {
-              "pattern": "^[A-Z]{4}[A-Z]{2}[A-Z0-9]{2}([A-Z0-9]{3})?$",
-              "type": "string",
-              "description": "Business Identifier Code, also known as Swift Code."
-            },
-            "description": "List of previous instructing agents. Maximum 3 items."
-          }
-        }
-      },
       "SpendControlsRuleCreateRequest": {
         "type": "object",
         "properties": {
@@ -44321,6 +45353,9 @@
         "type": "object",
         "oneOf": [
           {
+            "$ref": "#/components/schemas/V430"
+          },
+          {
             "$ref": "#/components/schemas/V420"
           },
           {
@@ -44355,10 +45390,12 @@
         "discriminator": {
           "propertyName": "schema_version",
           "mapping": {
+            "4.3.0": "#/components/schemas/V430",
             "4.2.0": "#/components/schemas/V420",
             "4.1.0": "#/components/schemas/V410",
             "4.0.0": "#/components/schemas/V40023",
             "3.0.0": "#/components/schemas/V3002",
+            "V430": "#/components/schemas/V430",
             "V420": "#/components/schemas/V420",
             "V410": "#/components/schemas/V410",
             "V40023": "#/components/schemas/V40023",
@@ -45323,6 +46360,58 @@
       "ContentSubmissionDataSubmissionDataOtherLocationSubmissionOtherProperty": {
         "type": "object"
       },
+      "BankDetailsAddressAllOf2AddressLine": {
+        "type": "object",
+        "example": "1 Bank Street"
+      },
+      "BankDetailsAddressAllOf2City": {
+        "type": "object",
+        "example": "Frankfurt"
+      },
+      "BankDetailsAddressAllOf2PostalCode": {
+        "type": "object",
+        "example": "60311"
+      },
+      "BankDetailsAddressAllOf2Country": {
+        "type": "object",
+        "example": "DE"
+      },
+      "SwiftInRequestBeneficiaryAddressAllOf2AddressLine": {
+        "type": "object",
+        "example": "1234 Elm St, IL"
+      },
+      "SwiftInRequestBeneficiaryAddressAllOf2City": {
+        "type": "object",
+        "example": "Springfield"
+      },
+      "SwiftInRequestBeneficiaryAddressAllOf2PostalCode": {
+        "type": "object",
+        "example": "62704"
+      },
+      "SwiftInRequestBeneficiaryAddressAllOf2Country": {
+        "type": "object",
+        "example": "US"
+      },
+      "SwiftInRequestSenderAddressAllOf2AddressLine": {
+        "type": "object",
+        "example": "5678 Oak St"
+      },
+      "SwiftInRequestSenderAddressAllOf2City": {
+        "type": "object",
+        "example": "Springfield"
+      },
+      "SwiftInRequestSenderAddressAllOf2PostalCode": {
+        "type": "object",
+        "example": "62704"
+      },
+      "SwiftInRequestSenderAddressAllOf2Country": {
+        "type": "object",
+        "example": "US"
+      },
+      "V430DataResourcePreviousInstructingAgentsItemAllOf2Bic": {
+        "type": "object",
+        "example": "SAMPUS33"
+      },
       "KycReviewTriggerReferencesItemTriggerDataProperty": {
         "type": "object",
         "description": "Key-value object containing metadata of the underlying product object that triggered the KYC Review.\nFor \u0060QUOTE\u0060, \u0060TRANSFER\u0060 and \u0060ADD_MONEY\u0060 types, \u0060triggerData\u0060 contains an \u0060id\u0060 field that refers to their respective IDs.\nFor \u0060BANK_ACCOUNT_DETAILS\u0060, \u0060triggerData\u0060 has a field called \u0060currencies\u0060 which contains a list of currencies (e.g. USD, SGD, EUR) that the bank details have been created for.\n\nFields and their data types for each \u0060triggerReference.type\u0060:\n- \u0060QUOTE\u0060 - \u0060id\u0060 (uuid)\n- \u0060TRANSFER\u0060 - \u0060id\u0060 (long)\n- \u0060ADD_MONEY\u0060 - \u0060id\u0060 (long)\n- \u0060BANK_ACCOUNT_DETAILS\u0060 - \u0060currencies\u0060 (list of string)\n"
@@ -45335,7 +46424,27 @@
         "type": "object",
         "description": "Attributes for other entity type or location hit."
       },
+      "V430DataResourceRecipientAllOf2AddressAddressLines": {
+        "type": "object"
+      },
+      "V430DataResourceRecipientAllOf2BankDetailsBic": {
+        "type": "object",
+        "example": "EXMPBEBB"
+      },
+      "V430DataResourceSenderAllOf2AddressAddressLines": {
+        "type": "object"
+      },
+      "V430DataResourceSenderAllOf2BankDetailsBic": {
+        "type": "object",
+        "example": "TESTDEFF"
+      },
       "OttResponseOneTimeTokenPropertiesChallengesItemAlternativesItemProperty": {
+        "type": "object"
+      },
+      "V430DataResourceRecipientAllOf2BankDetailsAddressAddressLines": {
+        "type": "object"
+      },
+      "V430DataResourceSenderAllOf2BankDetailsAddressAddressLines": {
         "type": "object"
       },
       "OttResponseOneTimeTokenPropertiesChallengesItemPrimaryChallengeViewDataProperty": {
@@ -47351,75 +48460,6 @@
               "string"
             ],
             "description": "Description of the KYC review item."
-          }
-        }
-      },
-      "SimulationSwiftInRequestBeneficiaryAddress": {
-        "type": "object",
-        "properties": {
-          "addressLine": {
-            "type": "string",
-            "description": "Address line: street, house, apartment."
-          },
-          "city": {
-            "type": "string",
-            "description": "City name."
-          },
-          "postalCode": {
-            "type": "string",
-            "description": "Postal code."
-          },
-          "country": {
-            "type": "string",
-            "description": "Country code (ISO 3166-1 alpha-2)."
-          }
-        },
-        "description": "Address of the ultimate beneficiary."
-      },
-      "SimulationSwiftInRequestSenderAddress": {
-        "type": "object",
-        "properties": {
-          "addressLine": {
-            "type": "string",
-            "description": "Address line: street, house, apartment."
-          },
-          "city": {
-            "type": "string",
-            "description": "City name."
-          },
-          "postalCode": {
-            "type": "string",
-            "description": "Postal code."
-          },
-          "country": {
-            "type": "string",
-            "description": "Country code (ISO 3166-1 alpha-2)."
-          }
-        },
-        "description": "Address of the sender."
-      },
-      "SimulationSwiftInRequestChargesItem": {
-        "required": [
-          "amount",
-          "currency",
-          "agent"
-        ],
-        "type": "object",
-        "properties": {
-          "amount": {
-            "exclusiveMinimum": false,
-            "type": "number",
-            "description": "Fee amount."
-          },
-          "currency": {
-            "pattern": "^[A-Z]{3}$",
-            "type": "string",
-            "description": "ISO 4217 currency code"
-          },
-          "agent": {
-            "pattern": "^[A-Z]{4}[A-Z]{2}[A-Z0-9]{2}([A-Z0-9]{3})?$",
-            "type": "string",
-            "description": "Business Identifier Code, also known as Swift Code."
           }
         }
       },
@@ -50225,6 +51265,25 @@
           ]
         }
       },
+      "Value430SchemaVersion": {
+        "enum": [
+          "4.3.0"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Version of the event schema. Determined by the \u0060schema_version\u0060 on your [webhook subscription](/api-reference/webhook).",
+        "example": "4.3.0",
+        "x-ms-enum": {
+          "name": "Value430SchemaVersion",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "4.3.0",
+              "name": "Value430"
+            }
+          ]
+        }
+      },
       "Value420SchemaVersion": {
         "enum": [
           "4.2.0"
@@ -52063,6 +53122,30 @@
             {
               "value": "CLOSED",
               "name": "Closed"
+            }
+          ]
+        }
+      },
+      "V430DataResourceIncomingTransferType": {
+        "enum": [
+          "CUSTOMER_CREDIT_TRANSFER",
+          "FINANCIAL_INSTITUTION_CREDIT_TRANSFER"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Type of incoming SWIFT credit transfer.\n\n\u0060CUSTOMER_CREDIT_TRANSFER\u0060 identifies a pacs.008 customer credit transfer.\n\n\u0060FINANCIAL_INSTITUTION_CREDIT_TRANSFER\u0060 identifies a pacs.009 financial institution credit transfer. The recipient or sender may be a financial institution rather than a customer, so account number may not be present.\n",
+        "example": "CUSTOMER_CREDIT_TRANSFER",
+        "x-ms-enum": {
+          "name": "V430DataResourceIncomingTransferType",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "CUSTOMER_CREDIT_TRANSFER",
+              "name": "CustomerCreditTransfer"
+            },
+            {
+              "value": "FINANCIAL_INSTITUTION_CREDIT_TRANSFER",
+              "name": "FinancialInstitutionCreditTransfer"
             }
           ]
         }

@@ -26,10 +26,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The address property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.Address22? Address { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.Address3? Address { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.Address22 Address { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.Address3 Address { get; set; }
 #endif
         /// <summary>Payment originator business registry number / incorporation number</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -91,7 +91,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "accountDetails", n => { AccountDetails = n.GetStringValue(); } },
-                { "address", n => { Address = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Address22>(global::Soenneker.Wise.OpenApiClient.Models.Address22.CreateFromDiscriminatorValue); } },
+                { "address", n => { Address = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Address3>(global::Soenneker.Wise.OpenApiClient.Models.Address3.CreateFromDiscriminatorValue); } },
                 { "businessRegistrationCode", n => { BusinessRegistrationCode = n.GetStringValue(); } },
                 { "businessRegistrationDate", n => { BusinessRegistrationDate = n.GetDateValue(); } },
                 { "legalEntityType", n => { LegalEntityType = n.GetStringValue(); } },
@@ -107,7 +107,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("accountDetails", AccountDetails);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Address22>("address", Address);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Address3>("address", Address);
             writer.WriteStringValue("businessRegistrationCode", BusinessRegistrationCode);
             writer.WriteDateValue("businessRegistrationDate", BusinessRegistrationDate);
             writer.WriteStringValue("legalEntityType", LegalEntityType);

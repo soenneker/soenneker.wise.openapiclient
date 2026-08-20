@@ -9,7 +9,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 {
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
-    public partial class SimulationSwiftInRequest : IAdditionalDataHolder, IParsable
+    public partial class SwiftInRequest : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -27,10 +27,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Address of the ultimate beneficiary.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.SimulationSwiftInRequestBeneficiaryAddress? BeneficiaryAddress { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.SwiftInRequestBeneficiaryAddress? BeneficiaryAddress { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.SimulationSwiftInRequestBeneficiaryAddress BeneficiaryAddress { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.SwiftInRequestBeneficiaryAddress BeneficiaryAddress { get; set; }
 #endif
         /// <summary>Name of the ultimate beneficiary.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -43,10 +43,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>List of fees declared by correspondents (e.g., handling fee).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.SimulationSwiftInRequestChargesItem>? Charges { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.SwiftInRequestChargesItem>? Charges { get; set; }
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.SimulationSwiftInRequestChargesItem> Charges { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.SwiftInRequestChargesItem> Charges { get; set; }
 #endif
         /// <summary>ISO 4217 currency code</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -56,7 +56,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string CurrencyCode { get; set; }
 #endif
-        /// <summary>Amount sent by the sender. If not provided, it is assumed to be the same as `amount` plus **same currency** fees.Any outstanding fees in other currencies are ignored.Required if `instructedCurrencyCode` is provided.</summary>
+        /// <summary>Amount sent by the sender.If not provided, it is assumed to be the same as `amount` plus **same currency** fees.Any outstanding fees in other currencies are ignored.Required if `instructedCurrencyCode` is provided.</summary>
         public double? InstructedAmount { get; set; }
         /// <summary>ISO 4217 currency code</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -93,10 +93,18 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Address of the sender.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.SimulationSwiftInRequestSenderAddress? SenderAddress { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.SwiftInRequestSenderAddress? SenderAddress { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.SimulationSwiftInRequestSenderAddress SenderAddress { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.SwiftInRequestSenderAddress SenderAddress { get; set; }
+#endif
+        /// <summary>Details of the sender&apos;s bank.Cannot be provided together with `senderBic`.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public global::Soenneker.Wise.OpenApiClient.Models.BankDetails? SenderBank { get; set; }
+#nullable restore
+#else
+        public global::Soenneker.Wise.OpenApiClient.Models.BankDetails SenderBank { get; set; }
 #endif
         /// <summary>Business Identifier Code, also known as Swift Code.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -115,21 +123,21 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public string SenderName { get; set; }
 #endif
         /// <summary>
-        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.SimulationSwiftInRequest"/> and sets the default values.
+        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.SwiftInRequest"/> and sets the default values.
         /// </summary>
-        public SimulationSwiftInRequest()
+        public SwiftInRequest()
         {
             AdditionalData = new Dictionary<string, object>();
         }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.SimulationSwiftInRequest"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.SwiftInRequest"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static global::Soenneker.Wise.OpenApiClient.Models.SimulationSwiftInRequest CreateFromDiscriminatorValue(IParseNode parseNode)
+        public static global::Soenneker.Wise.OpenApiClient.Models.SwiftInRequest CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.SimulationSwiftInRequest();
+            return new global::Soenneker.Wise.OpenApiClient.Models.SwiftInRequest();
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -141,16 +149,17 @@ namespace Soenneker.Wise.OpenApiClient.Models
             {
                 { "amount", n => { Amount = n.GetDoubleValue(); } },
                 { "beneficiaryAccount", n => { BeneficiaryAccount = n.GetStringValue(); } },
-                { "beneficiaryAddress", n => { BeneficiaryAddress = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.SimulationSwiftInRequestBeneficiaryAddress>(global::Soenneker.Wise.OpenApiClient.Models.SimulationSwiftInRequestBeneficiaryAddress.CreateFromDiscriminatorValue); } },
+                { "beneficiaryAddress", n => { BeneficiaryAddress = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.SwiftInRequestBeneficiaryAddress>(global::Soenneker.Wise.OpenApiClient.Models.SwiftInRequestBeneficiaryAddress.CreateFromDiscriminatorValue); } },
                 { "beneficiaryName", n => { BeneficiaryName = n.GetStringValue(); } },
-                { "charges", n => { Charges = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.SimulationSwiftInRequestChargesItem>(global::Soenneker.Wise.OpenApiClient.Models.SimulationSwiftInRequestChargesItem.CreateFromDiscriminatorValue)?.AsList(); } },
+                { "charges", n => { Charges = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.SwiftInRequestChargesItem>(global::Soenneker.Wise.OpenApiClient.Models.SwiftInRequestChargesItem.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "currencyCode", n => { CurrencyCode = n.GetStringValue(); } },
                 { "instructedAmount", n => { InstructedAmount = n.GetDoubleValue(); } },
                 { "instructedCurrencyCode", n => { InstructedCurrencyCode = n.GetStringValue(); } },
                 { "paymentReference", n => { PaymentReference = n.GetStringValue(); } },
                 { "previousInstructingAgents", n => { PreviousInstructingAgents = n.GetCollectionOfPrimitiveValues<string>()?.AsList(); } },
                 { "senderAccount", n => { SenderAccount = n.GetStringValue(); } },
-                { "senderAddress", n => { SenderAddress = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.SimulationSwiftInRequestSenderAddress>(global::Soenneker.Wise.OpenApiClient.Models.SimulationSwiftInRequestSenderAddress.CreateFromDiscriminatorValue); } },
+                { "senderAddress", n => { SenderAddress = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.SwiftInRequestSenderAddress>(global::Soenneker.Wise.OpenApiClient.Models.SwiftInRequestSenderAddress.CreateFromDiscriminatorValue); } },
+                { "senderBank", n => { SenderBank = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.BankDetails>(global::Soenneker.Wise.OpenApiClient.Models.BankDetails.CreateFromDiscriminatorValue); } },
                 { "senderBic", n => { SenderBic = n.GetStringValue(); } },
                 { "senderName", n => { SenderName = n.GetStringValue(); } },
             };
@@ -164,16 +173,17 @@ namespace Soenneker.Wise.OpenApiClient.Models
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteDoubleValue("amount", Amount);
             writer.WriteStringValue("beneficiaryAccount", BeneficiaryAccount);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.SimulationSwiftInRequestBeneficiaryAddress>("beneficiaryAddress", BeneficiaryAddress);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.SwiftInRequestBeneficiaryAddress>("beneficiaryAddress", BeneficiaryAddress);
             writer.WriteStringValue("beneficiaryName", BeneficiaryName);
-            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.SimulationSwiftInRequestChargesItem>("charges", Charges);
+            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.SwiftInRequestChargesItem>("charges", Charges);
             writer.WriteStringValue("currencyCode", CurrencyCode);
             writer.WriteDoubleValue("instructedAmount", InstructedAmount);
             writer.WriteStringValue("instructedCurrencyCode", InstructedCurrencyCode);
             writer.WriteStringValue("paymentReference", PaymentReference);
             writer.WriteCollectionOfPrimitiveValues<string>("previousInstructingAgents", PreviousInstructingAgents);
             writer.WriteStringValue("senderAccount", SenderAccount);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.SimulationSwiftInRequestSenderAddress>("senderAddress", SenderAddress);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.SwiftInRequestSenderAddress>("senderAddress", SenderAddress);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.BankDetails>("senderBank", SenderBank);
             writer.WriteStringValue("senderBic", SenderBic);
             writer.WriteStringValue("senderName", SenderName);
             writer.WriteAdditionalData(AdditionalData);

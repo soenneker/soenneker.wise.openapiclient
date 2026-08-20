@@ -7,47 +7,62 @@ using System.IO;
 using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
+    /// <summary>
+    /// Address of the ultimate beneficiary.
+    /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    #pragma warning disable CS1591
-    public partial class SimulationSwiftInRequestChargesItem : IAdditionalDataHolder, IParsable
-    #pragma warning restore CS1591
+    public partial class SwiftInRequestBeneficiaryAddress : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Business Identifier Code, also known as Swift Code.</summary>
+        /// <summary>Address line: street, house, apartment.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Agent { get; set; }
+        public string? AddressLine { get; set; }
 #nullable restore
 #else
-        public string Agent { get; set; }
+        public string AddressLine { get; set; }
 #endif
-        /// <summary>Fee amount.</summary>
-        public double? Amount { get; set; }
-        /// <summary>ISO 4217 currency code</summary>
+        /// <summary>City name.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Currency { get; set; }
+        public string? City { get; set; }
 #nullable restore
 #else
-        public string Currency { get; set; }
+        public string City { get; set; }
+#endif
+        /// <summary>Country code (ISO 3166-1 alpha-2).</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? Country { get; set; }
+#nullable restore
+#else
+        public string Country { get; set; }
+#endif
+        /// <summary>Postal code.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? PostalCode { get; set; }
+#nullable restore
+#else
+        public string PostalCode { get; set; }
 #endif
         /// <summary>
-        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.SimulationSwiftInRequestChargesItem"/> and sets the default values.
+        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.SwiftInRequestBeneficiaryAddress"/> and sets the default values.
         /// </summary>
-        public SimulationSwiftInRequestChargesItem()
+        public SwiftInRequestBeneficiaryAddress()
         {
             AdditionalData = new Dictionary<string, object>();
         }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.SimulationSwiftInRequestChargesItem"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.SwiftInRequestBeneficiaryAddress"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static global::Soenneker.Wise.OpenApiClient.Models.SimulationSwiftInRequestChargesItem CreateFromDiscriminatorValue(IParseNode parseNode)
+        public static global::Soenneker.Wise.OpenApiClient.Models.SwiftInRequestBeneficiaryAddress CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.SimulationSwiftInRequestChargesItem();
+            return new global::Soenneker.Wise.OpenApiClient.Models.SwiftInRequestBeneficiaryAddress();
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -57,9 +72,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "agent", n => { Agent = n.GetStringValue(); } },
-                { "amount", n => { Amount = n.GetDoubleValue(); } },
-                { "currency", n => { Currency = n.GetStringValue(); } },
+                { "addressLine", n => { AddressLine = n.GetStringValue(); } },
+                { "city", n => { City = n.GetStringValue(); } },
+                { "country", n => { Country = n.GetStringValue(); } },
+                { "postalCode", n => { PostalCode = n.GetStringValue(); } },
             };
         }
         /// <summary>
@@ -69,9 +85,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteStringValue("agent", Agent);
-            writer.WriteDoubleValue("amount", Amount);
-            writer.WriteStringValue("currency", Currency);
+            writer.WriteStringValue("addressLine", AddressLine);
+            writer.WriteStringValue("city", City);
+            writer.WriteStringValue("country", Country);
+            writer.WriteStringValue("postalCode", PostalCode);
             writer.WriteAdditionalData(AdditionalData);
         }
     }
