@@ -19169,19 +19169,35 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                currency:
-                  type: string
-                  description: >-
-                    The currency of the bank account details that you want to
-                    make payment to.
-                amount:
-                  type: number
-                  description: The payment amount.
-            example:
-              currency: USD
-              amount: 2000
+              $ref: '#/components/schemas/bank-transaction-import-request'
+            examples:
+              minimalRequest:
+                summary: Minimal example
+                value:
+                  currency: USD
+                  amount: 2000
+              fullRequest:
+                summary: Full example
+                value:
+                  currency: USD
+                  amount: 2000
+                  reference: Test transfer
+                  senderName: John Doe
+                  senderBankCode: '101019628'
+                  senderAccountNumber: '1234567890'
+                  senderAddress:
+                    addressFirstLine: 1 Sender Street
+                    city: Berlin
+                    postalCode: '10115'
+                    stateCode: BE
+                    country: DE
+                  beneficiaryName: John Doe
+                  beneficiaryAddress:
+                    addressFirstLine: 1 Recipient Street
+                    city: Brussels
+                    postalCode: '1000'
+                    stateCode: BRU
+                    country: BE
       responses:
         '201':
           description: Bank transaction imported successfully. No content returned.
@@ -19247,6 +19263,51 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/swift-in-request'
+            examples:
+              minimal:
+                summary: Minimal request
+                value:
+                  currencyCode: EUR
+                  amount: 100
+              full:
+                summary: Full request
+                value:
+                  currencyCode: EUR
+                  amount: 100
+                  instructedCurrencyCode: EUR
+                  instructedAmount: 101
+                  beneficiaryName: John Doe
+                  beneficiaryAccount: '8599680548'
+                  beneficiaryAddress:
+                    addressLine: 1234 Elm St, IL
+                    city: Springfield
+                    postalCode: '62704'
+                    country: US
+                  senderName: Jane Doe
+                  senderBank:
+                    bic: DEUTDEDBFRA
+                    name: Example Bank
+                    lei: 5493001KJTIIGC8Y1R12
+                    clearingSystemCode: DEBLZ
+                    clearingSystemMemberId: '50070010'
+                    address:
+                      addressLine: 1 Bank Street
+                      city: Frankfurt
+                      postalCode: '60311'
+                      country: DE
+                  senderAccount: DE89370400440532013000
+                  senderAddress:
+                    addressLine: 5678 Oak St
+                    city: Springfield
+                    postalCode: '62704'
+                    country: US
+                  paymentReference: Test123
+                  charges:
+                    - amount: 1
+                      currency: EUR
+                      agent: DEUTDEDBFRA
+                  previousInstructingAgents:
+                    - COBADEFFXXX
       responses:
         '200':
           description: Swift payment simulated successfully.
@@ -31627,6 +31688,112 @@ components:
     Address-2:
       type: object
       properties:
+        addressFirstLine:
+          type: string
+          minLength: 1
+          maxLength: 70
+          description: 'Address line: street, house, apartment.'
+        city:
+          type: string
+          minLength: 1
+          maxLength: 140
+          description: City name.
+        postalCode:
+          type: string
+          minLength: 1
+          maxLength: 16
+          description: Postal code.
+        stateCode:
+          type: string
+          minLength: 1
+          maxLength: 16
+          description: State code.
+        country:
+          type: string
+          minLength: 2
+          maxLength: 2
+          pattern: ^[A-Z]{2}$
+          description: Country code (ISO 3166-1 alpha-2).
+    bank-transaction-import-request:
+      $defs:
+        Address:
+          type: object
+          properties:
+            addressFirstLine:
+              type: string
+              minLength: 1
+              maxLength: 70
+              description: 'Address line: street, house, apartment.'
+            city:
+              type: string
+              minLength: 1
+              maxLength: 140
+              description: City name.
+            postalCode:
+              type: string
+              minLength: 1
+              maxLength: 16
+              description: Postal code.
+            stateCode:
+              type: string
+              minLength: 1
+              maxLength: 16
+              description: State code.
+            country:
+              type: string
+              minLength: 2
+              maxLength: 2
+              pattern: ^[A-Z]{2}$
+              description: Country code (ISO 3166-1 alpha-2).
+      type: object
+      required:
+        - currency
+        - amount
+      properties:
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+          description: >-
+            The currency of the bank account details that you want to make
+            payment to.
+        amount:
+          type: number
+          exclusiveMinimum: 0
+          description: The payment amount.
+        reference:
+          type: string
+          maxLength: 255
+          description: Custom payment reference to identify the payment.
+          example: Test transfer
+        senderName:
+          type: string
+          maxLength: 255
+          description: Sender full name.
+          example: Jane Doe
+        senderBankCode:
+          type: string
+          maxLength: 255
+          description: Sender bank code.
+          example: '101019628'
+        senderAccountNumber:
+          type: string
+          maxLength: 255
+          description: Sender's bank account number.
+          example: '1234567890'
+        beneficiaryName:
+          type: string
+          maxLength: 255
+          description: Beneficiary name - defaults to account holder name.
+          example: John Doe
+        senderAddress:
+          maxLength: 255
+          description: Sender address.
+          $ref: '#/components/schemas/Address-2'
+        beneficiaryAddress:
+          description: Beneficiary address.
+          $ref: '#/components/schemas/Address-2'
+    Address-3:
+      type: object
+      properties:
         addressLine:
           type: string
           minLength: 1
@@ -31704,7 +31871,7 @@ components:
         address:
           description: Address of the sender's bank.
           allOf:
-            - $ref: '#/components/schemas/Address-2'
+            - $ref: '#/components/schemas/Address-3'
             - type: object
               properties:
                 addressLine:
@@ -31797,7 +31964,7 @@ components:
             address:
               description: Address of the sender's bank.
               allOf:
-                - $ref: '#/components/schemas/Address-2'
+                - $ref: '#/components/schemas/Address-3'
                 - type: object
                   properties:
                     addressLine:
@@ -31868,7 +32035,7 @@ components:
         beneficiaryAddress:
           description: Address of the ultimate beneficiary.
           allOf:
-            - $ref: '#/components/schemas/Address-2'
+            - $ref: '#/components/schemas/Address-3'
             - type: object
               properties:
                 addressLine:
@@ -31904,7 +32071,7 @@ components:
         senderAddress:
           description: Address of the sender.
           allOf:
-            - $ref: '#/components/schemas/Address-2'
+            - $ref: '#/components/schemas/Address-3'
             - type: object
               properties:
                 addressLine:
@@ -32920,7 +33087,7 @@ components:
           type: string
           description: Payment originator full legal name
           example: John Godspeed
-    Address-3:
+    Address-4:
       type: object
       properties:
         firstLine:
@@ -32987,7 +33154,7 @@ components:
           description: Payment originator account number
           example: '23456789'
         address:
-          $ref: '#/components/schemas/Address-3'
+          $ref: '#/components/schemas/Address-4'
           description: Payment originator address
       required:
         - address
@@ -33038,7 +33205,7 @@ components:
           description: Payment originator account number
           example: '23456789'
         address:
-          $ref: '#/components/schemas/Address-3'
+          $ref: '#/components/schemas/Address-4'
           description: Payment originator address
       required:
         - address
@@ -39491,7 +39658,7 @@ components:
               format: date-time
               description: When the case update occurred.
               example: '2023-06-23T09:45:34Z'
-    Address-4:
+    Address-5:
       type: object
       description: Structured address details.
       properties:
@@ -39565,7 +39732,7 @@ components:
             Identifier within the clearing system specified by
             `clearing_system_code`.
         address:
-          $ref: '#/components/schemas/Address-4'
+          $ref: '#/components/schemas/Address-5'
           description: Bank or financial institution address.
     Party:
       type: object
@@ -39576,7 +39743,7 @@ components:
           minLength: 1
           maxLength: 140
         address:
-          $ref: '#/components/schemas/Address-4'
+          $ref: '#/components/schemas/Address-5'
           description: Party address.
         account:
           type: string
@@ -39677,7 +39844,7 @@ components:
                 Identifier within the clearing system specified by
                 `clearing_system_code`.
             address:
-              $ref: '#/components/schemas/Address-4'
+              $ref: '#/components/schemas/Address-5'
               description: Bank or financial institution address.
         Party:
           type: object
@@ -39688,7 +39855,7 @@ components:
               minLength: 1
               maxLength: 140
             address:
-              $ref: '#/components/schemas/Address-4'
+              $ref: '#/components/schemas/Address-5'
               description: Party address.
             account:
               type: string

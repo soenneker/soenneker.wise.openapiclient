@@ -15095,11 +15095,42 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SimulationBankTransactionImportRequest"
+                "$ref": "#/components/schemas/BankTransactionImportRequest"
               },
-              "example": {
-                "currency": "USD",
-                "amount": 2000
+              "examples": {
+                "minimalRequest": {
+                  "summary": "Minimal example",
+                  "value": {
+                    "currency": "USD",
+                    "amount": 2000
+                  }
+                },
+                "fullRequest": {
+                  "summary": "Full example",
+                  "value": {
+                    "currency": "USD",
+                    "amount": 2000,
+                    "reference": "Test transfer",
+                    "senderName": "John Doe",
+                    "senderBankCode": "101019628",
+                    "senderAccountNumber": "1234567890",
+                    "senderAddress": {
+                      "addressFirstLine": "1 Sender Street",
+                      "city": "Berlin",
+                      "postalCode": "10115",
+                      "stateCode": "BE",
+                      "country": "DE"
+                    },
+                    "beneficiaryName": "John Doe",
+                    "beneficiaryAddress": {
+                      "addressFirstLine": "1 Recipient Street",
+                      "city": "Brussels",
+                      "postalCode": "1000",
+                      "stateCode": "BRU",
+                      "country": "BE"
+                    }
+                  }
+                }
               }
             }
           },
@@ -15181,6 +15212,64 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/SwiftInRequest"
+              },
+              "examples": {
+                "minimal": {
+                  "summary": "Minimal request",
+                  "value": {
+                    "currencyCode": "EUR",
+                    "amount": 100
+                  }
+                },
+                "full": {
+                  "summary": "Full request",
+                  "value": {
+                    "currencyCode": "EUR",
+                    "amount": 100,
+                    "instructedCurrencyCode": "EUR",
+                    "instructedAmount": 101,
+                    "beneficiaryName": "John Doe",
+                    "beneficiaryAccount": "8599680548",
+                    "beneficiaryAddress": {
+                      "addressLine": "1234 Elm St, IL",
+                      "city": "Springfield",
+                      "postalCode": "62704",
+                      "country": "US"
+                    },
+                    "senderName": "Jane Doe",
+                    "senderBank": {
+                      "bic": "DEUTDEDBFRA",
+                      "name": "Example Bank",
+                      "lei": "5493001KJTIIGC8Y1R12",
+                      "clearingSystemCode": "DEBLZ",
+                      "clearingSystemMemberId": "50070010",
+                      "address": {
+                        "addressLine": "1 Bank Street",
+                        "city": "Frankfurt",
+                        "postalCode": "60311",
+                        "country": "DE"
+                      }
+                    },
+                    "senderAccount": "DE89370400440532013000",
+                    "senderAddress": {
+                      "addressLine": "5678 Oak St",
+                      "city": "Springfield",
+                      "postalCode": "62704",
+                      "country": "US"
+                    },
+                    "paymentReference": "Test123",
+                    "charges": [
+                      {
+                        "amount": 1,
+                        "currency": "EUR",
+                        "agent": "DEUTDEDBFRA"
+                      }
+                    ],
+                    "previousInstructingAgents": [
+                      "COBADEFFXXX"
+                    ]
+                  }
+                }
               }
             }
           },
@@ -23786,6 +23875,135 @@
       "Address22": {
         "type": "object",
         "properties": {
+          "addressFirstLine": {
+            "maxLength": 70,
+            "minLength": 1,
+            "type": "string",
+            "description": "Address line: street, house, apartment."
+          },
+          "city": {
+            "maxLength": 140,
+            "minLength": 1,
+            "type": "string",
+            "description": "City name."
+          },
+          "postalCode": {
+            "maxLength": 16,
+            "minLength": 1,
+            "type": "string",
+            "description": "Postal code."
+          },
+          "stateCode": {
+            "maxLength": 16,
+            "minLength": 1,
+            "type": "string",
+            "description": "State code."
+          },
+          "country": {
+            "maxLength": 2,
+            "minLength": 2,
+            "pattern": "^[A-Z]{2}$",
+            "type": "string",
+            "description": "Country code (ISO 3166-1 alpha-2)."
+          }
+        }
+      },
+      "BankTransactionImportRequest": {
+        "$defs": {
+          "Address": {
+            "type": "object",
+            "properties": {
+              "addressFirstLine": {
+                "maxLength": 70,
+                "minLength": 1,
+                "type": "string",
+                "description": "Address line: street, house, apartment."
+              },
+              "city": {
+                "maxLength": 140,
+                "minLength": 1,
+                "type": "string",
+                "description": "City name."
+              },
+              "postalCode": {
+                "maxLength": 16,
+                "minLength": 1,
+                "type": "string",
+                "description": "Postal code."
+              },
+              "stateCode": {
+                "maxLength": 16,
+                "minLength": 1,
+                "type": "string",
+                "description": "State code."
+              },
+              "country": {
+                "maxLength": 2,
+                "minLength": 2,
+                "pattern": "^[A-Z]{2}$",
+                "type": "string",
+                "description": "Country code (ISO 3166-1 alpha-2)."
+              }
+            }
+          }
+        },
+        "required": [
+          "currency",
+          "amount"
+        ],
+        "type": "object",
+        "properties": {
+          "currency": {
+            "pattern": "^[A-Z]{3}$",
+            "type": "string",
+            "description": "ISO 4217 currency code"
+          },
+          "amount": {
+            "exclusiveMinimum": false,
+            "type": "number",
+            "description": "The payment amount."
+          },
+          "reference": {
+            "maxLength": 255,
+            "type": "string",
+            "description": "Custom payment reference to identify the payment.",
+            "example": "Test transfer"
+          },
+          "senderName": {
+            "maxLength": 255,
+            "type": "string",
+            "description": "Sender full name.",
+            "example": "Jane Doe"
+          },
+          "senderBankCode": {
+            "maxLength": 255,
+            "type": "string",
+            "description": "Sender bank code.",
+            "example": "101019628"
+          },
+          "senderAccountNumber": {
+            "maxLength": 255,
+            "type": "string",
+            "description": "Sender\u0027s bank account number.",
+            "example": "1234567890"
+          },
+          "beneficiaryName": {
+            "maxLength": 255,
+            "type": "string",
+            "description": "Beneficiary name - defaults to account holder name.",
+            "example": "John Doe"
+          },
+          "senderAddress": {
+            "$ref": "#/components/schemas/Address22"
+          },
+          "beneficiaryAddress": {
+            "$ref": "#/components/schemas/Address22"
+          }
+        }
+      },
+      "Address3": {
+        "type": "object",
+        "properties": {
           "addressLine": {
             "maxLength": 70,
             "minLength": 1,
@@ -23991,7 +24209,7 @@
               "address": {
                 "allOf": [
                   {
-                    "$ref": "#/components/schemas/Address-2"
+                    "$ref": "#/components/schemas/Address-3"
                   },
                   {
                     "type": "object",
@@ -24654,7 +24872,7 @@
         },
         "description": "Data block to capture the originator name details"
       },
-      "Address3": {
+      "Address4": {
         "required": [
           "countryCode",
           "firstLine"
@@ -24734,7 +24952,7 @@
             "example": "23456789"
           },
           "address": {
-            "$ref": "#/components/schemas/Address3"
+            "$ref": "#/components/schemas/Address4"
           }
         }
       },
@@ -24788,7 +25006,7 @@
             "example": "23456789"
           },
           "address": {
-            "$ref": "#/components/schemas/Address3"
+            "$ref": "#/components/schemas/Address4"
           },
           "legalEntityType": {
             "type": "string"
@@ -24833,7 +25051,7 @@
             "example": "23456789"
           },
           "address": {
-            "$ref": "#/components/schemas/Address3"
+            "$ref": "#/components/schemas/Address4"
           }
         },
         "description": "Data block to capture payment originator details for a business entity"
@@ -24877,7 +25095,7 @@
             "example": "23456789"
           },
           "address": {
-            "$ref": "#/components/schemas/Address3"
+            "$ref": "#/components/schemas/Address4"
           },
           "legalEntityType": {
             "type": "string"
@@ -24924,7 +25142,7 @@
             "example": "23456789"
           },
           "address": {
-            "$ref": "#/components/schemas/Address3"
+            "$ref": "#/components/schemas/Address4"
           },
           "legalEntityType": {
             "type": "string"
@@ -28030,7 +28248,7 @@
         },
         "deprecated": true
       },
-      "Address4": {
+      "Address5": {
         "type": "object",
         "properties": {
           "first_line": {
@@ -28110,7 +28328,7 @@
             "description": "Identifier within the clearing system specified by \u0060clearing_system_code\u0060."
           },
           "address": {
-            "$ref": "#/components/schemas/Address4"
+            "$ref": "#/components/schemas/Address5"
           }
         },
         "description": "Bank or financial institution details."
@@ -28125,7 +28343,7 @@
             "description": "Party name."
           },
           "address": {
-            "$ref": "#/components/schemas/Address4"
+            "$ref": "#/components/schemas/Address5"
           },
           "account": {
             "maxLength": 36,
@@ -28244,7 +28462,7 @@
               },
               "address": {
                 "description": "Bank or financial institution address.",
-                "$ref": "#/components/schemas/Address-4"
+                "$ref": "#/components/schemas/Address-5"
               }
             },
             "description": "Bank or financial institution details."
@@ -28260,7 +28478,7 @@
               },
               "address": {
                 "description": "Party address.",
-                "$ref": "#/components/schemas/Address-4"
+                "$ref": "#/components/schemas/Address-5"
               },
               "account": {
                 "maxLength": 36,
@@ -28836,7 +29054,7 @@
             "description": "Party name."
           },
           "address": {
-            "$ref": "#/components/schemas/Address4"
+            "$ref": "#/components/schemas/Address5"
           },
           "account": {
             "maxLength": 36,
@@ -28860,7 +29078,7 @@
             "description": "Party name."
           },
           "address": {
-            "$ref": "#/components/schemas/Address4"
+            "$ref": "#/components/schemas/Address5"
           },
           "account": {
             "maxLength": 36,
@@ -28931,7 +29149,7 @@
             "description": "Identifier within the clearing system specified by \u0060clearing_system_code\u0060."
           },
           "address": {
-            "$ref": "#/components/schemas/Address4"
+            "$ref": "#/components/schemas/Address5"
           }
         }
       },
@@ -43593,19 +43811,6 @@
               "type": "string"
             },
             "description": "Zero or more requirements to be verified. If not provided, all blocking requirements are verified."
-          }
-        }
-      },
-      "SimulationBankTransactionImportRequest": {
-        "type": "object",
-        "properties": {
-          "currency": {
-            "type": "string",
-            "description": "The currency of the bank account details that you want to make payment to."
-          },
-          "amount": {
-            "type": "number",
-            "description": "The payment amount."
           }
         }
       },
