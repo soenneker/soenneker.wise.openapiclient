@@ -13,25 +13,25 @@ namespace Soenneker.Wise.OpenApiClient.Models
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class Creditor : IAdditionalDataHolder, IParsable
     {
-        /// <summary>Account identifier for a payment participant.</summary>
+        /// <summary>Account details of the creditor</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.Account? Account { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.AccountInfo? Account { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.Account Account { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.AccountInfo Account { get; set; }
 #endif
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Structured postal address. Fields are optional and populated based onwhat the payment rail provides.</summary>
+        /// <summary>Address of the creditor</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.Address23? Address { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.Iso20022Address? Address { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.Address23 Address { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.Iso20022Address Address { get; set; }
 #endif
-        /// <summary>Financial institution (bank) associated with a payment participant.At least one of `bic`, `nationalCode`, or `name` will be present.</summary>
+        /// <summary>Financial institution acting as the creditor&apos;s agent</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Soenneker.Wise.OpenApiClient.Models.FinancialInstitution? Agent { get; set; }
@@ -72,8 +72,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "account", n => { Account = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Account>(global::Soenneker.Wise.OpenApiClient.Models.Account.CreateFromDiscriminatorValue); } },
-                { "address", n => { Address = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Address23>(global::Soenneker.Wise.OpenApiClient.Models.Address23.CreateFromDiscriminatorValue); } },
+                { "account", n => { Account = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.AccountInfo>(global::Soenneker.Wise.OpenApiClient.Models.AccountInfo.CreateFromDiscriminatorValue); } },
+                { "address", n => { Address = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Iso20022Address>(global::Soenneker.Wise.OpenApiClient.Models.Iso20022Address.CreateFromDiscriminatorValue); } },
                 { "agent", n => { Agent = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.FinancialInstitution>(global::Soenneker.Wise.OpenApiClient.Models.FinancialInstitution.CreateFromDiscriminatorValue); } },
                 { "name", n => { Name = n.GetStringValue(); } },
             };
@@ -85,8 +85,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Account>("account", Account);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Address23>("address", Address);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.AccountInfo>("account", Account);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Iso20022Address>("address", Address);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.FinancialInstitution>("agent", Agent);
             writer.WriteStringValue("name", Name);
             writer.WriteAdditionalData(AdditionalData);

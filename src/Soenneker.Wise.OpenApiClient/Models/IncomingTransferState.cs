@@ -3,13 +3,13 @@ using System.Runtime.Serialization;
 using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
-    /// <summary>Category of the Wise fee. Additional fee types will be added in future versions.</summary>
+    /// <summary>Current state of the incoming transfer. Additional states will be added in the future.</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    public enum OtherType
+    public enum IncomingTransferState
     {
-        [EnumMember(Value = "OTHER")]
+        [EnumMember(Value = "CREDITED")]
         #pragma warning disable CS1591
-        Other,
+        Credited,
         #pragma warning restore CS1591
     }
 }

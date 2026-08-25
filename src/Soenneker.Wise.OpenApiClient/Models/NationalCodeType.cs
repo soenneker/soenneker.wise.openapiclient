@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
-    /// <summary>Identifies the domestic clearing system the `nationalCode` belongs to.</summary>
+    /// <summary>Identifies the domestic clearing system the nationalCode belongs to.</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public enum NationalCodeType
     {

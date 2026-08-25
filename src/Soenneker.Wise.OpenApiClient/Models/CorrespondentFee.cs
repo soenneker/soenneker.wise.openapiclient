@@ -7,15 +7,14 @@ using System.IO;
 using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
-    /// <summary>
-    /// A fee deducted by a correspondent or intermediary bank.
-    /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    #pragma warning disable CS1591
     public partial class CorrespondentFee : IAdditionalDataHolder, IParsable
+    #pragma warning restore CS1591
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Financial institution (bank) associated with a payment participant.At least one of `bic`, `nationalCode`, or `name` will be present.</summary>
+        /// <summary>The financial institution that deducted this fee. Omitted when the charging agent is not identified in the payment message.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Soenneker.Wise.OpenApiClient.Models.FinancialInstitution? Agent { get; set; }
@@ -32,13 +31,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public string Currency { get; set; }
 #endif
         /// <summary>Decimal fee amount deducted by the correspondent bank.</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? Value { get; set; }
-#nullable restore
-#else
-        public string Value { get; set; }
-#endif
+        public decimal? Value { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.CorrespondentFee"/> and sets the default values.
         /// </summary>
@@ -66,7 +59,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             {
                 { "agent", n => { Agent = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.FinancialInstitution>(global::Soenneker.Wise.OpenApiClient.Models.FinancialInstitution.CreateFromDiscriminatorValue); } },
                 { "currency", n => { Currency = n.GetStringValue(); } },
-                { "value", n => { Value = n.GetStringValue(); } },
+                { "value", n => { Value = n.GetDecimalValue(); } },
             };
         }
         /// <summary>
@@ -78,7 +71,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.FinancialInstitution>("agent", Agent);
             writer.WriteStringValue("currency", Currency);
-            writer.WriteStringValue("value", Value);
+            writer.WriteDecimalValue("value", Value);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

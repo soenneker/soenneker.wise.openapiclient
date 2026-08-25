@@ -8,14 +8,14 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Breakdown of fees applied to the incoming transfer. Contains bothWise fees and correspondent/intermediary bank fees.
+    /// Breakdown of fees applied to the incoming transfer. Contains both Wise fees andcorrespondent/intermediary bank fees.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class Fees : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Fees deducted by correspondent or intermediary banks before thefunds reached Wise. Each entry includes the charging agent whenavailable in the pacs message. Array is empty where there are no charges.</summary>
+        /// <summary>Fees deducted by correspondent or intermediary banks before the funds reached Wise. Eachentry includes the charging agent when available in the pacs message. Array is empty wherethere are no charges.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<global::Soenneker.Wise.OpenApiClient.Models.CorrespondentFee>? Correspondent { get; set; }
@@ -23,7 +23,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public List<global::Soenneker.Wise.OpenApiClient.Models.CorrespondentFee> Correspondent { get; set; }
 #endif
-        /// <summary>Fees charged by Wise (e.g. conversion fee, handling fee). Emptyarray when no Wise fees apply.</summary>
+        /// <summary>Fees charged by Wise (e.g. conversion fee, handling fee). Empty array when no Wise fees apply.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<global::Soenneker.Wise.OpenApiClient.Models.WiseFee>? Wise { get; set; }

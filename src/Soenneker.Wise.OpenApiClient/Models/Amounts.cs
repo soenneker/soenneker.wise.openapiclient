@@ -8,36 +8,36 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Payment amount waterfall representing the flow of funds:`instructed` → `interbankSettlement` → `credited`.
+    /// Payment amount waterfall representing the flow of funds: instructed → interbankSettlement → credited.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class Amounts : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>An amount with its currency.</summary>
+        /// <summary>The amount credited to the creditor&apos;s Wise balance. Computed as interbankSettlement, after any FX conversion and Wise fees.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.MoneyAmount? Credited { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.Money? Credited { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.MoneyAmount Credited { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.Money Credited { get; set; }
 #endif
-        /// <summary>An amount with its currency.</summary>
+        /// <summary>The original amount instructed by the debtor. When not specified by scheme, it equals interbankSettlement.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.MoneyAmount? Instructed { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.Money? Instructed { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.MoneyAmount Instructed { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.Money Instructed { get; set; }
 #endif
-        /// <summary>An amount with its currency.</summary>
+        /// <summary>The amount settled between the instructing and instructed agent on the final interbank leg.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.MoneyAmount? InterbankSettlement { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.Money? InterbankSettlement { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.MoneyAmount InterbankSettlement { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.Money InterbankSettlement { get; set; }
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.Amounts"/> and sets the default values.
@@ -64,9 +64,9 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "credited", n => { Credited = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.MoneyAmount>(global::Soenneker.Wise.OpenApiClient.Models.MoneyAmount.CreateFromDiscriminatorValue); } },
-                { "instructed", n => { Instructed = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.MoneyAmount>(global::Soenneker.Wise.OpenApiClient.Models.MoneyAmount.CreateFromDiscriminatorValue); } },
-                { "interbankSettlement", n => { InterbankSettlement = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.MoneyAmount>(global::Soenneker.Wise.OpenApiClient.Models.MoneyAmount.CreateFromDiscriminatorValue); } },
+                { "credited", n => { Credited = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Money>(global::Soenneker.Wise.OpenApiClient.Models.Money.CreateFromDiscriminatorValue); } },
+                { "instructed", n => { Instructed = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Money>(global::Soenneker.Wise.OpenApiClient.Models.Money.CreateFromDiscriminatorValue); } },
+                { "interbankSettlement", n => { InterbankSettlement = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Money>(global::Soenneker.Wise.OpenApiClient.Models.Money.CreateFromDiscriminatorValue); } },
             };
         }
         /// <summary>
@@ -76,9 +76,9 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.MoneyAmount>("credited", Credited);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.MoneyAmount>("instructed", Instructed);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.MoneyAmount>("interbankSettlement", InterbankSettlement);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Money>("credited", Credited);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Money>("instructed", Instructed);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Money>("interbankSettlement", InterbankSettlement);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

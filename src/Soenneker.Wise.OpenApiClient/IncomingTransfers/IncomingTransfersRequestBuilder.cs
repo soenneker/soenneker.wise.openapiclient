@@ -16,7 +16,7 @@ namespace Soenneker.Wise.OpenApiClient.IncomingTransfers
     public partial class IncomingTransfersRequestBuilder : BaseRequestBuilder
     {
         /// <summary>Gets an item from the Soenneker.Wise.OpenApiClient.incomingTransfers.item collection</summary>
-        /// <param name="position">Unique incoming transfer identifier.</param>
+        /// <param name="position">Unique incoming transfer identifier. UUID-formatted string.</param>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.IncomingTransfers.Item.WithIncomingTransferItemRequestBuilder"/></returns>
         public global::Soenneker.Wise.OpenApiClient.IncomingTransfers.Item.WithIncomingTransferItemRequestBuilder this[Guid position]
         {

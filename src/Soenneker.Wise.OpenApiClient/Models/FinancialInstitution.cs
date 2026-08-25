@@ -8,20 +8,20 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Financial institution (bank) associated with a payment participant.At least one of `bic`, `nationalCode`, or `name` will be present.
+    /// Financial institution acting as the debtor&apos;s agent
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class FinancialInstitution : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Structured postal address. Fields are optional and populated based onwhat the payment rail provides.</summary>
+        /// <summary>Postal address. Fields are optional and populated based on what the payment rail provides.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.Address23? Address { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.Iso20022Address? Address { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.Address23 Address { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.Iso20022Address Address { get; set; }
 #endif
         /// <summary>SWIFT BIC (Business Identifier Code) of the financial institution.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -39,7 +39,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string Name { get; set; }
 #endif
-        /// <summary>Domestic clearing system membership identifier (e.g. UK sort code,US ABA routing number).</summary>
+        /// <summary>Domestic clearing system membership identifier (e.g. UK sort code, US ABA routing number).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? NationalCode { get; set; }
@@ -47,7 +47,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string NationalCode { get; set; }
 #endif
-        /// <summary>Identifies the domestic clearing system the `nationalCode` belongs to.</summary>
+        /// <summary>Identifies the domestic clearing system the nationalCode belongs to.</summary>
         public global::Soenneker.Wise.OpenApiClient.Models.NationalCodeType? NationalCodeType { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.FinancialInstitution"/> and sets the default values.
@@ -74,7 +74,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "address", n => { Address = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Address23>(global::Soenneker.Wise.OpenApiClient.Models.Address23.CreateFromDiscriminatorValue); } },
+                { "address", n => { Address = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Iso20022Address>(global::Soenneker.Wise.OpenApiClient.Models.Iso20022Address.CreateFromDiscriminatorValue); } },
                 { "bic", n => { Bic = n.GetStringValue(); } },
                 { "name", n => { Name = n.GetStringValue(); } },
                 { "nationalCode", n => { NationalCode = n.GetStringValue(); } },
@@ -88,7 +88,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Address23>("address", Address);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Iso20022Address>("address", Address);
             writer.WriteStringValue("bic", Bic);
             writer.WriteStringValue("name", Name);
             writer.WriteStringValue("nationalCode", NationalCode);

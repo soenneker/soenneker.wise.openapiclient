@@ -23,15 +23,9 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public string Currency { get; set; }
 #endif
         /// <summary>Category of the Wise fee. Additional fee types will be added in future versions.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.OtherType? Type { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.WiseFeeType? Type { get; set; }
         /// <summary>Decimal fee amount.</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? Value { get; set; }
-#nullable restore
-#else
-        public string Value { get; set; }
-#endif
+        public decimal? Value { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.WiseFee"/> and sets the default values.
         /// </summary>
@@ -58,8 +52,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "currency", n => { Currency = n.GetStringValue(); } },
-                { "type", n => { Type = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.OtherType>(); } },
-                { "value", n => { Value = n.GetStringValue(); } },
+                { "type", n => { Type = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.WiseFeeType>(); } },
+                { "value", n => { Value = n.GetDecimalValue(); } },
             };
         }
         /// <summary>
@@ -70,8 +64,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("currency", Currency);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.OtherType>("type", Type);
-            writer.WriteStringValue("value", Value);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.WiseFeeType>("type", Type);
+            writer.WriteDecimalValue("value", Value);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

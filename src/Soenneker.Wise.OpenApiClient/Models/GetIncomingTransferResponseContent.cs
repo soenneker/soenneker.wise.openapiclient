@@ -7,17 +7,22 @@ using System.IO;
 using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
-    /// <summary>
-    /// An incoming transfer credited to a Wise balance.
-    /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    public partial class IncomingTransfer : IAdditionalDataHolder, IParsable
+    #pragma warning disable CS1591
+    public partial class GetIncomingTransferResponseContent : IAdditionalDataHolder, IParsable
+    #pragma warning restore CS1591
     {
-        /// <summary>Account details ID that received the incoming transfer. A balancemay have multiple account details (e.g. multiple IBANs). Thisidentifies the specific one that was credited. Omitted when thepayment was received via correspondent model.</summary>
-        public long? AccountDetailsId { get; set; }
+        /// <summary>Account details ID that received the incoming transfer. A balance may have multiple accountdetails (e.g. multiple IBANs). This identifies the specific one that was credited. Omittedwhen the payment was received via correspondent model.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? AccountDetailsId { get; set; }
+#nullable restore
+#else
+        public string AccountDetailsId { get; set; }
+#endif
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Payment amount waterfall representing the flow of funds:`instructed` → `interbankSettlement` → `credited`.</summary>
+        /// <summary>Payment amount waterfall representing the flow of funds: instructed → interbankSettlement → credited.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Soenneker.Wise.OpenApiClient.Models.Amounts? Amounts { get; set; }
@@ -25,9 +30,15 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public global::Soenneker.Wise.OpenApiClient.Models.Amounts Amounts { get; set; }
 #endif
-        /// <summary>Balance ID associated with the incoming transfer. This is thebalance that was credited.</summary>
-        public long? BalanceId { get; set; }
-        /// <summary>Charge bearer code indicating who pays the transaction fees. Omittedif not specified in the payment message.</summary>
+        /// <summary>Balance ID associated with the incoming transfer. This is the balance that was credited.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? BalanceId { get; set; }
+#nullable restore
+#else
+        public string BalanceId { get; set; }
+#endif
+        /// <summary>Charge bearer code indicating who pays the transaction fees. Omitted if not specified in the payment message.</summary>
         public global::Soenneker.Wise.OpenApiClient.Models.ChargeBearer? ChargeBearer { get; set; }
         /// <summary>Timestamp when the incoming transfer was credited to the balance.</summary>
         public DateTimeOffset? CreditedTime { get; set; }
@@ -39,6 +50,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public global::Soenneker.Wise.OpenApiClient.Models.Creditor Creditor { get; set; }
 #endif
+        /// <summary>- `CUSTOMER_CREDIT_TRANSFER` - End-user or corporate payment where at least one side (debtor  or creditor) is a non-financial institution.- `FI_CREDIT_TRANSFER` - Direct bank-to-bank settlement, liquidity movement, or cover  transfer where both parties are financial institutions.</summary>
+        public global::Soenneker.Wise.OpenApiClient.Models.CreditTransferType? CreditTransferType { get; set; }
         /// <summary>The debtor (ordering party) of the incoming transfer.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -47,7 +60,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public global::Soenneker.Wise.OpenApiClient.Models.Debtor Debtor { get; set; }
 #endif
-        /// <summary>End-to-end identifier assigned by the debtor for reconciliationpurposes. Omitted when not provided by the debtor.</summary>
+        /// <summary>End-to-end identifier assigned by the debtor for reconciliation purposes. Omitted when notprovided by the debtor.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? EndToEndId { get; set; }
@@ -55,15 +68,9 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string EndToEndId { get; set; }
 #endif
-        /// <summary>Wise&apos;s effective FX rate applied to this incoming transfer(source currency → target balance currency) as a decimal string.&quot;1&quot; when no conversion was needed.</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? ExchangeRate { get; set; }
-#nullable restore
-#else
-        public string ExchangeRate { get; set; }
-#endif
-        /// <summary>Breakdown of fees applied to the incoming transfer. Contains bothWise fees and correspondent/intermediary bank fees.</summary>
+        /// <summary>Wise&apos;s effective FX rate applied to this incoming transfer (source currency → target balancecurrency) as a decimal number. 1 when no conversion was needed.</summary>
+        public decimal? ExchangeRate { get; set; }
+        /// <summary>Breakdown of fees applied to the incoming transfer. Contains both Wise fees andcorrespondent/intermediary bank fees.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Soenneker.Wise.OpenApiClient.Models.Fees? Fees { get; set; }
@@ -71,9 +78,9 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public global::Soenneker.Wise.OpenApiClient.Models.Fees Fees { get; set; }
 #endif
-        /// <summary>Unique identifier for the incoming transfer.</summary>
+        /// <summary>Unique identifier for the incoming transfer. UUID-formatted string.</summary>
         public Guid? Id { get; set; }
-        /// <summary>Financial institutions that previously instructed this payment(the historical chain the payment passed through before reachingWise). Ordered by position in the chain.</summary>
+        /// <summary>Financial institutions that previously instructed this payment (the historical chain thepayment passed through before reaching Wise). Ordered by position in the chain.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<global::Soenneker.Wise.OpenApiClient.Models.FinancialInstitution>? PreviousInstructingAgents { get; set; }
@@ -83,13 +90,13 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #endif
         /// <summary>Profile ID of the balance owner.</summary>
         public long? ProfileId { get; set; }
-        /// <summary>The payment scheme through which the incoming transfer was received.These are not necessarily clearing systems as we also include SWIFT here.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.Scheme? Scheme { get; set; }
+        /// <summary>The payment scheme through which the incoming transfer was received.</summary>
+        public global::Soenneker.Wise.OpenApiClient.Models.IncomingTransferScheme? Scheme { get; set; }
         /// <summary>Current state of the incoming transfer. Additional states will be added in the future.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.CreditedState? State { get; set; }
-        /// <summary>Universal End-to-End Transaction Reference. A globally uniqueidentifier (UUID v4) assigned by the debtor agent to track thepayment across the entire chain.</summary>
+        public global::Soenneker.Wise.OpenApiClient.Models.IncomingTransferState? State { get; set; }
+        /// <summary>Universal End-to-End Transaction Reference. A globally unique identifier (UUID v4) assignedby the debtor agent to track the payment across the entire chain. UUID-formatted string.</summary>
         public Guid? Uetr { get; set; }
-        /// <summary>Unstructured remittance information provided by the debtor.Free-text field carried through the payment rail.</summary>
+        /// <summary>Unstructured remittance information provided by the debtor. Free-text field carried throughthe payment rail.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? UnstructuredReference { get; set; }
@@ -98,21 +105,21 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public string UnstructuredReference { get; set; }
 #endif
         /// <summary>
-        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.IncomingTransfer"/> and sets the default values.
+        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.GetIncomingTransferResponseContent"/> and sets the default values.
         /// </summary>
-        public IncomingTransfer()
+        public GetIncomingTransferResponseContent()
         {
             AdditionalData = new Dictionary<string, object>();
         }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.IncomingTransfer"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.GetIncomingTransferResponseContent"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static global::Soenneker.Wise.OpenApiClient.Models.IncomingTransfer CreateFromDiscriminatorValue(IParseNode parseNode)
+        public static global::Soenneker.Wise.OpenApiClient.Models.GetIncomingTransferResponseContent CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.IncomingTransfer();
+            return new global::Soenneker.Wise.OpenApiClient.Models.GetIncomingTransferResponseContent();
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -122,21 +129,22 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "accountDetailsId", n => { AccountDetailsId = n.GetLongValue(); } },
+                { "accountDetailsId", n => { AccountDetailsId = n.GetStringValue(); } },
                 { "amounts", n => { Amounts = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Amounts>(global::Soenneker.Wise.OpenApiClient.Models.Amounts.CreateFromDiscriminatorValue); } },
-                { "balanceId", n => { BalanceId = n.GetLongValue(); } },
+                { "balanceId", n => { BalanceId = n.GetStringValue(); } },
                 { "chargeBearer", n => { ChargeBearer = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ChargeBearer>(); } },
+                { "creditTransferType", n => { CreditTransferType = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CreditTransferType>(); } },
                 { "creditedTime", n => { CreditedTime = n.GetDateTimeOffsetValue(); } },
                 { "creditor", n => { Creditor = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Creditor>(global::Soenneker.Wise.OpenApiClient.Models.Creditor.CreateFromDiscriminatorValue); } },
                 { "debtor", n => { Debtor = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Debtor>(global::Soenneker.Wise.OpenApiClient.Models.Debtor.CreateFromDiscriminatorValue); } },
                 { "endToEndId", n => { EndToEndId = n.GetStringValue(); } },
-                { "exchangeRate", n => { ExchangeRate = n.GetStringValue(); } },
+                { "exchangeRate", n => { ExchangeRate = n.GetDecimalValue(); } },
                 { "fees", n => { Fees = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Fees>(global::Soenneker.Wise.OpenApiClient.Models.Fees.CreateFromDiscriminatorValue); } },
                 { "id", n => { Id = n.GetGuidValue(); } },
                 { "previousInstructingAgents", n => { PreviousInstructingAgents = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.FinancialInstitution>(global::Soenneker.Wise.OpenApiClient.Models.FinancialInstitution.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "profileId", n => { ProfileId = n.GetLongValue(); } },
-                { "scheme", n => { Scheme = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.Scheme>(); } },
-                { "state", n => { State = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CreditedState>(); } },
+                { "scheme", n => { Scheme = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.IncomingTransferScheme>(); } },
+                { "state", n => { State = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.IncomingTransferState>(); } },
                 { "uetr", n => { Uetr = n.GetGuidValue(); } },
                 { "unstructuredReference", n => { UnstructuredReference = n.GetStringValue(); } },
             };
@@ -148,21 +156,22 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteLongValue("accountDetailsId", AccountDetailsId);
+            writer.WriteStringValue("accountDetailsId", AccountDetailsId);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Amounts>("amounts", Amounts);
-            writer.WriteLongValue("balanceId", BalanceId);
+            writer.WriteStringValue("balanceId", BalanceId);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ChargeBearer>("chargeBearer", ChargeBearer);
             writer.WriteDateTimeOffsetValue("creditedTime", CreditedTime);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Creditor>("creditor", Creditor);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CreditTransferType>("creditTransferType", CreditTransferType);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Debtor>("debtor", Debtor);
             writer.WriteStringValue("endToEndId", EndToEndId);
-            writer.WriteStringValue("exchangeRate", ExchangeRate);
+            writer.WriteDecimalValue("exchangeRate", ExchangeRate);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Fees>("fees", Fees);
             writer.WriteGuidValue("id", Id);
             writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.FinancialInstitution>("previousInstructingAgents", PreviousInstructingAgents);
             writer.WriteLongValue("profileId", ProfileId);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.Scheme>("scheme", Scheme);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CreditedState>("state", State);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.IncomingTransferScheme>("scheme", Scheme);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.IncomingTransferState>("state", State);
             writer.WriteGuidValue("uetr", Uetr);
             writer.WriteStringValue("unstructuredReference", UnstructuredReference);
             writer.WriteAdditionalData(AdditionalData);

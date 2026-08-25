@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
-    /// <summary>Charge bearer code indicating who pays the transaction fees. Omittedif not specified in the payment message.</summary>
+    /// <summary>Charge bearer code indicating who pays the transaction fees. Omitted if not specified in the payment message.</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public enum ChargeBearer
     {

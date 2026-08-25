@@ -8,37 +8,39 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Account identifier for a payment participant.
+    /// The original amount instructed by the debtor. When not specified by scheme, it equals interbankSettlement.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    public partial class Account : IAdditionalDataHolder, IParsable
+    public partial class Money : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Account identifier — IBAN, BBAN, or other scheme-specificaccount number.</summary>
+        /// <summary>ISO 4217 currency code</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Number { get; set; }
+        public string? Currency { get; set; }
 #nullable restore
 #else
-        public string Number { get; set; }
+        public string Currency { get; set; }
 #endif
+        /// <summary>Monetary value</summary>
+        public decimal? Value { get; set; }
         /// <summary>
-        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.Account"/> and sets the default values.
+        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.Money"/> and sets the default values.
         /// </summary>
-        public Account()
+        public Money()
         {
             AdditionalData = new Dictionary<string, object>();
         }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.Account"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.Money"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static global::Soenneker.Wise.OpenApiClient.Models.Account CreateFromDiscriminatorValue(IParseNode parseNode)
+        public static global::Soenneker.Wise.OpenApiClient.Models.Money CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.Account();
+            return new global::Soenneker.Wise.OpenApiClient.Models.Money();
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -48,7 +50,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "number", n => { Number = n.GetStringValue(); } },
+                { "currency", n => { Currency = n.GetStringValue(); } },
+                { "value", n => { Value = n.GetDecimalValue(); } },
             };
         }
         /// <summary>
@@ -58,7 +61,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteStringValue("number", Number);
+            writer.WriteStringValue("currency", Currency);
+            writer.WriteDecimalValue("value", Value);
             writer.WriteAdditionalData(AdditionalData);
         }
     }
