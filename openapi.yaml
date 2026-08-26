@@ -1411,6 +1411,14 @@ tags:
       An incoming transfer represents a payment received into a Wise balance via
       a supported payment rail (SWIFT, SEPA, Faster Payments, ACH, or the Wise
       network).
+  - name: gpi-tracking
+    x-displayName: GPI Tracking
+    description: >
+      Look up SWIFT gpi tracking data for a cross-border payment, by UETR or
+      Wise transfer ID. Each match returns the payment's current status and
+      status reason, the timeline of gpi events reported by the banks in the
+      chain, the agent BICs that handled each leg, the amounts and exchange rate
+      applied at each step, and any charges those banks deducted.
   - name: user
     x-displayName: Users
     description: >
@@ -1501,6 +1509,7 @@ x-tagGroups:
       - balance-statement
       - bank-account-details
       - multi-currency-account
+      - incoming-transfer
   - name: Cards
     tags:
       - card
@@ -1530,9 +1539,6 @@ x-tagGroups:
       - delivery-estimate
       - currencies
       - batch-group
-  - name: Incoming Transfers
-    tags:
-      - incoming-transfer
   - name: Funding
     tags:
       - payin-deposit-detail
@@ -1549,6 +1555,9 @@ x-tagGroups:
   - name: Partner Support
     tags:
       - case
+  - name: Tracking
+    tags:
+      - gpi-tracking
 paths:
   /spend/profiles/{profileId}/3dsecure/challenge-result:
     post:
@@ -6496,8 +6505,9 @@ paths:
         The type of requirements are:
 
         - `PIN (optional)`: [Set a
-        PIN](/api-reference/card-order/cardorderpresetpin) on a virtual or
-        physical card order. Contact the team if you need this feature.
+        PIN](/api-reference/card-sensitive-details/cardorderpresetpin) on a
+        virtual or physical card order. Contact the team if you need this
+        feature.
 
         - `VERIFICATION`: Verify your customer by providing KYC evidences. Refer
         to the [KYC guide](/guides/product/kyc).
@@ -16910,7 +16920,7 @@ paths:
         - Address details like country and street address.
 
 
-        {% admonition type="info"}
+        {% admonition type="info" %}
 
         Certain fields shown in the schema are conditionally required depending
         on `currency`, `type`, `legalType`, and `country`.
@@ -16922,7 +16932,7 @@ paths:
         which fields are required for a currency corridor, use the
 
         **[Retrieve recipient account
-        requirements](/api-reference/recipient/recipientAccountRequirementsGet)**
+        requirements](/api-reference/recipient/recipientaccountrequirementsget)**
         endpoint.
 
         {% /admonition %}
@@ -17036,7 +17046,7 @@ paths:
         Confirm this recipient type is available for your transaction by
         checking if the `"type": "email"` class is present in the response of
         the [retrieve recipient account requirements
-        endpoint](/api-reference/recipient/recipientAccountRequirementsGet).
+        endpoint](/api-reference/recipient/recipientaccountrequirementsget).
 
 
         If planning to send multiple currencies to a single recipient, you must
@@ -22704,6 +22714,73 @@ paths:
         - UserToken: []
       tags:
         - incoming-transfer
+  /gpi-tracking:
+    post:
+      description: >-
+        Looks up GPI tracking data for a transfer identified by `identifierType`
+        and `identifier`.
+      summary: Look up GPI tracking
+      operationId: LookupGpiTracking
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LookupGpiTrackingRequestContent'
+            examples:
+              lookup-by-transfer-id:
+                summary: Look up GPI tracking by transfer ID
+                value:
+                  identifierType: TRANSFER_ID
+                  identifier: '16521632'
+              lookup-by-uetr:
+                summary: Look up GPI tracking by UETR
+                value:
+                  identifierType: UETR
+                  identifier: 97ed4827-7b6f-4491-a206-42bcf859a919
+        required: true
+      responses:
+        '200':
+          description: Returns matching GPI tracking transactions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LookupGpiTrackingResponseContent'
+              examples:
+                tracking-found:
+                  summary: GPI tracking data found
+                  value:
+                    transactions:
+                      - uetr: 97ed4827-7b6f-4491-a206-42bcf859a919
+                        status: ACSP
+                        cancellationStatus: CANCELLATION_REJECTED
+                        initiatedAt: '2023-09-18T12:05:50Z'
+                        lastUpdatedAt: '2023-09-18T12:13:33.314Z'
+                        events:
+                          - status: ACSP
+                            statusReason:
+                              code: G001
+                              settlementMethod:
+                                code: INGA
+                              instructedAgent: LHVBEE22XXX
+                              chargeBearer: SHAR
+                            statusTime: '2023-09-18T12:13:33.314Z'
+                            amountInconsistency: false
+                            eventType: CANCELLATION_RESPONSE
+                            eventTarget: CREDIT_TRANSFER
+                            eventCreationTime: '2023-09-18T12:13:33.348Z'
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '429':
+          $ref: '#/components/responses/429'
+      security:
+        - ClientCredentialsToken: []
+      tags:
+        - gpi-tracking
+      parameters:
+        - $ref: '#/components/parameters/X-External-Correlation-Id'
   /me:
     get:
       tags:
@@ -25100,7 +25177,7 @@ webhooks:
       summary: Swift message received
       description: >
         Triggered when a SWIFT message (e.g.,
-        [pacs.008](/guides/product/receive-money/subscribe-to-swift-message-received#example-pacs008-message-content))
+        [pacs.008](/guides/product/receive-money/incoming-transfer-notifications#example-pacs008-message-content))
         is received and processed by Wise on behalf of a partner.
 
 
@@ -34245,6 +34322,458 @@ components:
         - profileId
         - scheme
         - state
+    GpiTrackingIdentifierType:
+      type: string
+      description: The type of identifier used to look up a transfer's GPI tracking data.
+      enum:
+        - UETR
+        - TRANSFER_ID
+    LookupGpiTrackingRequestContent:
+      type: object
+      description: Identify the transfer to look up by `UETR` or `TRANSFER_ID`.
+      properties:
+        identifierType:
+          $ref: '#/components/schemas/GpiTrackingIdentifierType'
+          description: The type of identifier used to look up the transfer.
+        identifier:
+          type: string
+          minLength: 1
+          description: >-
+            The UETR or Wise transfer ID of the transfer to look up, matching
+            `identifierType`. Must be a UUID (e.g.
+            `97ed4827-7b6f-4491-a206-42bcf859a919`) when `identifierType` is
+            `UETR`, or a positive integer (int64) (e.g. `16521632`) when
+            `identifierType` is `TRANSFER_ID`.
+          example: 97ed4827-7b6f-4491-a206-42bcf859a919
+      required:
+        - identifier
+        - identifierType
+    GpiTrackingSettlementMethod:
+      type: object
+      description: Settlement method reported for an ACSP sub-status.
+      properties:
+        code:
+          type: string
+          description: >-
+            Settlement method code, passed through as a SWIFT gpi settlement
+            method code. Known values: `INDA`, `INGA`, `COVE`, `CLRG`.
+            Additional values may be introduced by SWIFT gpi; see the SWIFT gpi
+            code lists.
+          example: INGA
+        clearingSystem:
+          type: string
+          description: Clearing system, present when the settlement method is `CLRG`.
+          example: CHI
+    GpiTrackingStatusReason:
+      type: object
+      description: SWIFT gpi ACSP sub-status (transaction_status_reason).
+      properties:
+        code:
+          type: string
+          description: >-
+            Sub-status code, passed through as a SWIFT gpi transaction status
+            reason code. Known values: `G000`, `G001`, `G002`, `G003`, `G004`,
+            `G005`, `G006`. Additional values may be introduced by SWIFT gpi;
+            see the SWIFT gpi code lists.
+          example: G002
+        settlementMethod:
+          $ref: '#/components/schemas/GpiTrackingSettlementMethod'
+          description: Settlement method. Present for `G000`, `G001`, `G005`, `G006`.
+        instructedAgent:
+          type: string
+          description: >-
+            BIC the transaction was forwarded to. Present for `G000`, `G001`,
+            `G005`, `G006`.
+          example: TSPABEB0002
+        chargeBearer:
+          type: string
+          description: Charge bearer code. Present for `G000`, `G001`, `G005`, `G006`.
+          example: SHAR
+    GpiTrackingMoney:
+      type: object
+      description: A monetary value represented using the GPI tracking wire format.
+      properties:
+        amount:
+          type: number
+          minimum: 0
+          exclusiveMinimum: 0
+          description: Non-negative monetary amount.
+          format: decimal
+          example: 250.45
+        currency:
+          type: string
+          maxLength: 3
+          minLength: 3
+          pattern: ^[A-Z]{3}$
+          description: ISO 4217 currency code.
+          example: EUR
+    GpiTrackingCancellationStatus:
+      type: string
+      description: Cancellation status of a tracked transaction.
+      enum:
+        - CANCELLED
+        - PENDING_CANCELLATION
+        - CANCELLATION_REJECTED
+    GpiTrackingCancellationRequestStatus:
+      type: object
+      description: Cancellation request status reported for an event.
+      properties:
+        reasonCode:
+          type: string
+          description: >-
+            Cancellation reason code, passed through as a SWIFT gpi cancellation
+            reason code. Additional values may be introduced by SWIFT gpi; see
+            the SWIFT gpi code lists.
+          example: CUST
+        indemnityAgreement:
+          type: boolean
+          description: Whether an indemnity agreement applies to the cancellation request.
+          example: false
+    GpiTrackingCancellationResponseStatus:
+      type: object
+      description: Cancellation response status reported for an event.
+      properties:
+        code:
+          type: string
+          description: >-
+            Cancellation response code, passed through as a SWIFT gpi
+            cancellation response code. Known values: `CNCL` (cancelled), `PDCR`
+            (pending), `RJCR` (rejected). Additional values may be introduced by
+            SWIFT gpi; see the SWIFT gpi code lists.
+          example: RJCR
+        reasonCode:
+          type: string
+          description: >-
+            Cancellation response reason code, passed through as a SWIFT gpi
+            cancellation response reason code. Present for `PDCR` and `RJCR`.
+          example: LEGL
+    GpiTrackingCharge:
+      type: object
+      description: A charge applied while processing the transaction.
+      properties:
+        amount:
+          $ref: '#/components/schemas/GpiTrackingMoney'
+          description: Charge amount.
+        bic:
+          type: string
+          description: BIC of the charging agent.
+          example: TRCKCHZ0XXX
+        name:
+          type: string
+          description: Name of the charging agent.
+          example: Example Correspondent Bank
+    GpiTrackingEvent:
+      type: object
+      description: An event reported for a tracked transaction.
+      properties:
+        status:
+          type: string
+          description: >-
+            Status conveyed by this event, passed through as a SWIFT gpi
+            transaction status code. Known values: `ACSP` (accepted, settlement
+            in progress), `ACCC` (accepted, settlement completed), `RJCT`
+            (rejected). Additional values may be introduced by SWIFT gpi; see
+            the SWIFT gpi code lists.
+          example: ACSP
+        statusReason:
+          $ref: '#/components/schemas/GpiTrackingStatusReason'
+          description: Sub-status detail, present when status is `ACSP`.
+        statusTime:
+          type: string
+          description: >-
+            When this status was reached. Present when status is `ACSP` or
+            `RJCT`.
+          format: date-time
+          example: '2023-09-18T12:13:33.314Z'
+        confirmedAt:
+          type: string
+          description: >-
+            When the funds were made available to the creditor. Present when
+            status is `ACCC`.
+          format: date-time
+          example: '2023-09-18T12:13:33.314Z'
+        confirmedAmount:
+          $ref: '#/components/schemas/GpiTrackingMoney'
+          description: >-
+            Amount credited to the creditor's account. Present when status is
+            `ACCC`.
+        rejectionReason:
+          type: string
+          description: >-
+            Rejection reason code, passed through as a SWIFT gpi rejection
+            reason code (ISO 20022 external return/reason code). Present when
+            status is `RJCT`. Known values include `AC04` (closed account
+            number), `AC06` (blocked account), `AM09` (wrong amount), `BE01`
+            (inconsistent with end customer), `RR04` (regulatory reason).
+            Additional values may be introduced by SWIFT gpi; see the SWIFT gpi
+            code lists.
+          example: AC04
+        instructedAmount:
+          $ref: '#/components/schemas/GpiTrackingMoney'
+          description: Amount as instructed at this hop.
+        settledAmount:
+          $ref: '#/components/schemas/GpiTrackingMoney'
+          description: Amount as settled at this hop.
+        amountInconsistency:
+          type: boolean
+          description: Whether instructed and settled amounts are inconsistent.
+          example: false
+        settlementDate:
+          type: string
+          description: Settlement date of this event.
+          format: date
+          example: '2023-09-18'
+        sourceCurrency:
+          type: string
+          maxLength: 3
+          minLength: 3
+          pattern: ^[A-Z]{3}$
+          description: Source currency of the exchange, if any.
+          example: EUR
+        targetCurrency:
+          type: string
+          maxLength: 3
+          minLength: 3
+          pattern: ^[A-Z]{3}$
+          description: Target currency of the exchange, if any.
+          example: GBP
+        exchangeRate:
+          type: number
+          minimum: 0
+          exclusiveMinimum: 0
+          description: Exchange rate applied between the source and target currencies.
+          format: decimal
+          example: 0.8501
+        chargeBearer:
+          type: string
+          description: >-
+            Charge bearer indicator, passed through as a SWIFT gpi charge bearer
+            code. Known values: `DEBT`, `CRED`, `SHAR`, `SLEV`. Additional
+            values may be introduced by SWIFT gpi; see the SWIFT gpi code lists.
+          example: SHAR
+        endToEndId:
+          type: string
+          description: End-to-end identifier.
+          example: 802.0GC9A9E78ABD
+        messageNameIdentification:
+          type: string
+          description: Message name identification (ISO 20022 message type).
+          example: pacs.008.001.08
+        instructionId:
+          type: string
+          description: Instruction identifier.
+          example: '0918121252010240'
+        returnReason:
+          type: string
+          description: >-
+            Return reason code associated with this event, passed through as a
+            SWIFT gpi return reason code (ISO 20022 external return/reason
+            code). Known values include `AC04` (closed account number), `AC06`
+            (blocked account), `AM09` (wrong amount), `BE01` (inconsistent with
+            end customer), `RR04` (regulatory reason). Additional values may be
+            introduced by SWIFT gpi; see the SWIFT gpi code lists.
+          example: AC04
+        eventType:
+          type: string
+          description: >-
+            Type of the tracking event, passed through as a SWIFT gpi tracker
+            event type code. Known values: `PAYMENT`, `STATUS_UPDATE`,
+            `CANCELLATION_REQUEST`, `CANCELLATION_RESPONSE`,
+            `CANCELLATION_REQUEST_STATUS_UPDATE`. Additional values may be
+            introduced by SWIFT gpi; see the SWIFT gpi code lists.
+          example: CANCELLATION_RESPONSE
+        eventTarget:
+          type: string
+          description: >-
+            Target of the tracking event, passed through as a SWIFT gpi tracker
+            event target code. Known values: `CREDIT_TRANSFER`,
+            `CREDIT_TRANSFER_RETURN`, `CREDIT_TRANSFER_COVER`,
+            `CREDIT_TRANSFER_COVER_RETURN`,
+            `FINANCIAL_INSTITUTION_CREDIT_TRANSFER`,
+            `FINANCIAL_INSTITUTION_CREDIT_TRANSFER_RETURN`,
+            `FINANCIAL_INSTITUTION_CREDIT_TRANSFER_COVER`,
+            `FINANCIAL_INSTITUTION_CREDIT_TRANSFER_COVER_RETURN`. Additional
+            values may be introduced by SWIFT gpi; see the SWIFT gpi code lists.
+          example: CREDIT_TRANSFER
+        cancellationRequestStatus:
+          $ref: '#/components/schemas/GpiTrackingCancellationRequestStatus'
+          description: Cancellation request status conveyed by this event.
+        cancellationResponseStatus:
+          $ref: '#/components/schemas/GpiTrackingCancellationResponseStatus'
+          description: Cancellation response status conveyed by this event.
+        cancellationRequestTrackingStatus:
+          type: string
+          description: >-
+            Cancellation request tracking status conveyed by this event, passed
+            through as a SWIFT gpi cancellation request tracking status code.
+            Known values: `S000`, `S001`, `S002`, `S003`, `S004`. Additional
+            values may be introduced by SWIFT gpi; see the SWIFT gpi code lists.
+          example: S004
+        serviceLevel:
+          type: string
+          description: >-
+            Service level of the transaction, passed through as a SWIFT gpi
+            service level code. Known values: `G001`, `G002`, `G004`, `G005`,
+            `G009`. Additional values may be introduced by SWIFT gpi; see the
+            SWIFT gpi code lists.
+          example: G002
+        instructedAgent:
+          type: string
+          description: Instructed agent BIC.
+          example: TSPABEB0002
+        from:
+          type: string
+          description: Sending agent BIC.
+          example: TRCKCHZ0XXX
+        to:
+          type: string
+          description: Receiving agent BIC.
+          example: TSPABEB0002
+        trackerInformingParty:
+          type: string
+          description: Party informing the tracker.
+          example: ZYZAGB20XXX
+        debtorAgent:
+          type: string
+          description: Debtor agent BIC.
+          example: DEUTDEFFXXX
+        creditorAgent:
+          type: string
+          description: Creditor agent BIC.
+          example: BARCGB22XXX
+        instructingReimbursementAgent:
+          type: string
+          description: Instructing reimbursement agent BIC.
+          example: CHASUS33XXX
+        previousInstructingAgent1:
+          type: string
+          description: Previous instructing agent 1 BIC.
+          example: BOFAUS3NXXX
+        previousInstructingAgent2:
+          type: string
+          description: Previous instructing agent 2 BIC.
+          example: CITIUS33XXX
+        previousInstructingAgent3:
+          type: string
+          description: Previous instructing agent 3 BIC.
+          example: NWBKGB2LXXX
+        intermediaryAgent1:
+          type: string
+          description: Intermediary agent 1 BIC.
+          example: DEUTDEFFXXX
+        intermediaryAgent2:
+          type: string
+          description: Intermediary agent 2 BIC.
+          example: BNPAFRPPXXX
+        intermediaryAgent3:
+          type: string
+          description: Intermediary agent 3 BIC.
+          example: INGBNL2AXXX
+        charges:
+          type: array
+          items:
+            $ref: '#/components/schemas/GpiTrackingCharge'
+          description: Charges applied at this hop. Omitted when there are none.
+        eventCreationTime:
+          type: string
+          description: When this event was created.
+          format: date-time
+          example: '2023-09-18T12:13:33.348Z'
+    GpiTracking:
+      type: object
+      description: GPI tracking data for a transaction.
+      properties:
+        uetr:
+          type: string
+          description: The UETR of the tracked transaction.
+          example: 97ed4827-7b6f-4491-a206-42bcf859a919
+        status:
+          type: string
+          description: >-
+            Overall tracking status of the transaction, passed through as a
+            SWIFT gpi transaction status code. Known values: `ACSP` (accepted,
+            settlement in progress), `ACCC` (accepted, settlement completed),
+            `RJCT` (rejected). Additional values may be introduced by SWIFT gpi;
+            see the SWIFT gpi code lists.
+          example: ACSP
+        statusReason:
+          $ref: '#/components/schemas/GpiTrackingStatusReason'
+          description: Sub-status detail, present when status is `ACSP`.
+        statusTime:
+          type: string
+          description: >-
+            When this status was reached. Present when status is `ACSP` or
+            `RJCT`.
+          format: date-time
+          example: '2023-09-18T12:13:33.314Z'
+        confirmedAt:
+          type: string
+          description: >-
+            When the funds were made available to the creditor. Present when
+            status is `ACCC`.
+          format: date-time
+          example: '2023-09-18T12:13:33.314Z'
+        confirmedAmount:
+          $ref: '#/components/schemas/GpiTrackingMoney'
+          description: >-
+            Amount credited to the creditor's account. Present when status is
+            `ACCC`.
+        rejectionReason:
+          type: string
+          description: >-
+            Rejection reason code, passed through as a SWIFT gpi rejection
+            reason code (ISO 20022 external return/reason code). Present when
+            status is `RJCT`. Known values include `AC04` (closed account
+            number), `AC06` (blocked account), `AM09` (wrong amount), `BE01`
+            (inconsistent with end customer), `RR04` (regulatory reason).
+            Additional values may be introduced by SWIFT gpi; see the SWIFT gpi
+            code lists.
+          example: AC04
+        cancellationStatus:
+          $ref: '#/components/schemas/GpiTrackingCancellationStatus'
+          description: >-
+            Cancellation status, when a cancellation has been requested or
+            resolved.
+        returnReason:
+          type: string
+          description: >-
+            Return reason code, present when the transaction was returned or
+            rejected, passed through as a SWIFT gpi return reason code (ISO
+            20022 external return/reason code). Known values include `AC04`
+            (closed account number), `AC06` (blocked account), `AM09` (wrong
+            amount), `BE01` (inconsistent with end customer), `RR04` (regulatory
+            reason). Additional values may be introduced by SWIFT gpi; see the
+            SWIFT gpi code lists.
+          example: AC04
+        initiatedAt:
+          type: string
+          description: When transaction tracking was initiated.
+          format: date-time
+          example: '2023-09-18T12:05:50Z'
+        completedAt:
+          type: string
+          description: When the transaction reached a completed state.
+          format: date-time
+          example: '2023-09-18T12:13:33.314Z'
+        lastUpdatedAt:
+          type: string
+          description: When the tracking record was last updated.
+          format: date-time
+          example: '2023-09-18T12:13:33.314Z'
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/GpiTrackingEvent'
+          description: Ordered tracking events, latest first.
+    LookupGpiTrackingResponseContent:
+      type: object
+      description: The matching GPI tracking transactions.
+      properties:
+        transactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/GpiTracking'
+          description: The matching GPI tracking transactions.
     user:
       title: User
       type: object

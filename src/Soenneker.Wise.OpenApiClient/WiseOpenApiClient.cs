@@ -19,6 +19,7 @@ using Soenneker.Wise.OpenApiClient.Currencies;
 using Soenneker.Wise.OpenApiClient.DeliveryEstimates;
 using Soenneker.Wise.OpenApiClient.EmbeddedFlows;
 using Soenneker.Wise.OpenApiClient.Facetec;
+using Soenneker.Wise.OpenApiClient.GpiTracking;
 using Soenneker.Wise.OpenApiClient.IncomingTransfers;
 using Soenneker.Wise.OpenApiClient.Me;
 using Soenneker.Wise.OpenApiClient.MultiCurrencyAccount;
@@ -111,6 +112,11 @@ namespace Soenneker.Wise.OpenApiClient
         public global::Soenneker.Wise.OpenApiClient.Facetec.FacetecRequestBuilder Facetec
         {
             get => new global::Soenneker.Wise.OpenApiClient.Facetec.FacetecRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The gpiTracking property</summary>
+        public global::Soenneker.Wise.OpenApiClient.GpiTracking.GpiTrackingRequestBuilder GpiTracking
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.GpiTracking.GpiTrackingRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The incomingTransfers property</summary>
         public global::Soenneker.Wise.OpenApiClient.IncomingTransfers.IncomingTransfersRequestBuilder IncomingTransfers

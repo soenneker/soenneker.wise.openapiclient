@@ -3945,7 +3945,7 @@
           "card-order"
         ],
         "summary": "Retrieve card order requirements",
-        "description": "Retrieves all card requirements for a \u0060cardOrderId\u0060. A valid card order needs all its requirements status to be \u0060COMPLETED\u0060.\n\nThe type of requirements are:\n- \u0060PIN (optional)\u0060: [Set a PIN](/api-reference/card-order/cardorderpresetpin) on a virtual or physical card order. Contact the team if you need this feature.\n- \u0060VERIFICATION\u0060: Verify your customer by providing KYC evidences. Refer to the [KYC guide](/guides/product/kyc).\n- \u0060ADDRESS\u0060: Provide a valid address for your card order. Refer to [address validation](/api-reference/card-order/cardordervalidateaddress).\n\nA requirement **status** has the following values:\n- \u0060NOT_INITIATED\u0060\n- \u0060NEEDS_ACTION\u0060\n- \u0060PENDING\u0060\n- \u0060COMPLETED\u0060\n- \u0060FAILED\u0060\n",
+        "description": "Retrieves all card requirements for a \u0060cardOrderId\u0060. A valid card order needs all its requirements status to be \u0060COMPLETED\u0060.\n\nThe type of requirements are:\n- \u0060PIN (optional)\u0060: [Set a PIN](/api-reference/card-sensitive-details/cardorderpresetpin) on a virtual or physical card order. Contact the team if you need this feature.\n- \u0060VERIFICATION\u0060: Verify your customer by providing KYC evidences. Refer to the [KYC guide](/guides/product/kyc).\n- \u0060ADDRESS\u0060: Provide a valid address for your card order. Refer to [address validation](/api-reference/card-order/cardordervalidateaddress).\n\nA requirement **status** has the following values:\n- \u0060NOT_INITIATED\u0060\n- \u0060NEEDS_ACTION\u0060\n- \u0060PENDING\u0060\n- \u0060COMPLETED\u0060\n- \u0060FAILED\u0060\n",
         "operationId": "CardOrderRequirementsGet",
         "parameters": [
           {
@@ -12973,7 +12973,7 @@
           "recipient"
         ],
         "summary": "Create a recipient account",
-        "description": "Creates a recipient account. A **recipient** is the person or institution who is the ultimate beneficiary of your payment.\n\nRecipient data includes:\n- The personal details of an individual or basic information about a business.\n- Bank details like account numbers, routing numbers, and other region-specific information.\n- Address details like country and street address.\n\n{% admonition type=\u0022info\u0022}\nCertain fields shown in the schema are conditionally required depending on \u0060currency\u0060, \u0060type\u0060, \u0060legalType\u0060, and \u0060country\u0060.\n\nThe reference uses a GBP example for illustration purposes.\nAs such, some fields are \u0060null\u0060 in the provided examples. To determine which fields are required for a currency corridor, use the\n**[Retrieve recipient account requirements](/api-reference/recipient/recipientAccountRequirementsGet)** endpoint.\n{% /admonition %}\n\n#### Bank account details\n\nThere are many variations of required bank account details, depending on recipient target currency. For example:\n\n- **GBP** requires sort code and account number.\n- **BGN, CHF, DKK, EUR, GEL, GBP, NOK, PKR, PLN, RON, SEK** require IBAN.\n- **USD** requires routing number, account number, and account type\n- **INR** requires IFSC code and account number.\n\n#### Address details\n\nRecipient address data is required only if target currency is **USD, PHP, THB or TRY**, or if the source currency is **USD or AUD**.\n\nAddress fields can include:\n- Country\n- State (required for US, Canada, Brazil)\n- City\n- Address line\n- Zip code\n\n#### accountHolderName rules\n\n- **Personal recipients**: Full names must include more than one name, and both first and last name must have more than one character. Numbers are not allowed.\n- **Business recipients**: Business names must be in full and can be a single name. The full name cannot be just a single character, but can be made up of a set of single characters (for example, \u0060\u0022A\u0022\u0060 is not permitted but \u0060\u0022A 1\u0022\u0060 or \u0060\u0022A1\u0022\u0060 is permitted).\n- Special characters \u0060_()\u0027*,.\u0060 are allowed for personal and business names. In general, the following regex describes permitted characters: \u0060[0-9A-Za-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u00FF-_()\u0027*,.\\s]\u0060.\n\n\n#### Creating a refund recipient account\n\nSometimes we may need to refund the transfer back to the sender. The _refund recipient_ is the person or institution who we refund the transfer money back to. \n\nIt is not always mandatory to create a refund recipient. \n\n- If the funds are sent over a fast local payment network, we can usually infer the refund recipient from the bank transaction that funded the transfer. Please discuss this with your Wise implementation team if you are unsure if the refund recipient is needed.\n- If funds are sent using a slow domestic payment network, or you are using a bulk settlement model, we may require you to share the bank details of the source bank account.\n\nTo indicate a recipient account is a _refund recipient_, include the query parameter \u0060refund=true\u0060 in the request.\n\nThen, use the account ID returned in the response as \u0060sourceAccount\u0060 when [creating transfers](/guides/product/send-money/transfers).\n\n#### Creating an email recipient account\n\n{% admonition type=\u0022warning\u0022 %}\nContact us before attempting to use email recipients as it is only recommended for certain use cases.\n{% /admonition %}\n\nIf you don\u0027t know recipient bank account details, you can set up an _email recipient_. Wise then collects bank details directly from the recipient.\n\nWise will email your recipient with a link to collect their bank account details securely. After the bank account details have been provided, Wise completes the transfer.\n\nConfirm this recipient type is available for your transaction by checking if the \u0060\u0022type\u0022: \u0022email\u0022\u0060 class is present in the response of the [retrieve recipient account requirements endpoint](/api-reference/recipient/recipientAccountRequirementsGet).\n\nIf planning to send multiple currencies to a single recipient, you must create a separate email recipient resource for the beneficiary, for every currency you intend to send them.\n\nBe aware of the following:\n\n- Testing of transfers to email recipients in sandbox is not currently possible.\n- Recipients are required to enter bank details **every time a payment is made**.\n- We highly encourage you to provide the \u0060profileId\u0060 if your recipient is receiving a payment from your business account, especially if you have multiple businesses or have multiple users administrating your business account.\n- Refer to our **[help page](https://wise.com/help/articles/2932105/can-i-send-money-to-someone-with-only-their-email-address)** for more details about how this works and any additional constraints not mentioned here.\n",
+        "description": "Creates a recipient account. A **recipient** is the person or institution who is the ultimate beneficiary of your payment.\n\nRecipient data includes:\n- The personal details of an individual or basic information about a business.\n- Bank details like account numbers, routing numbers, and other region-specific information.\n- Address details like country and street address.\n\n{% admonition type=\u0022info\u0022 %}\nCertain fields shown in the schema are conditionally required depending on \u0060currency\u0060, \u0060type\u0060, \u0060legalType\u0060, and \u0060country\u0060.\n\nThe reference uses a GBP example for illustration purposes.\nAs such, some fields are \u0060null\u0060 in the provided examples. To determine which fields are required for a currency corridor, use the\n**[Retrieve recipient account requirements](/api-reference/recipient/recipientaccountrequirementsget)** endpoint.\n{% /admonition %}\n\n#### Bank account details\n\nThere are many variations of required bank account details, depending on recipient target currency. For example:\n\n- **GBP** requires sort code and account number.\n- **BGN, CHF, DKK, EUR, GEL, GBP, NOK, PKR, PLN, RON, SEK** require IBAN.\n- **USD** requires routing number, account number, and account type\n- **INR** requires IFSC code and account number.\n\n#### Address details\n\nRecipient address data is required only if target currency is **USD, PHP, THB or TRY**, or if the source currency is **USD or AUD**.\n\nAddress fields can include:\n- Country\n- State (required for US, Canada, Brazil)\n- City\n- Address line\n- Zip code\n\n#### accountHolderName rules\n\n- **Personal recipients**: Full names must include more than one name, and both first and last name must have more than one character. Numbers are not allowed.\n- **Business recipients**: Business names must be in full and can be a single name. The full name cannot be just a single character, but can be made up of a set of single characters (for example, \u0060\u0022A\u0022\u0060 is not permitted but \u0060\u0022A 1\u0022\u0060 or \u0060\u0022A1\u0022\u0060 is permitted).\n- Special characters \u0060_()\u0027*,.\u0060 are allowed for personal and business names. In general, the following regex describes permitted characters: \u0060[0-9A-Za-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u00FF-_()\u0027*,.\\s]\u0060.\n\n\n#### Creating a refund recipient account\n\nSometimes we may need to refund the transfer back to the sender. The _refund recipient_ is the person or institution who we refund the transfer money back to. \n\nIt is not always mandatory to create a refund recipient. \n\n- If the funds are sent over a fast local payment network, we can usually infer the refund recipient from the bank transaction that funded the transfer. Please discuss this with your Wise implementation team if you are unsure if the refund recipient is needed.\n- If funds are sent using a slow domestic payment network, or you are using a bulk settlement model, we may require you to share the bank details of the source bank account.\n\nTo indicate a recipient account is a _refund recipient_, include the query parameter \u0060refund=true\u0060 in the request.\n\nThen, use the account ID returned in the response as \u0060sourceAccount\u0060 when [creating transfers](/guides/product/send-money/transfers).\n\n#### Creating an email recipient account\n\n{% admonition type=\u0022warning\u0022 %}\nContact us before attempting to use email recipients as it is only recommended for certain use cases.\n{% /admonition %}\n\nIf you don\u0027t know recipient bank account details, you can set up an _email recipient_. Wise then collects bank details directly from the recipient.\n\nWise will email your recipient with a link to collect their bank account details securely. After the bank account details have been provided, Wise completes the transfer.\n\nConfirm this recipient type is available for your transaction by checking if the \u0060\u0022type\u0022: \u0022email\u0022\u0060 class is present in the response of the [retrieve recipient account requirements endpoint](/api-reference/recipient/recipientaccountrequirementsget).\n\nIf planning to send multiple currencies to a single recipient, you must create a separate email recipient resource for the beneficiary, for every currency you intend to send them.\n\nBe aware of the following:\n\n- Testing of transfers to email recipients in sandbox is not currently possible.\n- Recipients are required to enter bank details **every time a payment is made**.\n- We highly encourage you to provide the \u0060profileId\u0060 if your recipient is receiving a payment from your business account, especially if you have multiple businesses or have multiple users administrating your business account.\n- Refer to our **[help page](https://wise.com/help/articles/2932105/can-i-send-money-to-someone-with-only-their-email-address)** for more details about how this works and any additional constraints not mentioned here.\n",
         "operationId": "RecipientCreate",
         "parameters": [
           {
@@ -19321,6 +19321,111 @@
           },
           {
             "UserToken": []
+          }
+        ]
+      }
+    },
+    "/gpi-tracking": {
+      "post": {
+        "tags": [
+          "gpi-tracking"
+        ],
+        "summary": "Look up GPI tracking",
+        "description": "Looks up GPI tracking data for a transfer identified by \u0060identifierType\u0060 and \u0060identifier\u0060.",
+        "operationId": "LookupGpiTracking",
+        "parameters": [
+          {
+            "description": "Optional UUID for correlating requests across systems. If provided, Wise echoes it back in the response. Maximum 36 characters. [Learn more](/guides/developer/headers/correlation-id).\n",
+            "$ref": "#/components/parameters/X-External-Correlation-Id"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LookupGpiTrackingRequestContent"
+              },
+              "examples": {
+                "lookup-by-transfer-id": {
+                  "summary": "Look up GPI tracking by transfer ID",
+                  "value": {
+                    "identifierType": "TRANSFER_ID",
+                    "identifier": "16521632"
+                  }
+                },
+                "lookup-by-uetr": {
+                  "summary": "Look up GPI tracking by UETR",
+                  "value": {
+                    "identifierType": "UETR",
+                    "identifier": "97ed4827-7b6f-4491-a206-42bcf859a919"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Returns matching GPI tracking transactions.",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LookupGpiTrackingResponseContent"
+                },
+                "examples": {
+                  "tracking-found": {
+                    "summary": "GPI tracking data found",
+                    "value": {
+                      "transactions": [
+                        {
+                          "uetr": "97ed4827-7b6f-4491-a206-42bcf859a919",
+                          "status": "ACSP",
+                          "cancellationStatus": "CANCELLATION_REJECTED",
+                          "initiatedAt": "2023-09-18T12:05:50Z",
+                          "lastUpdatedAt": "2023-09-18T12:13:33.314Z",
+                          "events": [
+                            {
+                              "status": "ACSP",
+                              "statusReason": {
+                                "code": "G001",
+                                "settlementMethod": {
+                                  "code": "INGA"
+                                },
+                                "instructedAgent": "LHVBEE22XXX",
+                                "chargeBearer": "SHAR"
+                              },
+                              "statusTime": "2023-09-18T12:13:33.314Z",
+                              "amountInconsistency": false,
+                              "eventType": "CANCELLATION_RESPONSE",
+                              "eventTarget": "CREDIT_TRANSFER",
+                              "eventCreationTime": "2023-09-18T12:13:33.348Z"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit exceeded. Retry after the number of seconds specified in the \u0060Retry-After\u0060 header.",
+            "$ref": "#/components/responses/429"
+          }
+        },
+        "security": [
+          {
+            "ClientCredentialsToken": []
           }
         ]
       }
@@ -26849,6 +26954,488 @@
             "$ref": "#/components/schemas/Fees"
           }
         }
+      },
+      "GpiTrackingIdentifierType": {
+        "enum": [
+          "UETR",
+          "TRANSFER_ID"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "The type of identifier used to look up a transfer\u0027s GPI tracking data.",
+        "x-ms-enum": {
+          "name": "GpiTrackingIdentifierType",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "UETR",
+              "name": "Uetr"
+            },
+            {
+              "value": "TRANSFER_ID",
+              "name": "TransferId"
+            }
+          ]
+        }
+      },
+      "LookupGpiTrackingRequestContent": {
+        "required": [
+          "identifier",
+          "identifierType"
+        ],
+        "type": "object",
+        "properties": {
+          "identifierType": {
+            "description": "The type of identifier used to look up the transfer.",
+            "$ref": "#/components/schemas/GpiTrackingIdentifierType"
+          },
+          "identifier": {
+            "minLength": 1,
+            "type": "string",
+            "description": "The UETR or Wise transfer ID of the transfer to look up, matching \u0060identifierType\u0060. Must be a UUID (e.g. \u006097ed4827-7b6f-4491-a206-42bcf859a919\u0060) when \u0060identifierType\u0060 is \u0060UETR\u0060, or a positive integer (int64) (e.g. \u006016521632\u0060) when \u0060identifierType\u0060 is \u0060TRANSFER_ID\u0060.",
+            "example": "97ed4827-7b6f-4491-a206-42bcf859a919"
+          }
+        },
+        "description": "Identify the transfer to look up by \u0060UETR\u0060 or \u0060TRANSFER_ID\u0060."
+      },
+      "GpiTrackingSettlementMethod": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Settlement method code, passed through as a SWIFT gpi settlement method code. Known values: \u0060INDA\u0060, \u0060INGA\u0060, \u0060COVE\u0060, \u0060CLRG\u0060. Additional values may be introduced by SWIFT gpi; see the SWIFT gpi code lists.",
+            "example": "INGA"
+          },
+          "clearingSystem": {
+            "type": "string",
+            "description": "Clearing system, present when the settlement method is \u0060CLRG\u0060.",
+            "example": "CHI"
+          }
+        },
+        "description": "Settlement method reported for an ACSP sub-status."
+      },
+      "GpiTrackingStatusReason": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Sub-status code, passed through as a SWIFT gpi transaction status reason code. Known values: \u0060G000\u0060, \u0060G001\u0060, \u0060G002\u0060, \u0060G003\u0060, \u0060G004\u0060, \u0060G005\u0060, \u0060G006\u0060. Additional values may be introduced by SWIFT gpi; see the SWIFT gpi code lists.",
+            "example": "G002"
+          },
+          "settlementMethod": {
+            "description": "Settlement method. Present for \u0060G000\u0060, \u0060G001\u0060, \u0060G005\u0060, \u0060G006\u0060.",
+            "$ref": "#/components/schemas/GpiTrackingSettlementMethod"
+          },
+          "instructedAgent": {
+            "type": "string",
+            "description": "BIC the transaction was forwarded to. Present for \u0060G000\u0060, \u0060G001\u0060, \u0060G005\u0060, \u0060G006\u0060.",
+            "example": "TSPABEB0002"
+          },
+          "chargeBearer": {
+            "type": "string",
+            "description": "Charge bearer code. Present for \u0060G000\u0060, \u0060G001\u0060, \u0060G005\u0060, \u0060G006\u0060.",
+            "example": "SHAR"
+          }
+        },
+        "description": "SWIFT gpi ACSP sub-status (transaction_status_reason)."
+      },
+      "GpiTrackingMoney": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "exclusiveMinimum": false,
+            "type": "number",
+            "description": "Non-negative monetary amount.",
+            "format": "decimal",
+            "example": 250.45
+          },
+          "currency": {
+            "maxLength": 3,
+            "minLength": 3,
+            "pattern": "^[A-Z]{3}$",
+            "type": "string",
+            "description": "ISO 4217 currency code.",
+            "example": "EUR"
+          }
+        },
+        "description": "A monetary value represented using the GPI tracking wire format."
+      },
+      "GpiTrackingCancellationStatus": {
+        "enum": [
+          "CANCELLED",
+          "PENDING_CANCELLATION",
+          "CANCELLATION_REJECTED"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Cancellation status of a tracked transaction.",
+        "x-ms-enum": {
+          "name": "GpiTrackingCancellationStatus",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "CANCELLED",
+              "name": "Cancelled"
+            },
+            {
+              "value": "PENDING_CANCELLATION",
+              "name": "PendingCancellation"
+            },
+            {
+              "value": "CANCELLATION_REJECTED",
+              "name": "CancellationRejected"
+            }
+          ]
+        }
+      },
+      "GpiTrackingCancellationRequestStatus": {
+        "type": "object",
+        "properties": {
+          "reasonCode": {
+            "type": "string",
+            "description": "Cancellation reason code, passed through as a SWIFT gpi cancellation reason code. Additional values may be introduced by SWIFT gpi; see the SWIFT gpi code lists.",
+            "example": "CUST"
+          },
+          "indemnityAgreement": {
+            "type": "boolean",
+            "description": "Whether an indemnity agreement applies to the cancellation request.",
+            "example": false
+          }
+        },
+        "description": "Cancellation request status reported for an event."
+      },
+      "GpiTrackingCancellationResponseStatus": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Cancellation response code, passed through as a SWIFT gpi cancellation response code. Known values: \u0060CNCL\u0060 (cancelled), \u0060PDCR\u0060 (pending), \u0060RJCR\u0060 (rejected). Additional values may be introduced by SWIFT gpi; see the SWIFT gpi code lists.",
+            "example": "RJCR"
+          },
+          "reasonCode": {
+            "type": "string",
+            "description": "Cancellation response reason code, passed through as a SWIFT gpi cancellation response reason code. Present for \u0060PDCR\u0060 and \u0060RJCR\u0060.",
+            "example": "LEGL"
+          }
+        },
+        "description": "Cancellation response status reported for an event."
+      },
+      "GpiTrackingCharge": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "description": "Charge amount.",
+            "$ref": "#/components/schemas/GpiTrackingMoney"
+          },
+          "bic": {
+            "type": "string",
+            "description": "BIC of the charging agent.",
+            "example": "TRCKCHZ0XXX"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the charging agent.",
+            "example": "Example Correspondent Bank"
+          }
+        },
+        "description": "A charge applied while processing the transaction."
+      },
+      "GpiTrackingEvent": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Status conveyed by this event, passed through as a SWIFT gpi transaction status code. Known values: \u0060ACSP\u0060 (accepted, settlement in progress), \u0060ACCC\u0060 (accepted, settlement completed), \u0060RJCT\u0060 (rejected). Additional values may be introduced by SWIFT gpi; see the SWIFT gpi code lists.",
+            "example": "ACSP"
+          },
+          "statusReason": {
+            "description": "Sub-status detail, present when status is \u0060ACSP\u0060.",
+            "$ref": "#/components/schemas/GpiTrackingStatusReason"
+          },
+          "statusTime": {
+            "type": "string",
+            "description": "When this status was reached. Present when status is \u0060ACSP\u0060 or \u0060RJCT\u0060.",
+            "format": "date-time",
+            "example": "2023-09-18T12:13:33.314Z"
+          },
+          "confirmedAt": {
+            "type": "string",
+            "description": "When the funds were made available to the creditor. Present when status is \u0060ACCC\u0060.",
+            "format": "date-time",
+            "example": "2023-09-18T12:13:33.314Z"
+          },
+          "confirmedAmount": {
+            "description": "Amount credited to the creditor\u0027s account. Present when status is \u0060ACCC\u0060.",
+            "$ref": "#/components/schemas/GpiTrackingMoney"
+          },
+          "rejectionReason": {
+            "type": "string",
+            "description": "Rejection reason code, passed through as a SWIFT gpi rejection reason code (ISO 20022 external return/reason code). Present when status is \u0060RJCT\u0060. Known values include \u0060AC04\u0060 (closed account number), \u0060AC06\u0060 (blocked account), \u0060AM09\u0060 (wrong amount), \u0060BE01\u0060 (inconsistent with end customer), \u0060RR04\u0060 (regulatory reason). Additional values may be introduced by SWIFT gpi; see the SWIFT gpi code lists.",
+            "example": "AC04"
+          },
+          "instructedAmount": {
+            "description": "Amount as instructed at this hop.",
+            "$ref": "#/components/schemas/GpiTrackingMoney"
+          },
+          "settledAmount": {
+            "description": "Amount as settled at this hop.",
+            "$ref": "#/components/schemas/GpiTrackingMoney"
+          },
+          "amountInconsistency": {
+            "type": "boolean",
+            "description": "Whether instructed and settled amounts are inconsistent.",
+            "example": false
+          },
+          "settlementDate": {
+            "type": "string",
+            "description": "Settlement date of this event.",
+            "format": "date",
+            "example": "2023-09-18"
+          },
+          "sourceCurrency": {
+            "maxLength": 3,
+            "minLength": 3,
+            "pattern": "^[A-Z]{3}$",
+            "type": "string",
+            "description": "Source currency of the exchange, if any.",
+            "example": "EUR"
+          },
+          "targetCurrency": {
+            "maxLength": 3,
+            "minLength": 3,
+            "pattern": "^[A-Z]{3}$",
+            "type": "string",
+            "description": "Target currency of the exchange, if any.",
+            "example": "GBP"
+          },
+          "exchangeRate": {
+            "exclusiveMinimum": false,
+            "type": "number",
+            "description": "Exchange rate applied between the source and target currencies.",
+            "format": "decimal",
+            "example": 0.8501
+          },
+          "chargeBearer": {
+            "type": "string",
+            "description": "Charge bearer indicator, passed through as a SWIFT gpi charge bearer code. Known values: \u0060DEBT\u0060, \u0060CRED\u0060, \u0060SHAR\u0060, \u0060SLEV\u0060. Additional values may be introduced by SWIFT gpi; see the SWIFT gpi code lists.",
+            "example": "SHAR"
+          },
+          "endToEndId": {
+            "type": "string",
+            "description": "End-to-end identifier.",
+            "example": "802.0GC9A9E78ABD"
+          },
+          "messageNameIdentification": {
+            "type": "string",
+            "description": "Message name identification (ISO 20022 message type).",
+            "example": "pacs.008.001.08"
+          },
+          "instructionId": {
+            "type": "string",
+            "description": "Instruction identifier.",
+            "example": "0918121252010240"
+          },
+          "returnReason": {
+            "type": "string",
+            "description": "Return reason code associated with this event, passed through as a SWIFT gpi return reason code (ISO 20022 external return/reason code). Known values include \u0060AC04\u0060 (closed account number), \u0060AC06\u0060 (blocked account), \u0060AM09\u0060 (wrong amount), \u0060BE01\u0060 (inconsistent with end customer), \u0060RR04\u0060 (regulatory reason). Additional values may be introduced by SWIFT gpi; see the SWIFT gpi code lists.",
+            "example": "AC04"
+          },
+          "eventType": {
+            "type": "string",
+            "description": "Type of the tracking event, passed through as a SWIFT gpi tracker event type code. Known values: \u0060PAYMENT\u0060, \u0060STATUS_UPDATE\u0060, \u0060CANCELLATION_REQUEST\u0060, \u0060CANCELLATION_RESPONSE\u0060, \u0060CANCELLATION_REQUEST_STATUS_UPDATE\u0060. Additional values may be introduced by SWIFT gpi; see the SWIFT gpi code lists.",
+            "example": "CANCELLATION_RESPONSE"
+          },
+          "eventTarget": {
+            "type": "string",
+            "description": "Target of the tracking event, passed through as a SWIFT gpi tracker event target code. Known values: \u0060CREDIT_TRANSFER\u0060, \u0060CREDIT_TRANSFER_RETURN\u0060, \u0060CREDIT_TRANSFER_COVER\u0060, \u0060CREDIT_TRANSFER_COVER_RETURN\u0060, \u0060FINANCIAL_INSTITUTION_CREDIT_TRANSFER\u0060, \u0060FINANCIAL_INSTITUTION_CREDIT_TRANSFER_RETURN\u0060, \u0060FINANCIAL_INSTITUTION_CREDIT_TRANSFER_COVER\u0060, \u0060FINANCIAL_INSTITUTION_CREDIT_TRANSFER_COVER_RETURN\u0060. Additional values may be introduced by SWIFT gpi; see the SWIFT gpi code lists.",
+            "example": "CREDIT_TRANSFER"
+          },
+          "cancellationRequestStatus": {
+            "description": "Cancellation request status conveyed by this event.",
+            "$ref": "#/components/schemas/GpiTrackingCancellationRequestStatus"
+          },
+          "cancellationResponseStatus": {
+            "description": "Cancellation response status conveyed by this event.",
+            "$ref": "#/components/schemas/GpiTrackingCancellationResponseStatus"
+          },
+          "cancellationRequestTrackingStatus": {
+            "type": "string",
+            "description": "Cancellation request tracking status conveyed by this event, passed through as a SWIFT gpi cancellation request tracking status code. Known values: \u0060S000\u0060, \u0060S001\u0060, \u0060S002\u0060, \u0060S003\u0060, \u0060S004\u0060. Additional values may be introduced by SWIFT gpi; see the SWIFT gpi code lists.",
+            "example": "S004"
+          },
+          "serviceLevel": {
+            "type": "string",
+            "description": "Service level of the transaction, passed through as a SWIFT gpi service level code. Known values: \u0060G001\u0060, \u0060G002\u0060, \u0060G004\u0060, \u0060G005\u0060, \u0060G009\u0060. Additional values may be introduced by SWIFT gpi; see the SWIFT gpi code lists.",
+            "example": "G002"
+          },
+          "instructedAgent": {
+            "type": "string",
+            "description": "Instructed agent BIC.",
+            "example": "TSPABEB0002"
+          },
+          "from": {
+            "type": "string",
+            "description": "Sending agent BIC.",
+            "example": "TRCKCHZ0XXX"
+          },
+          "to": {
+            "type": "string",
+            "description": "Receiving agent BIC.",
+            "example": "TSPABEB0002"
+          },
+          "trackerInformingParty": {
+            "type": "string",
+            "description": "Party informing the tracker.",
+            "example": "ZYZAGB20XXX"
+          },
+          "debtorAgent": {
+            "type": "string",
+            "description": "Debtor agent BIC.",
+            "example": "DEUTDEFFXXX"
+          },
+          "creditorAgent": {
+            "type": "string",
+            "description": "Creditor agent BIC.",
+            "example": "BARCGB22XXX"
+          },
+          "instructingReimbursementAgent": {
+            "type": "string",
+            "description": "Instructing reimbursement agent BIC.",
+            "example": "CHASUS33XXX"
+          },
+          "previousInstructingAgent1": {
+            "type": "string",
+            "description": "Previous instructing agent 1 BIC.",
+            "example": "BOFAUS3NXXX"
+          },
+          "previousInstructingAgent2": {
+            "type": "string",
+            "description": "Previous instructing agent 2 BIC.",
+            "example": "CITIUS33XXX"
+          },
+          "previousInstructingAgent3": {
+            "type": "string",
+            "description": "Previous instructing agent 3 BIC.",
+            "example": "NWBKGB2LXXX"
+          },
+          "intermediaryAgent1": {
+            "type": "string",
+            "description": "Intermediary agent 1 BIC.",
+            "example": "DEUTDEFFXXX"
+          },
+          "intermediaryAgent2": {
+            "type": "string",
+            "description": "Intermediary agent 2 BIC.",
+            "example": "BNPAFRPPXXX"
+          },
+          "intermediaryAgent3": {
+            "type": "string",
+            "description": "Intermediary agent 3 BIC.",
+            "example": "INGBNL2AXXX"
+          },
+          "charges": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GpiTrackingCharge"
+            },
+            "description": "Charges applied at this hop. Omitted when there are none."
+          },
+          "eventCreationTime": {
+            "type": "string",
+            "description": "When this event was created.",
+            "format": "date-time",
+            "example": "2023-09-18T12:13:33.348Z"
+          }
+        },
+        "description": "An event reported for a tracked transaction."
+      },
+      "GpiTracking": {
+        "type": "object",
+        "properties": {
+          "uetr": {
+            "type": "string",
+            "description": "The UETR of the tracked transaction.",
+            "example": "97ed4827-7b6f-4491-a206-42bcf859a919"
+          },
+          "status": {
+            "type": "string",
+            "description": "Overall tracking status of the transaction, passed through as a SWIFT gpi transaction status code. Known values: \u0060ACSP\u0060 (accepted, settlement in progress), \u0060ACCC\u0060 (accepted, settlement completed), \u0060RJCT\u0060 (rejected). Additional values may be introduced by SWIFT gpi; see the SWIFT gpi code lists.",
+            "example": "ACSP"
+          },
+          "statusReason": {
+            "description": "Sub-status detail, present when status is \u0060ACSP\u0060.",
+            "$ref": "#/components/schemas/GpiTrackingStatusReason"
+          },
+          "statusTime": {
+            "type": "string",
+            "description": "When this status was reached. Present when status is \u0060ACSP\u0060 or \u0060RJCT\u0060.",
+            "format": "date-time",
+            "example": "2023-09-18T12:13:33.314Z"
+          },
+          "confirmedAt": {
+            "type": "string",
+            "description": "When the funds were made available to the creditor. Present when status is \u0060ACCC\u0060.",
+            "format": "date-time",
+            "example": "2023-09-18T12:13:33.314Z"
+          },
+          "confirmedAmount": {
+            "description": "Amount credited to the creditor\u0027s account. Present when status is \u0060ACCC\u0060.",
+            "$ref": "#/components/schemas/GpiTrackingMoney"
+          },
+          "rejectionReason": {
+            "type": "string",
+            "description": "Rejection reason code, passed through as a SWIFT gpi rejection reason code (ISO 20022 external return/reason code). Present when status is \u0060RJCT\u0060. Known values include \u0060AC04\u0060 (closed account number), \u0060AC06\u0060 (blocked account), \u0060AM09\u0060 (wrong amount), \u0060BE01\u0060 (inconsistent with end customer), \u0060RR04\u0060 (regulatory reason). Additional values may be introduced by SWIFT gpi; see the SWIFT gpi code lists.",
+            "example": "AC04"
+          },
+          "cancellationStatus": {
+            "description": "Cancellation status, when a cancellation has been requested or resolved.",
+            "$ref": "#/components/schemas/GpiTrackingCancellationStatus"
+          },
+          "returnReason": {
+            "type": "string",
+            "description": "Return reason code, present when the transaction was returned or rejected, passed through as a SWIFT gpi return reason code (ISO 20022 external return/reason code). Known values include \u0060AC04\u0060 (closed account number), \u0060AC06\u0060 (blocked account), \u0060AM09\u0060 (wrong amount), \u0060BE01\u0060 (inconsistent with end customer), \u0060RR04\u0060 (regulatory reason). Additional values may be introduced by SWIFT gpi; see the SWIFT gpi code lists.",
+            "example": "AC04"
+          },
+          "initiatedAt": {
+            "type": "string",
+            "description": "When transaction tracking was initiated.",
+            "format": "date-time",
+            "example": "2023-09-18T12:05:50Z"
+          },
+          "completedAt": {
+            "type": "string",
+            "description": "When the transaction reached a completed state.",
+            "format": "date-time",
+            "example": "2023-09-18T12:13:33.314Z"
+          },
+          "lastUpdatedAt": {
+            "type": "string",
+            "description": "When the tracking record was last updated.",
+            "format": "date-time",
+            "example": "2023-09-18T12:13:33.314Z"
+          },
+          "events": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GpiTrackingEvent"
+            },
+            "description": "Ordered tracking events, latest first."
+          }
+        },
+        "description": "GPI tracking data for a transaction."
+      },
+      "LookupGpiTrackingResponseContent": {
+        "type": "object",
+        "properties": {
+          "transactions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GpiTracking"
+            },
+            "description": "The matching GPI tracking transactions."
+          }
+        },
+        "description": "The matching GPI tracking transactions."
       },
       "User": {
         "title": "User",
@@ -57091,6 +57678,11 @@
       "x-displayName": "Incoming Transfers"
     },
     {
+      "name": "gpi-tracking",
+      "description": "Look up SWIFT gpi tracking data for a cross-border payment, by UETR or Wise transfer ID. Each match returns the payment\u0027s current status and status reason, the timeline of gpi events reported by the banks in the chain, the agent BICs that handled each leg, the amounts and exchange rate applied at each step, and any charges those banks deducted.\n",
+      "x-displayName": "GPI Tracking"
+    },
+    {
       "name": "user",
       "description": "A User serves as the primary entity and can possess multiple Profiles to represent different contexts or settings.\nA User can have one personal Profile and multiple business Profiles.\nEach [Profile](/api-reference/profile) \u2014 whether personal or business \u2014 can have its own [multi-currency account](/api-reference/multi-currency-account),\nenabling transactions across various currencies. This hierarchical structure allows for flexible management of user settings and financial operations,\naccommodating both personal and business needs.\n\n![User profile structure](/images/diagrams/user-profile-structure.svg)\n",
       "x-displayName": "Users"
@@ -58269,7 +58861,7 @@
           "webhook-event"
         ],
         "summary": "Swift message received",
-        "description": "Triggered when a SWIFT message (e.g., [pacs.008](/guides/product/receive-money/subscribe-to-swift-message-received#example-pacs008-message-content)) is received and processed by Wise on behalf of a partner.\n\n* Event type: \u0060swift#message-received\u0060\n* Profile level subscriptions: Supported\n* Application level subscriptions: Supported\n\nEvents may not be delivered in the order they occurred. Use \u0060data.occurred_at\u0060 to reconcile the order.\nSee the [Event ordering guide](/guides/developer/webhooks/event-ordering) for details.\n\nSee the [Webhooks guide](/guides/developer/webhooks) for setup instructions, signature verification, and best practices.\n",
+        "description": "Triggered when a SWIFT message (e.g., [pacs.008](/guides/product/receive-money/incoming-transfer-notifications#example-pacs008-message-content)) is received and processed by Wise on behalf of a partner.\n\n* Event type: \u0060swift#message-received\u0060\n* Profile level subscriptions: Supported\n* Application level subscriptions: Supported\n\nEvents may not be delivered in the order they occurred. Use \u0060data.occurred_at\u0060 to reconcile the order.\nSee the [Event ordering guide](/guides/developer/webhooks/event-ordering) for details.\n\nSee the [Webhooks guide](/guides/developer/webhooks) for setup instructions, signature verification, and best practices.\n",
         "operationId": "EventSwiftMessageReceived",
         "parameters": [
           {
