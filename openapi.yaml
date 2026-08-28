@@ -6877,14 +6877,11 @@ paths:
         '200':
           description: OK - PIN set successfully.
           content:
-            application/json:
+            text/plain:
               schema:
-                type: object
-                properties:
-                  cardOrderId:
-                    type: string
-                    description: The card order ID.
-                    example: '142'
+                type: string
+                description: Card order id
+                example: '142'
           headers:
             X-External-Correlation-Id:
               $ref: '#/components/headers/X-External-Correlation-Id'

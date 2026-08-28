@@ -36,18 +36,18 @@ namespace Soenneker.Wise.OpenApiClient.TwcardData.V1.SensitiveCardData.PresetPin
         /// <summary>
         /// Sets a PIN during the card order flow. This endpoint will be accessible for partners that require to set a PIN during the card order flow.Please follow [this guide](/guides/product/issue-cards/sensitive-card-details) to use this endpoint.To use this endpoint, make sure to set the `api token` and the `card order id` in the headers.
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.CardOrderPresetPin200Response"/></returns>
+        /// <returns>A <see cref="string"/></returns>
         /// <param name="body">Request body for setting a card PIN.</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.Models.CardOrderPresetPin200Response?> PostAsync(global::Soenneker.Wise.OpenApiClient.Models.CardOrderPresetPinRequest body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<string?> PostAsync(global::Soenneker.Wise.OpenApiClient.Models.CardOrderPresetPinRequest body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.Models.CardOrderPresetPin200Response> PostAsync(global::Soenneker.Wise.OpenApiClient.Models.CardOrderPresetPinRequest body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<string> PostAsync(global::Soenneker.Wise.OpenApiClient.Models.CardOrderPresetPinRequest body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
@@ -56,7 +56,7 @@ namespace Soenneker.Wise.OpenApiClient.TwcardData.V1.SensitiveCardData.PresetPin
             {
                 { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
             };
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.CardOrderPresetPin200Response>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.CardOrderPresetPin200Response.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
+            return await RequestAdapter.SendPrimitiveAsync<string>(requestInfo, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Sets a PIN during the card order flow. This endpoint will be accessible for partners that require to set a PIN during the card order flow.Please follow [this guide](/guides/product/issue-cards/sensitive-card-details) to use this endpoint.To use this endpoint, make sure to set the `api token` and the `card order id` in the headers.
@@ -76,7 +76,7 @@ namespace Soenneker.Wise.OpenApiClient.TwcardData.V1.SensitiveCardData.PresetPin
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = new RequestInformation(Method.POST, UrlTemplate, PathParameters);
             requestInfo.Configure(requestConfiguration);
-            requestInfo.Headers.TryAdd("Accept", "application/json");
+            requestInfo.Headers.TryAdd("Accept", "text/plain;q=0.9");
             requestInfo.SetContentFromParsable(RequestAdapter, "application/json", body);
             return requestInfo;
         }

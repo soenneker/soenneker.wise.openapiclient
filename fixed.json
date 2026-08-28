@@ -4209,9 +4209,9 @@
               }
             },
             "content": {
-              "application/json": {
+              "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/CardOrderPresetPin200Response"
+                  "$ref": "#/components/schemas/CardOrderPresetPin200PlainResponseSchema"
                 }
               }
             }
@@ -42247,15 +42247,10 @@
         },
         "description": "Request body for setting a card PIN."
       },
-      "CardOrderPresetPin200Response": {
-        "type": "object",
-        "properties": {
-          "cardOrderId": {
-            "type": "string",
-            "description": "The card order ID.",
-            "example": "142"
-          }
-        }
+      "CardOrderPresetPin200PlainResponse": {
+        "type": "string",
+        "description": "Card order id",
+        "example": "142"
       },
       "ClaimAccountCreateRequest": {
         "required": [
@@ -46776,6 +46771,10 @@
             }
           }
         }
+      },
+      "CardOrderPresetPin200PlainResponseSchema": {
+        "type": "string",
+        "description": "Card order id"
       },
       "CardTransactionList200Response": {
         "type": "object",
