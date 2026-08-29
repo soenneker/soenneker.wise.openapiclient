@@ -9755,6 +9755,7 @@ paths:
               - INDIA_TRANSFER_PURPOSE
               - JPN_BUSINESS_CERT
               - JPN_PERSONAL_MYNUMBER
+              - LEGAL_ENTITY_SHAREHOLDER
               - PROOF_OF_TRADING_ADDRESS
               - SOURCE_OF_FUNDS
               - SOURCE_OF_WEALTH
