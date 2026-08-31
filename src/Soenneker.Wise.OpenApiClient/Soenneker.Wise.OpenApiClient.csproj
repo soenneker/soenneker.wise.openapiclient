@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <Description>A .NET client generated from the Wise OpenAPI schema, updated daily</Description>
+        <Description>A Kiota client for Wise profiles, quotes, recipients, transfers, balances, cards, and webhooks.</Description>
         <Version Condition="'$(BUILD_VERSION)' == ''">4.0.0</Version>
         <Version Condition="'$(BUILD_VERSION)' != ''">$(BUILD_VERSION)</Version>
         <AssemblyName>Soenneker.Wise.OpenApiClient</AssemblyName>
