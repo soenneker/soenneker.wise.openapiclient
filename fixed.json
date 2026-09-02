@@ -24998,7 +24998,7 @@
           "reference": {
             "maxLength": 250,
             "type": "string",
-            "description": "Recipient will see this reference text in their bank statement. Maximum allowed characters depends on the currency route.\n         [Business Payments Tips](https://wise.com/help/articles/2932870/tips-for-paying-invoices) for a full list",
+            "description": "Recipient will see this reference text in their bank statement. Maximum allowed characters depends on the currency route.\n         Reference must be null or non-blank.\n         [Business Payments Tips](https://wise.com/help/articles/2932870/tips-for-paying-invoices) for a full list",
             "example": "T12789649"
           }
         }
@@ -25374,7 +25374,7 @@
             "example": "3522e360-356a-4e37-9f99-94a21898d8fa"
           },
           "details": {
-            "description": "Data block to capture payment details.",
+            "description": "Data block to capture payment details. This is a map of key-value pairs and all values must be string.",
             "$ref": "#/components/schemas/Details"
           },
           "originator": {
@@ -57683,7 +57683,7 @@
     },
     {
       "name": "gpi-tracking",
-      "description": "Look up SWIFT gpi tracking data for a cross-border payment, by UETR or Wise transfer ID. Each match returns the payment\u0027s current status and status reason, the timeline of gpi events reported by the banks in the chain, the agent BICs that handled each leg, the amounts and exchange rate applied at each step, and any charges those banks deducted.\n",
+      "description": "Look up SWIFT gpi tracking data by UETR or Wise transfer ID. Each match returns the payment\u0027s current status and status reason, the timeline of gpi events reported by the banks in the chain, the agent BICs that handled each leg, the amounts and exchange rate applied at each step, and any charges those banks deducted.\n",
       "x-displayName": "GPI Tracking"
     },
     {

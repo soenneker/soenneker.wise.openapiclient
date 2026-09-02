@@ -8,14 +8,14 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Data block to capture payment details.
+    /// Data block to capture payment details. This is a map of key-value pairs and all values must be string.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class Details : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Recipient will see this reference text in their bank statement. Maximum allowed characters depends on the currency route.         [Business Payments Tips](https://wise.com/help/articles/2932870/tips-for-paying-invoices) for a full list</summary>
+        /// <summary>Recipient will see this reference text in their bank statement. Maximum allowed characters depends on the currency route.         Reference must be null or non-blank.         [Business Payments Tips](https://wise.com/help/articles/2932870/tips-for-paying-invoices) for a full list</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Reference { get; set; }

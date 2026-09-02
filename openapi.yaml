@@ -1414,11 +1414,11 @@ tags:
   - name: gpi-tracking
     x-displayName: GPI Tracking
     description: >
-      Look up SWIFT gpi tracking data for a cross-border payment, by UETR or
-      Wise transfer ID. Each match returns the payment's current status and
-      status reason, the timeline of gpi events reported by the banks in the
-      chain, the agent BICs that handled each leg, the amounts and exchange rate
-      applied at each step, and any charges those banks deducted.
+      Look up SWIFT gpi tracking data by UETR or Wise transfer ID. Each match
+      returns the payment's current status and status reason, the timeline of
+      gpi events reported by the banks in the chain, the agent BICs that handled
+      each leg, the amounts and exchange rate applied at each step, and any
+      charges those banks deducted.
   - name: user
     x-displayName: Users
     description: >
@@ -33173,6 +33173,7 @@ components:
           description: >-
             Recipient will see this reference text in their bank statement.
             Maximum allowed characters depends on the currency route.
+                     Reference must be null or non-blank.
                      [Business Payments Tips](https://wise.com/help/articles/2932870/tips-for-paying-invoices) for a full list
           example: T12789649
     Name:
@@ -33372,7 +33373,9 @@ components:
           example: 3522e360-356a-4e37-9f99-94a21898d8fa
         details:
           $ref: '#/components/schemas/Details'
-          description: Data block to capture payment details.
+          description: >-
+            Data block to capture payment details. This is a map of key-value
+            pairs and all values must be string.
         originator:
           $ref: '#/components/schemas/Originator'
           description: Data block to capture payment originator details.
