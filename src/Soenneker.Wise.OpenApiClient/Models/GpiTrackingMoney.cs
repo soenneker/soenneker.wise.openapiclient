@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Amount credited to the creditor&apos;s account. Present when status is `ACCC`.
+    /// A monetary value represented using the GPI tracking wire format.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class GpiTrackingMoney : IAdditionalDataHolder, IParsable

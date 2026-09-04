@@ -22,7 +22,7 @@
           "3ds"
         ],
         "summary": "Inform challenge result",
-        "description": "Once the customer has accepted or rejected the push notification for a 3DS challenge, you can use this endpoint to notify us of the result.\n\nYou must call this endpoint before the expiration time, otherwise it will return a 400 error. You can find the expiration information from the [3DS challenge webhook event](/api-reference/webhook-event/eventcards3dschallenge).\n\nOnly the first call to this endpoint will be processed. Any subsequent duplicate requests will be ignored, although you will still receive a success response.\n\n{% admonition type=\u0022warning\u0022 %}\nThis endpoint is SCA protected when it applies. If your profile is registered within the UK and/or EEA, SCA most likely applies to you. For more information, please read [implementing SCA](/guides/developer/auth-and-security/sca-and-2fa).\n{% /admonition %}\n",
+        "description": "Once the customer has accepted or rejected the push notification for a 3DS challenge, use this endpoint to notify Wise of the result.\n\nYou must call this endpoint before the expiration time (provided in the [3DS challenge webhook event](/api-reference/webhook-event/eventcards3dschallenge)), otherwise it will return a 400 error.\n\nOnly the first call to this endpoint is processed. Any subsequent duplicate requests are ignored, although you still receive a success response.\n\n{% admonition type=\u0022warning\u0022 name=\u0022SCA protected endpoint\u0022 %}\nThis endpoint is SCA protected. SCA requirements apply to profiles registered outside of the following regions: US, AU, NZ, SG, CA, MY. \n\nReview the [Strong Customer Authentication guide](/guides/developer/auth-and-security/sca-and-2fa) for more details.\n{% /admonition %}\n",
         "operationId": "Value3DsChallengeResultPost",
         "parameters": [
           {
@@ -1703,7 +1703,7 @@
           "balance-statement"
         ],
         "summary": "Get Balance Statement",
-        "description": "Retrieve a statement for the specified balance account.\n\nThe response format depends on the URL path:\n- \u0060statement.json\u0060 - JSON format\n- \u0060statement.csv\u0060 - CSV format\n- \u0060statement.pdf\u0060 - PDF format (includes Wise branding)\n- \u0060statement.xlsx\u0060 - Excel format\n- \u0060statement.xml\u0060 - CAMT.053 XML format\n- \u0060statement.mt940\u0060 - MT940 format\n- \u0060statement.qif\u0060 - QIF format\n\nThe period between \u0060intervalStart\u0060 and \u0060intervalEnd\u0060 cannot exceed 469 days (around 1 year 3 months).\n\n{% admonition type=\u0022warning\u0022 %}\nThis endpoint is SCA protected when it applies. If your profile is registered within the UK and/or EEA, SCA most likely applies to you.\nThe additional authentication is only required once every 90 days, viewing the statement on the website or in the mobile app counts towards that as well.\n\n[Learn more](/guides/developer/auth-and-security/sca-and-2fa)\n{% /admonition %}\n",
+        "description": "Retrieve a statement for the specified balance account.\n\nThe response format depends on the URL path:\n- \u0060statement.json\u0060 - JSON format\n- \u0060statement.csv\u0060 - CSV format\n- \u0060statement.pdf\u0060 - PDF format (includes Wise branding)\n- \u0060statement.xlsx\u0060 - Excel format\n- \u0060statement.xml\u0060 - CAMT.053 XML format\n- \u0060statement.mt940\u0060 - MT940 format\n- \u0060statement.qif\u0060 - QIF format\n\nThe period between \u0060intervalStart\u0060 and \u0060intervalEnd\u0060 cannot exceed 469 days (around 1 year 3 months).\n\n{% admonition type=\u0022warning\u0022 name=\u0022SCA protected endpoint\u0022 %}\nThis endpoint is SCA protected. SCA requirements apply to profiles registered outside of the following regions: US, AU, NZ, SG, CA, MY.\n\nThis additional authentication is only required once every 90 days.\n\nNote that viewing the statement on the website or in the mobile app also requires SCA. \n\nReview the [Strong Customer Authentication guide](/guides/developer/auth-and-security/sca-and-2fa) for more details.\n{% /admonition %}\n",
         "operationId": "BalanceStatementGet",
         "parameters": [
           {
@@ -2502,7 +2502,7 @@
           "batch-group"
         ],
         "summary": "Fund a batch group",
-        "description": "Funds all transfers in a batch group from a multi-currency account balance. Transfers are paid out immediately.\n\nThe batch group must first be completed, and there must be enough funds in the account for the whole batch. Otherwise, an insufficient funds error will be returned.\n\n{% admonition type=\u0022warning\u0022 %}\nThis endpoint is SCA protected when it applies. If your profile is registered within the UK and/or EEA, SCA most likely applies to you. For more information, please read [implementing SCA](/guides/developer/auth-and-security/sca-and-2fa).\n{% /admonition %}\n",
+        "description": "Funds all transfers in a batch group from a multi-currency account balance. Transfers are paid out immediately.\n\nThe batch group must first be completed and there must be enough funds in the account for the whole batch. Otherwise, an insufficient funds error is returned.\n\n{% admonition type=\u0022warning\u0022 name=\u0022SCA protected endpoint\u0022 %}\nThis endpoint is SCA protected. SCA requirements apply to profiles registered outside of the following regions: US, AU, NZ, SG, CA, MY. \n\nReview the [Strong Customer Authentication guide](/guides/developer/auth-and-security/sca-and-2fa) for more details.\n{% /admonition %}\n",
         "operationId": "BatchGroupFund",
         "parameters": [
           {
@@ -2582,7 +2582,7 @@
           "batch-group"
         ],
         "summary": "Fund a batch group via direct debit",
-        "description": "Funds all transfers in a batch group via direct debit. The batch group must be in the \u0060COMPLETED\u0060 state.\n\nTo use this funding method, you need to link an external bank account first. See [direct debit account creation](/api-reference/direct-debit-account/directdebitaccountcreate) for more information.\n\n{% admonition type=\u0022warning\u0022 %}\nThis endpoint is SCA protected when it applies. If your profile is registered within the UK and/or EEA, SCA most likely applies to you. For more information, please read [implementing SCA](/guides/developer/auth-and-security/sca-and-2fa).\n{% /admonition %}\n",
+        "description": "Funds all transfers in a batch group via direct debit. The batch group must be in the \u0060COMPLETED\u0060 state.\n\nTo use this funding method, you must link an external bank account first. See [direct debit account creation](/api-reference/direct-debit-account/directdebitaccountcreate) for more information.\n\n{% admonition type=\u0022warning\u0022 name=\u0022SCA protected endpoint\u0022 %}\nThis endpoint is SCA protected. SCA requirements apply to profiles registered outside of the following regions: US, AU, NZ, SG, CA, MY. \n\nReview the [Strong Customer Authentication guide](/guides/developer/auth-and-security/sca-and-2fa) for more details.\n{% /admonition %}\n",
         "operationId": "BatchGroupPaymentInitiationCreate",
         "parameters": [
           {
@@ -3342,7 +3342,7 @@
           "card-sensitive-details"
         ],
         "summary": "Get sensitive card details",
-        "description": "Fetches the card\u0027s Primary Account Number (PAN), security code (CVV2), expiry date, and cardholder name.\n\nRequires an encrypted JWE payload for security. See the [sensitive card details guide](/guides/product/issue-cards/sensitive-card-details) for implementation details.\n\nTo retrieve sensitive card details, the card must be in either \u0060ACTIVE\u0060 or \u0060FROZEN\u0060 status. A 403 response will be returned for cards in any other status.\n\n{% admonition type=\u0022warning\u0022 %}\nThis endpoint is SCA protected when applicable. If your profile is registered within the UK and/or EEA, SCA most likely applies. For more information, see [implementing SCA](/guides/developer/auth-and-security/sca-and-2fa).\n{% /admonition %}\n",
+        "description": "Fetches the card\u0027s Primary Account Number (PAN), security code (CVV2), expiry date, and cardholder name.\n\nRequires an encrypted JWE payload for security. See the [sensitive card details guide](/guides/product/issue-cards/sensitive-card-details) for implementation details.\n\nTo retrieve sensitive card details, the card must be in either \u0060ACTIVE\u0060 or \u0060FROZEN\u0060 status. A 403 response is returned for cards in any other status.\n\n{% admonition type=\u0022warning\u0022 name=\u0022SCA protected endpoint\u0022 %}\nThis endpoint is SCA protected. SCA requirements apply to profiles registered outside of the following regions: US, AU, NZ, SG, CA, MY. \n\nReview the [Strong Customer Authentication guide](/guides/developer/auth-and-security/sca-and-2fa) for more details.\n{% /admonition %}\n",
         "operationId": "CardSensitiveDetailsGet",
         "parameters": [
           {
@@ -3418,7 +3418,7 @@
           "card-sensitive-details"
         ],
         "summary": "Get card PIN",
-        "description": "Fetches the card\u0027s PIN.\n\nRequires an encrypted JWE payload for security. See the [sensitive card details guide](/guides/product/issue-cards/sensitive-card-details) for implementation details.\n\n{% admonition type=\u0022warning\u0022 %}\nThis endpoint is SCA protected when applicable. If your profile is registered within the UK and/or EEA, SCA most likely applies. For more information, see [implementing SCA](/guides/developer/auth-and-security/sca-and-2fa).\n{% /admonition %}\n",
+        "description": "Fetches the card\u0027s PIN.\n\nRequires an encrypted JWE payload for security. See the [sensitive card details guide](/guides/product/issue-cards/sensitive-card-details) for implementation details.\n\n{% admonition type=\u0022warning\u0022 name=\u0022SCA protected endpoint\u0022 %}\nThis endpoint is SCA protected. SCA requirements apply to profiles registered outside of the following regions: US, AU, NZ, SG, CA, MY. \n\nReview the [Strong Customer Authentication guide](/guides/developer/auth-and-security/sca-and-2fa) for more details.\n{% /admonition %}\n",
         "operationId": "CardPinGet",
         "parameters": [
           {
@@ -17914,7 +17914,7 @@
           "transfer"
         ],
         "summary": "Cancel a transfer",
-        "description": "Transfers may be cancelled up until the transfer has been processed and funds converted. Cancellation is final \u2014 it cannot be undone.\n\n{% admonition type=\u0022info\u0022 name=\u0022When can a transfer be cancelled?\u0022 %}\nA transfer can only be cancelled programmatically via the API if it meets **all** of the following criteria:\n\n- The transfer is not in \u0060funds_converted\u0060 or later state.\n- There are no processing problems with the transfer.\n\nIf the transfer does not meet these criteria, the API will return a **409 Conflict** error with the code \u0060transfer.cancellation.not.allowed\u0060.\n\nFor more information about transfer states, see [Tracking Transfers](/guides/product/send-money/tracking-transfers#transfer-statuses).\n{% /admonition %}\n",
+        "description": "Transfers can be cancelled via API when they are in the \u0060incoming_payment_waiting\u0060 state. \n\nIf the transfer is being held for compliance-related reasons or has moved into the \u0060funds_converted\u0060 state, the API will return a **409 Conflict** error with the code \u0060transfer.cancellation.not.allowed\u0060.\n\n{% admonition type=\u0022info\u0022 %}\nSome special conditions can apply for Embedded Solutions partners. Discuss with your implementation team for details.\n{% /admonition %}\n",
         "operationId": "TransferCancel",
         "parameters": [
           {
@@ -18593,7 +18593,7 @@
           "transfer"
         ],
         "summary": "Fund a Transfer",
-        "description": "\n    {% admonition type=\u0022warning\u0022 %}\n      This endpoint is SCA protected when it applies. If your profile is registered within the UK and/or EEA, SCA most likely applies to you.\n      Please read more about [implementing SCA](/guides/developer/auth-and-security/sca-and-2fa).\n    {% /admonition %}\n\n    This API call is the final step for executing payouts when using a balance with Wise. Upon calling the endpoint, Wise will begin the processing of the transfer, depending on the status of funds.\n\n    When using the transfer by transfer settlement model, the following funding type(s) must be used:\n\n    * **BALANCE** \u2014 Funds are pulled from a multi-currency account held with Wise.\n\n    When funding through the Bulk Settlement model, the following funding type(s) must be used:\n\n    * **TRUSTED_PRE_FUND_BULK** \u2014 Funds for the transfer will be settled through a bulk payment at a later date. This method is not applicable for First Party partner account transfers.\n\n    If funding from \u0060BALANCE\u0060, and your multi-currency account does not have the required funds to complete the action, then this call will fail with an \u0022insufficient funds\u0022 error. Once funds are added and available, you must call this endpoint again.\n    ",
+        "description": "\n    {% admonition type=\u0022warning\u0022 %}\n      This endpoint is SCA protected when it applies. If your profile is registered within the UK and/or EEA, SCA most likely applies to you.\n      Please read more about [implementing SCA](/guides/developer/auth-and-security/sca-and-2fa).\n    {% /admonition %}\n\n    This API call is the final step for executing payouts when using a balance with Wise. Upon calling the endpoint, Wise will begin the processing of the transfer, depending on the status of funds.\n\n    When using the transfer by transfer settlement model, the following funding type(s) must be used:\n\n    * **BALANCE** \u2014 Funds are pulled from a multi-currency account held with Wise.\n\n    When funding through the Bulk Settlement model, the following funding type(s) must be used:\n\n    * **TRUSTED_PRE_FUND_BULK** \u2014 Funds for the transfer will be settled through a bulk payment at a later date. This method is not applicable for First Party partner account transfers.\n\n    If funding from \u0060BALANCE\u0060, and your multi-currency account does not have the required funds to complete the action, then this call will fail with an \u0022insufficient funds\u0022 error. Once funds are added and available, you must call this endpoint again.",
         "operationId": "TransferFund",
         "parameters": [
           {
@@ -19217,84 +19217,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GetIncomingTransferResponseContent"
-                },
-                "examples": {
-                  "credited-swift-transfer": {
-                    "summary": "Credited SWIFT incoming transfer",
-                    "value": {
-                      "id": "123e4567-e89b-12d3-a456-426614174000",
-                      "profileId": 12345678,
-                      "balanceId": "555555",
-                      "accountDetailsId": "987654",
-                      "state": "CREDITED",
-                      "creditTransferType": "CUSTOMER_CREDIT_TRANSFER",
-                      "scheme": "SWIFT",
-                      "endToEndId": "INVOICE-2026-998",
-                      "uetr": "123e4567-e89b-42d3-a456-426614174000",
-                      "unstructuredReference": "/RFB/INV-2025-001",
-                      "creditedTime": "2025-08-21T12:34:56.000Z",
-                      "debtor": {
-                        "name": "Sarah Jenkins",
-                        "address": {
-                          "streetName": "Clifton Street",
-                          "buildingNumber": "65",
-                          "townName": "London",
-                          "postCode": "EC2A 4JE",
-                          "country": "GB",
-                          "addressLines": [
-                            "1st Floor, Worship Square",
-                            "EV2A 4JE"
-                          ]
-                        },
-                        "account": {
-                          "number": "GB29NWBK60161331926819"
-                        },
-                        "agent": {
-                          "bic": "TRWIGB2L",
-                          "nationalCode": "230801",
-                          "name": "Wise Payments Ltd"
-                        }
-                      },
-                      "creditor": {
-                        "name": "Sarah Jenkins",
-                        "account": {
-                          "number": "BE71096123456769"
-                        },
-                        "agent": {
-                          "bic": "TRWIBEB1",
-                          "name": "Wise"
-                        }
-                      },
-                      "amounts": {
-                        "instructed": {
-                          "value": 1000,
-                          "currency": "USD"
-                        },
-                        "interbankSettlement": {
-                          "value": 1000,
-                          "currency": "USD"
-                        },
-                        "credited": {
-                          "value": 625.25,
-                          "currency": "EUR"
-                        }
-                      },
-                      "exchangeRate": 0.6325,
-                      "chargeBearer": "SHARED",
-                      "previousInstructingAgents": [],
-                      "fees": {
-                        "wise": [
-                          {
-                            "type": "OTHER",
-                            "value": 7.25,
-                            "currency": "EUR"
-                          }
-                        ],
-                        "correspondent": []
-                      }
-                    }
-                  }
+                  "$ref": "#/components/schemas/IncomingTransfer"
                 }
               }
             }
@@ -23392,6 +23315,9 @@
       },
       "Profile": {
         "title": "Profile",
+        "required": [
+          "type"
+        ],
         "type": "object",
         "oneOf": [
           {
@@ -23543,6 +23469,9 @@
               "$ref": "#/components/schemas/Address2"
             },
             "description": "An array of operational addresses for the business."
+          },
+          "type": {
+            "type": "string"
           }
         },
         "description": "A profile represents an identity that can send and receive money through Wise. There are two types: **Personal** (an individual) and **Business** (a company). The fields returned vary depending on the profile type.\n",
@@ -25268,6 +25197,9 @@
         }
       },
       "Originator": {
+        "required": [
+          "legalEntityType"
+        ],
         "type": "object",
         "oneOf": [
           {
@@ -25826,6 +25758,9 @@
         }
       },
       "FundingRequest": {
+        "required": [
+          "type"
+        ],
         "type": "object",
         "oneOf": [
           {
@@ -26144,6 +26079,9 @@
         }
       },
       "FundingResponse": {
+        "required": [
+          "type"
+        ],
         "type": "object",
         "oneOf": [
           {
@@ -26844,7 +26782,7 @@
           }
         }
       },
-      "GetIncomingTransferResponseContent": {
+      "IncomingTransfer": {
         "required": [
           "amounts",
           "balanceId",
@@ -42865,6 +42803,9 @@
         }
       },
       "OAuthTokenCreateXWwwFormUrlencodedRequest": {
+        "required": [
+          "grant_type"
+        ],
         "type": "object",
         "oneOf": [
           {
@@ -42906,6 +42847,9 @@
           "refresh_token": {
             "type": "string",
             "description": "Refresh token obtained from a \u0060registration_code\u0060 or \u0060authorization_code\u0060 grant."
+          },
+          "grant_type": {
+            "type": "string"
           }
         },
         "discriminator": {
@@ -45230,6 +45174,9 @@
       },
       "EventTransfersActiveCasesRequest": {
         "title": "Transfer Active Cases Event",
+        "required": [
+          "schema_version"
+        ],
         "type": "object",
         "oneOf": [
           {
@@ -45256,6 +45203,9 @@
             "description": "Timestamp when the event was sent.",
             "format": "date-time",
             "example": "2020-01-01T12:34:56.123Z"
+          },
+          "schema_version": {
+            "type": "string"
           }
         },
         "discriminator": {
@@ -45279,6 +45229,9 @@
       },
       "EventTransfersRefundRequest": {
         "title": "Transfer Refund Event",
+        "required": [
+          "schema_version"
+        ],
         "type": "object",
         "oneOf": [
           {
@@ -45305,6 +45258,9 @@
             "description": "Timestamp when the event was sent.",
             "format": "date-time",
             "example": "2024-01-01T12:34:56.123Z"
+          },
+          "schema_version": {
+            "type": "string"
           }
         },
         "discriminator": {
@@ -45328,6 +45284,9 @@
       },
       "EventTransfersPayoutFailureRequest": {
         "title": "Transfer Payout Failure Event",
+        "required": [
+          "schema_version"
+        ],
         "type": "object",
         "oneOf": [
           {
@@ -45357,6 +45316,9 @@
             "description": "Timestamp when the event was sent.",
             "format": "date-time",
             "example": "2023-08-10T10:17:28.123Z"
+          },
+          "schema_version": {
+            "type": "string"
           }
         },
         "discriminator": {
@@ -45382,6 +45344,9 @@
       },
       "EventTransfersStateChangeRequest": {
         "title": "Transfer State Change Event",
+        "required": [
+          "schema_version"
+        ],
         "type": "object",
         "oneOf": [
           {
@@ -45408,6 +45373,9 @@
             "description": "Timestamp when the event was sent.",
             "format": "date-time",
             "example": "2020-01-01T12:34:56.123Z"
+          },
+          "schema_version": {
+            "type": "string"
           }
         },
         "discriminator": {
@@ -45431,6 +45399,9 @@
       },
       "EventAccountDetailsOrderStateChangeRequest": {
         "title": "Account Details Order State Change Event",
+        "required": [
+          "schema_version"
+        ],
         "type": "object",
         "oneOf": [
           {
@@ -45457,6 +45428,9 @@
             "description": "Timestamp when the event was sent.",
             "format": "date-time",
             "example": "2025-08-08T07:49:31.123Z"
+          },
+          "schema_version": {
+            "type": "string"
           }
         },
         "discriminator": {
@@ -45480,6 +45454,9 @@
       },
       "EventAccountDetailsPaymentStateChangeRequest": {
         "title": "Account Details Payment State Change Event",
+        "required": [
+          "schema_version"
+        ],
         "type": "object",
         "oneOf": [
           {
@@ -45506,6 +45483,9 @@
             "description": "Timestamp when the event was sent.",
             "format": "date-time",
             "example": "2024-01-01T12:34:56.123Z"
+          },
+          "schema_version": {
+            "type": "string"
           }
         },
         "discriminator": {
@@ -45529,6 +45509,9 @@
       },
       "EventCardsCardStatusChangeRequest": {
         "title": "Card Status Change Event",
+        "required": [
+          "schema_version"
+        ],
         "type": "object",
         "oneOf": [
           {
@@ -45555,6 +45538,9 @@
             "description": "Timestamp when the event was sent.",
             "format": "date-time",
             "example": "2022-08-22T07:59:50.123Z"
+          },
+          "schema_version": {
+            "type": "string"
           }
         },
         "discriminator": {
@@ -45578,6 +45564,9 @@
       },
       "EventCardsCardProductionStatusChangeRequest": {
         "title": "Card Production Status Change Event",
+        "required": [
+          "schema_version"
+        ],
         "type": "object",
         "oneOf": [
           {
@@ -45604,6 +45593,9 @@
             "description": "Timestamp when the event was sent.",
             "format": "date-time",
             "example": "2024-01-01T12:34:56.123Z"
+          },
+          "schema_version": {
+            "type": "string"
           }
         },
         "discriminator": {
@@ -45627,6 +45619,9 @@
       },
       "EventCards3DsChallengeRequest": {
         "title": "3DS Challenge Event",
+        "required": [
+          "schema_version"
+        ],
         "type": "object",
         "oneOf": [
           {
@@ -45653,6 +45648,9 @@
             "description": "Timestamp when the event was sent.",
             "format": "date-time",
             "example": "2024-09-05T06:47:15.123Z"
+          },
+          "schema_version": {
+            "type": "string"
           }
         },
         "discriminator": {
@@ -45676,6 +45674,9 @@
       },
       "EventCardsCardOrderStatusChangeRequest": {
         "title": "Card Order Status Change Event",
+        "required": [
+          "schema_version"
+        ],
         "type": "object",
         "oneOf": [
           {
@@ -45702,6 +45703,9 @@
             "description": "Timestamp when the event was sent.",
             "format": "date-time",
             "example": "2023-01-01T12:34:56.123Z"
+          },
+          "schema_version": {
+            "type": "string"
           }
         },
         "discriminator": {
@@ -45725,6 +45729,9 @@
       },
       "EventCardsTransactionStateChangeRequest": {
         "title": "Card Transaction State Change Event",
+        "required": [
+          "schema_version"
+        ],
         "type": "object",
         "oneOf": [
           {
@@ -45754,6 +45761,9 @@
             "description": "Timestamp when the event was sent.",
             "format": "date-time",
             "example": "2022-08-15T11:10:46.123Z"
+          },
+          "schema_version": {
+            "type": "string"
           }
         },
         "discriminator": {
@@ -45797,6 +45807,9 @@
       },
       "EventProfilesCddCheckStateChangeRequest": {
         "title": "Additional Verification State Change Event",
+        "required": [
+          "schema_version"
+        ],
         "type": "object",
         "oneOf": [
           {
@@ -45823,6 +45836,9 @@
             "description": "Timestamp when the event was sent.",
             "format": "date-time",
             "example": "2020-01-01T12:34:56.123Z"
+          },
+          "schema_version": {
+            "type": "string"
           }
         },
         "discriminator": {
@@ -45846,6 +45862,9 @@
       },
       "EventProfilesOverdraftLimitThresholdRequest": {
         "title": "Overdraft Limit Threshold Event",
+        "required": [
+          "schema_version"
+        ],
         "type": "object",
         "oneOf": [
           {
@@ -45872,6 +45891,9 @@
             "description": "Timestamp when the event was sent.",
             "format": "date-time",
             "example": "2020-01-01T12:34:56.123Z"
+          },
+          "schema_version": {
+            "type": "string"
           }
         },
         "discriminator": {
@@ -45895,6 +45917,9 @@
       },
       "EventProfilesStateChangeRequest": {
         "title": "Profile State Change Event",
+        "required": [
+          "schema_version"
+        ],
         "type": "object",
         "oneOf": [
           {
@@ -45921,6 +45946,9 @@
             "description": "Timestamp when the event was sent.",
             "format": "date-time",
             "example": "2020-01-01T12:34:56.123Z"
+          },
+          "schema_version": {
+            "type": "string"
           }
         },
         "discriminator": {
@@ -45944,6 +45972,9 @@
       },
       "EventProfilesVerificationStateChangeRequest": {
         "title": "Profile Verification State Change Event",
+        "required": [
+          "schema_version"
+        ],
         "type": "object",
         "oneOf": [
           {
@@ -45970,6 +46001,9 @@
             "description": "Timestamp when the event was sent.",
             "format": "date-time",
             "example": "2020-01-01T12:34:56.123Z"
+          },
+          "schema_version": {
+            "type": "string"
           }
         },
         "discriminator": {
@@ -45993,6 +46027,9 @@
       },
       "EventKycReviewsStateChangeRequest": {
         "title": "KYC Review State Change Event",
+        "required": [
+          "schema_version"
+        ],
         "type": "object",
         "oneOf": [
           {
@@ -46022,6 +46059,9 @@
             "description": "Timestamp when the event was sent.",
             "format": "date-time",
             "example": "2024-09-03T16:29:42.123Z"
+          },
+          "schema_version": {
+            "type": "string"
           }
         },
         "discriminator": {
@@ -46047,6 +46087,9 @@
       },
       "EventUsersStateChangeRequest": {
         "title": "User State Change Event",
+        "required": [
+          "schema_version"
+        ],
         "type": "object",
         "oneOf": [
           {
@@ -46073,6 +46116,9 @@
             "description": "Timestamp when the event was sent.",
             "format": "date-time",
             "example": "2020-01-01T12:34:56.123Z"
+          },
+          "schema_version": {
+            "type": "string"
           }
         },
         "discriminator": {
@@ -46096,6 +46142,9 @@
       },
       "EventBalancesUpdateRequest": {
         "title": "Balance Update Event",
+        "required": [
+          "schema_version"
+        ],
         "type": "object",
         "oneOf": [
           {
@@ -46128,6 +46177,9 @@
             "description": "Timestamp when the event was sent.",
             "format": "date-time",
             "example": "2023-03-08T14:55:39.456Z"
+          },
+          "schema_version": {
+            "type": "string"
           }
         },
         "discriminator": {
@@ -46155,6 +46207,9 @@
       },
       "EventBalancesAccountStateChangeRequest": {
         "title": "Balance Account State Change Event",
+        "required": [
+          "schema_version"
+        ],
         "type": "object",
         "oneOf": [
           {
@@ -46181,6 +46236,9 @@
             "description": "Timestamp when the event was sent.",
             "format": "date-time",
             "example": "2020-01-01T12:34:56.123Z"
+          },
+          "schema_version": {
+            "type": "string"
           }
         },
         "discriminator": {
@@ -46204,6 +46262,9 @@
       },
       "EventBatchPaymentInitiationsStateChangeRequest": {
         "title": "Batch Payment Initiations State Change Event",
+        "required": [
+          "schema_version"
+        ],
         "type": "object",
         "oneOf": [
           {
@@ -46230,6 +46291,9 @@
             "description": "Timestamp when the event was sent.",
             "format": "date-time",
             "example": "2020-01-01T12:34:56.123Z"
+          },
+          "schema_version": {
+            "type": "string"
           }
         },
         "discriminator": {
@@ -46253,6 +46317,9 @@
       },
       "EventPartnerSupportCaseChangedRequest": {
         "title": "Partner Support Case Changed Event",
+        "required": [
+          "schema_version"
+        ],
         "type": "object",
         "oneOf": [
           {
@@ -46282,6 +46349,9 @@
             "description": "Timestamp when the event was sent.",
             "format": "date-time",
             "example": "2023-06-23T09:45:36.123Z"
+          },
+          "schema_version": {
+            "type": "string"
           }
         },
         "discriminator": {
@@ -46307,6 +46377,9 @@
       },
       "EventSwiftInCreditRequest": {
         "title": "Swift In Credit Event",
+        "required": [
+          "schema_version"
+        ],
         "type": "object",
         "oneOf": [
           {
@@ -46342,6 +46415,9 @@
             "description": "Timestamp when the event was sent.",
             "format": "date-time",
             "example": "2023-08-21T12:34:58.123Z"
+          },
+          "schema_version": {
+            "type": "string"
           }
         },
         "discriminator": {
@@ -46371,6 +46447,9 @@
       },
       "EventSwiftMessageReceivedRequest": {
         "title": "Swift Message Received Event",
+        "required": [
+          "schema_version"
+        ],
         "type": "object",
         "oneOf": [
           {
@@ -46421,6 +46500,9 @@
       },
       "EventTransactionDisputesUpdateRequest": {
         "title": "Transaction Disputes Update Event",
+        "required": [
+          "schema_version"
+        ],
         "type": "object",
         "oneOf": [
           {
@@ -46447,6 +46529,9 @@
             "description": "Timestamp when the event was sent.",
             "format": "date-time",
             "example": "2024-04-18T06:36:17.123Z"
+          },
+          "schema_version": {
+            "type": "string"
           }
         },
         "discriminator": {
@@ -46470,6 +46555,9 @@
       },
       "EventBulkSettlementPaymentReceivedRequest": {
         "title": "Bulk Settlement Payment Received Event",
+        "required": [
+          "schema_version"
+        ],
         "type": "object",
         "oneOf": [
           {
@@ -46499,6 +46587,9 @@
             "description": "Timestamp when the event was sent.",
             "format": "date-time",
             "example": "2024-04-18T06:36:17.123Z"
+          },
+          "schema_version": {
+            "type": "string"
           }
         },
         "discriminator": {
@@ -46524,6 +46615,9 @@
       },
       "EventIncomingTransferCreditedRequest": {
         "title": "Incoming Transfer Credited Event",
+        "required": [
+          "schema_version"
+        ],
         "type": "object",
         "oneOf": [
           {
@@ -46574,6 +46668,9 @@
       },
       "EventRecipientsStateChangeRequest": {
         "title": "Recipient State Change Event",
+        "required": [
+          "schema_version"
+        ],
         "type": "object",
         "oneOf": [
           {
@@ -57583,7 +57680,7 @@
     },
     {
       "name": "case",
-      "description": "Cases enable you to open, retrieve, and respond to support and operations queries through direct API.\n\nThe Partner Support API allows you to integrate your back-end tooling, enabling:\n- Faster responses through automated workflows\n- Structured data via typed messages and submissions\n- Operational efficiencies with programmatic case management\n\n**Case statuses**\n- cases can move through different statuses.\n  \n| Status | Description | Partner Action |\n|--------|-------------|----------------|\n| \u0060CREATING\u0060 | Case being created | Wait |\n| \u0060IN_REVIEW\u0060 | Case being actioned | No action needed |\n| \u0060WAITING_CUSTOMER_INPUT\u0060 | Information required | Respond |\n| \u0060RESOLVED\u0060 | Case solved and closed | None |\n| \u0060FAILED\u0060 | Case creation failed | Contact support |\n\n{% img src=\u0022/images/diagrams/case-status-flow-v2.svg\u0022 /%}\n\n**Message types**\n- Messages are typed and structured:\n\nRequest messages:\n- \u0060DEPOSIT_SANCTION_HIT_REQUEST\u0060\n- \u0060RECIPIENT_SANCTION_HIT_REQUEST\u0060\n- \u0060REFERENCE_SANCTION_HIT_REQUEST\u0060\n- \u0060RECIPIENT_LOCATION_HIT_REQUEST\u0060\n- \u0060REFERENCE_LOCATION_HIT_REQUEST\u0060\n- \u0060FREEFORM\u0060 - Free text communication\n\nSubmission messages (from partner):\n- \u0060*_SUBMISSION\u0060 - Structured response to requests\n- \u0060FREEFORM\u0060 - Free text communication",
+      "description": "Cases enable you to open, retrieve, and respond to support and operations queries through direct API.\n\nThe Partner Support API allows you to integrate your back-end tooling, enabling:\n- Faster responses through automated workflows\n- Structured data via typed messages and submissions\n- Operational efficiencies with programmatic case management\n\n**Case statuses**\n- cases can move through different statuses.\n| Status | Description | Partner Action |\n|--------|-------------|----------------|\n| \u0060CREATING\u0060 | Case being created | Wait |\n| \u0060IN_REVIEW\u0060 | Case being actioned | No action needed |\n| \u0060WAITING_CUSTOMER_INPUT\u0060 | Information required | Respond |\n| \u0060RESOLVED\u0060 | Case solved and closed | None |\n| \u0060FAILED\u0060 | Case creation failed | Contact support |\n\n{% img src=\u0022/images/diagrams/case-status-flow-v2.svg\u0022 /%}\n\n**Message types**\n- Messages are typed and structured:\n\nRequest messages:\n- \u0060DEPOSIT_SANCTION_HIT_REQUEST\u0060\n- \u0060RECIPIENT_SANCTION_HIT_REQUEST\u0060\n- \u0060REFERENCE_SANCTION_HIT_REQUEST\u0060\n- \u0060RECIPIENT_LOCATION_HIT_REQUEST\u0060\n- \u0060REFERENCE_LOCATION_HIT_REQUEST\u0060\n- \u0060FREEFORM\u0060 - Free text communication\n\nSubmission messages (from partner):\n- \u0060*_SUBMISSION\u0060 - Structured response to requests\n- \u0060FREEFORM\u0060 - Free text communication",
       "x-displayName": "Cases"
     },
     {
@@ -57761,7 +57858,7 @@
           "transfer"
         ],
         "summary": "Transfer refund",
-        "description": "This event provides information about refund amount and currency. Triggered every time a transfer\u0027s status becomes \u0060funds_refunded\u0060. \n    \n* Event type: \u0060transfers#refund\u0060\n* Profile level subscriptions: Supported\n* Application level subscriptions: Supported\n\n{% admonition type=\u0022info\u0022 %}\nIn sandbox, the refund amount in this webhook is simulated. It may not reflect the amount in account balances or the sandbox UI. See [Simulate transfer state change](/api-reference/simulation/simulationtransferstatechange#sandbox-refund) for details about sandbox refund behaviour.\n{% /admonition %}\n\nEach event contains a timestamp. Events may not be delivered in the order they occurred. Use \u0060data.occurred_at\u0060 to reconcile the order.\nSee the [Event ordering guide](/guides/developer/webhooks/event-ordering) for details.\n\nSee the [Webhooks guide](/guides/developer/webhooks) for setup instructions, signature verification, and best practices.\n",
+        "description": "This event provides information about refund amount and currency. Triggered every time a transfer\u0027s status becomes \u0060funds_refunded\u0060. \n* Event type: \u0060transfers#refund\u0060\n* Profile level subscriptions: Supported\n* Application level subscriptions: Supported\n\n{% admonition type=\u0022info\u0022 %}\nIn sandbox, the refund amount in this webhook is simulated. It may not reflect the amount in account balances or the sandbox UI. See [Simulate transfer state change](/api-reference/simulation/simulationtransferstatechange#sandbox-refund) for details about sandbox refund behaviour.\n{% /admonition %}\n\nEach event contains a timestamp. Events may not be delivered in the order they occurred. Use \u0060data.occurred_at\u0060 to reconcile the order.\nSee the [Event ordering guide](/guides/developer/webhooks/event-ordering) for details.\n\nSee the [Webhooks guide](/guides/developer/webhooks) for setup instructions, signature verification, and best practices.\n",
         "operationId": "EventTransfersRefund",
         "parameters": [
           {

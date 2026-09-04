@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Cancellation request status conveyed by this event.
+    /// Cancellation request status reported for an event.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class GpiTrackingCancellationRequestStatus : IAdditionalDataHolder, IParsable

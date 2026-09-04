@@ -7,11 +7,10 @@ using System.IO;
 using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
-    /// <summary>
-    /// The debtor (ordering party) of the incoming transfer.
-    /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    #pragma warning disable CS1591
     public partial class Debtor : IAdditionalDataHolder, IParsable
+    #pragma warning restore CS1591
     {
         /// <summary>Account details of the debtor</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER

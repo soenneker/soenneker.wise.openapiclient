@@ -7,11 +7,10 @@ using System.IO;
 using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
-    /// <summary>
-    /// Payment amount waterfall representing the flow of funds: instructed → interbankSettlement → credited.
-    /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    #pragma warning disable CS1591
     public partial class Amounts : IAdditionalDataHolder, IParsable
+    #pragma warning restore CS1591
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }

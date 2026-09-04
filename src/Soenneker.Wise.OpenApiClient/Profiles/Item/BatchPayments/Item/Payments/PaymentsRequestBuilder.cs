@@ -34,7 +34,7 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.Item.BatchPayments.Item.Payments
         {
         }
         /// <summary>
-        /// Funds all transfers in a batch group from a multi-currency account balance. Transfers are paid out immediately.The batch group must first be completed, and there must be enough funds in the account for the whole batch. Otherwise, an insufficient funds error will be returned.{% admonition type=&quot;warning&quot; %}This endpoint is SCA protected when it applies. If your profile is registered within the UK and/or EEA, SCA most likely applies to you. For more information, please read [implementing SCA](/guides/developer/auth-and-security/sca-and-2fa).{% /admonition %}
+        /// Funds all transfers in a batch group from a multi-currency account balance. Transfers are paid out immediately.The batch group must first be completed and there must be enough funds in the account for the whole batch. Otherwise, an insufficient funds error is returned.{% admonition type=&quot;warning&quot; name=&quot;SCA protected endpoint&quot; %}This endpoint is SCA protected. SCA requirements apply to profiles registered outside of the following regions: US, AU, NZ, SG, CA, MY. Review the [Strong Customer Authentication guide](/guides/developer/auth-and-security/sca-and-2fa) for more details.{% /admonition %}
         /// </summary>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.BatchGroupFund200Response"/></returns>
         /// <param name="body">The request body</param>
@@ -59,7 +59,7 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.Item.BatchPayments.Item.Payments
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.BatchGroupFund200Response>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.BatchGroupFund200Response.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Funds all transfers in a batch group from a multi-currency account balance. Transfers are paid out immediately.The batch group must first be completed, and there must be enough funds in the account for the whole batch. Otherwise, an insufficient funds error will be returned.{% admonition type=&quot;warning&quot; %}This endpoint is SCA protected when it applies. If your profile is registered within the UK and/or EEA, SCA most likely applies to you. For more information, please read [implementing SCA](/guides/developer/auth-and-security/sca-and-2fa).{% /admonition %}
+        /// Funds all transfers in a batch group from a multi-currency account balance. Transfers are paid out immediately.The batch group must first be completed and there must be enough funds in the account for the whole batch. Otherwise, an insufficient funds error is returned.{% admonition type=&quot;warning&quot; name=&quot;SCA protected endpoint&quot; %}This endpoint is SCA protected. SCA requirements apply to profiles registered outside of the following regions: US, AU, NZ, SG, CA, MY. Review the [Strong Customer Authentication guide](/guides/developer/auth-and-security/sca-and-2fa) for more details.{% /admonition %}
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>

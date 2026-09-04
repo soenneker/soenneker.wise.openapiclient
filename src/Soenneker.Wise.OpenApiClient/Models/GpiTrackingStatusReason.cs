@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Sub-status detail, present when status is `ACSP`.
+    /// SWIFT gpi ACSP sub-status (transaction_status_reason).
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class GpiTrackingStatusReason : IAdditionalDataHolder, IParsable

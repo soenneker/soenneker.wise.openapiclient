@@ -47,7 +47,7 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.Item.BatchGroups.Item.PaymentIni
         {
         }
         /// <summary>
-        /// Funds all transfers in a batch group via direct debit. The batch group must be in the `COMPLETED` state.To use this funding method, you need to link an external bank account first. See [direct debit account creation](/api-reference/direct-debit-account/directdebitaccountcreate) for more information.{% admonition type=&quot;warning&quot; %}This endpoint is SCA protected when it applies. If your profile is registered within the UK and/or EEA, SCA most likely applies to you. For more information, please read [implementing SCA](/guides/developer/auth-and-security/sca-and-2fa).{% /admonition %}
+        /// Funds all transfers in a batch group via direct debit. The batch group must be in the `COMPLETED` state.To use this funding method, you must link an external bank account first. See [direct debit account creation](/api-reference/direct-debit-account/directdebitaccountcreate) for more information.{% admonition type=&quot;warning&quot; name=&quot;SCA protected endpoint&quot; %}This endpoint is SCA protected. SCA requirements apply to profiles registered outside of the following regions: US, AU, NZ, SG, CA, MY. Review the [Strong Customer Authentication guide](/guides/developer/auth-and-security/sca-and-2fa) for more details.{% /admonition %}
         /// </summary>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiation"/></returns>
         /// <param name="body">The request body</param>
@@ -72,7 +72,7 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.Item.BatchGroups.Item.PaymentIni
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiation>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiation.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Funds all transfers in a batch group via direct debit. The batch group must be in the `COMPLETED` state.To use this funding method, you need to link an external bank account first. See [direct debit account creation](/api-reference/direct-debit-account/directdebitaccountcreate) for more information.{% admonition type=&quot;warning&quot; %}This endpoint is SCA protected when it applies. If your profile is registered within the UK and/or EEA, SCA most likely applies to you. For more information, please read [implementing SCA](/guides/developer/auth-and-security/sca-and-2fa).{% /admonition %}
+        /// Funds all transfers in a batch group via direct debit. The batch group must be in the `COMPLETED` state.To use this funding method, you must link an external bank account first. See [direct debit account creation](/api-reference/direct-debit-account/directdebitaccountcreate) for more information.{% admonition type=&quot;warning&quot; name=&quot;SCA protected endpoint&quot; %}This endpoint is SCA protected. SCA requirements apply to profiles registered outside of the following regions: US, AU, NZ, SG, CA, MY. Review the [Strong Customer Authentication guide](/guides/developer/auth-and-security/sca-and-2fa) for more details.{% /admonition %}
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>

@@ -9,7 +9,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 {
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
-    public partial class GetIncomingTransferResponseContent : IAdditionalDataHolder, IParsable
+    public partial class IncomingTransfer : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
     {
         /// <summary>Account details ID that received the incoming transfer. A balance may have multiple accountdetails (e.g. multiple IBANs). This identifies the specific one that was credited. Omittedwhen the payment was received via correspondent model.</summary>
@@ -105,21 +105,21 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public string UnstructuredReference { get; set; }
 #endif
         /// <summary>
-        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.GetIncomingTransferResponseContent"/> and sets the default values.
+        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.IncomingTransfer"/> and sets the default values.
         /// </summary>
-        public GetIncomingTransferResponseContent()
+        public IncomingTransfer()
         {
             AdditionalData = new Dictionary<string, object>();
         }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.GetIncomingTransferResponseContent"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.IncomingTransfer"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static global::Soenneker.Wise.OpenApiClient.Models.GetIncomingTransferResponseContent CreateFromDiscriminatorValue(IParseNode parseNode)
+        public static global::Soenneker.Wise.OpenApiClient.Models.IncomingTransfer CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.GetIncomingTransferResponseContent();
+            return new global::Soenneker.Wise.OpenApiClient.Models.IncomingTransfer();
         }
         /// <summary>
         /// The deserialization information for the current model

@@ -1569,26 +1569,29 @@ paths:
         - UserToken: []
       description: >
         Once the customer has accepted or rejected the push notification for a
-        3DS challenge, you can use this endpoint to notify us of the result.
+        3DS challenge, use this endpoint to notify Wise of the result.
 
 
-        You must call this endpoint before the expiration time, otherwise it
-        will return a 400 error. You can find the expiration information from
-        the [3DS challenge webhook
-        event](/api-reference/webhook-event/eventcards3dschallenge).
+        You must call this endpoint before the expiration time (provided in the
+        [3DS challenge webhook
+        event](/api-reference/webhook-event/eventcards3dschallenge)), otherwise
+        it will return a 400 error.
 
 
-        Only the first call to this endpoint will be processed. Any subsequent
-        duplicate requests will be ignored, although you will still receive a
-        success response.
+        Only the first call to this endpoint is processed. Any subsequent
+        duplicate requests are ignored, although you still receive a success
+        response.
 
 
-        {% admonition type="warning" %}
+        {% admonition type="warning" name="SCA protected endpoint" %}
 
-        This endpoint is SCA protected when it applies. If your profile is
-        registered within the UK and/or EEA, SCA most likely applies to you. For
-        more information, please read [implementing
-        SCA](/guides/developer/auth-and-security/sca-and-2fa).
+        This endpoint is SCA protected. SCA requirements apply to profiles
+        registered outside of the following regions: US, AU, NZ, SG, CA, MY. 
+
+
+        Review the [Strong Customer Authentication
+        guide](/guides/developer/auth-and-security/sca-and-2fa) for more
+        details.
 
         {% /admonition %}
       parameters:
@@ -3627,17 +3630,22 @@ paths:
         days (around 1 year 3 months).
 
 
-        {% admonition type="warning" %}
+        {% admonition type="warning" name="SCA protected endpoint" %}
 
-        This endpoint is SCA protected when it applies. If your profile is
-        registered within the UK and/or EEA, SCA most likely applies to you.
-
-        The additional authentication is only required once every 90 days,
-        viewing the statement on the website or in the mobile app counts towards
-        that as well.
+        This endpoint is SCA protected. SCA requirements apply to profiles
+        registered outside of the following regions: US, AU, NZ, SG, CA, MY.
 
 
-        [Learn more](/guides/developer/auth-and-security/sca-and-2fa)
+        This additional authentication is only required once every 90 days.
+
+
+        Note that viewing the statement on the website or in the mobile app also
+        requires SCA. 
+
+
+        Review the [Strong Customer Authentication
+        guide](/guides/developer/auth-and-security/sca-and-2fa) for more
+        details.
 
         {% /admonition %}
       security:
@@ -4856,17 +4864,20 @@ paths:
         balance. Transfers are paid out immediately.
 
 
-        The batch group must first be completed, and there must be enough funds
+        The batch group must first be completed and there must be enough funds
         in the account for the whole batch. Otherwise, an insufficient funds
-        error will be returned.
+        error is returned.
 
 
-        {% admonition type="warning" %}
+        {% admonition type="warning" name="SCA protected endpoint" %}
 
-        This endpoint is SCA protected when it applies. If your profile is
-        registered within the UK and/or EEA, SCA most likely applies to you. For
-        more information, please read [implementing
-        SCA](/guides/developer/auth-and-security/sca-and-2fa).
+        This endpoint is SCA protected. SCA requirements apply to profiles
+        registered outside of the following regions: US, AU, NZ, SG, CA, MY. 
+
+
+        Review the [Strong Customer Authentication
+        guide](/guides/developer/auth-and-security/sca-and-2fa) for more
+        details.
 
         {% /admonition %}
       parameters:
@@ -5002,18 +5013,21 @@ paths:
         must be in the `COMPLETED` state.
 
 
-        To use this funding method, you need to link an external bank account
+        To use this funding method, you must link an external bank account
         first. See [direct debit account
         creation](/api-reference/direct-debit-account/directdebitaccountcreate)
         for more information.
 
 
-        {% admonition type="warning" %}
+        {% admonition type="warning" name="SCA protected endpoint" %}
 
-        This endpoint is SCA protected when it applies. If your profile is
-        registered within the UK and/or EEA, SCA most likely applies to you. For
-        more information, please read [implementing
-        SCA](/guides/developer/auth-and-security/sca-and-2fa).
+        This endpoint is SCA protected. SCA requirements apply to profiles
+        registered outside of the following regions: US, AU, NZ, SG, CA, MY. 
+
+
+        Review the [Strong Customer Authentication
+        guide](/guides/developer/auth-and-security/sca-and-2fa) for more
+        details.
 
         {% /admonition %}
       parameters:
@@ -5797,16 +5811,19 @@ paths:
 
 
         To retrieve sensitive card details, the card must be in either `ACTIVE`
-        or `FROZEN` status. A 403 response will be returned for cards in any
-        other status.
+        or `FROZEN` status. A 403 response is returned for cards in any other
+        status.
 
 
-        {% admonition type="warning" %}
+        {% admonition type="warning" name="SCA protected endpoint" %}
 
-        This endpoint is SCA protected when applicable. If your profile is
-        registered within the UK and/or EEA, SCA most likely applies. For more
-        information, see [implementing
-        SCA](/guides/developer/auth-and-security/sca-and-2fa).
+        This endpoint is SCA protected. SCA requirements apply to profiles
+        registered outside of the following regions: US, AU, NZ, SG, CA, MY. 
+
+
+        Review the [Strong Customer Authentication
+        guide](/guides/developer/auth-and-security/sca-and-2fa) for more
+        details.
 
         {% /admonition %}
       tags:
@@ -5898,12 +5915,15 @@ paths:
         implementation details.
 
 
-        {% admonition type="warning" %}
+        {% admonition type="warning" name="SCA protected endpoint" %}
 
-        This endpoint is SCA protected when applicable. If your profile is
-        registered within the UK and/or EEA, SCA most likely applies. For more
-        information, see [implementing
-        SCA](/guides/developer/auth-and-security/sca-and-2fa).
+        This endpoint is SCA protected. SCA requirements apply to profiles
+        registered outside of the following regions: US, AU, NZ, SG, CA, MY. 
+
+
+        Review the [Strong Customer Authentication
+        guide](/guides/developer/auth-and-security/sca-and-2fa) for more
+        details.
 
         {% /admonition %}
       tags:
@@ -21563,28 +21583,19 @@ paths:
       operationId: transferCancel
       summary: Cancel a transfer
       description: >
-        Transfers may be cancelled up until the transfer has been processed and
-        funds converted. Cancellation is final — it cannot be undone.
+        Transfers can be cancelled via API when they are in the
+        `incoming_payment_waiting` state. 
 
 
-        {% admonition type="info" name="When can a transfer be cancelled?" %}
-
-        A transfer can only be cancelled programmatically via the API if it
-        meets **all** of the following criteria:
-
-
-        - The transfer is not in `funds_converted` or later state.
-
-        - There are no processing problems with the transfer.
+        If the transfer is being held for compliance-related reasons or has
+        moved into the `funds_converted` state, the API will return a **409
+        Conflict** error with the code `transfer.cancellation.not.allowed`.
 
 
-        If the transfer does not meet these criteria, the API will return a
-        **409 Conflict** error with the code
-        `transfer.cancellation.not.allowed`.
+        {% admonition type="info" %}
 
-
-        For more information about transfer states, see [Tracking
-        Transfers](/guides/product/send-money/tracking-transfers#transfer-statuses).
+        Some special conditions can apply for Embedded Solutions partners.
+        Discuss with your implementation team for details.
 
         {% /admonition %}
       tags:
@@ -22634,65 +22645,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GetIncomingTransferResponseContent'
-              examples:
-                credited-swift-transfer:
-                  summary: Credited SWIFT incoming transfer
-                  value:
-                    id: 123e4567-e89b-12d3-a456-426614174000
-                    profileId: 12345678
-                    balanceId: '555555'
-                    accountDetailsId: '987654'
-                    state: CREDITED
-                    creditTransferType: CUSTOMER_CREDIT_TRANSFER
-                    scheme: SWIFT
-                    endToEndId: INVOICE-2026-998
-                    uetr: 123e4567-e89b-42d3-a456-426614174000
-                    unstructuredReference: /RFB/INV-2025-001
-                    creditedTime: '2025-08-21T12:34:56.000Z'
-                    debtor:
-                      name: Sarah Jenkins
-                      address:
-                        streetName: Clifton Street
-                        buildingNumber: '65'
-                        townName: London
-                        postCode: EC2A 4JE
-                        country: GB
-                        addressLines:
-                          - 1st Floor, Worship Square
-                          - EV2A 4JE
-                      account:
-                        number: GB29NWBK60161331926819
-                      agent:
-                        bic: TRWIGB2L
-                        nationalCode: '230801'
-                        name: Wise Payments Ltd
-                    creditor:
-                      name: Sarah Jenkins
-                      account:
-                        number: BE71096123456769
-                      agent:
-                        bic: TRWIBEB1
-                        name: Wise
-                    amounts:
-                      instructed:
-                        value: 1000
-                        currency: USD
-                      interbankSettlement:
-                        value: 1000
-                        currency: USD
-                      credited:
-                        value: 625.25
-                        currency: EUR
-                    exchangeRate: 0.6325
-                    chargeBearer: SHARED
-                    previousInstructingAgents: []
-                    fees:
-                      wise:
-                        - type: OTHER
-                          value: 7.25
-                          currency: EUR
-                      correspondent: []
+                $ref: '#/components/schemas/IncomingTransfer'
           headers:
             X-External-Correlation-Id:
               $ref: '#/components/headers/X-External-Correlation-Id'
@@ -34186,7 +34139,7 @@ components:
       required:
         - correspondent
         - wise
-    GetIncomingTransferResponseContent:
+    IncomingTransfer:
       type: object
       properties:
         id:

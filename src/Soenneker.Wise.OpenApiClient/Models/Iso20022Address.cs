@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Address of the debtor
+    /// An ISO 20022 structured address with optional free-form address lines.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class Iso20022Address : IAdditionalDataHolder, IParsable

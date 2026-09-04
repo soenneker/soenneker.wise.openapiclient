@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Settlement method. Present for `G000`, `G001`, `G005`, `G006`.
+    /// Settlement method reported for an ACSP sub-status.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class GpiTrackingSettlementMethod : IAdditionalDataHolder, IParsable

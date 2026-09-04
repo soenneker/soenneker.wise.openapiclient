@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// The original amount instructed by the debtor. When not specified by scheme, it equals interbankSettlement.
+    /// A monetary value paired with its currency code.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class Money : IAdditionalDataHolder, IParsable
