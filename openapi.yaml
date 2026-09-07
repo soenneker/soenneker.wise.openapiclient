@@ -1098,8 +1098,7 @@ tags:
       queries through direct API.
 
 
-      The Partner Support API allows you to integrate your back-end tooling,
-      enabling:
+      The Cases API allows you to integrate your back-end tooling, enabling:
 
       - Faster responses through automated workflows
 
@@ -1552,7 +1551,7 @@ x-tagGroups:
   - name: Simulations
     tags:
       - simulation
-  - name: Partner Support
+  - name: Cases
     tags:
       - case
   - name: Tracking
