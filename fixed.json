@@ -31759,7 +31759,7 @@
           },
           "reference": {
             "type": "string",
-            "description": "Unique customer ID in your system. This allows Wise to uniquely identify each originator. Must be the same ID across all transfers sent by the originator.",
+            "description": "Unique customer ID in your system. This allows Wise to identify each originator for compliance purposes. All transfers sent by the same originator must use the same \u0060originator.reference\u0060 value.",
             "example": "CST-2991992"
           },
           "name": {
