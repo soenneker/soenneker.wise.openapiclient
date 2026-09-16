@@ -2248,7 +2248,8 @@
                   "sourceCurrency": "GBP",
                   "status": "NEW",
                   "transferIds": [],
-                  "payInDetails": []
+                  "payInDetails": [],
+                  "payinSessionId": null
                 }
               }
             }
@@ -4293,6 +4294,42 @@
               }
             }
           },
+          "404": {
+            "description": "Not found.",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/problem\u002Bjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/CardTransactionGet404ProblemJsonResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable request.",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/problem\u002Bjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/CardTransactionGet422ProblemJsonResponse"
+                }
+              }
+            }
+          },
           "429": {
             "description": "Rate limit exceeded. Retry after the number of seconds specified in the \u0060Retry-After\u0060 header.",
             "$ref": "#/components/responses/429"
@@ -4421,7 +4458,7 @@
                         {
                           "amount": 0.1,
                           "currency": "SGD",
-                          "fee_type": "ATM_ACQUIRER"
+                          "fee_type": "ATM_MACHINE"
                         }
                       ],
                       "transactionAmountWithFees": {
@@ -4454,6 +4491,42 @@
                       "balanceChannelReferenceId": "6e71018d-2f4d-4fc3-6711-f517f4664712"
                     }
                   ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/problem\u002Bjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/CardTransactionList400ProblemJsonResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable request.",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/problem\u002Bjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/CardTransactionList422ProblemJsonResponse"
                 }
               }
             }
@@ -9183,7 +9256,7 @@
           "case"
         ],
         "summary": "Retrieve a case by ID",
-        "description": "Retrieves the complete details of a support case including all public messages\nand reference information.\n\n#### Response\n\nReturns the full case object with:\n- Case metadata (id, type, subType, status, timestamps)\n- Profile and external reference information\n- All public messages associated with the case\n\nMessages in the response can have three different content structures:\n\n1. Attributes Content (REQUEST messages)\nPresent in messages like \u0060DEPOSIT_SANCTION_HIT_REQUEST\u0060, \u0060REFERENCE_SANCTION_HIT_REQUEST\u0060, etc.\nContains dynamic attributes that define what information is required.\n\n2. Submission Data Content (SUBMISSION messages)\nPresent in messages like \u0060DEPOSIT_SANCTION_HIT_SUBMISSION\u0060, \u0060REFERENCE_LOCATION_HIT_SUBMISSION\u0060, etc.\nContains the data submitted by the partner in response to a request.\n\n3. Text Content (FREEFORM messages)\nPresent in \u0060FREEFORM\u0060 messages. Contains free text conversation between partners and Wise.\n",
+        "description": "Retrieves the complete details of a support case including all public messages\nand reference information.\n\n#### Response\n\nReturns the full case object with:\n- Case metadata (id, type, subType, status, timestamps)\n- Profile and external reference information\n- All public messages associated with the case\n\nMessages in the response can have four different content structures:\n\n1. Attributes Content (REQUEST messages)\nPresent in messages like \u0060DEPOSIT_SANCTION_HIT_REQUEST\u0060, \u0060REFERENCE_SANCTION_HIT_REQUEST\u0060, etc.\nContains dynamic attributes that define what information is required.\n\n2. Submission Data Content (SUBMISSION messages)\nPresent in messages like \u0060DEPOSIT_SANCTION_HIT_SUBMISSION\u0060, \u0060REFERENCE_LOCATION_HIT_SUBMISSION\u0060, etc.\nContains the data submitted by the partner in response to a request.\n\n3. Text Content (FREEFORM messages)\nPresent in \u0060FREEFORM\u0060 messages. Contains free text conversation between partners and Wise.\n\n4. File Submission Content (FILE_SUBMISSION messages)\nPresent in \u0060FILE_SUBMISSION\u0060 messages. Contains file references (\u0060profileId\u0060 and \u0060fileIds\u0060) for files attached to the case by the partner.\n",
         "operationId": "CaseGet",
         "parameters": [
           {
@@ -9791,35 +9864,109 @@
                         }
                       ]
                     }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request - invalid input parameters",
-            "headers": {
-              "X-External-Correlation-Id": {
-                "$ref": "#/components/headers/X-External-Correlation-Id"
-              },
-              "x-trace-id": {
-                "$ref": "#/components/headers/x-trace-id"
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error400BadRequest"
-                },
-                "example": {
-                  "error": "BAD_REQUEST",
-                  "message": "Invalid request body",
-                  "errors": [
-                    {
-                      "field": "type",
-                      "message": "must not be null"
+                  },
+                  "fileSubmissionJourney": {
+                    "summary": "FILE_SUBMISSION - File attachment journey",
+                    "description": "Shows a case where the partner attaches files and follows up with freeform",
+                    "value": {
+                      "id": 12345006,
+                      "profileId": 14556049,
+                      "type": "SANCTIONS",
+                      "subType": "DEPOSIT_SANCTION_HIT",
+                      "status": "IN_REVIEW",
+                      "externalId": "PARTNER-FILE-001",
+                      "createdAt": "2026-07-28T08:00:00.000",
+                      "updatedAt": "2026-07-29T11:00:00.000",
+                      "reference": {
+                        "type": "TRANSFER",
+                        "referenceId": "666777888"
+                      },
+                      "messages": [
+                        {
+                          "id": "aabb1111-2222-3333-4444-555566667777",
+                          "caseId": 12345006,
+                          "createdAt": "2026-07-28T08:00:00.000",
+                          "content": {
+                            "attributes": {
+                              "individual": {
+                                "name": {
+                                  "type": "String",
+                                  "required": true
+                                },
+                                "dob": {
+                                  "type": "LocalDate",
+                                  "required": false
+                                }
+                              },
+                              "business": {
+                                "name": {
+                                  "type": "String",
+                                  "required": true
+                                },
+                                "address": {
+                                  "type": "Address",
+                                  "required": true
+                                },
+                                "natureOfBusiness": {
+                                  "type": "String",
+                                  "required": false
+                                },
+                                "website": {
+                                  "type": "String",
+                                  "required": false
+                                }
+                              }
+                            }
+                          },
+                          "type": "DEPOSIT_SANCTION_HIT_REQUEST",
+                          "author": "WISE_SYSTEM"
+                        },
+                        {
+                          "id": "aabb2222-3333-4444-5555-666677778888",
+                          "caseId": 12345006,
+                          "createdAt": "2026-07-28T12:00:00.000",
+                          "content": {
+                            "submissionData": {
+                              "individual": {
+                                "name": "Alice Johnson",
+                                "dob": "1988-11-02"
+                              }
+                            }
+                          },
+                          "type": "DEPOSIT_SANCTION_HIT_SUBMISSION",
+                          "author": "PARTNER"
+                        },
+                        {
+                          "id": "aabb3333-4444-5555-6666-777788889999",
+                          "caseId": 12345006,
+                          "createdAt": "2026-07-29T09:00:00.000",
+                          "content": {
+                            "submissionData": {
+                              "profileId": 14556049,
+                              "fileIds": [
+                                "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+                                "b2c3d4e5-f6a7-8901-bcde-f12345678901"
+                              ]
+                            }
+                          },
+                          "type": "FILE_SUBMISSION",
+                          "author": "PARTNER"
+                        },
+                        {
+                          "id": "aabb4444-5555-6666-7777-888899990000",
+                          "caseId": 12345006,
+                          "createdAt": "2026-07-29T09:05:00.000",
+                          "content": {
+                            "text": {
+                              "freeText": "We have uploaded the supporting identity documents for Alice Johnson as requested."
+                            }
+                          },
+                          "type": "FREEFORM",
+                          "author": "PARTNER"
+                        }
+                      ]
                     }
-                  ]
+                  }
                 }
               }
             }
@@ -9840,8 +9987,10 @@
                   "$ref": "#/components/schemas/Error401Unauthorized"
                 },
                 "example": {
-                  "error": "UNAUTHORIZED",
-                  "message": "Authentication required"
+                  "type": "/errors/types/access",
+                  "title": "Unauthorized",
+                  "status": 401,
+                  "detail": "Authentication required"
                 }
               }
             }
@@ -9862,14 +10011,17 @@
                   "$ref": "#/components/schemas/Error403Forbidden"
                 },
                 "example": {
-                  "error": "FORBIDDEN",
-                  "message": "Insufficient permissions to access this resource"
+                  "type": "/errors/types/access",
+                  "title": "Forbidden",
+                  "status": 403,
+                  "detail": "Unauthorized",
+                  "code": "forbidden"
                 }
               }
             }
           },
           "404": {
-            "description": "Not found - the requested resource does not exist",
+            "description": "Not found - case does not exist",
             "headers": {
               "X-External-Correlation-Id": {
                 "$ref": "#/components/headers/X-External-Correlation-Id"
@@ -9884,8 +10036,12 @@
                   "$ref": "#/components/schemas/Error404NotFound"
                 },
                 "example": {
-                  "error": "NOT_FOUND",
-                  "message": "Case not found"
+                  "type": "/errors/types/domain",
+                  "title": "Not Found",
+                  "status": 404,
+                  "detail": "case not found: 12345678",
+                  "instance": "/public/v2/cases/12345678",
+                  "code": "resource_not_found"
                 }
               }
             }
@@ -9908,7 +10064,7 @@
           "case"
         ],
         "summary": "Submit a message to a case",
-        "description": "Submits a new message to an existing support case. The message type determines\nthe expected structure of the submission data.\n\nSee the [Case submission type](/guides/product/partner/submission-types.md) guide for details on each submission type along with an example..\n",
+        "description": "See the [Case submission type](/guides/product/partner/submission-types.md) guide for details on each submission type along with an example.\n",
         "operationId": "CaseSubmitMessage",
         "parameters": [
           {
@@ -9941,6 +10097,183 @@
                     "type": "FREEFORM",
                     "submissionData": {
                       "freeText": "The transfer has been verified and approved by our compliance team."
+                    }
+                  }
+                },
+                "fileSubmission": {
+                  "summary": "FILE_SUBMISSION",
+                  "description": "File submission - attach previously uploaded files to a case.\nFiles must be uploaded via the file upload endpoint before submitting.\n",
+                  "value": {
+                    "type": "FILE_SUBMISSION",
+                    "submissionData": {
+                      "profileId": 14556049,
+                      "fileIds": [
+                        "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+                        "b2c3d4e5-f6a7-8901-bcde-f12345678901"
+                      ]
+                    }
+                  }
+                },
+                "depositSanctionHitIndividual": {
+                  "summary": "DEPOSIT_SANCTION_HIT_SUBMISSION (individual)",
+                  "description": "Submit individual depositor information for a deposit sanction hit case.",
+                  "value": {
+                    "type": "DEPOSIT_SANCTION_HIT_SUBMISSION",
+                    "submissionData": {
+                      "individual": {
+                        "name": "Maria Garcia Rodriguez",
+                        "dob": "12/05/1988",
+                        "nationality": "Spanish"
+                      }
+                    }
+                  }
+                },
+                "depositSanctionHitOrganisation": {
+                  "summary": "DEPOSIT_SANCTION_HIT_SUBMISSION (organisation)",
+                  "description": "Submit organisation depositor information for a deposit sanction hit case.",
+                  "value": {
+                    "type": "DEPOSIT_SANCTION_HIT_SUBMISSION",
+                    "submissionData": {
+                      "organisation": {
+                        "name": "Tech Solutions Europe S.A.",
+                        "streetAddress": "Av. de la Libert\u00E9 25",
+                        "city": "Luxembourg",
+                        "postCode": "1931",
+                        "countryIso3": "LUX",
+                        "natureOfBusiness": "Software Development",
+                        "website": "https://www.techsolutions-eu.com"
+                      }
+                    }
+                  }
+                },
+                "recipientSanctionHitIndividual": {
+                  "summary": "RECIPIENT_SANCTION_HIT_SUBMISSION (individual)",
+                  "description": "Submit individual recipient information for a recipient sanction hit case.",
+                  "value": {
+                    "type": "RECIPIENT_SANCTION_HIT_SUBMISSION",
+                    "submissionData": {
+                      "individual": {
+                        "name": "Li Wei Chen",
+                        "countryOfResidenceIso3": "SGP",
+                        "dob": "03/11/1982",
+                        "nationality": "Singaporean"
+                      }
+                    }
+                  }
+                },
+                "recipientSanctionHitOrganisation": {
+                  "summary": "RECIPIENT_SANCTION_HIT_SUBMISSION (organisation)",
+                  "description": "Submit organisation recipient information for a recipient sanction hit case.",
+                  "value": {
+                    "type": "RECIPIENT_SANCTION_HIT_SUBMISSION",
+                    "submissionData": {
+                      "organisation": {
+                        "name": "Pacific Rim Trading Co.",
+                        "streetAddress": "88 Marina Boulevard",
+                        "city": "Singapore",
+                        "postCode": "018984",
+                        "countryIso3": "SGP",
+                        "natureOfBusiness": "Commodities Trading"
+                      }
+                    }
+                  }
+                },
+                "referenceSanctionHitIndividual": {
+                  "summary": "REFERENCE_SANCTION_HIT_SUBMISSION (individual)",
+                  "description": "Submit individual information for a reference sanction hit case.",
+                  "value": {
+                    "type": "REFERENCE_SANCTION_HIT_SUBMISSION",
+                    "submissionData": {
+                      "individual": {
+                        "name": "Robert Downy Jr",
+                        "countryOfResidenceIso3": "EGY",
+                        "dob": "22/08/1975",
+                        "nationality": "Egyptian"
+                      }
+                    }
+                  }
+                },
+                "referenceSanctionHitOrganisation": {
+                  "summary": "REFERENCE_SANCTION_HIT_SUBMISSION (organisation)",
+                  "description": "Submit organisation information for a reference sanction hit case.",
+                  "value": {
+                    "type": "REFERENCE_SANCTION_HIT_SUBMISSION",
+                    "submissionData": {
+                      "organisation": {
+                        "name": "Global Trading Partners LLC",
+                        "streetAddress": "1500 Commerce Street, Suite 400",
+                        "city": "Dubai",
+                        "postCode": "00000",
+                        "countryIso3": "ARE",
+                        "natureOfBusiness": "Import/Export Trading",
+                        "website": "https://www.globaltrading-partners.com"
+                      }
+                    }
+                  }
+                },
+                "referenceSanctionHitVessel": {
+                  "summary": "REFERENCE_SANCTION_HIT_SUBMISSION (vessel)",
+                  "description": "Submit vessel information for a reference sanction hit case.",
+                  "value": {
+                    "type": "REFERENCE_SANCTION_HIT_SUBMISSION",
+                    "submissionData": {
+                      "vessel": {
+                        "vesselImoNumber": "9074729"
+                      }
+                    }
+                  }
+                },
+                "referenceSanctionHitMultiple": {
+                  "summary": "REFERENCE_SANCTION_HIT_SUBMISSION (multiple)",
+                  "description": "Submit information when multiple entities are involved in a reference sanction hit case.",
+                  "value": {
+                    "type": "REFERENCE_SANCTION_HIT_SUBMISSION",
+                    "submissionData": {
+                      "multiple": {
+                        "explanation": "This payment reference involves a consortium of three companies: Alpha Corp (USA), Beta Ltd (UK), and Gamma GmbH (Germany). The payment is for a joint infrastructure project where funds are distributed proportionally: 40% to Alpha Corp, 35% to Beta Ltd, and 25% to Gamma GmbH."
+                      }
+                    }
+                  }
+                },
+                "referenceSanctionHitOther": {
+                  "summary": "REFERENCE_SANCTION_HIT_SUBMISSION (other)",
+                  "description": "Submit information for entity types not covered by standard categories.",
+                  "value": {
+                    "type": "REFERENCE_SANCTION_HIT_SUBMISSION",
+                    "submissionData": {
+                      "other": {
+                        "explanation": "The payment reference relates to a charitable foundation registered with the UN. The Foundation for Educational Development (FED) is a non-profit organization established in 2010, registered under Swiss law with headquarters in Geneva. Registration number: CH-660.0.000.000-1."
+                      }
+                    }
+                  }
+                },
+                "referenceLocationHit": {
+                  "summary": "REFERENCE_LOCATION_HIT_SUBMISSION",
+                  "description": "Submit location-related information for a reference location hit case.",
+                  "value": {
+                    "type": "REFERENCE_LOCATION_HIT_SUBMISSION",
+                    "submissionData": {
+                      "other": {
+                        "relatedToLocation": "The payment reference mentions Crimea due to historical business operations that were fully wound down in 2014.",
+                        "paymentExplanation": "Current payment is for consulting services rendered in London, UK.",
+                        "location": "Crimea, Ukraine",
+                        "referenceDescription": "Invoice CRM-2026-0042 - Consulting services for Q2 2026."
+                      }
+                    }
+                  }
+                },
+                "recipientLocationHit": {
+                  "summary": "RECIPIENT_LOCATION_HIT_SUBMISSION",
+                  "description": "Submit location-related information for a recipient location hit case.",
+                  "value": {
+                    "type": "RECIPIENT_LOCATION_HIT_SUBMISSION",
+                    "submissionData": {
+                      "other": {
+                        "relatedToLocation": "Recipient company has a branch registration in the flagged jurisdiction for administrative purposes only.",
+                        "paymentExplanation": "Payment for software licenses delivered electronically.",
+                        "location": "Minsk, Belarus",
+                        "businessWebsite": "https://www.recipient-software.ie"
+                      }
                     }
                   }
                 }
@@ -9999,13 +10332,32 @@
                       "type": "DEPOSIT_SANCTION_HIT_SUBMISSION",
                       "author": "PARTNER"
                     }
+                  },
+                  "fileSubmissionResponse": {
+                    "summary": "FILE_SUBMISSION message created",
+                    "value": {
+                      "id": "880e8400-e29b-41d4-a716-446655440003",
+                      "caseId": 12345678,
+                      "createdAt": "2026-07-27T15:10:00.000",
+                      "content": {
+                        "submissionData": {
+                          "profileId": 14556049,
+                          "fileIds": [
+                            "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+                            "b2c3d4e5-f6a7-8901-bcde-f12345678901"
+                          ]
+                        }
+                      },
+                      "type": "FILE_SUBMISSION",
+                      "author": "PARTNER"
+                    }
                   }
                 }
               }
             }
           },
           "400": {
-            "description": "Bad request - invalid input parameters",
+            "description": "Bad request - validation failed or business rule violation",
             "headers": {
               "X-External-Correlation-Id": {
                 "$ref": "#/components/headers/X-External-Correlation-Id"
@@ -10019,15 +10371,215 @@
                 "schema": {
                   "$ref": "#/components/schemas/Error400BadRequest"
                 },
-                "example": {
-                  "error": "BAD_REQUEST",
-                  "message": "Invalid request body",
-                  "errors": [
-                    {
-                      "field": "type",
-                      "message": "must not be null"
+                "examples": {
+                  "missingType": {
+                    "summary": "Missing type",
+                    "value": {
+                      "type": "/errors/types/validation",
+                      "title": "Validation Error",
+                      "status": 400,
+                      "instance": "/public/v2/cases/12345678/messages",
+                      "errors": [
+                        {
+                          "code": "parameter_missing",
+                          "ref": "type",
+                          "detail": null
+                        }
+                      ]
                     }
-                  ]
+                  },
+                  "invalidType": {
+                    "summary": "Invalid type value",
+                    "value": {
+                      "type": "/errors/types/validation",
+                      "title": "Validation Error",
+                      "status": 400,
+                      "instance": "/public/v2/cases/12345678/messages",
+                      "errors": [
+                        {
+                          "code": "invalid_value",
+                          "ref": "type",
+                          "detail": null
+                        }
+                      ]
+                    }
+                  },
+                  "missingSubmissionData": {
+                    "summary": "Missing submissionData",
+                    "value": {
+                      "type": "/errors/types/validation",
+                      "title": "Validation Error",
+                      "status": 400,
+                      "instance": "/public/v2/cases/12345678/messages",
+                      "errors": [
+                        {
+                          "code": "parameter_missing",
+                          "ref": "submissionData",
+                          "detail": null
+                        }
+                      ]
+                    }
+                  },
+                  "invalidSubmissionDataFormat": {
+                    "summary": "Malformed submissionData structure",
+                    "value": {
+                      "type": "/errors/types/validation",
+                      "title": "Validation Error",
+                      "status": 400,
+                      "instance": "/public/v2/cases/12345678/messages",
+                      "errors": [
+                        {
+                          "code": "invalid_request",
+                          "ref": "submissionData",
+                          "detail": "Invalid submission data format"
+                        }
+                      ]
+                    }
+                  },
+                  "missingFreeText": {
+                    "summary": "Missing freeText for FREEFORM submission",
+                    "value": {
+                      "type": "/errors/types/validation",
+                      "title": "Validation Error",
+                      "status": 400,
+                      "instance": "/public/v2/cases/12345678/messages",
+                      "errors": [
+                        {
+                          "code": "parameter_missing",
+                          "ref": "freeText",
+                          "detail": "Submission data must contain \u0027freeText\u0027 field for FREEFORM submission"
+                        }
+                      ]
+                    }
+                  },
+                  "missingProfileId": {
+                    "summary": "Missing profileId for FILE_SUBMISSION",
+                    "value": {
+                      "type": "/errors/types/validation",
+                      "title": "Validation Error",
+                      "status": 400,
+                      "instance": "/public/v2/cases/12345678/messages",
+                      "errors": [
+                        {
+                          "code": "parameter_missing",
+                          "ref": "profileId",
+                          "detail": "profileId is required"
+                        }
+                      ]
+                    }
+                  },
+                  "missingFileIds": {
+                    "summary": "Empty fileIds for FILE_SUBMISSION",
+                    "value": {
+                      "type": "/errors/types/validation",
+                      "title": "Validation Error",
+                      "status": 400,
+                      "instance": "/public/v2/cases/12345678/messages",
+                      "errors": [
+                        {
+                          "code": "parameter_missing",
+                          "ref": "fileIds",
+                          "detail": "fileIds must not be empty"
+                        }
+                      ]
+                    }
+                  },
+                  "duplicateFileIds": {
+                    "summary": "Duplicate file IDs in FILE_SUBMISSION",
+                    "value": {
+                      "type": "/errors/types/validation",
+                      "title": "Validation Error",
+                      "status": 400,
+                      "instance": "/public/v2/cases/12345678/messages",
+                      "errors": [
+                        {
+                          "code": "invalid_value",
+                          "ref": "fileIds",
+                          "detail": "fileIds must not contain duplicates"
+                        }
+                      ]
+                    }
+                  },
+                  "filesDoNotExist": {
+                    "summary": "One or more file IDs not found",
+                    "value": {
+                      "type": "/errors/types/validation",
+                      "title": "Validation Error",
+                      "status": 400,
+                      "instance": "/public/v2/cases/12345678/messages",
+                      "errors": [
+                        {
+                          "code": "invalid_value",
+                          "ref": "fileIds",
+                          "detail": "One or more files do not exist"
+                        }
+                      ]
+                    }
+                  },
+                  "filesWrongProfile": {
+                    "summary": "Files do not belong to the specified profile",
+                    "value": {
+                      "type": "/errors/types/validation",
+                      "title": "Validation Error",
+                      "status": 400,
+                      "instance": "/public/v2/cases/12345678/messages",
+                      "errors": [
+                        {
+                          "code": "invalid_value",
+                          "ref": "profileId",
+                          "detail": "One or more files do not belong to the specified profile"
+                        }
+                      ]
+                    }
+                  },
+                  "filesNotUploadedByYou": {
+                    "summary": "Files were not uploaded by you",
+                    "value": {
+                      "type": "/errors/types/validation",
+                      "title": "Validation Error",
+                      "status": 400,
+                      "instance": "/public/v2/cases/12345678/messages",
+                      "errors": [
+                        {
+                          "code": "invalid_value",
+                          "ref": "fileIds",
+                          "detail": "One or more files were not created by the Partner"
+                        }
+                      ]
+                    }
+                  },
+                  "invalidSanctionHitStructure": {
+                    "summary": "Invalid sanction hit submission structure",
+                    "value": {
+                      "type": "/errors/types/validation",
+                      "title": "Validation Error",
+                      "status": 400,
+                      "instance": "/public/v2/cases/12345678/messages",
+                      "errors": [
+                        {
+                          "code": "invalid_request",
+                          "ref": "submissionData",
+                          "detail": "Submission must contain either \u0027individual\u0027 or \u0027organisation\u0027 data"
+                        }
+                      ]
+                    }
+                  },
+                  "missingCountryOfResidence": {
+                    "summary": "Missing countryOfResidenceIso3 for recipient/reference individual",
+                    "value": {
+                      "type": "/errors/types/validation",
+                      "title": "Validation Error",
+                      "status": 400,
+                      "instance": "/public/v2/cases/12345678/messages",
+                      "errors": [
+                        {
+                          "code": "parameter_missing",
+                          "ref": "countryOfResidenceIso3",
+                          "detail": "countryOfResidenceIso3 is required for recipient individual"
+                        }
+                      ]
+                    }
+                  }
                 }
               }
             }
@@ -10048,8 +10600,10 @@
                   "$ref": "#/components/schemas/Error401Unauthorized"
                 },
                 "example": {
-                  "error": "UNAUTHORIZED",
-                  "message": "Authentication required"
+                  "type": "/errors/types/access",
+                  "title": "Unauthorized",
+                  "status": 401,
+                  "detail": "Authentication required"
                 }
               }
             }
@@ -10070,14 +10624,17 @@
                   "$ref": "#/components/schemas/Error403Forbidden"
                 },
                 "example": {
-                  "error": "FORBIDDEN",
-                  "message": "Insufficient permissions to access this resource"
+                  "type": "/errors/types/access",
+                  "title": "Forbidden",
+                  "status": 403,
+                  "detail": "Unauthorized",
+                  "code": "forbidden"
                 }
               }
             }
           },
           "404": {
-            "description": "Not found - the requested resource does not exist",
+            "description": "Not found - case does not exist",
             "headers": {
               "X-External-Correlation-Id": {
                 "$ref": "#/components/headers/X-External-Correlation-Id"
@@ -10092,14 +10649,18 @@
                   "$ref": "#/components/schemas/Error404NotFound"
                 },
                 "example": {
-                  "error": "NOT_FOUND",
-                  "message": "Case not found"
+                  "type": "/errors/types/domain",
+                  "title": "Not Found",
+                  "status": 404,
+                  "detail": "case not found: 12345678",
+                  "instance": "/public/v2/cases/12345678/messages",
+                  "code": "resource_not_found"
                 }
               }
             }
           },
-          "422": {
-            "description": "Unprocessable Entity Error",
+          "409": {
+            "description": "Conflict - operation not supported for the current case state",
             "headers": {
               "X-External-Correlation-Id": {
                 "$ref": "#/components/headers/X-External-Correlation-Id"
@@ -10111,11 +10672,42 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error422UnprocessableEntity"
+                  "$ref": "#/components/schemas/Error409Conflict"
                 },
-                "example": {
-                  "error": "NOT_FOUND",
-                  "message": "Case not found"
+                "examples": {
+                  "caseInFinalState": {
+                    "summary": "Case is in a final state (RESOLVED or FAILED)",
+                    "value": {
+                      "type": "/errors/types/domain",
+                      "title": "Conflict",
+                      "status": 409,
+                      "detail": "Cannot submit message for case in final state: RESOLVED",
+                      "instance": "/public/v2/cases/12345678/messages",
+                      "code": "operation_not_supported"
+                    }
+                  },
+                  "noWiseAgentAssigned": {
+                    "summary": "Wise Agent not assigned (FREEFORM or FILE_SUBMISSION)",
+                    "value": {
+                      "type": "/errors/types/domain",
+                      "title": "Conflict",
+                      "status": 409,
+                      "detail": "Wise Agent has not been assigned to case, message not allowed",
+                      "instance": "/public/v2/cases/12345678/messages",
+                      "code": "operation_not_supported"
+                    }
+                  },
+                  "noStructuredRequest": {
+                    "summary": "Case not generated by Wise (structured submission types)",
+                    "value": {
+                      "type": "/errors/types/domain",
+                      "title": "Conflict",
+                      "status": 409,
+                      "detail": "Case was not generated by Wise with structured request, structured submission message not allowed",
+                      "instance": "/public/v2/cases/12345678/messages",
+                      "code": "operation_not_supported"
+                    }
+                  }
                 }
               }
             }
@@ -11053,7 +11645,7 @@
             }
           },
           "422": {
-            "description": "Request could not be processed due to a missing prerequisite.\nReturned when submitting \u0060FINANCIAL_CAPACITY_BR\u0060 for a profile that has no tax ID on record.\n",
+            "description": "Request could not be processed due to a missing prerequisite.\n\nReturned when submitting \u0060FINANCIAL_CAPACITY_BR\u0060 for a profile that has no tax ID on record.\n",
             "headers": {
               "X-External-Correlation-Id": {
                 "$ref": "#/components/headers/X-External-Correlation-Id"
@@ -18900,7 +19492,7 @@
           "transfer"
         ],
         "summary": "Get payout information",
-        "description": "Fetch banking reference information for transfers that are in \u0060outgoing_payment_sent\u0060 status, enabling you to track transfers with the transfer recipient\u0027s bank.\n\nIt may take up to 3 days to get the correct information through this endpoint, as some partners don\u0027t share the information until 3 days later.\n",
+        "description": "Fetch banking reference information for transfers that are in \u0060outgoing_payment_sent\u0060 status. Enables you to track transfers with the transfer recipient\u0027s bank.\n\n{% admonition type=\u0022warning\u0022 %}\nQuerying this endpoint too soon after transfer creation may result in a \u0060404\u0060 error.\n\nWe recommend relying on the [transfer state change webhook](/api-reference/webhook-event/eventtransfersstatechange) to inform you when the transfer state has changed to \u0060outgoing_payment_sent\u0060. In most cases this takes only a few seconds. However, some regions and banking partners can take longer. \n{% /admonition %}\n",
         "operationId": "TransferPayoutInfoGet",
         "parameters": [
           {
@@ -18945,7 +19537,7 @@
             }
           },
           "404": {
-            "description": "Transfer not found.",
+            "description": "Transfer not found (this error can also occur if querying the endpoint before the transfer has finished processing).",
             "headers": {
               "X-External-Correlation-Id": {
                 "$ref": "#/components/headers/X-External-Correlation-Id"
@@ -20351,43 +20943,67 @@
   },
   "components": {
     "schemas": {
-      "Error404NotFoundNotFoundError404": {
-        "title": "Not Found Error (404)",
+      "SwiftInRequestSenderAddress": {
         "type": "object",
         "properties": {
-          "error": {
-            "$ref": "#/components/schemas/Error404NotFoundNotFoundError404Error"
+          "addressLine": {
+            "maxLength": 70,
+            "minLength": 1,
+            "type": "string",
+            "description": "Address line: street, house, apartment."
           },
-          "message": {
-            "$ref": "#/components/schemas/Error404NotFoundNotFoundError404Message"
+          "city": {
+            "maxLength": 140,
+            "minLength": 1,
+            "type": "string",
+            "description": "City name."
+          },
+          "postalCode": {
+            "maxLength": 16,
+            "minLength": 1,
+            "type": "string",
+            "description": "Postal code."
+          },
+          "country": {
+            "maxLength": 2,
+            "minLength": 2,
+            "pattern": "^[A-Z]{2}$",
+            "type": "string",
+            "description": "Country code (ISO 3166-1 alpha-2)."
           }
         },
-        "description": "Returned when the requested case does not exist.\n\n**Common causes:**\n- Invalid \u0060caseId\u0060 that doesn\u0027t exist\n- Case was deleted or archived\n- Typo in the case ID\n",
-        "example": {
-          "error": "RESOURCE_NOT_FOUND",
-          "message": "Case with id 99999999 not found",
-          "timestamp": "2026-08-03T10:30:00.000Z",
-          "path": "/public/2026Q3/v2/cases/99999999"
-        }
+        "description": "Address of the sender."
       },
-      "Error403ForbiddenForbiddenError403": {
-        "title": "Forbidden Error (403)",
+      "SwiftInRequestBeneficiaryAddress": {
         "type": "object",
         "properties": {
-          "error": {
-            "$ref": "#/components/schemas/Error403ForbiddenForbiddenError403Error"
+          "addressLine": {
+            "maxLength": 70,
+            "minLength": 1,
+            "type": "string",
+            "description": "Address line: street, house, apartment."
           },
-          "message": {
-            "$ref": "#/components/schemas/Error403ForbiddenForbiddenError403Message"
+          "city": {
+            "maxLength": 140,
+            "minLength": 1,
+            "type": "string",
+            "description": "City name."
+          },
+          "postalCode": {
+            "maxLength": 16,
+            "minLength": 1,
+            "type": "string",
+            "description": "Postal code."
+          },
+          "country": {
+            "maxLength": 2,
+            "minLength": 2,
+            "pattern": "^[A-Z]{2}$",
+            "type": "string",
+            "description": "Country code (ISO 3166-1 alpha-2)."
           }
         },
-        "description": "Returned when the authenticated client lacks permission to access the resource.\n\n**Common causes:**\n- Case belongs to a different partner (client key mismatch)\n- Attempting to access a case type not permitted for this client\n",
-        "example": {
-          "error": "FORBIDDEN",
-          "message": "You do not have permission to access this resource",
-          "timestamp": "2026-08-03T10:30:00.000Z",
-          "path": "/public/2026Q3/v2/cases/12345678"
-        }
+        "description": "Address of the ultimate beneficiary."
       },
       "ChallengeResultRequest": {
         "required": [
@@ -21207,6 +21823,15 @@
               "$ref": "#/components/schemas/PayInDetails"
             },
             "description": "List of pay-in details describing how the batch group can be funded. Provided only when the batch group is in the \u0060COMPLETED\u0060 state.\n\nCurrently supported types: \u0060bank_transfer\u0060.\n"
+          },
+          "payinSessionId": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Optional ID of the payin session. Required if batch group funding is done using [Payin Funding API](/guides/product/send-money/funding/direct-debit/create-payin#create-payin).",
+            "format": "uuid",
+            "example": "23330542-8e9e-419f-95eb-312b880f92ad"
           }
         },
         "x-tags": [
@@ -22482,217 +23107,252 @@
       "ValidationError": {
         "title": "Validation Error",
         "required": [
-          "field",
-          "message"
+          "code",
+          "ref"
         ],
         "type": "object",
         "properties": {
-          "field": {
+          "code": {
             "type": "string",
-            "description": "The field path that caused the validation error.\nUses dot notation for nested fields (e.g., \u0060submissionData.individual.name\u0060).\n",
+            "description": "Machine-readable validation error code.\n\nValues:\n- \u0060parameter_missing\u0060 - A required field is null, empty, or blank\n- \u0060parameter_invalid\u0060 - A field value is present but not acceptable\n- \u0060invalid_value\u0060 - A field value fails a business validation rule\n- \u0060invalid_request\u0060 - The request structure is malformed or invalid\n",
+            "example": "parameter_missing"
+          },
+          "ref": {
+            "type": "string",
+            "description": "The field that caused the validation error.\nFor nested fields, only the leaf property name is used (e.g., \u0060name\u0060 not \u0060submissionData.individual.name\u0060).\n",
             "example": "type"
           },
-          "message": {
-            "type": "string",
-            "description": "Description of what validation rule was violated.",
-            "example": "must not be null"
-          },
-          "rejectedValue": {
-            "$ref": "#/components/schemas/ValidationErrorRejectedValue"
+          "detail": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Human-readable description of the validation error. May be null.",
+            "example": "profileId is required"
           }
         },
         "description": "Details about a specific field validation error.",
         "example": {
-          "field": "submissionData.individual.name",
-          "message": "must not be blank",
-          "rejectedValue": ""
+          "code": "parameter_missing",
+          "ref": "name",
+          "detail": "must not be blank"
         }
       },
       "ErrorResponse": {
         "title": "Error Response",
         "required": [
-          "error",
-          "message"
+          "type",
+          "title",
+          "status"
         ],
         "type": "object",
         "properties": {
-          "error": {
+          "type": {
             "type": "string",
-            "description": "Machine-readable error code indicating the type of error.\n\nCommon codes:\n- \u0060BAD_REQUEST\u0060 - Invalid request format or parameters\n- \u0060VALIDATION_ERROR\u0060 - Request body validation failed\n- \u0060RESOURCE_NOT_FOUND\u0060 - Requested resource does not exist\n- \u0060UNAUTHORIZED\u0060 - Authentication required or failed\n- \u0060FORBIDDEN\u0060 - Insufficient permissions\n- \u0060CONFLICT\u0060 - Operation conflicts with current state\n- \u0060INTERNAL_SERVER_ERROR\u0060 - Unexpected server error\n",
-            "example": "BAD_REQUEST"
+            "description": "URI reference identifying the error category.\n\nValues:\n- \u0060/errors/types/validation\u0060 - Request validation failed\n- \u0060/errors/types/domain\u0060 - Business rule violation\n- \u0060/errors/types/access\u0060 - Authentication or authorization failure\n- \u0060/errors/types/internal\u0060 - Unexpected server error\n",
+            "example": "/errors/types/validation"
           },
-          "message": {
+          "title": {
             "type": "string",
-            "description": "Human-readable error message describing what went wrong.",
-            "example": "Invalid request body"
+            "description": "Short human-readable summary of the error category.",
+            "example": "Validation Error"
           },
-          "timestamp": {
+          "status": {
+            "type": "integer",
+            "description": "HTTP status code.",
+            "example": 400
+          },
+          "detail": {
             "type": "string",
-            "description": "ISO 8601 timestamp when the error occurred.",
-            "format": "date-time",
-            "example": "2026-08-03T10:30:00.000Z"
+            "description": "Human-readable explanation of this specific error occurrence.",
+            "example": "Cannot submit message for case in final state: RESOLVED"
           },
-          "path": {
+          "instance": {
             "type": "string",
             "description": "The request path that caused the error.",
-            "example": "/public/2026Q3/v2/cases/12345678"
+            "example": "/public/v2/cases/12345678"
+          },
+          "code": {
+            "type": "string",
+            "description": "Machine-readable error code. Present on domain and access errors.\n\nCommon codes:\n- \u0060operation_not_supported\u0060 - Business rule prevents this action\n- \u0060resource_not_found\u0060 - Requested resource does not exist\n- \u0060forbidden\u0060 - Insufficient permissions\n- \u0060rate_limit_exceeded\u0060 - Too many requests\n",
+            "example": "operation_not_supported"
           },
           "errors": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ValidationError"
             },
-            "description": "List of field-level validation errors.\nOnly present for validation errors (HTTP 400).\n"
+            "description": "List of field-level validation errors.\nOnly present for validation errors (type \u0060/errors/types/validation\u0060).\n"
           }
         },
-        "description": "Standard error response structure returned by the API.\n\nAll error responses follow this consistent format with an error code,\nhuman-readable message, and optional validation errors array.\n"
-      },
-      "Error400BadRequest": {
-        "required": [
-          "error",
-          "message"
-        ],
-        "type": "object",
-        "properties": {
-          "error": {
-            "type": "string",
-            "description": "Machine-readable error code indicating the type of error.\n\nCommon codes:\n- \u0060BAD_REQUEST\u0060 - Invalid request format or parameters\n- \u0060VALIDATION_ERROR\u0060 - Request body validation failed\n- \u0060RESOURCE_NOT_FOUND\u0060 - Requested resource does not exist\n- \u0060UNAUTHORIZED\u0060 - Authentication required or failed\n- \u0060FORBIDDEN\u0060 - Insufficient permissions\n- \u0060CONFLICT\u0060 - Operation conflicts with current state\n- \u0060INTERNAL_SERVER_ERROR\u0060 - Unexpected server error\n",
-            "example": "BAD_REQUEST"
-          },
-          "message": {
-            "type": "string",
-            "description": "Human-readable error message describing what went wrong.",
-            "example": "Invalid request body"
-          },
-          "timestamp": {
-            "type": "string",
-            "description": "ISO 8601 timestamp when the error occurred.",
-            "format": "date-time",
-            "example": "2026-08-03T10:30:00.000Z"
-          },
-          "path": {
-            "type": "string",
-            "description": "The request path that caused the error.",
-            "example": "/public/2026Q3/v2/cases/12345678"
-          },
-          "errors": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ValidationError"
-            },
-            "description": "List of field-level validation errors.\nOnly present for validation errors (HTTP 400).\n"
-          }
-        }
+        "description": "Standard error response structure returned by the API based on RFC 9457 Problem Details.\n\nAll error responses follow this consistent format with a type URI,\nhuman-readable title and detail, and optional field-level validation errors array.\n"
       },
       "Error401Unauthorized": {
+        "title": "Unauthorized Error (401)",
         "required": [
-          "error",
-          "message"
+          "type",
+          "title",
+          "status"
         ],
         "type": "object",
         "properties": {
-          "error": {
+          "type": {
             "type": "string",
-            "description": "Machine-readable error code indicating the type of error.\n\nCommon codes:\n- \u0060BAD_REQUEST\u0060 - Invalid request format or parameters\n- \u0060VALIDATION_ERROR\u0060 - Request body validation failed\n- \u0060RESOURCE_NOT_FOUND\u0060 - Requested resource does not exist\n- \u0060UNAUTHORIZED\u0060 - Authentication required or failed\n- \u0060FORBIDDEN\u0060 - Insufficient permissions\n- \u0060CONFLICT\u0060 - Operation conflicts with current state\n- \u0060INTERNAL_SERVER_ERROR\u0060 - Unexpected server error\n",
-            "example": "BAD_REQUEST"
+            "description": "URI reference identifying the error category.\n\nValues:\n- \u0060/errors/types/validation\u0060 - Request validation failed\n- \u0060/errors/types/domain\u0060 - Business rule violation\n- \u0060/errors/types/access\u0060 - Authentication or authorization failure\n- \u0060/errors/types/internal\u0060 - Unexpected server error\n",
+            "example": "/errors/types/validation"
           },
-          "message": {
+          "title": {
             "type": "string",
-            "description": "Human-readable error message describing what went wrong.",
-            "example": "Invalid request body"
+            "description": "Short human-readable summary of the error category.",
+            "example": "Validation Error"
           },
-          "timestamp": {
+          "status": {
+            "type": "integer",
+            "description": "HTTP status code.",
+            "example": 400
+          },
+          "detail": {
             "type": "string",
-            "description": "ISO 8601 timestamp when the error occurred.",
-            "format": "date-time",
-            "example": "2026-08-03T10:30:00.000Z"
+            "description": "Human-readable explanation of this specific error occurrence.",
+            "example": "Cannot submit message for case in final state: RESOLVED"
           },
-          "path": {
+          "instance": {
             "type": "string",
             "description": "The request path that caused the error.",
-            "example": "/public/2026Q3/v2/cases/12345678"
+            "example": "/public/v2/cases/12345678"
+          },
+          "code": {
+            "type": "string",
+            "description": "Machine-readable error code. Present on domain and access errors.\n\nCommon codes:\n- \u0060operation_not_supported\u0060 - Business rule prevents this action\n- \u0060resource_not_found\u0060 - Requested resource does not exist\n- \u0060forbidden\u0060 - Insufficient permissions\n- \u0060rate_limit_exceeded\u0060 - Too many requests\n",
+            "example": "operation_not_supported"
           },
           "errors": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ValidationError"
             },
-            "description": "List of field-level validation errors.\nOnly present for validation errors (HTTP 400).\n"
+            "description": "List of field-level validation errors.\nOnly present for validation errors (type \u0060/errors/types/validation\u0060).\n"
           }
+        },
+        "description": "Returned when authentication is missing or invalid.\n\n**Common causes:**\n- Missing \u0060Authorization\u0060 header\n- Invalid or expired API token\n- Malformed authorization header format\n",
+        "example": {
+          "type": "/errors/types/access",
+          "title": "Unauthorized",
+          "status": 401,
+          "detail": "Authentication required"
         }
       },
       "Error403Forbidden": {
+        "title": "Forbidden Error (403)",
         "required": [
-          "error",
-          "message"
+          "type",
+          "title",
+          "status"
         ],
         "type": "object",
         "properties": {
-          "error": {
+          "type": {
             "type": "string",
-            "description": "Machine-readable error code indicating the type of error.\n\nCommon codes:\n- \u0060BAD_REQUEST\u0060 - Invalid request format or parameters\n- \u0060VALIDATION_ERROR\u0060 - Request body validation failed\n- \u0060RESOURCE_NOT_FOUND\u0060 - Requested resource does not exist\n- \u0060UNAUTHORIZED\u0060 - Authentication required or failed\n- \u0060FORBIDDEN\u0060 - Insufficient permissions\n- \u0060CONFLICT\u0060 - Operation conflicts with current state\n- \u0060INTERNAL_SERVER_ERROR\u0060 - Unexpected server error\n",
-            "example": "BAD_REQUEST"
+            "description": "URI reference identifying the error category.\n\nValues:\n- \u0060/errors/types/validation\u0060 - Request validation failed\n- \u0060/errors/types/domain\u0060 - Business rule violation\n- \u0060/errors/types/access\u0060 - Authentication or authorization failure\n- \u0060/errors/types/internal\u0060 - Unexpected server error\n",
+            "example": "/errors/types/validation"
           },
-          "message": {
+          "title": {
             "type": "string",
-            "description": "Human-readable error message describing what went wrong.",
-            "example": "Invalid request body"
+            "description": "Short human-readable summary of the error category.",
+            "example": "Validation Error"
           },
-          "timestamp": {
+          "status": {
+            "type": "integer",
+            "description": "HTTP status code.",
+            "example": 400
+          },
+          "detail": {
             "type": "string",
-            "description": "ISO 8601 timestamp when the error occurred.",
-            "format": "date-time",
-            "example": "2026-08-03T10:30:00.000Z"
+            "description": "Human-readable explanation of this specific error occurrence.",
+            "example": "Cannot submit message for case in final state: RESOLVED"
           },
-          "path": {
+          "instance": {
             "type": "string",
             "description": "The request path that caused the error.",
-            "example": "/public/2026Q3/v2/cases/12345678"
+            "example": "/public/v2/cases/12345678"
+          },
+          "code": {
+            "type": "string",
+            "description": "Machine-readable error code. Present on domain and access errors.\n\nCommon codes:\n- \u0060operation_not_supported\u0060 - Business rule prevents this action\n- \u0060resource_not_found\u0060 - Requested resource does not exist\n- \u0060forbidden\u0060 - Insufficient permissions\n- \u0060rate_limit_exceeded\u0060 - Too many requests\n",
+            "example": "operation_not_supported"
           },
           "errors": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ValidationError"
             },
-            "description": "List of field-level validation errors.\nOnly present for validation errors (HTTP 400).\n"
+            "description": "List of field-level validation errors.\nOnly present for validation errors (type \u0060/errors/types/validation\u0060).\n"
           }
+        },
+        "description": "Returned when the authenticated client lacks permission to access the resource.\n\n**Common causes:**\n- Case belongs to a different partner (client key mismatch)\n- Attempting to access a case type not permitted for this client\n",
+        "example": {
+          "type": "/errors/types/access",
+          "title": "Forbidden",
+          "status": 403,
+          "detail": "Unauthorized",
+          "code": "forbidden"
         }
       },
       "Error404NotFound": {
+        "title": "Not Found Error (404)",
         "required": [
-          "error",
-          "message"
+          "type",
+          "title",
+          "status"
         ],
         "type": "object",
         "properties": {
-          "error": {
+          "type": {
             "type": "string",
-            "description": "Machine-readable error code indicating the type of error.\n\nCommon codes:\n- \u0060BAD_REQUEST\u0060 - Invalid request format or parameters\n- \u0060VALIDATION_ERROR\u0060 - Request body validation failed\n- \u0060RESOURCE_NOT_FOUND\u0060 - Requested resource does not exist\n- \u0060UNAUTHORIZED\u0060 - Authentication required or failed\n- \u0060FORBIDDEN\u0060 - Insufficient permissions\n- \u0060CONFLICT\u0060 - Operation conflicts with current state\n- \u0060INTERNAL_SERVER_ERROR\u0060 - Unexpected server error\n",
-            "example": "BAD_REQUEST"
+            "description": "URI reference identifying the error category.\n\nValues:\n- \u0060/errors/types/validation\u0060 - Request validation failed\n- \u0060/errors/types/domain\u0060 - Business rule violation\n- \u0060/errors/types/access\u0060 - Authentication or authorization failure\n- \u0060/errors/types/internal\u0060 - Unexpected server error\n",
+            "example": "/errors/types/validation"
           },
-          "message": {
+          "title": {
             "type": "string",
-            "description": "Human-readable error message describing what went wrong.",
-            "example": "Invalid request body"
+            "description": "Short human-readable summary of the error category.",
+            "example": "Validation Error"
           },
-          "timestamp": {
+          "status": {
+            "type": "integer",
+            "description": "HTTP status code.",
+            "example": 400
+          },
+          "detail": {
             "type": "string",
-            "description": "ISO 8601 timestamp when the error occurred.",
-            "format": "date-time",
-            "example": "2026-08-03T10:30:00.000Z"
+            "description": "Human-readable explanation of this specific error occurrence.",
+            "example": "Cannot submit message for case in final state: RESOLVED"
           },
-          "path": {
+          "instance": {
             "type": "string",
             "description": "The request path that caused the error.",
-            "example": "/public/2026Q3/v2/cases/12345678"
+            "example": "/public/v2/cases/12345678"
+          },
+          "code": {
+            "type": "string",
+            "description": "Machine-readable error code. Present on domain and access errors.\n\nCommon codes:\n- \u0060operation_not_supported\u0060 - Business rule prevents this action\n- \u0060resource_not_found\u0060 - Requested resource does not exist\n- \u0060forbidden\u0060 - Insufficient permissions\n- \u0060rate_limit_exceeded\u0060 - Too many requests\n",
+            "example": "operation_not_supported"
           },
           "errors": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ValidationError"
             },
-            "description": "List of field-level validation errors.\nOnly present for validation errors (HTTP 400).\n"
+            "description": "List of field-level validation errors.\nOnly present for validation errors (type \u0060/errors/types/validation\u0060).\n"
           }
+        },
+        "description": "Returned when the requested case does not exist.\n\n**Common causes:**\n- Invalid \u0060caseId\u0060 that doesn\u0027t exist\n- Case was deleted or archived\n- Typo in the case ID\n",
+        "example": {
+          "type": "/errors/types/domain",
+          "title": "Not Found",
+          "status": 404,
+          "detail": "case not found: 99999999",
+          "instance": "/public/v2/cases/99999999",
+          "code": "resource_not_found"
         }
       },
       "MessageSubmissionType": {
@@ -22702,7 +23362,8 @@
           "REFERENCE_SANCTION_HIT_SUBMISSION",
           "RECIPIENT_SANCTION_HIT_SUBMISSION",
           "REFERENCE_LOCATION_HIT_SUBMISSION",
-          "RECIPIENT_LOCATION_HIT_SUBMISSION"
+          "RECIPIENT_LOCATION_HIT_SUBMISSION",
+          "FILE_SUBMISSION"
         ],
         "type": "string",
         "additionalProperties": false,
@@ -22735,6 +23396,10 @@
             {
               "value": "RECIPIENT_LOCATION_HIT_SUBMISSION",
               "name": "RecipientLocationHitSubmission"
+            },
+            {
+              "value": "FILE_SUBMISSION",
+              "name": "FileSubmission"
             }
           ]
         }
@@ -22952,6 +23617,41 @@
         ],
         "description": "Submission data for location hit cases. Used for:\n- REFERENCE_LOCATION_HIT_SUBMISSION\n- RECIPIENT_LOCATION_HIT_SUBMISSION\n\nBoth types require an \u0060other\u0060 object with location-specific details.\n"
       },
+      "SubmissionDataFile": {
+        "title": "FILE_SUBMISSION Submission Data",
+        "required": [
+          "profileId",
+          "fileIds"
+        ],
+        "type": "object",
+        "properties": {
+          "profileId": {
+            "type": "integer",
+            "description": "The profile ID that the files belong to.\nMust match the profile associated with the uploaded files.\n",
+            "format": "int64",
+            "example": 14556049
+          },
+          "fileIds": {
+            "minItems": 1,
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "UUID of a previously uploaded file.",
+              "format": "uuid"
+            },
+            "description": "List of file IDs to attach to the case.\nFiles must have been previously uploaded via the file upload endpoint.\n"
+          }
+        },
+        "description": "Submission data for FILE_SUBMISSION message type.\nUsed to attach previously uploaded files to a case.\n\n**Prerequisites:**\n- Files must be uploaded via \u0060POST /cases/{caseId}/files\u0060 before submitting\n- Case must not be in RESOLVED or FAILED status\n- Files must belong to the specified profile\n- Files must have been uploaded by the same partner\n\n**Validation Rules:**\n- \u0060profileId\u0060 is REQUIRED\n- \u0060fileIds\u0060 is REQUIRED and must not be empty\n- \u0060fileIds\u0060 must not contain duplicates\n- All file IDs must reference existing files\n- All files must belong to the specified \u0060profileId\u0060\n- All files must have been created by the submitting partner\n",
+        "example": {
+          "profileId": 14556049,
+          "fileIds": [
+            "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+            "b2c3d4e5-f6a7-8901-bcde-f12345678901"
+          ]
+        }
+      },
       "MessageSubmissionRequest": {
         "required": [
           "type",
@@ -23011,41 +23711,123 @@
         },
         "description": "Response returned after successfully submitting a message."
       },
-      "Error422UnprocessableEntity": {
+      "Error400BadRequest": {
+        "title": "Bad Request Error (400)",
         "required": [
-          "error",
-          "message"
+          "type",
+          "title",
+          "status"
         ],
         "type": "object",
         "properties": {
-          "error": {
+          "type": {
             "type": "string",
-            "description": "Machine-readable error code indicating the type of error.\n\nCommon codes:\n- \u0060BAD_REQUEST\u0060 - Invalid request format or parameters\n- \u0060VALIDATION_ERROR\u0060 - Request body validation failed\n- \u0060RESOURCE_NOT_FOUND\u0060 - Requested resource does not exist\n- \u0060UNAUTHORIZED\u0060 - Authentication required or failed\n- \u0060FORBIDDEN\u0060 - Insufficient permissions\n- \u0060CONFLICT\u0060 - Operation conflicts with current state\n- \u0060INTERNAL_SERVER_ERROR\u0060 - Unexpected server error\n",
-            "example": "BAD_REQUEST"
+            "description": "URI reference identifying the error category.\n\nValues:\n- \u0060/errors/types/validation\u0060 - Request validation failed\n- \u0060/errors/types/domain\u0060 - Business rule violation\n- \u0060/errors/types/access\u0060 - Authentication or authorization failure\n- \u0060/errors/types/internal\u0060 - Unexpected server error\n",
+            "example": "/errors/types/validation"
           },
-          "message": {
+          "title": {
             "type": "string",
-            "description": "Human-readable error message describing what went wrong.",
-            "example": "Invalid request body"
+            "description": "Short human-readable summary of the error category.",
+            "example": "Validation Error"
           },
-          "timestamp": {
+          "status": {
+            "type": "integer",
+            "description": "HTTP status code.",
+            "example": 400
+          },
+          "detail": {
             "type": "string",
-            "description": "ISO 8601 timestamp when the error occurred.",
-            "format": "date-time",
-            "example": "2026-08-03T10:30:00.000Z"
+            "description": "Human-readable explanation of this specific error occurrence.",
+            "example": "Cannot submit message for case in final state: RESOLVED"
           },
-          "path": {
+          "instance": {
             "type": "string",
             "description": "The request path that caused the error.",
-            "example": "/public/2026Q3/v2/cases/12345678"
+            "example": "/public/v2/cases/12345678"
+          },
+          "code": {
+            "type": "string",
+            "description": "Machine-readable error code. Present on domain and access errors.\n\nCommon codes:\n- \u0060operation_not_supported\u0060 - Business rule prevents this action\n- \u0060resource_not_found\u0060 - Requested resource does not exist\n- \u0060forbidden\u0060 - Insufficient permissions\n- \u0060rate_limit_exceeded\u0060 - Too many requests\n",
+            "example": "operation_not_supported"
           },
           "errors": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ValidationError"
             },
-            "description": "List of field-level validation errors.\nOnly present for validation errors (HTTP 400).\n"
+            "description": "List of field-level validation errors.\nOnly present for validation errors (type \u0060/errors/types/validation\u0060).\n"
           }
+        },
+        "description": "Returned when the request is malformed, contains invalid data, or violates a business rule.\n\n**Validation errors** (\u0060/errors/types/validation\u0060) include an \u0060errors\u0060 array\nwith field-level details. Each entry has a \u0060code\u0060, \u0060ref\u0060 (field name), and optional \u0060detail\u0060.\n\n**Common causes:**\n- Missing required fields (\u0060type\u0060, \u0060submissionData\u0060)\n- Invalid enum values for \u0060type\u0060\n- Malformed JSON in request body\n- Invalid field values that fail validation\n- Missing or invalid file IDs for FILE_SUBMISSION\n",
+        "example": {
+          "type": "/errors/types/validation",
+          "title": "Validation Error",
+          "status": 400,
+          "instance": "/public/v2/cases/12345678/messages",
+          "errors": [
+            {
+              "code": "parameter_missing",
+              "ref": "type",
+              "detail": null
+            }
+          ]
+        }
+      },
+      "Error409Conflict": {
+        "title": "Conflict Error (409)",
+        "required": [
+          "type",
+          "title",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "URI reference identifying the error category.\n\nValues:\n- \u0060/errors/types/validation\u0060 - Request validation failed\n- \u0060/errors/types/domain\u0060 - Business rule violation\n- \u0060/errors/types/access\u0060 - Authentication or authorization failure\n- \u0060/errors/types/internal\u0060 - Unexpected server error\n",
+            "example": "/errors/types/validation"
+          },
+          "title": {
+            "type": "string",
+            "description": "Short human-readable summary of the error category.",
+            "example": "Validation Error"
+          },
+          "status": {
+            "type": "integer",
+            "description": "HTTP status code.",
+            "example": 400
+          },
+          "detail": {
+            "type": "string",
+            "description": "Human-readable explanation of this specific error occurrence.",
+            "example": "Cannot submit message for case in final state: RESOLVED"
+          },
+          "instance": {
+            "type": "string",
+            "description": "The request path that caused the error.",
+            "example": "/public/v2/cases/12345678"
+          },
+          "code": {
+            "type": "string",
+            "description": "Machine-readable error code. Present on domain and access errors.\n\nCommon codes:\n- \u0060operation_not_supported\u0060 - Business rule prevents this action\n- \u0060resource_not_found\u0060 - Requested resource does not exist\n- \u0060forbidden\u0060 - Insufficient permissions\n- \u0060rate_limit_exceeded\u0060 - Too many requests\n",
+            "example": "operation_not_supported"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "description": "List of field-level validation errors.\nOnly present for validation errors (type \u0060/errors/types/validation\u0060).\n"
+          }
+        },
+        "description": "Returned when the operation conflicts with the current state of the case.\n\n**Common causes:**\n- Submitting a message to a case in a final state (\u0060RESOLVED\u0060 or \u0060FAILED\u0060)\n- Submitting FREEFORM or FILE_SUBMISSION when no Wise Agent is assigned to the case\n- Submitting a structured response when the case was not generated by Wise\n",
+        "example": {
+          "type": "/errors/types/domain",
+          "title": "Conflict",
+          "status": 409,
+          "detail": "Cannot submit message for case in final state: RESOLVED",
+          "instance": "/public/v2/cases/12345678/messages",
+          "code": "operation_not_supported"
         }
       },
       "Address2": {
@@ -26135,53 +26917,95 @@
           }
         }
       },
-      "Error401UnauthorizedUnauthorizedError401": {
-        "title": "Unauthorized Error (401)",
+      "BankDetailsAddress": {
         "type": "object",
         "properties": {
-          "error": {
-            "$ref": "#/components/schemas/Error401UnauthorizedUnauthorizedError401Error"
+          "addressLine": {
+            "maxLength": 70,
+            "minLength": 1,
+            "type": "string",
+            "description": "Address line: street, house, apartment."
           },
-          "message": {
-            "$ref": "#/components/schemas/Error401UnauthorizedUnauthorizedError401Message"
+          "city": {
+            "maxLength": 140,
+            "minLength": 1,
+            "type": "string",
+            "description": "City name."
+          },
+          "postalCode": {
+            "maxLength": 16,
+            "minLength": 1,
+            "type": "string",
+            "description": "Postal code."
+          },
+          "country": {
+            "maxLength": 2,
+            "minLength": 2,
+            "pattern": "^[A-Z]{2}$",
+            "type": "string",
+            "description": "Country code (ISO 3166-1 alpha-2)."
           }
         },
-        "description": "Returned when authentication is missing or invalid.\n\n**Common causes:**\n- Missing \u0060Authorization\u0060 header\n- Invalid or expired API token\n- Malformed authorization header format\n",
-        "example": {
-          "error": "UNAUTHORIZED",
-          "message": "Invalid or missing authentication credentials",
-          "timestamp": "2026-08-03T10:30:00.000Z",
-          "path": "/public/2026Q3/v2/cases/12345678"
-        }
+        "description": "Address of the sender\u0027s bank."
       },
-      "Error400BadRequestBadRequestError400": {
-        "title": "Bad Request Error (400)",
+      "MessageSubmissionRequestSubmissionData": {
         "type": "object",
-        "properties": {
-          "error": {
-            "$ref": "#/components/schemas/Error400BadRequestBadRequestError400Error"
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/SubmissionDataFreeform"
           },
-          "message": {
-            "$ref": "#/components/schemas/Error400BadRequestBadRequestError400Message"
+          {
+            "$ref": "#/components/schemas/SubmissionDataSanctionHit"
+          },
+          {
+            "$ref": "#/components/schemas/SubmissionDataLocationHit"
+          },
+          {
+            "$ref": "#/components/schemas/SubmissionDataFile"
+          }
+        ],
+        "properties": {
+          "freeText": {
+            "maxLength": 10000,
+            "minLength": 1,
+            "type": "string",
+            "description": "The free-form text message to submit.\nCan include additional context, questions, or documentation references.\n",
+            "example": "The transfer has been verified and approved by our compliance team."
+          },
+          "individual": {
+            "$ref": "#/components/schemas/SubmissionIndividualIndividual"
+          },
+          "organisation": {
+            "$ref": "#/components/schemas/SubmissionOrganisationOrganisation"
+          },
+          "vessel": {
+            "$ref": "#/components/schemas/SubmissionVesselVessel"
+          },
+          "multiple": {
+            "$ref": "#/components/schemas/SubmissionMultipleMultiple"
+          },
+          "other": {
+            "$ref": "#/components/schemas/SubmissionOtherOther"
+          },
+          "profileId": {
+            "type": "integer",
+            "description": "The profile ID that the files belong to.\nMust match the profile associated with the uploaded files.\n",
+            "format": "int64",
+            "example": 14556049
+          },
+          "fileIds": {
+            "minItems": 1,
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "UUID of a previously uploaded file.",
+              "format": "uuid"
+            },
+            "description": "List of file IDs to attach to the case.\nFiles must have been previously uploaded via the file upload endpoint.\n"
           }
         },
-        "description": "Returned when the request is malformed or contains invalid data.\n\n**Common causes:**\n- Missing required fields (\u0060type\u0060, \u0060submissionData\u0060)\n- Invalid enum values for \u0060type\u0060\n- Malformed JSON in request body\n- Invalid field values that fail validation\n",
-        "example": {
-          "error": "BAD_REQUEST",
-          "message": "Validation failed for request body",
-          "timestamp": "2026-08-03T10:30:00.000Z",
-          "path": "/public/2026Q3/v2/cases/12345678/messages",
-          "errors": [
-            {
-              "field": "type",
-              "message": "must not be null"
-            },
-            {
-              "field": "submissionData",
-              "message": "must not be null"
-            }
-          ]
-        }
+        "description": "The data for the message submission. Structure varies based on submission type.\n"
       },
       "ContentSubmissionDataSubmissionData": {
         "type": "object",
@@ -29588,157 +30412,6 @@
           }
         }
       },
-      "MessageSubmissionRequestSubmissionData": {
-        "type": "object",
-        "oneOf": [
-          {
-            "$ref": "#/components/schemas/SubmissionDataFreeform"
-          },
-          {
-            "$ref": "#/components/schemas/SubmissionDataSanctionHit"
-          },
-          {
-            "$ref": "#/components/schemas/SubmissionDataLocationHit"
-          }
-        ],
-        "properties": {
-          "freeText": {
-            "maxLength": 10000,
-            "minLength": 1,
-            "type": "string",
-            "description": "The free-form text message to submit.\nCan include additional context, questions, or documentation references.\n",
-            "example": "The transfer has been verified and approved by our compliance team."
-          },
-          "individual": {
-            "$ref": "#/components/schemas/SubmissionIndividualIndividual"
-          },
-          "organisation": {
-            "$ref": "#/components/schemas/SubmissionOrganisationOrganisation"
-          },
-          "vessel": {
-            "$ref": "#/components/schemas/SubmissionVesselVessel"
-          },
-          "multiple": {
-            "$ref": "#/components/schemas/SubmissionMultipleMultiple"
-          },
-          "other": {
-            "$ref": "#/components/schemas/SubmissionOtherOther"
-          }
-        },
-        "description": "The data for the message submission. Structure varies based on submission type.\n"
-      },
-      "Error422UnprocessableEntityUnprocessableEntityError422": {
-        "title": "Unprocessable Entity Error (422)",
-        "type": "object",
-        "properties": {
-          "error": {
-            "$ref": "#/components/schemas/Error422UnprocessableEntityUnprocessableEntityError422Error"
-          },
-          "message": {
-            "$ref": "#/components/schemas/Error422UnprocessableEntityUnprocessableEntityError422Message"
-          }
-        },
-        "description": "Returned when the request is syntactically correct but semantically invalid.\n\n**Common causes:**\n- Submission type does not match case sub-type (e.g., submitting DEPOSIT_SANCTION_HIT_SUBMISSION for a RECIPIENT_SANCTION_HIT case)\n- Missing required fields for the submission type (e.g., \u0060countryOfResidenceIso3\u0060 missing for RECIPIENT sanction hit individual)\n- Providing both \u0060individual\u0060 AND \u0060organisation\u0060 when only one is allowed\n- Invalid ISO country code format\n- Invalid date format for \u0060dob\u0060\n",
-        "example": {
-          "error": "UNPROCESSABLE_ENTITY",
-          "message": "Submission type DEPOSIT_SANCTION_HIT_SUBMISSION is not valid for case sub-type RECIPIENT_SANCTION_HIT",
-          "timestamp": "2026-08-03T10:30:00.000Z",
-          "path": "/public/2026Q3/v2/cases/12345678/messages"
-        }
-      },
-      "BankDetailsAddress": {
-        "type": "object",
-        "properties": {
-          "addressLine": {
-            "maxLength": 70,
-            "minLength": 1,
-            "type": "string",
-            "description": "Address line: street, house, apartment."
-          },
-          "city": {
-            "maxLength": 140,
-            "minLength": 1,
-            "type": "string",
-            "description": "City name."
-          },
-          "postalCode": {
-            "maxLength": 16,
-            "minLength": 1,
-            "type": "string",
-            "description": "Postal code."
-          },
-          "country": {
-            "maxLength": 2,
-            "minLength": 2,
-            "pattern": "^[A-Z]{2}$",
-            "type": "string",
-            "description": "Country code (ISO 3166-1 alpha-2)."
-          }
-        },
-        "description": "Address of the sender\u0027s bank."
-      },
-      "SwiftInRequestBeneficiaryAddress": {
-        "type": "object",
-        "properties": {
-          "addressLine": {
-            "maxLength": 70,
-            "minLength": 1,
-            "type": "string",
-            "description": "Address line: street, house, apartment."
-          },
-          "city": {
-            "maxLength": 140,
-            "minLength": 1,
-            "type": "string",
-            "description": "City name."
-          },
-          "postalCode": {
-            "maxLength": 16,
-            "minLength": 1,
-            "type": "string",
-            "description": "Postal code."
-          },
-          "country": {
-            "maxLength": 2,
-            "minLength": 2,
-            "pattern": "^[A-Z]{2}$",
-            "type": "string",
-            "description": "Country code (ISO 3166-1 alpha-2)."
-          }
-        },
-        "description": "Address of the ultimate beneficiary."
-      },
-      "SwiftInRequestSenderAddress": {
-        "type": "object",
-        "properties": {
-          "addressLine": {
-            "maxLength": 70,
-            "minLength": 1,
-            "type": "string",
-            "description": "Address line: street, house, apartment."
-          },
-          "city": {
-            "maxLength": 140,
-            "minLength": 1,
-            "type": "string",
-            "description": "City name."
-          },
-          "postalCode": {
-            "maxLength": 16,
-            "minLength": 1,
-            "type": "string",
-            "description": "Postal code."
-          },
-          "country": {
-            "maxLength": 2,
-            "minLength": 2,
-            "pattern": "^[A-Z]{2}$",
-            "type": "string",
-            "description": "Country code (ISO 3166-1 alpha-2)."
-          }
-        },
-        "description": "Address of the sender."
-      },
       "V430DataResourceRecipient": {
         "type": "object",
         "properties": {
@@ -29848,6 +30521,57 @@
           }
         }
       },
+      "SwiftInRequestSenderAddressAllOf2": {
+        "type": "object",
+        "properties": {
+          "addressLine": {
+            "$ref": "#/components/schemas/SwiftInRequestSenderAddressAllOf2AddressLine"
+          },
+          "city": {
+            "$ref": "#/components/schemas/SwiftInRequestSenderAddressAllOf2City"
+          },
+          "postalCode": {
+            "$ref": "#/components/schemas/SwiftInRequestSenderAddressAllOf2PostalCode"
+          },
+          "country": {
+            "$ref": "#/components/schemas/SwiftInRequestSenderAddressAllOf2Country"
+          }
+        }
+      },
+      "SwiftInRequestBeneficiaryAddressAllOf2": {
+        "type": "object",
+        "properties": {
+          "addressLine": {
+            "$ref": "#/components/schemas/SwiftInRequestBeneficiaryAddressAllOf2AddressLine"
+          },
+          "city": {
+            "$ref": "#/components/schemas/SwiftInRequestBeneficiaryAddressAllOf2City"
+          },
+          "postalCode": {
+            "$ref": "#/components/schemas/SwiftInRequestBeneficiaryAddressAllOf2PostalCode"
+          },
+          "country": {
+            "$ref": "#/components/schemas/SwiftInRequestBeneficiaryAddressAllOf2Country"
+          }
+        }
+      },
+      "BankDetailsAddressAllOf2": {
+        "type": "object",
+        "properties": {
+          "addressLine": {
+            "$ref": "#/components/schemas/BankDetailsAddressAllOf2AddressLine"
+          },
+          "city": {
+            "$ref": "#/components/schemas/BankDetailsAddressAllOf2City"
+          },
+          "postalCode": {
+            "$ref": "#/components/schemas/BankDetailsAddressAllOf2PostalCode"
+          },
+          "country": {
+            "$ref": "#/components/schemas/BankDetailsAddressAllOf2Country"
+          }
+        }
+      },
       "ContentSubmissionDataSubmissionDataIndividualSubmission": {
         "title": "Individual submission",
         "type": "object",
@@ -29890,57 +30614,6 @@
         "properties": {
           "other": {
             "$ref": "#/components/schemas/ContentSubmissionDataSubmissionDataOtherLocationSubmissionOtherProperty"
-          }
-        }
-      },
-      "BankDetailsAddressAllOf2": {
-        "type": "object",
-        "properties": {
-          "addressLine": {
-            "$ref": "#/components/schemas/BankDetailsAddressAllOf2AddressLine"
-          },
-          "city": {
-            "$ref": "#/components/schemas/BankDetailsAddressAllOf2City"
-          },
-          "postalCode": {
-            "$ref": "#/components/schemas/BankDetailsAddressAllOf2PostalCode"
-          },
-          "country": {
-            "$ref": "#/components/schemas/BankDetailsAddressAllOf2Country"
-          }
-        }
-      },
-      "SwiftInRequestBeneficiaryAddressAllOf2": {
-        "type": "object",
-        "properties": {
-          "addressLine": {
-            "$ref": "#/components/schemas/SwiftInRequestBeneficiaryAddressAllOf2AddressLine"
-          },
-          "city": {
-            "$ref": "#/components/schemas/SwiftInRequestBeneficiaryAddressAllOf2City"
-          },
-          "postalCode": {
-            "$ref": "#/components/schemas/SwiftInRequestBeneficiaryAddressAllOf2PostalCode"
-          },
-          "country": {
-            "$ref": "#/components/schemas/SwiftInRequestBeneficiaryAddressAllOf2Country"
-          }
-        }
-      },
-      "SwiftInRequestSenderAddressAllOf2": {
-        "type": "object",
-        "properties": {
-          "addressLine": {
-            "$ref": "#/components/schemas/SwiftInRequestSenderAddressAllOf2AddressLine"
-          },
-          "city": {
-            "$ref": "#/components/schemas/SwiftInRequestSenderAddressAllOf2City"
-          },
-          "postalCode": {
-            "$ref": "#/components/schemas/SwiftInRequestSenderAddressAllOf2PostalCode"
-          },
-          "country": {
-            "$ref": "#/components/schemas/SwiftInRequestSenderAddressAllOf2Country"
           }
         }
       },
@@ -30503,7 +31176,7 @@
           "fee_type": {
             "type": "string",
             "description": "Fee type",
-            "example": "ATM_ACQUIRER"
+            "example": "ATM_MACHINE"
           }
         }
       },
@@ -31080,7 +31753,7 @@
       },
       "MessageSubmissionResponseContent": {
         "type": "object",
-        "description": "The content of the created message.\n- For FREEFORM: contains \u0060text.freeText\u0060\n- For SUBMISSION types: contains \u0060submissionData\u0060\n"
+        "description": "The content of the created message.\n- For FREEFORM: contains \u0060text.freeText\u0060\n- For SUBMISSION types: contains \u0060submissionData\u0060\n- For FILE_SUBMISSION: contains \u0060submissionData\u0060 with \u0060profileId\u0060 and \u0060fileIds\u0060\n"
       },
       "PersonalProfileContactDetails": {
         "type": "object",
@@ -42190,6 +42863,195 @@
         "description": "Card order id",
         "example": "142"
       },
+      "CardTransactionGet404ProblemJsonResponse": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "examples": [
+              "/errors/types/domain"
+            ],
+            "type": "string",
+            "description": "A domain type exception",
+            "format": "uri-reference"
+          },
+          "title": {
+            "examples": [
+              "Not found"
+            ],
+            "type": "string",
+            "description": "The title of the exception"
+          },
+          "status": {
+            "examples": [
+              404
+            ],
+            "type": "integer",
+            "description": "The HTTP status error code"
+          },
+          "detail": {
+            "examples": [
+              "Transaction does not exist"
+            ],
+            "type": "string",
+            "description": "A detailed description of the failure"
+          },
+          "instance": {
+            "examples": [
+              "/public/v4/spend/profiles/2/cards/transactions/121212"
+            ],
+            "type": "string",
+            "description": "The URI that triggered the error",
+            "format": "uri-reference"
+          },
+          "code": {
+            "examples": [
+              "resource_not_found"
+            ],
+            "type": "string",
+            "description": "Specific application-level error code"
+          }
+        }
+      },
+      "CardTransactionGet422ProblemJsonResponse": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "examples": [
+              "/errors/types/domain"
+            ],
+            "type": "string",
+            "description": "A domain type exception (must be /errors/types/domain for this error type)",
+            "format": "uri-reference"
+          },
+          "title": {
+            "examples": [
+              "Unprocessable Entity"
+            ],
+            "type": "string",
+            "description": "The title of the error"
+          },
+          "status": {
+            "examples": [
+              422
+            ],
+            "type": "integer",
+            "description": "The HTTP status error code"
+          },
+          "detail": {
+            "examples": [
+              "Access to transactions is limited to the last 90 days. Queries outside this date range are not supported."
+            ],
+            "type": "string",
+            "description": "A detailed description of the failure"
+          },
+          "instance": {
+            "examples": [
+              "/public/v4/spend/profiles/2/cards/transactions/121212"
+            ],
+            "type": "string",
+            "description": "The URI that triggered the error",
+            "format": "uri-reference"
+          },
+          "code": {
+            "examples": [
+              "operation_not_supported"
+            ],
+            "type": "string",
+            "description": "Error code of the request"
+          }
+        }
+      },
+      "CardTransactionList400ProblemJsonResponse": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "examples": [
+              "/errors/types/validation"
+            ],
+            "type": "string",
+            "description": "The type of validation error (must be /errors/types/validation for this error type)",
+            "format": "uri-reference"
+          },
+          "title": {
+            "examples": [
+              "Validation Error"
+            ],
+            "type": "string",
+            "description": "The title of the error"
+          },
+          "status": {
+            "examples": [
+              400
+            ],
+            "type": "integer",
+            "description": "The HTTP status error code"
+          },
+          "instance": {
+            "examples": [
+              "/public/v4/spend/profiles/2/cards/f47da127-7b8c-4312-8f10-dd2d70e6912b/transactions"
+            ],
+            "type": "string",
+            "description": "The URI that triggered the validation error",
+            "format": "uri-reference"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CardTransactionList400ProblemJsonResponseErrorsItem"
+            },
+            "description": "A list of specific validation failures."
+          }
+        }
+      },
+      "CardTransactionList422ProblemJsonResponse": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "examples": [
+              "/errors/types/domain"
+            ],
+            "type": "string",
+            "description": "A domain type exception (must be /errors/types/domain for this error type)",
+            "format": "uri-reference"
+          },
+          "title": {
+            "examples": [
+              "Unprocessable Entity"
+            ],
+            "type": "string",
+            "description": "The title of the error"
+          },
+          "status": {
+            "examples": [
+              422
+            ],
+            "type": "integer",
+            "description": "The HTTP status error code"
+          },
+          "detail": {
+            "examples": [
+              "Access to transactions is limited to the last 90 days. Queries outside this date range are not supported."
+            ],
+            "type": "string",
+            "description": "A detailed description of the failure"
+          },
+          "instance": {
+            "examples": [
+              "/public/v4/spend/profiles/2/cards/f47da127-7b8c-4312-8f10-dd2d70e6912b/transactions"
+            ],
+            "type": "string",
+            "description": "The URI that triggered the error",
+            "format": "uri-reference"
+          },
+          "code": {
+            "examples": [
+              "operation_not_supported"
+            ],
+            "type": "string",
+            "description": "Error code of the request"
+          }
+        }
+      },
       "ClaimAccountCreateRequest": {
         "required": [
           "registrationCode"
@@ -43517,7 +44379,7 @@
           "uniqueIdentifier": {
             "maxLength": 30,
             "type": "string",
-            "description": "Document number or value. Must be digits only when SSN or FINANCIAL_CAPACITY_BR.",
+            "description": "Document number or value. Must be digits only for \u0060SSN\u0060 or \u0060FINANCIAL_CAPACITY_BR\u0060. \n\nWhen using \u0060FINANCIAL_CAPACITY_BR\u0060, the value must contain the financial capacity amount in BRL (Brazilian Real).\n",
             "example": "AA299822313"
           },
           "issueDate": {
@@ -43545,15 +44407,15 @@
           },
           "employerName": {
             "type": "string",
-            "description": "The name of the employer. Type must be EMIRATES_EMPLOYER."
+            "description": "The name of the employer. Type must be \u0060EMIRATES_EMPLOYER\u0060."
           },
           "employerCity": {
             "type": "string",
-            "description": "The city of the employer. Type must be EMIRATES_EMPLOYER."
+            "description": "The city of the employer. Type must be \u0060EMIRATES_EMPLOYER\u0060."
           },
           "employerCountry": {
             "type": "string",
-            "description": "2 characters ISO country code. Type must be EMIRATES_EMPLOYER."
+            "description": "2 characters ISO country code. Type must be \u0060EMIRATES_EMPLOYER\u0060."
           },
           "birthCity": {
             "type": "string",
@@ -43622,7 +44484,7 @@
           "uniqueIdentifier": {
             "maxLength": 30,
             "type": "string",
-            "description": "Document number or value. Must be digits only when SSN or FINANCIAL_CAPACITY_BR.",
+            "description": "Document number or value. Must be digits only for \u0060SSN\u0060 or \u0060FINANCIAL_CAPACITY_BR\u0060. \n\nWhen using \u0060FINANCIAL_CAPACITY_BR\u0060, the value must contain the financial capacity amount in BRL (Brazilian Real).\n",
             "example": "AA299822313"
           },
           "issueDate": {
@@ -47358,81 +48220,33 @@
           }
         }
       },
-      "Error404NotFoundNotFoundError404Error": {
-        "type": "object",
-        "example": "RESOURCE_NOT_FOUND"
-      },
-      "Error404NotFoundNotFoundError404Message": {
-        "type": "object",
-        "example": "Case not found"
-      },
-      "Error403ForbiddenForbiddenError403Error": {
-        "type": "object",
-        "example": "FORBIDDEN"
-      },
-      "Error403ForbiddenForbiddenError403Message": {
-        "type": "object",
-        "example": "Access denied"
-      },
       "KycRequirementAttributesProperty": {
         "type": "object",
         "description": "**Conditional:** Only present for certain requirement types that provide additional contextual information. The keys within this object vary depending on the parent requirement \u0060key\u0060. See the [KYC requirement types](/guides/product/kyc/wise-kyc/kyc-requirement-types) guide for details on which requirement types support attributes and what keys they contain.\n"
       },
-      "ValidationErrorRejectedValue": {
-        "type": "object",
-        "description": "The value that was rejected (if applicable).",
-        "example": null
-      },
       "MessageSubmissionResponseContentProperty": {
         "type": "object",
-        "description": "The content of the created message.\n- For FREEFORM: contains \u0060text.freeText\u0060\n- For SUBMISSION types: contains \u0060submissionData\u0060\n"
+        "description": "The content of the created message.\n- For FREEFORM: contains \u0060text.freeText\u0060\n- For SUBMISSION types: contains \u0060submissionData\u0060\n- For FILE_SUBMISSION: contains \u0060submissionData\u0060 with \u0060profileId\u0060 and \u0060fileIds\u0060\n"
       },
       "RecipientCommonFieldMapProperty": {
         "type": "object",
         "description": "Map of key lookup fields for the account."
       },
-      "Error401UnauthorizedUnauthorizedError401Error": {
+      "SwiftInRequestSenderAddressAllOf2AddressLine": {
         "type": "object",
-        "example": "UNAUTHORIZED"
+        "example": "5678 Oak St"
       },
-      "Error401UnauthorizedUnauthorizedError401Message": {
+      "SwiftInRequestSenderAddressAllOf2City": {
         "type": "object",
-        "example": "Authentication required"
+        "example": "Springfield"
       },
-      "Error400BadRequestBadRequestError400Error": {
+      "SwiftInRequestSenderAddressAllOf2PostalCode": {
         "type": "object",
-        "example": "BAD_REQUEST"
+        "example": "62704"
       },
-      "Error400BadRequestBadRequestError400Message": {
+      "SwiftInRequestSenderAddressAllOf2Country": {
         "type": "object",
-        "example": "Invalid request body"
-      },
-      "Error422UnprocessableEntityUnprocessableEntityError422Error": {
-        "type": "object",
-        "example": "UNPROCESSABLE_ENTITY"
-      },
-      "Error422UnprocessableEntityUnprocessableEntityError422Message": {
-        "type": "object",
-        "example": "Submission type mismatch"
-      },
-      "ContentSubmissionDataSubmissionDataOtherLocationSubmissionOtherProperty": {
-        "type": "object"
-      },
-      "BankDetailsAddressAllOf2AddressLine": {
-        "type": "object",
-        "example": "1 Bank Street"
-      },
-      "BankDetailsAddressAllOf2City": {
-        "type": "object",
-        "example": "Frankfurt"
-      },
-      "BankDetailsAddressAllOf2PostalCode": {
-        "type": "object",
-        "example": "60311"
-      },
-      "BankDetailsAddressAllOf2Country": {
-        "type": "object",
-        "example": "DE"
+        "example": "US"
       },
       "SwiftInRequestBeneficiaryAddressAllOf2AddressLine": {
         "type": "object",
@@ -47450,21 +48264,24 @@
         "type": "object",
         "example": "US"
       },
-      "SwiftInRequestSenderAddressAllOf2AddressLine": {
+      "BankDetailsAddressAllOf2AddressLine": {
         "type": "object",
-        "example": "5678 Oak St"
+        "example": "1 Bank Street"
       },
-      "SwiftInRequestSenderAddressAllOf2City": {
+      "BankDetailsAddressAllOf2City": {
         "type": "object",
-        "example": "Springfield"
+        "example": "Frankfurt"
       },
-      "SwiftInRequestSenderAddressAllOf2PostalCode": {
+      "BankDetailsAddressAllOf2PostalCode": {
         "type": "object",
-        "example": "62704"
+        "example": "60311"
       },
-      "SwiftInRequestSenderAddressAllOf2Country": {
+      "BankDetailsAddressAllOf2Country": {
         "type": "object",
-        "example": "US"
+        "example": "DE"
+      },
+      "ContentSubmissionDataSubmissionDataOtherLocationSubmissionOtherProperty": {
+        "type": "object"
       },
       "V430DataResourcePreviousInstructingAgentsItemAllOf2Bic": {
         "type": "object",
@@ -48291,6 +49108,29 @@
             "type": "string",
             "description": "Description of the validation error.",
             "example": "Please enter a valid postcode"
+          }
+        }
+      },
+      "CardTransactionList400ProblemJsonResponseErrorsItem": {
+        "type": "object",
+        "properties": {
+          "detail": {
+            "examples": [
+              "Invalid date format. Expected ISO-8601 format YYYY-MM-DDTHH:mm:ssZ."
+            ],
+            "type": "string",
+            "description": "A detailed description of the validation failure."
+          },
+          "code": {
+            "examples": [
+              "parameter_invalid_format"
+            ],
+            "type": "string",
+            "description": "A specific code for the validation failure type."
+          },
+          "ref": {
+            "type": "string",
+            "description": "A reference to the field that failed validation."
           }
         }
       },
@@ -51781,7 +52621,8 @@
           "REFERENCE_SANCTION_HIT_SUBMISSION",
           "RECIPIENT_SANCTION_HIT_SUBMISSION",
           "REFERENCE_LOCATION_HIT_SUBMISSION",
-          "RECIPIENT_LOCATION_HIT_SUBMISSION"
+          "RECIPIENT_LOCATION_HIT_SUBMISSION",
+          "FILE_SUBMISSION"
         ],
         "type": "string",
         "additionalProperties": false,
@@ -51814,6 +52655,10 @@
             {
               "value": "RECIPIENT_LOCATION_HIT_SUBMISSION",
               "name": "RecipientLocationHitSubmission"
+            },
+            {
+              "value": "FILE_SUBMISSION",
+              "name": "FileSubmission"
             }
           ]
         }

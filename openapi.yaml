@@ -4611,6 +4611,7 @@ paths:
                 status: NEW
                 transferIds: []
                 payInDetails: []
+                payinSessionId: null
           headers:
             X-External-Correlation-Id:
               $ref: '#/components/headers/X-External-Correlation-Id'
@@ -6965,6 +6966,98 @@ paths:
               $ref: '#/components/headers/X-External-Correlation-Id'
             x-trace-id:
               $ref: '#/components/headers/x-trace-id'
+        '404':
+          description: Not found.
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    format: uri-reference
+                    description: A domain type exception
+                    examples:
+                      - /errors/types/domain
+                  title:
+                    type: string
+                    description: The title of the exception
+                    examples:
+                      - Not found
+                  status:
+                    type: integer
+                    description: The HTTP status error code
+                    examples:
+                      - 404
+                  detail:
+                    type: string
+                    description: A detailed description of the failure
+                    examples:
+                      - Transaction does not exist
+                  instance:
+                    type: string
+                    format: uri-reference
+                    description: The URI that triggered the error
+                    examples:
+                      - /public/v4/spend/profiles/2/cards/transactions/121212
+                  code:
+                    type: string
+                    description: Specific application-level error code
+                    examples:
+                      - resource_not_found
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '422':
+          description: Unprocessable request.
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    format: uri-reference
+                    description: >-
+                      A domain type exception (must be /errors/types/domain for
+                      this error type)
+                    examples:
+                      - /errors/types/domain
+                  title:
+                    type: string
+                    description: The title of the error
+                    examples:
+                      - Unprocessable Entity
+                  status:
+                    type: integer
+                    description: The HTTP status error code
+                    examples:
+                      - 422
+                  detail:
+                    type: string
+                    description: A detailed description of the failure
+                    examples:
+                      - >-
+                        Access to transactions is limited to the last 90 days.
+                        Queries outside this date range are not supported.
+                  instance:
+                    type: string
+                    format: uri-reference
+                    description: The URI that triggered the error
+                    examples:
+                      - /public/v4/spend/profiles/2/cards/transactions/121212
+                  code:
+                    type: string
+                    description: Error code of the request
+                    examples:
+                      - operation_not_supported
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
         '429':
           $ref: '#/components/responses/429'
   /spend/profiles/{profileId}/cards/{cardToken}/transactions:
@@ -7085,7 +7178,7 @@ paths:
                     fees:
                       - amount: 0.1
                         currency: SGD
-                        fee_type: ATM_ACQUIRER
+                        fee_type: ATM_MACHINE
                     transactionAmountWithFees:
                       amount: 1.5
                       currency: SGD
@@ -7109,6 +7202,113 @@ paths:
                     arn: '04300014127798385983852'
                     pinValidationResult: ONLINE_PIN_VALIDATED
                     balanceChannelReferenceId: 6e71018d-2f4d-4fc3-6711-f517f4664712
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '400':
+          description: Invalid request.
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    format: uri-reference
+                    description: >-
+                      The type of validation error (must be
+                      /errors/types/validation for this error type)
+                    examples:
+                      - /errors/types/validation
+                  title:
+                    type: string
+                    description: The title of the error
+                    examples:
+                      - Validation Error
+                  status:
+                    type: integer
+                    description: The HTTP status error code
+                    examples:
+                      - 400
+                  instance:
+                    type: string
+                    format: uri-reference
+                    description: The URI that triggered the validation error
+                    examples:
+                      - >-
+                        /public/v4/spend/profiles/2/cards/f47da127-7b8c-4312-8f10-dd2d70e6912b/transactions
+                  errors:
+                    type: array
+                    description: A list of specific validation failures.
+                    items:
+                      type: object
+                      properties:
+                        detail:
+                          type: string
+                          description: A detailed description of the validation failure.
+                          examples:
+                            - >-
+                              Invalid date format. Expected ISO-8601 format
+                              YYYY-MM-DDTHH:mm:ssZ.
+                        code:
+                          type: string
+                          description: A specific code for the validation failure type.
+                          examples:
+                            - parameter_invalid_format
+                        ref:
+                          type: string
+                          description: A reference to the field that failed validation.
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '422':
+          description: Unprocessable request.
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    format: uri-reference
+                    description: >-
+                      A domain type exception (must be /errors/types/domain for
+                      this error type)
+                    examples:
+                      - /errors/types/domain
+                  title:
+                    type: string
+                    description: The title of the error
+                    examples:
+                      - Unprocessable Entity
+                  status:
+                    type: integer
+                    description: The HTTP status error code
+                    examples:
+                      - 422
+                  detail:
+                    type: string
+                    description: A detailed description of the failure
+                    examples:
+                      - >-
+                        Access to transactions is limited to the last 90 days.
+                        Queries outside this date range are not supported.
+                  instance:
+                    type: string
+                    format: uri-reference
+                    description: The URI that triggered the error
+                    examples:
+                      - >-
+                        /public/v4/spend/profiles/2/cards/f47da127-7b8c-4312-8f10-dd2d70e6912b/transactions
+                  code:
+                    type: string
+                    description: Error code of the request
+                    examples:
+                      - operation_not_supported
           headers:
             X-External-Correlation-Id:
               $ref: '#/components/headers/X-External-Correlation-Id'
@@ -11848,7 +12048,7 @@ paths:
         - All public messages associated with the case
 
 
-        Messages in the response can have three different content structures:
+        Messages in the response can have four different content structures:
 
 
         1. Attributes Content (REQUEST messages)
@@ -11871,6 +12071,13 @@ paths:
 
         Present in `FREEFORM` messages. Contains free text conversation between
         partners and Wise.
+
+
+        4. File Submission Content (FILE_SUBMISSION messages)
+
+        Present in `FILE_SUBMISSION` messages. Contains file references
+        (`profileId` and `fileIds`) for files attached to the case by the
+        partner.
       tags:
         - case
       security:
@@ -11880,7 +12087,7 @@ paths:
           label: cURL
           source: |
             curl -X GET \
-              'https://api.sandbox.wise.com/2026Q3/cases/{caseId}' \
+              'https://api.sandbox.wise.com/2026Q4/cases/{caseId}' \
               -H 'Content-Type: application/json' \
               -H 'Authorization: Bearer <token>'
       parameters:
@@ -12337,23 +12544,82 @@ paths:
                               delivery address.
                         type: FREEFORM
                         author: PARTNER
-          headers:
-            X-External-Correlation-Id:
-              $ref: '#/components/headers/X-External-Correlation-Id'
-            x-trace-id:
-              $ref: '#/components/headers/x-trace-id'
-        '400':
-          description: Bad request - invalid input parameters
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/error-400-bad-request'
-              example:
-                error: BAD_REQUEST
-                message: Invalid request body
-                errors:
-                  - field: type
-                    message: must not be null
+                fileSubmissionJourney:
+                  summary: FILE_SUBMISSION - File attachment journey
+                  description: >-
+                    Shows a case where the partner attaches files and follows up
+                    with freeform
+                  value:
+                    id: 12345006
+                    profileId: 14556049
+                    type: SANCTIONS
+                    subType: DEPOSIT_SANCTION_HIT
+                    status: IN_REVIEW
+                    externalId: PARTNER-FILE-001
+                    createdAt: '2026-07-28T08:00:00.000'
+                    updatedAt: '2026-07-29T11:00:00.000'
+                    reference:
+                      type: TRANSFER
+                      referenceId: '666777888'
+                    messages:
+                      - id: aabb1111-2222-3333-4444-555566667777
+                        caseId: 12345006
+                        createdAt: '2026-07-28T08:00:00.000'
+                        content:
+                          attributes:
+                            individual:
+                              name:
+                                type: String
+                                required: true
+                              dob:
+                                type: LocalDate
+                                required: false
+                            business:
+                              name:
+                                type: String
+                                required: true
+                              address:
+                                type: Address
+                                required: true
+                              natureOfBusiness:
+                                type: String
+                                required: false
+                              website:
+                                type: String
+                                required: false
+                        type: DEPOSIT_SANCTION_HIT_REQUEST
+                        author: WISE_SYSTEM
+                      - id: aabb2222-3333-4444-5555-666677778888
+                        caseId: 12345006
+                        createdAt: '2026-07-28T12:00:00.000'
+                        content:
+                          submissionData:
+                            individual:
+                              name: Alice Johnson
+                              dob: '1988-11-02'
+                        type: DEPOSIT_SANCTION_HIT_SUBMISSION
+                        author: PARTNER
+                      - id: aabb3333-4444-5555-6666-777788889999
+                        caseId: 12345006
+                        createdAt: '2026-07-29T09:00:00.000'
+                        content:
+                          submissionData:
+                            profileId: 14556049
+                            fileIds:
+                              - a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                              - b2c3d4e5-f6a7-8901-bcde-f12345678901
+                        type: FILE_SUBMISSION
+                        author: PARTNER
+                      - id: aabb4444-5555-6666-7777-888899990000
+                        caseId: 12345006
+                        createdAt: '2026-07-29T09:05:00.000'
+                        content:
+                          text:
+                            freeText: >-
+                              We have uploaded the supporting identity documents
+                              for Alice Johnson as requested.
+                        type: FREEFORM
+                        author: PARTNER
           headers:
             X-External-Correlation-Id:
               $ref: '#/components/headers/X-External-Correlation-Id'
@@ -12366,8 +12632,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/error-401-unauthorized'
               example:
-                error: UNAUTHORIZED
-                message: Authentication required
+                type: /errors/types/access
+                title: Unauthorized
+                status: 401
+                detail: Authentication required
           headers:
             X-External-Correlation-Id:
               $ref: '#/components/headers/X-External-Correlation-Id'
@@ -12380,22 +12648,29 @@ paths:
               schema:
                 $ref: '#/components/schemas/error-403-forbidden'
               example:
-                error: FORBIDDEN
-                message: Insufficient permissions to access this resource
+                type: /errors/types/access
+                title: Forbidden
+                status: 403
+                detail: Unauthorized
+                code: forbidden
           headers:
             X-External-Correlation-Id:
               $ref: '#/components/headers/X-External-Correlation-Id'
             x-trace-id:
               $ref: '#/components/headers/x-trace-id'
         '404':
-          description: Not found - the requested resource does not exist
+          description: Not found - case does not exist
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/error-404-not-found'
               example:
-                error: NOT_FOUND
-                message: Case not found
+                type: /errors/types/domain
+                title: Not Found
+                status: 404
+                detail: 'case not found: 12345678'
+                instance: /public/v2/cases/12345678
+                code: resource_not_found
           headers:
             X-External-Correlation-Id:
               $ref: '#/components/headers/X-External-Correlation-Id'
@@ -12408,32 +12683,13 @@ paths:
       operationId: caseSubmitMessage
       summary: Submit a message to a case
       description: >
-        Submits a new message to an existing support case. The message type
-        determines
-
-        the expected structure of the submission data.
-
-
         See the [Case submission
         type](/guides/product/partner/submission-types.md) guide for details on
-        each submission type along with an example..
+        each submission type along with an example.
       tags:
         - case
       security:
         - ClientCredentialsToken: []
-      x-codeSamples:
-        - lang: bash
-          label: cURL
-          source: |
-            curl -X POST "https://api.wise.com/2026Q3/cases/12345678/messages" \
-              -H "Authorization: Bearer YOUR_API_TOKEN" \
-              -H "Content-Type: application/json" \
-              -d '{
-                "type": "FREEFORM",
-                "submissionData": {
-                  "freeText": "Following up on the requested documentation. We have verified the recipient identity through our internal KYC process. The beneficial owner structure has been confirmed with no exposure to sanctioned entities. Please find attached (via secure upload) the supporting documentation including: 1) Company registration certificate, 2) Director identification, 3) Source of funds declaration."
-                }
-              }'
       parameters:
         - name: caseId
           in: path
@@ -12460,6 +12716,177 @@ paths:
                     freeText: >-
                       The transfer has been verified and approved by our
                       compliance team.
+              fileSubmission:
+                summary: FILE_SUBMISSION
+                description: >
+                  File submission - attach previously uploaded files to a case.
+
+                  Files must be uploaded via the file upload endpoint before
+                  submitting.
+                value:
+                  type: FILE_SUBMISSION
+                  submissionData:
+                    profileId: 14556049
+                    fileIds:
+                      - a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                      - b2c3d4e5-f6a7-8901-bcde-f12345678901
+              depositSanctionHitIndividual:
+                summary: DEPOSIT_SANCTION_HIT_SUBMISSION (individual)
+                description: >-
+                  Submit individual depositor information for a deposit sanction
+                  hit case.
+                value:
+                  type: DEPOSIT_SANCTION_HIT_SUBMISSION
+                  submissionData:
+                    individual:
+                      name: Maria Garcia Rodriguez
+                      dob: 12/05/1988
+                      nationality: Spanish
+              depositSanctionHitOrganisation:
+                summary: DEPOSIT_SANCTION_HIT_SUBMISSION (organisation)
+                description: >-
+                  Submit organisation depositor information for a deposit
+                  sanction hit case.
+                value:
+                  type: DEPOSIT_SANCTION_HIT_SUBMISSION
+                  submissionData:
+                    organisation:
+                      name: Tech Solutions Europe S.A.
+                      streetAddress: Av. de la Liberté 25
+                      city: Luxembourg
+                      postCode: '1931'
+                      countryIso3: LUX
+                      natureOfBusiness: Software Development
+                      website: https://www.techsolutions-eu.com
+              recipientSanctionHitIndividual:
+                summary: RECIPIENT_SANCTION_HIT_SUBMISSION (individual)
+                description: >-
+                  Submit individual recipient information for a recipient
+                  sanction hit case.
+                value:
+                  type: RECIPIENT_SANCTION_HIT_SUBMISSION
+                  submissionData:
+                    individual:
+                      name: Li Wei Chen
+                      countryOfResidenceIso3: SGP
+                      dob: 03/11/1982
+                      nationality: Singaporean
+              recipientSanctionHitOrganisation:
+                summary: RECIPIENT_SANCTION_HIT_SUBMISSION (organisation)
+                description: >-
+                  Submit organisation recipient information for a recipient
+                  sanction hit case.
+                value:
+                  type: RECIPIENT_SANCTION_HIT_SUBMISSION
+                  submissionData:
+                    organisation:
+                      name: Pacific Rim Trading Co.
+                      streetAddress: 88 Marina Boulevard
+                      city: Singapore
+                      postCode: '018984'
+                      countryIso3: SGP
+                      natureOfBusiness: Commodities Trading
+              referenceSanctionHitIndividual:
+                summary: REFERENCE_SANCTION_HIT_SUBMISSION (individual)
+                description: >-
+                  Submit individual information for a reference sanction hit
+                  case.
+                value:
+                  type: REFERENCE_SANCTION_HIT_SUBMISSION
+                  submissionData:
+                    individual:
+                      name: Robert Downy Jr
+                      countryOfResidenceIso3: EGY
+                      dob: 22/08/1975
+                      nationality: Egyptian
+              referenceSanctionHitOrganisation:
+                summary: REFERENCE_SANCTION_HIT_SUBMISSION (organisation)
+                description: >-
+                  Submit organisation information for a reference sanction hit
+                  case.
+                value:
+                  type: REFERENCE_SANCTION_HIT_SUBMISSION
+                  submissionData:
+                    organisation:
+                      name: Global Trading Partners LLC
+                      streetAddress: 1500 Commerce Street, Suite 400
+                      city: Dubai
+                      postCode: '00000'
+                      countryIso3: ARE
+                      natureOfBusiness: Import/Export Trading
+                      website: https://www.globaltrading-partners.com
+              referenceSanctionHitVessel:
+                summary: REFERENCE_SANCTION_HIT_SUBMISSION (vessel)
+                description: Submit vessel information for a reference sanction hit case.
+                value:
+                  type: REFERENCE_SANCTION_HIT_SUBMISSION
+                  submissionData:
+                    vessel:
+                      vesselImoNumber: '9074729'
+              referenceSanctionHitMultiple:
+                summary: REFERENCE_SANCTION_HIT_SUBMISSION (multiple)
+                description: >-
+                  Submit information when multiple entities are involved in a
+                  reference sanction hit case.
+                value:
+                  type: REFERENCE_SANCTION_HIT_SUBMISSION
+                  submissionData:
+                    multiple:
+                      explanation: >-
+                        This payment reference involves a consortium of three
+                        companies: Alpha Corp (USA), Beta Ltd (UK), and Gamma
+                        GmbH (Germany). The payment is for a joint
+                        infrastructure project where funds are distributed
+                        proportionally: 40% to Alpha Corp, 35% to Beta Ltd, and
+                        25% to Gamma GmbH.
+              referenceSanctionHitOther:
+                summary: REFERENCE_SANCTION_HIT_SUBMISSION (other)
+                description: >-
+                  Submit information for entity types not covered by standard
+                  categories.
+                value:
+                  type: REFERENCE_SANCTION_HIT_SUBMISSION
+                  submissionData:
+                    other:
+                      explanation: >-
+                        The payment reference relates to a charitable foundation
+                        registered with the UN. The Foundation for Educational
+                        Development (FED) is a non-profit organization
+                        established in 2010, registered under Swiss law with
+                        headquarters in Geneva. Registration number:
+                        CH-660.0.000.000-1.
+              referenceLocationHit:
+                summary: REFERENCE_LOCATION_HIT_SUBMISSION
+                description: >-
+                  Submit location-related information for a reference location
+                  hit case.
+                value:
+                  type: REFERENCE_LOCATION_HIT_SUBMISSION
+                  submissionData:
+                    other:
+                      relatedToLocation: >-
+                        The payment reference mentions Crimea due to historical
+                        business operations that were fully wound down in 2014.
+                      paymentExplanation: >-
+                        Current payment is for consulting services rendered in
+                        London, UK.
+                      location: Crimea, Ukraine
+                      referenceDescription: Invoice CRM-2026-0042 - Consulting services for Q2 2026.
+              recipientLocationHit:
+                summary: RECIPIENT_LOCATION_HIT_SUBMISSION
+                description: >-
+                  Submit location-related information for a recipient location
+                  hit case.
+                value:
+                  type: RECIPIENT_LOCATION_HIT_SUBMISSION
+                  submissionData:
+                    other:
+                      relatedToLocation: >-
+                        Recipient company has a branch registration in the
+                        flagged jurisdiction for administrative purposes only.
+                      paymentExplanation: Payment for software licenses delivered electronically.
+                      location: Minsk, Belarus
+                      businessWebsite: https://www.recipient-software.ie
       responses:
         '201':
           description: Message submitted successfully
@@ -12495,23 +12922,185 @@ paths:
                           nationality: British
                     type: DEPOSIT_SANCTION_HIT_SUBMISSION
                     author: PARTNER
+                fileSubmissionResponse:
+                  summary: FILE_SUBMISSION message created
+                  value:
+                    id: 880e8400-e29b-41d4-a716-446655440003
+                    caseId: 12345678
+                    createdAt: '2026-07-27T15:10:00.000'
+                    content:
+                      submissionData:
+                        profileId: 14556049
+                        fileIds:
+                          - a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                          - b2c3d4e5-f6a7-8901-bcde-f12345678901
+                    type: FILE_SUBMISSION
+                    author: PARTNER
           headers:
             X-External-Correlation-Id:
               $ref: '#/components/headers/X-External-Correlation-Id'
             x-trace-id:
               $ref: '#/components/headers/x-trace-id'
         '400':
-          description: Bad request - invalid input parameters
+          description: Bad request - validation failed or business rule violation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/error-400-bad-request'
-              example:
-                error: BAD_REQUEST
-                message: Invalid request body
-                errors:
-                  - field: type
-                    message: must not be null
+              examples:
+                missingType:
+                  summary: Missing type
+                  value:
+                    type: /errors/types/validation
+                    title: Validation Error
+                    status: 400
+                    instance: /public/v2/cases/12345678/messages
+                    errors:
+                      - code: parameter_missing
+                        ref: type
+                        detail: null
+                invalidType:
+                  summary: Invalid type value
+                  value:
+                    type: /errors/types/validation
+                    title: Validation Error
+                    status: 400
+                    instance: /public/v2/cases/12345678/messages
+                    errors:
+                      - code: invalid_value
+                        ref: type
+                        detail: null
+                missingSubmissionData:
+                  summary: Missing submissionData
+                  value:
+                    type: /errors/types/validation
+                    title: Validation Error
+                    status: 400
+                    instance: /public/v2/cases/12345678/messages
+                    errors:
+                      - code: parameter_missing
+                        ref: submissionData
+                        detail: null
+                invalidSubmissionDataFormat:
+                  summary: Malformed submissionData structure
+                  value:
+                    type: /errors/types/validation
+                    title: Validation Error
+                    status: 400
+                    instance: /public/v2/cases/12345678/messages
+                    errors:
+                      - code: invalid_request
+                        ref: submissionData
+                        detail: Invalid submission data format
+                missingFreeText:
+                  summary: Missing freeText for FREEFORM submission
+                  value:
+                    type: /errors/types/validation
+                    title: Validation Error
+                    status: 400
+                    instance: /public/v2/cases/12345678/messages
+                    errors:
+                      - code: parameter_missing
+                        ref: freeText
+                        detail: >-
+                          Submission data must contain 'freeText' field for
+                          FREEFORM submission
+                missingProfileId:
+                  summary: Missing profileId for FILE_SUBMISSION
+                  value:
+                    type: /errors/types/validation
+                    title: Validation Error
+                    status: 400
+                    instance: /public/v2/cases/12345678/messages
+                    errors:
+                      - code: parameter_missing
+                        ref: profileId
+                        detail: profileId is required
+                missingFileIds:
+                  summary: Empty fileIds for FILE_SUBMISSION
+                  value:
+                    type: /errors/types/validation
+                    title: Validation Error
+                    status: 400
+                    instance: /public/v2/cases/12345678/messages
+                    errors:
+                      - code: parameter_missing
+                        ref: fileIds
+                        detail: fileIds must not be empty
+                duplicateFileIds:
+                  summary: Duplicate file IDs in FILE_SUBMISSION
+                  value:
+                    type: /errors/types/validation
+                    title: Validation Error
+                    status: 400
+                    instance: /public/v2/cases/12345678/messages
+                    errors:
+                      - code: invalid_value
+                        ref: fileIds
+                        detail: fileIds must not contain duplicates
+                filesDoNotExist:
+                  summary: One or more file IDs not found
+                  value:
+                    type: /errors/types/validation
+                    title: Validation Error
+                    status: 400
+                    instance: /public/v2/cases/12345678/messages
+                    errors:
+                      - code: invalid_value
+                        ref: fileIds
+                        detail: One or more files do not exist
+                filesWrongProfile:
+                  summary: Files do not belong to the specified profile
+                  value:
+                    type: /errors/types/validation
+                    title: Validation Error
+                    status: 400
+                    instance: /public/v2/cases/12345678/messages
+                    errors:
+                      - code: invalid_value
+                        ref: profileId
+                        detail: >-
+                          One or more files do not belong to the specified
+                          profile
+                filesNotUploadedByYou:
+                  summary: Files were not uploaded by you
+                  value:
+                    type: /errors/types/validation
+                    title: Validation Error
+                    status: 400
+                    instance: /public/v2/cases/12345678/messages
+                    errors:
+                      - code: invalid_value
+                        ref: fileIds
+                        detail: One or more files were not created by the Partner
+                invalidSanctionHitStructure:
+                  summary: Invalid sanction hit submission structure
+                  value:
+                    type: /errors/types/validation
+                    title: Validation Error
+                    status: 400
+                    instance: /public/v2/cases/12345678/messages
+                    errors:
+                      - code: invalid_request
+                        ref: submissionData
+                        detail: >-
+                          Submission must contain either 'individual' or
+                          'organisation' data
+                missingCountryOfResidence:
+                  summary: >-
+                    Missing countryOfResidenceIso3 for recipient/reference
+                    individual
+                  value:
+                    type: /errors/types/validation
+                    title: Validation Error
+                    status: 400
+                    instance: /public/v2/cases/12345678/messages
+                    errors:
+                      - code: parameter_missing
+                        ref: countryOfResidenceIso3
+                        detail: >-
+                          countryOfResidenceIso3 is required for recipient
+                          individual
           headers:
             X-External-Correlation-Id:
               $ref: '#/components/headers/X-External-Correlation-Id'
@@ -12524,8 +13113,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/error-401-unauthorized'
               example:
-                error: UNAUTHORIZED
-                message: Authentication required
+                type: /errors/types/access
+                title: Unauthorized
+                status: 401
+                detail: Authentication required
           headers:
             X-External-Correlation-Id:
               $ref: '#/components/headers/X-External-Correlation-Id'
@@ -12538,36 +13129,72 @@ paths:
               schema:
                 $ref: '#/components/schemas/error-403-forbidden'
               example:
-                error: FORBIDDEN
-                message: Insufficient permissions to access this resource
+                type: /errors/types/access
+                title: Forbidden
+                status: 403
+                detail: Unauthorized
+                code: forbidden
           headers:
             X-External-Correlation-Id:
               $ref: '#/components/headers/X-External-Correlation-Id'
             x-trace-id:
               $ref: '#/components/headers/x-trace-id'
         '404':
-          description: Not found - the requested resource does not exist
+          description: Not found - case does not exist
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/error-404-not-found'
               example:
-                error: NOT_FOUND
-                message: Case not found
+                type: /errors/types/domain
+                title: Not Found
+                status: 404
+                detail: 'case not found: 12345678'
+                instance: /public/v2/cases/12345678/messages
+                code: resource_not_found
           headers:
             X-External-Correlation-Id:
               $ref: '#/components/headers/X-External-Correlation-Id'
             x-trace-id:
               $ref: '#/components/headers/x-trace-id'
-        '422':
-          description: Unprocessable Entity Error
+        '409':
+          description: Conflict - operation not supported for the current case state
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error-422-unprocessable-entity'
-              example:
-                error: NOT_FOUND
-                message: Case not found
+                $ref: '#/components/schemas/error-409-conflict'
+              examples:
+                caseInFinalState:
+                  summary: Case is in a final state (RESOLVED or FAILED)
+                  value:
+                    type: /errors/types/domain
+                    title: Conflict
+                    status: 409
+                    detail: 'Cannot submit message for case in final state: RESOLVED'
+                    instance: /public/v2/cases/12345678/messages
+                    code: operation_not_supported
+                noWiseAgentAssigned:
+                  summary: Wise Agent not assigned (FREEFORM or FILE_SUBMISSION)
+                  value:
+                    type: /errors/types/domain
+                    title: Conflict
+                    status: 409
+                    detail: >-
+                      Wise Agent has not been assigned to case, message not
+                      allowed
+                    instance: /public/v2/cases/12345678/messages
+                    code: operation_not_supported
+                noStructuredRequest:
+                  summary: Case not generated by Wise (structured submission types)
+                  value:
+                    type: /errors/types/domain
+                    title: Conflict
+                    status: 409
+                    detail: >-
+                      Case was not generated by Wise with structured request,
+                      structured submission message not allowed
+                    instance: /public/v2/cases/12345678/messages
+                    code: operation_not_supported
           headers:
             X-External-Correlation-Id:
               $ref: '#/components/headers/X-External-Correlation-Id'
@@ -14360,9 +14987,13 @@ paths:
                 uniqueIdentifier:
                   type: string
                   maxLength: 30
-                  description: >-
-                    Document number or value. Must be digits only when SSN or
-                    FINANCIAL_CAPACITY_BR.
+                  description: >
+                    Document number or value. Must be digits only for `SSN` or
+                    `FINANCIAL_CAPACITY_BR`. 
+
+
+                    When using `FINANCIAL_CAPACITY_BR`, the value must contain
+                    the financial capacity amount in BRL (Brazilian Real).
                   example: AA299822313
                 issueDate:
                   type: string
@@ -14385,15 +15016,15 @@ paths:
                   description: 2 characters ISO country code.
                 employerName:
                   type: string
-                  description: The name of the employer. Type must be EMIRATES_EMPLOYER.
+                  description: The name of the employer. Type must be `EMIRATES_EMPLOYER`.
                 employerCity:
                   type: string
-                  description: The city of the employer. Type must be EMIRATES_EMPLOYER.
+                  description: The city of the employer. Type must be `EMIRATES_EMPLOYER`.
                 employerCountry:
                   type: string
                   description: >-
                     2 characters ISO country code. Type must be
-                    EMIRATES_EMPLOYER.
+                    `EMIRATES_EMPLOYER`.
                 birthCity:
                   type: string
                   description: The city of birth of the customer.
@@ -14446,6 +15077,7 @@ paths:
         '422':
           description: >
             Request could not be processed due to a missing prerequisite.
+
 
             Returned when submitting `FINANCIAL_CAPACITY_BR` for a profile that
             has no tax ID on record.
@@ -14543,9 +15175,13 @@ paths:
                 uniqueIdentifier:
                   type: string
                   maxLength: 30
-                  description: >-
-                    Document number or value. Must be digits only when SSN or
-                    FINANCIAL_CAPACITY_BR.
+                  description: >
+                    Document number or value. Must be digits only for `SSN` or
+                    `FINANCIAL_CAPACITY_BR`. 
+
+
+                    When using `FINANCIAL_CAPACITY_BR`, the value must contain
+                    the financial capacity amount in BRL (Brazilian Real).
                   example: AA299822313
                 issueDate:
                   type: string
@@ -22367,13 +23003,23 @@ paths:
       summary: Get payout information
       description: >
         Fetch banking reference information for transfers that are in
-        `outgoing_payment_sent` status, enabling you to track transfers with the
+        `outgoing_payment_sent` status. Enables you to track transfers with the
         transfer recipient's bank.
 
 
-        It may take up to 3 days to get the correct information through this
-        endpoint, as some partners don't share the information until 3 days
-        later.
+        {% admonition type="warning" %}
+
+        Querying this endpoint too soon after transfer creation may result in a
+        `404` error.
+
+
+        We recommend relying on the [transfer state change
+        webhook](/api-reference/webhook-event/eventtransfersstatechange) to
+        inform you when the transfer state has changed to
+        `outgoing_payment_sent`. In most cases this takes only a few seconds.
+        However, some regions and banking partners can take longer. 
+
+        {% /admonition %}
       tags:
         - transfer
       security:
@@ -22462,7 +23108,9 @@ paths:
             x-trace-id:
               $ref: '#/components/headers/x-trace-id'
         '404':
-          description: Transfer not found.
+          description: >-
+            Transfer not found (this error can also occur if querying the
+            endpoint before the transfer has finished processing).
           headers:
             X-External-Correlation-Id:
               $ref: '#/components/headers/X-External-Correlation-Id'
@@ -26618,6 +27266,16 @@ components:
             Currently supported types: `bank_transfer`.
           items:
             $ref: '#/components/schemas/PayInDetails'
+        payinSessionId:
+          type:
+            - string
+            - 'null'
+          format: uuid
+          description: >-
+            Optional ID of the payin session. Required if batch group funding is
+            done using [Payin Funding
+            API](/guides/product/send-money/funding/direct-debit/create-payin#create-payin).
+          example: 23330542-8e9e-419f-95eb-312b880f92ad
     PaymentInitiation:
       type: object
       description: Payment initiation for funding a batch group via direct debit.
@@ -27418,7 +28076,7 @@ components:
               fee_type:
                 type: string
                 description: Fee type
-                example: ATM_ACQUIRER
+                example: ATM_MACHINE
         transactionAmountWithFees:
           type: object
           description: Transaction amount including all fees
@@ -29345,102 +30003,102 @@ components:
       title: Validation Error
       description: Details about a specific field validation error.
       properties:
-        field:
+        code:
+          type: string
+          description: |
+            Machine-readable validation error code.
+
+            Values:
+            - `parameter_missing` - A required field is null, empty, or blank
+            - `parameter_invalid` - A field value is present but not acceptable
+            - `invalid_value` - A field value fails a business validation rule
+            - `invalid_request` - The request structure is malformed or invalid
+          example: parameter_missing
+        ref:
           type: string
           description: >
-            The field path that caused the validation error.
+            The field that caused the validation error.
 
-            Uses dot notation for nested fields (e.g.,
-            `submissionData.individual.name`).
+            For nested fields, only the leaf property name is used (e.g., `name`
+            not `submissionData.individual.name`).
           example: type
-        message:
-          type: string
-          description: Description of what validation rule was violated.
-          example: must not be null
-        rejectedValue:
-          description: The value that was rejected (if applicable).
-          example: null
+        detail:
+          type:
+            - string
+            - 'null'
+          description: Human-readable description of the validation error. May be null.
+          example: profileId is required
       required:
-        - field
-        - message
+        - code
+        - ref
       example:
-        field: submissionData.individual.name
-        message: must not be blank
-        rejectedValue: ''
+        code: parameter_missing
+        ref: name
+        detail: must not be blank
     error-response:
       type: object
       title: Error Response
-      description: |
-        Standard error response structure returned by the API.
+      description: >
+        Standard error response structure returned by the API based on RFC 9457
+        Problem Details.
 
-        All error responses follow this consistent format with an error code,
-        human-readable message, and optional validation errors array.
+
+        All error responses follow this consistent format with a type URI,
+
+        human-readable title and detail, and optional field-level validation
+        errors array.
       properties:
-        error:
+        type:
           type: string
           description: |
-            Machine-readable error code indicating the type of error.
+            URI reference identifying the error category.
 
-            Common codes:
-            - `BAD_REQUEST` - Invalid request format or parameters
-            - `VALIDATION_ERROR` - Request body validation failed
-            - `RESOURCE_NOT_FOUND` - Requested resource does not exist
-            - `UNAUTHORIZED` - Authentication required or failed
-            - `FORBIDDEN` - Insufficient permissions
-            - `CONFLICT` - Operation conflicts with current state
-            - `INTERNAL_SERVER_ERROR` - Unexpected server error
-          example: BAD_REQUEST
-        message:
+            Values:
+            - `/errors/types/validation` - Request validation failed
+            - `/errors/types/domain` - Business rule violation
+            - `/errors/types/access` - Authentication or authorization failure
+            - `/errors/types/internal` - Unexpected server error
+          example: /errors/types/validation
+        title:
           type: string
-          description: Human-readable error message describing what went wrong.
-          example: Invalid request body
-        timestamp:
+          description: Short human-readable summary of the error category.
+          example: Validation Error
+        status:
+          type: integer
+          description: HTTP status code.
+          example: 400
+        detail:
           type: string
-          format: date-time
-          description: ISO 8601 timestamp when the error occurred.
-          example: '2026-08-03T10:30:00.000Z'
-        path:
+          description: Human-readable explanation of this specific error occurrence.
+          example: 'Cannot submit message for case in final state: RESOLVED'
+        instance:
           type: string
           description: The request path that caused the error.
-          example: /public/2026Q3/v2/cases/12345678
+          example: /public/v2/cases/12345678
+        code:
+          type: string
+          description: |
+            Machine-readable error code. Present on domain and access errors.
+
+            Common codes:
+            - `operation_not_supported` - Business rule prevents this action
+            - `resource_not_found` - Requested resource does not exist
+            - `forbidden` - Insufficient permissions
+            - `rate_limit_exceeded` - Too many requests
+          example: operation_not_supported
         errors:
           type: array
-          description: |
+          description: >
             List of field-level validation errors.
-            Only present for validation errors (HTTP 400).
+
+            Only present for validation errors (type
+            `/errors/types/validation`).
           items:
             $ref: '#/components/schemas/validation-error'
       required:
-        - error
-        - message
-    error-400-bad-request:
-      allOf:
-        - $ref: '#/components/schemas/error-response'
-        - type: object
-          title: Bad Request Error (400)
-          description: |
-            Returned when the request is malformed or contains invalid data.
-
-            **Common causes:**
-            - Missing required fields (`type`, `submissionData`)
-            - Invalid enum values for `type`
-            - Malformed JSON in request body
-            - Invalid field values that fail validation
-          properties:
-            error:
-              example: BAD_REQUEST
-            message:
-              example: Invalid request body
-          example:
-            error: BAD_REQUEST
-            message: Validation failed for request body
-            timestamp: '2026-08-03T10:30:00.000Z'
-            path: /public/2026Q3/v2/cases/12345678/messages
-            errors:
-              - field: type
-                message: must not be null
-              - field: submissionData
-                message: must not be null
+        - type
+        - title
+        - status
     error-401-unauthorized:
       allOf:
         - $ref: '#/components/schemas/error-response'
@@ -29453,16 +30111,11 @@ components:
             - Missing `Authorization` header
             - Invalid or expired API token
             - Malformed authorization header format
-          properties:
-            error:
-              example: UNAUTHORIZED
-            message:
-              example: Authentication required
           example:
-            error: UNAUTHORIZED
-            message: Invalid or missing authentication credentials
-            timestamp: '2026-08-03T10:30:00.000Z'
-            path: /public/2026Q3/v2/cases/12345678
+            type: /errors/types/access
+            title: Unauthorized
+            status: 401
+            detail: Authentication required
     error-403-forbidden:
       allOf:
         - $ref: '#/components/schemas/error-response'
@@ -29478,16 +30131,12 @@ components:
             - Case belongs to a different partner (client key mismatch)
 
             - Attempting to access a case type not permitted for this client
-          properties:
-            error:
-              example: FORBIDDEN
-            message:
-              example: Access denied
           example:
-            error: FORBIDDEN
-            message: You do not have permission to access this resource
-            timestamp: '2026-08-03T10:30:00.000Z'
-            path: /public/2026Q3/v2/cases/12345678
+            type: /errors/types/access
+            title: Forbidden
+            status: 403
+            detail: Unauthorized
+            code: forbidden
     error-404-not-found:
       allOf:
         - $ref: '#/components/schemas/error-response'
@@ -29500,16 +30149,13 @@ components:
             - Invalid `caseId` that doesn't exist
             - Case was deleted or archived
             - Typo in the case ID
-          properties:
-            error:
-              example: RESOURCE_NOT_FOUND
-            message:
-              example: Case not found
           example:
-            error: RESOURCE_NOT_FOUND
-            message: Case with id 99999999 not found
-            timestamp: '2026-08-03T10:30:00.000Z'
-            path: /public/2026Q3/v2/cases/99999999
+            type: /errors/types/domain
+            title: Not Found
+            status: 404
+            detail: 'case not found: 99999999'
+            instance: /public/v2/cases/99999999
+            code: resource_not_found
     message-submission-type:
       type: string
       description: The type of message submission.
@@ -29520,6 +30166,7 @@ components:
         - RECIPIENT_SANCTION_HIT_SUBMISSION
         - REFERENCE_LOCATION_HIT_SUBMISSION
         - RECIPIENT_LOCATION_HIT_SUBMISSION
+        - FILE_SUBMISSION
       example: FREEFORM
     submission-data-freeform:
       type: object
@@ -29947,6 +30594,72 @@ components:
       anyOf:
         - $ref: '#/components/schemas/submission-reference-location'
         - $ref: '#/components/schemas/submission-recipient-location'
+    submission-data-file:
+      type: object
+      title: FILE_SUBMISSION Submission Data
+      description: >
+        Submission data for FILE_SUBMISSION message type.
+
+        Used to attach previously uploaded files to a case.
+
+
+        **Prerequisites:**
+
+        - Files must be uploaded via `POST /cases/{caseId}/files` before
+        submitting
+
+        - Case must not be in RESOLVED or FAILED status
+
+        - Files must belong to the specified profile
+
+        - Files must have been uploaded by the same partner
+
+
+        **Validation Rules:**
+
+        - `profileId` is REQUIRED
+
+        - `fileIds` is REQUIRED and must not be empty
+
+        - `fileIds` must not contain duplicates
+
+        - All file IDs must reference existing files
+
+        - All files must belong to the specified `profileId`
+
+        - All files must have been created by the submitting partner
+      properties:
+        profileId:
+          type: integer
+          format: int64
+          description: |
+            The profile ID that the files belong to.
+            Must match the profile associated with the uploaded files.
+          example: 14556049
+        fileIds:
+          type: array
+          description: >
+            List of file IDs to attach to the case.
+
+            Files must have been previously uploaded via the file upload
+            endpoint.
+          minItems: 1
+          uniqueItems: true
+          items:
+            type: string
+            format: uuid
+            description: UUID of a previously uploaded file.
+          example:
+            - a1b2c3d4-e5f6-7890-abcd-ef1234567890
+            - b2c3d4e5-f6a7-8901-bcde-f12345678901
+      required:
+        - profileId
+        - fileIds
+      example:
+        profileId: 14556049
+        fileIds:
+          - a1b2c3d4-e5f6-7890-abcd-ef1234567890
+          - b2c3d4e5-f6a7-8901-bcde-f12345678901
     message-submission-request:
       type: object
       description: |
@@ -29965,6 +30678,7 @@ components:
             - $ref: '#/components/schemas/submission-data-freeform'
             - $ref: '#/components/schemas/submission-data-sanction-hit'
             - $ref: '#/components/schemas/submission-data-location-hit'
+            - $ref: '#/components/schemas/submission-data-file'
       required:
         - type
         - submissionData
@@ -29993,10 +30707,15 @@ components:
           example: '2026-07-27T15:00:00.000'
         content:
           type: object
-          description: |
+          description: >
             The content of the created message.
+
             - For FREEFORM: contains `text.freeText`
+
             - For SUBMISSION types: contains `submissionData`
+
+            - For FILE_SUBMISSION: contains `submissionData` with `profileId`
+            and `fileIds`
           additionalProperties: true
         type:
           type: string
@@ -30008,6 +30727,7 @@ components:
             - RECIPIENT_SANCTION_HIT_SUBMISSION
             - REFERENCE_LOCATION_HIT_SUBMISSION
             - RECIPIENT_LOCATION_HIT_SUBMISSION
+            - FILE_SUBMISSION
           example: FREEFORM
         author:
           type: string
@@ -30022,43 +30742,70 @@ components:
         - content
         - type
         - author
-    error-422-unprocessable-entity:
+    error-400-bad-request:
       allOf:
         - $ref: '#/components/schemas/error-response'
         - type: object
-          title: Unprocessable Entity Error (422)
+          title: Bad Request Error (400)
           description: >
-            Returned when the request is syntactically correct but semantically
-            invalid.
+            Returned when the request is malformed, contains invalid data, or
+            violates a business rule.
+
+
+            **Validation errors** (`/errors/types/validation`) include an
+            `errors` array
+
+            with field-level details. Each entry has a `code`, `ref` (field
+            name), and optional `detail`.
 
 
             **Common causes:**
 
-            - Submission type does not match case sub-type (e.g., submitting
-            DEPOSIT_SANCTION_HIT_SUBMISSION for a RECIPIENT_SANCTION_HIT case)
+            - Missing required fields (`type`, `submissionData`)
 
-            - Missing required fields for the submission type (e.g.,
-            `countryOfResidenceIso3` missing for RECIPIENT sanction hit
-            individual)
+            - Invalid enum values for `type`
 
-            - Providing both `individual` AND `organisation` when only one is
-            allowed
+            - Malformed JSON in request body
 
-            - Invalid ISO country code format
+            - Invalid field values that fail validation
 
-            - Invalid date format for `dob`
-          properties:
-            error:
-              example: UNPROCESSABLE_ENTITY
-            message:
-              example: Submission type mismatch
+            - Missing or invalid file IDs for FILE_SUBMISSION
           example:
-            error: UNPROCESSABLE_ENTITY
-            message: >-
-              Submission type DEPOSIT_SANCTION_HIT_SUBMISSION is not valid for
-              case sub-type RECIPIENT_SANCTION_HIT
-            timestamp: '2026-08-03T10:30:00.000Z'
-            path: /public/2026Q3/v2/cases/12345678/messages
+            type: /errors/types/validation
+            title: Validation Error
+            status: 400
+            instance: /public/v2/cases/12345678/messages
+            errors:
+              - code: parameter_missing
+                ref: type
+                detail: null
+    error-409-conflict:
+      allOf:
+        - $ref: '#/components/schemas/error-response'
+        - type: object
+          title: Conflict Error (409)
+          description: >
+            Returned when the operation conflicts with the current state of the
+            case.
+
+
+            **Common causes:**
+
+            - Submitting a message to a case in a final state (`RESOLVED` or
+            `FAILED`)
+
+            - Submitting FREEFORM or FILE_SUBMISSION when no Wise Agent is
+            assigned to the case
+
+            - Submitting a structured response when the case was not generated
+            by Wise
+          example:
+            type: /errors/types/domain
+            title: Conflict
+            status: 409
+            detail: 'Cannot submit message for case in final state: RESOLVED'
+            instance: /public/v2/cases/12345678/messages
+            code: operation_not_supported
     address:
       type: object
       description: Address associated with a profile.

@@ -8,53 +8,39 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Details about a specific field validation error.
+    /// Submission data for FILE_SUBMISSION message type.Used to attach previously uploaded files to a case.**Prerequisites:**- Files must be uploaded via `POST /cases/{caseId}/files` before submitting- Case must not be in RESOLVED or FAILED status- Files must belong to the specified profile- Files must have been uploaded by the same partner**Validation Rules:**- `profileId` is REQUIRED- `fileIds` is REQUIRED and must not be empty- `fileIds` must not contain duplicates- All file IDs must reference existing files- All files must belong to the specified `profileId`- All files must have been created by the submitting partner
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    public partial class ValidationError : IAdditionalDataHolder, IParsable
+    public partial class SubmissionDataFile : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Machine-readable validation error code.Values:- `parameter_missing` - A required field is null, empty, or blank- `parameter_invalid` - A field value is present but not acceptable- `invalid_value` - A field value fails a business validation rule- `invalid_request` - The request structure is malformed or invalid</summary>
+        /// <summary>List of file IDs to attach to the case.Files must have been previously uploaded via the file upload endpoint.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Code { get; set; }
+        public List<Guid?>? FileIds { get; set; }
 #nullable restore
 #else
-        public string Code { get; set; }
+        public List<Guid?> FileIds { get; set; }
 #endif
-        /// <summary>Human-readable description of the validation error. May be null.</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? Detail { get; set; }
-#nullable restore
-#else
-        public string Detail { get; set; }
-#endif
-        /// <summary>The field that caused the validation error.For nested fields, only the leaf property name is used (e.g., `name` not `submissionData.individual.name`).</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? Ref { get; set; }
-#nullable restore
-#else
-        public string Ref { get; set; }
-#endif
+        /// <summary>The profile ID that the files belong to.Must match the profile associated with the uploaded files.</summary>
+        public long? ProfileId { get; set; }
         /// <summary>
-        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.ValidationError"/> and sets the default values.
+        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.SubmissionDataFile"/> and sets the default values.
         /// </summary>
-        public ValidationError()
+        public SubmissionDataFile()
         {
             AdditionalData = new Dictionary<string, object>();
         }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.ValidationError"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.SubmissionDataFile"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static global::Soenneker.Wise.OpenApiClient.Models.ValidationError CreateFromDiscriminatorValue(IParseNode parseNode)
+        public static global::Soenneker.Wise.OpenApiClient.Models.SubmissionDataFile CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.ValidationError();
+            return new global::Soenneker.Wise.OpenApiClient.Models.SubmissionDataFile();
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -64,9 +50,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "code", n => { Code = n.GetStringValue(); } },
-                { "detail", n => { Detail = n.GetStringValue(); } },
-                { "ref", n => { Ref = n.GetStringValue(); } },
+                { "fileIds", n => { FileIds = n.GetCollectionOfPrimitiveValues<Guid?>()?.AsList(); } },
+                { "profileId", n => { ProfileId = n.GetLongValue(); } },
             };
         }
         /// <summary>
@@ -76,9 +61,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteStringValue("code", Code);
-            writer.WriteStringValue("detail", Detail);
-            writer.WriteStringValue("ref", Ref);
+            writer.WriteCollectionOfPrimitiveValues<Guid?>("fileIds", FileIds);
+            writer.WriteLongValue("profileId", ProfileId);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

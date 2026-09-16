@@ -8,11 +8,19 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Composed type wrapper for classes <see cref="global::Soenneker.Wise.OpenApiClient.Models.SubmissionDataFreeform"/>, <see cref="global::Soenneker.Wise.OpenApiClient.Models.SubmissionDataLocationHit"/>, <see cref="global::Soenneker.Wise.OpenApiClient.Models.SubmissionDataSanctionHit"/>
+    /// Composed type wrapper for classes <see cref="global::Soenneker.Wise.OpenApiClient.Models.SubmissionDataFile"/>, <see cref="global::Soenneker.Wise.OpenApiClient.Models.SubmissionDataFreeform"/>, <see cref="global::Soenneker.Wise.OpenApiClient.Models.SubmissionDataLocationHit"/>, <see cref="global::Soenneker.Wise.OpenApiClient.Models.SubmissionDataSanctionHit"/>
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class MessageSubmissionRequestSubmissionData : IComposedTypeWrapper, IParsable
     {
+        /// <summary>Composed type representation for type <see cref="global::Soenneker.Wise.OpenApiClient.Models.SubmissionDataFile"/></summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public global::Soenneker.Wise.OpenApiClient.Models.SubmissionDataFile? SubmissionDataFile { get; set; }
+#nullable restore
+#else
+        public global::Soenneker.Wise.OpenApiClient.Models.SubmissionDataFile SubmissionDataFile { get; set; }
+#endif
         /// <summary>Composed type representation for type <see cref="global::Soenneker.Wise.OpenApiClient.Models.SubmissionDataFreeform"/></summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -47,7 +55,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
             var mappingValue = parseNode.GetChildNode("")?.GetStringValue();
             var result = new global::Soenneker.Wise.OpenApiClient.Models.MessageSubmissionRequestSubmissionData();
-            if("SubmissionDataFreeform".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+            if("SubmissionDataFile".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+            {
+                result.SubmissionDataFile = new global::Soenneker.Wise.OpenApiClient.Models.SubmissionDataFile();
+            }
+            else if("SubmissionDataFreeform".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
             {
                 result.SubmissionDataFreeform = new global::Soenneker.Wise.OpenApiClient.Models.SubmissionDataFreeform();
             }
@@ -59,7 +71,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
         public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
         {
-            if(SubmissionDataFreeform != null)
+            if(SubmissionDataFile != null)
+            {
+                return SubmissionDataFile.GetFieldDeserializers();
+            }
+            else if(SubmissionDataFreeform != null)
             {
                 return SubmissionDataFreeform.GetFieldDeserializers();
             }
@@ -80,7 +96,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            if(SubmissionDataFreeform != null)
+            if(SubmissionDataFile != null)
+            {
+                writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.SubmissionDataFile>(null, SubmissionDataFile);
+            }
+            else if(SubmissionDataFreeform != null)
             {
                 writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.SubmissionDataFreeform>(null, SubmissionDataFreeform);
             }

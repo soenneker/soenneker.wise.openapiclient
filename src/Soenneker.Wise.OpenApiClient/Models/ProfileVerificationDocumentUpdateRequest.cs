@@ -90,7 +90,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public global::Soenneker.Wise.OpenApiClient.Models.ProfileVerificationDocumentUpdateRequestSex? Sex { get; set; }
         /// <summary>Document type.</summary>
         public global::Soenneker.Wise.OpenApiClient.Models.ProfileVerificationDocumentUpdateRequestType? Type { get; set; }
-        /// <summary>Document number or value. Must be digits only when SSN or FINANCIAL_CAPACITY_BR.</summary>
+        /// <summary>Document number or value. Must be digits only for `SSN` or `FINANCIAL_CAPACITY_BR`. When using `FINANCIAL_CAPACITY_BR`, the value must contain the financial capacity amount in BRL (Brazilian Real).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? UniqueIdentifier { get; set; }

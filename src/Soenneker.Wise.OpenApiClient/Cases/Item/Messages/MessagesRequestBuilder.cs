@@ -34,7 +34,7 @@ namespace Soenneker.Wise.OpenApiClient.Cases.Item.Messages
         {
         }
         /// <summary>
-        /// Submits a new message to an existing support case. The message type determinesthe expected structure of the submission data.See the [Case submission type](/guides/product/partner/submission-types.md) guide for details on each submission type along with an example..
+        /// See the [Case submission type](/guides/product/partner/submission-types.md) guide for details on each submission type along with an example.
         /// </summary>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.MessageSubmissionResponse"/></returns>
         /// <param name="body">Request body for submitting a message to a case.The structure of `submissionData` depends on the `type` field.</param>
@@ -44,7 +44,7 @@ namespace Soenneker.Wise.OpenApiClient.Cases.Item.Messages
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Error401Unauthorized">When receiving a 401 status code</exception>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Error403Forbidden">When receiving a 403 status code</exception>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Error404NotFound">When receiving a 404 status code</exception>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Error422UnprocessableEntity">When receiving a 422 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Error409Conflict">When receiving a 409 status code</exception>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -63,13 +63,13 @@ namespace Soenneker.Wise.OpenApiClient.Cases.Item.Messages
                 { "401", global::Soenneker.Wise.OpenApiClient.Models.Error401Unauthorized.CreateFromDiscriminatorValue },
                 { "403", global::Soenneker.Wise.OpenApiClient.Models.Error403Forbidden.CreateFromDiscriminatorValue },
                 { "404", global::Soenneker.Wise.OpenApiClient.Models.Error404NotFound.CreateFromDiscriminatorValue },
-                { "422", global::Soenneker.Wise.OpenApiClient.Models.Error422UnprocessableEntity.CreateFromDiscriminatorValue },
+                { "409", global::Soenneker.Wise.OpenApiClient.Models.Error409Conflict.CreateFromDiscriminatorValue },
                 { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
             };
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.MessageSubmissionResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.MessageSubmissionResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Submits a new message to an existing support case. The message type determinesthe expected structure of the submission data.See the [Case submission type](/guides/product/partner/submission-types.md) guide for details on each submission type along with an example..
+        /// See the [Case submission type](/guides/product/partner/submission-types.md) guide for details on each submission type along with an example.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">Request body for submitting a message to a case.The structure of `submissionData` depends on the `type` field.</param>

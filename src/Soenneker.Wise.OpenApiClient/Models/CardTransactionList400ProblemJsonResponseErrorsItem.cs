@@ -7,15 +7,14 @@ using System.IO;
 using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
-    /// <summary>
-    /// Details about a specific field validation error.
-    /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    public partial class ValidationError : IAdditionalDataHolder, IParsable
+    #pragma warning disable CS1591
+    public partial class CardTransactionList400ProblemJsonResponseErrorsItem : IAdditionalDataHolder, IParsable
+    #pragma warning restore CS1591
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Machine-readable validation error code.Values:- `parameter_missing` - A required field is null, empty, or blank- `parameter_invalid` - A field value is present but not acceptable- `invalid_value` - A field value fails a business validation rule- `invalid_request` - The request structure is malformed or invalid</summary>
+        /// <summary>A specific code for the validation failure type.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Code { get; set; }
@@ -23,7 +22,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string Code { get; set; }
 #endif
-        /// <summary>Human-readable description of the validation error. May be null.</summary>
+        /// <summary>A detailed description of the validation failure.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Detail { get; set; }
@@ -31,7 +30,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string Detail { get; set; }
 #endif
-        /// <summary>The field that caused the validation error.For nested fields, only the leaf property name is used (e.g., `name` not `submissionData.individual.name`).</summary>
+        /// <summary>A reference to the field that failed validation.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Ref { get; set; }
@@ -40,21 +39,21 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public string Ref { get; set; }
 #endif
         /// <summary>
-        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.ValidationError"/> and sets the default values.
+        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.CardTransactionList400ProblemJsonResponseErrorsItem"/> and sets the default values.
         /// </summary>
-        public ValidationError()
+        public CardTransactionList400ProblemJsonResponseErrorsItem()
         {
             AdditionalData = new Dictionary<string, object>();
         }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.ValidationError"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.CardTransactionList400ProblemJsonResponseErrorsItem"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static global::Soenneker.Wise.OpenApiClient.Models.ValidationError CreateFromDiscriminatorValue(IParseNode parseNode)
+        public static global::Soenneker.Wise.OpenApiClient.Models.CardTransactionList400ProblemJsonResponseErrorsItem CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.ValidationError();
+            return new global::Soenneker.Wise.OpenApiClient.Models.CardTransactionList400ProblemJsonResponseErrorsItem();
         }
         /// <summary>
         /// The deserialization information for the current model

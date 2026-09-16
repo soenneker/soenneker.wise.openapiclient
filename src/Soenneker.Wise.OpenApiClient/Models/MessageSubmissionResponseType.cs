@@ -31,5 +31,9 @@ namespace Soenneker.Wise.OpenApiClient.Models
         #pragma warning disable CS1591
         RecipientLocationHitSubmission,
         #pragma warning restore CS1591
+        [EnumMember(Value = "FILE_SUBMISSION")]
+        #pragma warning disable CS1591
+        FileSubmission,
+        #pragma warning restore CS1591
     }
 }

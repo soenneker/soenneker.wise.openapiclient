@@ -8,22 +8,31 @@ using System.IO;
 using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
+    /// <summary>
+    /// Returned when the request is malformed, contains invalid data, or violates a business rule.**Validation errors** (`/errors/types/validation`) include an `errors` arraywith field-level details. Each entry has a `code`, `ref` (field name), and optional `detail`.**Common causes:**- Missing required fields (`type`, `submissionData`)- Invalid enum values for `type`- Malformed JSON in request body- Invalid field values that fail validation- Missing or invalid file IDs for FILE_SUBMISSION
+    /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    #pragma warning disable CS1591
     public partial class Error400BadRequest : ApiException, IAdditionalDataHolder, IParsable
-    #pragma warning restore CS1591
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Machine-readable error code indicating the type of error.Common codes:- `BAD_REQUEST` - Invalid request format or parameters- `VALIDATION_ERROR` - Request body validation failed- `RESOURCE_NOT_FOUND` - Requested resource does not exist- `UNAUTHORIZED` - Authentication required or failed- `FORBIDDEN` - Insufficient permissions- `CONFLICT` - Operation conflicts with current state- `INTERNAL_SERVER_ERROR` - Unexpected server error</summary>
+        /// <summary>Machine-readable error code. Present on domain and access errors.Common codes:- `operation_not_supported` - Business rule prevents this action- `resource_not_found` - Requested resource does not exist- `forbidden` - Insufficient permissions- `rate_limit_exceeded` - Too many requests</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Error { get; set; }
+        public string? Code { get; set; }
 #nullable restore
 #else
-        public string Error { get; set; }
+        public string Code { get; set; }
 #endif
-        /// <summary>List of field-level validation errors.Only present for validation errors (HTTP 400).</summary>
+        /// <summary>Human-readable explanation of this specific error occurrence.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? Detail { get; set; }
+#nullable restore
+#else
+        public string Detail { get; set; }
+#endif
+        /// <summary>List of field-level validation errors.Only present for validation errors (type `/errors/types/validation`).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<global::Soenneker.Wise.OpenApiClient.Models.ValidationError>? Errors { get; set; }
@@ -31,26 +40,34 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public List<global::Soenneker.Wise.OpenApiClient.Models.ValidationError> Errors { get; set; }
 #endif
-        /// <summary>The primary error message.</summary>
-        public override string Message { get => MessageEscaped ?? string.Empty; }
-        /// <summary>Human-readable error message describing what went wrong.</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? MessageEscaped { get; set; }
-#nullable restore
-#else
-        public string MessageEscaped { get; set; }
-#endif
         /// <summary>The request path that caused the error.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Path { get; set; }
+        public string? Instance { get; set; }
 #nullable restore
 #else
-        public string Path { get; set; }
+        public string Instance { get; set; }
 #endif
-        /// <summary>ISO 8601 timestamp when the error occurred.</summary>
-        public DateTimeOffset? Timestamp { get; set; }
+        /// <summary>The primary error message.</summary>
+        public override string Message { get => base.Message; }
+        /// <summary>HTTP status code.</summary>
+        public int? Status { get; set; }
+        /// <summary>Short human-readable summary of the error category.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? Title { get; set; }
+#nullable restore
+#else
+        public string Title { get; set; }
+#endif
+        /// <summary>URI reference identifying the error category.Values:- `/errors/types/validation` - Request validation failed- `/errors/types/domain` - Business rule violation- `/errors/types/access` - Authentication or authorization failure- `/errors/types/internal` - Unexpected server error</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? Type { get; set; }
+#nullable restore
+#else
+        public string Type { get; set; }
+#endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.Error400BadRequest"/> and sets the default values.
         /// </summary>
@@ -76,11 +93,13 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "error", n => { Error = n.GetStringValue(); } },
+                { "code", n => { Code = n.GetStringValue(); } },
+                { "detail", n => { Detail = n.GetStringValue(); } },
                 { "errors", n => { Errors = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.ValidationError>(global::Soenneker.Wise.OpenApiClient.Models.ValidationError.CreateFromDiscriminatorValue)?.AsList(); } },
-                { "message", n => { MessageEscaped = n.GetStringValue(); } },
-                { "path", n => { Path = n.GetStringValue(); } },
-                { "timestamp", n => { Timestamp = n.GetDateTimeOffsetValue(); } },
+                { "instance", n => { Instance = n.GetStringValue(); } },
+                { "status", n => { Status = n.GetIntValue(); } },
+                { "title", n => { Title = n.GetStringValue(); } },
+                { "type", n => { Type = n.GetStringValue(); } },
             };
         }
         /// <summary>
@@ -90,11 +109,13 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteStringValue("error", Error);
+            writer.WriteStringValue("code", Code);
+            writer.WriteStringValue("detail", Detail);
             writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.ValidationError>("errors", Errors);
-            writer.WriteStringValue("message", MessageEscaped);
-            writer.WriteStringValue("path", Path);
-            writer.WriteDateTimeOffsetValue("timestamp", Timestamp);
+            writer.WriteStringValue("instance", Instance);
+            writer.WriteIntValue("status", Status);
+            writer.WriteStringValue("title", Title);
+            writer.WriteStringValue("type", Type);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

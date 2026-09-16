@@ -32,6 +32,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public List<global::Soenneker.Wise.OpenApiClient.Models.PayInDetails> PayInDetails { get; set; }
 #endif
+        /// <summary>Optional ID of the payin session. Required if batch group funding is done using [Payin Funding API](/guides/product/send-money/funding/direct-debit/create-payin#create-payin).</summary>
+        public Guid? PayinSessionId { get; set; }
         /// <summary>Source currency code (ISO 4217 Alphabetic Code). This currency is expected to be used for funding the batch group.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -80,6 +82,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "id", n => { Id = n.GetGuidValue(); } },
                 { "name", n => { Name = n.GetStringValue(); } },
                 { "payInDetails", n => { PayInDetails = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.PayInDetails>(global::Soenneker.Wise.OpenApiClient.Models.PayInDetails.CreateFromDiscriminatorValue)?.AsList(); } },
+                { "payinSessionId", n => { PayinSessionId = n.GetGuidValue(); } },
                 { "sourceCurrency", n => { SourceCurrency = n.GetStringValue(); } },
                 { "status", n => { Status = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BatchGroupStatus>(); } },
                 { "transferIds", n => { TransferIds = n.GetCollectionOfPrimitiveValues<long?>()?.AsList(); } },
@@ -96,6 +99,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteGuidValue("id", Id);
             writer.WriteStringValue("name", Name);
             writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.PayInDetails>("payInDetails", PayInDetails);
+            writer.WriteGuidValue("payinSessionId", PayinSessionId);
             writer.WriteStringValue("sourceCurrency", SourceCurrency);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BatchGroupStatus>("status", Status);
             writer.WriteCollectionOfPrimitiveValues<long?>("transferIds", TransferIds);

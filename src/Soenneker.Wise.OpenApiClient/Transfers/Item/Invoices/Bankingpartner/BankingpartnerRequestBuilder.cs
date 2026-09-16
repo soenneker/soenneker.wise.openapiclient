@@ -34,7 +34,7 @@ namespace Soenneker.Wise.OpenApiClient.Transfers.Item.Invoices.Bankingpartner
         {
         }
         /// <summary>
-        /// Fetch banking reference information for transfers that are in `outgoing_payment_sent` status, enabling you to track transfers with the transfer recipient&apos;s bank.It may take up to 3 days to get the correct information through this endpoint, as some partners don&apos;t share the information until 3 days later.
+        /// Fetch banking reference information for transfers that are in `outgoing_payment_sent` status. Enables you to track transfers with the transfer recipient&apos;s bank.{% admonition type=&quot;warning&quot; %}Querying this endpoint too soon after transfer creation may result in a `404` error.We recommend relying on the [transfer state change webhook](/api-reference/webhook-event/eventtransfersstatechange) to inform you when the transfer state has changed to `outgoing_payment_sent`. In most cases this takes only a few seconds. However, some regions and banking partners can take longer. {% /admonition %}
         /// </summary>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.TransferPayoutInfoGet200Response"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
@@ -57,7 +57,7 @@ namespace Soenneker.Wise.OpenApiClient.Transfers.Item.Invoices.Bankingpartner
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.TransferPayoutInfoGet200Response>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.TransferPayoutInfoGet200Response.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Fetch banking reference information for transfers that are in `outgoing_payment_sent` status, enabling you to track transfers with the transfer recipient&apos;s bank.It may take up to 3 days to get the correct information through this endpoint, as some partners don&apos;t share the information until 3 days later.
+        /// Fetch banking reference information for transfers that are in `outgoing_payment_sent` status. Enables you to track transfers with the transfer recipient&apos;s bank.{% admonition type=&quot;warning&quot; %}Querying this endpoint too soon after transfer creation may result in a `404` error.We recommend relying on the [transfer state change webhook](/api-reference/webhook-event/eventtransfersstatechange) to inform you when the transfer state has changed to `outgoing_payment_sent`. In most cases this takes only a few seconds. However, some regions and banking partners can take longer. {% /admonition %}
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>

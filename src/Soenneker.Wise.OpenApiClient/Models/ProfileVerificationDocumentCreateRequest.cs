@@ -30,7 +30,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string BirthCountry { get; set; }
 #endif
-        /// <summary>The city of the employer. Type must be EMIRATES_EMPLOYER.</summary>
+        /// <summary>The city of the employer. Type must be `EMIRATES_EMPLOYER`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? EmployerCity { get; set; }
@@ -38,7 +38,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string EmployerCity { get; set; }
 #endif
-        /// <summary>2 characters ISO country code. Type must be EMIRATES_EMPLOYER.</summary>
+        /// <summary>2 characters ISO country code. Type must be `EMIRATES_EMPLOYER`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? EmployerCountry { get; set; }
@@ -46,7 +46,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string EmployerCountry { get; set; }
 #endif
-        /// <summary>The name of the employer. Type must be EMIRATES_EMPLOYER.</summary>
+        /// <summary>The name of the employer. Type must be `EMIRATES_EMPLOYER`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? EmployerName { get; set; }
@@ -112,7 +112,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #endif
         /// <summary>Document type.</summary>
         public global::Soenneker.Wise.OpenApiClient.Models.ProfileVerificationDocumentCreateRequestType? Type { get; set; }
-        /// <summary>Document number or value. Must be digits only when SSN or FINANCIAL_CAPACITY_BR.</summary>
+        /// <summary>Document number or value. Must be digits only for `SSN` or `FINANCIAL_CAPACITY_BR`. When using `FINANCIAL_CAPACITY_BR`, the value must contain the financial capacity amount in BRL (Brazilian Real).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? UniqueIdentifier { get; set; }

@@ -19,7 +19,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public global::Soenneker.Wise.OpenApiClient.Models.PartnerAuthor? Author { get; set; }
         /// <summary>The ID of the case this message belongs to.</summary>
         public long? CaseId { get; set; }
-        /// <summary>The content of the created message.- For FREEFORM: contains `text.freeText`- For SUBMISSION types: contains `submissionData`</summary>
+        /// <summary>The content of the created message.- For FREEFORM: contains `text.freeText`- For SUBMISSION types: contains `submissionData`- For FILE_SUBMISSION: contains `submissionData` with `profileId` and `fileIds`</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Soenneker.Wise.OpenApiClient.Models.MessageSubmissionResponseContentProperty? Content { get; set; }
