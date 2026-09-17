@@ -4,6 +4,7 @@ using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions;
 using Soenneker.Wise.OpenApiClient.Simulation.Balance;
 using Soenneker.Wise.OpenApiClient.Simulation.Profiles;
+using Soenneker.Wise.OpenApiClient.Simulation.SanctionCases;
 using Soenneker.Wise.OpenApiClient.Simulation.Spend;
 using Soenneker.Wise.OpenApiClient.Simulation.Transfers;
 using Soenneker.Wise.OpenApiClient.Simulation.VerifyProfile;
@@ -28,6 +29,11 @@ namespace Soenneker.Wise.OpenApiClient.Simulation
         public global::Soenneker.Wise.OpenApiClient.Simulation.Profiles.ProfilesRequestBuilder Profiles
         {
             get => new global::Soenneker.Wise.OpenApiClient.Simulation.Profiles.ProfilesRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The sanctionCases property</summary>
+        public global::Soenneker.Wise.OpenApiClient.Simulation.SanctionCases.SanctionCasesRequestBuilder SanctionCases
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.Simulation.SanctionCases.SanctionCasesRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The spend property</summary>
         public global::Soenneker.Wise.OpenApiClient.Simulation.Spend.SpendRequestBuilder Spend

@@ -34,20 +34,20 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.BusinessProfile
         {
         }
         /// <summary>
-        /// Creates the business profile and its authorized representative in a single request.{% admonition type=&quot;info&quot; %}This request accepts an optional field in the header, `X-idempotence-uuid`. This should be unique for each Profile you create. In the event that the request fails, you should use the same value again when retrying. If the `X-idempotence-uuid` header is not provided and a Profile already exists, then you will receive a response with an HTTP status code `409`.{% /admonition %}See [Business Categories](/guides/product/kyc/business-categories) for the list of valid `industryCategories` values, and [Migrating to industry categories](/guides/product/kyc/migrate-business-profile-industry-categories) if you are moving from a previous version of this endpoint.
+        /// Creates the business profile and its authorized representative in a single request.{% admonition type=&quot;info&quot; %}This request accepts an optional field in the header, `X-idempotence-uuid`. This should be unique for each Profile you create. In the event that the request fails, you should use the same value again when retrying. If the `X-idempotence-uuid` header is not provided and a Profile already exists, then you will receive a response with an HTTP status code `409`.{% /admonition %}See [Business Categories](/guides/product/kyc/business-categories) for the list of valid `industryCategories` values. Send either `industryCategories` or the deprecated `firstLevelCategory`/`secondLevelCategory` pair - supplying both in one request returns a `400`. If you currently send the legacy fields, see [Migrating to industry categories](/guides/product/kyc/migrate-business-profile-industry-categories).
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.BusinessProfileIndustryCategories"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.BusinessProfile"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Soenneker.Wise.OpenApiClient.Models.BusinessProfileIndustryCategories?> PostAsync(global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV5Request body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.BusinessProfile?> PostAsync(global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3Request body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Soenneker.Wise.OpenApiClient.Models.BusinessProfileIndustryCategories> PostAsync(global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV5Request body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.BusinessProfile> PostAsync(global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3Request body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
@@ -56,21 +56,21 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.BusinessProfile
             {
                 { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
             };
-            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.BusinessProfileIndustryCategories>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.BusinessProfileIndustryCategories.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.BusinessProfile>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.BusinessProfile.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Creates the business profile and its authorized representative in a single request.{% admonition type=&quot;info&quot; %}This request accepts an optional field in the header, `X-idempotence-uuid`. This should be unique for each Profile you create. In the event that the request fails, you should use the same value again when retrying. If the `X-idempotence-uuid` header is not provided and a Profile already exists, then you will receive a response with an HTTP status code `409`.{% /admonition %}See [Business Categories](/guides/product/kyc/business-categories) for the list of valid `industryCategories` values, and [Migrating to industry categories](/guides/product/kyc/migrate-business-profile-industry-categories) if you are moving from a previous version of this endpoint.
+        /// Creates the business profile and its authorized representative in a single request.{% admonition type=&quot;info&quot; %}This request accepts an optional field in the header, `X-idempotence-uuid`. This should be unique for each Profile you create. In the event that the request fails, you should use the same value again when retrying. If the `X-idempotence-uuid` header is not provided and a Profile already exists, then you will receive a response with an HTTP status code `409`.{% /admonition %}See [Business Categories](/guides/product/kyc/business-categories) for the list of valid `industryCategories` values. Send either `industryCategories` or the deprecated `firstLevelCategory`/`secondLevelCategory` pair - supplying both in one request returns a `400`. If you currently send the legacy fields, see [Migrating to industry categories](/guides/product/kyc/migrate-business-profile-industry-categories).
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV5Request body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3Request body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
         {
 #nullable restore
 #else
-        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV5Request body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        public RequestInformation ToPostRequestInformation(global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3Request body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));

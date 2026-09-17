@@ -3,21 +3,17 @@ using System.Runtime.Serialization;
 using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
-    /// <summary>Role of person.</summary>
+    /// <summary>The action to perform.- `OPEN`: Create a new sanction case- `CLOSE`: Close an existing sanction case</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    public enum ProfileBusinessUpdateV3RequestCompanyRole
+    public enum SimulateSanctionCaseRequestStatus
     {
-        [EnumMember(Value = "OWNER")]
+        [EnumMember(Value = "OPEN")]
         #pragma warning disable CS1591
-        Owner,
+        Open,
         #pragma warning restore CS1591
-        [EnumMember(Value = "DIRECTOR")]
+        [EnumMember(Value = "CLOSE")]
         #pragma warning disable CS1591
-        Director,
-        #pragma warning restore CS1591
-        [EnumMember(Value = "OTHER")]
-        #pragma warning disable CS1591
-        Other,
+        Close,
         #pragma warning restore CS1591
     }
 }

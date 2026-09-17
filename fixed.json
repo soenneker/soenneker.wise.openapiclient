@@ -3672,7 +3672,7 @@
           "card-order"
         ],
         "summary": "Create a card order",
-        "description": "Creates a new card order. The \u0060program\u0060 field value is retrieved from the [retrieve all card programs](/api-reference/card-order/cardorderprogramsget) endpoint.\n\n{% admonition type=\u0022warning\u0022 %}\nThis request requires an extra field in the header, \u0060X-idempotence-uuid\u0060. This should be generated and used for any subsequent retries in the event that the initial request fails.\n{% /admonition %}\n\nWhen you issue a card under a business profile, the cardholder will automatically default to the [business representative](/api-reference/profile/profilebusinesscreatev5).\n\nIf the cardholder is not the business representative, create a cardholder [personal profile](/api-reference/profile/profilepersonalcreate) and add the profileId of the cardholder profile to the \u0060cardHolderProfileId\u0060 field on the card order request.\n\nFor country-specific address fields and validation rules, see the [card address validation guide](/guides/developer/api-guides/card-address-validation).\n",
+        "description": "Creates a new card order. The \u0060program\u0060 field value is retrieved from the [retrieve all card programs](/api-reference/card-order/cardorderprogramsget) endpoint.\n\n{% admonition type=\u0022warning\u0022 %}\nThis request requires an extra field in the header, \u0060X-idempotence-uuid\u0060. This should be generated and used for any subsequent retries in the event that the initial request fails.\n{% /admonition %}\n\nWhen you issue a card under a business profile, the cardholder will automatically default to the [business representative](/api-reference/profile/profilebusinesscreatev3).\n\nIf the cardholder is not the business representative, create a cardholder [personal profile](/api-reference/profile/profilepersonalcreate) and add the profileId of the cardholder profile to the \u0060cardHolderProfileId\u0060 field on the card order request.\n\nFor country-specific address fields and validation rules, see the [card address validation guide](/guides/developer/api-guides/card-address-validation).\n",
         "operationId": "CardOrderCreate",
         "parameters": [
           {
@@ -11089,8 +11089,8 @@
           "profile"
         ],
         "summary": "Create a business profile",
-        "description": "Creates the business profile and its authorized representative in a single request.\n\n{% admonition type=\u0022info\u0022 %}\nThis request accepts an optional field in the header, \u0060X-idempotence-uuid\u0060. This should be unique for each Profile you create. In the event that the request fails, you should use the same value again when retrying. If the \u0060X-idempotence-uuid\u0060 header is not provided and a Profile already exists, then you will receive a response with an HTTP status code \u0060409\u0060.\n{% /admonition %}\n\nSee [Business Categories](/guides/product/kyc/business-categories) for the list of valid \u0060industryCategories\u0060 values, and [Migrating to industry categories](/guides/product/kyc/migrate-business-profile-industry-categories) if you are moving from a previous version of this endpoint.\n",
-        "operationId": "ProfileBusinessCreateV5",
+        "description": "Creates the business profile and its authorized representative in a single request.\n\n{% admonition type=\u0022info\u0022 %}\nThis request accepts an optional field in the header, \u0060X-idempotence-uuid\u0060. This should be unique for each Profile you create. In the event that the request fails, you should use the same value again when retrying. If the \u0060X-idempotence-uuid\u0060 header is not provided and a Profile already exists, then you will receive a response with an HTTP status code \u0060409\u0060.\n{% /admonition %}\n\nSee [Business Categories](/guides/product/kyc/business-categories) for the list of valid \u0060industryCategories\u0060 values. Send either \u0060industryCategories\u0060 or the deprecated \u0060firstLevelCategory\u0060/\u0060secondLevelCategory\u0060 pair - supplying both in one request returns a \u0060400\u0060. If you currently send the legacy fields, see [Migrating to industry categories](/guides/product/kyc/migrate-business-profile-industry-categories).\n",
+        "operationId": "ProfileBusinessCreateV3",
         "parameters": [
           {
             "name": "X-idempotence-uuid",
@@ -11110,7 +11110,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProfileBusinessCreateV5Request"
+                "$ref": "#/components/schemas/ProfileBusinessCreateV3Request"
               },
               "examples": {
                 "withRepresentativeDetails": {
@@ -11225,7 +11225,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BusinessProfileIndustryCategories"
+                  "$ref": "#/components/schemas/BusinessProfile"
                 }
               }
             }
@@ -11366,8 +11366,8 @@
           "profile"
         ],
         "summary": "Update a business profile",
-        "description": "Update user profile information for a business profile.\n\n{% admonition type=\u0022warning\u0022 %}\nIf user profile has been verified then there are restrictions on what information is allowed to change.\n{% /admonition %}\n\nWhere permitted, use the update window functionality by [opening the update window](/api-reference/profile/profileupdatewindowopen), submitting the updated information using this endpoint, and finally [closing the update window](/api-reference/profile/profileupdatewindowclose).\n\nSee [Business Categories](/guides/product/kyc/business-categories) for the list of valid \u0060industryCategories\u0060 values, and [Migrating to industry categories](/guides/product/kyc/migrate-business-profile-industry-categories) if you are moving from a previous version of this endpoint.\n",
-        "operationId": "ProfileBusinessUpdateV3",
+        "description": "Update user profile information for a business profile.\n\n{% admonition type=\u0022warning\u0022 %}\nIf user profile has been verified then there are restrictions on what information is allowed to change.\n{% /admonition %}\n\nWhere permitted, use the update window functionality by [opening the update window](/api-reference/profile/profileupdatewindowopen), submitting the updated information using this endpoint, and finally [closing the update window](/api-reference/profile/profileupdatewindowclose).\n\nSee [Business Categories](/guides/product/kyc/business-categories) for the list of valid \u0060industryCategories\u0060 values. Send either \u0060industryCategories\u0060 or the deprecated \u0060firstLevelCategory\u0060/\u0060secondLevelCategory\u0060 pair, changing both in one request returns a \u0060400\u0060. If you currently send the legacy fields, see [Migrating to industry categories](/guides/product/kyc/migrate-business-profile-industry-categories).\n",
+        "operationId": "ProfileBusinessUpdate",
         "parameters": [
           {
             "name": "profileId",
@@ -11388,7 +11388,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProfileBusinessUpdateV3Request"
+                "$ref": "#/components/schemas/ProfileBusinessUpdateRequest"
               }
             }
           }
@@ -11407,7 +11407,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BusinessProfileIndustryCategories"
+                  "$ref": "#/components/schemas/BusinessProfile"
                 }
               }
             }
@@ -15961,6 +15961,190 @@
                   "arguments": [],
                   "code": "not.valid",
                   "message": "None of connected BICs match beneficiary account DE00000000000000000000 (TESTDE00)"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit exceeded. Retry after the number of seconds specified in the \u0060Retry-After\u0060 header.",
+            "$ref": "#/components/responses/429"
+          }
+        },
+        "security": [
+          {
+            "UserToken": []
+          }
+        ]
+      }
+    },
+    "/simulation/sanction-cases": {
+      "post": {
+        "tags": [
+          "simulation"
+        ],
+        "summary": "Simulate a sanction case",
+        "description": "Simulates the creation or closure of a sanction case for testing partner integrations.\n\nWhen \u0060status\u0060 is \u0060OPEN\u0060, a new sanction case is created with the specified type and subtype.\nWhen \u0060status\u0060 is \u0060CLOSE\u0060, an existing case (identified by \u0060caseId\u0060) is closed with the specified reason.\n\nThis endpoint is only available in sandbox environments.\n",
+        "operationId": "SimulateSanctionCase",
+        "parameters": [
+          {
+            "description": "Optional UUID for correlating requests across systems. If provided, Wise echoes it back in the response. Maximum 36 characters. [Learn more](/guides/developer/headers/correlation-id).\n",
+            "$ref": "#/components/parameters/X-External-Correlation-Id"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SimulateSanctionCaseRequest"
+              },
+              "examples": {
+                "openReferenceSanctionHit": {
+                  "summary": "Open a reference sanction hit case",
+                  "value": {
+                    "transferId": 12345678,
+                    "profileId": 98765432,
+                    "sanctionType": "SANCTION",
+                    "simulationSanctionSubType": "REFERENCE_SANCTION_HIT",
+                    "status": "OPEN"
+                  }
+                },
+                "openRecipientLocationHit": {
+                  "summary": "Open a recipient location hit case",
+                  "value": {
+                    "transferId": 12345678,
+                    "profileId": 98765432,
+                    "sanctionType": "SANCTION",
+                    "simulationSanctionSubType": "RECIPIENT_LOCATION_HIT",
+                    "status": "OPEN"
+                  }
+                },
+                "closeCase": {
+                  "summary": "Close an existing case",
+                  "value": {
+                    "transferId": 12345678,
+                    "profileId": 98765432,
+                    "sanctionType": "SANCTION",
+                    "simulationSanctionSubType": "REFERENCE_SANCTION_HIT",
+                    "status": "CLOSE",
+                    "caseId": 999,
+                    "closingReason": "COMPLETED"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Sanction case successfully closed.",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SimulateSanctionCase200Response"
+                },
+                "example": {
+                  "eventId": "550e8400-e29b-41d4-a716-446655440001",
+                  "caseId": 42
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Sanction case successfully created.",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SimulateSanctionCase201Response"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - validation error.",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Fallback media schema"
+                },
+                "examples": {
+                  "missingSanctionSubType": {
+                    "summary": "Missing sanctionSubType",
+                    "value": {
+                      "properties": {
+                        "errors": [
+                          {
+                            "ref": "sanctionSubType",
+                            "detail": "sanctionSubType is required when sanctionType is SANCTION. Valid values: REFERENCE_SANCTION_HIT, RECIPIENT_SANCTION_HIT, REFERENCE_LOCATION_HIT, RECIPIENT_LOCATION_HIT, DEPOSIT_SANCTION_HIT"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "missingCaseId": {
+                    "summary": "Missing caseId for CLOSE",
+                    "value": {
+                      "properties": {
+                        "errors": [
+                          {
+                            "ref": "caseId",
+                            "detail": "caseId (self-service caseId) is required when status is CLOSE"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "missingClosingReason": {
+                    "summary": "Missing closingReason for CLOSE",
+                    "value": {
+                      "properties": {
+                        "errors": [
+                          {
+                            "ref": "closingReason",
+                            "detail": "closingReason is required when status is CLOSE. Valid values: EXPIRED, INVALIDATED, ABORTED, COMPLETED"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "invalidClosingReason": {
+                    "summary": "Invalid closingReason",
+                    "value": {
+                      "properties": {
+                        "errors": [
+                          {
+                            "ref": "closingReason",
+                            "detail": "Invalid closingReason. Valid values: EXPIRED, INVALIDATED, ABORTED, COMPLETED"
+                          }
+                        ]
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -24064,13 +24248,13 @@
           },
           "firstLevelCategory": {
             "type": "string",
-            "description": "Deprecated. New integrations should use \u0060industryCategories\u0060. See [Migrating to industry categories](/guides/product/kyc/migrate-business-profile-industry-categories).\n",
+            "description": "Deprecated. New integrations should use \u0060industryCategories\u0060. See [Migrating to industry categories](/guides/product/kyc/migrate-business-profile-industry-categories).\n\nPopulated only when the profile was classified with the legacy fields, otherwise \u0060null\u0060. Create and update responses return the format you did not send as \u0060null\u0060, only [retrieve a profile](/api-reference/profile/profileget) derives both formats.\n",
             "example": "CONSULTING_IT_BUSINESS_SERVICES",
             "deprecated": true
           },
           "secondLevelCategory": {
             "type": "string",
-            "description": "Deprecated. New integrations should use \u0060industryCategories\u0060. See [Migrating to industry categories](/guides/product/kyc/migrate-business-profile-industry-categories).\n",
+            "description": "Deprecated. New integrations should use \u0060industryCategories\u0060. See [Migrating to industry categories](/guides/product/kyc/migrate-business-profile-industry-categories).\n\nPopulated only when the profile was classified with the legacy fields, otherwise \u0060null\u0060. Create and update responses return the format you did not send as \u0060null\u0060, only [retrieve a profile](/api-reference/profile/profileget) derives both formats, where it may return \u0060UNMAPPED\u0060 if the \u0060industryCategories\u0060 combination has no legacy equivalent.\n",
             "example": "IT_DEVELOPMENT",
             "deprecated": true
           },
@@ -24079,7 +24263,7 @@
             "items": {
               "type": "string"
             },
-            "description": "One or more industry categories classifying the business. See [Business Categories](/guides/product/kyc/business-categories) for the full list of valid values."
+            "description": "One or more industry categories classifying the business. See [Business Categories](/guides/product/kyc/business-categories) for the full list of valid values.\n\nPopulated only when the profile was classified with \u0060industryCategories\u0060, otherwise \u0060null\u0060. Create and update responses return the format you did not send as \u0060null\u0060, only [retrieve a profile](/api-reference/profile/profileget) derives both formats.\n"
           },
           "operationalAddresses": {
             "type": "array",
@@ -24228,13 +24412,13 @@
           },
           "firstLevelCategory": {
             "type": "string",
-            "description": "Deprecated. New integrations should use \u0060industryCategories\u0060. See [Migrating to industry categories](/guides/product/kyc/migrate-business-profile-industry-categories).\n",
+            "description": "Deprecated. New integrations should use \u0060industryCategories\u0060. See [Migrating to industry categories](/guides/product/kyc/migrate-business-profile-industry-categories).\n\nPopulated only when the profile was classified with the legacy fields, otherwise \u0060null\u0060. Create and update responses return the format you did not send as \u0060null\u0060, only [retrieve a profile](/api-reference/profile/profileget) derives both formats.\n",
             "example": "CONSULTING_IT_BUSINESS_SERVICES",
             "deprecated": true
           },
           "secondLevelCategory": {
             "type": "string",
-            "description": "Deprecated. New integrations should use \u0060industryCategories\u0060. See [Migrating to industry categories](/guides/product/kyc/migrate-business-profile-industry-categories).\n",
+            "description": "Deprecated. New integrations should use \u0060industryCategories\u0060. See [Migrating to industry categories](/guides/product/kyc/migrate-business-profile-industry-categories).\n\nPopulated only when the profile was classified with the legacy fields, otherwise \u0060null\u0060. Create and update responses return the format you did not send as \u0060null\u0060, only [retrieve a profile](/api-reference/profile/profileget) derives both formats, where it may return \u0060UNMAPPED\u0060 if the \u0060industryCategories\u0060 combination has no legacy equivalent.\n",
             "example": "IT_DEVELOPMENT",
             "deprecated": true
           },
@@ -24243,7 +24427,7 @@
             "items": {
               "type": "string"
             },
-            "description": "One or more industry categories classifying the business. See [Business Categories](/guides/product/kyc/business-categories) for the full list of valid values."
+            "description": "One or more industry categories classifying the business. See [Business Categories](/guides/product/kyc/business-categories) for the full list of valid values.\n\nPopulated only when the profile was classified with \u0060industryCategories\u0060, otherwise \u0060null\u0060. Create and update responses return the format you did not send as \u0060null\u0060, only [retrieve a profile](/api-reference/profile/profileget) derives both formats.\n"
           },
           "operationalAddresses": {
             "type": "array",
@@ -24269,109 +24453,6 @@
         "x-tags": [
           "profile"
         ]
-      },
-      "BusinessProfileIndustryCategories": {
-        "title": "Business Profile",
-        "required": [
-          "type"
-        ],
-        "type": "object",
-        "properties": {
-          "type": {
-            "$ref": "#/components/schemas/BusinessType"
-          },
-          "id": {
-            "type": "integer",
-            "description": "Unique identifier for the profile.",
-            "format": "int64",
-            "example": 14599371
-          },
-          "publicId": {
-            "type": "string",
-            "description": "Publicly accessible identifier for the profile.",
-            "example": "f0e9d8c7-b6a5-4321-fedc-ba9876543210"
-          },
-          "userId": {
-            "type": "integer",
-            "description": "The ID of the user associated with this profile.",
-            "format": "int64",
-            "example": 9889627
-          },
-          "address": {
-            "$ref": "#/components/schemas/Address2"
-          },
-          "email": {
-            "type": "string",
-            "description": "Primary email address for the business.",
-            "example": "info@innovate-solutions.co.uk"
-          },
-          "createdAt": {
-            "type": "string",
-            "description": "Timestamp when the profile was created (ISO 8601 format).",
-            "format": "date-time",
-            "example": "2024-03-10T09:00:00"
-          },
-          "updatedAt": {
-            "type": "string",
-            "description": "Timestamp when the profile was last updated (ISO 8601 format).",
-            "format": "date-time",
-            "example": "2025-06-18T14:22:00"
-          },
-          "currentState": {
-            "$ref": "#/components/schemas/BusinessProfileIndustryCategoriesCurrentState"
-          },
-          "contactDetails": {
-            "$ref": "#/components/schemas/BusinessProfileIndustryCategoriesContactDetails"
-          },
-          "businessName": {
-            "type": "string",
-            "description": "Registered business name.",
-            "example": "Innovate Solutions Ltd"
-          },
-          "registrationNumber": {
-            "type": "string",
-            "description": "Business registration number.",
-            "example": "SC1234567890ABCD"
-          },
-          "webpage": {
-            "type": "string",
-            "description": "Business website URL.",
-            "example": "https://www.innovate-solutions.co.uk"
-          },
-          "companyType": {
-            "type": "string",
-            "description": "Type of company.",
-            "example": "LIMITED_COMPANY"
-          },
-          "companyRole": {
-            "$ref": "#/components/schemas/BusinessProfileIndustryCategoriesCompanyRole"
-          },
-          "businessFreeFormDescription": {
-            "type": "string",
-            "description": "Free-form description of the business activities.",
-            "example": "We create cutting-edge software for businesses."
-          },
-          "industryCategories": {
-            "minItems": 1,
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "description": "One or more industry categories classifying the business. See [Business Categories](guides/product/kyc/business-categories) for the full list of valid values."
-          },
-          "operationalAddresses": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Address2"
-            },
-            "description": "An array of operational addresses for the business."
-          },
-          "fullName": {
-            "type": "string",
-            "description": "Full legal name of the business.",
-            "example": "Innovate Solutions Ltd"
-          }
-        }
       },
       "Director": {
         "type": "object",
@@ -24835,7 +24916,7 @@
             "description": "ISO 4217 currency code"
           },
           "amount": {
-            "exclusiveMinimum": false,
+            "exclusiveMinimum": 0,
             "type": "number",
             "description": "The payment amount."
           },
@@ -25133,7 +25214,7 @@
             "description": "ISO 4217 currency code"
           },
           "amount": {
-            "exclusiveMinimum": false,
+            "exclusiveMinimum": 0,
             "type": "number",
             "description": "Amount received by Wise.",
             "example": 100
@@ -25144,7 +25225,7 @@
             "description": "ISO 4217 currency code"
           },
           "instructedAmount": {
-            "exclusiveMinimum": false,
+            "exclusiveMinimum": 0,
             "type": "number",
             "description": "Amount sent by the sender.\nIf not provided, it is assumed to be the same as \u0060amount\u0060 plus **same currency** fees.\nAny outstanding fees in other currencies are ignored.\n\nRequired if \u0060instructedCurrencyCode\u0060 is provided.\n",
             "example": 101
@@ -26307,7 +26388,7 @@
             "example": "EUR"
           },
           "sourceValue": {
-            "exclusiveMinimum": false,
+            "exclusiveMinimum": 0,
             "type": "number",
             "description": "Transfer amount in source currency",
             "format": "decimal",
@@ -26322,7 +26403,7 @@
             "example": "GBP"
           },
           "targetValue": {
-            "exclusiveMinimum": false,
+            "exclusiveMinimum": 0,
             "type": "number",
             "description": "Transfer amount in target currency",
             "format": "decimal",
@@ -26380,7 +26461,7 @@
             "example": "cancelled"
           },
           "rate": {
-            "exclusiveMinimum": false,
+            "exclusiveMinimum": 0,
             "type": "number",
             "description": "Exchange rate value",
             "format": "decimal",
@@ -26408,7 +26489,7 @@
             "example": "EUR"
           },
           "sourceValue": {
-            "exclusiveMinimum": false,
+            "exclusiveMinimum": 0,
             "type": "number",
             "description": "Transfer amount in source currency",
             "format": "decimal",
@@ -26423,7 +26504,7 @@
             "example": "GBP"
           },
           "targetValue": {
-            "exclusiveMinimum": false,
+            "exclusiveMinimum": 0,
             "type": "number",
             "description": "Transfer amount in target currency",
             "format": "decimal",
@@ -27428,7 +27509,7 @@
         "type": "object",
         "properties": {
           "value": {
-            "exclusiveMinimum": false,
+            "exclusiveMinimum": 0,
             "type": "number",
             "description": "Monetary value",
             "format": "decimal",
@@ -27539,7 +27620,7 @@
             "$ref": "#/components/schemas/WiseFeeType"
           },
           "value": {
-            "exclusiveMinimum": false,
+            "exclusiveMinimum": 0,
             "type": "number",
             "description": "Decimal fee amount.",
             "format": "decimal",
@@ -27563,7 +27644,7 @@
         "type": "object",
         "properties": {
           "value": {
-            "exclusiveMinimum": false,
+            "exclusiveMinimum": 0,
             "type": "number",
             "description": "Decimal fee amount deducted by the correspondent bank.",
             "format": "decimal",
@@ -27694,7 +27775,7 @@
             "$ref": "#/components/schemas/Amounts"
           },
           "exchangeRate": {
-            "exclusiveMinimum": false,
+            "exclusiveMinimum": 0,
             "type": "number",
             "description": "Wise\u0027s effective FX rate applied to this incoming transfer (source currency \u2192 target balance\ncurrency) as a decimal number. 1 when no conversion was needed.",
             "format": "decimal",
@@ -27805,7 +27886,7 @@
         "type": "object",
         "properties": {
           "amount": {
-            "exclusiveMinimum": false,
+            "exclusiveMinimum": 0,
             "type": "number",
             "description": "Non-negative monetary amount.",
             "format": "decimal",
@@ -27971,7 +28052,7 @@
             "example": "GBP"
           },
           "exchangeRate": {
-            "exclusiveMinimum": false,
+            "exclusiveMinimum": 0,
             "type": "number",
             "description": "Exchange rate applied between the source and target currencies.",
             "format": "decimal",
@@ -31787,22 +31868,6 @@
         },
         "description": "Contact information for the business."
       },
-      "BusinessProfileIndustryCategoriesContactDetails": {
-        "type": "object",
-        "properties": {
-          "email": {
-            "type": "string",
-            "description": "Contact email address.",
-            "example": "contact@innovate-solutions.co.uk"
-          },
-          "phoneNumber": {
-            "type": "string",
-            "description": "Contact phone number.",
-            "example": "\u002B441617891234"
-          }
-        },
-        "description": "Contact information for the business."
-      },
       "QuotePricingConfiguration": {
         "type": "object",
         "properties": {
@@ -32235,7 +32300,7 @@
         "type": "object",
         "properties": {
           "amount": {
-            "exclusiveMinimum": false,
+            "exclusiveMinimum": 0,
             "type": "number",
             "description": "Fee amount.",
             "example": 1
@@ -33009,7 +33074,7 @@
           },
           "card_status": {
             "type": "string",
-            "description": "The updated card status. Possible values:\n- \u0060ACTIVE\u0060 - Card is active and can be used.\n- \u0060INACTIVE\u0060 - Card is inactive and all transactions will be declined.\n- \u0060BLOCKED\u0060 - Card is blocked and cannot be reversed back to any state.\n- \u0060FROZEN\u0060 - Card is \u0022blocked\u0022, but temporarily.\n- \u0060PARTNER_SUSPENDED\u0060 - Card is suspended by Wise temporarily due to, for example, fraud reasons.\n- \u0060EXPIRED\u0060 - Card is expired.\n- \u0060PURGED\u0060 - The cardhoder data (ex: PAN, PIN) have been purged after exceeds the retention period (555 days after the card\u0027s expiry date).\n",
+            "description": "The updated card status. Possible values:\n- \u0060ACTIVE\u0060 - Card is active and can be used.\n- \u0060INACTIVE\u0060 - Card is inactive and all transactions will be declined.\n- \u0060BLOCKED\u0060 - Card is blocked and cannot be reversed back to any state.\n- \u0060FROZEN\u0060 - Card is temporarily frozen; all authorization requests will be declined.\n- \u0060PARTNER_SUSPENDED\u0060 - Card is suspended by Wise temporarily due to, for example, fraud reasons.\n- \u0060EXPIRED\u0060 - Card is expired.\n- \u0060PURGED\u0060 - The cardhoder data (ex: PAN, PIN) have been purged after exceeds the retention period (555 days after the card\u0027s expiry date).\n",
             "example": "FROZEN"
           },
           "changed_by": {
@@ -33033,7 +33098,7 @@
           },
           "card_status": {
             "type": "string",
-            "description": "The updated card status. Possible values:\n- \u0060ACTIVE\u0060 - Card is active and can be used.\n- \u0060INACTIVE\u0060 - Card is inactive and all transactions will be declined.\n- \u0060BLOCKED\u0060 - Card is blocked and cannot be reversed back to any state.\n- \u0060FROZEN\u0060 - Card is \u0022blocked\u0022, but temporarily.\n- \u0060PARTNER_SUSPENDED\u0060 - Card is suspended by Wise temporarily due to, for example, fraud reasons.\n- \u0060EXPIRED\u0060 - Card is expired.\n- \u0060PURGED\u0060 - The cardholder data (ex: PAN, PIN) have been purged after exceeds the retention period (555 days after the card\u0027s expiry date).\n",
+            "description": "The updated card status. Possible values:\n- \u0060ACTIVE\u0060 - Card is active and can be used.\n- \u0060INACTIVE\u0060 - Card is inactive and all transactions will be declined.\n- \u0060BLOCKED\u0060 - Card is blocked and cannot be reversed back to any state.\n- \u0060FROZEN\u0060 - Card is temporarily frozen; all authorization requests will be declined.\n- \u0060PARTNER_SUSPENDED\u0060 - Card is suspended by Wise temporarily due to, for example, fraud reasons.\n- \u0060EXPIRED\u0060 - Card is expired.\n- \u0060PURGED\u0060 - The cardholder data (ex: PAN, PIN) have been purged after exceeds the retention period (555 days after the card\u0027s expiry date).\n",
             "example": "FROZEN"
           },
           "changed_by": {
@@ -44069,7 +44134,7 @@
           }
         }
       },
-      "ProfileBusinessCreateV5Request": {
+      "ProfileBusinessCreateV3Request": {
         "type": "object",
         "properties": {
           "businessName": {
@@ -44120,13 +44185,13 @@
             "example": null
           },
           "companyType": {
-            "$ref": "#/components/schemas/ProfileBusinessCreateV5RequestCompanyType"
+            "$ref": "#/components/schemas/ProfileBusinessCreateV3RequestCompanyType"
           },
           "companyRole": {
-            "$ref": "#/components/schemas/ProfileBusinessCreateV5RequestCompanyRole"
+            "$ref": "#/components/schemas/ProfileBusinessCreateV3RequestCompanyRole"
           },
           "address": {
-            "$ref": "#/components/schemas/ProfileBusinessCreateV5RequestAddress"
+            "$ref": "#/components/schemas/ProfileBusinessCreateV3RequestAddress"
           },
           "externalCustomerId": {
             "type": "string",
@@ -44146,10 +44211,22 @@
             },
             "description": "One or more industry categories classifying the business. See [Business Categories](/guides/product/kyc/business-categories) for the full list of valid values."
           },
+          "firstLevelCategory": {
+            "type": "string",
+            "description": "Legacy primary [business category](/guides/product/kyc/business-categories). Use \u0060industryCategories\u0060 instead. Cannot be combined with \u0060industryCategories\u0060.\n",
+            "example": "CONSULTING_IT_BUSINESS_SERVICES",
+            "deprecated": true
+          },
+          "secondLevelCategory": {
+            "type": "string",
+            "description": "Legacy secondary [business category](/guides/product/kyc/business-categories). Use \u0060industryCategories\u0060 instead. Cannot be combined with \u0060industryCategories\u0060.\n",
+            "example": "DESIGN",
+            "deprecated": true
+          },
           "operationalAddresses": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ProfileBusinessCreateV5RequestOperationalAddressesItem"
+              "$ref": "#/components/schemas/ProfileBusinessCreateV3RequestOperationalAddressesItem"
             },
             "description": "List of operational addresses."
           },
@@ -44159,7 +44236,7 @@
             "example": "https://abc-logistics.com"
           },
           "businessRepresentative": {
-            "$ref": "#/components/schemas/ProfileBusinessCreateV5RequestBusinessRepresentative"
+            "$ref": "#/components/schemas/ProfileBusinessCreateV3RequestBusinessRepresentative"
           }
         }
       },
@@ -44229,7 +44306,7 @@
           }
         }
       },
-      "ProfileBusinessUpdateV3Request": {
+      "ProfileBusinessUpdateRequest": {
         "type": "object",
         "properties": {
           "id": {
@@ -44286,13 +44363,13 @@
             "example": null
           },
           "companyType": {
-            "$ref": "#/components/schemas/ProfileBusinessUpdateV3RequestCompanyType"
+            "$ref": "#/components/schemas/ProfileBusinessUpdateRequestCompanyType"
           },
           "address": {
-            "$ref": "#/components/schemas/ProfileBusinessUpdateV3RequestAddress"
+            "$ref": "#/components/schemas/ProfileBusinessUpdateRequestAddress"
           },
           "companyRole": {
-            "$ref": "#/components/schemas/ProfileBusinessUpdateV3RequestCompanyRole"
+            "$ref": "#/components/schemas/ProfileBusinessUpdateRequestCompanyRole"
           },
           "externalCustomerId": {
             "type": "string",
@@ -44307,10 +44384,22 @@
             },
             "description": "One or more industry categories classifying the business. See [Business Categories](guides/product/kyc/business-categories) for the full list of valid values."
           },
+          "firstLevelCategory": {
+            "type": "string",
+            "description": "Legacy primary [business category](/guides/product/kyc/business-categories). Use \u0060industryCategories\u0060 instead. Cannot be combined with \u0060industryCategories\u0060.\n",
+            "example": "CONSULTING_IT_BUSINESS_SERVICES",
+            "deprecated": true
+          },
+          "secondLevelCategory": {
+            "type": "string",
+            "description": "Legacy secondary [business category](/guides/product/kyc/business-categories). Use \u0060industryCategories\u0060 instead. Cannot be combined with \u0060industryCategories\u0060.\n",
+            "example": "DESIGN",
+            "deprecated": true
+          },
           "operationalAddresses": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ProfileBusinessUpdateV3RequestOperationalAddressesItem"
+              "$ref": "#/components/schemas/ProfileBusinessUpdateRequestOperationalAddressesItem"
             },
             "description": "List of operational addresses."
           },
@@ -45369,6 +45458,82 @@
               "type": "string"
             },
             "description": "Zero or more requirements to be verified. If not provided, all blocking requirements are verified."
+          }
+        }
+      },
+      "SimulateSanctionCaseRequest": {
+        "required": [
+          "transferId",
+          "profileId",
+          "sanctionType",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "transferId": {
+            "type": "integer",
+            "description": "The ID of the transfer associated with the sanction case.",
+            "format": "int64"
+          },
+          "profileId": {
+            "type": "integer",
+            "description": "The profile ID linked to the transfer.",
+            "format": "int64"
+          },
+          "sanctionType": {
+            "$ref": "#/components/schemas/SanctionSanctionType"
+          },
+          "simulationSanctionSubType": {
+            "$ref": "#/components/schemas/SimulateSanctionCaseRequestSimulationSanctionSubType"
+          },
+          "status": {
+            "$ref": "#/components/schemas/SimulateSanctionCaseRequestStatus"
+          },
+          "caseId": {
+            "type": "integer",
+            "description": "The self-service case ID to close. Required when \u0060status\u0060 is \u0060CLOSE\u0060.\nWhen \u0060status\u0060 is \u0060OPEN\u0060, this can optionally be provided to specify the case ID;\notherwise, one will be auto-generated.\n",
+            "format": "int64"
+          },
+          "closingReason": {
+            "$ref": "#/components/schemas/SimulateSanctionCaseRequestClosingReason"
+          }
+        }
+      },
+      "SimulateSanctionCase200Response": {
+        "type": "object",
+        "properties": {
+          "eventId": {
+            "type": "string",
+            "description": "The unique identifier for this simulation event.",
+            "format": "uuid"
+          },
+          "caseId": {
+            "type": "integer",
+            "description": "The ID of the case in the partner support system. May be null if the case hasn\u0027t been fully processed yet.",
+            "format": "int64",
+            "example": {
+              "eventId": "550e8400-e29b-41d4-a716-446655440000",
+              "caseId": 42
+            }
+          }
+        }
+      },
+      "SimulateSanctionCase201Response": {
+        "type": "object",
+        "properties": {
+          "eventId": {
+            "type": "string",
+            "description": "The unique identifier for this simulation event.",
+            "format": "uuid"
+          },
+          "caseId": {
+            "type": "integer",
+            "description": "The ID of the case in the partner support system. May be null if the case hasn\u0027t been fully processed yet.",
+            "format": "int64",
+            "example": {
+              "eventId": "550e8400-e29b-41d4-a716-446655440000",
+              "caseId": 42
+            }
           }
         }
       },
@@ -49588,7 +49753,7 @@
         },
         "description": "Profile details."
       },
-      "ProfileBusinessCreateV5RequestAddress": {
+      "ProfileBusinessCreateV3RequestAddress": {
         "type": "object",
         "properties": {
           "addressFirstLine": {
@@ -49622,7 +49787,7 @@
           }
         }
       },
-      "ProfileBusinessCreateV5RequestOperationalAddressesItem": {
+      "ProfileBusinessCreateV3RequestOperationalAddressesItem": {
         "type": "object",
         "properties": {
           "addressFirstLine": {
@@ -49650,7 +49815,7 @@
           }
         }
       },
-      "ProfileBusinessCreateV5RequestBusinessRepresentative": {
+      "ProfileBusinessCreateV3RequestBusinessRepresentative": {
         "type": "object",
         "properties": {
           "businessRepresentativeId": {
@@ -49673,10 +49838,10 @@
             "example": "Olivia"
           },
           "address": {
-            "$ref": "#/components/schemas/ProfileBusinessCreateV5RequestBusinessRepresentativeAddress"
+            "$ref": "#/components/schemas/ProfileBusinessCreateV3RequestBusinessRepresentativeAddress"
           },
           "contactDetails": {
-            "$ref": "#/components/schemas/ProfileBusinessCreateV5RequestBusinessRepresentativeContactDetails"
+            "$ref": "#/components/schemas/ProfileBusinessCreateV3RequestBusinessRepresentativeContactDetails"
           },
           "dateOfBirth": {
             "type": "string",
@@ -49747,7 +49912,7 @@
           }
         }
       },
-      "ProfileBusinessUpdateV3RequestAddress": {
+      "ProfileBusinessUpdateRequestAddress": {
         "type": "object",
         "properties": {
           "addressFirstLine": {
@@ -49782,7 +49947,7 @@
           }
         }
       },
-      "ProfileBusinessUpdateV3RequestOperationalAddressesItem": {
+      "ProfileBusinessUpdateRequestOperationalAddressesItem": {
         "type": "object",
         "properties": {
           "addressFirstLine": {
@@ -51198,7 +51363,7 @@
       "ProfilePersonalCreate200ResponseDetailsLocalizedInformationItem": {
         "type": "object"
       },
-      "ProfileBusinessCreateV5RequestBusinessRepresentativeAddress": {
+      "ProfileBusinessCreateV3RequestBusinessRepresentativeAddress": {
         "type": "object",
         "properties": {
           "addressFirstLine": {
@@ -51228,7 +51393,7 @@
           }
         }
       },
-      "ProfileBusinessCreateV5RequestBusinessRepresentativeContactDetails": {
+      "ProfileBusinessCreateV3RequestBusinessRepresentativeContactDetails": {
         "type": "object",
         "properties": {
           "email": {
@@ -52790,64 +52955,6 @@
         "example": "OWNER",
         "x-ms-enum": {
           "name": "BusinessProfileCompanyRole",
-          "modelAsString": false,
-          "values": [
-            {
-              "value": "OWNER",
-              "name": "Owner"
-            },
-            {
-              "value": "DIRECTOR",
-              "name": "Director"
-            },
-            {
-              "value": "OTHER",
-              "name": "Other"
-            }
-          ]
-        }
-      },
-      "BusinessProfileIndustryCategoriesCurrentState": {
-        "enum": [
-          "HIDDEN",
-          "VISIBLE",
-          "DEACTIVATED"
-        ],
-        "type": "string",
-        "additionalProperties": false,
-        "description": "Current status of this profile.",
-        "example": "VISIBLE",
-        "x-ms-enum": {
-          "name": "BusinessProfileIndustryCategoriesCurrentState",
-          "modelAsString": false,
-          "values": [
-            {
-              "value": "HIDDEN",
-              "name": "Hidden"
-            },
-            {
-              "value": "VISIBLE",
-              "name": "Visible"
-            },
-            {
-              "value": "DEACTIVATED",
-              "name": "Deactivated"
-            }
-          ]
-        }
-      },
-      "BusinessProfileIndustryCategoriesCompanyRole": {
-        "enum": [
-          "OWNER",
-          "DIRECTOR",
-          "OTHER"
-        ],
-        "type": "string",
-        "additionalProperties": false,
-        "description": "Role of the person managing the business profile.",
-        "example": "OWNER",
-        "x-ms-enum": {
-          "name": "BusinessProfileIndustryCategoriesCompanyRole",
           "modelAsString": false,
           "values": [
             {
@@ -56256,7 +56363,7 @@
           ]
         }
       },
-      "ProfileBusinessCreateV5RequestCompanyType": {
+      "ProfileBusinessCreateV3RequestCompanyType": {
         "enum": [
           "LIMITED",
           "PARTNERSHIP",
@@ -56279,7 +56386,7 @@
         "description": "Company legal form.",
         "example": "LIMITED",
         "x-ms-enum": {
-          "name": "ProfileBusinessCreateV5RequestCompanyType",
+          "name": "ProfileBusinessCreateV3RequestCompanyType",
           "modelAsString": false,
           "values": [
             {
@@ -56345,7 +56452,7 @@
           ]
         }
       },
-      "ProfileBusinessCreateV5RequestCompanyRole": {
+      "ProfileBusinessCreateV3RequestCompanyRole": {
         "enum": [
           "OWNER",
           "DIRECTOR",
@@ -56356,7 +56463,7 @@
         "description": "Role of person.",
         "example": "OWNER",
         "x-ms-enum": {
-          "name": "ProfileBusinessCreateV5RequestCompanyRole",
+          "name": "ProfileBusinessCreateV3RequestCompanyRole",
           "modelAsString": false,
           "values": [
             {
@@ -56374,7 +56481,7 @@
           ]
         }
       },
-      "ProfileBusinessUpdateV3RequestCompanyType": {
+      "ProfileBusinessUpdateRequestCompanyType": {
         "enum": [
           "LIMITED",
           "PARTNERSHIP",
@@ -56397,7 +56504,7 @@
         "description": "Company legal form.",
         "example": "LIMITED",
         "x-ms-enum": {
-          "name": "ProfileBusinessUpdateV3RequestCompanyType",
+          "name": "ProfileBusinessUpdateRequestCompanyType",
           "modelAsString": false,
           "values": [
             {
@@ -56463,7 +56570,7 @@
           ]
         }
       },
-      "ProfileBusinessUpdateV3RequestCompanyRole": {
+      "ProfileBusinessUpdateRequestCompanyRole": {
         "enum": [
           "OWNER",
           "DIRECTOR",
@@ -56474,7 +56581,7 @@
         "description": "Role of person.",
         "example": "OWNER",
         "x-ms-enum": {
-          "name": "ProfileBusinessUpdateV3RequestCompanyRole",
+          "name": "ProfileBusinessUpdateRequestCompanyRole",
           "modelAsString": false,
           "values": [
             {
@@ -56860,6 +56967,118 @@
             {
               "value": "REJECT",
               "name": "Reject"
+            }
+          ]
+        }
+      },
+      "SanctionSanctionType": {
+        "enum": [
+          "SANCTION"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "The type of sanction. Currently only \u0060SANCTION\u0060 is supported.",
+        "x-ms-enum": {
+          "name": "SanctionSanctionType",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "SANCTION",
+              "name": "Sanction"
+            }
+          ]
+        }
+      },
+      "SimulateSanctionCaseRequestSimulationSanctionSubType": {
+        "enum": [
+          "REFERENCE_SANCTION_HIT",
+          "RECIPIENT_SANCTION_HIT",
+          "REFERENCE_LOCATION_HIT",
+          "RECIPIENT_LOCATION_HIT",
+          "DEPOSIT_SANCTION_HIT"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "The specific subtype of sanction case to simulate. Required when \u0060sanctionType\u0060 is \u0060SANCTION\u0060.\n- \u0060REFERENCE_SANCTION_HIT\u0060: Sanction hit on the transfer reference/sender\n- \u0060RECIPIENT_SANCTION_HIT\u0060: Sanction hit on the recipient\n- \u0060REFERENCE_LOCATION_HIT\u0060: Location-based hit on the reference/sender\n- \u0060RECIPIENT_LOCATION_HIT\u0060: Location-based hit on the recipient\n- \u0060DEPOSIT_SANCTION_HIT\u0060: Sanction hit on an incoming deposit\n",
+        "x-ms-enum": {
+          "name": "SimulateSanctionCaseRequestSimulationSanctionSubType",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "REFERENCE_SANCTION_HIT",
+              "name": "ReferenceSanctionHit"
+            },
+            {
+              "value": "RECIPIENT_SANCTION_HIT",
+              "name": "RecipientSanctionHit"
+            },
+            {
+              "value": "REFERENCE_LOCATION_HIT",
+              "name": "ReferenceLocationHit"
+            },
+            {
+              "value": "RECIPIENT_LOCATION_HIT",
+              "name": "RecipientLocationHit"
+            },
+            {
+              "value": "DEPOSIT_SANCTION_HIT",
+              "name": "DepositSanctionHit"
+            }
+          ]
+        }
+      },
+      "SimulateSanctionCaseRequestStatus": {
+        "enum": [
+          "OPEN",
+          "CLOSE"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "The action to perform.\n- \u0060OPEN\u0060: Create a new sanction case\n- \u0060CLOSE\u0060: Close an existing sanction case\n",
+        "x-ms-enum": {
+          "name": "SimulateSanctionCaseRequestStatus",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "OPEN",
+              "name": "Open"
+            },
+            {
+              "value": "CLOSE",
+              "name": "Close"
+            }
+          ]
+        }
+      },
+      "SimulateSanctionCaseRequestClosingReason": {
+        "enum": [
+          "EXPIRED",
+          "INVALIDATED",
+          "ABORTED",
+          "COMPLETED"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "The reason for closing the case. Required when \u0060status\u0060 is \u0060CLOSE\u0060.\n- \u0060EXPIRED\u0060: The case expired without resolution\n- \u0060INVALIDATED\u0060: The case was determined to be invalid\n- \u0060ABORTED\u0060: The case was aborted/cancelled\n- \u0060COMPLETED\u0060: The case was successfully resolved\n",
+        "x-ms-enum": {
+          "name": "SimulateSanctionCaseRequestClosingReason",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "EXPIRED",
+              "name": "Expired"
+            },
+            {
+              "value": "INVALIDATED",
+              "name": "Invalidated"
+            },
+            {
+              "value": "ABORTED",
+              "name": "Aborted"
+            },
+            {
+              "value": "COMPLETED",
+              "name": "Completed"
             }
           ]
         }

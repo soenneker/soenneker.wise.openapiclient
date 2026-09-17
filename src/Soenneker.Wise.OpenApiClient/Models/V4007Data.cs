@@ -14,7 +14,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>The updated card status. Possible values:- `ACTIVE` - Card is active and can be used.- `INACTIVE` - Card is inactive and all transactions will be declined.- `BLOCKED` - Card is blocked and cannot be reversed back to any state.- `FROZEN` - Card is &quot;blocked&quot;, but temporarily.- `PARTNER_SUSPENDED` - Card is suspended by Wise temporarily due to, for example, fraud reasons.- `EXPIRED` - Card is expired.- `PURGED` - The cardhoder data (ex: PAN, PIN) have been purged after exceeds the retention period (555 days after the card&apos;s expiry date).</summary>
+        /// <summary>The updated card status. Possible values:- `ACTIVE` - Card is active and can be used.- `INACTIVE` - Card is inactive and all transactions will be declined.- `BLOCKED` - Card is blocked and cannot be reversed back to any state.- `FROZEN` - Card is temporarily frozen; all authorization requests will be declined.- `PARTNER_SUSPENDED` - Card is suspended by Wise temporarily due to, for example, fraud reasons.- `EXPIRED` - Card is expired.- `PURGED` - The cardhoder data (ex: PAN, PIN) have been purged after exceeds the retention period (555 days after the card&apos;s expiry date).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? CardStatus { get; set; }

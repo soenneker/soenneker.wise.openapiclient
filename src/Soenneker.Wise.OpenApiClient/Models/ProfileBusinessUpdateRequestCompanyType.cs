@@ -5,7 +5,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>Company legal form.</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    public enum ProfileBusinessCreateV5RequestCompanyType
+    public enum ProfileBusinessUpdateRequestCompanyType
     {
         [EnumMember(Value = "LIMITED")]
         #pragma warning disable CS1591

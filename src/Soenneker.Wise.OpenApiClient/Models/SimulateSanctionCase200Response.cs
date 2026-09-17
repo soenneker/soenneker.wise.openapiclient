@@ -9,43 +9,31 @@ namespace Soenneker.Wise.OpenApiClient.Models
 {
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
-    public partial class ProfileBusinessCreateV5RequestBusinessRepresentativeContactDetails : IAdditionalDataHolder, IParsable
+    public partial class SimulateSanctionCase200Response : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Contact email address. Required unless Business Representative ID is provided.</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? Email { get; set; }
-#nullable restore
-#else
-        public string Email { get; set; }
-#endif
-        /// <summary>Contact phone number in international phone number format. Required unless Business Representative ID is provided.</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? PhoneNumber { get; set; }
-#nullable restore
-#else
-        public string PhoneNumber { get; set; }
-#endif
+        /// <summary>The ID of the case in the partner support system. May be null if the case hasn&apos;t been fully processed yet.</summary>
+        public long? CaseId { get; set; }
+        /// <summary>The unique identifier for this simulation event.</summary>
+        public Guid? EventId { get; set; }
         /// <summary>
-        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV5RequestBusinessRepresentativeContactDetails"/> and sets the default values.
+        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.SimulateSanctionCase200Response"/> and sets the default values.
         /// </summary>
-        public ProfileBusinessCreateV5RequestBusinessRepresentativeContactDetails()
+        public SimulateSanctionCase200Response()
         {
             AdditionalData = new Dictionary<string, object>();
         }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV5RequestBusinessRepresentativeContactDetails"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.SimulateSanctionCase200Response"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV5RequestBusinessRepresentativeContactDetails CreateFromDiscriminatorValue(IParseNode parseNode)
+        public static global::Soenneker.Wise.OpenApiClient.Models.SimulateSanctionCase200Response CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV5RequestBusinessRepresentativeContactDetails();
+            return new global::Soenneker.Wise.OpenApiClient.Models.SimulateSanctionCase200Response();
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -55,8 +43,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "email", n => { Email = n.GetStringValue(); } },
-                { "phoneNumber", n => { PhoneNumber = n.GetStringValue(); } },
+                { "caseId", n => { CaseId = n.GetLongValue(); } },
+                { "eventId", n => { EventId = n.GetGuidValue(); } },
             };
         }
         /// <summary>
@@ -66,8 +54,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteStringValue("email", Email);
-            writer.WriteStringValue("phoneNumber", PhoneNumber);
+            writer.WriteLongValue("caseId", CaseId);
+            writer.WriteGuidValue("eventId", EventId);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

@@ -77,7 +77,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string Email { get; set; }
 #endif
-        /// <summary>Deprecated. New integrations should use `industryCategories`. See [Migrating to industry categories](/guides/product/kyc/migrate-business-profile-industry-categories).</summary>
+        /// <summary>Deprecated. New integrations should use `industryCategories`. See [Migrating to industry categories](/guides/product/kyc/migrate-business-profile-industry-categories).Populated only when the profile was classified with the legacy fields, otherwise `null`. Create and update responses return the format you did not send as `null`, only [retrieve a profile](/api-reference/profile/profileget) derives both formats.</summary>
         [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -96,7 +96,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #endif
         /// <summary>Unique identifier for the profile.</summary>
         public long? Id { get; set; }
-        /// <summary>One or more industry categories classifying the business. See [Business Categories](/guides/product/kyc/business-categories) for the full list of valid values.</summary>
+        /// <summary>One or more industry categories classifying the business. See [Business Categories](/guides/product/kyc/business-categories) for the full list of valid values.Populated only when the profile was classified with `industryCategories`, otherwise `null`. Create and update responses return the format you did not send as `null`, only [retrieve a profile](/api-reference/profile/profileget) derives both formats.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<string>? IndustryCategories { get; set; }
@@ -128,7 +128,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string RegistrationNumber { get; set; }
 #endif
-        /// <summary>Deprecated. New integrations should use `industryCategories`. See [Migrating to industry categories](/guides/product/kyc/migrate-business-profile-industry-categories).</summary>
+        /// <summary>Deprecated. New integrations should use `industryCategories`. See [Migrating to industry categories](/guides/product/kyc/migrate-business-profile-industry-categories).Populated only when the profile was classified with the legacy fields, otherwise `null`. Create and update responses return the format you did not send as `null`, only [retrieve a profile](/api-reference/profile/profileget) derives both formats, where it may return `UNMAPPED` if the `industryCategories` combination has no legacy equivalent.</summary>
         [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
