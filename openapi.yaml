@@ -13062,17 +13062,6 @@ paths:
                         detail: >-
                           One or more files do not belong to the specified
                           profile
-                filesNotUploadedByYou:
-                  summary: Files were not uploaded by you
-                  value:
-                    type: /errors/types/validation
-                    title: Validation Error
-                    status: 400
-                    instance: /public/v2/cases/12345678/messages
-                    errors:
-                      - code: invalid_value
-                        ref: fileIds
-                        detail: One or more files were not created by the Partner
                 invalidSanctionHitStructure:
                   summary: Invalid sanction hit submission structure
                   value:
@@ -30898,8 +30887,6 @@ components:
 
         - Files must belong to the specified profile
 
-        - Files must have been uploaded by the same partner
-
 
         **Validation Rules:**
 
@@ -30912,8 +30899,6 @@ components:
         - All file IDs must reference existing files
 
         - All files must belong to the specified `profileId`
-
-        - All files must have been created by the submitting partner
       properties:
         profileId:
           type: integer

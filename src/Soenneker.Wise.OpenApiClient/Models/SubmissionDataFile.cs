@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Submission data for FILE_SUBMISSION message type.Used to attach previously uploaded files to a case.**Prerequisites:**- Files must be uploaded via `POST /cases/{caseId}/files` before submitting- Case must not be in RESOLVED or FAILED status- Files must belong to the specified profile- Files must have been uploaded by the same partner**Validation Rules:**- `profileId` is REQUIRED- `fileIds` is REQUIRED and must not be empty- `fileIds` must not contain duplicates- All file IDs must reference existing files- All files must belong to the specified `profileId`- All files must have been created by the submitting partner
+    /// Submission data for FILE_SUBMISSION message type.Used to attach previously uploaded files to a case.**Prerequisites:**- Files must be uploaded via `POST /cases/{caseId}/files` before submitting- Case must not be in RESOLVED or FAILED status- Files must belong to the specified profile**Validation Rules:**- `profileId` is REQUIRED- `fileIds` is REQUIRED and must not be empty- `fileIds` must not contain duplicates- All file IDs must reference existing files- All files must belong to the specified `profileId`
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class SubmissionDataFile : IAdditionalDataHolder, IParsable

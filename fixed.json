@@ -10532,22 +10532,6 @@
                       ]
                     }
                   },
-                  "filesNotUploadedByYou": {
-                    "summary": "Files were not uploaded by you",
-                    "value": {
-                      "type": "/errors/types/validation",
-                      "title": "Validation Error",
-                      "status": 400,
-                      "instance": "/public/v2/cases/12345678/messages",
-                      "errors": [
-                        {
-                          "code": "invalid_value",
-                          "ref": "fileIds",
-                          "detail": "One or more files were not created by the Partner"
-                        }
-                      ]
-                    }
-                  },
                   "invalidSanctionHitStructure": {
                     "summary": "Invalid sanction hit submission structure",
                     "value": {
@@ -23827,7 +23811,7 @@
             "description": "List of file IDs to attach to the case.\nFiles must have been previously uploaded via the file upload endpoint.\n"
           }
         },
-        "description": "Submission data for FILE_SUBMISSION message type.\nUsed to attach previously uploaded files to a case.\n\n**Prerequisites:**\n- Files must be uploaded via \u0060POST /cases/{caseId}/files\u0060 before submitting\n- Case must not be in RESOLVED or FAILED status\n- Files must belong to the specified profile\n- Files must have been uploaded by the same partner\n\n**Validation Rules:**\n- \u0060profileId\u0060 is REQUIRED\n- \u0060fileIds\u0060 is REQUIRED and must not be empty\n- \u0060fileIds\u0060 must not contain duplicates\n- All file IDs must reference existing files\n- All files must belong to the specified \u0060profileId\u0060\n- All files must have been created by the submitting partner\n",
+        "description": "Submission data for FILE_SUBMISSION message type.\nUsed to attach previously uploaded files to a case.\n\n**Prerequisites:**\n- Files must be uploaded via \u0060POST /cases/{caseId}/files\u0060 before submitting\n- Case must not be in RESOLVED or FAILED status\n- Files must belong to the specified profile\n\n**Validation Rules:**\n- \u0060profileId\u0060 is REQUIRED\n- \u0060fileIds\u0060 is REQUIRED and must not be empty\n- \u0060fileIds\u0060 must not contain duplicates\n- All file IDs must reference existing files\n- All files must belong to the specified \u0060profileId\u0060\n",
         "example": {
           "profileId": 14556049,
           "fileIds": [
