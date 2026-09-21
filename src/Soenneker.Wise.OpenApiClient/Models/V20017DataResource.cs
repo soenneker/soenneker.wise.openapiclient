@@ -30,7 +30,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public UntypedNode Requirements { get; set; }
 #endif
-        /// <summary>Status of the KYC Review. See [KYC Review Status](/guides/product/kyc/wise-kyc/hosted-kyc/kyc-review-status.md) for possible values.</summary>
+        /// <summary>Status of the KYC Review. See [KYC review statuses](/guides/product/account-setup/customer-onboarding/api-hybrid-kyc#kyc-review-statuses) for possible values.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? State { get; set; }

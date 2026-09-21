@@ -40,9 +40,9 @@ namespace Soenneker.Wise.OpenApiClient.Auth.Jose.Playground.Jwsjwe
         /// <param name="body">JWE-encoded string containing a signed JWS. The payload before signing and encryption should contain a `message` field with any text.Original payload:```json{&quot;message&quot;: &quot;This is an example from docs.wise.com&quot;}```Encoded (JWS+JWE):```eyJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiUlNBLU9BRVAtMjU2In0.W0fuxaZOoyaBcxWwgtjEPkOnLdVNyH9ncZi5Y9xQbjD4sYJn8vEQmxKHDw5s14sWhdexSNAPTVMSyzwJaA-LRL0tZTEuQ.ohD4LLjImiKOV4Tu.Rgp9mc2JD6m9Zm5htSqrejwWYy0_hIylYdLD39ZCR-VnQ2VX-Tot8kKGeNncnv7hJ_ApANWiJpKJbiM.5hNt-uaxuOkOraGGZSmsig```</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Auth.Jose.Playground.Jwsjwe.JosePlaygroundJwsJwe200JoseJsonResponseSchema400Error">When receiving a 400 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.JosePlaygroundJwsJwe400Response">When receiving a 400 status code</exception>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent">When receiving a 429 status code</exception>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Auth.Jose.Playground.Jwsjwe.JosePlaygroundJwsJwe200JoseJsonResponseSchema500Error">When receiving a 500 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.JosePlaygroundJwsJwe500Response">When receiving a 500 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<string?> PostAsync(string body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -56,9 +56,9 @@ namespace Soenneker.Wise.OpenApiClient.Auth.Jose.Playground.Jwsjwe
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
-                { "400", global::Soenneker.Wise.OpenApiClient.Auth.Jose.Playground.Jwsjwe.JosePlaygroundJwsJwe200JoseJsonResponseSchema400Error.CreateFromDiscriminatorValue },
+                { "400", global::Soenneker.Wise.OpenApiClient.Models.JosePlaygroundJwsJwe400Response.CreateFromDiscriminatorValue },
                 { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
-                { "500", global::Soenneker.Wise.OpenApiClient.Auth.Jose.Playground.Jwsjwe.JosePlaygroundJwsJwe200JoseJsonResponseSchema500Error.CreateFromDiscriminatorValue },
+                { "500", global::Soenneker.Wise.OpenApiClient.Models.JosePlaygroundJwsJwe500Response.CreateFromDiscriminatorValue },
             };
             return await RequestAdapter.SendPrimitiveAsync<string>(requestInfo, errorMapping, cancellationToken).ConfigureAwait(false);
         }

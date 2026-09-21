@@ -6,34 +6,49 @@ using Microsoft.Kiota.Abstractions;
 using System.Collections.Generic;
 using System.IO;
 using System;
-namespace Soenneker.Wise.OpenApiClient.Simulation.Profiles.Item.SwiftIn
+namespace Soenneker.Wise.OpenApiClient.Models
 {
-    /// <summary>
-    /// Fallback media schema
-    /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    public partial class SwiftIn400Error : ApiException, IAdditionalDataHolder, IParsable
+    #pragma warning disable CS1591
+    public partial class SimulationBankTransactionImport400Response : ApiException, IAdditionalDataHolder, IParsable
+    #pragma warning restore CS1591
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
+        /// <summary>The code property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? Code { get; set; }
+#nullable restore
+#else
+        public string Code { get; set; }
+#endif
         /// <summary>The primary error message.</summary>
-        public override string Message { get => base.Message; }
+        public override string Message { get => MessageEscaped ?? string.Empty; }
+        /// <summary>The message property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? MessageEscaped { get; set; }
+#nullable restore
+#else
+        public string MessageEscaped { get; set; }
+#endif
         /// <summary>
-        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Simulation.Profiles.Item.SwiftIn.SwiftIn400Error"/> and sets the default values.
+        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.SimulationBankTransactionImport400Response"/> and sets the default values.
         /// </summary>
-        public SwiftIn400Error()
+        public SimulationBankTransactionImport400Response()
         {
             AdditionalData = new Dictionary<string, object>();
         }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Simulation.Profiles.Item.SwiftIn.SwiftIn400Error"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.SimulationBankTransactionImport400Response"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static global::Soenneker.Wise.OpenApiClient.Simulation.Profiles.Item.SwiftIn.SwiftIn400Error CreateFromDiscriminatorValue(IParseNode parseNode)
+        public static global::Soenneker.Wise.OpenApiClient.Models.SimulationBankTransactionImport400Response CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Simulation.Profiles.Item.SwiftIn.SwiftIn400Error();
+            return new global::Soenneker.Wise.OpenApiClient.Models.SimulationBankTransactionImport400Response();
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -43,6 +58,8 @@ namespace Soenneker.Wise.OpenApiClient.Simulation.Profiles.Item.SwiftIn
         {
             return new Dictionary<string, Action<IParseNode>>
             {
+                { "code", n => { Code = n.GetStringValue(); } },
+                { "message", n => { MessageEscaped = n.GetStringValue(); } },
             };
         }
         /// <summary>
@@ -52,6 +69,8 @@ namespace Soenneker.Wise.OpenApiClient.Simulation.Profiles.Item.SwiftIn
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
+            writer.WriteStringValue("code", Code);
+            writer.WriteStringValue("message", MessageEscaped);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

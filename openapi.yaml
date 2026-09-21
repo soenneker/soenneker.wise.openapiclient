@@ -5,7 +5,7 @@ info:
   description: >
     The Wise Platform API is a REST-based interface that enables programmatic
     access to Wise's payment infrastructure. All endpoints return JSON-formatted
-    responses and use standard HTTP methods and status codes.
+    responses and use standard HTTP methods and status codes. 
 
     {% admonition type="success" name="New to wise?" %}
       We strongly recommend first reading our **[Getting Started Guide](/guides/developer/index.md)** to help you set up credentials and make your first call.
@@ -25,6 +25,11 @@ info:
     - Understand OAuth 2.0 authentication
 
     - Be familiar with RESTful API concepts
+
+
+    We recommend connecting to our Docs MCP Server.
+
+    {% connect-mcp /%}
 
 
     Core API resources {% .title-2 .m-t-5 .m-b-0 %}
@@ -73,7 +78,7 @@ tags:
     x-displayName: Additional Verification
     description: >+
       {% admonition type="warning" %}
-          This endpoint is being deprecated. Use [KYC review endpoints](/guides/product/kyc/wise-kyc/api-hybrid-kyc) to verify your customers.
+          This endpoint is being deprecated. Use [KYC review endpoints](/guides/product/account-setup/customer-onboarding/api-hybrid-kyc) to verify your customers.
           {% /admonition %}
 
       In certain situations, additional evidence is required to verify customers
@@ -82,18 +87,15 @@ tags:
 
       Additional Verification APIs support a list of evidences that can be found
       in the [Supported Evidences
-      guide](/guides/product/kyc/partner-kyc/supported-evidences).
+      guide](/guides/product/account-setup/customer-onboarding/supported-evidences).
 
 
-      If you use the [Customer Account with Partner
-      KYC](/guides/product/kyc/partner-kyc) model and your customers are
-      primarily based in the EU,
+      If you perform your own KYC and your customers are primarily based in the
+      EU,
 
-      refer to this [Onboarding EU
-      customers](/guides/product/kyc/partner-kyc/additional-verification#onboarding-eu-customers)
-      guide
-
-      for instructions on how to use these APIs.
+      refer to this [Onboarding EU-based customers
+      guide](/guides/product/account-setup/customer-onboarding/region/eu-onboarding)
+      for instructions on how to use these endpoints.
 
   - name: address
     x-displayName: Addresses
@@ -39548,14 +39550,14 @@ components:
                   type: string
                   description: >
                     Status of the KYC Review. See [KYC review
-                    status](/guides/product/kyc/wise-kyc/hosted-kyc/kyc-review-status.md)
+                    statuses](/guides/product/account-setup/customer-onboarding/api-hybrid-kyc#kyc-review-statuses)
                     for possible values.
                   example: WAITING_CUSTOMER_INPUT
                 prevState:
                   type: string
                   description: >
                     Previous status of the KYC review. See [KYC review
-                    status](/guides/product/kyc/wise-kyc/hosted-kyc/kyc-review-status.md)
+                    statuses](/guides/product/account-setup/customer-onboarding/api-hybrid-kyc#kyc-review-statuses)
                     for possible values.
                   example: WAITING_CUSTOMER_INPUT
                 profileId:
@@ -39775,8 +39777,8 @@ components:
                 state:
                   type: string
                   description: >
-                    Status of the KYC Review. See [KYC Review
-                    Status](/guides/product/kyc/wise-kyc/hosted-kyc/kyc-review-status.md)
+                    Status of the KYC Review. See [KYC review
+                    statuses](/guides/product/account-setup/customer-onboarding/api-hybrid-kyc#kyc-review-statuses)
                     for possible values.
                   example: WAITING_CUSTOMER_INPUT
                 profileId:
@@ -39961,8 +39963,8 @@ components:
                 state:
                   type: string
                   description: >
-                    Status of the KYC Review. See [KYC Review
-                    Status](/guides/product/kyc/wise-kyc/hosted-kyc/kyc-review-status.md)
+                    Status of the KYC Review. See [KYC review
+                    statuses](/guides/product/account-setup/customer-onboarding/api-hybrid-kyc#kyc-review-statuses)
                     for possible values.
                   example: WAITING_CUSTOMER_INPUT
                 profileId:
