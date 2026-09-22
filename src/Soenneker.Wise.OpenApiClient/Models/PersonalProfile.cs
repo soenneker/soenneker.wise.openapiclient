@@ -17,10 +17,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Address associated with a profile.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.Address2? Address { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.Address3? Address { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.Address2 Address { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.Address3 Address { get; set; }
 #endif
         /// <summary>Link to person avatar image.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -111,10 +111,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>An array of secondary addresses associated with the profile.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.Address2>? SecondaryAddresses { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.Address3>? SecondaryAddresses { get; set; }
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.Address2> SecondaryAddresses { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.Address3> SecondaryAddresses { get; set; }
 #endif
         /// <summary>Type of profile.</summary>
         public global::Soenneker.Wise.OpenApiClient.Models.PersonalType? Type { get; set; }
@@ -147,7 +147,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "address", n => { Address = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Address2>(global::Soenneker.Wise.OpenApiClient.Models.Address2.CreateFromDiscriminatorValue); } },
+                { "address", n => { Address = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Address3>(global::Soenneker.Wise.OpenApiClient.Models.Address3.CreateFromDiscriminatorValue); } },
                 { "avatar", n => { Avatar = n.GetStringValue(); } },
                 { "contactDetails", n => { ContactDetails = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.PersonalProfileContactDetails>(global::Soenneker.Wise.OpenApiClient.Models.PersonalProfileContactDetails.CreateFromDiscriminatorValue); } },
                 { "createdAt", n => { CreatedAt = n.GetDateTimeOffsetValue(); } },
@@ -161,7 +161,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "phoneNumber", n => { PhoneNumber = n.GetStringValue(); } },
                 { "preferredName", n => { PreferredName = n.GetStringValue(); } },
                 { "publicId", n => { PublicId = n.GetStringValue(); } },
-                { "secondaryAddresses", n => { SecondaryAddresses = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.Address2>(global::Soenneker.Wise.OpenApiClient.Models.Address2.CreateFromDiscriminatorValue)?.AsList(); } },
+                { "secondaryAddresses", n => { SecondaryAddresses = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.Address3>(global::Soenneker.Wise.OpenApiClient.Models.Address3.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "type", n => { Type = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PersonalType>(); } },
                 { "updatedAt", n => { UpdatedAt = n.GetDateTimeOffsetValue(); } },
                 { "userId", n => { UserId = n.GetLongValue(); } },
@@ -174,7 +174,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Address2>("address", Address);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Address3>("address", Address);
             writer.WriteStringValue("avatar", Avatar);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.PersonalProfileContactDetails>("contactDetails", ContactDetails);
             writer.WriteDateTimeOffsetValue("createdAt", CreatedAt);
@@ -188,7 +188,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteStringValue("phoneNumber", PhoneNumber);
             writer.WriteStringValue("preferredName", PreferredName);
             writer.WriteStringValue("publicId", PublicId);
-            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.Address2>("secondaryAddresses", SecondaryAddresses);
+            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.Address3>("secondaryAddresses", SecondaryAddresses);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PersonalType>("type", Type);
             writer.WriteDateTimeOffsetValue("updatedAt", UpdatedAt);
             writer.WriteLongValue("userId", UserId);

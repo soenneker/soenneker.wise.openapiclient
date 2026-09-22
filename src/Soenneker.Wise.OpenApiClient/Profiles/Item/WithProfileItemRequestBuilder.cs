@@ -27,6 +27,7 @@ using Soenneker.Wise.OpenApiClient.Profiles.Item.KycRequirements;
 using Soenneker.Wise.OpenApiClient.Profiles.Item.KycReviews;
 using Soenneker.Wise.OpenApiClient.Profiles.Item.MultiCurrencyAccount;
 using Soenneker.Wise.OpenApiClient.Profiles.Item.PayinSessions;
+using Soenneker.Wise.OpenApiClient.Profiles.Item.PaymentInstruments;
 using Soenneker.Wise.OpenApiClient.Profiles.Item.PersonalProfile;
 using Soenneker.Wise.OpenApiClient.Profiles.Item.Pin;
 using Soenneker.Wise.OpenApiClient.Profiles.Item.Quotes;
@@ -166,6 +167,11 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.Item
         public global::Soenneker.Wise.OpenApiClient.Profiles.Item.PayinSessions.PayinSessionsRequestBuilder PayinSessions
         {
             get => new global::Soenneker.Wise.OpenApiClient.Profiles.Item.PayinSessions.PayinSessionsRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The paymentInstruments property</summary>
+        public global::Soenneker.Wise.OpenApiClient.Profiles.Item.PaymentInstruments.PaymentInstrumentsRequestBuilder PaymentInstruments
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.Profiles.Item.PaymentInstruments.PaymentInstrumentsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The personalProfile property</summary>
         public global::Soenneker.Wise.OpenApiClient.Profiles.Item.PersonalProfile.PersonalProfileRequestBuilder PersonalProfile

@@ -7,31 +7,22 @@ using System.IO;
 using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
-    /// <summary>
-    /// Structured address details.
-    /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    #pragma warning disable CS1591
     public partial class Address5 : IAdditionalDataHolder, IParsable
+    #pragma warning restore CS1591
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Unstructured address lines.</summary>
+        /// <summary>Payment originator address city</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<string>? AddressLines { get; set; }
+        public string? City { get; set; }
 #nullable restore
 #else
-        public List<string> AddressLines { get; set; }
+        public string City { get; set; }
 #endif
-        /// <summary>Building number.</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? BuildingNumber { get; set; }
-#nullable restore
-#else
-        public string BuildingNumber { get; set; }
-#endif
-        /// <summary>Country code. 2-letter ISO country code.</summary>
+        /// <summary>Payment originator address country code ISO 3166-1 alpha-2</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? CountryCode { get; set; }
@@ -39,16 +30,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string CountryCode { get; set; }
 #endif
-        /// <summary>Country subdivision such as a state, province, or region.</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? CountrySubDivision { get; set; }
-#nullable restore
-#else
-        public string CountrySubDivision { get; set; }
-#endif
-        /// <summary>Address lines concatenated into a single line. Use `address_lines` instead.</summary>
-        [Obsolete("")]
+        /// <summary>Payment originator address first line</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? FirstLine { get; set; }
@@ -56,29 +38,21 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string FirstLine { get; set; }
 #endif
-        /// <summary>Postal code.</summary>
+        /// <summary>Originator address zip code</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? PostalCode { get; set; }
+        public string? PostCode { get; set; }
 #nullable restore
 #else
-        public string PostalCode { get; set; }
+        public string PostCode { get; set; }
 #endif
-        /// <summary>Street name.</summary>
+        /// <summary>Payment originator address state code. Required if address country code in (US, CA, BR, AU)</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? StreetName { get; set; }
+        public string? StateCode { get; set; }
 #nullable restore
 #else
-        public string StreetName { get; set; }
-#endif
-        /// <summary>Town (city) name.</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? TownName { get; set; }
-#nullable restore
-#else
-        public string TownName { get; set; }
+        public string StateCode { get; set; }
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.Address5"/> and sets the default values.
@@ -105,14 +79,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "address_lines", n => { AddressLines = n.GetCollectionOfPrimitiveValues<string>()?.AsList(); } },
-                { "building_number", n => { BuildingNumber = n.GetStringValue(); } },
-                { "country_code", n => { CountryCode = n.GetStringValue(); } },
-                { "country_sub_division", n => { CountrySubDivision = n.GetStringValue(); } },
-                { "first_line", n => { FirstLine = n.GetStringValue(); } },
-                { "postal_code", n => { PostalCode = n.GetStringValue(); } },
-                { "street_name", n => { StreetName = n.GetStringValue(); } },
-                { "town_name", n => { TownName = n.GetStringValue(); } },
+                { "city", n => { City = n.GetStringValue(); } },
+                { "countryCode", n => { CountryCode = n.GetStringValue(); } },
+                { "firstLine", n => { FirstLine = n.GetStringValue(); } },
+                { "postCode", n => { PostCode = n.GetStringValue(); } },
+                { "stateCode", n => { StateCode = n.GetStringValue(); } },
             };
         }
         /// <summary>
@@ -122,14 +93,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteCollectionOfPrimitiveValues<string>("address_lines", AddressLines);
-            writer.WriteStringValue("building_number", BuildingNumber);
-            writer.WriteStringValue("country_code", CountryCode);
-            writer.WriteStringValue("country_sub_division", CountrySubDivision);
-            writer.WriteStringValue("first_line", FirstLine);
-            writer.WriteStringValue("postal_code", PostalCode);
-            writer.WriteStringValue("street_name", StreetName);
-            writer.WriteStringValue("town_name", TownName);
+            writer.WriteStringValue("city", City);
+            writer.WriteStringValue("countryCode", CountryCode);
+            writer.WriteStringValue("firstLine", FirstLine);
+            writer.WriteStringValue("postCode", PostCode);
+            writer.WriteStringValue("stateCode", StateCode);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

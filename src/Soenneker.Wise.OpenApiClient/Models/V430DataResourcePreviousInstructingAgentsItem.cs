@@ -17,10 +17,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Structured address details.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.Address5? Address { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.Address6? Address { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.Address5 Address { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.Address6 Address { get; set; }
 #endif
         /// <summary>Bank Identifier Code (BIC).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -87,7 +87,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "address", n => { Address = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Address5>(global::Soenneker.Wise.OpenApiClient.Models.Address5.CreateFromDiscriminatorValue); } },
+                { "address", n => { Address = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Address6>(global::Soenneker.Wise.OpenApiClient.Models.Address6.CreateFromDiscriminatorValue); } },
                 { "bic", n => { Bic = n.GetStringValue(); } },
                 { "clearing_system_code", n => { ClearingSystemCode = n.GetStringValue(); } },
                 { "clearing_system_member_id", n => { ClearingSystemMemberId = n.GetStringValue(); } },
@@ -102,7 +102,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Address5>("address", Address);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Address6>("address", Address);
             writer.WriteStringValue("bic", Bic);
             writer.WriteStringValue("clearing_system_code", ClearingSystemCode);
             writer.WriteStringValue("clearing_system_member_id", ClearingSystemMemberId);

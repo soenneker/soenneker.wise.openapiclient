@@ -6580,13 +6580,115 @@
       }
     },
     "/auth/jose/playground/jwsjwe": {
+      "get": {
+        "tags": [
+          "jose"
+        ],
+        "summary": "Playground JWS\u002BJWE for GET requests",
+        "description": "Send test signed and encrypted HTTP requests and receive signed and encrypted responses. Both signing and encryption are mandatory for this endpoint. The request must be a JSON Web Signature (JWS) wrapped in JSON Web Encryption (JWE) \u2014 any message that does not follow this format will be rejected.\n\nThe flow combines both JWS and JWE:\n1. **Request**: Send request to Wise, setting the correct jose method header and setting a valid Encryption Key ID in the relevant header.\n2. **Response**: Receive encrypted response \u2192 Decrypt (JWE) \u2192 Verify signature (JWS)\n\n{% admonition type=\u0022warning\u0022 name=\u0022\u0022 %}\nCurrently, the Wise API returns a generic 500 Internal Server Error for decryption failures across endpoints using JWE and JWS\u002BJWE. For example, an invalid key can cause a decryption failure.\n\nOur team is currently planning improvements for these types of error messages to make them more specific and clear. Thank you for your patience.\n{% /admonition %}\n",
+        "operationId": "JosePlaygroundJwsJweGet",
+        "parameters": [
+          {
+            "name": "Accept",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/ApplicationJosePlusJsonAccept"
+            },
+            "example": "application/jose\u002Bjson"
+          },
+          {
+            "name": "x-tw-jose-method",
+            "in": "header",
+            "description": "JOSE method identifier.",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/JwsPlusJweXTwJoseMethod"
+            },
+            "example": "jws\u002Bjwe"
+          },
+          {
+            "name": "X-TW-JOSE-Encryption-kid",
+            "in": "header",
+            "description": "ID of the public JWE key uploaded to Wise for encrypting the response.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "2333836d-2e1c-4acd-8b52-234d379260aa"
+          },
+          {
+            "description": "Optional UUID for correlating requests across systems. If provided, Wise echoes it back in the response. Maximum 36 characters. [Learn more](/guides/developer/headers/correlation-id).\n",
+            "$ref": "#/components/parameters/X-External-Correlation-Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Signed and encrypted response.",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/jose\u002Bjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/JosePlaygroundJwsJweGet200JoseJsonResponseSchema"
+                },
+                "example": "eyJraWQiOiJiMzc0ODE1MC0xNGQ0LTRlMDAtYjM5NC03YWUwYzkzYmUyNDUiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiUlNBLU9BRVAtMjU2In0.VGhpcyBpcyB0aGUgZW5jcnlwdGVkIENFSw.aXZfdmFsdWU.ZW5jcnlwdGVkX3BheWxvYWQ.YXV0aF90YWc"
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit exceeded. Retry after the number of seconds specified in the \u0060Retry-After\u0060 header.",
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JosePlaygroundJwsJweGet500Response"
+                },
+                "examples": {
+                  "unexpectedError": {
+                    "summary": "Unexpected server error",
+                    "value": {
+                      "message": "An unexpected error occurred",
+                      "request_id": "c29beb2374156c390c06fb583e99c999"
+                    }
+                  }
+                },
+                "x-schema-inferred-from-examples": true
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ClientCredentialsToken": []
+          }
+        ]
+      },
       "post": {
         "tags": [
           "jose"
         ],
         "summary": "Playground JWS\u002BJWE",
         "description": "Send test signed and encrypted HTTP requests and receive signed and encrypted responses. Both signing and encryption are mandatory for this endpoint. The request must be a JSON Web Signature (JWS) wrapped in JSON Web Encryption (JWE) \u2014 any message that does not follow this format will be rejected.\n\nThe flow combines both JWS and JWE:\n1. **Request**: Sign payload (JWS) \u2192 Encrypt signed JWT (JWE) \u2192 Send to Wise\n2. **Response**: Receive encrypted response \u2192 Decrypt (JWE) \u2192 Verify signature (JWS)\n\n{% admonition type=\u0022warning\u0022 name=\u0022\u0022 %}\nCurrently, the Wise API returns a generic 500 Internal Server Error for decryption failures across endpoints using JWE and JWS\u002BJWE. For example, an invalid key can cause a decryption failure.\n\nOur team is currently planning improvements for these types of error messages to make them more specific and clear. Thank you for your patience.\n{% /admonition %}\n",
-        "operationId": "JosePlaygroundJwsJwe",
+        "operationId": "JosePlaygroundJwsJwePost",
         "parameters": [
           {
             "name": "Accept",
@@ -6636,7 +6738,7 @@
           "content": {
             "application/jose\u002Bjson": {
               "schema": {
-                "$ref": "#/components/schemas/JosePlaygroundJwsJweJoseJsonRequestRequestBody"
+                "$ref": "#/components/schemas/JosePlaygroundJwsJwePostJoseJsonRequestRequestBody"
               },
               "example": "eyJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiUlNBLU9BRVAtMjU2In0.W0fuxaZOoyaBcxWwgtjEPkOnLdVNyH9ncZi5Y9xQbjD4sYJn8vEQmxKHDw5s14sWhdexSNAPTVMSyzwJaA-LRL0tZTEuQ.ohD4LLjImiKOV4Tu.Rgp9mc2JD6m9Zm5htSqrejwWYy0_hIylYdLD39ZCR-VnQ2VX-Tot8kKGeNncnv7hJ_ApANWiJpKJbiM.5hNt-uaxuOkOraGGZSmsig"
             }
@@ -6657,37 +6759,9 @@
             "content": {
               "application/jose\u002Bjson": {
                 "schema": {
-                  "$ref": "#/components/schemas/JosePlaygroundJwsJwe200JoseJsonResponseSchema"
+                  "$ref": "#/components/schemas/JosePlaygroundJwsJwePost200JoseJsonResponseSchema"
                 },
                 "example": "eyJraWQiOiJiMzc0ODE1MC0xNGQ0LTRlMDAtYjM5NC03YWUwYzkzYmUyNDUiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiUlNBLU9BRVAtMjU2In0.VGhpcyBpcyB0aGUgZW5jcnlwdGVkIENFSw.aXZfdmFsdWU.ZW5jcnlwdGVkX3BheWxvYWQ.YXV0aF90YWc"
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "headers": {
-              "X-External-Correlation-Id": {
-                "$ref": "#/components/headers/X-External-Correlation-Id"
-              },
-              "x-trace-id": {
-                "$ref": "#/components/headers/x-trace-id"
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/JosePlaygroundJwsJwe400Response"
-                },
-                "examples": {
-                  "jwsError": {
-                    "summary": "Unable to verify request signature",
-                    "value": {
-                      "error": "jws_error",
-                      "error_description": "Unable to verify the request signature"
-                    }
-                  }
-                },
-                "x-schema-inferred-from-examples": true
               }
             }
           },
@@ -6708,7 +6782,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/JosePlaygroundJwsJwe500Response"
+                  "$ref": "#/components/schemas/JosePlaygroundJwsJwePost500Response"
                 },
                 "examples": {
                   "unexpectedError": {
@@ -10835,6 +10909,326 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/PaynowCreate422Response"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit exceeded. Retry after the number of seconds specified in the \u0060Retry-After\u0060 header.",
+            "$ref": "#/components/responses/429"
+          }
+        },
+        "security": [
+          {
+            "UserToken": []
+          }
+        ]
+      }
+    },
+    "/profiles/{profileId}/payment-instruments": {
+      "post": {
+        "tags": [
+          "payment-instruments"
+        ],
+        "summary": "Create instrument",
+        "description": "Creates a payment-instrument\n",
+        "operationId": "PaymentInstrumentsCreate",
+        "parameters": [
+          {
+            "name": "profileId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "description": "Optional UUID for correlating requests across systems. If provided, Wise echoes it back in the response. Maximum 36 characters. [Learn more](/guides/developer/headers/correlation-id).\n",
+            "$ref": "#/components/parameters/X-External-Correlation-Id"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InitialiseInstrumentRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentInstrumentDetailsResource"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit exceeded. Retry after the number of seconds specified in the \u0060Retry-After\u0060 header.",
+            "$ref": "#/components/responses/429"
+          }
+        },
+        "security": [
+          {
+            "UserToken": []
+          }
+        ]
+      }
+    },
+    "/profiles/{profileId}/payment-instruments/{paymentInstrumentId}": {
+      "get": {
+        "tags": [
+          "payment-instruments"
+        ],
+        "summary": "Get payment instrument",
+        "description": "Retrieves a payment instrument.\n",
+        "operationId": "PaymentInstrumentsGet",
+        "parameters": [
+          {
+            "name": "profileId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "paymentInstrumentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Optional UUID for correlating requests across systems. If provided, Wise echoes it back in the response. Maximum 36 characters. [Learn more](/guides/developer/headers/correlation-id).\n",
+            "$ref": "#/components/parameters/X-External-Correlation-Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentInstrumentDetailsResource"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit exceeded. Retry after the number of seconds specified in the \u0060Retry-After\u0060 header.",
+            "$ref": "#/components/responses/429"
+          }
+        },
+        "security": [
+          {
+            "UserToken": []
+          }
+        ]
+      }
+    },
+    "/profiles/{profileId}/payment-instruments/{paymentInstrumentId}/manual-confirmation": {
+      "post": {
+        "tags": [
+          "payment-instruments"
+        ],
+        "summary": "Confirm instrument",
+        "description": "Manually confirms a payment instrument\n",
+        "operationId": "PaymentInstrumentConfirm",
+        "parameters": [
+          {
+            "name": "profileId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "paymentInstrumentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Optional UUID for correlating requests across systems. If provided, Wise echoes it back in the response. Maximum 36 characters. [Learn more](/guides/developer/headers/correlation-id).\n",
+            "$ref": "#/components/parameters/X-External-Correlation-Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentInstrumentDetailsResource"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit exceeded. Retry after the number of seconds specified in the \u0060Retry-After\u0060 header.",
+            "$ref": "#/components/responses/429"
+          }
+        },
+        "security": [
+          {
+            "UserToken": []
+          }
+        ]
+      }
+    },
+    "/profiles/{profileId}/payment-instruments/{paymentInstrumentId}/payins": {
+      "get": {
+        "tags": [
+          "payment-instruments"
+        ],
+        "summary": "Get all payins for a given payment instrument",
+        "description": "Get all payins for a given payment instrument\n",
+        "operationId": "PaymentInstrumentGetAllPayins",
+        "parameters": [
+          {
+            "name": "profileId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "paymentInstrumentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Optional UUID for correlating requests across systems. If provided, Wise echoes it back in the response. Maximum 36 characters. [Learn more](/guides/developer/headers/correlation-id).\n",
+            "$ref": "#/components/parameters/X-External-Correlation-Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentInstrumentGetAllPayins200Response"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit exceeded. Retry after the number of seconds specified in the \u0060Retry-After\u0060 header.",
+            "$ref": "#/components/responses/429"
+          }
+        },
+        "security": [
+          {
+            "UserToken": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "payment-instruments"
+        ],
+        "summary": "Create payin",
+        "description": "Create a payin for payment instrument\n",
+        "operationId": "PaymentInstrumentCreatePayin",
+        "parameters": [
+          {
+            "name": "profileId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "paymentInstrumentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Optional UUID for correlating requests across systems. If provided, Wise echoes it back in the response. Maximum 36 characters. [Learn more](/guides/developer/headers/correlation-id).\n",
+            "$ref": "#/components/parameters/X-External-Correlation-Id"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PayinSessionPayinInitiationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PayinSessionPayinInitiationResource"
                 }
               }
             }
@@ -20078,111 +20472,6 @@
         ]
       }
     },
-    "/gpi-tracking": {
-      "post": {
-        "tags": [
-          "gpi-tracking"
-        ],
-        "summary": "Look up GPI tracking",
-        "description": "Looks up GPI tracking data for a transfer identified by \u0060identifierType\u0060 and \u0060identifier\u0060.",
-        "operationId": "LookupGpiTracking",
-        "parameters": [
-          {
-            "description": "Optional UUID for correlating requests across systems. If provided, Wise echoes it back in the response. Maximum 36 characters. [Learn more](/guides/developer/headers/correlation-id).\n",
-            "$ref": "#/components/parameters/X-External-Correlation-Id"
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/LookupGpiTrackingRequestContent"
-              },
-              "examples": {
-                "lookup-by-transfer-id": {
-                  "summary": "Look up GPI tracking by transfer ID",
-                  "value": {
-                    "identifierType": "TRANSFER_ID",
-                    "identifier": "16521632"
-                  }
-                },
-                "lookup-by-uetr": {
-                  "summary": "Look up GPI tracking by UETR",
-                  "value": {
-                    "identifierType": "UETR",
-                    "identifier": "97ed4827-7b6f-4491-a206-42bcf859a919"
-                  }
-                }
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Returns matching GPI tracking transactions.",
-            "headers": {
-              "X-External-Correlation-Id": {
-                "$ref": "#/components/headers/X-External-Correlation-Id"
-              },
-              "x-trace-id": {
-                "$ref": "#/components/headers/x-trace-id"
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/LookupGpiTrackingResponseContent"
-                },
-                "examples": {
-                  "tracking-found": {
-                    "summary": "GPI tracking data found",
-                    "value": {
-                      "transactions": [
-                        {
-                          "uetr": "97ed4827-7b6f-4491-a206-42bcf859a919",
-                          "status": "ACSP",
-                          "cancellationStatus": "CANCELLATION_REJECTED",
-                          "initiatedAt": "2023-09-18T12:05:50Z",
-                          "lastUpdatedAt": "2023-09-18T12:13:33.314Z",
-                          "events": [
-                            {
-                              "status": "ACSP",
-                              "statusReason": {
-                                "code": "G001",
-                                "settlementMethod": {
-                                  "code": "INGA"
-                                },
-                                "instructedAgent": "LHVBEE22XXX",
-                                "chargeBearer": "SHAR"
-                              },
-                              "statusTime": "2023-09-18T12:13:33.314Z",
-                              "amountInconsistency": false,
-                              "eventType": "CANCELLATION_RESPONSE",
-                              "eventTarget": "CREDIT_TRANSFER",
-                              "eventCreationTime": "2023-09-18T12:13:33.348Z"
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "429": {
-            "description": "Rate limit exceeded. Retry after the number of seconds specified in the \u0060Retry-After\u0060 header.",
-            "$ref": "#/components/responses/429"
-          }
-        },
-        "security": [
-          {
-            "ClientCredentialsToken": []
-          }
-        ]
-      }
-    },
     "/me": {
       "get": {
         "tags": [
@@ -21181,67 +21470,16 @@
   },
   "components": {
     "schemas": {
-      "SwiftInRequestSenderAddress": {
-        "type": "object",
-        "properties": {
-          "addressLine": {
-            "maxLength": 70,
-            "minLength": 1,
-            "type": "string",
-            "description": "Address line: street, house, apartment."
-          },
-          "city": {
-            "maxLength": 140,
-            "minLength": 1,
-            "type": "string",
-            "description": "City name."
-          },
-          "postalCode": {
-            "maxLength": 16,
-            "minLength": 1,
-            "type": "string",
-            "description": "Postal code."
-          },
-          "country": {
-            "maxLength": 2,
-            "minLength": 2,
-            "pattern": "^[A-Z]{2}$",
-            "type": "string",
-            "description": "Country code (ISO 3166-1 alpha-2)."
-          }
-        },
-        "description": "Address of the sender."
+      "CurrencyCode": {
+        "pattern": "^[A-Z]{3}$",
+        "type": "string",
+        "description": "ISO 4217 currency code",
+        "example": "USD"
       },
-      "SwiftInRequestBeneficiaryAddress": {
-        "type": "object",
-        "properties": {
-          "addressLine": {
-            "maxLength": 70,
-            "minLength": 1,
-            "type": "string",
-            "description": "Address line: street, house, apartment."
-          },
-          "city": {
-            "maxLength": 140,
-            "minLength": 1,
-            "type": "string",
-            "description": "City name."
-          },
-          "postalCode": {
-            "maxLength": 16,
-            "minLength": 1,
-            "type": "string",
-            "description": "Postal code."
-          },
-          "country": {
-            "maxLength": 2,
-            "minLength": 2,
-            "pattern": "^[A-Z]{2}$",
-            "type": "string",
-            "description": "Country code (ISO 3166-1 alpha-2)."
-          }
-        },
-        "description": "Address of the ultimate beneficiary."
+      "Bic": {
+        "pattern": "^[A-Z]{4}[A-Z]{2}[A-Z0-9]{2}([A-Z0-9]{3})?$",
+        "type": "string",
+        "description": "Business Identifier Code, also known as Swift Code."
       },
       "ChallengeResultRequest": {
         "required": [
@@ -24071,6 +24309,181 @@
       "Address2": {
         "type": "object",
         "properties": {
+          "addressFirstLine": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "postCode": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          }
+        }
+      },
+      "AccountOwnerDetails": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "$ref": "#/components/schemas/Address2"
+          },
+          "email": {
+            "maxLength": 254,
+            "minLength": 0,
+            "type": "string",
+            "format": "email"
+          },
+          "ownerId": {
+            "type": "string"
+          },
+          "ownerType": {
+            "$ref": "#/components/schemas/AccountOwnerDetailsOwnerType"
+          }
+        }
+      },
+      "InitialiseInstrumentRequest": {
+        "required": [
+          "accountNumber",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "accountHolderName": {
+            "type": "string"
+          },
+          "accountNumber": {
+            "type": "string"
+          },
+          "accountOwnerDetails": {
+            "$ref": "#/components/schemas/AccountOwnerDetails"
+          },
+          "accountType": {
+            "type": "string"
+          },
+          "bankCode": {
+            "type": "string"
+          },
+          "branchCode": {
+            "type": "string"
+          },
+          "reference": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      },
+      "AccountOwnerDetailsDto": {
+        "type": "object",
+        "properties": {
+          "city": {
+            "type": "string"
+          },
+          "companyName": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "firstLine": {
+            "type": "string"
+          },
+          "postCode": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          }
+        }
+      },
+      "PaymentInstrumentDetailsResource": {
+        "type": "object",
+        "properties": {
+          "accountNumber": {
+            "type": "string"
+          },
+          "accountOwnerDetails": {
+            "$ref": "#/components/schemas/AccountOwnerDetailsDto"
+          },
+          "bankCode": {
+            "type": "string"
+          },
+          "bankName": {
+            "type": "string"
+          },
+          "branchCode": {
+            "type": "string"
+          },
+          "disconnectReason": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "reference": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      },
+      "PayinSessionPayinInitiationResource": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "number"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "failureReason": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "payinSessionId": {
+            "type": "string"
+          },
+          "paymentInstrumentId": {
+            "type": "string"
+          },
+          "reference": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          }
+        }
+      },
+      "PayinSessionPayinInitiationRequest": {
+        "required": [
+          "payinSessionId"
+        ],
+        "type": "object",
+        "properties": {
+          "payinSessionId": {
+            "type": "string"
+          },
+          "reference": {
+            "type": "string"
+          }
+        }
+      },
+      "Address3": {
+        "type": "object",
+        "properties": {
           "id": {
             "type": "integer",
             "description": "ID of the address.",
@@ -24141,7 +24554,7 @@
             "example": 9889627
           },
           "address": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address3"
           },
           "email": {
             "type": "string",
@@ -24202,7 +24615,7 @@
           "secondaryAddresses": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Address2"
+              "$ref": "#/components/schemas/Address3"
             },
             "description": "An array of secondary addresses associated with the profile."
           },
@@ -24241,7 +24654,7 @@
             "example": 9889627
           },
           "address": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address3"
           },
           "email": {
             "type": "string",
@@ -24322,7 +24735,7 @@
           "operationalAddresses": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Address2"
+              "$ref": "#/components/schemas/Address3"
             },
             "description": "An array of operational addresses for the business."
           },
@@ -24366,7 +24779,7 @@
             "example": 9889627
           },
           "address": {
-            "$ref": "#/components/schemas/Address2"
+            "$ref": "#/components/schemas/Address3"
           },
           "email": {
             "type": "string",
@@ -24421,7 +24834,7 @@
           "secondaryAddresses": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Address2"
+              "$ref": "#/components/schemas/Address3"
             },
             "description": "An array of secondary addresses associated with the profile."
           },
@@ -24486,7 +24899,7 @@
           "operationalAddresses": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Address2"
+              "$ref": "#/components/schemas/Address3"
             },
             "description": "An array of operational addresses for the business."
           },
@@ -24883,7 +25296,7 @@
         },
         "description": "Contains verification results for the recipient\u0027s details. Only populated for currencies with recipient verification enabled (CNY, KRW, INR, IDR, EUR). \n\nSee the [Recipient verification guides](/guides/product/send-money/recipient-verification) for details about how to handle this verification data by currency.\n"
       },
-      "Address22": {
+      "Address32": {
         "type": "object",
         "properties": {
           "addressFirstLine": {
@@ -25005,14 +25418,14 @@
             "example": "John Doe"
           },
           "senderAddress": {
-            "$ref": "#/components/schemas/Address22"
+            "$ref": "#/components/schemas/Address32"
           },
           "beneficiaryAddress": {
-            "$ref": "#/components/schemas/Address22"
+            "$ref": "#/components/schemas/Address32"
           }
         }
       },
-      "Address3": {
+      "Address4": {
         "type": "object",
         "properties": {
           "addressLine": {
@@ -25220,7 +25633,7 @@
               "address": {
                 "allOf": [
                   {
-                    "$ref": "#/components/schemas/Address-3"
+                    "$ref": "#/components/schemas/Address-4"
                   },
                   {
                     "type": "object",
@@ -25883,7 +26296,7 @@
         },
         "description": "Data block to capture the originator name details"
       },
-      "Address4": {
+      "Address5": {
         "required": [
           "countryCode",
           "firstLine"
@@ -25963,7 +26376,7 @@
             "example": "23456789"
           },
           "address": {
-            "$ref": "#/components/schemas/Address4"
+            "$ref": "#/components/schemas/Address5"
           }
         }
       },
@@ -26017,7 +26430,7 @@
             "example": "23456789"
           },
           "address": {
-            "$ref": "#/components/schemas/Address4"
+            "$ref": "#/components/schemas/Address5"
           },
           "legalEntityType": {
             "type": "string"
@@ -26062,7 +26475,7 @@
             "example": "23456789"
           },
           "address": {
-            "$ref": "#/components/schemas/Address4"
+            "$ref": "#/components/schemas/Address5"
           }
         },
         "description": "Data block to capture payment originator details for a business entity"
@@ -26106,7 +26519,7 @@
             "example": "23456789"
           },
           "address": {
-            "$ref": "#/components/schemas/Address4"
+            "$ref": "#/components/schemas/Address5"
           },
           "legalEntityType": {
             "type": "string"
@@ -26156,7 +26569,7 @@
             "example": "23456789"
           },
           "address": {
-            "$ref": "#/components/schemas/Address4"
+            "$ref": "#/components/schemas/Address5"
           },
           "legalEntityType": {
             "type": "string"
@@ -27052,181 +27465,29 @@
           }
         }
       },
-      "BankDetailsAddress": {
-        "type": "object",
-        "properties": {
-          "addressLine": {
-            "maxLength": 70,
-            "minLength": 1,
-            "type": "string",
-            "description": "Address line: street, house, apartment."
-          },
-          "city": {
-            "maxLength": 140,
-            "minLength": 1,
-            "type": "string",
-            "description": "City name."
-          },
-          "postalCode": {
-            "maxLength": 16,
-            "minLength": 1,
-            "type": "string",
-            "description": "Postal code."
-          },
-          "country": {
-            "maxLength": 2,
-            "minLength": 2,
-            "pattern": "^[A-Z]{2}$",
-            "type": "string",
-            "description": "Country code (ISO 3166-1 alpha-2)."
-          }
-        },
-        "description": "Address of the sender\u0027s bank."
+      "InvalidRequestErrorErrorPayload": {
+        "type": "string",
+        "example": "transfer.not-found"
       },
-      "MessageSubmissionRequestSubmissionData": {
-        "type": "object",
-        "oneOf": [
-          {
-            "$ref": "#/components/schemas/SubmissionDataFreeform"
-          },
-          {
-            "$ref": "#/components/schemas/SubmissionDataSanctionHit"
-          },
-          {
-            "$ref": "#/components/schemas/SubmissionDataLocationHit"
-          },
-          {
-            "$ref": "#/components/schemas/SubmissionDataFile"
-          }
-        ],
-        "properties": {
-          "freeText": {
-            "maxLength": 10000,
-            "minLength": 1,
-            "type": "string",
-            "description": "The free-form text message to submit.\nCan include additional context, questions, or documentation references.\n",
-            "example": "The transfer has been verified and approved by our compliance team."
-          },
-          "individual": {
-            "$ref": "#/components/schemas/SubmissionIndividualIndividual"
-          },
-          "organisation": {
-            "$ref": "#/components/schemas/SubmissionOrganisationOrganisation"
-          },
-          "vessel": {
-            "$ref": "#/components/schemas/SubmissionVesselVessel"
-          },
-          "multiple": {
-            "$ref": "#/components/schemas/SubmissionMultipleMultiple"
-          },
-          "other": {
-            "$ref": "#/components/schemas/SubmissionOtherOther"
-          },
-          "profileId": {
-            "type": "integer",
-            "description": "The profile ID that the files belong to.\nMust match the profile associated with the uploaded files.\n",
-            "format": "int64",
-            "example": 14556049
-          },
-          "fileIds": {
-            "minItems": 1,
-            "uniqueItems": true,
-            "type": "array",
-            "items": {
-              "type": "string",
-              "description": "UUID of a previously uploaded file.",
-              "format": "uuid"
-            },
-            "description": "List of file IDs to attach to the case.\nFiles must have been previously uploaded via the file upload endpoint.\n"
-          }
-        },
-        "description": "The data for the message submission. Structure varies based on submission type.\n"
+      "UnauthorisedAccessErrorErrorPayload": {
+        "type": "string",
+        "example": "transfer.not-found"
       },
-      "ContentSubmissionDataSubmissionData": {
-        "type": "object",
-        "oneOf": [
-          {
-            "$ref": "#/components/schemas/ContentSubmissionDataSubmissionDataIndividualSubmission"
-          },
-          {
-            "$ref": "#/components/schemas/ContentSubmissionDataSubmissionDataOrganisationSubmission"
-          },
-          {
-            "$ref": "#/components/schemas/ContentSubmissionDataSubmissionDataVesselSubmission"
-          },
-          {
-            "$ref": "#/components/schemas/ContentSubmissionDataSubmissionDataMultipleSubmission"
-          },
-          {
-            "$ref": "#/components/schemas/ContentSubmissionDataSubmissionDataOtherLocationSubmission"
-          }
-        ],
-        "properties": {
-          "individual": {
-            "$ref": "#/components/schemas/ContentSubmissionDataSubmissionDataIndividualSubmissionIndividual"
-          },
-          "organisation": {
-            "$ref": "#/components/schemas/ContentSubmissionDataSubmissionDataOrganisationSubmissionOrganisation"
-          },
-          "vessel": {
-            "$ref": "#/components/schemas/ContentSubmissionDataSubmissionDataVesselSubmissionVessel"
-          },
-          "multiple": {
-            "$ref": "#/components/schemas/ContentSubmissionDataSubmissionDataMultipleSubmissionMultiple"
-          },
-          "other": {
-            "$ref": "#/components/schemas/ContentSubmissionDataSubmissionDataOtherLocationSubmissionOtherProperty"
-          }
-        },
-        "description": "The data submitted by the partner. Contains ONE entity type."
+      "EntityNotFoundErrorErrorPayload": {
+        "type": "string",
+        "example": "transfer.not-found"
       },
-      "Value429Response": {
-        "type": "object"
+      "PaymentAlreadyExistsErrorErrorPayload": {
+        "type": "string",
+        "example": "transfer.not-found"
       },
-      "AccountRequirementsResponseItem": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "type": "string",
-            "description": "Requirement group identifier (route/payout-method specific).",
-            "example": "south_korean_paygate"
-          },
-          "title": {
-            "type": "string",
-            "description": "Human-readable title for the requirement group.",
-            "example": "PayGate"
-          },
-          "usageInfo": {
-            "type": "string",
-            "description": "Optional usage/help text.",
-            "example": null
-          },
-          "fields": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/AccountRequirementsResponseItemFieldsItem"
-            },
-            "description": "List of UI field groups to collect required data."
-          }
-        },
-        "description": "A requirement group for a specific payout method / route."
+      "UnsupportedOperationErrorErrorPayload": {
+        "type": "string",
+        "example": "transfer.not-found"
       },
-      "AddressRequirementsResponseItem": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "type": "string",
-            "description": "Always \u0022address\u0022.",
-            "example": "address"
-          },
-          "fields": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/AddressRequirementsResponseItemFieldsItem"
-            },
-            "description": "List of fields required for the address."
-          }
-        }
+      "UnexpectedErrorErrorPayload": {
+        "type": "string",
+        "example": "transfer.not-found"
       },
       "Payment": {
         "title": "Payment",
@@ -27851,488 +28112,6 @@
             "$ref": "#/components/schemas/Fees"
           }
         }
-      },
-      "GpiTrackingIdentifierType": {
-        "enum": [
-          "UETR",
-          "TRANSFER_ID"
-        ],
-        "type": "string",
-        "additionalProperties": false,
-        "description": "The type of identifier used to look up a transfer\u0027s GPI tracking data.",
-        "x-ms-enum": {
-          "name": "GpiTrackingIdentifierType",
-          "modelAsString": false,
-          "values": [
-            {
-              "value": "UETR",
-              "name": "Uetr"
-            },
-            {
-              "value": "TRANSFER_ID",
-              "name": "TransferId"
-            }
-          ]
-        }
-      },
-      "LookupGpiTrackingRequestContent": {
-        "required": [
-          "identifier",
-          "identifierType"
-        ],
-        "type": "object",
-        "properties": {
-          "identifierType": {
-            "description": "The type of identifier used to look up the transfer.",
-            "$ref": "#/components/schemas/GpiTrackingIdentifierType"
-          },
-          "identifier": {
-            "minLength": 1,
-            "type": "string",
-            "description": "The UETR or Wise transfer ID of the transfer to look up, matching \u0060identifierType\u0060. Must be a UUID (e.g. \u006097ed4827-7b6f-4491-a206-42bcf859a919\u0060) when \u0060identifierType\u0060 is \u0060UETR\u0060, or a positive integer (int64) (e.g. \u006016521632\u0060) when \u0060identifierType\u0060 is \u0060TRANSFER_ID\u0060.",
-            "example": "97ed4827-7b6f-4491-a206-42bcf859a919"
-          }
-        },
-        "description": "Identify the transfer to look up by \u0060UETR\u0060 or \u0060TRANSFER_ID\u0060."
-      },
-      "GpiTrackingSettlementMethod": {
-        "type": "object",
-        "properties": {
-          "code": {
-            "type": "string",
-            "description": "Settlement method code, passed through as a SWIFT gpi settlement method code. Known values: \u0060INDA\u0060, \u0060INGA\u0060, \u0060COVE\u0060, \u0060CLRG\u0060. Additional values may be introduced by SWIFT gpi; see the SWIFT gpi code lists.",
-            "example": "INGA"
-          },
-          "clearingSystem": {
-            "type": "string",
-            "description": "Clearing system, present when the settlement method is \u0060CLRG\u0060.",
-            "example": "CHI"
-          }
-        },
-        "description": "Settlement method reported for an ACSP sub-status."
-      },
-      "GpiTrackingStatusReason": {
-        "type": "object",
-        "properties": {
-          "code": {
-            "type": "string",
-            "description": "Sub-status code, passed through as a SWIFT gpi transaction status reason code. Known values: \u0060G000\u0060, \u0060G001\u0060, \u0060G002\u0060, \u0060G003\u0060, \u0060G004\u0060, \u0060G005\u0060, \u0060G006\u0060. Additional values may be introduced by SWIFT gpi; see the SWIFT gpi code lists.",
-            "example": "G002"
-          },
-          "settlementMethod": {
-            "description": "Settlement method. Present for \u0060G000\u0060, \u0060G001\u0060, \u0060G005\u0060, \u0060G006\u0060.",
-            "$ref": "#/components/schemas/GpiTrackingSettlementMethod"
-          },
-          "instructedAgent": {
-            "type": "string",
-            "description": "BIC the transaction was forwarded to. Present for \u0060G000\u0060, \u0060G001\u0060, \u0060G005\u0060, \u0060G006\u0060.",
-            "example": "TSPABEB0002"
-          },
-          "chargeBearer": {
-            "type": "string",
-            "description": "Charge bearer code. Present for \u0060G000\u0060, \u0060G001\u0060, \u0060G005\u0060, \u0060G006\u0060.",
-            "example": "SHAR"
-          }
-        },
-        "description": "SWIFT gpi ACSP sub-status (transaction_status_reason)."
-      },
-      "GpiTrackingMoney": {
-        "type": "object",
-        "properties": {
-          "amount": {
-            "exclusiveMinimum": 0,
-            "type": "number",
-            "description": "Non-negative monetary amount.",
-            "format": "decimal",
-            "example": 250.45
-          },
-          "currency": {
-            "maxLength": 3,
-            "minLength": 3,
-            "pattern": "^[A-Z]{3}$",
-            "type": "string",
-            "description": "ISO 4217 currency code.",
-            "example": "EUR"
-          }
-        },
-        "description": "A monetary value represented using the GPI tracking wire format."
-      },
-      "GpiTrackingCancellationStatus": {
-        "enum": [
-          "CANCELLED",
-          "PENDING_CANCELLATION",
-          "CANCELLATION_REJECTED"
-        ],
-        "type": "string",
-        "additionalProperties": false,
-        "description": "Cancellation status of a tracked transaction.",
-        "x-ms-enum": {
-          "name": "GpiTrackingCancellationStatus",
-          "modelAsString": false,
-          "values": [
-            {
-              "value": "CANCELLED",
-              "name": "Cancelled"
-            },
-            {
-              "value": "PENDING_CANCELLATION",
-              "name": "PendingCancellation"
-            },
-            {
-              "value": "CANCELLATION_REJECTED",
-              "name": "CancellationRejected"
-            }
-          ]
-        }
-      },
-      "GpiTrackingCancellationRequestStatus": {
-        "type": "object",
-        "properties": {
-          "reasonCode": {
-            "type": "string",
-            "description": "Cancellation reason code, passed through as a SWIFT gpi cancellation reason code. Additional values may be introduced by SWIFT gpi; see the SWIFT gpi code lists.",
-            "example": "CUST"
-          },
-          "indemnityAgreement": {
-            "type": "boolean",
-            "description": "Whether an indemnity agreement applies to the cancellation request.",
-            "example": false
-          }
-        },
-        "description": "Cancellation request status reported for an event."
-      },
-      "GpiTrackingCancellationResponseStatus": {
-        "type": "object",
-        "properties": {
-          "code": {
-            "type": "string",
-            "description": "Cancellation response code, passed through as a SWIFT gpi cancellation response code. Known values: \u0060CNCL\u0060 (cancelled), \u0060PDCR\u0060 (pending), \u0060RJCR\u0060 (rejected). Additional values may be introduced by SWIFT gpi; see the SWIFT gpi code lists.",
-            "example": "RJCR"
-          },
-          "reasonCode": {
-            "type": "string",
-            "description": "Cancellation response reason code, passed through as a SWIFT gpi cancellation response reason code. Present for \u0060PDCR\u0060 and \u0060RJCR\u0060.",
-            "example": "LEGL"
-          }
-        },
-        "description": "Cancellation response status reported for an event."
-      },
-      "GpiTrackingCharge": {
-        "type": "object",
-        "properties": {
-          "amount": {
-            "description": "Charge amount.",
-            "$ref": "#/components/schemas/GpiTrackingMoney"
-          },
-          "bic": {
-            "type": "string",
-            "description": "BIC of the charging agent.",
-            "example": "TRCKCHZ0XXX"
-          },
-          "name": {
-            "type": "string",
-            "description": "Name of the charging agent.",
-            "example": "Example Correspondent Bank"
-          }
-        },
-        "description": "A charge applied while processing the transaction."
-      },
-      "GpiTrackingEvent": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "string",
-            "description": "Status conveyed by this event, passed through as a SWIFT gpi transaction status code. Known values: \u0060ACSP\u0060 (accepted, settlement in progress), \u0060ACCC\u0060 (accepted, settlement completed), \u0060RJCT\u0060 (rejected). Additional values may be introduced by SWIFT gpi; see the SWIFT gpi code lists.",
-            "example": "ACSP"
-          },
-          "statusReason": {
-            "description": "Sub-status detail, present when status is \u0060ACSP\u0060.",
-            "$ref": "#/components/schemas/GpiTrackingStatusReason"
-          },
-          "statusTime": {
-            "type": "string",
-            "description": "When this status was reached. Present when status is \u0060ACSP\u0060 or \u0060RJCT\u0060.",
-            "format": "date-time",
-            "example": "2023-09-18T12:13:33.314Z"
-          },
-          "confirmedAt": {
-            "type": "string",
-            "description": "When the funds were made available to the creditor. Present when status is \u0060ACCC\u0060.",
-            "format": "date-time",
-            "example": "2023-09-18T12:13:33.314Z"
-          },
-          "confirmedAmount": {
-            "description": "Amount credited to the creditor\u0027s account. Present when status is \u0060ACCC\u0060.",
-            "$ref": "#/components/schemas/GpiTrackingMoney"
-          },
-          "rejectionReason": {
-            "type": "string",
-            "description": "Rejection reason code, passed through as a SWIFT gpi rejection reason code (ISO 20022 external return/reason code). Present when status is \u0060RJCT\u0060. Known values include \u0060AC04\u0060 (closed account number), \u0060AC06\u0060 (blocked account), \u0060AM09\u0060 (wrong amount), \u0060BE01\u0060 (inconsistent with end customer), \u0060RR04\u0060 (regulatory reason). Additional values may be introduced by SWIFT gpi; see the SWIFT gpi code lists.",
-            "example": "AC04"
-          },
-          "instructedAmount": {
-            "description": "Amount as instructed at this hop.",
-            "$ref": "#/components/schemas/GpiTrackingMoney"
-          },
-          "settledAmount": {
-            "description": "Amount as settled at this hop.",
-            "$ref": "#/components/schemas/GpiTrackingMoney"
-          },
-          "amountInconsistency": {
-            "type": "boolean",
-            "description": "Whether instructed and settled amounts are inconsistent.",
-            "example": false
-          },
-          "settlementDate": {
-            "type": "string",
-            "description": "Settlement date of this event.",
-            "format": "date",
-            "example": "2023-09-18"
-          },
-          "sourceCurrency": {
-            "maxLength": 3,
-            "minLength": 3,
-            "pattern": "^[A-Z]{3}$",
-            "type": "string",
-            "description": "Source currency of the exchange, if any.",
-            "example": "EUR"
-          },
-          "targetCurrency": {
-            "maxLength": 3,
-            "minLength": 3,
-            "pattern": "^[A-Z]{3}$",
-            "type": "string",
-            "description": "Target currency of the exchange, if any.",
-            "example": "GBP"
-          },
-          "exchangeRate": {
-            "exclusiveMinimum": 0,
-            "type": "number",
-            "description": "Exchange rate applied between the source and target currencies.",
-            "format": "decimal",
-            "example": 0.8501
-          },
-          "chargeBearer": {
-            "type": "string",
-            "description": "Charge bearer indicator, passed through as a SWIFT gpi charge bearer code. Known values: \u0060DEBT\u0060, \u0060CRED\u0060, \u0060SHAR\u0060, \u0060SLEV\u0060. Additional values may be introduced by SWIFT gpi; see the SWIFT gpi code lists.",
-            "example": "SHAR"
-          },
-          "endToEndId": {
-            "type": "string",
-            "description": "End-to-end identifier.",
-            "example": "802.0GC9A9E78ABD"
-          },
-          "messageNameIdentification": {
-            "type": "string",
-            "description": "Message name identification (ISO 20022 message type).",
-            "example": "pacs.008.001.08"
-          },
-          "instructionId": {
-            "type": "string",
-            "description": "Instruction identifier.",
-            "example": "0918121252010240"
-          },
-          "returnReason": {
-            "type": "string",
-            "description": "Return reason code associated with this event, passed through as a SWIFT gpi return reason code (ISO 20022 external return/reason code). Known values include \u0060AC04\u0060 (closed account number), \u0060AC06\u0060 (blocked account), \u0060AM09\u0060 (wrong amount), \u0060BE01\u0060 (inconsistent with end customer), \u0060RR04\u0060 (regulatory reason). Additional values may be introduced by SWIFT gpi; see the SWIFT gpi code lists.",
-            "example": "AC04"
-          },
-          "eventType": {
-            "type": "string",
-            "description": "Type of the tracking event, passed through as a SWIFT gpi tracker event type code. Known values: \u0060PAYMENT\u0060, \u0060STATUS_UPDATE\u0060, \u0060CANCELLATION_REQUEST\u0060, \u0060CANCELLATION_RESPONSE\u0060, \u0060CANCELLATION_REQUEST_STATUS_UPDATE\u0060. Additional values may be introduced by SWIFT gpi; see the SWIFT gpi code lists.",
-            "example": "CANCELLATION_RESPONSE"
-          },
-          "eventTarget": {
-            "type": "string",
-            "description": "Target of the tracking event, passed through as a SWIFT gpi tracker event target code. Known values: \u0060CREDIT_TRANSFER\u0060, \u0060CREDIT_TRANSFER_RETURN\u0060, \u0060CREDIT_TRANSFER_COVER\u0060, \u0060CREDIT_TRANSFER_COVER_RETURN\u0060, \u0060FINANCIAL_INSTITUTION_CREDIT_TRANSFER\u0060, \u0060FINANCIAL_INSTITUTION_CREDIT_TRANSFER_RETURN\u0060, \u0060FINANCIAL_INSTITUTION_CREDIT_TRANSFER_COVER\u0060, \u0060FINANCIAL_INSTITUTION_CREDIT_TRANSFER_COVER_RETURN\u0060. Additional values may be introduced by SWIFT gpi; see the SWIFT gpi code lists.",
-            "example": "CREDIT_TRANSFER"
-          },
-          "cancellationRequestStatus": {
-            "description": "Cancellation request status conveyed by this event.",
-            "$ref": "#/components/schemas/GpiTrackingCancellationRequestStatus"
-          },
-          "cancellationResponseStatus": {
-            "description": "Cancellation response status conveyed by this event.",
-            "$ref": "#/components/schemas/GpiTrackingCancellationResponseStatus"
-          },
-          "cancellationRequestTrackingStatus": {
-            "type": "string",
-            "description": "Cancellation request tracking status conveyed by this event, passed through as a SWIFT gpi cancellation request tracking status code. Known values: \u0060S000\u0060, \u0060S001\u0060, \u0060S002\u0060, \u0060S003\u0060, \u0060S004\u0060. Additional values may be introduced by SWIFT gpi; see the SWIFT gpi code lists.",
-            "example": "S004"
-          },
-          "serviceLevel": {
-            "type": "string",
-            "description": "Service level of the transaction, passed through as a SWIFT gpi service level code. Known values: \u0060G001\u0060, \u0060G002\u0060, \u0060G004\u0060, \u0060G005\u0060, \u0060G009\u0060. Additional values may be introduced by SWIFT gpi; see the SWIFT gpi code lists.",
-            "example": "G002"
-          },
-          "instructedAgent": {
-            "type": "string",
-            "description": "Instructed agent BIC.",
-            "example": "TSPABEB0002"
-          },
-          "from": {
-            "type": "string",
-            "description": "Sending agent BIC.",
-            "example": "TRCKCHZ0XXX"
-          },
-          "to": {
-            "type": "string",
-            "description": "Receiving agent BIC.",
-            "example": "TSPABEB0002"
-          },
-          "trackerInformingParty": {
-            "type": "string",
-            "description": "Party informing the tracker.",
-            "example": "ZYZAGB20XXX"
-          },
-          "debtorAgent": {
-            "type": "string",
-            "description": "Debtor agent BIC.",
-            "example": "DEUTDEFFXXX"
-          },
-          "creditorAgent": {
-            "type": "string",
-            "description": "Creditor agent BIC.",
-            "example": "BARCGB22XXX"
-          },
-          "instructingReimbursementAgent": {
-            "type": "string",
-            "description": "Instructing reimbursement agent BIC.",
-            "example": "CHASUS33XXX"
-          },
-          "previousInstructingAgent1": {
-            "type": "string",
-            "description": "Previous instructing agent 1 BIC.",
-            "example": "BOFAUS3NXXX"
-          },
-          "previousInstructingAgent2": {
-            "type": "string",
-            "description": "Previous instructing agent 2 BIC.",
-            "example": "CITIUS33XXX"
-          },
-          "previousInstructingAgent3": {
-            "type": "string",
-            "description": "Previous instructing agent 3 BIC.",
-            "example": "NWBKGB2LXXX"
-          },
-          "intermediaryAgent1": {
-            "type": "string",
-            "description": "Intermediary agent 1 BIC.",
-            "example": "DEUTDEFFXXX"
-          },
-          "intermediaryAgent2": {
-            "type": "string",
-            "description": "Intermediary agent 2 BIC.",
-            "example": "BNPAFRPPXXX"
-          },
-          "intermediaryAgent3": {
-            "type": "string",
-            "description": "Intermediary agent 3 BIC.",
-            "example": "INGBNL2AXXX"
-          },
-          "charges": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/GpiTrackingCharge"
-            },
-            "description": "Charges applied at this hop. Omitted when there are none."
-          },
-          "eventCreationTime": {
-            "type": "string",
-            "description": "When this event was created.",
-            "format": "date-time",
-            "example": "2023-09-18T12:13:33.348Z"
-          }
-        },
-        "description": "An event reported for a tracked transaction."
-      },
-      "GpiTracking": {
-        "type": "object",
-        "properties": {
-          "uetr": {
-            "type": "string",
-            "description": "The UETR of the tracked transaction.",
-            "example": "97ed4827-7b6f-4491-a206-42bcf859a919"
-          },
-          "status": {
-            "type": "string",
-            "description": "Overall tracking status of the transaction, passed through as a SWIFT gpi transaction status code. Known values: \u0060ACSP\u0060 (accepted, settlement in progress), \u0060ACCC\u0060 (accepted, settlement completed), \u0060RJCT\u0060 (rejected). Additional values may be introduced by SWIFT gpi; see the SWIFT gpi code lists.",
-            "example": "ACSP"
-          },
-          "statusReason": {
-            "description": "Sub-status detail, present when status is \u0060ACSP\u0060.",
-            "$ref": "#/components/schemas/GpiTrackingStatusReason"
-          },
-          "statusTime": {
-            "type": "string",
-            "description": "When this status was reached. Present when status is \u0060ACSP\u0060 or \u0060RJCT\u0060.",
-            "format": "date-time",
-            "example": "2023-09-18T12:13:33.314Z"
-          },
-          "confirmedAt": {
-            "type": "string",
-            "description": "When the funds were made available to the creditor. Present when status is \u0060ACCC\u0060.",
-            "format": "date-time",
-            "example": "2023-09-18T12:13:33.314Z"
-          },
-          "confirmedAmount": {
-            "description": "Amount credited to the creditor\u0027s account. Present when status is \u0060ACCC\u0060.",
-            "$ref": "#/components/schemas/GpiTrackingMoney"
-          },
-          "rejectionReason": {
-            "type": "string",
-            "description": "Rejection reason code, passed through as a SWIFT gpi rejection reason code (ISO 20022 external return/reason code). Present when status is \u0060RJCT\u0060. Known values include \u0060AC04\u0060 (closed account number), \u0060AC06\u0060 (blocked account), \u0060AM09\u0060 (wrong amount), \u0060BE01\u0060 (inconsistent with end customer), \u0060RR04\u0060 (regulatory reason). Additional values may be introduced by SWIFT gpi; see the SWIFT gpi code lists.",
-            "example": "AC04"
-          },
-          "cancellationStatus": {
-            "description": "Cancellation status, when a cancellation has been requested or resolved.",
-            "$ref": "#/components/schemas/GpiTrackingCancellationStatus"
-          },
-          "returnReason": {
-            "type": "string",
-            "description": "Return reason code, present when the transaction was returned or rejected, passed through as a SWIFT gpi return reason code (ISO 20022 external return/reason code). Known values include \u0060AC04\u0060 (closed account number), \u0060AC06\u0060 (blocked account), \u0060AM09\u0060 (wrong amount), \u0060BE01\u0060 (inconsistent with end customer), \u0060RR04\u0060 (regulatory reason). Additional values may be introduced by SWIFT gpi; see the SWIFT gpi code lists.",
-            "example": "AC04"
-          },
-          "initiatedAt": {
-            "type": "string",
-            "description": "When transaction tracking was initiated.",
-            "format": "date-time",
-            "example": "2023-09-18T12:05:50Z"
-          },
-          "completedAt": {
-            "type": "string",
-            "description": "When the transaction reached a completed state.",
-            "format": "date-time",
-            "example": "2023-09-18T12:13:33.314Z"
-          },
-          "lastUpdatedAt": {
-            "type": "string",
-            "description": "When the tracking record was last updated.",
-            "format": "date-time",
-            "example": "2023-09-18T12:13:33.314Z"
-          },
-          "events": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/GpiTrackingEvent"
-            },
-            "description": "Ordered tracking events, latest first."
-          }
-        },
-        "description": "GPI tracking data for a transaction."
-      },
-      "LookupGpiTrackingResponseContent": {
-        "type": "object",
-        "properties": {
-          "transactions": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/GpiTracking"
-            },
-            "description": "The matching GPI tracking transactions."
-          }
-        },
-        "description": "The matching GPI tracking transactions."
       },
       "User": {
         "title": "User",
@@ -29902,7 +29681,7 @@
         },
         "deprecated": true
       },
-      "Address5": {
+      "Address6": {
         "type": "object",
         "properties": {
           "first_line": {
@@ -29982,7 +29761,7 @@
             "description": "Identifier within the clearing system specified by \u0060clearing_system_code\u0060."
           },
           "address": {
-            "$ref": "#/components/schemas/Address5"
+            "$ref": "#/components/schemas/Address6"
           }
         },
         "description": "Bank or financial institution details."
@@ -29997,7 +29776,7 @@
             "description": "Party name."
           },
           "address": {
-            "$ref": "#/components/schemas/Address5"
+            "$ref": "#/components/schemas/Address6"
           },
           "account": {
             "maxLength": 36,
@@ -30116,7 +29895,7 @@
               },
               "address": {
                 "description": "Bank or financial institution address.",
-                "$ref": "#/components/schemas/Address-5"
+                "$ref": "#/components/schemas/Address-6"
               }
             },
             "description": "Bank or financial institution details."
@@ -30132,7 +29911,7 @@
               },
               "address": {
                 "description": "Party address.",
-                "$ref": "#/components/schemas/Address-5"
+                "$ref": "#/components/schemas/Address-6"
               },
               "account": {
                 "maxLength": 36,
@@ -30547,6 +30326,244 @@
           }
         }
       },
+      "AddressRequirementsResponseItem": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Always \u0022address\u0022.",
+            "example": "address"
+          },
+          "fields": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AddressRequirementsResponseItemFieldsItem"
+            },
+            "description": "List of fields required for the address."
+          }
+        }
+      },
+      "AccountRequirementsResponseItem": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Requirement group identifier (route/payout-method specific).",
+            "example": "south_korean_paygate"
+          },
+          "title": {
+            "type": "string",
+            "description": "Human-readable title for the requirement group.",
+            "example": "PayGate"
+          },
+          "usageInfo": {
+            "type": "string",
+            "description": "Optional usage/help text.",
+            "example": null
+          },
+          "fields": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AccountRequirementsResponseItemFieldsItem"
+            },
+            "description": "List of UI field groups to collect required data."
+          }
+        },
+        "description": "A requirement group for a specific payout method / route."
+      },
+      "Value429Response": {
+        "type": "object"
+      },
+      "ContentSubmissionDataSubmissionData": {
+        "type": "object",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/ContentSubmissionDataSubmissionDataIndividualSubmission"
+          },
+          {
+            "$ref": "#/components/schemas/ContentSubmissionDataSubmissionDataOrganisationSubmission"
+          },
+          {
+            "$ref": "#/components/schemas/ContentSubmissionDataSubmissionDataVesselSubmission"
+          },
+          {
+            "$ref": "#/components/schemas/ContentSubmissionDataSubmissionDataMultipleSubmission"
+          },
+          {
+            "$ref": "#/components/schemas/ContentSubmissionDataSubmissionDataOtherLocationSubmission"
+          }
+        ],
+        "properties": {
+          "individual": {
+            "$ref": "#/components/schemas/ContentSubmissionDataSubmissionDataIndividualSubmissionIndividual"
+          },
+          "organisation": {
+            "$ref": "#/components/schemas/ContentSubmissionDataSubmissionDataOrganisationSubmissionOrganisation"
+          },
+          "vessel": {
+            "$ref": "#/components/schemas/ContentSubmissionDataSubmissionDataVesselSubmissionVessel"
+          },
+          "multiple": {
+            "$ref": "#/components/schemas/ContentSubmissionDataSubmissionDataMultipleSubmissionMultiple"
+          },
+          "other": {
+            "$ref": "#/components/schemas/ContentSubmissionDataSubmissionDataOtherLocationSubmissionOtherProperty"
+          }
+        },
+        "description": "The data submitted by the partner. Contains ONE entity type."
+      },
+      "MessageSubmissionRequestSubmissionData": {
+        "type": "object",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/SubmissionDataFreeform"
+          },
+          {
+            "$ref": "#/components/schemas/SubmissionDataSanctionHit"
+          },
+          {
+            "$ref": "#/components/schemas/SubmissionDataLocationHit"
+          },
+          {
+            "$ref": "#/components/schemas/SubmissionDataFile"
+          }
+        ],
+        "properties": {
+          "freeText": {
+            "maxLength": 10000,
+            "minLength": 1,
+            "type": "string",
+            "description": "The free-form text message to submit.\nCan include additional context, questions, or documentation references.\n",
+            "example": "The transfer has been verified and approved by our compliance team."
+          },
+          "individual": {
+            "$ref": "#/components/schemas/SubmissionIndividualIndividual"
+          },
+          "organisation": {
+            "$ref": "#/components/schemas/SubmissionOrganisationOrganisation"
+          },
+          "vessel": {
+            "$ref": "#/components/schemas/SubmissionVesselVessel"
+          },
+          "multiple": {
+            "$ref": "#/components/schemas/SubmissionMultipleMultiple"
+          },
+          "other": {
+            "$ref": "#/components/schemas/SubmissionOtherOther"
+          },
+          "profileId": {
+            "type": "integer",
+            "description": "The profile ID that the files belong to.\nMust match the profile associated with the uploaded files.\n",
+            "format": "int64",
+            "example": 14556049
+          },
+          "fileIds": {
+            "minItems": 1,
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "UUID of a previously uploaded file.",
+              "format": "uuid"
+            },
+            "description": "List of file IDs to attach to the case.\nFiles must have been previously uploaded via the file upload endpoint.\n"
+          }
+        },
+        "description": "The data for the message submission. Structure varies based on submission type.\n"
+      },
+      "BankDetailsAddress": {
+        "type": "object",
+        "properties": {
+          "addressLine": {
+            "maxLength": 70,
+            "minLength": 1,
+            "type": "string",
+            "description": "Address line: street, house, apartment."
+          },
+          "city": {
+            "maxLength": 140,
+            "minLength": 1,
+            "type": "string",
+            "description": "City name."
+          },
+          "postalCode": {
+            "maxLength": 16,
+            "minLength": 1,
+            "type": "string",
+            "description": "Postal code."
+          },
+          "country": {
+            "maxLength": 2,
+            "minLength": 2,
+            "pattern": "^[A-Z]{2}$",
+            "type": "string",
+            "description": "Country code (ISO 3166-1 alpha-2)."
+          }
+        },
+        "description": "Address of the sender\u0027s bank."
+      },
+      "SwiftInRequestBeneficiaryAddress": {
+        "type": "object",
+        "properties": {
+          "addressLine": {
+            "maxLength": 70,
+            "minLength": 1,
+            "type": "string",
+            "description": "Address line: street, house, apartment."
+          },
+          "city": {
+            "maxLength": 140,
+            "minLength": 1,
+            "type": "string",
+            "description": "City name."
+          },
+          "postalCode": {
+            "maxLength": 16,
+            "minLength": 1,
+            "type": "string",
+            "description": "Postal code."
+          },
+          "country": {
+            "maxLength": 2,
+            "minLength": 2,
+            "pattern": "^[A-Z]{2}$",
+            "type": "string",
+            "description": "Country code (ISO 3166-1 alpha-2)."
+          }
+        },
+        "description": "Address of the ultimate beneficiary."
+      },
+      "SwiftInRequestSenderAddress": {
+        "type": "object",
+        "properties": {
+          "addressLine": {
+            "maxLength": 70,
+            "minLength": 1,
+            "type": "string",
+            "description": "Address line: street, house, apartment."
+          },
+          "city": {
+            "maxLength": 140,
+            "minLength": 1,
+            "type": "string",
+            "description": "City name."
+          },
+          "postalCode": {
+            "maxLength": 16,
+            "minLength": 1,
+            "type": "string",
+            "description": "Postal code."
+          },
+          "country": {
+            "maxLength": 2,
+            "minLength": 2,
+            "pattern": "^[A-Z]{2}$",
+            "type": "string",
+            "description": "Country code (ISO 3166-1 alpha-2)."
+          }
+        },
+        "description": "Address of the sender."
+      },
       "V430DataResourceRecipient": {
         "type": "object",
         "properties": {
@@ -30557,7 +30574,7 @@
             "description": "Party name."
           },
           "address": {
-            "$ref": "#/components/schemas/Address5"
+            "$ref": "#/components/schemas/Address6"
           },
           "account": {
             "maxLength": 36,
@@ -30581,7 +30598,7 @@
             "description": "Party name."
           },
           "address": {
-            "$ref": "#/components/schemas/Address5"
+            "$ref": "#/components/schemas/Address6"
           },
           "account": {
             "maxLength": 36,
@@ -30652,58 +30669,7 @@
             "description": "Identifier within the clearing system specified by \u0060clearing_system_code\u0060."
           },
           "address": {
-            "$ref": "#/components/schemas/Address5"
-          }
-        }
-      },
-      "SwiftInRequestSenderAddressAllOf2": {
-        "type": "object",
-        "properties": {
-          "addressLine": {
-            "$ref": "#/components/schemas/SwiftInRequestSenderAddressAllOf2AddressLine"
-          },
-          "city": {
-            "$ref": "#/components/schemas/SwiftInRequestSenderAddressAllOf2City"
-          },
-          "postalCode": {
-            "$ref": "#/components/schemas/SwiftInRequestSenderAddressAllOf2PostalCode"
-          },
-          "country": {
-            "$ref": "#/components/schemas/SwiftInRequestSenderAddressAllOf2Country"
-          }
-        }
-      },
-      "SwiftInRequestBeneficiaryAddressAllOf2": {
-        "type": "object",
-        "properties": {
-          "addressLine": {
-            "$ref": "#/components/schemas/SwiftInRequestBeneficiaryAddressAllOf2AddressLine"
-          },
-          "city": {
-            "$ref": "#/components/schemas/SwiftInRequestBeneficiaryAddressAllOf2City"
-          },
-          "postalCode": {
-            "$ref": "#/components/schemas/SwiftInRequestBeneficiaryAddressAllOf2PostalCode"
-          },
-          "country": {
-            "$ref": "#/components/schemas/SwiftInRequestBeneficiaryAddressAllOf2Country"
-          }
-        }
-      },
-      "BankDetailsAddressAllOf2": {
-        "type": "object",
-        "properties": {
-          "addressLine": {
-            "$ref": "#/components/schemas/BankDetailsAddressAllOf2AddressLine"
-          },
-          "city": {
-            "$ref": "#/components/schemas/BankDetailsAddressAllOf2City"
-          },
-          "postalCode": {
-            "$ref": "#/components/schemas/BankDetailsAddressAllOf2PostalCode"
-          },
-          "country": {
-            "$ref": "#/components/schemas/BankDetailsAddressAllOf2Country"
+            "$ref": "#/components/schemas/Address6"
           }
         }
       },
@@ -30749,6 +30715,57 @@
         "properties": {
           "other": {
             "$ref": "#/components/schemas/ContentSubmissionDataSubmissionDataOtherLocationSubmissionOtherProperty"
+          }
+        }
+      },
+      "BankDetailsAddressAllOf2": {
+        "type": "object",
+        "properties": {
+          "addressLine": {
+            "$ref": "#/components/schemas/BankDetailsAddressAllOf2AddressLine"
+          },
+          "city": {
+            "$ref": "#/components/schemas/BankDetailsAddressAllOf2City"
+          },
+          "postalCode": {
+            "$ref": "#/components/schemas/BankDetailsAddressAllOf2PostalCode"
+          },
+          "country": {
+            "$ref": "#/components/schemas/BankDetailsAddressAllOf2Country"
+          }
+        }
+      },
+      "SwiftInRequestBeneficiaryAddressAllOf2": {
+        "type": "object",
+        "properties": {
+          "addressLine": {
+            "$ref": "#/components/schemas/SwiftInRequestBeneficiaryAddressAllOf2AddressLine"
+          },
+          "city": {
+            "$ref": "#/components/schemas/SwiftInRequestBeneficiaryAddressAllOf2City"
+          },
+          "postalCode": {
+            "$ref": "#/components/schemas/SwiftInRequestBeneficiaryAddressAllOf2PostalCode"
+          },
+          "country": {
+            "$ref": "#/components/schemas/SwiftInRequestBeneficiaryAddressAllOf2Country"
+          }
+        }
+      },
+      "SwiftInRequestSenderAddressAllOf2": {
+        "type": "object",
+        "properties": {
+          "addressLine": {
+            "$ref": "#/components/schemas/SwiftInRequestSenderAddressAllOf2AddressLine"
+          },
+          "city": {
+            "$ref": "#/components/schemas/SwiftInRequestSenderAddressAllOf2City"
+          },
+          "postalCode": {
+            "$ref": "#/components/schemas/SwiftInRequestSenderAddressAllOf2PostalCode"
+          },
+          "country": {
+            "$ref": "#/components/schemas/SwiftInRequestSenderAddressAllOf2Country"
           }
         }
       },
@@ -32593,40 +32610,6 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/TransferRequirementFieldsItemGroupItem"
-            }
-          }
-        }
-      },
-      "AccountRequirementsResponseItemFieldsItem": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "description": "Display name of this group.",
-            "example": "E-mail"
-          },
-          "group": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/AccountRequirementsResponseItemFieldsItemGroupItem"
-            },
-            "description": "The actual fields within this group."
-          }
-        },
-        "description": "Group of related fields shown together in UI."
-      },
-      "AddressRequirementsResponseItemFieldsItem": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "description": "Display name of the field.",
-            "example": "Country"
-          },
-          "group": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/AddressRequirementsResponseItemFieldsItemGroupItem"
             }
           }
         }
@@ -34726,6 +34709,40 @@
           }
         }
       },
+      "AddressRequirementsResponseItemFieldsItem": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Display name of the field.",
+            "example": "Country"
+          },
+          "group": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AddressRequirementsResponseItemFieldsItemGroupItem"
+            }
+          }
+        }
+      },
+      "AccountRequirementsResponseItemFieldsItem": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Display name of this group.",
+            "example": "E-mail"
+          },
+          "group": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AccountRequirementsResponseItemFieldsItemGroupItem"
+            },
+            "description": "The actual fields within this group."
+          }
+        },
+        "description": "Group of related fields shown together in UI."
+      },
       "ContentSubmissionDataSubmissionDataIndividualSubmissionIndividual": {
         "required": [
           "name"
@@ -35884,156 +35901,6 @@
               "$ref": "#/components/schemas/TransferRequirementFieldsItemGroupItemValuesAllowedItem"
             },
             "description": "List of allowed values"
-          }
-        }
-      },
-      "AccountRequirementsResponseItemFieldsItemGroupItem": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "description": "Key to include in JSON when submitting recipient details.",
-            "example": "email"
-          },
-          "name": {
-            "type": "string",
-            "description": "Human-readable label.",
-            "example": "E-mail"
-          },
-          "type": {
-            "type": "string",
-            "description": "UI field type.",
-            "example": "text"
-          },
-          "refreshRequirementsOnChange": {
-            "type": "boolean",
-            "description": "If true, changing this field can alter requirements; call the POST account-requirements endpoint with updated data to refresh requirements.\n",
-            "example": false
-          },
-          "required": {
-            "type": "boolean",
-            "description": "Indicates whether this field is mandatory.",
-            "example": true
-          },
-          "displayFormat": {
-            "type": "string",
-            "description": "Optional display formatting hint.",
-            "example": null
-          },
-          "example": {
-            "type": "string",
-            "description": "Example value for the field (may be empty string).",
-            "example": "example@example.ex"
-          },
-          "minLength": {
-            "type": "integer",
-            "description": "Minimum allowed length, when applicable.",
-            "example": null
-          },
-          "maxLength": {
-            "type": "integer",
-            "description": "Maximum allowed length, when applicable.",
-            "example": null
-          },
-          "validationRegexp": {
-            "type": "string",
-            "description": "Regex pattern for validation, when applicable.",
-            "example": "^[^\\s]\u002B@[^\\s]\u002B\\.[^\\s]{2,}$"
-          },
-          "validationAsync": {
-            "type": "string",
-            "description": "Deprecated. This validation will instead be performed when submitting the request.",
-            "example": null,
-            "deprecated": true
-          },
-          "valuesAllowed": {
-            "type": [
-              "null",
-              "array"
-            ],
-            "items": {
-              "$ref": "#/components/schemas/AccountRequirementsResponseItemFieldsItemGroupItemValuesAllowedItem"
-            },
-            "description": "Allowed values for select/radio inputs; null for free-text/date inputs."
-          }
-        },
-        "description": "A single field descriptor."
-      },
-      "AddressRequirementsResponseItemFieldsItemGroupItem": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "description": "Key name to include in the JSON request.",
-            "example": "country"
-          },
-          "type": {
-            "$ref": "#/components/schemas/AddressRequirementsResponseItemFieldsItemGroupItemType"
-          },
-          "refreshRequirementsOnChange": {
-            "type": "boolean",
-            "description": "If true, call POST address-requirements when this field value changes to discover additional required fields.",
-            "example": true
-          },
-          "required": {
-            "type": "boolean",
-            "description": "Indicates if the field is mandatory.",
-            "example": true
-          },
-          "displayFormat": {
-            "type": [
-              "null",
-              "string"
-            ],
-            "description": "Display format pattern.",
-            "example": null
-          },
-          "example": {
-            "type": "string",
-            "description": "Example value to help users understand what to input.",
-            "example": "Germany"
-          },
-          "minLength": {
-            "type": [
-              "null",
-              "integer"
-            ],
-            "description": "Minimum valid length of field value.",
-            "format": "int32",
-            "example": null
-          },
-          "maxLength": {
-            "type": [
-              "null",
-              "integer"
-            ],
-            "description": "Maximum valid length of field value.",
-            "format": "int32",
-            "example": null
-          },
-          "validationRegexp": {
-            "type": [
-              "null",
-              "string"
-            ],
-            "description": "Regexp validation pattern.",
-            "example": null
-          },
-          "validationAsync": {
-            "type": [
-              "null",
-              "string"
-            ],
-            "description": "Deprecated. This validation will instead be performed when submitting the request.",
-            "example": null,
-            "deprecated": true
-          },
-          "valuesAllowed": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/AddressRequirementsResponseItemFieldsItemGroupItemValuesAllowedItem"
-            },
-            "description": "List of allowed values (for select fields)."
           }
         }
       },
@@ -38794,6 +38661,156 @@
           }
         }
       },
+      "AddressRequirementsResponseItemFieldsItemGroupItem": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "Key name to include in the JSON request.",
+            "example": "country"
+          },
+          "type": {
+            "$ref": "#/components/schemas/AddressRequirementsResponseItemFieldsItemGroupItemType"
+          },
+          "refreshRequirementsOnChange": {
+            "type": "boolean",
+            "description": "If true, call POST address-requirements when this field value changes to discover additional required fields.",
+            "example": true
+          },
+          "required": {
+            "type": "boolean",
+            "description": "Indicates if the field is mandatory.",
+            "example": true
+          },
+          "displayFormat": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Display format pattern.",
+            "example": null
+          },
+          "example": {
+            "type": "string",
+            "description": "Example value to help users understand what to input.",
+            "example": "Germany"
+          },
+          "minLength": {
+            "type": [
+              "null",
+              "integer"
+            ],
+            "description": "Minimum valid length of field value.",
+            "format": "int32",
+            "example": null
+          },
+          "maxLength": {
+            "type": [
+              "null",
+              "integer"
+            ],
+            "description": "Maximum valid length of field value.",
+            "format": "int32",
+            "example": null
+          },
+          "validationRegexp": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Regexp validation pattern.",
+            "example": null
+          },
+          "validationAsync": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Deprecated. This validation will instead be performed when submitting the request.",
+            "example": null,
+            "deprecated": true
+          },
+          "valuesAllowed": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AddressRequirementsResponseItemFieldsItemGroupItemValuesAllowedItem"
+            },
+            "description": "List of allowed values (for select fields)."
+          }
+        }
+      },
+      "AccountRequirementsResponseItemFieldsItemGroupItem": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "Key to include in JSON when submitting recipient details.",
+            "example": "email"
+          },
+          "name": {
+            "type": "string",
+            "description": "Human-readable label.",
+            "example": "E-mail"
+          },
+          "type": {
+            "type": "string",
+            "description": "UI field type.",
+            "example": "text"
+          },
+          "refreshRequirementsOnChange": {
+            "type": "boolean",
+            "description": "If true, changing this field can alter requirements; call the POST account-requirements endpoint with updated data to refresh requirements.\n",
+            "example": false
+          },
+          "required": {
+            "type": "boolean",
+            "description": "Indicates whether this field is mandatory.",
+            "example": true
+          },
+          "displayFormat": {
+            "type": "string",
+            "description": "Optional display formatting hint.",
+            "example": null
+          },
+          "example": {
+            "type": "string",
+            "description": "Example value for the field (may be empty string).",
+            "example": "example@example.ex"
+          },
+          "minLength": {
+            "type": "integer",
+            "description": "Minimum allowed length, when applicable.",
+            "example": null
+          },
+          "maxLength": {
+            "type": "integer",
+            "description": "Maximum allowed length, when applicable.",
+            "example": null
+          },
+          "validationRegexp": {
+            "type": "string",
+            "description": "Regex pattern for validation, when applicable.",
+            "example": "^[^\\s]\u002B@[^\\s]\u002B\\.[^\\s]{2,}$"
+          },
+          "validationAsync": {
+            "type": "string",
+            "description": "Deprecated. This validation will instead be performed when submitting the request.",
+            "example": null,
+            "deprecated": true
+          },
+          "valuesAllowed": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/AccountRequirementsResponseItemFieldsItemGroupItemValuesAllowedItem"
+            },
+            "description": "Allowed values for select/radio inputs; null for free-text/date inputs."
+          }
+        },
+        "description": "A single field descriptor."
+      },
       "V430DataResourceRecipientAllOf2BankDetailsAddress": {
         "type": "object",
         "properties": {
@@ -39335,34 +39352,6 @@
           "name": {
             "type": "string",
             "description": "Value name"
-          }
-        }
-      },
-      "AccountRequirementsResponseItemFieldsItemGroupItemValuesAllowedItem": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "description": "Machine-readable value.",
-            "example": "PRIVATE"
-          },
-          "name": {
-            "type": "string",
-            "description": "Human-readable value label.",
-            "example": "Person"
-          }
-        }
-      },
-      "AddressRequirementsResponseItemFieldsItemGroupItemValuesAllowedItem": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "description": "Value key to use in the request."
-          },
-          "name": {
-            "type": "string",
-            "description": "Display name for the value."
           }
         }
       },
@@ -40492,6 +40481,34 @@
             "type": "string",
             "description": "Partner client ID associated with the recipient.",
             "example": "hosted-kyc-test-client"
+          }
+        }
+      },
+      "AddressRequirementsResponseItemFieldsItemGroupItemValuesAllowedItem": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "Value key to use in the request."
+          },
+          "name": {
+            "type": "string",
+            "description": "Display name for the value."
+          }
+        }
+      },
+      "AccountRequirementsResponseItemFieldsItemGroupItemValuesAllowedItem": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "Machine-readable value.",
+            "example": "PRIVATE"
+          },
+          "name": {
+            "type": "string",
+            "description": "Human-readable value label.",
+            "example": "Person"
           }
         }
       },
@@ -43444,26 +43461,30 @@
         "type": "string",
         "description": "JWE-encoded string using direct encryption. The response is encrypted with the original content encryption key from the request.\n\nResponse JOSE headers:\n\u0060\u0060\u0060json\n{\u0022enc\u0022: \u0022A256GCM\u0022, \u0022alg\u0022: \u0022dir\u0022}\n\u0060\u0060\u0060\n\nWhen decrypted, the response contains:\n\n- \u0060message\u0060 \u2014 The original message prefixed with \u0060jose-playground-response-\u0060. Message length is limited to 100 characters.\n- \u0060method\u0060 \u2014 Original HTTP request method name: \u0060POST\u0060.\n\nExample of decrypted response:\n\u0060\u0060\u0060json\n{\n  \u0022message\u0022: \u0022jose-playground-response-This is an example from docs.wise.com\u0022,\n  \u0022method\u0022: \u0022POST\u0022\n}\n\u0060\u0060\u0060\n"
       },
-      "JosePlaygroundJwsJweJoseJsonRequest": {
+      "JosePlaygroundJwsJweGet200JoseJsonResponse": {
         "type": "string",
-        "description": "JWE-encoded string containing a signed JWS. The payload before signing and encryption should contain a \u0060message\u0060 field with any text.\n\nOriginal payload:\n\u0060\u0060\u0060json\n{\u0022message\u0022: \u0022This is an example from docs.wise.com\u0022}\n\u0060\u0060\u0060\n\nEncoded (JWS\u002BJWE):\n\u0060\u0060\u0060\neyJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiUlNBLU9BRVAtMjU2In0.W0fuxaZOoyaBcxWwgtjEPkOnLdVNyH9ncZi5Y9xQbjD4sYJn8vEQmxKHDw5s14sWhdexSNAPTVMSyzwJaA-LRL0tZTEuQ.ohD4LLjImiKOV4Tu.Rgp9mc2JD6m9Zm5htSqrejwWYy0_hIylYdLD39ZCR-VnQ2VX-Tot8kKGeNncnv7hJ_ApANWiJpKJbiM.5hNt-uaxuOkOraGGZSmsig\n\u0060\u0060\u0060\n"
+        "description": "JWE-encoded string containing a signed JWS. After decryption (JWE) and signature verification (JWS), the response contains:\n\n- \u0060message\u0060 \u2014 The original message prefixed with \u0060jose-playground-response-\u0060. Message length is limited to 100 characters.\n- \u0060method\u0060 \u2014 Original HTTP request method name: \u0060GET\u0060.\n\nExample of decrypted and decoded response:\n\u0060\u0060\u0060json\n{\n  \u0022message\u0022: \u0022jose-playground-response-This is an example from docs.wise.com\u0022,\n  \u0022method\u0022: \u0022GET\u0022\n}\n\u0060\u0060\u0060\n"
       },
-      "JosePlaygroundJwsJwe200JoseJsonResponse": {
-        "type": "string",
-        "description": "JWE-encoded string containing a signed JWS. After decryption (JWE) and signature verification (JWS), the response contains:\n\n- \u0060message\u0060 \u2014 The original message prefixed with \u0060jose-playground-response-\u0060. Message length is limited to 100 characters.\n- \u0060method\u0060 \u2014 Original HTTP request method name: \u0060POST\u0060.\n\nExample of decrypted and decoded response:\n\u0060\u0060\u0060json\n{\n  \u0022message\u0022: \u0022jose-playground-response-This is an example from docs.wise.com\u0022,\n  \u0022method\u0022: \u0022POST\u0022\n}\n\u0060\u0060\u0060\n"
-      },
-      "JosePlaygroundJwsJwe400Response": {
+      "JosePlaygroundJwsJweGet500Response": {
         "type": "object",
         "properties": {
-          "error": {
+          "message": {
             "type": "string"
           },
-          "error_description": {
+          "request_id": {
             "type": "string"
           }
         }
       },
-      "JosePlaygroundJwsJwe500Response": {
+      "JosePlaygroundJwsJwePostJoseJsonRequest": {
+        "type": "string",
+        "description": "JWE-encoded string containing a signed JWS. The payload before signing and encryption should contain a \u0060message\u0060 field with any text.\n\nOriginal payload:\n\u0060\u0060\u0060json\n{\u0022message\u0022: \u0022This is an example from docs.wise.com\u0022}\n\u0060\u0060\u0060\n\nEncoded (JWS\u002BJWE):\n\u0060\u0060\u0060\neyJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiUlNBLU9BRVAtMjU2In0.W0fuxaZOoyaBcxWwgtjEPkOnLdVNyH9ncZi5Y9xQbjD4sYJn8vEQmxKHDw5s14sWhdexSNAPTVMSyzwJaA-LRL0tZTEuQ.ohD4LLjImiKOV4Tu.Rgp9mc2JD6m9Zm5htSqrejwWYy0_hIylYdLD39ZCR-VnQ2VX-Tot8kKGeNncnv7hJ_ApANWiJpKJbiM.5hNt-uaxuOkOraGGZSmsig\n\u0060\u0060\u0060\n"
+      },
+      "JosePlaygroundJwsJwePost200JoseJsonResponse": {
+        "type": "string",
+        "description": "JWE-encoded string containing a signed JWS. After decryption (JWE) and signature verification (JWS), the response contains:\n\n- \u0060message\u0060 \u2014 The original message prefixed with \u0060jose-playground-response-\u0060. Message length is limited to 100 characters.\n- \u0060method\u0060 \u2014 Original HTTP request method name: \u0060POST\u0060.\n\nExample of decrypted and decoded response:\n\u0060\u0060\u0060json\n{\n  \u0022message\u0022: \u0022jose-playground-response-This is an example from docs.wise.com\u0022,\n  \u0022method\u0022: \u0022POST\u0022\n}\n\u0060\u0060\u0060\n"
+      },
+      "JosePlaygroundJwsJwePost500Response": {
         "type": "object",
         "properties": {
           "message": {
@@ -48369,11 +48390,15 @@
         "type": "string",
         "description": "JWE-encoded string using direct encryption. The response is encrypted with the original content encryption key from the request.\n\nResponse JOSE headers:\n\u0060\u0060\u0060json\n{\u0022enc\u0022: \u0022A256GCM\u0022, \u0022alg\u0022: \u0022dir\u0022}\n\u0060\u0060\u0060\n\nWhen decrypted, the response contains:\n\n- \u0060message\u0060 \u2014 The original message prefixed with \u0060jose-playground-response-\u0060. Message length is limited to 100 characters.\n- \u0060method\u0060 \u2014 Original HTTP request method name: \u0060POST\u0060.\n\nExample of decrypted response:\n\u0060\u0060\u0060json\n{\n  \u0022message\u0022: \u0022jose-playground-response-This is an example from docs.wise.com\u0022,\n  \u0022method\u0022: \u0022POST\u0022\n}\n\u0060\u0060\u0060\n"
       },
-      "JosePlaygroundJwsJweJoseJsonRequestRequestBody": {
+      "JosePlaygroundJwsJweGet200JoseJsonResponseSchema": {
+        "type": "string",
+        "description": "JWE-encoded string containing a signed JWS. After decryption (JWE) and signature verification (JWS), the response contains:\n\n- \u0060message\u0060 \u2014 The original message prefixed with \u0060jose-playground-response-\u0060. Message length is limited to 100 characters.\n- \u0060method\u0060 \u2014 Original HTTP request method name: \u0060GET\u0060.\n\nExample of decrypted and decoded response:\n\u0060\u0060\u0060json\n{\n  \u0022message\u0022: \u0022jose-playground-response-This is an example from docs.wise.com\u0022,\n  \u0022method\u0022: \u0022GET\u0022\n}\n\u0060\u0060\u0060\n"
+      },
+      "JosePlaygroundJwsJwePostJoseJsonRequestRequestBody": {
         "type": "string",
         "description": "JWE-encoded string containing a signed JWS. The payload before signing and encryption should contain a \u0060message\u0060 field with any text.\n\nOriginal payload:\n\u0060\u0060\u0060json\n{\u0022message\u0022: \u0022This is an example from docs.wise.com\u0022}\n\u0060\u0060\u0060\n\nEncoded (JWS\u002BJWE):\n\u0060\u0060\u0060\neyJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiUlNBLU9BRVAtMjU2In0.W0fuxaZOoyaBcxWwgtjEPkOnLdVNyH9ncZi5Y9xQbjD4sYJn8vEQmxKHDw5s14sWhdexSNAPTVMSyzwJaA-LRL0tZTEuQ.ohD4LLjImiKOV4Tu.Rgp9mc2JD6m9Zm5htSqrejwWYy0_hIylYdLD39ZCR-VnQ2VX-Tot8kKGeNncnv7hJ_ApANWiJpKJbiM.5hNt-uaxuOkOraGGZSmsig\n\u0060\u0060\u0060\n"
       },
-      "JosePlaygroundJwsJwe200JoseJsonResponseSchema": {
+      "JosePlaygroundJwsJwePost200JoseJsonResponseSchema": {
         "type": "string",
         "description": "JWE-encoded string containing a signed JWS. After decryption (JWE) and signature verification (JWS), the response contains:\n\n- \u0060message\u0060 \u2014 The original message prefixed with \u0060jose-playground-response-\u0060. Message length is limited to 100 characters.\n- \u0060method\u0060 \u2014 Original HTTP request method name: \u0060POST\u0060.\n\nExample of decrypted and decoded response:\n\u0060\u0060\u0060json\n{\n  \u0022message\u0022: \u0022jose-playground-response-This is an example from docs.wise.com\u0022,\n  \u0022method\u0022: \u0022POST\u0022\n}\n\u0060\u0060\u0060\n"
       },
@@ -48398,6 +48423,17 @@
           "description": "3-letter currency code (e.g. EUR, GBP, USD)."
         },
         "description": "List of currency codes."
+      },
+      "PaymentInstrumentGetAllPayins200Response": {
+        "type": "object",
+        "properties": {
+          "payins": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PayinSessionPayinInitiationResource"
+            }
+          }
+        }
       },
       "ProfileList200ResponseSchema": {
         "type": "array",
@@ -48775,37 +48811,8 @@
         "type": "object",
         "description": "Map of key lookup fields for the account."
       },
-      "SwiftInRequestSenderAddressAllOf2AddressLine": {
-        "type": "object",
-        "example": "5678 Oak St"
-      },
-      "SwiftInRequestSenderAddressAllOf2City": {
-        "type": "object",
-        "example": "Springfield"
-      },
-      "SwiftInRequestSenderAddressAllOf2PostalCode": {
-        "type": "object",
-        "example": "62704"
-      },
-      "SwiftInRequestSenderAddressAllOf2Country": {
-        "type": "object",
-        "example": "US"
-      },
-      "SwiftInRequestBeneficiaryAddressAllOf2AddressLine": {
-        "type": "object",
-        "example": "1234 Elm St, IL"
-      },
-      "SwiftInRequestBeneficiaryAddressAllOf2City": {
-        "type": "object",
-        "example": "Springfield"
-      },
-      "SwiftInRequestBeneficiaryAddressAllOf2PostalCode": {
-        "type": "object",
-        "example": "62704"
-      },
-      "SwiftInRequestBeneficiaryAddressAllOf2Country": {
-        "type": "object",
-        "example": "US"
+      "ContentSubmissionDataSubmissionDataOtherLocationSubmissionOtherProperty": {
+        "type": "object"
       },
       "BankDetailsAddressAllOf2AddressLine": {
         "type": "object",
@@ -48823,8 +48830,37 @@
         "type": "object",
         "example": "DE"
       },
-      "ContentSubmissionDataSubmissionDataOtherLocationSubmissionOtherProperty": {
-        "type": "object"
+      "SwiftInRequestBeneficiaryAddressAllOf2AddressLine": {
+        "type": "object",
+        "example": "1234 Elm St, IL"
+      },
+      "SwiftInRequestBeneficiaryAddressAllOf2City": {
+        "type": "object",
+        "example": "Springfield"
+      },
+      "SwiftInRequestBeneficiaryAddressAllOf2PostalCode": {
+        "type": "object",
+        "example": "62704"
+      },
+      "SwiftInRequestBeneficiaryAddressAllOf2Country": {
+        "type": "object",
+        "example": "US"
+      },
+      "SwiftInRequestSenderAddressAllOf2AddressLine": {
+        "type": "object",
+        "example": "5678 Oak St"
+      },
+      "SwiftInRequestSenderAddressAllOf2City": {
+        "type": "object",
+        "example": "Springfield"
+      },
+      "SwiftInRequestSenderAddressAllOf2PostalCode": {
+        "type": "object",
+        "example": "62704"
+      },
+      "SwiftInRequestSenderAddressAllOf2Country": {
+        "type": "object",
+        "example": "US"
       },
       "V430DataResourcePreviousInstructingAgentsItemAllOf2Bic": {
         "type": "object",
@@ -53281,6 +53317,28 @@
           ]
         }
       },
+      "AccountOwnerDetailsOwnerType": {
+        "enum": [
+          "PROFILE",
+          "EXTERNAL_PAYER"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "x-ms-enum": {
+          "name": "AccountOwnerDetailsOwnerType",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "PROFILE",
+              "name": "Profile"
+            },
+            {
+              "value": "EXTERNAL_PAYER",
+              "name": "ExternalPayer"
+            }
+          ]
+        }
+      },
       "PersonalType": {
         "enum": [
           "PERSONAL"
@@ -55353,30 +55411,6 @@
           ]
         }
       },
-      "AddressRequirementsResponseItemFieldsItemGroupItemType": {
-        "enum": [
-          "text",
-          "select"
-        ],
-        "type": "string",
-        "additionalProperties": false,
-        "description": "Display type of field.",
-        "example": "select",
-        "x-ms-enum": {
-          "name": "AddressRequirementsResponseItemFieldsItemGroupItemType",
-          "modelAsString": false,
-          "values": [
-            {
-              "value": "text",
-              "name": "Text"
-            },
-            {
-              "value": "select",
-              "name": "Select"
-            }
-          ]
-        }
-      },
       "V40020DataResourceState": {
         "enum": [
           "ACTIVE",
@@ -55576,6 +55610,30 @@
             {
               "value": "FINANCIAL_INSTITUTION_CREDIT_TRANSFER",
               "name": "FinancialInstitutionCreditTransfer"
+            }
+          ]
+        }
+      },
+      "AddressRequirementsResponseItemFieldsItemGroupItemType": {
+        "enum": [
+          "text",
+          "select"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Display type of field.",
+        "example": "select",
+        "x-ms-enum": {
+          "name": "AddressRequirementsResponseItemFieldsItemGroupItemType",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "text",
+              "name": "Text"
+            },
+            {
+              "value": "select",
+              "name": "Select"
             }
           ]
         }
@@ -59281,9 +59339,9 @@
       "x-displayName": "Incoming Transfers"
     },
     {
-      "name": "gpi-tracking",
-      "description": "Look up SWIFT gpi tracking data by UETR or Wise transfer ID. Each match returns the payment\u0027s current status and status reason, the timeline of gpi events reported by the banks in the chain, the agent BICs that handled each leg, the amounts and exchange rate applied at each step, and any charges those banks deducted.\n",
-      "x-displayName": "GPI Tracking"
+      "name": "payment-instruments",
+      "description": "This set of APIs allows you to create and utilize payment instruments for direct debits.",
+      "x-displayName": "Payment Instruments"
     },
     {
       "name": "user",
@@ -59416,7 +59474,8 @@
         "payin-deposit-detail",
         "direct-debit-account",
         "bulk-settlement",
-        "payins"
+        "payins",
+        "payment-instruments"
       ]
     },
     {
@@ -59436,12 +59495,6 @@
       "name": "Cases",
       "tags": [
         "case"
-      ]
-    },
-    {
-      "name": "Tracking",
-      "tags": [
-        "gpi-tracking"
       ]
     }
   ],

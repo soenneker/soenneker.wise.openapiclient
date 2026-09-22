@@ -2,45 +2,53 @@
 #pragma warning disable CS0618
 using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions.Serialization;
+using Microsoft.Kiota.Abstractions;
 using System.Collections.Generic;
 using System.IO;
 using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
-    /// <summary>
-    /// Cancellation request status reported for an event.
-    /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    public partial class GpiTrackingCancellationRequestStatus : IAdditionalDataHolder, IParsable
+    #pragma warning disable CS1591
+    public partial class JosePlaygroundJwsJwePost500Response : ApiException, IAdditionalDataHolder, IParsable
+    #pragma warning restore CS1591
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Whether an indemnity agreement applies to the cancellation request.</summary>
-        public bool? IndemnityAgreement { get; set; }
-        /// <summary>Cancellation reason code, passed through as a SWIFT gpi cancellation reason code. Additional values may be introduced by SWIFT gpi; see the SWIFT gpi code lists.</summary>
+        /// <summary>The primary error message.</summary>
+        public override string Message { get => MessageEscaped ?? string.Empty; }
+        /// <summary>The message property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? ReasonCode { get; set; }
+        public string? MessageEscaped { get; set; }
 #nullable restore
 #else
-        public string ReasonCode { get; set; }
+        public string MessageEscaped { get; set; }
+#endif
+        /// <summary>The request_id property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? RequestId { get; set; }
+#nullable restore
+#else
+        public string RequestId { get; set; }
 #endif
         /// <summary>
-        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.GpiTrackingCancellationRequestStatus"/> and sets the default values.
+        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.JosePlaygroundJwsJwePost500Response"/> and sets the default values.
         /// </summary>
-        public GpiTrackingCancellationRequestStatus()
+        public JosePlaygroundJwsJwePost500Response()
         {
             AdditionalData = new Dictionary<string, object>();
         }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.GpiTrackingCancellationRequestStatus"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.JosePlaygroundJwsJwePost500Response"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static global::Soenneker.Wise.OpenApiClient.Models.GpiTrackingCancellationRequestStatus CreateFromDiscriminatorValue(IParseNode parseNode)
+        public static global::Soenneker.Wise.OpenApiClient.Models.JosePlaygroundJwsJwePost500Response CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.GpiTrackingCancellationRequestStatus();
+            return new global::Soenneker.Wise.OpenApiClient.Models.JosePlaygroundJwsJwePost500Response();
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -50,8 +58,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "indemnityAgreement", n => { IndemnityAgreement = n.GetBoolValue(); } },
-                { "reasonCode", n => { ReasonCode = n.GetStringValue(); } },
+                { "message", n => { MessageEscaped = n.GetStringValue(); } },
+                { "request_id", n => { RequestId = n.GetStringValue(); } },
             };
         }
         /// <summary>
@@ -61,8 +69,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteBoolValue("indemnityAgreement", IndemnityAgreement);
-            writer.WriteStringValue("reasonCode", ReasonCode);
+            writer.WriteStringValue("message", MessageEscaped);
+            writer.WriteStringValue("request_id", RequestId);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

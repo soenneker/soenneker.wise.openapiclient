@@ -7,46 +7,37 @@ using System.IO;
 using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
-    /// <summary>
-    /// Cancellation response status reported for an event.
-    /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    public partial class GpiTrackingCancellationResponseStatus : IAdditionalDataHolder, IParsable
+    #pragma warning disable CS1591
+    public partial class PaymentInstrumentGetAllPayins200Response : IAdditionalDataHolder, IParsable
+    #pragma warning restore CS1591
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Cancellation response code, passed through as a SWIFT gpi cancellation response code. Known values: `CNCL` (cancelled), `PDCR` (pending), `RJCR` (rejected). Additional values may be introduced by SWIFT gpi; see the SWIFT gpi code lists.</summary>
+        /// <summary>The payins property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Code { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.PayinSessionPayinInitiationResource>? Payins { get; set; }
 #nullable restore
 #else
-        public string Code { get; set; }
-#endif
-        /// <summary>Cancellation response reason code, passed through as a SWIFT gpi cancellation response reason code. Present for `PDCR` and `RJCR`.</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? ReasonCode { get; set; }
-#nullable restore
-#else
-        public string ReasonCode { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.PayinSessionPayinInitiationResource> Payins { get; set; }
 #endif
         /// <summary>
-        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.GpiTrackingCancellationResponseStatus"/> and sets the default values.
+        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.PaymentInstrumentGetAllPayins200Response"/> and sets the default values.
         /// </summary>
-        public GpiTrackingCancellationResponseStatus()
+        public PaymentInstrumentGetAllPayins200Response()
         {
             AdditionalData = new Dictionary<string, object>();
         }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.GpiTrackingCancellationResponseStatus"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.PaymentInstrumentGetAllPayins200Response"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static global::Soenneker.Wise.OpenApiClient.Models.GpiTrackingCancellationResponseStatus CreateFromDiscriminatorValue(IParseNode parseNode)
+        public static global::Soenneker.Wise.OpenApiClient.Models.PaymentInstrumentGetAllPayins200Response CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.GpiTrackingCancellationResponseStatus();
+            return new global::Soenneker.Wise.OpenApiClient.Models.PaymentInstrumentGetAllPayins200Response();
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -56,8 +47,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "code", n => { Code = n.GetStringValue(); } },
-                { "reasonCode", n => { ReasonCode = n.GetStringValue(); } },
+                { "payins", n => { Payins = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.PayinSessionPayinInitiationResource>(global::Soenneker.Wise.OpenApiClient.Models.PayinSessionPayinInitiationResource.CreateFromDiscriminatorValue)?.AsList(); } },
             };
         }
         /// <summary>
@@ -67,8 +57,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteStringValue("code", Code);
-            writer.WriteStringValue("reasonCode", ReasonCode);
+            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.PayinSessionPayinInitiationResource>("payins", Payins);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

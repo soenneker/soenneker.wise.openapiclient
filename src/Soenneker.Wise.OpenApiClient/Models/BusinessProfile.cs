@@ -17,10 +17,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Address associated with a profile.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.Address2? Address { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.Address3? Address { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.Address2 Address { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.Address3 Address { get; set; }
 #endif
         /// <summary>Free-form description of the business activities.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -107,10 +107,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>An array of operational addresses for the business.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.Address2>? OperationalAddresses { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.Address3>? OperationalAddresses { get; set; }
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.Address2> OperationalAddresses { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.Address3> OperationalAddresses { get; set; }
 #endif
         /// <summary>Publicly accessible identifier for the profile.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -176,7 +176,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "address", n => { Address = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Address2>(global::Soenneker.Wise.OpenApiClient.Models.Address2.CreateFromDiscriminatorValue); } },
+                { "address", n => { Address = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Address3>(global::Soenneker.Wise.OpenApiClient.Models.Address3.CreateFromDiscriminatorValue); } },
                 { "businessFreeFormDescription", n => { BusinessFreeFormDescription = n.GetStringValue(); } },
                 { "businessName", n => { BusinessName = n.GetStringValue(); } },
                 { "companyRole", n => { CompanyRole = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BusinessProfileCompanyRole>(); } },
@@ -190,7 +190,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "fullName", n => { FullName = n.GetStringValue(); } },
                 { "id", n => { Id = n.GetLongValue(); } },
                 { "industryCategories", n => { IndustryCategories = n.GetCollectionOfPrimitiveValues<string>()?.AsList(); } },
-                { "operationalAddresses", n => { OperationalAddresses = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.Address2>(global::Soenneker.Wise.OpenApiClient.Models.Address2.CreateFromDiscriminatorValue)?.AsList(); } },
+                { "operationalAddresses", n => { OperationalAddresses = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.Address3>(global::Soenneker.Wise.OpenApiClient.Models.Address3.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "publicId", n => { PublicId = n.GetStringValue(); } },
                 { "registrationNumber", n => { RegistrationNumber = n.GetStringValue(); } },
                 { "secondLevelCategory", n => { SecondLevelCategory = n.GetStringValue(); } },
@@ -207,7 +207,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Address2>("address", Address);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Address3>("address", Address);
             writer.WriteStringValue("businessFreeFormDescription", BusinessFreeFormDescription);
             writer.WriteStringValue("businessName", BusinessName);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BusinessProfileCompanyRole>("companyRole", CompanyRole);
@@ -221,7 +221,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteStringValue("fullName", FullName);
             writer.WriteLongValue("id", Id);
             writer.WriteCollectionOfPrimitiveValues<string>("industryCategories", IndustryCategories);
-            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.Address2>("operationalAddresses", OperationalAddresses);
+            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.Address3>("operationalAddresses", OperationalAddresses);
             writer.WriteStringValue("publicId", PublicId);
             writer.WriteStringValue("registrationNumber", RegistrationNumber);
             writer.WriteStringValue("secondLevelCategory", SecondLevelCategory);

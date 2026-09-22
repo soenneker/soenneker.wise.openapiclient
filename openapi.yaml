@@ -1412,14 +1412,11 @@ tags:
       An incoming transfer represents a payment received into a Wise balance via
       a supported payment rail (SWIFT, SEPA, Faster Payments, ACH, or the Wise
       network).
-  - name: gpi-tracking
-    x-displayName: GPI Tracking
-    description: >
-      Look up SWIFT gpi tracking data by UETR or Wise transfer ID. Each match
-      returns the payment's current status and status reason, the timeline of
-      gpi events reported by the banks in the chain, the agent BICs that handled
-      each leg, the amounts and exchange rate applied at each step, and any
-      charges those banks deducted.
+  - name: payment-instruments
+    x-displayName: Payment Instruments
+    description: >-
+      This set of APIs allows you to create and utilize payment instruments for
+      direct debits.
   - name: user
     x-displayName: Users
     description: >
@@ -1546,6 +1543,7 @@ x-tagGroups:
       - direct-debit-account
       - bulk-settlement
       - payins
+      - payment-instruments
   - name: Webhooks
     tags:
       - webhook
@@ -1556,9 +1554,6 @@ x-tagGroups:
   - name: Cases
     tags:
       - case
-  - name: Tracking
-    tags:
-      - gpi-tracking
 paths:
   /spend/profiles/{profileId}/3dsecure/challenge-result:
     post:
@@ -9418,8 +9413,126 @@ paths:
         '429':
           $ref: '#/components/responses/429'
   /auth/jose/playground/jwsjwe:
+    get:
+      operationId: josePlaygroundJwsJweGet
+      summary: Playground JWS+JWE for GET requests
+      description: >
+        Send test signed and encrypted HTTP requests and receive signed and
+        encrypted responses. Both signing and encryption are mandatory for this
+        endpoint. The request must be a JSON Web Signature (JWS) wrapped in JSON
+        Web Encryption (JWE) — any message that does not follow this format will
+        be rejected.
+
+
+        The flow combines both JWS and JWE:
+
+        1. **Request**: Send request to Wise, setting the correct jose method
+        header and setting a valid Encryption Key ID in the relevant header.
+
+        2. **Response**: Receive encrypted response → Decrypt (JWE) → Verify
+        signature (JWS)
+
+
+        {% admonition type="warning" name="" %}
+
+        Currently, the Wise API returns a generic 500 Internal Server Error for
+        decryption failures across endpoints using JWE and JWS+JWE. For example,
+        an invalid key can cause a decryption failure.
+
+
+        Our team is currently planning improvements for these types of error
+        messages to make them more specific and clear. Thank you for your
+        patience.
+
+        {% /admonition %}
+      tags:
+        - jose
+      parameters:
+        - name: Accept
+          in: header
+          required: true
+          schema:
+            type: string
+            enum:
+              - application/jose+json
+          example: application/jose+json
+        - name: x-tw-jose-method
+          in: header
+          required: true
+          description: JOSE method identifier.
+          schema:
+            type: string
+            enum:
+              - jws+jwe
+          example: jws+jwe
+        - name: X-TW-JOSE-Encryption-kid
+          in: header
+          required: true
+          description: >-
+            ID of the public JWE key uploaded to Wise for encrypting the
+            response.
+          schema:
+            type: string
+            format: uuid
+          example: 2333836d-2e1c-4acd-8b52-234d379260aa
+        - $ref: '#/components/parameters/X-External-Correlation-Id'
+      security:
+        - ClientCredentialsToken: []
+      responses:
+        '200':
+          description: Signed and encrypted response.
+          content:
+            application/jose+json:
+              schema:
+                type: string
+                description: >
+                  JWE-encoded string containing a signed JWS. After decryption
+                  (JWE) and signature verification (JWS), the response contains:
+
+
+                  - `message` — The original message prefixed with
+                  `jose-playground-response-`. Message length is limited to 100
+                  characters.
+
+                  - `method` — Original HTTP request method name: `GET`.
+
+
+                  Example of decrypted and decoded response:
+
+                  ```json
+
+                  {
+                    "message": "jose-playground-response-This is an example from docs.wise.com",
+                    "method": "GET"
+                  }
+
+                  ```
+              example: >-
+                eyJraWQiOiJiMzc0ODE1MC0xNGQ0LTRlMDAtYjM5NC03YWUwYzkzYmUyNDUiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiUlNBLU9BRVAtMjU2In0.VGhpcyBpcyB0aGUgZW5jcnlwdGVkIENFSw.aXZfdmFsdWU.ZW5jcnlwdGVkX3BheWxvYWQ.YXV0aF90YWc
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              examples:
+                unexpectedError:
+                  summary: Unexpected server error
+                  value:
+                    message: An unexpected error occurred
+                    request_id: c29beb2374156c390c06fb583e99c999
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
     post:
-      operationId: josePlaygroundJwsJwe
+      operationId: josePlaygroundJwsJwePost
       summary: Playground JWS+JWE
       description: >
         Send test signed and encrypted HTTP requests and receive signed and
@@ -9566,21 +9679,6 @@ paths:
                   ```
               example: >-
                 eyJraWQiOiJiMzc0ODE1MC0xNGQ0LTRlMDAtYjM5NC03YWUwYzkzYmUyNDUiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiUlNBLU9BRVAtMjU2In0.VGhpcyBpcyB0aGUgZW5jcnlwdGVkIENFSw.aXZfdmFsdWU.ZW5jcnlwdGVkX3BheWxvYWQ.YXV0aF90YWc
-          headers:
-            X-External-Correlation-Id:
-              $ref: '#/components/headers/X-External-Correlation-Id'
-            x-trace-id:
-              $ref: '#/components/headers/x-trace-id'
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              examples:
-                jwsError:
-                  summary: Unable to verify request signature
-                  value:
-                    error: jws_error
-                    error_description: Unable to verify the request signature
           headers:
             X-External-Correlation-Id:
               $ref: '#/components/headers/X-External-Correlation-Id'
@@ -13369,6 +13467,202 @@ paths:
               $ref: '#/components/headers/x-trace-id'
         '429':
           $ref: '#/components/responses/429'
+  /profiles/{profileId}/payment-instruments:
+    post:
+      operationId: paymentInstrumentsCreate
+      description: |
+        Creates a payment-instrument
+      security:
+        - UserToken: []
+      tags:
+        - payment-instruments
+      parameters:
+        - in: path
+          name: profileId
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - $ref: '#/components/parameters/X-External-Correlation-Id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InitialiseInstrumentRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentInstrumentDetailsResource'
+          description: OK
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '429':
+          $ref: '#/components/responses/429'
+      summary: Create instrument
+  /profiles/{profileId}/payment-instruments/{paymentInstrumentId}:
+    get:
+      operationId: paymentInstrumentsGet
+      description: |
+        Retrieves a payment instrument.
+      security:
+        - UserToken: []
+      tags:
+        - payment-instruments
+      parameters:
+        - in: path
+          name: profileId
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - in: path
+          name: paymentInstrumentId
+          required: true
+          schema:
+            type: string
+        - $ref: '#/components/parameters/X-External-Correlation-Id'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentInstrumentDetailsResource'
+          description: OK
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '429':
+          $ref: '#/components/responses/429'
+      summary: Get payment instrument
+  /profiles/{profileId}/payment-instruments/{paymentInstrumentId}/manual-confirmation:
+    post:
+      operationId: paymentInstrumentConfirm
+      description: |
+        Manually confirms a payment instrument
+      security:
+        - UserToken: []
+      tags:
+        - payment-instruments
+      parameters:
+        - in: path
+          name: profileId
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - in: path
+          name: paymentInstrumentId
+          required: true
+          schema:
+            type: string
+        - $ref: '#/components/parameters/X-External-Correlation-Id'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentInstrumentDetailsResource'
+          description: OK
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '429':
+          $ref: '#/components/responses/429'
+      summary: Confirm instrument
+  /profiles/{profileId}/payment-instruments/{paymentInstrumentId}/payins:
+    get:
+      operationId: paymentInstrumentGetAllPayins
+      description: |
+        Get all payins for a given payment instrument
+      security:
+        - UserToken: []
+      tags:
+        - payment-instruments
+      parameters:
+        - in: path
+          name: profileId
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - in: path
+          name: paymentInstrumentId
+          required: true
+          schema:
+            type: string
+        - $ref: '#/components/parameters/X-External-Correlation-Id'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  payins:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PayinSessionPayinInitiationResource'
+          description: OK
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '429':
+          $ref: '#/components/responses/429'
+      summary: Get all payins for a given payment instrument
+    post:
+      operationId: paymentInstrumentCreatePayin
+      description: |
+        Create a payin for payment instrument
+      security:
+        - UserToken: []
+      tags:
+        - payment-instruments
+      parameters:
+        - in: path
+          name: profileId
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - in: path
+          name: paymentInstrumentId
+          required: true
+          schema:
+            type: string
+        - $ref: '#/components/parameters/X-External-Correlation-Id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PayinSessionPayinInitiationRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayinSessionPayinInitiationResource'
+          description: OK
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '429':
+          $ref: '#/components/responses/429'
+      summary: Create payin
   /profiles/{profileId}/transfers/{transferId}/deposit-details/bank-transfer:
     get:
       operationId: payinDepositDetailGet
@@ -23588,73 +23882,6 @@ paths:
         - UserToken: []
       tags:
         - incoming-transfer
-  /gpi-tracking:
-    post:
-      description: >-
-        Looks up GPI tracking data for a transfer identified by `identifierType`
-        and `identifier`.
-      summary: Look up GPI tracking
-      operationId: LookupGpiTracking
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/LookupGpiTrackingRequestContent'
-            examples:
-              lookup-by-transfer-id:
-                summary: Look up GPI tracking by transfer ID
-                value:
-                  identifierType: TRANSFER_ID
-                  identifier: '16521632'
-              lookup-by-uetr:
-                summary: Look up GPI tracking by UETR
-                value:
-                  identifierType: UETR
-                  identifier: 97ed4827-7b6f-4491-a206-42bcf859a919
-        required: true
-      responses:
-        '200':
-          description: Returns matching GPI tracking transactions.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LookupGpiTrackingResponseContent'
-              examples:
-                tracking-found:
-                  summary: GPI tracking data found
-                  value:
-                    transactions:
-                      - uetr: 97ed4827-7b6f-4491-a206-42bcf859a919
-                        status: ACSP
-                        cancellationStatus: CANCELLATION_REJECTED
-                        initiatedAt: '2023-09-18T12:05:50Z'
-                        lastUpdatedAt: '2023-09-18T12:13:33.314Z'
-                        events:
-                          - status: ACSP
-                            statusReason:
-                              code: G001
-                              settlementMethod:
-                                code: INGA
-                              instructedAgent: LHVBEE22XXX
-                              chargeBearer: SHAR
-                            statusTime: '2023-09-18T12:13:33.314Z'
-                            amountInconsistency: false
-                            eventType: CANCELLATION_RESPONSE
-                            eventTarget: CREDIT_TRANSFER
-                            eventCreationTime: '2023-09-18T12:13:33.348Z'
-          headers:
-            X-External-Correlation-Id:
-              $ref: '#/components/headers/X-External-Correlation-Id'
-            x-trace-id:
-              $ref: '#/components/headers/x-trace-id'
-        '429':
-          $ref: '#/components/responses/429'
-      security:
-        - ClientCredentialsToken: []
-      tags:
-        - gpi-tracking
-      parameters:
-        - $ref: '#/components/parameters/X-External-Correlation-Id'
   /me:
     get:
       tags:
@@ -31079,6 +31306,125 @@ components:
             detail: 'Cannot submit message for case in final state: RESOLVED'
             instance: /public/v2/cases/12345678/messages
             code: operation_not_supported
+    Address-2:
+      type: object
+      properties:
+        addressFirstLine:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        postCode:
+          type: string
+        state:
+          type: string
+    AccountOwnerDetails:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address-2'
+        email:
+          type: string
+          format: email
+          maxLength: 254
+          minLength: 0
+        ownerId:
+          type: string
+        ownerType:
+          type: string
+          enum:
+            - PROFILE
+            - EXTERNAL_PAYER
+    InitialiseInstrumentRequest:
+      type: object
+      properties:
+        accountHolderName:
+          type: string
+        accountNumber:
+          type: string
+        accountOwnerDetails:
+          $ref: '#/components/schemas/AccountOwnerDetails'
+        accountType:
+          type: string
+        bankCode:
+          type: string
+        branchCode:
+          type: string
+        reference:
+          type: string
+        type:
+          type: string
+      required:
+        - accountNumber
+        - type
+    AccountOwnerDetailsDto:
+      type: object
+      properties:
+        city:
+          type: string
+        companyName:
+          type: string
+        country:
+          type: string
+        firstLine:
+          type: string
+        postCode:
+          type: string
+        state:
+          type: string
+    PaymentInstrumentDetailsResource:
+      type: object
+      properties:
+        accountNumber:
+          type: string
+        accountOwnerDetails:
+          $ref: '#/components/schemas/AccountOwnerDetailsDto'
+        bankCode:
+          type: string
+        bankName:
+          type: string
+        branchCode:
+          type: string
+        disconnectReason:
+          type: string
+        id:
+          type: string
+          format: uuid
+        reference:
+          type: string
+        status:
+          type: string
+        type:
+          type: string
+    PayinSessionPayinInitiationResource:
+      type: object
+      properties:
+        amount:
+          type: number
+        currency:
+          type: string
+        failureReason:
+          type: string
+        id:
+          type: string
+        payinSessionId:
+          type: string
+        paymentInstrumentId:
+          type: string
+        reference:
+          type: string
+        status:
+          type: string
+    PayinSessionPayinInitiationRequest:
+      type: object
+      properties:
+        payinSessionId:
+          type: string
+        reference:
+          type: string
+      required:
+        - payinSessionId
     address:
       type: object
       description: Address associated with a profile.
@@ -32679,7 +33025,7 @@ components:
                       type: string
                       description: The recommended value for the field.
                       example: Joe Doe
-    Address-2:
+    Address-3:
       type: object
       properties:
         addressFirstLine:
@@ -32781,11 +33127,11 @@ components:
         senderAddress:
           maxLength: 255
           description: Sender address.
-          $ref: '#/components/schemas/Address-2'
+          $ref: '#/components/schemas/Address-3'
         beneficiaryAddress:
           description: Beneficiary address.
-          $ref: '#/components/schemas/Address-2'
-    Address-3:
+          $ref: '#/components/schemas/Address-3'
+    Address-4:
       type: object
       properties:
         addressLine:
@@ -32865,7 +33211,7 @@ components:
         address:
           description: Address of the sender's bank.
           allOf:
-            - $ref: '#/components/schemas/Address-3'
+            - $ref: '#/components/schemas/Address-4'
             - type: object
               properties:
                 addressLine:
@@ -32958,7 +33304,7 @@ components:
             address:
               description: Address of the sender's bank.
               allOf:
-                - $ref: '#/components/schemas/Address-3'
+                - $ref: '#/components/schemas/Address-4'
                 - type: object
                   properties:
                     addressLine:
@@ -33029,7 +33375,7 @@ components:
         beneficiaryAddress:
           description: Address of the ultimate beneficiary.
           allOf:
-            - $ref: '#/components/schemas/Address-3'
+            - $ref: '#/components/schemas/Address-4'
             - type: object
               properties:
                 addressLine:
@@ -33065,7 +33411,7 @@ components:
         senderAddress:
           description: Address of the sender.
           allOf:
-            - $ref: '#/components/schemas/Address-3'
+            - $ref: '#/components/schemas/Address-4'
             - type: object
               properties:
                 addressLine:
@@ -34083,7 +34429,7 @@ components:
           type: string
           description: Payment originator full legal name
           example: John Godspeed
-    Address-4:
+    Address-5:
       type: object
       properties:
         firstLine:
@@ -34150,7 +34496,7 @@ components:
           description: Payment originator account number
           example: '23456789'
         address:
-          $ref: '#/components/schemas/Address-4'
+          $ref: '#/components/schemas/Address-5'
           description: Payment originator address
       required:
         - address
@@ -34201,7 +34547,7 @@ components:
           description: Payment originator account number
           example: '23456789'
         address:
-          $ref: '#/components/schemas/Address-4'
+          $ref: '#/components/schemas/Address-5'
           description: Payment originator address
       required:
         - address
@@ -35204,458 +35550,6 @@ components:
         - profileId
         - scheme
         - state
-    GpiTrackingIdentifierType:
-      type: string
-      description: The type of identifier used to look up a transfer's GPI tracking data.
-      enum:
-        - UETR
-        - TRANSFER_ID
-    LookupGpiTrackingRequestContent:
-      type: object
-      description: Identify the transfer to look up by `UETR` or `TRANSFER_ID`.
-      properties:
-        identifierType:
-          $ref: '#/components/schemas/GpiTrackingIdentifierType'
-          description: The type of identifier used to look up the transfer.
-        identifier:
-          type: string
-          minLength: 1
-          description: >-
-            The UETR or Wise transfer ID of the transfer to look up, matching
-            `identifierType`. Must be a UUID (e.g.
-            `97ed4827-7b6f-4491-a206-42bcf859a919`) when `identifierType` is
-            `UETR`, or a positive integer (int64) (e.g. `16521632`) when
-            `identifierType` is `TRANSFER_ID`.
-          example: 97ed4827-7b6f-4491-a206-42bcf859a919
-      required:
-        - identifier
-        - identifierType
-    GpiTrackingSettlementMethod:
-      type: object
-      description: Settlement method reported for an ACSP sub-status.
-      properties:
-        code:
-          type: string
-          description: >-
-            Settlement method code, passed through as a SWIFT gpi settlement
-            method code. Known values: `INDA`, `INGA`, `COVE`, `CLRG`.
-            Additional values may be introduced by SWIFT gpi; see the SWIFT gpi
-            code lists.
-          example: INGA
-        clearingSystem:
-          type: string
-          description: Clearing system, present when the settlement method is `CLRG`.
-          example: CHI
-    GpiTrackingStatusReason:
-      type: object
-      description: SWIFT gpi ACSP sub-status (transaction_status_reason).
-      properties:
-        code:
-          type: string
-          description: >-
-            Sub-status code, passed through as a SWIFT gpi transaction status
-            reason code. Known values: `G000`, `G001`, `G002`, `G003`, `G004`,
-            `G005`, `G006`. Additional values may be introduced by SWIFT gpi;
-            see the SWIFT gpi code lists.
-          example: G002
-        settlementMethod:
-          $ref: '#/components/schemas/GpiTrackingSettlementMethod'
-          description: Settlement method. Present for `G000`, `G001`, `G005`, `G006`.
-        instructedAgent:
-          type: string
-          description: >-
-            BIC the transaction was forwarded to. Present for `G000`, `G001`,
-            `G005`, `G006`.
-          example: TSPABEB0002
-        chargeBearer:
-          type: string
-          description: Charge bearer code. Present for `G000`, `G001`, `G005`, `G006`.
-          example: SHAR
-    GpiTrackingMoney:
-      type: object
-      description: A monetary value represented using the GPI tracking wire format.
-      properties:
-        amount:
-          type: number
-          minimum: 0
-          exclusiveMinimum: 0
-          description: Non-negative monetary amount.
-          format: decimal
-          example: 250.45
-        currency:
-          type: string
-          maxLength: 3
-          minLength: 3
-          pattern: ^[A-Z]{3}$
-          description: ISO 4217 currency code.
-          example: EUR
-    GpiTrackingCancellationStatus:
-      type: string
-      description: Cancellation status of a tracked transaction.
-      enum:
-        - CANCELLED
-        - PENDING_CANCELLATION
-        - CANCELLATION_REJECTED
-    GpiTrackingCancellationRequestStatus:
-      type: object
-      description: Cancellation request status reported for an event.
-      properties:
-        reasonCode:
-          type: string
-          description: >-
-            Cancellation reason code, passed through as a SWIFT gpi cancellation
-            reason code. Additional values may be introduced by SWIFT gpi; see
-            the SWIFT gpi code lists.
-          example: CUST
-        indemnityAgreement:
-          type: boolean
-          description: Whether an indemnity agreement applies to the cancellation request.
-          example: false
-    GpiTrackingCancellationResponseStatus:
-      type: object
-      description: Cancellation response status reported for an event.
-      properties:
-        code:
-          type: string
-          description: >-
-            Cancellation response code, passed through as a SWIFT gpi
-            cancellation response code. Known values: `CNCL` (cancelled), `PDCR`
-            (pending), `RJCR` (rejected). Additional values may be introduced by
-            SWIFT gpi; see the SWIFT gpi code lists.
-          example: RJCR
-        reasonCode:
-          type: string
-          description: >-
-            Cancellation response reason code, passed through as a SWIFT gpi
-            cancellation response reason code. Present for `PDCR` and `RJCR`.
-          example: LEGL
-    GpiTrackingCharge:
-      type: object
-      description: A charge applied while processing the transaction.
-      properties:
-        amount:
-          $ref: '#/components/schemas/GpiTrackingMoney'
-          description: Charge amount.
-        bic:
-          type: string
-          description: BIC of the charging agent.
-          example: TRCKCHZ0XXX
-        name:
-          type: string
-          description: Name of the charging agent.
-          example: Example Correspondent Bank
-    GpiTrackingEvent:
-      type: object
-      description: An event reported for a tracked transaction.
-      properties:
-        status:
-          type: string
-          description: >-
-            Status conveyed by this event, passed through as a SWIFT gpi
-            transaction status code. Known values: `ACSP` (accepted, settlement
-            in progress), `ACCC` (accepted, settlement completed), `RJCT`
-            (rejected). Additional values may be introduced by SWIFT gpi; see
-            the SWIFT gpi code lists.
-          example: ACSP
-        statusReason:
-          $ref: '#/components/schemas/GpiTrackingStatusReason'
-          description: Sub-status detail, present when status is `ACSP`.
-        statusTime:
-          type: string
-          description: >-
-            When this status was reached. Present when status is `ACSP` or
-            `RJCT`.
-          format: date-time
-          example: '2023-09-18T12:13:33.314Z'
-        confirmedAt:
-          type: string
-          description: >-
-            When the funds were made available to the creditor. Present when
-            status is `ACCC`.
-          format: date-time
-          example: '2023-09-18T12:13:33.314Z'
-        confirmedAmount:
-          $ref: '#/components/schemas/GpiTrackingMoney'
-          description: >-
-            Amount credited to the creditor's account. Present when status is
-            `ACCC`.
-        rejectionReason:
-          type: string
-          description: >-
-            Rejection reason code, passed through as a SWIFT gpi rejection
-            reason code (ISO 20022 external return/reason code). Present when
-            status is `RJCT`. Known values include `AC04` (closed account
-            number), `AC06` (blocked account), `AM09` (wrong amount), `BE01`
-            (inconsistent with end customer), `RR04` (regulatory reason).
-            Additional values may be introduced by SWIFT gpi; see the SWIFT gpi
-            code lists.
-          example: AC04
-        instructedAmount:
-          $ref: '#/components/schemas/GpiTrackingMoney'
-          description: Amount as instructed at this hop.
-        settledAmount:
-          $ref: '#/components/schemas/GpiTrackingMoney'
-          description: Amount as settled at this hop.
-        amountInconsistency:
-          type: boolean
-          description: Whether instructed and settled amounts are inconsistent.
-          example: false
-        settlementDate:
-          type: string
-          description: Settlement date of this event.
-          format: date
-          example: '2023-09-18'
-        sourceCurrency:
-          type: string
-          maxLength: 3
-          minLength: 3
-          pattern: ^[A-Z]{3}$
-          description: Source currency of the exchange, if any.
-          example: EUR
-        targetCurrency:
-          type: string
-          maxLength: 3
-          minLength: 3
-          pattern: ^[A-Z]{3}$
-          description: Target currency of the exchange, if any.
-          example: GBP
-        exchangeRate:
-          type: number
-          minimum: 0
-          exclusiveMinimum: 0
-          description: Exchange rate applied between the source and target currencies.
-          format: decimal
-          example: 0.8501
-        chargeBearer:
-          type: string
-          description: >-
-            Charge bearer indicator, passed through as a SWIFT gpi charge bearer
-            code. Known values: `DEBT`, `CRED`, `SHAR`, `SLEV`. Additional
-            values may be introduced by SWIFT gpi; see the SWIFT gpi code lists.
-          example: SHAR
-        endToEndId:
-          type: string
-          description: End-to-end identifier.
-          example: 802.0GC9A9E78ABD
-        messageNameIdentification:
-          type: string
-          description: Message name identification (ISO 20022 message type).
-          example: pacs.008.001.08
-        instructionId:
-          type: string
-          description: Instruction identifier.
-          example: '0918121252010240'
-        returnReason:
-          type: string
-          description: >-
-            Return reason code associated with this event, passed through as a
-            SWIFT gpi return reason code (ISO 20022 external return/reason
-            code). Known values include `AC04` (closed account number), `AC06`
-            (blocked account), `AM09` (wrong amount), `BE01` (inconsistent with
-            end customer), `RR04` (regulatory reason). Additional values may be
-            introduced by SWIFT gpi; see the SWIFT gpi code lists.
-          example: AC04
-        eventType:
-          type: string
-          description: >-
-            Type of the tracking event, passed through as a SWIFT gpi tracker
-            event type code. Known values: `PAYMENT`, `STATUS_UPDATE`,
-            `CANCELLATION_REQUEST`, `CANCELLATION_RESPONSE`,
-            `CANCELLATION_REQUEST_STATUS_UPDATE`. Additional values may be
-            introduced by SWIFT gpi; see the SWIFT gpi code lists.
-          example: CANCELLATION_RESPONSE
-        eventTarget:
-          type: string
-          description: >-
-            Target of the tracking event, passed through as a SWIFT gpi tracker
-            event target code. Known values: `CREDIT_TRANSFER`,
-            `CREDIT_TRANSFER_RETURN`, `CREDIT_TRANSFER_COVER`,
-            `CREDIT_TRANSFER_COVER_RETURN`,
-            `FINANCIAL_INSTITUTION_CREDIT_TRANSFER`,
-            `FINANCIAL_INSTITUTION_CREDIT_TRANSFER_RETURN`,
-            `FINANCIAL_INSTITUTION_CREDIT_TRANSFER_COVER`,
-            `FINANCIAL_INSTITUTION_CREDIT_TRANSFER_COVER_RETURN`. Additional
-            values may be introduced by SWIFT gpi; see the SWIFT gpi code lists.
-          example: CREDIT_TRANSFER
-        cancellationRequestStatus:
-          $ref: '#/components/schemas/GpiTrackingCancellationRequestStatus'
-          description: Cancellation request status conveyed by this event.
-        cancellationResponseStatus:
-          $ref: '#/components/schemas/GpiTrackingCancellationResponseStatus'
-          description: Cancellation response status conveyed by this event.
-        cancellationRequestTrackingStatus:
-          type: string
-          description: >-
-            Cancellation request tracking status conveyed by this event, passed
-            through as a SWIFT gpi cancellation request tracking status code.
-            Known values: `S000`, `S001`, `S002`, `S003`, `S004`. Additional
-            values may be introduced by SWIFT gpi; see the SWIFT gpi code lists.
-          example: S004
-        serviceLevel:
-          type: string
-          description: >-
-            Service level of the transaction, passed through as a SWIFT gpi
-            service level code. Known values: `G001`, `G002`, `G004`, `G005`,
-            `G009`. Additional values may be introduced by SWIFT gpi; see the
-            SWIFT gpi code lists.
-          example: G002
-        instructedAgent:
-          type: string
-          description: Instructed agent BIC.
-          example: TSPABEB0002
-        from:
-          type: string
-          description: Sending agent BIC.
-          example: TRCKCHZ0XXX
-        to:
-          type: string
-          description: Receiving agent BIC.
-          example: TSPABEB0002
-        trackerInformingParty:
-          type: string
-          description: Party informing the tracker.
-          example: ZYZAGB20XXX
-        debtorAgent:
-          type: string
-          description: Debtor agent BIC.
-          example: DEUTDEFFXXX
-        creditorAgent:
-          type: string
-          description: Creditor agent BIC.
-          example: BARCGB22XXX
-        instructingReimbursementAgent:
-          type: string
-          description: Instructing reimbursement agent BIC.
-          example: CHASUS33XXX
-        previousInstructingAgent1:
-          type: string
-          description: Previous instructing agent 1 BIC.
-          example: BOFAUS3NXXX
-        previousInstructingAgent2:
-          type: string
-          description: Previous instructing agent 2 BIC.
-          example: CITIUS33XXX
-        previousInstructingAgent3:
-          type: string
-          description: Previous instructing agent 3 BIC.
-          example: NWBKGB2LXXX
-        intermediaryAgent1:
-          type: string
-          description: Intermediary agent 1 BIC.
-          example: DEUTDEFFXXX
-        intermediaryAgent2:
-          type: string
-          description: Intermediary agent 2 BIC.
-          example: BNPAFRPPXXX
-        intermediaryAgent3:
-          type: string
-          description: Intermediary agent 3 BIC.
-          example: INGBNL2AXXX
-        charges:
-          type: array
-          items:
-            $ref: '#/components/schemas/GpiTrackingCharge'
-          description: Charges applied at this hop. Omitted when there are none.
-        eventCreationTime:
-          type: string
-          description: When this event was created.
-          format: date-time
-          example: '2023-09-18T12:13:33.348Z'
-    GpiTracking:
-      type: object
-      description: GPI tracking data for a transaction.
-      properties:
-        uetr:
-          type: string
-          description: The UETR of the tracked transaction.
-          example: 97ed4827-7b6f-4491-a206-42bcf859a919
-        status:
-          type: string
-          description: >-
-            Overall tracking status of the transaction, passed through as a
-            SWIFT gpi transaction status code. Known values: `ACSP` (accepted,
-            settlement in progress), `ACCC` (accepted, settlement completed),
-            `RJCT` (rejected). Additional values may be introduced by SWIFT gpi;
-            see the SWIFT gpi code lists.
-          example: ACSP
-        statusReason:
-          $ref: '#/components/schemas/GpiTrackingStatusReason'
-          description: Sub-status detail, present when status is `ACSP`.
-        statusTime:
-          type: string
-          description: >-
-            When this status was reached. Present when status is `ACSP` or
-            `RJCT`.
-          format: date-time
-          example: '2023-09-18T12:13:33.314Z'
-        confirmedAt:
-          type: string
-          description: >-
-            When the funds were made available to the creditor. Present when
-            status is `ACCC`.
-          format: date-time
-          example: '2023-09-18T12:13:33.314Z'
-        confirmedAmount:
-          $ref: '#/components/schemas/GpiTrackingMoney'
-          description: >-
-            Amount credited to the creditor's account. Present when status is
-            `ACCC`.
-        rejectionReason:
-          type: string
-          description: >-
-            Rejection reason code, passed through as a SWIFT gpi rejection
-            reason code (ISO 20022 external return/reason code). Present when
-            status is `RJCT`. Known values include `AC04` (closed account
-            number), `AC06` (blocked account), `AM09` (wrong amount), `BE01`
-            (inconsistent with end customer), `RR04` (regulatory reason).
-            Additional values may be introduced by SWIFT gpi; see the SWIFT gpi
-            code lists.
-          example: AC04
-        cancellationStatus:
-          $ref: '#/components/schemas/GpiTrackingCancellationStatus'
-          description: >-
-            Cancellation status, when a cancellation has been requested or
-            resolved.
-        returnReason:
-          type: string
-          description: >-
-            Return reason code, present when the transaction was returned or
-            rejected, passed through as a SWIFT gpi return reason code (ISO
-            20022 external return/reason code). Known values include `AC04`
-            (closed account number), `AC06` (blocked account), `AM09` (wrong
-            amount), `BE01` (inconsistent with end customer), `RR04` (regulatory
-            reason). Additional values may be introduced by SWIFT gpi; see the
-            SWIFT gpi code lists.
-          example: AC04
-        initiatedAt:
-          type: string
-          description: When transaction tracking was initiated.
-          format: date-time
-          example: '2023-09-18T12:05:50Z'
-        completedAt:
-          type: string
-          description: When the transaction reached a completed state.
-          format: date-time
-          example: '2023-09-18T12:13:33.314Z'
-        lastUpdatedAt:
-          type: string
-          description: When the tracking record was last updated.
-          format: date-time
-          example: '2023-09-18T12:13:33.314Z'
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/GpiTrackingEvent'
-          description: Ordered tracking events, latest first.
-    LookupGpiTrackingResponseContent:
-      type: object
-      description: The matching GPI tracking transactions.
-      properties:
-        transactions:
-          type: array
-          items:
-            $ref: '#/components/schemas/GpiTracking'
-          description: The matching GPI tracking transactions.
     user:
       title: User
       type: object
@@ -41124,7 +41018,7 @@ components:
               format: date-time
               description: When the case update occurred.
               example: '2023-06-23T09:45:34Z'
-    Address-5:
+    Address-6:
       type: object
       description: Structured address details.
       properties:
@@ -41198,7 +41092,7 @@ components:
             Identifier within the clearing system specified by
             `clearing_system_code`.
         address:
-          $ref: '#/components/schemas/Address-5'
+          $ref: '#/components/schemas/Address-6'
           description: Bank or financial institution address.
     Party:
       type: object
@@ -41209,7 +41103,7 @@ components:
           minLength: 1
           maxLength: 140
         address:
-          $ref: '#/components/schemas/Address-5'
+          $ref: '#/components/schemas/Address-6'
           description: Party address.
         account:
           type: string
@@ -41310,7 +41204,7 @@ components:
                 Identifier within the clearing system specified by
                 `clearing_system_code`.
             address:
-              $ref: '#/components/schemas/Address-5'
+              $ref: '#/components/schemas/Address-6'
               description: Bank or financial institution address.
         Party:
           type: object
@@ -41321,7 +41215,7 @@ components:
               minLength: 1
               maxLength: 140
             address:
-              $ref: '#/components/schemas/Address-5'
+              $ref: '#/components/schemas/Address-6'
               description: Party address.
             account:
               type: string

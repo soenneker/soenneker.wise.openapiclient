@@ -3,17 +3,18 @@ using System.Runtime.Serialization;
 using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
-    /// <summary>The type of identifier used to look up the transfer.</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    public enum GpiTrackingIdentifierType
+    #pragma warning disable CS1591
+    public enum AccountOwnerDetailsOwnerType
+    #pragma warning restore CS1591
     {
-        [EnumMember(Value = "UETR")]
+        [EnumMember(Value = "PROFILE")]
         #pragma warning disable CS1591
-        Uetr,
+        Profile,
         #pragma warning restore CS1591
-        [EnumMember(Value = "TRANSFER_ID")]
+        [EnumMember(Value = "EXTERNAL_PAYER")]
         #pragma warning disable CS1591
-        TransferId,
+        ExternalPayer,
         #pragma warning restore CS1591
     }
 }

@@ -19,10 +19,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The beneficiaryAddress property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.Address22? BeneficiaryAddress { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.Address32? BeneficiaryAddress { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.Address22 BeneficiaryAddress { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.Address32 BeneficiaryAddress { get; set; }
 #endif
         /// <summary>Beneficiary name - defaults to account holder name.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -59,10 +59,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The senderAddress property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.Address22? SenderAddress { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.Address32? SenderAddress { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.Address22 SenderAddress { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.Address32 SenderAddress { get; set; }
 #endif
         /// <summary>Sender bank code.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -106,12 +106,12 @@ namespace Soenneker.Wise.OpenApiClient.Models
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "amount", n => { Amount = n.GetDoubleValue(); } },
-                { "beneficiaryAddress", n => { BeneficiaryAddress = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Address22>(global::Soenneker.Wise.OpenApiClient.Models.Address22.CreateFromDiscriminatorValue); } },
+                { "beneficiaryAddress", n => { BeneficiaryAddress = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Address32>(global::Soenneker.Wise.OpenApiClient.Models.Address32.CreateFromDiscriminatorValue); } },
                 { "beneficiaryName", n => { BeneficiaryName = n.GetStringValue(); } },
                 { "currency", n => { Currency = n.GetStringValue(); } },
                 { "reference", n => { Reference = n.GetStringValue(); } },
                 { "senderAccountNumber", n => { SenderAccountNumber = n.GetStringValue(); } },
-                { "senderAddress", n => { SenderAddress = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Address22>(global::Soenneker.Wise.OpenApiClient.Models.Address22.CreateFromDiscriminatorValue); } },
+                { "senderAddress", n => { SenderAddress = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Address32>(global::Soenneker.Wise.OpenApiClient.Models.Address32.CreateFromDiscriminatorValue); } },
                 { "senderBankCode", n => { SenderBankCode = n.GetStringValue(); } },
                 { "senderName", n => { SenderName = n.GetStringValue(); } },
             };
@@ -124,12 +124,12 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteDoubleValue("amount", Amount);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Address22>("beneficiaryAddress", BeneficiaryAddress);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Address32>("beneficiaryAddress", BeneficiaryAddress);
             writer.WriteStringValue("beneficiaryName", BeneficiaryName);
             writer.WriteStringValue("currency", Currency);
             writer.WriteStringValue("reference", Reference);
             writer.WriteStringValue("senderAccountNumber", SenderAccountNumber);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Address22>("senderAddress", SenderAddress);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Address32>("senderAddress", SenderAddress);
             writer.WriteStringValue("senderBankCode", SenderBankCode);
             writer.WriteStringValue("senderName", SenderName);
             writer.WriteAdditionalData(AdditionalData);

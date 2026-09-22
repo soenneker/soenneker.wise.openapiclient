@@ -26,10 +26,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Structured address details.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.Address5? Address { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.Address6? Address { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.Address5 Address { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.Address6 Address { get; set; }
 #endif
         /// <summary>Bank or financial institution details.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -73,7 +73,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "account", n => { Account = n.GetStringValue(); } },
-                { "address", n => { Address = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Address5>(global::Soenneker.Wise.OpenApiClient.Models.Address5.CreateFromDiscriminatorValue); } },
+                { "address", n => { Address = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Address6>(global::Soenneker.Wise.OpenApiClient.Models.Address6.CreateFromDiscriminatorValue); } },
                 { "bank_details", n => { BankDetails = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.BankDetails2>(global::Soenneker.Wise.OpenApiClient.Models.BankDetails2.CreateFromDiscriminatorValue); } },
                 { "name", n => { Name = n.GetStringValue(); } },
             };
@@ -86,7 +86,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("account", Account);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Address5>("address", Address);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Address6>("address", Address);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.BankDetails2>("bank_details", BankDetails);
             writer.WriteStringValue("name", Name);
             writer.WriteAdditionalData(AdditionalData);
