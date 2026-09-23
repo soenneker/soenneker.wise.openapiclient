@@ -24337,12 +24337,6 @@
             "minLength": 0,
             "type": "string",
             "format": "email"
-          },
-          "ownerId": {
-            "type": "string"
-          },
-          "ownerType": {
-            "$ref": "#/components/schemas/AccountOwnerDetailsOwnerType"
           }
         }
       },
@@ -53313,28 +53307,6 @@
             {
               "value": "PARTNER",
               "name": "Partner"
-            }
-          ]
-        }
-      },
-      "AccountOwnerDetailsOwnerType": {
-        "enum": [
-          "PROFILE",
-          "EXTERNAL_PAYER"
-        ],
-        "type": "string",
-        "additionalProperties": false,
-        "x-ms-enum": {
-          "name": "AccountOwnerDetailsOwnerType",
-          "modelAsString": false,
-          "values": [
-            {
-              "value": "PROFILE",
-              "name": "Profile"
-            },
-            {
-              "value": "EXTERNAL_PAYER",
-              "name": "ExternalPayer"
             }
           ]
         }

@@ -31329,13 +31329,6 @@ components:
           format: email
           maxLength: 254
           minLength: 0
-        ownerId:
-          type: string
-        ownerType:
-          type: string
-          enum:
-            - PROFILE
-            - EXTERNAL_PAYER
     InitialiseInstrumentRequest:
       type: object
       properties:

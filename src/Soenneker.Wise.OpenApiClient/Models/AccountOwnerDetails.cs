@@ -30,16 +30,6 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string Email { get; set; }
 #endif
-        /// <summary>The ownerId property</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? OwnerId { get; set; }
-#nullable restore
-#else
-        public string OwnerId { get; set; }
-#endif
-        /// <summary>The ownerType property</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.AccountOwnerDetailsOwnerType? OwnerType { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.AccountOwnerDetails"/> and sets the default values.
         /// </summary>
@@ -67,8 +57,6 @@ namespace Soenneker.Wise.OpenApiClient.Models
             {
                 { "address", n => { Address = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Address2>(global::Soenneker.Wise.OpenApiClient.Models.Address2.CreateFromDiscriminatorValue); } },
                 { "email", n => { Email = n.GetStringValue(); } },
-                { "ownerId", n => { OwnerId = n.GetStringValue(); } },
-                { "ownerType", n => { OwnerType = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.AccountOwnerDetailsOwnerType>(); } },
             };
         }
         /// <summary>
@@ -80,8 +68,6 @@ namespace Soenneker.Wise.OpenApiClient.Models
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Address2>("address", Address);
             writer.WriteStringValue("email", Email);
-            writer.WriteStringValue("ownerId", OwnerId);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.AccountOwnerDetailsOwnerType>("ownerType", OwnerType);
             writer.WriteAdditionalData(AdditionalData);
         }
     }
