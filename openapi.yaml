@@ -799,6 +799,15 @@ tags:
       other providers in the market.
 
 
+      {% admonition type="warning" name="Important" %}
+
+      All requests to the Comparison API require authentication. Comparison data
+      is provided for informational purposes and must not be used for critical
+      flows.
+
+      {% /admonition %}
+
+
       Price Estimation {% #comparison-price-estimation .title-3 .m-t-5 %}
 
 
@@ -7380,6 +7389,10 @@ paths:
         both).
       tags:
         - comparison
+      security:
+        - UserToken: []
+        - PersonalToken: []
+        - ClientCredentialsToken: []
       parameters:
         - name: sourceCurrency
           in: query
