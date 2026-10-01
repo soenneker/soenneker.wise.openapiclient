@@ -3,6 +3,7 @@
 using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions.Serialization;
 using Microsoft.Kiota.Abstractions;
+using Soenneker.Wise.OpenApiClient.Cases.Files;
 using Soenneker.Wise.OpenApiClient.Cases.Item;
 using Soenneker.Wise.OpenApiClient.Models;
 using System.Collections.Generic;
@@ -18,6 +19,11 @@ namespace Soenneker.Wise.OpenApiClient.Cases
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class CasesRequestBuilder : BaseRequestBuilder
     {
+        /// <summary>The files property</summary>
+        public global::Soenneker.Wise.OpenApiClient.Cases.Files.FilesRequestBuilder Files
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.Cases.Files.FilesRequestBuilder(PathParameters, RequestAdapter);
+        }
         /// <summary>Gets an item from the Soenneker.Wise.OpenApiClient.cases.item collection</summary>
         /// <param name="position">The unique identifier of the case.</param>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Cases.Item.WithCaseItemRequestBuilder"/></returns>

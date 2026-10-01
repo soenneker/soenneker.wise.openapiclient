@@ -14,11 +14,9 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>ID of the account.</summary>
+        /// <summary>ID of the user.</summary>
         public long? Id { get; set; }
-        /// <summary>ID of the profile that owns the account.</summary>
-        public long? ProfileId { get; set; }
-        /// <summary>Resource type (always `balance-account`).</summary>
+        /// <summary>Resource type (always `user`).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Type { get; set; }
@@ -52,7 +50,6 @@ namespace Soenneker.Wise.OpenApiClient.Models
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "id", n => { Id = n.GetLongValue(); } },
-                { "profile_id", n => { ProfileId = n.GetLongValue(); } },
                 { "type", n => { Type = n.GetStringValue(); } },
             };
         }
@@ -64,7 +61,6 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteLongValue("id", Id);
-            writer.WriteLongValue("profile_id", ProfileId);
             writer.WriteStringValue("type", Type);
             writer.WriteAdditionalData(AdditionalData);
         }

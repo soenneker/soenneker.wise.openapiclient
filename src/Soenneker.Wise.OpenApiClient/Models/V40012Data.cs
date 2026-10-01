@@ -14,22 +14,116 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Amount that exceeded the hold limit.</summary>
-        public decimal? Amount { get; set; }
-        /// <summary>Reason the breach was closed. Null if state is `OPEN`.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.V40012DataClosingReason? ClosingReason { get; set; }
-        /// <summary>Timestamp when the breach was created (ISO 8601).</summary>
-        public DateTimeOffset? CreatedAt { get; set; }
-        /// <summary>Currency code (ISO 4217) of the breach amount.</summary>
+        /// <summary>Also called authorization code. This can be used to prove ownership of a customer&apos;s card/account to a merchant.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Currency { get; set; }
+        public string? ApprovalCode { get; set; }
 #nullable restore
 #else
-        public string Currency { get; set; }
+        public string ApprovalCode { get; set; }
 #endif
-        /// <summary>Timestamp when the event occurred (ISO 8601). Use this field to reconcile out-of-order events.</summary>
+        /// <summary>Acquirer reference number</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? Arn { get; set; }
+#nullable restore
+#else
+        public string Arn { get; set; }
+#endif
+        /// <summary>Authorisation method</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? AuthorisationMethod { get; set; }
+#nullable restore
+#else
+        public string AuthorisationMethod { get; set; }
+#endif
+        /// <summary>Balance channel reference ID associated with the card transaction.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? BalanceChannelReferenceId { get; set; }
+#nullable restore
+#else
+        public string BalanceChannelReferenceId { get; set; }
+#endif
+        /// <summary>The billing_amount property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public global::Soenneker.Wise.OpenApiClient.Models.V40012DataBillingAmount? BillingAmount { get; set; }
+#nullable restore
+#else
+        public global::Soenneker.Wise.OpenApiClient.Models.V40012DataBillingAmount BillingAmount { get; set; }
+#endif
+        /// <summary>When the transaction was created.</summary>
+        public DateTimeOffset? CreationTime { get; set; }
+        /// <summary>Array of credits</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public List<global::Soenneker.Wise.OpenApiClient.Models.V40012DataCreditsItem>? Credits { get; set; }
+#nullable restore
+#else
+        public List<global::Soenneker.Wise.OpenApiClient.Models.V40012DataCreditsItem> Credits { get; set; }
+#endif
+        /// <summary>Array of debits. Note that the debits list is a non-aggregated list of debit movements, meaning that the `balance_id` is not unique in the list. For example, a cancelled transaction may have a list of 2 debits where the absolute values of `debited_amount.value`, `for_amount.value` and `fee.value` are the same, but one is the negation of the other due to a reservation (first debit) which was then released (second debit with negated amounts). In this case, you can choose to perform the aggregation in your system or display the full list of debits to the end customer.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public List<global::Soenneker.Wise.OpenApiClient.Models.V40012DataDebitsItem>? Debits { get; set; }
+#nullable restore
+#else
+        public List<global::Soenneker.Wise.OpenApiClient.Models.V40012DataDebitsItem> Debits { get; set; }
+#endif
+        /// <summary>Code of the decline reason if applicable.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? DeclineReason { get; set; }
+#nullable restore
+#else
+        public string DeclineReason { get; set; }
+#endif
+        /// <summary>Code of the detailed decline reason if applicable. See list of [card transaction decline reasons](/api-reference/card-transaction#card-transaction-detailed-decline-reasons).</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? DetailedDeclineReason { get; set; }
+#nullable restore
+#else
+        public string DetailedDeclineReason { get; set; }
+#endif
+        /// <summary>Array of fees</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public List<global::Soenneker.Wise.OpenApiClient.Models.V40012DataFeesItem>? Fees { get; set; }
+#nullable restore
+#else
+        public List<global::Soenneker.Wise.OpenApiClient.Models.V40012DataFeesItem> Fees { get; set; }
+#endif
+        /// <summary>The merchant property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public global::Soenneker.Wise.OpenApiClient.Models.V40012DataMerchant? Merchant { get; set; }
+#nullable restore
+#else
+        public global::Soenneker.Wise.OpenApiClient.Models.V40012DataMerchant Merchant { get; set; }
+#endif
+        /// <summary>When the transaction state change occurred.</summary>
         public DateTimeOffset? OccurredAt { get; set; }
+        /// <summary>PIN validation result. Possible values:- `ONLINE_PIN_VALIDATED`- `ONLINE_PIN_INVALID`- `OFFLINE_PIN_VALIDATED`- `OFFLINE_PIN_INVALID`- `NOT_RECEIVED`</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? PinValidationResult { get; set; }
+#nullable restore
+#else
+        public string PinValidationResult { get; set; }
+#endif
+        /// <summary>Time at which reserved funds will be released after the authorisation hold expires.</summary>
+        public DateTimeOffset? PurgeTime { get; set; }
+        /// <summary>The relay_authorisation_data property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public global::Soenneker.Wise.OpenApiClient.Models.V40012DataRelayAuthorisationData? RelayAuthorisationData { get; set; }
+#nullable restore
+#else
+        public global::Soenneker.Wise.OpenApiClient.Models.V40012DataRelayAuthorisationData RelayAuthorisationData { get; set; }
+#endif
         /// <summary>The resource property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -38,10 +132,48 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public global::Soenneker.Wise.OpenApiClient.Models.V40012DataResource Resource { get; set; }
 #endif
-        /// <summary>Current state of the breach.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.V40012DataState? State { get; set; }
-        /// <summary>Timestamp when the breach was last updated (ISO 8601).</summary>
-        public DateTimeOffset? UpdatedAt { get; set; }
+        /// <summary>The transaction_amount property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public global::Soenneker.Wise.OpenApiClient.Models.V40012DataTransactionAmount? TransactionAmount { get; set; }
+#nullable restore
+#else
+        public global::Soenneker.Wise.OpenApiClient.Models.V40012DataTransactionAmount TransactionAmount { get; set; }
+#endif
+        /// <summary>The transaction_amount_with_fees property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public global::Soenneker.Wise.OpenApiClient.Models.V40012DataTransactionAmountWithFees? TransactionAmountWithFees { get; set; }
+#nullable restore
+#else
+        public global::Soenneker.Wise.OpenApiClient.Models.V40012DataTransactionAmountWithFees TransactionAmountWithFees { get; set; }
+#endif
+        /// <summary>ID of the transaction.</summary>
+        public long? TransactionId { get; set; }
+        /// <summary>The current state of the transaction. Possible values:- `IN_PROGRESS` - The transaction is still in progress.- `COMPLETED` - The transaction is completed.- `DECLINED` - The transaction has been declined.- `CANCELLED` - The transaction has been cancelled.- `UNKNOWN` - Default fallback status.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? TransactionState { get; set; }
+#nullable restore
+#else
+        public string TransactionState { get; set; }
+#endif
+        /// <summary>Step type of the transaction. Possible values:- `AUTH` - Transaction authorization which is usually the first step.- `PARTIAL_REVERSAL` - Transaction has been partially reversed.- `FULL_REVERSAL` - Transaction has been fully reversed.- `CAPTURE` - Transaction has been captured.- `SETTLE` - Currently unused. Reserved for future use.- `REFUND` - Currently unused. Reserved for future use.- `RECONCILIATION` - Currently unused. Reserved for future use.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? TransactionStepType { get; set; }
+#nullable restore
+#else
+        public string TransactionStepType { get; set; }
+#endif
+        /// <summary>Type of the transaction. Possible values:- `ACCOUNT_CREDIT` - Receiving money on the card, excluding Visa OCT or Mastercard MoneySend.- `ACCOUNT_FUNDING` - Sending money to another card or e-wallet.- `CASH_ADVANCE` - Cash disbursement.- `CASH_WITHDRAWAL` - ATM withdrawal.- `CHARGEBACK` - Currently unused. Reserved for future use.- `CREDIT_TRANSACTION` - Visa OCT and Mastercard MoneySend.- `ECOM_PURCHASE` - Online purchase.- `POS_PURCHASE` - Purchase via a POS terminal.- `REFUND` - Partial or full refund of an existing card transaction.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? TransactionType { get; set; }
+#nullable restore
+#else
+        public string TransactionType { get; set; }
+#endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.V40012Data"/> and sets the default values.
         /// </summary>
@@ -67,14 +199,29 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "amount", n => { Amount = n.GetDecimalValue(); } },
-                { "closing_reason", n => { ClosingReason = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40012DataClosingReason>(); } },
-                { "created_at", n => { CreatedAt = n.GetDateTimeOffsetValue(); } },
-                { "currency", n => { Currency = n.GetStringValue(); } },
+                { "approval_code", n => { ApprovalCode = n.GetStringValue(); } },
+                { "arn", n => { Arn = n.GetStringValue(); } },
+                { "authorisation_method", n => { AuthorisationMethod = n.GetStringValue(); } },
+                { "balance_channel_reference_id", n => { BalanceChannelReferenceId = n.GetStringValue(); } },
+                { "billing_amount", n => { BillingAmount = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40012DataBillingAmount>(global::Soenneker.Wise.OpenApiClient.Models.V40012DataBillingAmount.CreateFromDiscriminatorValue); } },
+                { "creation_time", n => { CreationTime = n.GetDateTimeOffsetValue(); } },
+                { "credits", n => { Credits = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.V40012DataCreditsItem>(global::Soenneker.Wise.OpenApiClient.Models.V40012DataCreditsItem.CreateFromDiscriminatorValue)?.AsList(); } },
+                { "debits", n => { Debits = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.V40012DataDebitsItem>(global::Soenneker.Wise.OpenApiClient.Models.V40012DataDebitsItem.CreateFromDiscriminatorValue)?.AsList(); } },
+                { "decline_reason", n => { DeclineReason = n.GetStringValue(); } },
+                { "detailed_decline_reason", n => { DetailedDeclineReason = n.GetStringValue(); } },
+                { "fees", n => { Fees = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.V40012DataFeesItem>(global::Soenneker.Wise.OpenApiClient.Models.V40012DataFeesItem.CreateFromDiscriminatorValue)?.AsList(); } },
+                { "merchant", n => { Merchant = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40012DataMerchant>(global::Soenneker.Wise.OpenApiClient.Models.V40012DataMerchant.CreateFromDiscriminatorValue); } },
                 { "occurred_at", n => { OccurredAt = n.GetDateTimeOffsetValue(); } },
+                { "pin_validation_result", n => { PinValidationResult = n.GetStringValue(); } },
+                { "purge_time", n => { PurgeTime = n.GetDateTimeOffsetValue(); } },
+                { "relay_authorisation_data", n => { RelayAuthorisationData = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40012DataRelayAuthorisationData>(global::Soenneker.Wise.OpenApiClient.Models.V40012DataRelayAuthorisationData.CreateFromDiscriminatorValue); } },
                 { "resource", n => { Resource = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40012DataResource>(global::Soenneker.Wise.OpenApiClient.Models.V40012DataResource.CreateFromDiscriminatorValue); } },
-                { "state", n => { State = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40012DataState>(); } },
-                { "updated_at", n => { UpdatedAt = n.GetDateTimeOffsetValue(); } },
+                { "transaction_amount", n => { TransactionAmount = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40012DataTransactionAmount>(global::Soenneker.Wise.OpenApiClient.Models.V40012DataTransactionAmount.CreateFromDiscriminatorValue); } },
+                { "transaction_amount_with_fees", n => { TransactionAmountWithFees = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40012DataTransactionAmountWithFees>(global::Soenneker.Wise.OpenApiClient.Models.V40012DataTransactionAmountWithFees.CreateFromDiscriminatorValue); } },
+                { "transaction_id", n => { TransactionId = n.GetLongValue(); } },
+                { "transaction_state", n => { TransactionState = n.GetStringValue(); } },
+                { "transaction_step_type", n => { TransactionStepType = n.GetStringValue(); } },
+                { "transaction_type", n => { TransactionType = n.GetStringValue(); } },
             };
         }
         /// <summary>
@@ -84,14 +231,29 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteDecimalValue("amount", Amount);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40012DataClosingReason>("closing_reason", ClosingReason);
-            writer.WriteDateTimeOffsetValue("created_at", CreatedAt);
-            writer.WriteStringValue("currency", Currency);
+            writer.WriteStringValue("approval_code", ApprovalCode);
+            writer.WriteStringValue("arn", Arn);
+            writer.WriteStringValue("authorisation_method", AuthorisationMethod);
+            writer.WriteStringValue("balance_channel_reference_id", BalanceChannelReferenceId);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40012DataBillingAmount>("billing_amount", BillingAmount);
+            writer.WriteDateTimeOffsetValue("creation_time", CreationTime);
+            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.V40012DataCreditsItem>("credits", Credits);
+            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.V40012DataDebitsItem>("debits", Debits);
+            writer.WriteStringValue("decline_reason", DeclineReason);
+            writer.WriteStringValue("detailed_decline_reason", DetailedDeclineReason);
+            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.V40012DataFeesItem>("fees", Fees);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40012DataMerchant>("merchant", Merchant);
             writer.WriteDateTimeOffsetValue("occurred_at", OccurredAt);
+            writer.WriteStringValue("pin_validation_result", PinValidationResult);
+            writer.WriteDateTimeOffsetValue("purge_time", PurgeTime);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40012DataRelayAuthorisationData>("relay_authorisation_data", RelayAuthorisationData);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40012DataResource>("resource", Resource);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40012DataState>("state", State);
-            writer.WriteDateTimeOffsetValue("updated_at", UpdatedAt);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40012DataTransactionAmount>("transaction_amount", TransactionAmount);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40012DataTransactionAmountWithFees>("transaction_amount_with_fees", TransactionAmountWithFees);
+            writer.WriteLongValue("transaction_id", TransactionId);
+            writer.WriteStringValue("transaction_state", TransactionState);
+            writer.WriteStringValue("transaction_step_type", TransactionStepType);
+            writer.WriteStringValue("transaction_type", TransactionType);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

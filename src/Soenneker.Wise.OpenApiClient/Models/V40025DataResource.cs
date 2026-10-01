@@ -14,7 +14,17 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Unique ID of the dispute.</summary>
+        /// <summary>In case the originally instructed amount was converted by Wise or any other intermediary agent, this field contains the exchange rate used. If no conversion took place, the exchange rate will be `1.0`.</summary>
+        public double? ExchangeRate { get; set; }
+        /// <summary>The fee property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public global::Soenneker.Wise.OpenApiClient.Models.V40025DataResourceFee? Fee { get; set; }
+#nullable restore
+#else
+        public global::Soenneker.Wise.OpenApiClient.Models.V40025DataResourceFee Fee { get; set; }
+#endif
+        /// <summary>ID of the webhook.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Id { get; set; }
@@ -22,17 +32,63 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string Id { get; set; }
 #endif
-        /// <summary>ID of the profile that owns the card.</summary>
-        public long? ProfileId { get; set; }
-        /// <summary>ID of the card transaction.</summary>
-        public long? TransactionId { get; set; }
-        /// <summary>Resource type (always `transaction-dispute`).</summary>
+        /// <summary>Amount originally instructed by the ultimate sender.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Type { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.V40025DataResourceInstructedAmount? InstructedAmount { get; set; }
 #nullable restore
 #else
-        public string Type { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.V40025DataResourceInstructedAmount InstructedAmount { get; set; }
+#endif
+        /// <summary>List of previous instructing agents in the payment chain, ordered from first to last.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public List<global::Soenneker.Wise.OpenApiClient.Models.V40025DataResourcePreviousInstructingAgentsItem>? PreviousInstructingAgents { get; set; }
+#nullable restore
+#else
+        public List<global::Soenneker.Wise.OpenApiClient.Models.V40025DataResourcePreviousInstructingAgentsItem> PreviousInstructingAgents { get; set; }
+#endif
+        /// <summary>The recipient property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public global::Soenneker.Wise.OpenApiClient.Models.V40025DataResourceRecipient? Recipient { get; set; }
+#nullable restore
+#else
+        public global::Soenneker.Wise.OpenApiClient.Models.V40025DataResourceRecipient Recipient { get; set; }
+#endif
+        /// <summary>Reference provided by the ultimate sender for the payment.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? Reference { get; set; }
+#nullable restore
+#else
+        public string Reference { get; set; }
+#endif
+        /// <summary>The sender property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public global::Soenneker.Wise.OpenApiClient.Models.V40025DataResourceSender? Sender { get; set; }
+#nullable restore
+#else
+        public global::Soenneker.Wise.OpenApiClient.Models.V40025DataResourceSender Sender { get; set; }
+#endif
+        /// <summary>The settled_amount property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public global::Soenneker.Wise.OpenApiClient.Models.V40025DataResourceSettledAmount? SettledAmount { get; set; }
+#nullable restore
+#else
+        public global::Soenneker.Wise.OpenApiClient.Models.V40025DataResourceSettledAmount SettledAmount { get; set; }
+#endif
+        /// <summary>Date and time at which the associated transaction was created. Time in UTC.Format: `YYYY`-`MM`-`DD`T`HH`:`MM`:`SS`.`mmm`Z</summary>
+        public DateTimeOffset? TransactionTime { get; set; }
+        /// <summary>Unique identifier created by the scheme for each payment and passed through the scheme to Wise.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? Uetr { get; set; }
+#nullable restore
+#else
+        public string Uetr { get; set; }
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.V40025DataResource"/> and sets the default values.
@@ -59,10 +115,17 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
+                { "exchange_rate", n => { ExchangeRate = n.GetDoubleValue(); } },
+                { "fee", n => { Fee = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40025DataResourceFee>(global::Soenneker.Wise.OpenApiClient.Models.V40025DataResourceFee.CreateFromDiscriminatorValue); } },
                 { "id", n => { Id = n.GetStringValue(); } },
-                { "profile_id", n => { ProfileId = n.GetLongValue(); } },
-                { "transaction_id", n => { TransactionId = n.GetLongValue(); } },
-                { "type", n => { Type = n.GetStringValue(); } },
+                { "instructed_amount", n => { InstructedAmount = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40025DataResourceInstructedAmount>(global::Soenneker.Wise.OpenApiClient.Models.V40025DataResourceInstructedAmount.CreateFromDiscriminatorValue); } },
+                { "previous_instructing_agents", n => { PreviousInstructingAgents = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.V40025DataResourcePreviousInstructingAgentsItem>(global::Soenneker.Wise.OpenApiClient.Models.V40025DataResourcePreviousInstructingAgentsItem.CreateFromDiscriminatorValue)?.AsList(); } },
+                { "recipient", n => { Recipient = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40025DataResourceRecipient>(global::Soenneker.Wise.OpenApiClient.Models.V40025DataResourceRecipient.CreateFromDiscriminatorValue); } },
+                { "reference", n => { Reference = n.GetStringValue(); } },
+                { "sender", n => { Sender = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40025DataResourceSender>(global::Soenneker.Wise.OpenApiClient.Models.V40025DataResourceSender.CreateFromDiscriminatorValue); } },
+                { "settled_amount", n => { SettledAmount = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40025DataResourceSettledAmount>(global::Soenneker.Wise.OpenApiClient.Models.V40025DataResourceSettledAmount.CreateFromDiscriminatorValue); } },
+                { "transaction_time", n => { TransactionTime = n.GetDateTimeOffsetValue(); } },
+                { "uetr", n => { Uetr = n.GetStringValue(); } },
             };
         }
         /// <summary>
@@ -72,10 +135,17 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
+            writer.WriteDoubleValue("exchange_rate", ExchangeRate);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40025DataResourceFee>("fee", Fee);
             writer.WriteStringValue("id", Id);
-            writer.WriteLongValue("profile_id", ProfileId);
-            writer.WriteLongValue("transaction_id", TransactionId);
-            writer.WriteStringValue("type", Type);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40025DataResourceInstructedAmount>("instructed_amount", InstructedAmount);
+            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.V40025DataResourcePreviousInstructingAgentsItem>("previous_instructing_agents", PreviousInstructingAgents);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40025DataResourceRecipient>("recipient", Recipient);
+            writer.WriteStringValue("reference", Reference);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40025DataResourceSender>("sender", Sender);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40025DataResourceSettledAmount>("settled_amount", SettledAmount);
+            writer.WriteDateTimeOffsetValue("transaction_time", TransactionTime);
+            writer.WriteStringValue("uetr", Uetr);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

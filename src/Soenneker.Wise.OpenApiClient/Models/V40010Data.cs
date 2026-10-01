@@ -14,26 +14,18 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Delivery vendor used to dispatch the order (physical card only).</summary>
+        /// <summary>The number of seconds before the challenge expires.</summary>
+        public long? ChallengeExpiresAfter { get; set; }
+        /// <summary>The challenge method chosen by customer (always `PUSH`).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? DeliveryVendor { get; set; }
+        public string? ChallengeMethod { get; set; }
 #nullable restore
 #else
-        public string DeliveryVendor { get; set; }
+        public string ChallengeMethod { get; set; }
 #endif
-        /// <summary>When the card order status change occurred.</summary>
+        /// <summary>When the challenge is triggered.</summary>
         public DateTimeOffset? OccurredAt { get; set; }
-        /// <summary>Card order ID associated with the status change.</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? OrderId { get; set; }
-#nullable restore
-#else
-        public string OrderId { get; set; }
-#endif
-        /// <summary>Updated card order status</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.V40010DataOrderStatus? OrderStatus { get; set; }
         /// <summary>The resource property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -41,6 +33,14 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #nullable restore
 #else
         public global::Soenneker.Wise.OpenApiClient.Models.V40010DataResource Resource { get; set; }
+#endif
+        /// <summary>The transaction property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public global::Soenneker.Wise.OpenApiClient.Models.V40010DataTransaction? Transaction { get; set; }
+#nullable restore
+#else
+        public global::Soenneker.Wise.OpenApiClient.Models.V40010DataTransaction Transaction { get; set; }
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.V40010Data"/> and sets the default values.
@@ -67,11 +67,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "delivery_vendor", n => { DeliveryVendor = n.GetStringValue(); } },
+                { "challenge_expires_after", n => { ChallengeExpiresAfter = n.GetLongValue(); } },
+                { "challenge_method", n => { ChallengeMethod = n.GetStringValue(); } },
                 { "occurred_at", n => { OccurredAt = n.GetDateTimeOffsetValue(); } },
-                { "order_id", n => { OrderId = n.GetStringValue(); } },
-                { "order_status", n => { OrderStatus = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40010DataOrderStatus>(); } },
                 { "resource", n => { Resource = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40010DataResource>(global::Soenneker.Wise.OpenApiClient.Models.V40010DataResource.CreateFromDiscriminatorValue); } },
+                { "transaction", n => { Transaction = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40010DataTransaction>(global::Soenneker.Wise.OpenApiClient.Models.V40010DataTransaction.CreateFromDiscriminatorValue); } },
             };
         }
         /// <summary>
@@ -81,11 +81,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteStringValue("delivery_vendor", DeliveryVendor);
+            writer.WriteLongValue("challenge_expires_after", ChallengeExpiresAfter);
+            writer.WriteStringValue("challenge_method", ChallengeMethod);
             writer.WriteDateTimeOffsetValue("occurred_at", OccurredAt);
-            writer.WriteStringValue("order_id", OrderId);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40010DataOrderStatus>("order_status", OrderStatus);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40010DataResource>("resource", Resource);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40010DataTransaction>("transaction", Transaction);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

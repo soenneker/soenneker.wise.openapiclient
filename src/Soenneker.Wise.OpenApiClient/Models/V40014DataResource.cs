@@ -16,7 +16,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>ID of the profile.</summary>
         public long? Id { get; set; }
-        /// <summary>Profile resource type (always `profile`).</summary>
+        /// <summary>Profile resource type (always set to `profile`).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Type { get; set; }

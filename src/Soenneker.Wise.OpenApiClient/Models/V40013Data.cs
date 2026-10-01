@@ -14,24 +14,22 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Current verification state of the profile (see table above).</summary>
+        /// <summary>Amount that exceeded the hold limit.</summary>
+        public decimal? Amount { get; set; }
+        /// <summary>Reason the breach was closed. Null if state is `OPEN`.</summary>
+        public global::Soenneker.Wise.OpenApiClient.Models.V40013DataClosingReason? ClosingReason { get; set; }
+        /// <summary>Timestamp when the breach was created (ISO 8601).</summary>
+        public DateTimeOffset? CreatedAt { get; set; }
+        /// <summary>Currency code (ISO 4217) of the breach amount.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? CurrentState { get; set; }
+        public string? Currency { get; set; }
 #nullable restore
 #else
-        public string CurrentState { get; set; }
+        public string Currency { get; set; }
 #endif
-        /// <summary>When the CDD check state change occurred.</summary>
+        /// <summary>Timestamp when the event occurred (ISO 8601). Use this field to reconcile out-of-order events.</summary>
         public DateTimeOffset? OccurredAt { get; set; }
-        /// <summary>List of required evidences for verification. See the [list of evidences](/guides/product/kyc/partner-kyc/supported-evidences) to find all possible values.</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public List<string>? RequiredEvidences { get; set; }
-#nullable restore
-#else
-        public List<string> RequiredEvidences { get; set; }
-#endif
         /// <summary>The resource property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -40,30 +38,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public global::Soenneker.Wise.OpenApiClient.Models.V40013DataResource Resource { get; set; }
 #endif
-        /// <summary>*Optional*Reason the verification review did not pass.Refer to the table above for reason descriptions.</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? ReviewOutcome { get; set; }
-#nullable restore
-#else
-        public string ReviewOutcome { get; set; }
-#endif
-        /// <summary>*Optional*Source of funding for a business profile submitted via the [/upload-evidences endpoint](/api-reference/verification/verificationuploadevidences).Use this to upload the correct Source of Wealth document.</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? SourceOfFunding { get; set; }
-#nullable restore
-#else
-        public string SourceOfFunding { get; set; }
-#endif
-        /// <summary>*Optional*Source of income for a personal profile submitted via the [/upload-evidences endpoint](/api-reference/verification/verificationuploadevidences).Use this to upload the correct Source of Wealth document.</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? SourceOfIncome { get; set; }
-#nullable restore
-#else
-        public string SourceOfIncome { get; set; }
-#endif
+        /// <summary>Current state of the breach.</summary>
+        public global::Soenneker.Wise.OpenApiClient.Models.V40013DataState? State { get; set; }
+        /// <summary>Timestamp when the breach was last updated (ISO 8601).</summary>
+        public DateTimeOffset? UpdatedAt { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.V40013Data"/> and sets the default values.
         /// </summary>
@@ -89,13 +67,14 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "current_state", n => { CurrentState = n.GetStringValue(); } },
+                { "amount", n => { Amount = n.GetDecimalValue(); } },
+                { "closing_reason", n => { ClosingReason = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40013DataClosingReason>(); } },
+                { "created_at", n => { CreatedAt = n.GetDateTimeOffsetValue(); } },
+                { "currency", n => { Currency = n.GetStringValue(); } },
                 { "occurred_at", n => { OccurredAt = n.GetDateTimeOffsetValue(); } },
-                { "required_evidences", n => { RequiredEvidences = n.GetCollectionOfPrimitiveValues<string>()?.AsList(); } },
                 { "resource", n => { Resource = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40013DataResource>(global::Soenneker.Wise.OpenApiClient.Models.V40013DataResource.CreateFromDiscriminatorValue); } },
-                { "review_outcome", n => { ReviewOutcome = n.GetStringValue(); } },
-                { "source_of_funding", n => { SourceOfFunding = n.GetStringValue(); } },
-                { "source_of_income", n => { SourceOfIncome = n.GetStringValue(); } },
+                { "state", n => { State = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40013DataState>(); } },
+                { "updated_at", n => { UpdatedAt = n.GetDateTimeOffsetValue(); } },
             };
         }
         /// <summary>
@@ -105,13 +84,14 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteStringValue("current_state", CurrentState);
+            writer.WriteDecimalValue("amount", Amount);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40013DataClosingReason>("closing_reason", ClosingReason);
+            writer.WriteDateTimeOffsetValue("created_at", CreatedAt);
+            writer.WriteStringValue("currency", Currency);
             writer.WriteDateTimeOffsetValue("occurred_at", OccurredAt);
-            writer.WriteCollectionOfPrimitiveValues<string>("required_evidences", RequiredEvidences);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40013DataResource>("resource", Resource);
-            writer.WriteStringValue("review_outcome", ReviewOutcome);
-            writer.WriteStringValue("source_of_funding", SourceOfFunding);
-            writer.WriteStringValue("source_of_income", SourceOfIncome);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40013DataState>("state", State);
+            writer.WriteDateTimeOffsetValue("updated_at", UpdatedAt);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

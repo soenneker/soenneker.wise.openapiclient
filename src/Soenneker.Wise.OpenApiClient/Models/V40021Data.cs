@@ -14,12 +14,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Current payment initiation state.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.V40021DataCurrentStatus? CurrentStatus { get; set; }
-        /// <summary>When the payment initiation state change occurred.</summary>
+        /// <summary>Timestamp when the event occurred.</summary>
         public DateTimeOffset? OccurredAt { get; set; }
-        /// <summary>Previous payment initiation state.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.V40021DataPreviousStatus? PreviousStatus { get; set; }
         /// <summary>The resource property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -27,14 +23,6 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #nullable restore
 #else
         public global::Soenneker.Wise.OpenApiClient.Models.V40021DataResource Resource { get; set; }
-#endif
-        /// <summary>Return code of the underlying payment system.</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? ReturnCode { get; set; }
-#nullable restore
-#else
-        public string ReturnCode { get; set; }
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.V40021Data"/> and sets the default values.
@@ -61,11 +49,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "current_status", n => { CurrentStatus = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40021DataCurrentStatus>(); } },
                 { "occurred_at", n => { OccurredAt = n.GetDateTimeOffsetValue(); } },
-                { "previous_status", n => { PreviousStatus = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40021DataPreviousStatus>(); } },
                 { "resource", n => { Resource = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40021DataResource>(global::Soenneker.Wise.OpenApiClient.Models.V40021DataResource.CreateFromDiscriminatorValue); } },
-                { "return_code", n => { ReturnCode = n.GetStringValue(); } },
             };
         }
         /// <summary>
@@ -75,11 +60,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40021DataCurrentStatus>("current_status", CurrentStatus);
             writer.WriteDateTimeOffsetValue("occurred_at", OccurredAt);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40021DataPreviousStatus>("previous_status", PreviousStatus);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40021DataResource>("resource", Resource);
-            writer.WriteStringValue("return_code", ReturnCode);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

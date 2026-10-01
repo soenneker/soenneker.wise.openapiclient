@@ -14,32 +14,26 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Unique identifier of the card.</summary>
+        /// <summary>Details of the allocation state change.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? CardToken { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.V4007DataResourceData? Data { get; set; }
 #nullable restore
 #else
-        public string CardToken { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.V4007DataResourceData Data { get; set; }
 #endif
-        /// <summary>Your api_client_id</summary>
+        /// <summary>Event type identifier.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? ClientId { get; set; }
+        public string? EventType { get; set; }
 #nullable restore
 #else
-        public string ClientId { get; set; }
+        public string EventType { get; set; }
 #endif
-        /// <summary>ID of the profile that owns the card.</summary>
-        public long? ProfileId { get; set; }
-        /// <summary>Resource type (always `card`)</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? Type { get; set; }
-#nullable restore
-#else
-        public string Type { get; set; }
-#endif
+        /// <summary>Unique identifier of webhook notification</summary>
+        public Guid? Id { get; set; }
+        /// <summary>Timestamp when the state change occurred.</summary>
+        public DateTimeOffset? OccurredAt { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.V4007DataResource"/> and sets the default values.
         /// </summary>
@@ -65,10 +59,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "card_token", n => { CardToken = n.GetStringValue(); } },
-                { "client_id", n => { ClientId = n.GetStringValue(); } },
-                { "profile_id", n => { ProfileId = n.GetLongValue(); } },
-                { "type", n => { Type = n.GetStringValue(); } },
+                { "data", n => { Data = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V4007DataResourceData>(global::Soenneker.Wise.OpenApiClient.Models.V4007DataResourceData.CreateFromDiscriminatorValue); } },
+                { "event_type", n => { EventType = n.GetStringValue(); } },
+                { "id", n => { Id = n.GetGuidValue(); } },
+                { "occurred_at", n => { OccurredAt = n.GetDateTimeOffsetValue(); } },
             };
         }
         /// <summary>
@@ -78,10 +72,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteStringValue("card_token", CardToken);
-            writer.WriteStringValue("client_id", ClientId);
-            writer.WriteLongValue("profile_id", ProfileId);
-            writer.WriteStringValue("type", Type);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V4007DataResourceData>("data", Data);
+            writer.WriteStringValue("event_type", EventType);
+            writer.WriteGuidValue("id", Id);
+            writer.WriteDateTimeOffsetValue("occurred_at", OccurredAt);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

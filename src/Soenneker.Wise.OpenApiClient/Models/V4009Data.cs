@@ -14,17 +14,31 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>The number of seconds before the challenge expires.</summary>
-        public long? ChallengeExpiresAfter { get; set; }
-        /// <summary>The challenge method chosen by customer (always `PUSH`).</summary>
+        /// <summary>Detailed description of the error code.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? ChallengeMethod { get; set; }
+        public string? Description { get; set; }
 #nullable restore
 #else
-        public string ChallengeMethod { get; set; }
+        public string Description { get; set; }
 #endif
-        /// <summary>When the challenge is triggered.</summary>
+        /// <summary>Code returned when card production is not successful. See possible values in [production errors](/api-reference/card-kiosk-collection/cardkioskcollectionproduce).</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? ErrorCode { get; set; }
+#nullable restore
+#else
+        public string ErrorCode { get; set; }
+#endif
+        /// <summary>Identifier that specifies which kiosk machine is producing the card.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? KioskId { get; set; }
+#nullable restore
+#else
+        public string KioskId { get; set; }
+#endif
+        /// <summary>Time when the card production request was sent to the kiosk machine.</summary>
         public DateTimeOffset? OccurredAt { get; set; }
         /// <summary>The resource property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -34,13 +48,13 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public global::Soenneker.Wise.OpenApiClient.Models.V4009DataResource Resource { get; set; }
 #endif
-        /// <summary>The transaction property</summary>
+        /// <summary>Current production status. See possible values in the [production status flow diagram](/api-reference/card-kiosk-collection#production-status-flow).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.V4009DataTransaction? Transaction { get; set; }
+        public string? Status { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.V4009DataTransaction Transaction { get; set; }
+        public string Status { get; set; }
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.V4009Data"/> and sets the default values.
@@ -67,11 +81,12 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "challenge_expires_after", n => { ChallengeExpiresAfter = n.GetLongValue(); } },
-                { "challenge_method", n => { ChallengeMethod = n.GetStringValue(); } },
+                { "description", n => { Description = n.GetStringValue(); } },
+                { "error_code", n => { ErrorCode = n.GetStringValue(); } },
+                { "kiosk_id", n => { KioskId = n.GetStringValue(); } },
                 { "occurred_at", n => { OccurredAt = n.GetDateTimeOffsetValue(); } },
                 { "resource", n => { Resource = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V4009DataResource>(global::Soenneker.Wise.OpenApiClient.Models.V4009DataResource.CreateFromDiscriminatorValue); } },
-                { "transaction", n => { Transaction = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V4009DataTransaction>(global::Soenneker.Wise.OpenApiClient.Models.V4009DataTransaction.CreateFromDiscriminatorValue); } },
+                { "status", n => { Status = n.GetStringValue(); } },
             };
         }
         /// <summary>
@@ -81,11 +96,12 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteLongValue("challenge_expires_after", ChallengeExpiresAfter);
-            writer.WriteStringValue("challenge_method", ChallengeMethod);
+            writer.WriteStringValue("description", Description);
+            writer.WriteStringValue("error_code", ErrorCode);
+            writer.WriteStringValue("kiosk_id", KioskId);
             writer.WriteDateTimeOffsetValue("occurred_at", OccurredAt);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V4009DataResource>("resource", Resource);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V4009DataTransaction>("transaction", Transaction);
+            writer.WriteStringValue("status", Status);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

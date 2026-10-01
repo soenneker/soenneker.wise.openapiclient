@@ -14,40 +14,16 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Timestamp marking the creation of the KYC Review.</summary>
-        public DateTimeOffset? CreatedAt { get; set; }
-        /// <summary>ID of the KYC Review.</summary>
-        public Guid? Id { get; set; }
-        /// <summary>ID of the profile KYC Review belongs to.</summary>
-        public long? ProfileId { get; set; }
-        /// <summary>Timestamp by which the underlying requirement set needs to be verified to not block the customer.Only relevant if the status is `PASSED_WITH_REQUIREMENTS`.</summary>
-        public DateTimeOffset? RequiredBy { get; set; }
-        /// <summary>Nested list of KYC requirement objects.</summary>
+        /// <summary>ID of the profile.</summary>
+        public long? Id { get; set; }
+        /// <summary>Resource type (always `profile`).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public UntypedNode? Requirements { get; set; }
+        public string? Type { get; set; }
 #nullable restore
 #else
-        public UntypedNode Requirements { get; set; }
+        public string Type { get; set; }
 #endif
-        /// <summary>Status of the KYC Review. See [KYC review statuses](/guides/product/account-setup/customer-onboarding/api-hybrid-kyc#kyc-review-statuses) for possible values.</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? State { get; set; }
-#nullable restore
-#else
-        public string State { get; set; }
-#endif
-        /// <summary>List of trigger references for this KYC Review.</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.V40017DataResourceTriggerReferencesItem>? TriggerReferences { get; set; }
-#nullable restore
-#else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.V40017DataResourceTriggerReferencesItem> TriggerReferences { get; set; }
-#endif
-        /// <summary>Timestamp marking the last update of the KYC Review.</summary>
-        public DateTimeOffset? UpdatedAt { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.V40017DataResource"/> and sets the default values.
         /// </summary>
@@ -73,14 +49,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "createdAt", n => { CreatedAt = n.GetDateTimeOffsetValue(); } },
-                { "id", n => { Id = n.GetGuidValue(); } },
-                { "profileId", n => { ProfileId = n.GetLongValue(); } },
-                { "requiredBy", n => { RequiredBy = n.GetDateTimeOffsetValue(); } },
-                { "requirements", n => { Requirements = n.GetObjectValue<UntypedNode>(UntypedNode.CreateFromDiscriminatorValue); } },
-                { "state", n => { State = n.GetStringValue(); } },
-                { "triggerReferences", n => { TriggerReferences = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.V40017DataResourceTriggerReferencesItem>(global::Soenneker.Wise.OpenApiClient.Models.V40017DataResourceTriggerReferencesItem.CreateFromDiscriminatorValue)?.AsList(); } },
-                { "updatedAt", n => { UpdatedAt = n.GetDateTimeOffsetValue(); } },
+                { "id", n => { Id = n.GetLongValue(); } },
+                { "type", n => { Type = n.GetStringValue(); } },
             };
         }
         /// <summary>
@@ -90,14 +60,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteDateTimeOffsetValue("createdAt", CreatedAt);
-            writer.WriteGuidValue("id", Id);
-            writer.WriteLongValue("profileId", ProfileId);
-            writer.WriteDateTimeOffsetValue("requiredBy", RequiredBy);
-            writer.WriteObjectValue<UntypedNode>("requirements", Requirements);
-            writer.WriteStringValue("state", State);
-            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.V40017DataResourceTriggerReferencesItem>("triggerReferences", TriggerReferences);
-            writer.WriteDateTimeOffsetValue("updatedAt", UpdatedAt);
+            writer.WriteLongValue("id", Id);
+            writer.WriteStringValue("type", Type);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

@@ -14,38 +14,18 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>The raw SWIFT message data, encoded as specified by `content_encoding`.</summary>
+        /// <summary>Details of the received funds.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Content { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.V40024DataResourceData? Data { get; set; }
 #nullable restore
 #else
-        public string Content { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.V40024DataResourceData Data { get; set; }
 #endif
-        /// <summary>The encoding applied to the content field. Always `base64`.</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? ContentEncoding { get; set; }
-#nullable restore
-#else
-        public string ContentEncoding { get; set; }
-#endif
-        /// <summary>Identifier of the SWIFT message.</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? Id { get; set; }
-#nullable restore
-#else
-        public string Id { get; set; }
-#endif
-        /// <summary>Type of SWIFT message contained in the content field (e.g., `pacs.008.001.08`). Extensible for future message types.</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? MessageType { get; set; }
-#nullable restore
-#else
-        public string MessageType { get; set; }
-#endif
+        /// <summary>Unique identifier for this funds received event.</summary>
+        public Guid? Id { get; set; }
+        /// <summary>Timestamp when the funds were received.</summary>
+        public DateTimeOffset? OccurredAt { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.V40024DataResource"/> and sets the default values.
         /// </summary>
@@ -71,10 +51,9 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "content", n => { Content = n.GetStringValue(); } },
-                { "content_encoding", n => { ContentEncoding = n.GetStringValue(); } },
-                { "id", n => { Id = n.GetStringValue(); } },
-                { "message_type", n => { MessageType = n.GetStringValue(); } },
+                { "data", n => { Data = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40024DataResourceData>(global::Soenneker.Wise.OpenApiClient.Models.V40024DataResourceData.CreateFromDiscriminatorValue); } },
+                { "id", n => { Id = n.GetGuidValue(); } },
+                { "occurred_at", n => { OccurredAt = n.GetDateTimeOffsetValue(); } },
             };
         }
         /// <summary>
@@ -84,10 +63,9 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteStringValue("content", Content);
-            writer.WriteStringValue("content_encoding", ContentEncoding);
-            writer.WriteStringValue("id", Id);
-            writer.WriteStringValue("message_type", MessageType);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40024DataResourceData>("data", Data);
+            writer.WriteGuidValue("id", Id);
+            writer.WriteDateTimeOffsetValue("occurred_at", OccurredAt);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

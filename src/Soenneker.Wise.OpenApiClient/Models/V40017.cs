@@ -32,9 +32,9 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #endif
         /// <summary>Version of the event schema. Determined by the `schema_version` on your [webhook subscription](/api-reference/webhook).</summary>
         public global::Soenneker.Wise.OpenApiClient.Models.Value400SchemaVersion? SchemaVersion { get; set; }
-        /// <summary>Timestamp when the event was sent</summary>
+        /// <summary>Timestamp when the event was sent.</summary>
         public DateTimeOffset? SentAt { get; set; }
-        /// <summary>ID of the webhook subscription that triggered this event</summary>
+        /// <summary>ID of the webhook subscription that triggered this event.</summary>
         public Guid? SubscriptionId { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.V40017"/> and sets the default values.

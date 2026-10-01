@@ -14,30 +14,22 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Transaction amount</summary>
-        public decimal? Amount { get; set; }
-        /// <summary>ID of the balance credited or debited.</summary>
-        public long? BalanceId { get; set; }
-        /// <summary>Transfer category</summary>
+        /// <summary>The current state of the user.</summary>
+        public global::Soenneker.Wise.OpenApiClient.Models.V40019DataCurrentState? CurrentState { get; set; }
+        /// <summary>The reason for deactivation.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? ChannelName { get; set; }
+        public string? DeactivationReason { get; set; }
 #nullable restore
 #else
-        public string ChannelName { get; set; }
+        public string DeactivationReason { get; set; }
 #endif
-        /// <summary>Currency code</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? Currency { get; set; }
-#nullable restore
-#else
-        public string Currency { get; set; }
-#endif
-        /// <summary>When the transaction occurred.</summary>
+        /// <summary>If the type is `ACCOUNT_SUSPENSION`, it is possible to appeal the deactivation by contacting Wise.</summary>
+        public global::Soenneker.Wise.OpenApiClient.Models.V40019DataDeactivationType? DeactivationType { get; set; }
+        /// <summary>When the user state change occurred.</summary>
         public DateTimeOffset? OccurredAt { get; set; }
-        /// <summary>Available balance after current transaction.</summary>
-        public decimal? PostTransactionBalanceAmount { get; set; }
+        /// <summary>The previous_state property</summary>
+        public global::Soenneker.Wise.OpenApiClient.Models.V40019DataPreviousState? PreviousState { get; set; }
         /// <summary>The resource property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -45,24 +37,6 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #nullable restore
 #else
         public global::Soenneker.Wise.OpenApiClient.Models.V40019DataResource Resource { get; set; }
-#endif
-        /// <summary>Unique identifier for tracking sequence of transaction events.</summary>
-        public long? StepId { get; set; }
-        /// <summary>Either credit or debit</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? TransactionType { get; set; }
-#nullable restore
-#else
-        public string TransactionType { get; set; }
-#endif
-        /// <summary>ID of the transfer.</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? TransferReference { get; set; }
-#nullable restore
-#else
-        public string TransferReference { get; set; }
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.V40019Data"/> and sets the default values.
@@ -89,16 +63,12 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "amount", n => { Amount = n.GetDecimalValue(); } },
-                { "balance_id", n => { BalanceId = n.GetLongValue(); } },
-                { "channel_name", n => { ChannelName = n.GetStringValue(); } },
-                { "currency", n => { Currency = n.GetStringValue(); } },
+                { "current_state", n => { CurrentState = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40019DataCurrentState>(); } },
+                { "deactivation_reason", n => { DeactivationReason = n.GetStringValue(); } },
+                { "deactivation_type", n => { DeactivationType = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40019DataDeactivationType>(); } },
                 { "occurred_at", n => { OccurredAt = n.GetDateTimeOffsetValue(); } },
-                { "post_transaction_balance_amount", n => { PostTransactionBalanceAmount = n.GetDecimalValue(); } },
+                { "previous_state", n => { PreviousState = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40019DataPreviousState>(); } },
                 { "resource", n => { Resource = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40019DataResource>(global::Soenneker.Wise.OpenApiClient.Models.V40019DataResource.CreateFromDiscriminatorValue); } },
-                { "step_id", n => { StepId = n.GetLongValue(); } },
-                { "transaction_type", n => { TransactionType = n.GetStringValue(); } },
-                { "transfer_reference", n => { TransferReference = n.GetStringValue(); } },
             };
         }
         /// <summary>
@@ -108,16 +78,12 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteDecimalValue("amount", Amount);
-            writer.WriteLongValue("balance_id", BalanceId);
-            writer.WriteStringValue("channel_name", ChannelName);
-            writer.WriteStringValue("currency", Currency);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40019DataCurrentState>("current_state", CurrentState);
+            writer.WriteStringValue("deactivation_reason", DeactivationReason);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40019DataDeactivationType>("deactivation_type", DeactivationType);
             writer.WriteDateTimeOffsetValue("occurred_at", OccurredAt);
-            writer.WriteDecimalValue("post_transaction_balance_amount", PostTransactionBalanceAmount);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40019DataPreviousState>("previous_state", PreviousState);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40019DataResource>("resource", Resource);
-            writer.WriteLongValue("step_id", StepId);
-            writer.WriteStringValue("transaction_type", TransactionType);
-            writer.WriteStringValue("transfer_reference", TransferReference);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

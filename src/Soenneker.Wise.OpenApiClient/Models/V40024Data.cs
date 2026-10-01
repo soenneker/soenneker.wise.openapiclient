@@ -12,18 +12,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
     public partial class V40024Data : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
     {
-        /// <summary>The action property</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.V40024DataAction? Action { get; set; }
-#nullable restore
-#else
-        public global::Soenneker.Wise.OpenApiClient.Models.V40024DataAction Action { get; set; }
-#endif
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Date and time at which the SWIFT message was processed by Wise. Time in UTC.</summary>
-        public DateTimeOffset? OccurredAt { get; set; }
         /// <summary>The resource property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -57,8 +47,6 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "action", n => { Action = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40024DataAction>(global::Soenneker.Wise.OpenApiClient.Models.V40024DataAction.CreateFromDiscriminatorValue); } },
-                { "occurred_at", n => { OccurredAt = n.GetDateTimeOffsetValue(); } },
                 { "resource", n => { Resource = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40024DataResource>(global::Soenneker.Wise.OpenApiClient.Models.V40024DataResource.CreateFromDiscriminatorValue); } },
             };
         }
@@ -69,8 +57,6 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40024DataAction>("action", Action);
-            writer.WriteDateTimeOffsetValue("occurred_at", OccurredAt);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40024DataResource>("resource", Resource);
             writer.WriteAdditionalData(AdditionalData);
         }

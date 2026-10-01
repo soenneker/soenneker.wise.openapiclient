@@ -18,8 +18,6 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public long? Id { get; set; }
         /// <summary>ID of the profile that owns the account.</summary>
         public long? ProfileId { get; set; }
-        /// <summary>State of the account.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.V40020DataResourceState? State { get; set; }
         /// <summary>Resource type (always `balance-account`).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -55,7 +53,6 @@ namespace Soenneker.Wise.OpenApiClient.Models
             {
                 { "id", n => { Id = n.GetLongValue(); } },
                 { "profile_id", n => { ProfileId = n.GetLongValue(); } },
-                { "state", n => { State = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40020DataResourceState>(); } },
                 { "type", n => { Type = n.GetStringValue(); } },
             };
         }
@@ -68,7 +65,6 @@ namespace Soenneker.Wise.OpenApiClient.Models
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteLongValue("id", Id);
             writer.WriteLongValue("profile_id", ProfileId);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40020DataResourceState>("state", State);
             writer.WriteStringValue("type", Type);
             writer.WriteAdditionalData(AdditionalData);
         }

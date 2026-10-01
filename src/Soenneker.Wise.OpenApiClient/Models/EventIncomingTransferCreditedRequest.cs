@@ -17,10 +17,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The data property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.V40027Data? Data { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.V40029Data? Data { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.V40027Data Data { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.V40029Data Data { get; set; }
 #endif
         /// <summary>Event type identifier</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -61,7 +61,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "data", n => { Data = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40027Data>(global::Soenneker.Wise.OpenApiClient.Models.V40027Data.CreateFromDiscriminatorValue); } },
+                { "data", n => { Data = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40029Data>(global::Soenneker.Wise.OpenApiClient.Models.V40029Data.CreateFromDiscriminatorValue); } },
                 { "event_type", n => { EventType = n.GetStringValue(); } },
                 { "schema_version", n => { SchemaVersion = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.Value400SchemaVersion>(); } },
                 { "sent_at", n => { SentAt = n.GetDateTimeOffsetValue(); } },
@@ -75,7 +75,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40027Data>("data", Data);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40029Data>("data", Data);
             writer.WriteStringValue("event_type", EventType);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.Value400SchemaVersion>("schema_version", SchemaVersion);
             writer.WriteDateTimeOffsetValue("sent_at", SentAt);

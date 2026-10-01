@@ -14,31 +14,23 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Detailed description of the error code.</summary>
+        /// <summary>The updated card status. Possible values:- `ACTIVE` - Card is active and can be used.- `INACTIVE` - Card is inactive and all transactions will be declined.- `BLOCKED` - Card is blocked and cannot be reversed back to any state.- `FROZEN` - Card is temporarily frozen; all authorization requests will be declined.- `PARTNER_SUSPENDED` - Card is suspended by Wise temporarily due to, for example, fraud reasons.- `EXPIRED` - Card is expired.- `PURGED` - The cardhoder data (ex: PAN, PIN) have been purged after exceeds the retention period (555 days after the card&apos;s expiry date).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Description { get; set; }
+        public string? CardStatus { get; set; }
 #nullable restore
 #else
-        public string Description { get; set; }
+        public string CardStatus { get; set; }
 #endif
-        /// <summary>Code returned when card production is not successful. See possible values in [production errors](/api-reference/card-kiosk-collection/cardkioskcollectionproduce).</summary>
+        /// <summary>The identifier of the entity that updated the card status. If changed by Wise, the value is set to `internal_system`,otherwise, it is set to your `api_client_id`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? ErrorCode { get; set; }
+        public string? ChangedBy { get; set; }
 #nullable restore
 #else
-        public string ErrorCode { get; set; }
+        public string ChangedBy { get; set; }
 #endif
-        /// <summary>Identifier that specifies which kiosk machine is producing the card.</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? KioskId { get; set; }
-#nullable restore
-#else
-        public string KioskId { get; set; }
-#endif
-        /// <summary>Time when the card production request was sent to the kiosk machine.</summary>
+        /// <summary>When the card status change occurred.</summary>
         public DateTimeOffset? OccurredAt { get; set; }
         /// <summary>The resource property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -47,14 +39,6 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #nullable restore
 #else
         public global::Soenneker.Wise.OpenApiClient.Models.V4008DataResource Resource { get; set; }
-#endif
-        /// <summary>Current production status. See possible values in the [production status flow diagram](/api-reference/card-kiosk-collection#production-status-flow).</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? Status { get; set; }
-#nullable restore
-#else
-        public string Status { get; set; }
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.V4008Data"/> and sets the default values.
@@ -81,12 +65,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "description", n => { Description = n.GetStringValue(); } },
-                { "error_code", n => { ErrorCode = n.GetStringValue(); } },
-                { "kiosk_id", n => { KioskId = n.GetStringValue(); } },
+                { "card_status", n => { CardStatus = n.GetStringValue(); } },
+                { "changed_by", n => { ChangedBy = n.GetStringValue(); } },
                 { "occurred_at", n => { OccurredAt = n.GetDateTimeOffsetValue(); } },
                 { "resource", n => { Resource = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V4008DataResource>(global::Soenneker.Wise.OpenApiClient.Models.V4008DataResource.CreateFromDiscriminatorValue); } },
-                { "status", n => { Status = n.GetStringValue(); } },
             };
         }
         /// <summary>
@@ -96,12 +78,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteStringValue("description", Description);
-            writer.WriteStringValue("error_code", ErrorCode);
-            writer.WriteStringValue("kiosk_id", KioskId);
+            writer.WriteStringValue("card_status", CardStatus);
+            writer.WriteStringValue("changed_by", ChangedBy);
             writer.WriteDateTimeOffsetValue("occurred_at", OccurredAt);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V4008DataResource>("resource", Resource);
-            writer.WriteStringValue("status", Status);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

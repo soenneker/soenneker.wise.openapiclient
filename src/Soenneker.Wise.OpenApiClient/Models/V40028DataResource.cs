@@ -14,24 +14,28 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>The data property</summary>
+        /// <summary>Whether amount received matches what is expected.</summary>
+        public bool? AmountMatched { get; set; }
+        /// <summary>Reference on settlement journal</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.V40028DataResourceData? Data { get; set; }
+        public string? SettlementReference { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.V40028DataResourceData Data { get; set; }
+        public string SettlementReference { get; set; }
 #endif
-        /// <summary>Resource identifier for the changed recipient.</summary>
+        /// <summary>The amount Wise paid out on behalf of partner.</summary>
+        public decimal? SourceAmount { get; set; }
+        /// <summary>Settlement currency</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Id { get; set; }
+        public string? SourceCurrency { get; set; }
 #nullable restore
 #else
-        public string Id { get; set; }
+        public string SourceCurrency { get; set; }
 #endif
-        /// <summary>Timestamp when the recipient state change occurred.</summary>
-        public DateTimeOffset? OccurredAt { get; set; }
+        /// <summary>Total settlement fund received for this settlement journal.</summary>
+        public decimal? TargetAmount { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.V40028DataResource"/> and sets the default values.
         /// </summary>
@@ -57,9 +61,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "data", n => { Data = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40028DataResourceData>(global::Soenneker.Wise.OpenApiClient.Models.V40028DataResourceData.CreateFromDiscriminatorValue); } },
-                { "id", n => { Id = n.GetStringValue(); } },
-                { "occurred_at", n => { OccurredAt = n.GetDateTimeOffsetValue(); } },
+                { "amount_matched", n => { AmountMatched = n.GetBoolValue(); } },
+                { "settlement_reference", n => { SettlementReference = n.GetStringValue(); } },
+                { "source_amount", n => { SourceAmount = n.GetDecimalValue(); } },
+                { "source_currency", n => { SourceCurrency = n.GetStringValue(); } },
+                { "target_amount", n => { TargetAmount = n.GetDecimalValue(); } },
             };
         }
         /// <summary>
@@ -69,9 +75,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40028DataResourceData>("data", Data);
-            writer.WriteStringValue("id", Id);
-            writer.WriteDateTimeOffsetValue("occurred_at", OccurredAt);
+            writer.WriteBoolValue("amount_matched", AmountMatched);
+            writer.WriteStringValue("settlement_reference", SettlementReference);
+            writer.WriteDecimalValue("source_amount", SourceAmount);
+            writer.WriteStringValue("source_currency", SourceCurrency);
+            writer.WriteDecimalValue("target_amount", TargetAmount);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

@@ -1,11 +1,11 @@
 openapi: 3.1.0
 info:
   title: Wise Platform API
-  version: ''
+  version: 2026Q4
   description: >
     The Wise Platform API is a REST-based interface that enables programmatic
     access to Wise's payment infrastructure. All endpoints return JSON-formatted
-    responses and use standard HTTP methods and status codes. 
+    responses and use standard HTTP methods and status codes.
 
     {% admonition type="success" name="New to wise?" %}
       We strongly recommend first reading our **[Getting Started Guide](/guides/developer/index.md)** to help you set up credentials and make your first call.
@@ -60,9 +60,9 @@ info:
     Guides](/guides/product/send-money/use-cases/index.md) for step-by-step
     implementation examples.{% .m-t-3 .m-b-5 %}
 servers:
-  - url: https://api.wise.com/2026Q3
+  - url: https://api.wise.com/2026Q4
     description: Production Environment
-  - url: https://api.wise-sandbox.com/2026Q3
+  - url: https://api.wise-sandbox.com/2026Q4
     description: Sandbox Environment
 tags:
   - name: 3ds
@@ -1165,6 +1165,12 @@ tags:
       - `*_SUBMISSION` - Structured response to requests
 
       - `FREEFORM` - Free text communication
+  - name: case-files
+    x-displayName: Files
+    description: >-
+      Securely upload supporting documentation to Wise. Each upload returns a
+      file ID, which you then pass to any endpoint that documents support for
+      it. Files currently work with the Cases API only.
   - name: payins
     x-displayName: Payins
     description: >-
@@ -1216,8 +1222,8 @@ tags:
 
       **Unauthenticated quotes** are for illustrative purposes only. Use this
       option to display example rates before a user has created or linked an
-      account. This endpoint does not required an auth token and the response
-      has no ID, so it cannot be used to create a transfer.
+      account. This endpoint does not require an auth token and the response has
+      no ID, so it cannot be used to create a transfer.
 
 
       **Authenticated quotes** require an auth token and provide a quote ID in
@@ -1387,6 +1393,15 @@ tags:
       Please read the [SCA over API
       guide](/guides/developer/auth-and-security/sca-over-api) to understand how
       SCA integration works.
+  - name: settlement
+    x-displayName: Settlement
+    description: >+
+      Settlement APIs enable the allocation of settled funds across multiple
+      recipients. A settlement allocation request specifies how a received
+      amount should be distributed. Wise processes each allocation as an
+      individual payment intent that can be tracked through completion.
+
+
   - name: transfer
     x-displayName: Transfers
     description: >-
@@ -1421,6 +1436,14 @@ tags:
       An incoming transfer represents a payment received into a Wise balance via
       a supported payment rail (SWIFT, SEPA, Faster Payments, ACH, or the Wise
       network).
+  - name: gpi-tracking
+    x-displayName: GPI Tracking
+    description: >
+      Look up SWIFT gpi tracking data by UETR or Wise transfer ID. Each match
+      returns the payment's current status and status reason, the timeline of
+      gpi events reported by the banks in the chain, the agent BICs that handled
+      each leg, the amounts and exchange rate applied at each step, and any
+      charges those banks deducted.
   - name: payment-instruments
     x-displayName: Payment Instruments
     description: >-
@@ -1557,12 +1580,19 @@ x-tagGroups:
     tags:
       - webhook
       - webhook-event
+  - name: Settlement
+    tags:
+      - settlement
   - name: Simulations
     tags:
       - simulation
   - name: Cases
     tags:
       - case
+      - case-files
+  - name: Tracking
+    tags:
+      - gpi-tracking
 paths:
   /spend/profiles/{profileId}/3dsecure/challenge-result:
     post:
@@ -4177,44 +4207,112 @@ paths:
               $ref: '#/components/headers/x-trace-id'
         '429':
           $ref: '#/components/responses/429'
-  /profiles/{profileId}/account-details:
+  /balances/account-details/{id}:
     get:
-      tags:
-        - bank-account-details
-      summary: Retrieve bank account details
-      operationId: bankAccountDetailsGet
-      security:
-        - UserToken: []
-        - PersonalToken: []
       description: >
-        Returns a list with all the `AVAILABLE` and `ACTIVE` account details for
-        the given profile, including examples. Account receive options can also
-        include local and international details to receive money on the currency
-        balance.
+        Retrieves account details by ID. Account details identify an account
+        that can receive funds
 
+        (e.g. an IBAN, or a sort code and account number). GB, US and BE account
+        details are supported.
 
-        Example bank account details are returned for any currency where bank
-        account details have not been requested and issued. Examples will always
-        include an `id` of `null`.
+        Requesting account details for an unsupported country returns `404 Not
+        Found`. For coverage across
+
+        all countries, use the [2026Q3 account details
+        API](https://docs.wise.com/api-reference/bank-account-details/bankaccountdetailsget).
+      summary: Get account details by ID
+      operationId: getAccountDetails
       parameters:
-        - name: profileId
+        - name: id
           in: path
-          required: true
+          description: Unique identifier for the account details.
           schema:
             type: integer
+            description: Unique identifier for the account details.
             format: int64
             example: 12345678
-          description: The ID of the profile to retrieve bank account details for.
+          required: true
         - $ref: '#/components/parameters/X-External-Correlation-Id'
       responses:
         '200':
-          description: A list of bank account details.
+          description: GetAccountDetails 200 response
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/BankAccountDetails'
+                $ref: '#/components/schemas/AccountDetails'
+              examples:
+                be-account-details:
+                  summary: BE account details
+                  value:
+                    id: 32345678
+                    profileId: 87654321
+                    state: ACTIVE
+                    accountHolderName: Sarah Jenkins
+                    country: BE
+                    accountIdentification:
+                      beAccountIdentification:
+                        bic: TRWIBEB1
+                        iban: BE71096123456769
+                        institutionName: Wise
+                        institutionAddress:
+                          streetName: Avenue Louise
+                          buildingNumber: '54'
+                          townName: Brussels
+                          postCode: '1050'
+                          country: BE
+                          addressLines: []
+                gb-account-details:
+                  summary: GB account details
+                  value:
+                    id: 12345678
+                    profileId: 87654321
+                    state: ACTIVE
+                    accountHolderName: Sarah Jenkins
+                    country: GB
+                    accountIdentification:
+                      gbAccountIdentification:
+                        bic: TRWIGB2L
+                        iban: GB29NWBK60161331926819
+                        sortCode: '230801'
+                        accountNumber: '12345678'
+                        institutionName: Wise Payments Ltd
+                        institutionAddress:
+                          streetName: Worship Street
+                          buildingNumber: '56'
+                          townName: London
+                          postCode: EC2A 2BE
+                          country: GB
+                          addressLines: []
+                us-account-details:
+                  summary: US account details
+                  value:
+                    id: 22345678
+                    profileId: 87654321
+                    state: ACTIVE
+                    accountHolderName: Sarah Jenkins
+                    country: US
+                    accountIdentification:
+                      usAccountIdentification:
+                        bic: TRWIUS35XXX
+                        routingNumber: '101019628'
+                        accountNumber: '9900000000'
+                        institutionName: Wise
+                        institutionAddress:
+                          streetName: West 26th Street
+                          buildingNumber: '30'
+                          townName: New York
+                          postCode: '10010'
+                          countrySubDivision: NY
+                          country: US
+                          addressLines: []
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '404':
+          description: AccountDetailsNotFoundError 404 response
           headers:
             X-External-Correlation-Id:
               $ref: '#/components/headers/X-External-Correlation-Id'
@@ -4222,6 +4320,11 @@ paths:
               $ref: '#/components/headers/x-trace-id'
         '429':
           $ref: '#/components/responses/429'
+      security:
+        - ClientCredentialsToken: []
+        - UserToken: []
+      tags:
+        - bank-account-details
   /profiles/{profileId}/account-details-orders:
     post:
       tags:
@@ -4400,149 +4503,6 @@ paths:
                               - PENDING_TW
                               - DONE
                             example: DONE
-          headers:
-            X-External-Correlation-Id:
-              $ref: '#/components/headers/X-External-Correlation-Id'
-            x-trace-id:
-              $ref: '#/components/headers/x-trace-id'
-        '429':
-          $ref: '#/components/responses/429'
-  /profiles/{profileId}/account-details/payments/{paymentId}/returns:
-    post:
-      tags:
-        - bank-account-details
-      summary: Create payment return
-      operationId: bankAccountDetailsReturnsCreate
-      security:
-        - UserToken: []
-      description: >
-        Creates a return for a payment received to bank account details.
-
-
-        When you create a return, you must provide the ID of the payment you
-        wish to return as well as the ID of the profile that received the
-        payment. In addition, you can provide a `reason` for the return in the
-        request body. When returning SWIFT payments, `reason` is a required
-        field.
-      parameters:
-        - name: profileId
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
-            example: 12345678
-          description: The ID of the profile that received the payment.
-        - name: paymentId
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
-            example: 987654321
-          description: The ID of the payment to return.
-        - $ref: '#/components/parameters/X-External-Correlation-Id'
-      requestBody:
-        required: false
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                reason:
-                  type: string
-                  description: >
-                    Reason for the return. Required when returning SWIFT
-                    payments.
-                  enum:
-                    - INCORRECT_ACCOUNT_NUMBER
-                    - CLOSED_ACCOUNT
-                    - BLOCKED_ACCOUNT
-                    - CANCELLATION_REQUEST
-                    - REGULATORY
-                    - CUSTOMER_REQUEST
-                  example: CLOSED_ACCOUNT
-      responses:
-        '201':
-          description: Payment return created.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  id:
-                    type: string
-                    format: uuid
-                    description: ID of the return created.
-                    example: 4cc39f2b-3513-453d-8792-9ccc22e513c3
-          headers:
-            X-External-Correlation-Id:
-              $ref: '#/components/headers/X-External-Correlation-Id'
-            x-trace-id:
-              $ref: '#/components/headers/x-trace-id'
-        '400':
-          description: Invalid request.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        code:
-                          type: string
-                          description: Error code.
-                          example: error.payment-return.invalid
-                        message:
-                          type: string
-                          description: Error message.
-                          example: A valid reason is required to return a Swift payment
-                        arguments:
-                          type: array
-                          description: Additional context values related to the error.
-                          items: {}
-                          example:
-                            - 987654321
-                            - 123456789
-                            - null
-          headers:
-            X-External-Correlation-Id:
-              $ref: '#/components/headers/X-External-Correlation-Id'
-            x-trace-id:
-              $ref: '#/components/headers/x-trace-id'
-        '404':
-          description: Payment not found.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        code:
-                          type: string
-                          description: Error code.
-                          example: error.payment.not-found
-                        message:
-                          type: string
-                          description: Error message.
-                          example: >-
-                            No payment found with id [123456789] for profile id
-                            [987654321]
-                        arguments:
-                          type: array
-                          description: Additional context values related to the error.
-                          items: {}
-                          example:
-                            - 987654321
-                            - 123456789
-                            - null
           headers:
             X-External-Correlation-Id:
               $ref: '#/components/headers/X-External-Correlation-Id'
@@ -7247,25 +7207,25 @@ paths:
                         /public/v4/spend/profiles/2/cards/f47da127-7b8c-4312-8f10-dd2d70e6912b/transactions
                   errors:
                     type: array
-                    description: A list of specific validation failures.
+                    description: A list of specific validation failures
                     items:
                       type: object
                       properties:
                         detail:
                           type: string
-                          description: A detailed description of the validation failure.
+                          description: A detailed description of the validation failure
                           examples:
                             - >-
                               Invalid date format. Expected ISO-8601 format
                               YYYY-MM-DDTHH:mm:ssZ.
                         code:
                           type: string
-                          description: A specific code for the validation failure type.
+                          description: A specific code for the validation failure type
                           examples:
                             - parameter_invalid_format
                         ref:
                           type: string
-                          description: A reference to the field that failed validation.
+                          description: A reference to the field that failed validation
           headers:
             X-External-Correlation-Id:
               $ref: '#/components/headers/X-External-Correlation-Id'
@@ -12195,14 +12155,6 @@ paths:
         - case
       security:
         - ClientCredentialsToken: []
-      x-codeSamples:
-        - lang: bash
-          label: cURL
-          source: |
-            curl -X GET \
-              'https://api.sandbox.wise.com/2026Q4/cases/{caseId}' \
-              -H 'Content-Type: application/json' \
-              -H 'Authorization: Bearer <token>'
       parameters:
         - name: caseId
           in: path
@@ -13304,6 +13256,305 @@ paths:
               $ref: '#/components/headers/x-trace-id'
         '429':
           $ref: '#/components/responses/429'
+  /cases/files:
+    post:
+      operationId: caseFileUpload
+      summary: Upload a file
+      description: |
+        Uploads a file that can be used as supporting documentation for cases.
+        All files are scanned for malware before being accepted.
+      tags:
+        - case-files
+      security:
+        - ClientCredentialsToken: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  contentMediaType: application/octet-stream
+                  description: >
+                    The file to upload. Do not include personally identifying
+                    information in the file name. Must be one of the supported
+                    content types
+
+                    (`application/pdf`, `image/jpeg`, `image/png`) and must not
+                    exceed 15 MB.
+
+                    File name must not exceed 128 characters and the file
+                    extension must match the content type
+
+                    (e.g. `.pdf` for `application/pdf`).
+                submissionData:
+                  $ref: '#/components/schemas/file-upload-request'
+              required:
+                - file
+                - submissionData
+            encoding:
+              file:
+                contentType: application/pdf, image/jpeg, image/png
+              submissionData:
+                contentType: application/json
+      responses:
+        '201':
+          description: File uploaded successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/file-upload-response'
+              examples:
+                pdfUpload:
+                  summary: PDF file uploaded
+                  value:
+                    profileId: 14556049
+                    fileId: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                    fileName: company-registration.pdf
+                pngUpload:
+                  summary: PNG image uploaded
+                  value:
+                    profileId: 14556049
+                    fileId: b2c3d4e5-f6a7-8901-bcde-f12345678901
+                    fileName: identity-document.png
+                jpegUpload:
+                  summary: JPEG image uploaded
+                  value:
+                    profileId: 14556049
+                    fileId: b2c3d4e5-f6a7-8901-bcde-f12345678901
+                    fileName: identity-document.jpg
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '400':
+          description: Bad request - validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error-400-validation'
+              examples:
+                missingProfileId:
+                  summary: Missing profileId
+                  value:
+                    type: /errors/types/validation
+                    title: Validation Error
+                    status: 400
+                    instance: /cases/files
+                    errors:
+                      - code: parameter_missing
+                        ref: profileId
+                        detail: profileId must be provided
+                missingPurpose:
+                  summary: Missing purpose
+                  value:
+                    type: /errors/types/validation
+                    title: Validation Error
+                    status: 400
+                    instance: /cases/files
+                    errors:
+                      - code: parameter_missing
+                        ref: purpose
+                        detail: purpose must be provided
+                invalidPurpose:
+                  summary: Invalid purpose value
+                  value:
+                    type: /errors/types/validation
+                    title: Validation Error
+                    status: 400
+                    instance: /cases/files
+                    errors:
+                      - code: parameter_invalid
+                        ref: purpose
+                        detail: Invalid purpose
+                emptyFile:
+                  summary: File is empty
+                  value:
+                    type: /errors/types/validation
+                    title: Validation Error
+                    status: 400
+                    instance: /cases/files
+                    errors:
+                      - code: parameter_missing
+                        ref: file
+                        detail: File must be provided
+                missingFileName:
+                  summary: File name is missing
+                  value:
+                    type: /errors/types/validation
+                    title: Validation Error
+                    status: 400
+                    instance: /cases/files
+                    errors:
+                      - code: parameter_missing
+                        ref: file
+                        detail: File name must be provided
+                fileNameTooLong:
+                  summary: File name exceeds 128 characters
+                  value:
+                    type: /errors/types/validation
+                    title: Validation Error
+                    status: 400
+                    instance: /cases/files
+                    errors:
+                      - code: parameter_invalid
+                        ref: file
+                        detail: File name must not exceed 128 characters
+                fileSizeTooLarge:
+                  summary: File exceeds 15 MB size limit
+                  value:
+                    type: /errors/types/validation
+                    title: Validation Error
+                    status: 400
+                    instance: /cases/files
+                    errors:
+                      - code: file_size_exceeds_max_limit
+                        ref: file
+                        detail: File size exceeds maximum allowed size
+                missingContentType:
+                  summary: File content type is missing
+                  value:
+                    type: /errors/types/validation
+                    title: Validation Error
+                    status: 400
+                    instance: /cases/files
+                    errors:
+                      - code: parameter_invalid
+                        ref: file
+                        detail: File content type must be provided
+                unsupportedContentType:
+                  summary: File content type not allowed
+                  value:
+                    type: /errors/types/validation
+                    title: Validation Error
+                    status: 400
+                    instance: /cases/files
+                    errors:
+                      - code: invalid_file_extension
+                        ref: file
+                        detail: File content type not allowed
+                noValidExtension:
+                  summary: File name has no valid extension
+                  value:
+                    type: /errors/types/validation
+                    title: Validation Error
+                    status: 400
+                    instance: /cases/files
+                    errors:
+                      - code: invalid_file_extension
+                        ref: file
+                        detail: File name must have a valid extension
+                extensionMismatch:
+                  summary: File extension does not match content type
+                  value:
+                    type: /errors/types/validation
+                    title: Validation Error
+                    status: 400
+                    instance: /cases/files
+                    errors:
+                      - code: invalid_file_extension
+                        ref: file
+                        detail: File extension does not match content type
+                profileNotConnected:
+                  summary: You do not own this profile
+                  value:
+                    type: /errors/types/validation
+                    title: Validation Error
+                    status: 400
+                    instance: /cases/files
+                    errors:
+                      - code: parameter_invalid
+                        ref: profileId
+                        detail: Profile does not belong to Partner
+                malwareDetected:
+                  summary: File failed security scan
+                  value:
+                    type: /errors/types/validation
+                    title: Validation Error
+                    status: 400
+                    instance: /cases/files
+                    errors:
+                      - code: parameter_invalid
+                        ref: file
+                        detail: File failed security scan
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '401':
+          description: Unauthorized - missing or invalid authentication
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error-401-unauthorized-2'
+              example:
+                type: /errors/types/access
+                title: Unauthorized
+                status: 401
+                detail: Authentication required
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '403':
+          description: Forbidden - insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error-403-forbidden-2'
+              example:
+                type: /errors/types/access
+                title: Forbidden
+                status: 403
+                detail: Unauthorized
+                code: forbidden
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '429':
+          description: Too many requests - rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error-429-too-many-requests'
+              example:
+                type: /errors/types/domain
+                title: Too Many Requests
+                status: 429
+                detail: Too many files uploaded recently. Please try again later.
+                instance: /cases/files
+                code: rate_limit_exceeded
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error-response-2'
+              example:
+                type: /errors/types/internal
+                title: Internal Server Error
+                status: 500
+                detail: An unexpected error occurred. Please try again later.
+                instance: /cases/files
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+      parameters:
+        - $ref: '#/components/parameters/X-External-Correlation-Id'
   /profiles/{profileId}/payin-sessions/{payinSessionId}/paynow:
     post:
       operationId: paynowCreate
@@ -14275,7 +14526,7 @@ paths:
         See [Business Categories](/guides/product/kyc/business-categories) for
         the list of valid `industryCategories` values. Send either
         `industryCategories` or the deprecated
-        `firstLevelCategory`/`secondLevelCategory` pair - supplying both in one
+        `firstLevelCategory`/`secondLevelCategory` pair, supplying both in one
         request returns a `400`. If you currently send the legacy fields, see
         [Migrating to industry
         categories](/guides/product/kyc/migrate-business-profile-industry-categories).
@@ -15002,7 +15253,7 @@ paths:
                   description: >-
                     One or more industry categories classifying the business.
                     See [Business
-                    Categories](guides/product/kyc/business-categories) for the
+                    Categories](/guides/product/kyc/business-categories) for the
                     full list of valid values.
                   minItems: 1
                   items:
@@ -15415,7 +15666,6 @@ paths:
         '422':
           description: >
             Request could not be processed due to a missing prerequisite.
-
 
             Returned when submitting `FINANCIAL_CAPACITY_BR` for a profile that
             has no tax ID on record.
@@ -18689,6 +18939,239 @@ paths:
               $ref: '#/components/headers/x-trace-id'
         '429':
           $ref: '#/components/responses/429'
+  /settlement/allocations:
+    post:
+      summary: Create a settlement allocation request
+      description: >-
+        Creates a new settlement allocation request with a Settlement Allocation
+        Request (SAR) file containing payment intents
+      operationId: createFundsAllocationRequest
+      tags:
+        - settlement
+      security:
+        - ClientCredentialsToken: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - command
+                - file
+              properties:
+                command:
+                  $ref: '#/components/schemas/settlement-allocation-request'
+                file:
+                  type: string
+                  format: binary
+                  description: >-
+                    Settlement Allocation Request (SAR) file containing payment
+                    intent details
+      responses:
+        '202':
+          description: Settlement allocation request accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/settlement-allocation-response'
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '400':
+          description: Invalid request
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '401':
+          description: Unauthorized - missing or invalid authentication
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '403':
+          description: Forbidden - insufficient permissions
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '429':
+          $ref: '#/components/responses/429'
+      parameters:
+        - $ref: '#/components/parameters/X-External-Correlation-Id'
+  /settlement/allocations/{allocationId}:
+    get:
+      description: |2-
+
+          Retrieves the details of a settlement allocation by its ID.
+          Optionally includes paginated payment intents associated with the allocation.
+      summary: Get a settlement allocation
+      operationId: GetSettlementAllocation
+      parameters:
+        - name: allocationId
+          in: path
+          description: Unique identifier of the settlement allocation.
+          schema:
+            type: string
+            pattern: >-
+              ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
+            description: Unique identifier of the settlement allocation.
+            example: f47ac10b-58cc-4372-a567-0e02b2c3d479
+          required: true
+        - name: includePaymentIntents
+          in: query
+          description: Whether to include payment intents in the response.
+          schema:
+            type: boolean
+            description: Whether to include payment intents in the response.
+            example: true
+        - name: pageToken
+          in: query
+          description: Token for fetching the next page of results.
+          schema:
+            type: string
+            description: Token for fetching the next page of results.
+            example: abc123
+        - name: pageSize
+          in: query
+          description: Number of items per page.
+          schema:
+            type: integer
+            maximum: 50
+            description: Number of items per page.
+            format: int32
+            example: 20
+        - $ref: '#/components/parameters/X-External-Correlation-Id'
+      responses:
+        '200':
+          description: Settlement allocation details retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetSettlementAllocationResponseContent'
+              examples:
+                settlement-allocation-details-response:
+                  summary: Settlement allocation details with payment intents
+                  value:
+                    id: f47ac10b-58cc-4372-a567-0e02b2c3d479
+                    expectedTotalAmount: 1000.5
+                    currency: EUR
+                    state: MATCHED
+                    paymentReference: PAY-123456
+                    createdAt: '2026-07-10T10:30:16.000Z'
+                    updatedAt: '2026-07-10T11:00:41.000Z'
+                    paymentIntents:
+                      - id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                        allocationId: f47ac10b-58cc-4372-a567-0e02b2c3d479
+                        partnerEntityId: PARTNER-001
+                        profileId: '12345678'
+                        recipientType: SELLER
+                        sourceAmount: 100
+                        sourceCurrency: EUR
+                        targetAmount: 85
+                        targetCurrency: GBP
+                        allocationType: CREDIT
+                        paymentReference: REF-001
+                        reason: Invoice payment
+                        state: NEW
+                        fundingSource: WISE_COLLECTION_ACCOUNT
+                        createdAt: '2026-07-10T10:35:41.147522'
+                        updatedAt: '2026-07-10T10:45:41.147522'
+                    nextPageToken: def456
+                settlement-allocation-details-without-payment-intents:
+                  summary: Settlement allocation details without payment intents
+                  value:
+                    id: f47ac10b-58cc-4372-a567-0e02b2c3d479
+                    expectedTotalAmount: 1000.5
+                    currency: EUR
+                    state: MATCHED
+                    paymentReference: PAY-123456
+                    createdAt: '2026-07-10T10:30:16.000Z'
+                    updatedAt: '2026-07-10T11:00:41.000Z'
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '429':
+          $ref: '#/components/responses/429'
+      security:
+        - ClientCredentialsToken: []
+      tags:
+        - settlement
+  /settlement/allocations/{allocationId}/payment-intents/{paymentIntentId}:
+    get:
+      description: |2-
+
+            Retrieves the details of a specific payment intent within a settlement allocation.
+      summary: Get a payment intent
+      operationId: GetPaymentIntent
+      parameters:
+        - name: allocationId
+          in: path
+          description: Unique identifier of the settlement allocation.
+          schema:
+            type: string
+            pattern: >-
+              ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
+            description: Unique identifier of the settlement allocation.
+            example: f47ac10b-58cc-4372-a567-0e02b2c3d479
+          required: true
+        - name: paymentIntentId
+          in: path
+          description: Unique identifier of the payment intent.
+          schema:
+            type: string
+            pattern: >-
+              ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
+            description: Unique identifier of the payment intent.
+            example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+          required: true
+        - $ref: '#/components/parameters/X-External-Correlation-Id'
+      responses:
+        '200':
+          description: Payment intent details retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetPaymentIntentResponseContent'
+              examples:
+                payment-intent-response:
+                  summary: Payment intent details
+                  value:
+                    id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                    allocationId: f47ac10b-58cc-4372-a567-0e02b2c3d479
+                    partnerEntityId: PARTNER-001
+                    profileId: '12345678'
+                    recipientType: SELLER
+                    sourceAmount: 100
+                    sourceCurrency: EUR
+                    targetAmount: 85
+                    targetCurrency: GBP
+                    allocationType: CREDIT
+                    paymentReference: REF-001
+                    reason: Invoice payment
+                    state: NEW
+                    fundingSource: WISE_COLLECTION_ACCOUNT
+                    createdAt: '2026-07-10T10:35:16.000Z'
+                    updatedAt: '2026-07-10T10:45:41.000Z'
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '429':
+          $ref: '#/components/responses/429'
+      security:
+        - ClientCredentialsToken: []
+      tags:
+        - settlement
   /simulation/transfers/{transferId}/{status}:
     get:
       operationId: simulationTransferStateChange
@@ -18922,6 +19405,216 @@ paths:
               $ref: '#/components/headers/X-External-Correlation-Id'
             x-trace-id:
               $ref: '#/components/headers/x-trace-id'
+  /simulation/transfers/{transferId}/delivery-update:
+    post:
+      operationId: simulationTransferDeliveryUpdate
+      summary: Simulate a transfer delivery update
+      description: >
+        Triggers a synthetic `transfers#delivery-update` webhook for a transfer
+        accessible to the caller.
+
+        Create an eligible webhook subscription before calling this endpoint.
+        See the
+
+        [delivery update
+        guide](/guides/product/send-money/tracking/delivery-statuses) for
+        subscription setup and webhook handling.
+
+
+        {% admonition type="info" %}
+
+        - Available in sandbox only, from API version `2026Q4`.
+
+        - Does not change the transfer or payout state and does not require a
+        particular transfer state.
+
+        - A `200` response confirms acceptance for webhook processing, not
+        delivery to your callback.
+          Webhook delivery is asynchronous and requires a matching subscription.
+        {% /admonition %}
+
+
+        Each successful call generates a new observation. Repeating the request
+        creates another
+
+        observation rather than replaying the previous one. Correlate the
+        response with the webhook
+
+        using `observation_id` and `occurred_at`.
+      tags:
+        - simulation
+      servers:
+        - url: https://api.wise-sandbox.com/2026Q4
+          description: Sandbox Environment
+      security:
+        - UserToken: []
+      parameters:
+        - name: transferId
+          in: path
+          required: true
+          description: >-
+            The ID of the transfer to simulate. The caller must have access to
+            this transfer.
+          schema:
+            type: integer
+            format: int64
+        - $ref: '#/components/parameters/X-External-Correlation-Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/delivery-update-request'
+            examples:
+              recipientProviderAccepted:
+                summary: Simulate an intermediate delivery signal with an estimate
+                value:
+                  scheme: sepa_instant_credit_transfer
+                  delivery_update_path:
+                    - recipient_provider_accepted
+                    - scheme_settled
+                  delivery_update: recipient_provider_accepted
+                  estimated_delivery_at: '2026-10-01T10:00:05.000Z'
+              fundsAvailable:
+                summary: Simulate funds available without a scheme or estimate
+                value:
+                  delivery_update_path:
+                    - funds_available
+                  delivery_update: funds_available
+      responses:
+        '200':
+          description: Observation accepted for asynchronous webhook processing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/delivery-update-response'
+              example:
+                observation_id: 550e8400-e29b-41d4-a716-446655440000
+                occurred_at: '2026-10-01T10:00:00.123Z'
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '400':
+          description: >-
+            Invalid request. Malformed input and domain validation return a
+            single error; field validation can return an errors array.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/simulation-error'
+                  - $ref: '#/components/schemas/simulation-errors'
+              examples:
+                unsupportedScheme:
+                  summary: Unsupported payment scheme
+                  value:
+                    arguments: []
+                    code: not.valid
+                    message: scheme is not supported
+                updateOutsidePath:
+                  summary: Selected update is not in the path
+                  value:
+                    arguments: []
+                    code: not.valid
+                    message: delivery_update must be contained in delivery_update_path
+                missingPath:
+                  summary: Missing or empty delivery update path
+                  value:
+                    errors:
+                      - arguments: []
+                        code: not.valid
+                        message: delivery_update_path must be non-empty
+                        path: deliveryUpdatePath
+                malformedBody:
+                  summary: Request body cannot be read
+                  value:
+                    arguments: []
+                    code: message.not.readable
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '401':
+          description: Authentication is missing or invalid.
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '403':
+          description: Access denied by the authentication or authorization policy.
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '404':
+          description: Transfer does not exist or is not accessible to the caller.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/simulation-errors'
+              example:
+                errors:
+                  - arguments: []
+                    code: transfer_not_found
+                    message: Transfer not found
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          description: Internal error while processing the simulation.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/simulation-error'
+                  - $ref: '#/components/schemas/simulation-errors'
+              examples:
+                submissionFailure:
+                  value:
+                    errors:
+                      - arguments: []
+                        code: system_error
+                        message: >-
+                          Something went wrong on our side. If this does not
+                          resolve, please let us know at api@wise.com
+                unexpectedError:
+                  value:
+                    arguments: []
+                    code: unexpected.error
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '503':
+          description: >-
+            Simulation temporarily unavailable because a required dependency or
+            transfer routing is unavailable.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/simulation-errors'
+              example:
+                errors:
+                  - arguments: []
+                    code: service_unavailable
+                    message: >-
+                      The simulation is temporarily unavailable. Please try
+                      again.
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
   /simulation/profiles/{profileId}/verifications:
     post:
       operationId: simulationVerification
@@ -19091,6 +19784,46 @@ paths:
               $ref: '#/components/headers/x-trace-id'
         '429':
           $ref: '#/components/responses/429'
+      parameters:
+        - $ref: '#/components/parameters/X-External-Correlation-Id'
+  /simulation/settlement/funds:
+    post:
+      description: |2-
+
+            Simulates the receipt of funds for a specific settlement allocation.
+            This endpoint allows you to simulate the receipt of funds associated with
+            a given allocation, which can be useful for testing and validation purposes.
+            Upon successful simulation, a 204 No Content response is returned.
+      summary: Simulate settlement allocation funds received
+      operationId: SimulateSettlementAllocationsFunds
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: >-
+                #/components/schemas/SimulateSettlementAllocationsFundsRequestContent
+            examples:
+              simulate-settlement-allocations-funds:
+                summary: Simulate settlement allocation funds received
+                value:
+                  amount: 1000.5
+                  currency: JPY
+                  paymentReference: BYOPSP_test-client_A1B2C3
+        required: true
+      responses:
+        '204':
+          description: Funds received simulation completed successfully.
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '429':
+          $ref: '#/components/responses/429'
+      security:
+        - ClientCredentialsToken: []
+      tags:
+        - simulation
       parameters:
         - $ref: '#/components/parameters/X-External-Correlation-Id'
   /simulation/spend/profiles/{profileId}/cards/{cardToken}/transactions/authorisation:
@@ -21320,7 +22053,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/validation-error-2'
+                $ref: '#/components/schemas/validation-error-3'
               example:
                 type: /errors/types/validation
                 title: Validation error
@@ -21471,7 +22204,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/validation-error-2'
+                $ref: '#/components/schemas/validation-error-3'
               examples:
                 missingField:
                   summary: A required field is absent
@@ -21557,7 +22290,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/validation-error-2'
+                $ref: '#/components/schemas/validation-error-3'
               examples:
                 unsupportedType:
                   summary: Unsupported limit type
@@ -21697,7 +22430,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/validation-error-2'
+                $ref: '#/components/schemas/validation-error-3'
               example:
                 type: /errors/types/validation
                 title: Validation error
@@ -23886,6 +24619,73 @@ paths:
         - UserToken: []
       tags:
         - incoming-transfer
+  /gpi-tracking:
+    post:
+      description: >-
+        Looks up GPI tracking data for a transfer identified by `identifierType`
+        and `identifier`.
+      summary: Look up GPI tracking
+      operationId: LookupGpiTracking
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LookupGpiTrackingRequestContent'
+            examples:
+              lookup-by-transfer-id:
+                summary: Look up GPI tracking by transfer ID
+                value:
+                  identifierType: TRANSFER_ID
+                  identifier: '16521632'
+              lookup-by-uetr:
+                summary: Look up GPI tracking by UETR
+                value:
+                  identifierType: UETR
+                  identifier: 97ed4827-7b6f-4491-a206-42bcf859a919
+        required: true
+      responses:
+        '200':
+          description: Returns matching GPI tracking transactions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LookupGpiTrackingResponseContent'
+              examples:
+                tracking-found:
+                  summary: GPI tracking data found
+                  value:
+                    transactions:
+                      - uetr: 97ed4827-7b6f-4491-a206-42bcf859a919
+                        status: ACSP
+                        cancellationStatus: CANCELLATION_REJECTED
+                        initiatedAt: '2023-09-18T12:05:50Z'
+                        lastUpdatedAt: '2023-09-18T12:13:33.314Z'
+                        events:
+                          - status: ACSP
+                            statusReason:
+                              code: G001
+                              settlementMethod:
+                                code: INGA
+                              instructedAgent: LHVBEE22XXX
+                              chargeBearer: SHAR
+                            statusTime: '2023-09-18T12:13:33.314Z'
+                            amountInconsistency: false
+                            eventType: CANCELLATION_RESPONSE
+                            eventTarget: CREDIT_TRANSFER
+                            eventCreationTime: '2023-09-18T12:13:33.348Z'
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '429':
+          $ref: '#/components/responses/429'
+      security:
+        - ClientCredentialsToken: []
+      tags:
+        - gpi-tracking
+      parameters:
+        - $ref: '#/components/parameters/X-External-Correlation-Id'
   /me:
     get:
       tags:
@@ -25042,6 +25842,58 @@ webhooks:
                     type: string
                     example: ok
           description: Return any `2xx` status to acknowledge receipt of the event.
+  allocations#state-changed:
+    post:
+      operationId: eventAllocationsStateChanged
+      summary: Allocations state changed
+      description: >
+        Triggered when a settlement allocation request changes state.
+
+
+        * Event type: `allocations#state-changed`
+
+        * Profile level subscriptions: Not supported
+
+        * Application level subscriptions: Supported
+
+
+        Events may not be delivered in the order they occurred. Use
+        `data.resource.occurred_at` to reconcile the order.
+
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
+      tags:
+        - webhook-event
+        - settlement
+      parameters:
+        - $ref: '#/components/parameters/x-signature-sha256'
+        - $ref: '#/components/parameters/x-delivery-id'
+        - $ref: '#/components/parameters/x-test-notification'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: Allocations State Changed Event
+              required:
+                - schema_version
+              discriminator:
+                propertyName: schema_version
+                mapping:
+                  4.0.0: '#/components/schemas/v4.0.0-7'
+              oneOf:
+                - $ref: '#/components/schemas/v4.0.0-7'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+          description: Return any `2xx` status to acknowledge receipt of the event.
   cards#card-status-change:
     post:
       operationId: eventCardsCardStatusChange
@@ -25082,10 +25934,10 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-7'
+                  4.0.0: '#/components/schemas/v4.0.0-8'
                   2.0.0: '#/components/schemas/v2.0.0-7'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-7'
+                - $ref: '#/components/schemas/v4.0.0-8'
                 - $ref: '#/components/schemas/v2.0.0-7'
       responses:
         '200':
@@ -25143,10 +25995,10 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-8'
+                  4.0.0: '#/components/schemas/v4.0.0-9'
                   2.0.0: '#/components/schemas/v2.0.0-8'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-8'
+                - $ref: '#/components/schemas/v4.0.0-9'
                 - $ref: '#/components/schemas/v2.0.0-8'
       responses:
         '200':
@@ -25200,10 +26052,10 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-9'
+                  4.0.0: '#/components/schemas/v4.0.0-10'
                   2.0.0: '#/components/schemas/v2.0.0-9'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-9'
+                - $ref: '#/components/schemas/v4.0.0-10'
                 - $ref: '#/components/schemas/v2.0.0-9'
       responses:
         '200':
@@ -25290,10 +26142,10 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-10'
+                  4.0.0: '#/components/schemas/v4.0.0-11'
                   2.0.0: '#/components/schemas/v2.0.0-10'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-10'
+                - $ref: '#/components/schemas/v4.0.0-11'
                 - $ref: '#/components/schemas/v2.0.0-10'
       responses:
         '200':
@@ -25362,11 +26214,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-11'
+                  4.0.0: '#/components/schemas/v4.0.0-12'
                   2.1.0: '#/components/schemas/v2.1.0'
                   2.0.0: '#/components/schemas/v2.0.0-11'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-11'
+                - $ref: '#/components/schemas/v4.0.0-12'
                 - $ref: '#/components/schemas/v2.1.0'
                 - $ref: '#/components/schemas/v2.0.0-11'
       responses:
@@ -25464,7 +26316,7 @@ webhooks:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/v4.0.0-12'
+              $ref: '#/components/schemas/v4.0.0-13'
             examples:
               breachOpened:
                 summary: Breach opened
@@ -25635,10 +26487,10 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-13'
+                  4.0.0: '#/components/schemas/v4.0.0-14'
                   2.0.0: '#/components/schemas/v2.0.0-13'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-13'
+                - $ref: '#/components/schemas/v4.0.0-14'
                 - $ref: '#/components/schemas/v2.0.0-13'
       responses:
         '200':
@@ -25684,10 +26536,10 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-14'
+                  4.0.0: '#/components/schemas/v4.0.0-15'
                   2.0.0: '#/components/schemas/v2.0.0-14'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-14'
+                - $ref: '#/components/schemas/v4.0.0-15'
                 - $ref: '#/components/schemas/v2.0.0-14'
       responses:
         '200':
@@ -25739,10 +26591,10 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-15'
+                  4.0.0: '#/components/schemas/v4.0.0-16'
                   2.0.0: '#/components/schemas/v2.0.0-15'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-15'
+                - $ref: '#/components/schemas/v4.0.0-16'
                 - $ref: '#/components/schemas/v2.0.0-15'
       responses:
         '200':
@@ -25804,10 +26656,10 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-16'
+                  4.0.0: '#/components/schemas/v4.0.0-17'
                   2.0.0: '#/components/schemas/v2.0.0-16'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-16'
+                - $ref: '#/components/schemas/v4.0.0-17'
                 - $ref: '#/components/schemas/v2.0.0-16'
       responses:
         '200':
@@ -25864,11 +26716,11 @@ webhooks:
                 propertyName: schema_version
                 mapping:
                   5.0.0: '#/components/schemas/v5.0.0-2'
-                  4.0.0: '#/components/schemas/v4.0.0-17'
+                  4.0.0: '#/components/schemas/v4.0.0-18'
                   2.0.0: '#/components/schemas/v2.0.0-17'
               oneOf:
                 - $ref: '#/components/schemas/v5.0.0-2'
-                - $ref: '#/components/schemas/v4.0.0-17'
+                - $ref: '#/components/schemas/v4.0.0-18'
                 - $ref: '#/components/schemas/v2.0.0-17'
       responses:
         '200':
@@ -25883,10 +26735,17 @@ webhooks:
           description: Return any `2xx` status to acknowledge receipt of the event.
   users#state-change:
     post:
+      deprecated: true
       operationId: eventUsersStateChange
       summary: User state change
       description: >
         Triggered every time a user's state is updated.
+
+
+        This webhook is deprecated and will be removed by end 2026. If you are
+        currently subscribed to it, please migrate to the new
+        [profiles#state-change](/api-reference/webhook-event/eventprofilesstatechange)
+        webhook instead.
 
 
         * Event type: `users#state-change`
@@ -25943,10 +26802,10 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-18'
+                  4.0.0: '#/components/schemas/v4.0.0-19'
                   2.0.0: '#/components/schemas/v2.0.0-18'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-18'
+                - $ref: '#/components/schemas/v4.0.0-19'
                 - $ref: '#/components/schemas/v2.0.0-18'
       responses:
         '200':
@@ -26002,12 +26861,12 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-19'
+                  4.0.0: '#/components/schemas/v4.0.0-20'
                   3.0.0: '#/components/schemas/v3.0.0'
                   2.2.0: '#/components/schemas/v2.2.0'
                   2.1.0: '#/components/schemas/v2.1.0-2'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-19'
+                - $ref: '#/components/schemas/v4.0.0-20'
                 - $ref: '#/components/schemas/v3.0.0'
                 - $ref: '#/components/schemas/v2.2.0'
                 - $ref: '#/components/schemas/v2.1.0-2'
@@ -26061,10 +26920,10 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-20'
+                  4.0.0: '#/components/schemas/v4.0.0-21'
                   2.0.0: '#/components/schemas/v2.0.0-19'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-20'
+                - $ref: '#/components/schemas/v4.0.0-21'
                 - $ref: '#/components/schemas/v2.0.0-19'
       responses:
         '200':
@@ -26130,10 +26989,10 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-21'
+                  4.0.0: '#/components/schemas/v4.0.0-22'
                   2.0.0: '#/components/schemas/v2.0.0-20'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-21'
+                - $ref: '#/components/schemas/v4.0.0-22'
                 - $ref: '#/components/schemas/v2.0.0-20'
       responses:
         '200':
@@ -26192,12 +27051,64 @@ webhooks:
                 propertyName: schema_version
                 mapping:
                   5.0.0: '#/components/schemas/v5.0.0-3'
-                  4.0.0: '#/components/schemas/v4.0.0-22'
+                  4.0.0: '#/components/schemas/v4.0.0-23'
                   2.0.0: '#/components/schemas/v2.0.0-21'
               oneOf:
                 - $ref: '#/components/schemas/v5.0.0-3'
-                - $ref: '#/components/schemas/v4.0.0-22'
+                - $ref: '#/components/schemas/v4.0.0-23'
                 - $ref: '#/components/schemas/v2.0.0-21'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+          description: Return any `2xx` status to acknowledge receipt of the event.
+  settlement#funds-received:
+    post:
+      operationId: eventSettlementFundsReceived
+      summary: Settlement funds received
+      description: >
+        Triggered when funds are received for settlement.
+
+
+        * Event type: `settlement#funds-received`
+
+        * Profile level subscriptions: Not supported
+
+        * Application level subscriptions: Supported
+
+
+        Events may not be delivered in the order they occurred. Use
+        `data.resource.occurred_at` to reconcile the order.
+
+
+        See the [Webhooks guide](/guides/developer/webhooks) for setup
+        instructions, signature verification, and best practices.
+      tags:
+        - webhook-event
+        - settlement
+      parameters:
+        - $ref: '#/components/parameters/x-signature-sha256'
+        - $ref: '#/components/parameters/x-delivery-id'
+        - $ref: '#/components/parameters/x-test-notification'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: Settlement Funds Received Event
+              required:
+                - schema_version
+              discriminator:
+                propertyName: schema_version
+                mapping:
+                  4.0.0: '#/components/schemas/v4.0.0-24'
+              oneOf:
+                - $ref: '#/components/schemas/v4.0.0-24'
       responses:
         '200':
           content:
@@ -26257,13 +27168,13 @@ webhooks:
                   4.3.0: '#/components/schemas/v4.3.0'
                   4.2.0: '#/components/schemas/v4.2.0'
                   4.1.0: '#/components/schemas/v4.1.0'
-                  4.0.0: '#/components/schemas/v4.0.0-23'
+                  4.0.0: '#/components/schemas/v4.0.0-25'
                   3.0.0: '#/components/schemas/v3.0.0-2'
               oneOf:
                 - $ref: '#/components/schemas/v4.3.0'
                 - $ref: '#/components/schemas/v4.2.0'
                 - $ref: '#/components/schemas/v4.1.0'
-                - $ref: '#/components/schemas/v4.0.0-23'
+                - $ref: '#/components/schemas/v4.0.0-25'
                 - $ref: '#/components/schemas/v3.0.0-2'
       responses:
         '200':
@@ -26316,9 +27227,9 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-24'
+                  4.0.0: '#/components/schemas/v4.0.0-26'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-24'
+                - $ref: '#/components/schemas/v4.0.0-26'
       responses:
         '200':
           content:
@@ -26374,10 +27285,10 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-25'
+                  4.0.0: '#/components/schemas/v4.0.0-27'
                   2.0.0: '#/components/schemas/v2.0.0-22'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-25'
+                - $ref: '#/components/schemas/v4.0.0-27'
                 - $ref: '#/components/schemas/v2.0.0-22'
       responses:
         '200':
@@ -26439,11 +27350,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-26'
+                  4.0.0: '#/components/schemas/v4.0.0-28'
                   3.0.0: '#/components/schemas/v3.0.0-3'
                   2.0.0: '#/components/schemas/v2.0.0-23'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-26'
+                - $ref: '#/components/schemas/v4.0.0-28'
                 - $ref: '#/components/schemas/v3.0.0-3'
                 - $ref: '#/components/schemas/v2.0.0-23'
       responses:
@@ -26502,9 +27413,9 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-27'
+                  4.0.0: '#/components/schemas/v4.0.0-29'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-27'
+                - $ref: '#/components/schemas/v4.0.0-29'
       responses:
         '200':
           content:
@@ -26559,9 +27470,9 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
-                  4.0.0: '#/components/schemas/v4.0.0-28'
+                  4.0.0: '#/components/schemas/v4.0.0-30'
               oneOf:
-                - $ref: '#/components/schemas/v4.0.0-28'
+                - $ref: '#/components/schemas/v4.0.0-30'
       responses:
         '200':
           content:
@@ -27312,191 +28223,218 @@ components:
           format: date-time
           description: Date when the hold limit breach was last modified.
           example: '2020-05-20T14:43:16.658Z'
-    BankAccountDetails:
+    AccountDetailsState:
+      type: string
+      description: Current state of the account details.
+      enum:
+        - ACTIVE
+        - INACTIVE
+    Iso20022Address:
       type: object
-      title: Bank Account Details
-      x-tags:
-        - bank-account-details
-      description: >-
-        Bank account details for receiving money into a Wise Multi-Currency
-        Account.
+      description: An ISO 20022 structured address with optional free-form address lines.
+      properties:
+        streetName:
+          type: string
+          description: Street name
+          example: Clifton Street, London
+        buildingNumber:
+          type: string
+          description: Building number
+          example: '65'
+        townName:
+          type: string
+          description: City or town
+          example: London
+        postCode:
+          type: string
+          description: Postal or ZIP code
+          example: EC2A 4JE
+        countrySubDivision:
+          type: string
+          description: State, province, or region
+          example: Greater London
+        country:
+          type: string
+          maxLength: 2
+          minLength: 2
+          pattern: ^[A-Z]{2}$
+          description: ISO 3166-1 alpha-2 country code
+          example: GB
+        addressLines:
+          type: array
+          items:
+            type: string
+          maxItems: 2
+          description: >-
+            Address lines. May be empty; up to two lines can be populated
+            alongside structured fields.
+          example:
+            - 1st Floor, Worship Square
+            - EV2A 4JE
+      required:
+        - addressLines
+        - country
+        - townName
+    BeAccountIdentification:
+      type: object
+      properties:
+        bic:
+          type: string
+          maxLength: 11
+          minLength: 8
+          description: SWIFT BIC (Business Identifier Code) of the financial institution.
+          example: TRWIBEB1
+        iban:
+          type: string
+          maxLength: 34
+          description: International Bank Account Number.
+          example: BE71096123456769
+        institutionName:
+          type: string
+          maxLength: 140
+          description: Name of the financial institution.
+          example: Wise
+        institutionAddress:
+          $ref: '#/components/schemas/Iso20022Address'
+          description: Postal address of the financial institution.
+      required:
+        - iban
+        - institutionAddress
+    GbAccountIdentification:
+      type: object
+      properties:
+        bic:
+          type: string
+          maxLength: 11
+          minLength: 8
+          description: SWIFT BIC (Business Identifier Code) of the financial institution.
+          example: TRWIGB2L
+        iban:
+          type: string
+          maxLength: 34
+          description: International Bank Account Number.
+          example: GB29NWBK60161331926819
+        sortCode:
+          type: string
+          maxLength: 6
+          minLength: 6
+          description: UK sort code identifying the bank and branch.
+          example: '230801'
+        accountNumber:
+          type: string
+          maxLength: 34
+          description: Domestic account number.
+          example: '12345678'
+        institutionName:
+          type: string
+          maxLength: 140
+          description: Name of the financial institution.
+          example: Wise Payments Ltd
+        institutionAddress:
+          $ref: '#/components/schemas/Iso20022Address'
+          description: Postal address of the financial institution.
+      required:
+        - accountNumber
+        - iban
+        - institutionAddress
+        - sortCode
+    UsAccountIdentification:
+      type: object
+      properties:
+        bic:
+          type: string
+          maxLength: 11
+          minLength: 8
+          description: SWIFT BIC (Business Identifier Code) of the financial institution.
+          example: TRWIUS35XXX
+        routingNumber:
+          type: string
+          maxLength: 9
+          minLength: 9
+          description: US ABA routing number identifying the financial institution.
+          example: '101019628'
+        accountNumber:
+          type: string
+          maxLength: 34
+          description: Domestic account number.
+          example: '9900000000'
+        institutionName:
+          type: string
+          maxLength: 140
+          description: Name of the financial institution.
+          example: Wise
+        institutionAddress:
+          $ref: '#/components/schemas/Iso20022Address'
+          description: Postal address of the financial institution.
+      required:
+        - accountNumber
+        - institutionAddress
+        - routingNumber
+    AccountIdentification:
+      description: Country/scheme-specific account identification.
+      oneOf:
+        - type: object
+          title: beAccountIdentification
+          properties:
+            beAccountIdentification:
+              $ref: '#/components/schemas/BeAccountIdentification'
+              description: Belgian (SEPA) account details format.
+          required:
+            - beAccountIdentification
+        - type: object
+          title: gbAccountIdentification
+          properties:
+            gbAccountIdentification:
+              $ref: '#/components/schemas/GbAccountIdentification'
+              description: UK account details format.
+          required:
+            - gbAccountIdentification
+        - type: object
+          title: usAccountIdentification
+          properties:
+            usAccountIdentification:
+              $ref: '#/components/schemas/UsAccountIdentification'
+              description: US account details format.
+          required:
+            - usAccountIdentification
+    AccountDetails:
+      type: object
       properties:
         id:
-          type:
-            - integer
-            - 'null'
+          type: integer
+          description: Unique identifier for the account details.
           format: int64
-          description: >-
-            Bank account details ID. Returns `null` for preview account details
-            that have not yet been issued.
-          example: 14000001
-        currency:
-          type: object
-          description: Currency information for the bank account details.
-          properties:
-            code:
-              type: string
-              description: Currency code (ISO 4217 Alphabetic Code).
-              example: EUR
-            name:
-              type: string
-              description: Currency name.
-              example: Euro
-        title:
+          example: 12345678
+        profileId:
+          type: integer
+          description: Profile ID of the account details owner.
+          format: int64
+          example: 12345678
+        state:
+          $ref: '#/components/schemas/AccountDetailsState'
+          description: Current state of the account details.
+        accountHolderName:
           type: string
-          description: Account title.
-          example: Your EUR account details
-        subtitle:
+          maxLength: 140
+          description: Name of the account holder as it appears on the account details.
+          example: Sarah Jenkins
+        country:
           type: string
-          description: Account subtitle.
-          example: IBAN, SWIFT/BIC
-        status:
-          type: string
-          description: >
-            Account details status:
-
-            - `AVAILABLE`: Account details do not exist for the user but may be
-            created
-
-            - `ACTIVE`: Account details are ready to be used by this user
-          enum:
-            - AVAILABLE
-            - ACTIVE
-          example: ACTIVE
-        deprecated:
-          type: boolean
-          description: >-
-            When `true`, Wise has issued new account details for the same
-            currency. Users should not use the deprecated account but may still
-            have external references to it.
-          example: false
-        receiveOptions:
-          type: array
-          description: >
-            Available receive options for the given currency:
-
-            - `LOCAL`: Local bank details to receive money in the account
-            currency
-
-            - `INTERNATIONAL`: SWIFT bank details to receive money
-            internationally
-          items:
-            type: object
-            properties:
-              type:
-                type: string
-                description: Receive option type.
-                enum:
-                  - LOCAL
-                  - INTERNATIONAL
-                example: LOCAL
-              title:
-                type: string
-                description: Display title for this receive option.
-                example: Local
-              description:
-                type:
-                  - object
-                  - 'null'
-                description: Description for this receive option.
-                properties:
-                  title:
-                    type: string
-                    description: Description title.
-                    example: Your EUR account details
-                  body:
-                    type: string
-                    description: Description body text.
-                    example: Receive from a bank in the Eurozone
-                  cta:
-                    type:
-                      - object
-                      - 'null'
-                    description: Call-to-action details.
-                    properties:
-                      label:
-                        type: string
-                        description: CTA label.
-                        example: IBAN
-                      content:
-                        type: string
-                        description: CTA content.
-                        example: BE12 3456 7890 1234
-              details:
-                type: array
-                description: >
-                  Account details to display to users. This array varies by
-                  currency.
-
-                  For example, EUR returns `ACCOUNT_HOLDER`, `SWIFT_CODE`,
-                  `IBAN` and `BANK_NAME_AND_ADDRESS`.
-                items:
-                  type: object
-                  properties:
-                    type:
-                      type: string
-                      description: Account detail type.
-                      example: IBAN
-                    title:
-                      type: string
-                      description: Label to display in the UI.
-                      example: IBAN
-                    body:
-                      type: string
-                      description: Value to display in the UI.
-                      example: BE12 3456 7890 1234
-                    description:
-                      type:
-                        - object
-                        - 'null'
-                      description: Tooltip/popup hint content when present.
-                      properties:
-                        title:
-                          type: string
-                          description: Description title.
-                          example: What is an IBAN?
-                        body:
-                          type: string
-                          description: Description body (may contain HTML).
-                          example: >-
-                            <p>IBAN stands for International Bank Account
-                            Number.</p>
-                        cta:
-                          type:
-                            - object
-                            - 'null'
-                          description: Call-to-action details.
-                          properties:
-                            label:
-                              type: string
-                              description: CTA label.
-                              example: IBAN
-                            content:
-                              type: string
-                              description: CTA content.
-                              example: BE12 3456 7890 1234
-                    hidden:
-                      type: boolean
-                      description: Whether the field should be hidden in the UI.
-                      example: false
-        bankFeatures:
-          type: array
-          description: Features enabled on the account.
-          items:
-            type: object
-            properties:
-              key:
-                type: string
-                description: Feature identifier.
-                example: LOCAL_RECEIVE
-              title:
-                type: string
-                description: Human-readable feature name.
-                example: Receive locally
-              supported:
-                type: boolean
-                description: Whether the feature is supported.
-                example: true
+          maxLength: 2
+          minLength: 2
+          pattern: ^[A-Z]{2}$
+          description: ISO 3166-1 alpha-2 country code the account details belong to.
+          example: GB
+        accountIdentification:
+          $ref: '#/components/schemas/AccountIdentification'
+          description: Country/scheme-specific account identification.
+      required:
+        - accountHolderName
+        - accountIdentification
+        - country
+        - id
+        - profileId
+        - state
     PayInDetails:
       type: object
       description: >-
@@ -31310,6 +32248,264 @@ components:
             detail: 'Cannot submit message for case in final state: RESOLVED'
             instance: /public/v2/cases/12345678/messages
             code: operation_not_supported
+    file-purpose:
+      type: string
+      description: The purpose of the file upload.
+      enum:
+        - GENERAL
+      example: GENERAL
+    file-upload-request:
+      type: object
+      description: >
+        Metadata for the file upload, sent as the `submissionData` part of the
+        multipart request.
+      properties:
+        profileId:
+          type: integer
+          format: int64
+          description: >
+            The ID of the profile you are providing the file for. If you are set
+            up only with your own profile and do not have them for end customers
+            you must use your own profileId.
+          example: 14556049
+        purpose:
+          $ref: '#/components/schemas/file-purpose'
+      required:
+        - profileId
+        - purpose
+      example:
+        profileId: 14556049
+        purpose: GENERAL
+    file-upload-response:
+      type: object
+      description: Response returned after successfully uploading a file.
+      properties:
+        profileId:
+          type: integer
+          format: int64
+          description: The ID of the profile this file belongs to.
+          example: 14556049
+        fileId:
+          type: string
+          format: uuid
+          description: Unique identifier of the uploaded file (UUID v4).
+          minLength: 36
+          maxLength: 36
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        fileName:
+          type: string
+          description: The original name of the uploaded file.
+          maxLength: 128
+          example: company-registration.pdf
+      required:
+        - profileId
+        - fileId
+        - fileName
+    error-response-2:
+      type: object
+      title: Error Response
+      description: |
+        Standard error response structure following RFC 7807 Problem Details.
+
+        All error responses include a `type` URI identifying the error category,
+        a human-readable `title`, and the HTTP `status` code.
+      properties:
+        type:
+          type: string
+          description: |
+            A URI reference that identifies the error type.
+
+            Common types:
+            - `/errors/types/validation` - Request validation failed
+            - `/errors/types/access` - Authentication or authorization error
+            - `/errors/types/domain` - Domain-specific business rule violation
+          example: /errors/types/validation
+        title:
+          type: string
+          description: A short, human-readable summary of the error type.
+          example: Validation Error
+        status:
+          type: integer
+          description: The HTTP status code.
+          example: 400
+        detail:
+          type: string
+          description: >-
+            A human-readable explanation specific to this occurrence of the
+            error.
+          example: Unauthorized
+        instance:
+          type: string
+          description: The request path that caused the error.
+          example: /cases/files
+        code:
+          type: string
+          description: A machine-readable error code for domain errors.
+          example: forbidden
+      required:
+        - type
+        - title
+        - status
+    validation-error-2:
+      type: object
+      title: Validation Error Detail
+      description: Details about a specific field validation error.
+      properties:
+        code:
+          type: string
+          description: >
+            Machine-readable validation error code.
+
+
+            Possible codes:
+
+            - `parameter_missing` - A required parameter was not provided
+
+            - `parameter_invalid` - A parameter value is invalid
+
+            - `invalid_file_extension` - File type or extension is not allowed
+
+            - `file_size_exceeds_max_limit` - File exceeds the maximum allowed
+            size
+          example: parameter_invalid
+        ref:
+          type: string
+          description: The field that caused the validation error.
+          example: purpose
+        detail:
+          type: string
+          description: A human-readable description of the validation failure.
+          example: Invalid purpose
+      required:
+        - code
+        - ref
+        - detail
+    error-400-validation:
+      allOf:
+        - $ref: '#/components/schemas/error-response-2'
+        - type: object
+          title: Validation Error (400)
+          description: >
+            Returned when the request fails validation.
+
+
+            **Common causes:**
+
+            - Missing required fields (`profileId`, `purpose`)
+
+            - Invalid `purpose` value
+
+            - File is empty or missing
+
+            - Unsupported file content type (only `application/pdf`,
+            `image/jpeg`, `image/png` allowed)
+
+            - File extension does not match the content type
+
+            - File exceeds 15 MB size limit
+
+            - File name exceeds 128 characters
+
+            - You do not own the specified profile
+
+            - File failed security scan (malware detected)
+          properties:
+            type:
+              example: /errors/types/validation
+            title:
+              example: Validation Error
+            status:
+              example: 400
+            instance:
+              example: /cases/files
+            errors:
+              type: array
+              description: List of field-level validation errors.
+              items:
+                $ref: '#/components/schemas/validation-error-2'
+          example:
+            type: /errors/types/validation
+            title: Validation Error
+            status: 400
+            instance: /cases/files
+            errors:
+              - code: parameter_missing
+                ref: purpose
+                detail: purpose must be provided
+    error-401-unauthorized-2:
+      allOf:
+        - $ref: '#/components/schemas/error-response-2'
+        - type: object
+          title: Unauthorized Error (401)
+          description: |
+            Returned when authentication is missing or invalid.
+
+            **Common causes:**
+            - Missing `Authorization` header
+            - Expired or invalid bearer token
+          properties:
+            type:
+              example: /errors/types/access
+            title:
+              example: Unauthorized
+            status:
+              example: 401
+          example:
+            type: /errors/types/access
+            title: Unauthorized
+            status: 401
+            detail: Authentication required
+    error-403-forbidden-2:
+      allOf:
+        - $ref: '#/components/schemas/error-response-2'
+        - type: object
+          title: Forbidden Error (403)
+          description: |
+            Returned when the client does not have sufficient permissions.
+
+            **Common causes:**
+            - Client credentials do not have the required permission
+          properties:
+            type:
+              example: /errors/types/access
+            title:
+              example: Forbidden
+            status:
+              example: 403
+            code:
+              example: forbidden
+          example:
+            type: /errors/types/access
+            title: Forbidden
+            status: 403
+            detail: Unauthorized
+            code: forbidden
+    error-429-too-many-requests:
+      allOf:
+        - $ref: '#/components/schemas/error-response-2'
+        - type: object
+          title: Too Many Requests Error (429)
+          description: |
+            Returned when the rate limit for file uploads has been exceeded.
+
+            **Resolution:**
+            - Wait before retrying the upload
+          properties:
+            type:
+              example: /errors/types/domain
+            title:
+              example: Too Many Requests
+            status:
+              example: 429
+            code:
+              example: rate_limit_exceeded
+          example:
+            type: /errors/types/domain
+            title: Too Many Requests
+            status: 429
+            detail: Too many files uploaded recently. Please try again later.
+            instance: /cases/files
+            code: rate_limit_exceeded
     Address-2:
       type: object
       properties:
@@ -33022,6 +34218,450 @@ components:
                       type: string
                       description: The recommended value for the field.
                       example: Joe Doe
+    settlement-allocation-request:
+      type: object
+      required:
+        - paymentReference
+        - expectedTotalAmount
+        - currency
+      properties:
+        paymentReference:
+          type: string
+          description: Unique payment reference for the allocation request
+          example: PAY-2024-001234
+        expectedTotalAmount:
+          type: number
+          format: decimal
+          description: Expected total amount for the allocation
+          example: 10000
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+          description: Currency code
+    SettlementAllocationState:
+      type: string
+      description: State of a funding allocation.
+      enum:
+        - NEW
+        - MATCHING_FUNDS
+        - MATCHED
+        - MISMATCHED
+        - PARTIALLY_COMPLETED
+        - COMPLETED
+        - CANCELLED
+    settlement-allocation-response:
+      type: object
+      required:
+        - id
+        - expectedTotalAmount
+        - currency
+        - state
+        - paymentReference
+        - createdAt
+        - updatedAt
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier of the settlement allocation request
+        expectedTotalAmount:
+          type: number
+          format: decimal
+          description: Expected total amount
+          example: 10000
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+          description: Currency code
+        state:
+          $ref: '#/components/schemas/SettlementAllocationState'
+        paymentReference:
+          type: string
+          description: Payment reference
+          example: PAY-2024-001234
+        createdAt:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        updatedAt:
+          type: string
+          format: date-time
+          description: Last update timestamp
+    RecipientType:
+      type: string
+      description: Type of recipient for a payment intent.
+      enum:
+        - SELLER
+        - PARTNER_FEE
+    AllocationType:
+      type: string
+      description: Type of allocation for a payment intent.
+      enum:
+        - CREDIT
+        - DEBIT
+    PaymentIntentState:
+      type: string
+      description: State of a payment intent.
+      enum:
+        - NEW
+        - PARTIALLY_LEDGERED
+        - LEDGERED
+        - PARTIALLY_SETTLED
+        - SETTLED
+        - CANCELLED
+    FundingSource:
+      type: string
+      description: Source of funding for a payment intent.
+      enum:
+        - WISE_COLLECTION_ACCOUNT
+        - PARTNER_DEFICIT_ACCOUNT
+        - SPLIT
+        - UNDETERMINED
+    PaymentIntentResponse:
+      type: object
+      description: Details of a payment intent associated with a settlement allocation.
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the payment intent in the UUID format.
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        allocationId:
+          type: string
+          description: >-
+            Unique identifier of the associated settlement allocation in the
+            UUID format.
+          example: f47ac10b-58cc-4372-a567-0e02b2c3d479
+        partnerEntityId:
+          type: string
+          description: Partner entity identifier.
+          example: PARTNER-001
+        profileId:
+          type: string
+          description: Profile identifier.
+          example: '12345678'
+        recipientType:
+          $ref: '#/components/schemas/RecipientType'
+          description: Type of recipient.
+        sourceAmount:
+          type: number
+          minimum: 0
+          exclusiveMinimum: 0
+          description: Source amount of the payment.
+          format: decimal
+          example: 100
+        sourceCurrency:
+          type: string
+          maxLength: 3
+          minLength: 3
+          pattern: ^[A-Z]{3}$
+          description: Source currency code (ISO 4217).
+          example: EUR
+        targetAmount:
+          type: number
+          minimum: 0
+          exclusiveMinimum: 0
+          description: Target amount of the payment.
+          format: decimal
+          example: 85
+        targetCurrency:
+          type: string
+          maxLength: 3
+          minLength: 3
+          pattern: ^[A-Z]{3}$
+          description: Target currency code (ISO 4217).
+          example: GBP
+        allocationType:
+          $ref: '#/components/schemas/AllocationType'
+          description: Type of allocation.
+        paymentReference:
+          type: string
+          description: Payment reference.
+          example: REF-001
+        reason:
+          type: string
+          description: Reason for the payment.
+          example: Invoice payment
+        state:
+          $ref: '#/components/schemas/PaymentIntentState'
+          description: Current state of the payment intent.
+        fundingSource:
+          $ref: '#/components/schemas/FundingSource'
+          description: Source of funding for the payment.
+        createdAt:
+          type: string
+          description: Timestamp when the payment intent was created.
+          format: date-time
+          example: '2026-07-10T10:35:16.000Z'
+        updatedAt:
+          type: string
+          description: Timestamp when the payment intent was last updated.
+          format: date-time
+          example: '2026-07-10T10:45:41.000Z'
+    GetSettlementAllocationResponseContent:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the settlement allocation.
+          example: f47ac10b-58cc-4372-a567-0e02b2c3d479
+        expectedTotalAmount:
+          type: number
+          minimum: 0
+          exclusiveMinimum: 0
+          description: Expected total amount for the allocation.
+          format: decimal
+          example: 1000.5
+        currency:
+          type: string
+          maxLength: 3
+          minLength: 3
+          pattern: ^[A-Z]{3}$
+          description: Currency code for the allocation (ISO 4217).
+          example: EUR
+        state:
+          $ref: '#/components/schemas/SettlementAllocationState'
+          description: Current state of the settlement allocation.
+        paymentReference:
+          type: string
+          description: Unique payment reference for the settlement allocation.
+          example: PAY-123456
+        createdAt:
+          type: string
+          description: Timestamp when the settlement allocation was created.
+          format: date-time
+          example: '2026-07-10T10:30:16.000Z'
+        updatedAt:
+          type: string
+          description: Timestamp when the settlement allocation was last updated.
+          format: date-time
+          example: '2026-07-10T11:00:41.000Z'
+        paymentIntents:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentIntentResponse'
+          description: >-
+            List of payment intents associated with the allocation. Only
+            included when includePaymentIntents is true.
+        nextPageToken:
+          type: string
+          description: >-
+            Token for fetching the next page of payment intents. Null if no more
+            pages.
+          example: def456
+    GetPaymentIntentResponseContent:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the payment intent.
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        allocationId:
+          type: string
+          description: Unique identifier of the associated settlement allocation.
+          example: f47ac10b-58cc-4372-a567-0e02b2c3d479
+        partnerEntityId:
+          type: string
+          description: Partner entity identifier.
+          example: PARTNER-001
+        profileId:
+          type: string
+          description: Profile identifier.
+          example: '12345678'
+        recipientType:
+          $ref: '#/components/schemas/RecipientType'
+          description: Type of recipient.
+        sourceAmount:
+          type: number
+          minimum: 0
+          exclusiveMinimum: 0
+          description: Source amount of the payment.
+          format: decimal
+          example: 100
+        sourceCurrency:
+          type: string
+          maxLength: 3
+          minLength: 3
+          pattern: ^[A-Z]{3}$
+          description: Source currency code (ISO 4217).
+          example: EUR
+        targetAmount:
+          type: number
+          minimum: 0
+          exclusiveMinimum: 0
+          description: Target amount of the payment.
+          format: decimal
+          example: 85
+        targetCurrency:
+          type: string
+          maxLength: 3
+          minLength: 3
+          pattern: ^[A-Z]{3}$
+          description: Target currency code (ISO 4217).
+          example: GBP
+        allocationType:
+          $ref: '#/components/schemas/AllocationType'
+          description: Type of allocation.
+        paymentReference:
+          type: string
+          description: Payment reference.
+          example: REF-001
+        reason:
+          type: string
+          description: Reason for the payment.
+          example: Invoice payment
+        state:
+          $ref: '#/components/schemas/PaymentIntentState'
+          description: Current state of the payment intent.
+        fundingSource:
+          $ref: '#/components/schemas/FundingSource'
+          description: Source of funding for the payment.
+        createdAt:
+          type: string
+          description: Timestamp when the payment intent was created.
+          format: date-time
+          example: '2026-07-10T10:35:16.000Z'
+        updatedAt:
+          type: string
+          description: Timestamp when the payment intent was last updated.
+          format: date-time
+          example: '2026-07-10T10:45:41.000Z'
+    delivery_update:
+      type: string
+      enum:
+        - partner_accepted
+        - recipient_provider_accepted
+        - scheme_settled
+        - account_credited
+        - funds_available
+      description: >-
+        The delivery signal to simulate. Must be a member of
+        `delivery_update_path`, but need not be its last item.
+    delivery-update-request:
+      type: object
+      required:
+        - delivery_update_path
+        - delivery_update
+      properties:
+        scheme:
+          type:
+            - string
+            - 'null'
+          enum:
+            - sepa_instant_credit_transfer
+            - null
+          description: >-
+            Payment scheme to include in the observation. May be omitted or
+            null.
+        delivery_update_path:
+          type: array
+          minItems: 1
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/delivery_update'
+          description: >
+            Delivery signals supported by the simulated route, not a history of
+            events.
+
+            Select one or more distinct values in this progression order:
+
+            `partner_accepted`, `recipient_provider_accepted`, `scheme_settled`,
+
+            `account_credited`, `funds_available`. Values may be skipped.
+
+            The service validates the order and requires this array to contain
+            `delivery_update`.
+        delivery_update:
+          type: string
+          enum:
+            - partner_accepted
+            - recipient_provider_accepted
+            - scheme_settled
+            - account_credited
+            - funds_available
+          description: >-
+            The delivery signal to simulate. Must be a member of
+            `delivery_update_path`, but need not be its last item.
+        estimated_delivery_at:
+          type:
+            - string
+            - 'null'
+          format: date-time
+          description: >-
+            Optional estimated delivery time. May be omitted or null. Published
+            timestamps are truncated to milliseconds.
+    delivery-update-response:
+      type: object
+      required:
+        - observation_id
+        - occurred_at
+      properties:
+        observation_id:
+          type: string
+          format: uuid
+          description: >-
+            Server-generated observation identifier. Matches
+            `data.observation_id` in the webhook.
+        occurred_at:
+          type: string
+          format: date-time
+          description: >-
+            Server-generated observation time in UTC with millisecond precision.
+            Matches `data.occurred_at` in the webhook.
+    simulation-error:
+      type: object
+      required:
+        - code
+      properties:
+        code:
+          type: string
+          description: Error code.
+        message:
+          type: string
+          description: Description of the error, when available.
+        path:
+          type: string
+          description: Field associated with a validation error, when available.
+        arguments:
+          type: array
+          items:
+            type: string
+          description: Arguments associated with the error.
+    simulation-errors:
+      type: object
+      required:
+        - errors
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/simulation-error'
+    SimulateSettlementAllocationsFundsRequestContent:
+      type: object
+      properties:
+        amount:
+          type: number
+          minimum: 0.01
+          exclusiveMinimum: 0
+          description: The amount to be simulated as received.
+          format: decimal
+          example: 1000.5
+        currency:
+          type: string
+          maxLength: 3
+          minLength: 3
+          pattern: ^[A-Z]{3}$
+          description: Currency code (ISO 4217).
+          example: JPY
+        paymentReference:
+          type: string
+          minLength: 1
+          pattern: \S
+          description: >-
+            Payment reference for the settlement allocation. Must start with
+            'BYOPSP_'.
+          example: BYOPSP_test-client_A1B2C3
+      required:
+        - amount
+        - currency
+        - paymentReference
     Address-3:
       type: object
       properties:
@@ -33875,7 +35515,7 @@ components:
           type: string
           description: A description of the error.
           example: Operation is unauthorized
-    validation-error-2:
+    validation-error-3:
       title: Validation Error
       type: object
       required:
@@ -35148,52 +36788,6 @@ components:
         - BACS
         - WISE_NETWORK
         - EUR_T2
-    Iso20022Address:
-      type: object
-      description: An ISO 20022 structured address with optional free-form address lines.
-      properties:
-        streetName:
-          type: string
-          description: Street name
-          example: Clifton Street, London
-        buildingNumber:
-          type: string
-          description: Building number
-          example: '65'
-        townName:
-          type: string
-          description: City or town
-          example: London
-        postCode:
-          type: string
-          description: Postal or ZIP code
-          example: EC2A 4JE
-        countrySubDivision:
-          type: string
-          description: State, province, or region
-          example: Greater London
-        country:
-          type: string
-          maxLength: 2
-          minLength: 2
-          pattern: ^[A-Z]{2}$
-          description: ISO 3166-1 alpha-2 country code
-          example: GB
-        addressLines:
-          type: array
-          items:
-            type: string
-          maxItems: 2
-          description: >-
-            Address lines. May be empty; up to two lines can be populated
-            alongside structured fields.
-          example:
-            - 1st Floor, Worship Square
-            - EV2A 4JE
-      required:
-        - addressLines
-        - country
-        - townName
     AccountInfo:
       type: object
       properties:
@@ -35547,6 +37141,458 @@ components:
         - profileId
         - scheme
         - state
+    GpiTrackingIdentifierType:
+      type: string
+      description: The type of identifier used to look up a transfer's GPI tracking data.
+      enum:
+        - UETR
+        - TRANSFER_ID
+    LookupGpiTrackingRequestContent:
+      type: object
+      description: Identify the transfer to look up by `UETR` or `TRANSFER_ID`.
+      properties:
+        identifierType:
+          $ref: '#/components/schemas/GpiTrackingIdentifierType'
+          description: The type of identifier used to look up the transfer.
+        identifier:
+          type: string
+          minLength: 1
+          description: >-
+            The UETR or Wise transfer ID of the transfer to look up, matching
+            `identifierType`. Must be a UUID (e.g.
+            `97ed4827-7b6f-4491-a206-42bcf859a919`) when `identifierType` is
+            `UETR`, or a positive integer (int64) (e.g. `16521632`) when
+            `identifierType` is `TRANSFER_ID`.
+          example: 97ed4827-7b6f-4491-a206-42bcf859a919
+      required:
+        - identifier
+        - identifierType
+    GpiTrackingSettlementMethod:
+      type: object
+      description: Settlement method reported for an ACSP sub-status.
+      properties:
+        code:
+          type: string
+          description: >-
+            Settlement method code, passed through as a SWIFT gpi settlement
+            method code. Known values: `INDA`, `INGA`, `COVE`, `CLRG`.
+            Additional values may be introduced by SWIFT gpi; see the SWIFT gpi
+            code lists.
+          example: INGA
+        clearingSystem:
+          type: string
+          description: Clearing system, present when the settlement method is `CLRG`.
+          example: CHI
+    GpiTrackingStatusReason:
+      type: object
+      description: SWIFT gpi ACSP sub-status (transaction_status_reason).
+      properties:
+        code:
+          type: string
+          description: >-
+            Sub-status code, passed through as a SWIFT gpi transaction status
+            reason code. Known values: `G000`, `G001`, `G002`, `G003`, `G004`,
+            `G005`, `G006`. Additional values may be introduced by SWIFT gpi;
+            see the SWIFT gpi code lists.
+          example: G002
+        settlementMethod:
+          $ref: '#/components/schemas/GpiTrackingSettlementMethod'
+          description: Settlement method. Present for `G000`, `G001`, `G005`, `G006`.
+        instructedAgent:
+          type: string
+          description: >-
+            BIC the transaction was forwarded to. Present for `G000`, `G001`,
+            `G005`, `G006`.
+          example: TSPABEB0002
+        chargeBearer:
+          type: string
+          description: Charge bearer code. Present for `G000`, `G001`, `G005`, `G006`.
+          example: SHAR
+    GpiTrackingMoney:
+      type: object
+      description: A monetary value represented using the GPI tracking wire format.
+      properties:
+        amount:
+          type: number
+          minimum: 0
+          exclusiveMinimum: 0
+          description: Non-negative monetary amount.
+          format: decimal
+          example: 250.45
+        currency:
+          type: string
+          maxLength: 3
+          minLength: 3
+          pattern: ^[A-Z]{3}$
+          description: ISO 4217 currency code.
+          example: EUR
+    GpiTrackingCancellationStatus:
+      type: string
+      description: Cancellation status of a tracked transaction.
+      enum:
+        - CANCELLED
+        - PENDING_CANCELLATION
+        - CANCELLATION_REJECTED
+    GpiTrackingCancellationRequestStatus:
+      type: object
+      description: Cancellation request status reported for an event.
+      properties:
+        reasonCode:
+          type: string
+          description: >-
+            Cancellation reason code, passed through as a SWIFT gpi cancellation
+            reason code. Additional values may be introduced by SWIFT gpi; see
+            the SWIFT gpi code lists.
+          example: CUST
+        indemnityAgreement:
+          type: boolean
+          description: Whether an indemnity agreement applies to the cancellation request.
+          example: false
+    GpiTrackingCancellationResponseStatus:
+      type: object
+      description: Cancellation response status reported for an event.
+      properties:
+        code:
+          type: string
+          description: >-
+            Cancellation response code, passed through as a SWIFT gpi
+            cancellation response code. Known values: `CNCL` (cancelled), `PDCR`
+            (pending), `RJCR` (rejected). Additional values may be introduced by
+            SWIFT gpi; see the SWIFT gpi code lists.
+          example: RJCR
+        reasonCode:
+          type: string
+          description: >-
+            Cancellation response reason code, passed through as a SWIFT gpi
+            cancellation response reason code. Present for `PDCR` and `RJCR`.
+          example: LEGL
+    GpiTrackingCharge:
+      type: object
+      description: A charge applied while processing the transaction.
+      properties:
+        amount:
+          $ref: '#/components/schemas/GpiTrackingMoney'
+          description: Charge amount.
+        bic:
+          type: string
+          description: BIC of the charging agent.
+          example: TRCKCHZ0XXX
+        name:
+          type: string
+          description: Name of the charging agent.
+          example: Example Correspondent Bank
+    GpiTrackingEvent:
+      type: object
+      description: An event reported for a tracked transaction.
+      properties:
+        status:
+          type: string
+          description: >-
+            Status conveyed by this event, passed through as a SWIFT gpi
+            transaction status code. Known values: `ACSP` (accepted, settlement
+            in progress), `ACCC` (accepted, settlement completed), `RJCT`
+            (rejected). Additional values may be introduced by SWIFT gpi; see
+            the SWIFT gpi code lists.
+          example: ACSP
+        statusReason:
+          $ref: '#/components/schemas/GpiTrackingStatusReason'
+          description: Sub-status detail, present when status is `ACSP`.
+        statusTime:
+          type: string
+          description: >-
+            When this status was reached. Present when status is `ACSP` or
+            `RJCT`.
+          format: date-time
+          example: '2023-09-18T12:13:33.314Z'
+        confirmedAt:
+          type: string
+          description: >-
+            When the funds were made available to the creditor. Present when
+            status is `ACCC`.
+          format: date-time
+          example: '2023-09-18T12:13:33.314Z'
+        confirmedAmount:
+          $ref: '#/components/schemas/GpiTrackingMoney'
+          description: >-
+            Amount credited to the creditor's account. Present when status is
+            `ACCC`.
+        rejectionReason:
+          type: string
+          description: >-
+            Rejection reason code, passed through as a SWIFT gpi rejection
+            reason code (ISO 20022 external return/reason code). Present when
+            status is `RJCT`. Known values include `AC04` (closed account
+            number), `AC06` (blocked account), `AM09` (wrong amount), `BE01`
+            (inconsistent with end customer), `RR04` (regulatory reason).
+            Additional values may be introduced by SWIFT gpi; see the SWIFT gpi
+            code lists.
+          example: AC04
+        instructedAmount:
+          $ref: '#/components/schemas/GpiTrackingMoney'
+          description: Amount as instructed at this hop.
+        settledAmount:
+          $ref: '#/components/schemas/GpiTrackingMoney'
+          description: Amount as settled at this hop.
+        amountInconsistency:
+          type: boolean
+          description: Whether instructed and settled amounts are inconsistent.
+          example: false
+        settlementDate:
+          type: string
+          description: Settlement date of this event.
+          format: date
+          example: '2023-09-18'
+        sourceCurrency:
+          type: string
+          maxLength: 3
+          minLength: 3
+          pattern: ^[A-Z]{3}$
+          description: Source currency of the exchange, if any.
+          example: EUR
+        targetCurrency:
+          type: string
+          maxLength: 3
+          minLength: 3
+          pattern: ^[A-Z]{3}$
+          description: Target currency of the exchange, if any.
+          example: GBP
+        exchangeRate:
+          type: number
+          minimum: 0
+          exclusiveMinimum: 0
+          description: Exchange rate applied between the source and target currencies.
+          format: decimal
+          example: 0.8501
+        chargeBearer:
+          type: string
+          description: >-
+            Charge bearer indicator, passed through as a SWIFT gpi charge bearer
+            code. Known values: `DEBT`, `CRED`, `SHAR`, `SLEV`. Additional
+            values may be introduced by SWIFT gpi; see the SWIFT gpi code lists.
+          example: SHAR
+        endToEndId:
+          type: string
+          description: End-to-end identifier.
+          example: 802.0GC9A9E78ABD
+        messageNameIdentification:
+          type: string
+          description: Message name identification (ISO 20022 message type).
+          example: pacs.008.001.08
+        instructionId:
+          type: string
+          description: Instruction identifier.
+          example: '0918121252010240'
+        returnReason:
+          type: string
+          description: >-
+            Return reason code associated with this event, passed through as a
+            SWIFT gpi return reason code (ISO 20022 external return/reason
+            code). Known values include `AC04` (closed account number), `AC06`
+            (blocked account), `AM09` (wrong amount), `BE01` (inconsistent with
+            end customer), `RR04` (regulatory reason). Additional values may be
+            introduced by SWIFT gpi; see the SWIFT gpi code lists.
+          example: AC04
+        eventType:
+          type: string
+          description: >-
+            Type of the tracking event, passed through as a SWIFT gpi tracker
+            event type code. Known values: `PAYMENT`, `STATUS_UPDATE`,
+            `CANCELLATION_REQUEST`, `CANCELLATION_RESPONSE`,
+            `CANCELLATION_REQUEST_STATUS_UPDATE`. Additional values may be
+            introduced by SWIFT gpi; see the SWIFT gpi code lists.
+          example: CANCELLATION_RESPONSE
+        eventTarget:
+          type: string
+          description: >-
+            Target of the tracking event, passed through as a SWIFT gpi tracker
+            event target code. Known values: `CREDIT_TRANSFER`,
+            `CREDIT_TRANSFER_RETURN`, `CREDIT_TRANSFER_COVER`,
+            `CREDIT_TRANSFER_COVER_RETURN`,
+            `FINANCIAL_INSTITUTION_CREDIT_TRANSFER`,
+            `FINANCIAL_INSTITUTION_CREDIT_TRANSFER_RETURN`,
+            `FINANCIAL_INSTITUTION_CREDIT_TRANSFER_COVER`,
+            `FINANCIAL_INSTITUTION_CREDIT_TRANSFER_COVER_RETURN`. Additional
+            values may be introduced by SWIFT gpi; see the SWIFT gpi code lists.
+          example: CREDIT_TRANSFER
+        cancellationRequestStatus:
+          $ref: '#/components/schemas/GpiTrackingCancellationRequestStatus'
+          description: Cancellation request status conveyed by this event.
+        cancellationResponseStatus:
+          $ref: '#/components/schemas/GpiTrackingCancellationResponseStatus'
+          description: Cancellation response status conveyed by this event.
+        cancellationRequestTrackingStatus:
+          type: string
+          description: >-
+            Cancellation request tracking status conveyed by this event, passed
+            through as a SWIFT gpi cancellation request tracking status code.
+            Known values: `S000`, `S001`, `S002`, `S003`, `S004`. Additional
+            values may be introduced by SWIFT gpi; see the SWIFT gpi code lists.
+          example: S004
+        serviceLevel:
+          type: string
+          description: >-
+            Service level of the transaction, passed through as a SWIFT gpi
+            service level code. Known values: `G001`, `G002`, `G004`, `G005`,
+            `G009`. Additional values may be introduced by SWIFT gpi; see the
+            SWIFT gpi code lists.
+          example: G002
+        instructedAgent:
+          type: string
+          description: Instructed agent BIC.
+          example: TSPABEB0002
+        from:
+          type: string
+          description: Sending agent BIC.
+          example: TRCKCHZ0XXX
+        to:
+          type: string
+          description: Receiving agent BIC.
+          example: TSPABEB0002
+        trackerInformingParty:
+          type: string
+          description: Party informing the tracker.
+          example: ZYZAGB20XXX
+        debtorAgent:
+          type: string
+          description: Debtor agent BIC.
+          example: DEUTDEFFXXX
+        creditorAgent:
+          type: string
+          description: Creditor agent BIC.
+          example: BARCGB22XXX
+        instructingReimbursementAgent:
+          type: string
+          description: Instructing reimbursement agent BIC.
+          example: CHASUS33XXX
+        previousInstructingAgent1:
+          type: string
+          description: Previous instructing agent 1 BIC.
+          example: BOFAUS3NXXX
+        previousInstructingAgent2:
+          type: string
+          description: Previous instructing agent 2 BIC.
+          example: CITIUS33XXX
+        previousInstructingAgent3:
+          type: string
+          description: Previous instructing agent 3 BIC.
+          example: NWBKGB2LXXX
+        intermediaryAgent1:
+          type: string
+          description: Intermediary agent 1 BIC.
+          example: DEUTDEFFXXX
+        intermediaryAgent2:
+          type: string
+          description: Intermediary agent 2 BIC.
+          example: BNPAFRPPXXX
+        intermediaryAgent3:
+          type: string
+          description: Intermediary agent 3 BIC.
+          example: INGBNL2AXXX
+        charges:
+          type: array
+          items:
+            $ref: '#/components/schemas/GpiTrackingCharge'
+          description: Charges applied at this hop. Omitted when there are none.
+        eventCreationTime:
+          type: string
+          description: When this event was created.
+          format: date-time
+          example: '2023-09-18T12:13:33.348Z'
+    GpiTracking:
+      type: object
+      description: GPI tracking data for a transaction.
+      properties:
+        uetr:
+          type: string
+          description: The UETR of the tracked transaction.
+          example: 97ed4827-7b6f-4491-a206-42bcf859a919
+        status:
+          type: string
+          description: >-
+            Overall tracking status of the transaction, passed through as a
+            SWIFT gpi transaction status code. Known values: `ACSP` (accepted,
+            settlement in progress), `ACCC` (accepted, settlement completed),
+            `RJCT` (rejected). Additional values may be introduced by SWIFT gpi;
+            see the SWIFT gpi code lists.
+          example: ACSP
+        statusReason:
+          $ref: '#/components/schemas/GpiTrackingStatusReason'
+          description: Sub-status detail, present when status is `ACSP`.
+        statusTime:
+          type: string
+          description: >-
+            When this status was reached. Present when status is `ACSP` or
+            `RJCT`.
+          format: date-time
+          example: '2023-09-18T12:13:33.314Z'
+        confirmedAt:
+          type: string
+          description: >-
+            When the funds were made available to the creditor. Present when
+            status is `ACCC`.
+          format: date-time
+          example: '2023-09-18T12:13:33.314Z'
+        confirmedAmount:
+          $ref: '#/components/schemas/GpiTrackingMoney'
+          description: >-
+            Amount credited to the creditor's account. Present when status is
+            `ACCC`.
+        rejectionReason:
+          type: string
+          description: >-
+            Rejection reason code, passed through as a SWIFT gpi rejection
+            reason code (ISO 20022 external return/reason code). Present when
+            status is `RJCT`. Known values include `AC04` (closed account
+            number), `AC06` (blocked account), `AM09` (wrong amount), `BE01`
+            (inconsistent with end customer), `RR04` (regulatory reason).
+            Additional values may be introduced by SWIFT gpi; see the SWIFT gpi
+            code lists.
+          example: AC04
+        cancellationStatus:
+          $ref: '#/components/schemas/GpiTrackingCancellationStatus'
+          description: >-
+            Cancellation status, when a cancellation has been requested or
+            resolved.
+        returnReason:
+          type: string
+          description: >-
+            Return reason code, present when the transaction was returned or
+            rejected, passed through as a SWIFT gpi return reason code (ISO
+            20022 external return/reason code). Known values include `AC04`
+            (closed account number), `AC06` (blocked account), `AM09` (wrong
+            amount), `BE01` (inconsistent with end customer), `RR04` (regulatory
+            reason). Additional values may be introduced by SWIFT gpi; see the
+            SWIFT gpi code lists.
+          example: AC04
+        initiatedAt:
+          type: string
+          description: When transaction tracking was initiated.
+          format: date-time
+          example: '2023-09-18T12:05:50Z'
+        completedAt:
+          type: string
+          description: When the transaction reached a completed state.
+          format: date-time
+          example: '2023-09-18T12:13:33.314Z'
+        lastUpdatedAt:
+          type: string
+          description: When the tracking record was last updated.
+          format: date-time
+          example: '2023-09-18T12:13:33.314Z'
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/GpiTrackingEvent'
+          description: Ordered tracking events, latest first.
+    LookupGpiTrackingResponseContent:
+      type: object
+      description: The matching GPI tracking transactions.
+      properties:
+        transactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/GpiTracking'
+          description: The matching GPI tracking transactions.
     user:
       title: User
       type: object
@@ -36752,6 +38798,82 @@ components:
     v4.0.0-7:
       title: Schema version 4.0.0
       type: object
+      required:
+        - schema_version
+        - event_type
+        - subscription_id
+        - data
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 4.0.0
+          example: 4.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event.
+          example: 01234567-89ab-cdef-0123-456789abcdef
+        event_type:
+          type: string
+          description: Event type identifier
+          example: allocations#state-changed
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent.
+          example: '2020-01-01T12:34:56.123Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                  description: Unique identifier of webhook notification
+                event_type:
+                  type: string
+                  description: Event type identifier.
+                  example: funds-allocation-state-change
+                occurred_at:
+                  type: string
+                  format: date-time
+                  description: Timestamp when the state change occurred.
+                  example: '2020-01-01T12:34:56.789Z'
+                data:
+                  type: object
+                  description: Details of the allocation state change.
+                  properties:
+                    id:
+                      type: string
+                      format: uuid
+                      description: Unique identifier of the settlement allocation request
+                    paymentReference:
+                      type: string
+                      description: Reference identifier for the payment.
+                      example: payment-ref-12345
+                    previousState:
+                      type: string
+                      description: Previous state of the allocation request.
+                      example: NEW
+                      $ref: '#/components/schemas/SettlementAllocationState'
+                    newState:
+                      type: string
+                      description: New state of the allocation request.
+                      $ref: '#/components/schemas/SettlementAllocationState'
+                      example: MATCHING_FUNDS
+                    clientKey:
+                      type: string
+                      description: Client key identifying the partner application.
+                      example: test-client-key
+    v4.0.0-8:
+      title: Schema version 4.0.0
+      type: object
       properties:
         schema_version:
           type: string
@@ -36923,7 +39045,7 @@ components:
               format: date-time
               description: When the card status change occurred.
               example: '2022-08-22T07:49:50Z'
-    v4.0.0-8:
+    v4.0.0-9:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -37095,7 +39217,7 @@ components:
               type: string
               description: Detailed description of the error code.
               example: Card produced
-    v4.0.0-9:
+    v4.0.0-10:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -37317,7 +39439,7 @@ components:
                       type: string
                       description: Currency code
                       example: EUR
-    v4.0.0-10:
+    v4.0.0-11:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -37489,7 +39611,7 @@ components:
               format: date-time
               description: When the card order status change occurred.
               example: '2023-01-01T12:24:56Z'
-    v4.0.0-11:
+    v4.0.0-12:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -38733,7 +40855,7 @@ components:
                 The wallet provider used to provision the card such as "Google
                 Pay" or "Apple Pay".
               example: Google Pay
-    v4.0.0-12:
+    v4.0.0-13:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -38822,7 +40944,7 @@ components:
                 Timestamp when the event occurred (ISO 8601). Use this field to
                 reconcile out-of-order events.
               example: '2024-06-01T08:00:00Z'
-    v4.0.0-13:
+    v4.0.0-14:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -39006,7 +41128,7 @@ components:
 
                 Use this to upload the correct Source of Wealth document.
               example: REVENUE
-    v4.0.0-14:
+    v4.0.0-15:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -39132,7 +41254,7 @@ components:
                   format: decimal
                   description: Percentage of overdraft limit used
                   example: 85
-    v4.0.0-15:
+    v4.0.0-16:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -39294,7 +41416,7 @@ components:
                 Whether the state change was requested by the customer. Not
                 applicable for `current_state` in `ACTIVE`.
               example: false
-    v4.0.0-16:
+    v4.0.0-17:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -39628,7 +41750,7 @@ components:
                                 [state](/api-reference/kyc-review/kyc-requirement#path=additionalRequirements/state)
                                 of the additional requirement that has changed.
                               example: NOT_PROVIDED
-    v4.0.0-17:
+    v4.0.0-18:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -40000,9 +42122,10 @@ components:
                                 description: >-
                                   An optional field that indicates a valid until
                                   date.
-    v4.0.0-18:
+    v4.0.0-19:
       title: Schema version 4.0.0
       type: object
+      deprecated: true
       properties:
         schema_version:
           type: string
@@ -40077,6 +42200,7 @@ components:
     v2.0.0-18:
       title: Schema version 2.0.0
       type: object
+      deprecated: true
       properties:
         schema_version:
           type: string
@@ -40149,7 +42273,7 @@ components:
               format: date-time
               description: When the user state change occurred
               example: '2020-01-01T12:34:56Z'
-    v4.0.0-19:
+    v4.0.0-20:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -40472,7 +42596,7 @@ components:
               type: string
               description: Transfer category
               example: TRANSFER
-    v4.0.0-20:
+    v4.0.0-21:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -40588,7 +42712,7 @@ components:
               format: date-time
               description: Timestamp when the event occurred
               example: '2020-01-01T12:34:56Z'
-    v4.0.0-21:
+    v4.0.0-22:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -40831,7 +42955,7 @@ components:
                   description: List of messages associated with this case.
                   items:
                     $ref: '#/components/schemas/case-message'
-    v4.0.0-22:
+    v4.0.0-23:
       title: Schema version 4.0.0
       type: object
       deprecated: true
@@ -41015,6 +43139,73 @@ components:
               format: date-time
               description: When the case update occurred.
               example: '2023-06-23T09:45:34Z'
+    v4.0.0-24:
+      title: Schema version 4.0.0
+      type: object
+      required:
+        - schema_version
+        - event_type
+        - subscription_id
+        - data
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 4.0.0
+          example: 4.0.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event.
+          example: 01234567-89ab-cdef-0123-456789abcdef
+        event_type:
+          type: string
+          description: Event type identifier
+          example: settlement#funds-received
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent.
+          example: '2020-01-01T12:34:56.123Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                  description: Unique identifier for this funds received event.
+                  example: a0a727a4-3c77-46b2-91be-1089195d16c3
+                occurred_at:
+                  type: string
+                  format: date-time
+                  description: Timestamp when the funds were received.
+                  example: '2020-01-01T12:34:56.789Z'
+                data:
+                  type: object
+                  description: Details of the received funds.
+                  properties:
+                    amount:
+                      type: number
+                      description: Amount of funds received.
+                      example: 10000
+                    currency:
+                      $ref: '#/components/schemas/CurrencyCode'
+                      description: Currency code of the received funds (ISO 4217).
+                      example: USD
+                    clientKey:
+                      type: string
+                      description: Client key identifying the partner application.
+                      example: test-client-key
+                    paymentReference:
+                      type: string
+                      description: Reference identifier for the payment.
+                      example: payment-ref-12345
     Address-6:
       type: object
       description: Structured address details.
@@ -42470,7 +44661,7 @@ components:
 
                 Format: `YYYY`-`MM`-`DD`T`HH`:`MM`:`SS`.`mmm`Z
               example: '2023-08-21T12:34:56.789Z'
-    v4.0.0-23:
+    v4.0.0-25:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -43208,7 +45399,7 @@ components:
 
                 Format: `YYYY`-`MM`-`DD`T`HH`:`MM`:`SS`Z
               example: '2023-08-21T12:34:56Z'
-    v4.0.0-24:
+    v4.0.0-26:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -43285,7 +45476,7 @@ components:
                   type: string
                   description: The encoding applied to the content field. Always `base64`.
                   example: base64
-    v4.0.0-25:
+    v4.0.0-27:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -43469,7 +45660,7 @@ components:
               format: date-time
               description: When the dispute updates occurred
               example: '2024-04-18T06:36:15Z'
-    v4.0.0-26:
+    v4.0.0-28:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -43656,7 +45847,7 @@ components:
               format: date-time
               description: When the settlement fund was received
               example: '2024-04-18T06:36:15Z'
-    v4.0.0-27:
+    v4.0.0-29:
       title: Schema version 4.0.0
       type: object
       properties:
@@ -43703,7 +45894,7 @@ components:
 
                 Format: `YYYY`-`MM`-`DD`T`HH`:`MM`:`SS`.`mmm`Z
               example: '2023-08-21T12:34:56.789Z'
-    v4.0.0-28:
+    v4.0.0-30:
       title: Schema version 4.0.0
       type: object
       required:

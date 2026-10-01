@@ -14,10 +14,18 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Current verification state of the profile.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.V40016DataCurrentState? CurrentState { get; set; }
-        /// <summary>When the verification state change occurred.</summary>
+        /// <summary>The current state of the profile. Possible values:- `ACTIVE` - The profile is active.- `WITHDRAW_ONLY` - The profile has 90 calendar days to remove their money from their balance before Wise fully deactivates their account. This can be done through sending from their balance to themselves and others or spending with their card. They cannot receive money to their balances and fund transfers from external bank accounts. They can still order new cards, convert between balances, open and close balances, and download balance statements. After 90 calendar days, the profile will move into a `DEACTIVATED` state.- `VIEW_ONLY` - The profile can access and view balances and account activities such as transfer history and balance statements. However, they can no longer perform actions such as moving money with Wise in any way. All transfers sent to the account after it is set to `VIEW_ONLY` mode will also bounce back to the sender. Cards will also be suspended.- `DEACTIVATED` - The profile&apos;s account is deactivated and no actions can be performed on the account. The end-user tokens will be revoked and you will receive a `401 Unauthorized` response for API calls.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? CurrentState { get; set; }
+#nullable restore
+#else
+        public string CurrentState { get; set; }
+#endif
+        /// <summary>When the profile state change occurred.</summary>
         public DateTimeOffset? OccurredAt { get; set; }
+        /// <summary>Whether the state change was requested by the customer. Not applicable for `current_state` in `ACTIVE`.</summary>
+        public bool? RequestedByCustomer { get; set; }
         /// <summary>The resource property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -51,8 +59,9 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "current_state", n => { CurrentState = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40016DataCurrentState>(); } },
+                { "current_state", n => { CurrentState = n.GetStringValue(); } },
                 { "occurred_at", n => { OccurredAt = n.GetDateTimeOffsetValue(); } },
+                { "requested_by_customer", n => { RequestedByCustomer = n.GetBoolValue(); } },
                 { "resource", n => { Resource = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40016DataResource>(global::Soenneker.Wise.OpenApiClient.Models.V40016DataResource.CreateFromDiscriminatorValue); } },
             };
         }
@@ -63,8 +72,9 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40016DataCurrentState>("current_state", CurrentState);
+            writer.WriteStringValue("current_state", CurrentState);
             writer.WriteDateTimeOffsetValue("occurred_at", OccurredAt);
+            writer.WriteBoolValue("requested_by_customer", RequestedByCustomer);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40016DataResource>("resource", Resource);
             writer.WriteAdditionalData(AdditionalData);
         }

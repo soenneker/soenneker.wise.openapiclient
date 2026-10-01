@@ -14,8 +14,30 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Timestamp when the event occurred.</summary>
+        /// <summary>Transaction amount</summary>
+        public decimal? Amount { get; set; }
+        /// <summary>ID of the balance credited or debited.</summary>
+        public long? BalanceId { get; set; }
+        /// <summary>Transfer category</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? ChannelName { get; set; }
+#nullable restore
+#else
+        public string ChannelName { get; set; }
+#endif
+        /// <summary>Currency code</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? Currency { get; set; }
+#nullable restore
+#else
+        public string Currency { get; set; }
+#endif
+        /// <summary>When the transaction occurred.</summary>
         public DateTimeOffset? OccurredAt { get; set; }
+        /// <summary>Available balance after current transaction.</summary>
+        public decimal? PostTransactionBalanceAmount { get; set; }
         /// <summary>The resource property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -23,6 +45,24 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #nullable restore
 #else
         public global::Soenneker.Wise.OpenApiClient.Models.V40020DataResource Resource { get; set; }
+#endif
+        /// <summary>Unique identifier for tracking sequence of transaction events.</summary>
+        public long? StepId { get; set; }
+        /// <summary>Either credit or debit</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? TransactionType { get; set; }
+#nullable restore
+#else
+        public string TransactionType { get; set; }
+#endif
+        /// <summary>ID of the transfer.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? TransferReference { get; set; }
+#nullable restore
+#else
+        public string TransferReference { get; set; }
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.V40020Data"/> and sets the default values.
@@ -49,8 +89,16 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
+                { "amount", n => { Amount = n.GetDecimalValue(); } },
+                { "balance_id", n => { BalanceId = n.GetLongValue(); } },
+                { "channel_name", n => { ChannelName = n.GetStringValue(); } },
+                { "currency", n => { Currency = n.GetStringValue(); } },
                 { "occurred_at", n => { OccurredAt = n.GetDateTimeOffsetValue(); } },
+                { "post_transaction_balance_amount", n => { PostTransactionBalanceAmount = n.GetDecimalValue(); } },
                 { "resource", n => { Resource = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40020DataResource>(global::Soenneker.Wise.OpenApiClient.Models.V40020DataResource.CreateFromDiscriminatorValue); } },
+                { "step_id", n => { StepId = n.GetLongValue(); } },
+                { "transaction_type", n => { TransactionType = n.GetStringValue(); } },
+                { "transfer_reference", n => { TransferReference = n.GetStringValue(); } },
             };
         }
         /// <summary>
@@ -60,8 +108,16 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
+            writer.WriteDecimalValue("amount", Amount);
+            writer.WriteLongValue("balance_id", BalanceId);
+            writer.WriteStringValue("channel_name", ChannelName);
+            writer.WriteStringValue("currency", Currency);
             writer.WriteDateTimeOffsetValue("occurred_at", OccurredAt);
+            writer.WriteDecimalValue("post_transaction_balance_amount", PostTransactionBalanceAmount);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40020DataResource>("resource", Resource);
+            writer.WriteLongValue("step_id", StepId);
+            writer.WriteStringValue("transaction_type", TransactionType);
+            writer.WriteStringValue("transfer_reference", TransferReference);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

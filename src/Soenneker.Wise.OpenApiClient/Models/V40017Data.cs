@@ -14,6 +14,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
+        /// <summary>Current verification state of the profile.</summary>
+        public global::Soenneker.Wise.OpenApiClient.Models.V40017DataCurrentState? CurrentState { get; set; }
+        /// <summary>When the verification state change occurred.</summary>
+        public DateTimeOffset? OccurredAt { get; set; }
         /// <summary>The resource property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -47,6 +51,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
+                { "current_state", n => { CurrentState = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40017DataCurrentState>(); } },
+                { "occurred_at", n => { OccurredAt = n.GetDateTimeOffsetValue(); } },
                 { "resource", n => { Resource = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40017DataResource>(global::Soenneker.Wise.OpenApiClient.Models.V40017DataResource.CreateFromDiscriminatorValue); } },
             };
         }
@@ -57,6 +63,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40017DataCurrentState>("current_state", CurrentState);
+            writer.WriteDateTimeOffsetValue("occurred_at", OccurredAt);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40017DataResource>("resource", Resource);
             writer.WriteAdditionalData(AdditionalData);
         }

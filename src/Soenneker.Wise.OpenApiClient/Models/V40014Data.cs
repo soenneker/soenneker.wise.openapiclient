@@ -14,13 +14,23 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>The overdraft property</summary>
+        /// <summary>Current verification state of the profile (see table above).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.V40014DataOverdraft? Overdraft { get; set; }
+        public string? CurrentState { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.V40014DataOverdraft Overdraft { get; set; }
+        public string CurrentState { get; set; }
+#endif
+        /// <summary>When the CDD check state change occurred.</summary>
+        public DateTimeOffset? OccurredAt { get; set; }
+        /// <summary>List of required evidences for verification. See the [list of evidences](/guides/product/kyc/partner-kyc/supported-evidences) to find all possible values.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public List<string>? RequiredEvidences { get; set; }
+#nullable restore
+#else
+        public List<string> RequiredEvidences { get; set; }
 #endif
         /// <summary>The resource property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -29,6 +39,30 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #nullable restore
 #else
         public global::Soenneker.Wise.OpenApiClient.Models.V40014DataResource Resource { get; set; }
+#endif
+        /// <summary>*Optional*Reason the verification review did not pass.Refer to the table above for reason descriptions.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? ReviewOutcome { get; set; }
+#nullable restore
+#else
+        public string ReviewOutcome { get; set; }
+#endif
+        /// <summary>*Optional*Source of funding for a business profile submitted via the [/upload-evidences endpoint](/api-reference/verification/verificationuploadevidences).Use this to upload the correct Source of Wealth document.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? SourceOfFunding { get; set; }
+#nullable restore
+#else
+        public string SourceOfFunding { get; set; }
+#endif
+        /// <summary>*Optional*Source of income for a personal profile submitted via the [/upload-evidences endpoint](/api-reference/verification/verificationuploadevidences).Use this to upload the correct Source of Wealth document.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? SourceOfIncome { get; set; }
+#nullable restore
+#else
+        public string SourceOfIncome { get; set; }
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.V40014Data"/> and sets the default values.
@@ -55,8 +89,13 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "overdraft", n => { Overdraft = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40014DataOverdraft>(global::Soenneker.Wise.OpenApiClient.Models.V40014DataOverdraft.CreateFromDiscriminatorValue); } },
+                { "current_state", n => { CurrentState = n.GetStringValue(); } },
+                { "occurred_at", n => { OccurredAt = n.GetDateTimeOffsetValue(); } },
+                { "required_evidences", n => { RequiredEvidences = n.GetCollectionOfPrimitiveValues<string>()?.AsList(); } },
                 { "resource", n => { Resource = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40014DataResource>(global::Soenneker.Wise.OpenApiClient.Models.V40014DataResource.CreateFromDiscriminatorValue); } },
+                { "review_outcome", n => { ReviewOutcome = n.GetStringValue(); } },
+                { "source_of_funding", n => { SourceOfFunding = n.GetStringValue(); } },
+                { "source_of_income", n => { SourceOfIncome = n.GetStringValue(); } },
             };
         }
         /// <summary>
@@ -66,8 +105,13 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40014DataOverdraft>("overdraft", Overdraft);
+            writer.WriteStringValue("current_state", CurrentState);
+            writer.WriteDateTimeOffsetValue("occurred_at", OccurredAt);
+            writer.WriteCollectionOfPrimitiveValues<string>("required_evidences", RequiredEvidences);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40014DataResource>("resource", Resource);
+            writer.WriteStringValue("review_outcome", ReviewOutcome);
+            writer.WriteStringValue("source_of_funding", SourceOfFunding);
+            writer.WriteStringValue("source_of_income", SourceOfIncome);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

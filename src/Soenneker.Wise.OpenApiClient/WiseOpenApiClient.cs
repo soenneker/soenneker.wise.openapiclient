@@ -12,6 +12,7 @@ using Soenneker.Wise.OpenApiClient.Addresses;
 using Soenneker.Wise.OpenApiClient.Application;
 using Soenneker.Wise.OpenApiClient.Applications;
 using Soenneker.Wise.OpenApiClient.Auth;
+using Soenneker.Wise.OpenApiClient.Balances;
 using Soenneker.Wise.OpenApiClient.BorderlessAccountsConfiguration;
 using Soenneker.Wise.OpenApiClient.Cases;
 using Soenneker.Wise.OpenApiClient.Comparisons;
@@ -19,6 +20,7 @@ using Soenneker.Wise.OpenApiClient.Currencies;
 using Soenneker.Wise.OpenApiClient.DeliveryEstimates;
 using Soenneker.Wise.OpenApiClient.EmbeddedFlows;
 using Soenneker.Wise.OpenApiClient.Facetec;
+using Soenneker.Wise.OpenApiClient.GpiTracking;
 using Soenneker.Wise.OpenApiClient.IncomingTransfers;
 using Soenneker.Wise.OpenApiClient.Me;
 using Soenneker.Wise.OpenApiClient.MultiCurrencyAccount;
@@ -27,6 +29,7 @@ using Soenneker.Wise.OpenApiClient.OneTimeToken;
 using Soenneker.Wise.OpenApiClient.Profiles;
 using Soenneker.Wise.OpenApiClient.Quotes;
 using Soenneker.Wise.OpenApiClient.Rates;
+using Soenneker.Wise.OpenApiClient.Settlement;
 using Soenneker.Wise.OpenApiClient.Settlements;
 using Soenneker.Wise.OpenApiClient.Simulation;
 using Soenneker.Wise.OpenApiClient.Spend;
@@ -77,6 +80,11 @@ namespace Soenneker.Wise.OpenApiClient
         {
             get => new global::Soenneker.Wise.OpenApiClient.Auth.AuthRequestBuilder(PathParameters, RequestAdapter);
         }
+        /// <summary>The balances property</summary>
+        public global::Soenneker.Wise.OpenApiClient.Balances.BalancesRequestBuilder Balances
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.Balances.BalancesRequestBuilder(PathParameters, RequestAdapter);
+        }
         /// <summary>The borderlessAccountsConfiguration property</summary>
         public global::Soenneker.Wise.OpenApiClient.BorderlessAccountsConfiguration.BorderlessAccountsConfigurationRequestBuilder BorderlessAccountsConfiguration
         {
@@ -111,6 +119,11 @@ namespace Soenneker.Wise.OpenApiClient
         public global::Soenneker.Wise.OpenApiClient.Facetec.FacetecRequestBuilder Facetec
         {
             get => new global::Soenneker.Wise.OpenApiClient.Facetec.FacetecRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The gpiTracking property</summary>
+        public global::Soenneker.Wise.OpenApiClient.GpiTracking.GpiTrackingRequestBuilder GpiTracking
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.GpiTracking.GpiTrackingRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The incomingTransfers property</summary>
         public global::Soenneker.Wise.OpenApiClient.IncomingTransfers.IncomingTransfersRequestBuilder IncomingTransfers
@@ -151,6 +164,11 @@ namespace Soenneker.Wise.OpenApiClient
         public global::Soenneker.Wise.OpenApiClient.Rates.RatesRequestBuilder Rates
         {
             get => new global::Soenneker.Wise.OpenApiClient.Rates.RatesRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The settlement property</summary>
+        public global::Soenneker.Wise.OpenApiClient.Settlement.SettlementRequestBuilder Settlement
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.Settlement.SettlementRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The settlements property</summary>
         public global::Soenneker.Wise.OpenApiClient.Settlements.SettlementsRequestBuilder Settlements
@@ -207,7 +225,7 @@ namespace Soenneker.Wise.OpenApiClient
             ApiClientBuilder.RegisterDefaultDeserializer<FormParseNodeFactory>();
             if (string.IsNullOrEmpty(RequestAdapter.BaseUrl))
             {
-                RequestAdapter.BaseUrl = "https://api.wise.com/2026Q3";
+                RequestAdapter.BaseUrl = "https://api.wise.com/2026Q4";
             }
             PathParameters.TryAdd("baseurl", RequestAdapter.BaseUrl);
         }

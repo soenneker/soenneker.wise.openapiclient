@@ -14,7 +14,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Card token</summary>
+        /// <summary>Unique identifier of the card.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? CardToken { get; set; }
@@ -22,7 +22,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string CardToken { get; set; }
 #endif
-        /// <summary>Your `api_client_id`</summary>
+        /// <summary>API `client_id`</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? ClientId { get; set; }
@@ -30,9 +30,9 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string ClientId { get; set; }
 #endif
-        /// <summary>Profile ID</summary>
+        /// <summary>ID of the profile that owns the card.</summary>
         public long? ProfileId { get; set; }
-        /// <summary>Resource type (always `card`).</summary>
+        /// <summary>Webhook notification of type &apos;card&apos;.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Type { get; set; }

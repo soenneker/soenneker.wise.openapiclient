@@ -12,17 +12,9 @@ namespace Soenneker.Wise.OpenApiClient.Models
     public partial class V40023Data : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
     {
-        /// <summary>The action property</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.V40023DataAction? Action { get; set; }
-#nullable restore
-#else
-        public global::Soenneker.Wise.OpenApiClient.Models.V40023DataAction Action { get; set; }
-#endif
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Date and time at which the amount was credited to the balance account. Time in UTC.Format: `YYYY`-`MM`-`DD`T`HH`:`MM`:`SS`.`mmm`Z</summary>
+        /// <summary>When the case update occurred.</summary>
         public DateTimeOffset? OccurredAt { get; set; }
         /// <summary>The resource property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -32,6 +24,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public global::Soenneker.Wise.OpenApiClient.Models.V40023DataResource Resource { get; set; }
 #endif
+        /// <summary>The type of the webhook being sent.</summary>
+        public global::Soenneker.Wise.OpenApiClient.Models.V40023DataType? Type { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.V40023Data"/> and sets the default values.
         /// </summary>
@@ -57,9 +51,9 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "action", n => { Action = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40023DataAction>(global::Soenneker.Wise.OpenApiClient.Models.V40023DataAction.CreateFromDiscriminatorValue); } },
                 { "occurred_at", n => { OccurredAt = n.GetDateTimeOffsetValue(); } },
                 { "resource", n => { Resource = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40023DataResource>(global::Soenneker.Wise.OpenApiClient.Models.V40023DataResource.CreateFromDiscriminatorValue); } },
+                { "type", n => { Type = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40023DataType>(); } },
             };
         }
         /// <summary>
@@ -69,9 +63,9 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40023DataAction>("action", Action);
             writer.WriteDateTimeOffsetValue("occurred_at", OccurredAt);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40023DataResource>("resource", Resource);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40023DataType>("type", Type);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

@@ -14,28 +14,38 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Whether amount received matches what is expected.</summary>
-        public bool? AmountMatched { get; set; }
-        /// <summary>Reference on settlement journal</summary>
+        /// <summary>The raw SWIFT message data, encoded as specified by `content_encoding`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? SettlementReference { get; set; }
+        public string? Content { get; set; }
 #nullable restore
 #else
-        public string SettlementReference { get; set; }
+        public string Content { get; set; }
 #endif
-        /// <summary>The amount Wise paid out on behalf of partner.</summary>
-        public decimal? SourceAmount { get; set; }
-        /// <summary>Settlement currency</summary>
+        /// <summary>The encoding applied to the content field. Always `base64`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? SourceCurrency { get; set; }
+        public string? ContentEncoding { get; set; }
 #nullable restore
 #else
-        public string SourceCurrency { get; set; }
+        public string ContentEncoding { get; set; }
 #endif
-        /// <summary>Total settlement fund received for this settlement journal.</summary>
-        public decimal? TargetAmount { get; set; }
+        /// <summary>Identifier of the SWIFT message.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? Id { get; set; }
+#nullable restore
+#else
+        public string Id { get; set; }
+#endif
+        /// <summary>Type of SWIFT message contained in the content field (e.g., `pacs.008.001.08`). Extensible for future message types.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? MessageType { get; set; }
+#nullable restore
+#else
+        public string MessageType { get; set; }
+#endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.V40026DataResource"/> and sets the default values.
         /// </summary>
@@ -61,11 +71,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "amount_matched", n => { AmountMatched = n.GetBoolValue(); } },
-                { "settlement_reference", n => { SettlementReference = n.GetStringValue(); } },
-                { "source_amount", n => { SourceAmount = n.GetDecimalValue(); } },
-                { "source_currency", n => { SourceCurrency = n.GetStringValue(); } },
-                { "target_amount", n => { TargetAmount = n.GetDecimalValue(); } },
+                { "content", n => { Content = n.GetStringValue(); } },
+                { "content_encoding", n => { ContentEncoding = n.GetStringValue(); } },
+                { "id", n => { Id = n.GetStringValue(); } },
+                { "message_type", n => { MessageType = n.GetStringValue(); } },
             };
         }
         /// <summary>
@@ -75,11 +84,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteBoolValue("amount_matched", AmountMatched);
-            writer.WriteStringValue("settlement_reference", SettlementReference);
-            writer.WriteDecimalValue("source_amount", SourceAmount);
-            writer.WriteStringValue("source_currency", SourceCurrency);
-            writer.WriteDecimalValue("target_amount", TargetAmount);
+            writer.WriteStringValue("content", Content);
+            writer.WriteStringValue("content_encoding", ContentEncoding);
+            writer.WriteStringValue("id", Id);
+            writer.WriteStringValue("message_type", MessageType);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

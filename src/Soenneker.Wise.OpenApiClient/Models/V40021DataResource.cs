@@ -14,18 +14,20 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Batch group ID</summary>
+        /// <summary>ID of the account.</summary>
+        public long? Id { get; set; }
+        /// <summary>ID of the profile that owns the account.</summary>
+        public long? ProfileId { get; set; }
+        /// <summary>State of the account.</summary>
+        public global::Soenneker.Wise.OpenApiClient.Models.V40021DataResourceState? State { get; set; }
+        /// <summary>Resource type (always `balance-account`).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? BatchGroupId { get; set; }
+        public string? Type { get; set; }
 #nullable restore
 #else
-        public string BatchGroupId { get; set; }
+        public string Type { get; set; }
 #endif
-        /// <summary>Payment initiation ID</summary>
-        public long? Id { get; set; }
-        /// <summary>The ID of the profile this payment belongs to.</summary>
-        public long? ProfileId { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.V40021DataResource"/> and sets the default values.
         /// </summary>
@@ -51,9 +53,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "batch_group_id", n => { BatchGroupId = n.GetStringValue(); } },
                 { "id", n => { Id = n.GetLongValue(); } },
                 { "profile_id", n => { ProfileId = n.GetLongValue(); } },
+                { "state", n => { State = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40021DataResourceState>(); } },
+                { "type", n => { Type = n.GetStringValue(); } },
             };
         }
         /// <summary>
@@ -63,9 +66,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteStringValue("batch_group_id", BatchGroupId);
             writer.WriteLongValue("id", Id);
             writer.WriteLongValue("profile_id", ProfileId);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40021DataResourceState>("state", State);
+            writer.WriteStringValue("type", Type);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

@@ -14,24 +14,6 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>The updated card status. Possible values:- `ACTIVE` - Card is active and can be used.- `INACTIVE` - Card is inactive and all transactions will be declined.- `BLOCKED` - Card is blocked and cannot be reversed back to any state.- `FROZEN` - Card is temporarily frozen; all authorization requests will be declined.- `PARTNER_SUSPENDED` - Card is suspended by Wise temporarily due to, for example, fraud reasons.- `EXPIRED` - Card is expired.- `PURGED` - The cardhoder data (ex: PAN, PIN) have been purged after exceeds the retention period (555 days after the card&apos;s expiry date).</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? CardStatus { get; set; }
-#nullable restore
-#else
-        public string CardStatus { get; set; }
-#endif
-        /// <summary>The identifier of the entity that updated the card status. If changed by Wise, the value is set to `internal_system`,otherwise, it is set to your `api_client_id`.</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? ChangedBy { get; set; }
-#nullable restore
-#else
-        public string ChangedBy { get; set; }
-#endif
-        /// <summary>When the card status change occurred.</summary>
-        public DateTimeOffset? OccurredAt { get; set; }
         /// <summary>The resource property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -65,9 +47,6 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "card_status", n => { CardStatus = n.GetStringValue(); } },
-                { "changed_by", n => { ChangedBy = n.GetStringValue(); } },
-                { "occurred_at", n => { OccurredAt = n.GetDateTimeOffsetValue(); } },
                 { "resource", n => { Resource = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V4007DataResource>(global::Soenneker.Wise.OpenApiClient.Models.V4007DataResource.CreateFromDiscriminatorValue); } },
             };
         }
@@ -78,9 +57,6 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteStringValue("card_status", CardStatus);
-            writer.WriteStringValue("changed_by", ChangedBy);
-            writer.WriteDateTimeOffsetValue("occurred_at", OccurredAt);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V4007DataResource>("resource", Resource);
             writer.WriteAdditionalData(AdditionalData);
         }

@@ -12,30 +12,18 @@ namespace Soenneker.Wise.OpenApiClient.Models
     public partial class V40025Data : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
     {
+        /// <summary>The action property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public global::Soenneker.Wise.OpenApiClient.Models.V40025DataAction? Action { get; set; }
+#nullable restore
+#else
+        public global::Soenneker.Wise.OpenApiClient.Models.V40025DataAction Action { get; set; }
+#endif
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Whether the dispute can be withdrawn.</summary>
-        public bool? CanWithdraw { get; set; }
-        /// <summary>Time when the dispute was created.</summary>
-        public DateTimeOffset? CreatedAt { get; set; }
-        /// <summary>Creator of the dispute. Currently set to the user id.</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? CreatedBy { get; set; }
-#nullable restore
-#else
-        public string CreatedBy { get; set; }
-#endif
-        /// <summary>When the dispute updates occurred.</summary>
+        /// <summary>Date and time at which the amount was credited to the balance account. Time in UTC.Format: `YYYY`-`MM`-`DD`T`HH`:`MM`:`SS`.`mmm`Z</summary>
         public DateTimeOffset? OccurredAt { get; set; }
-        /// <summary>Dispute reason. See [dispute reason](/api-reference/disputes/disputereasonsget) for all possible values.</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? Reason { get; set; }
-#nullable restore
-#else
-        public string Reason { get; set; }
-#endif
         /// <summary>The resource property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -43,24 +31,6 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #nullable restore
 #else
         public global::Soenneker.Wise.OpenApiClient.Models.V40025DataResource Resource { get; set; }
-#endif
-        /// <summary>Dispute overall status</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.V40025DataStatus? Status { get; set; }
-        /// <summary>Explanation for `subStatus`.</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? StatusMessage { get; set; }
-#nullable restore
-#else
-        public string StatusMessage { get; set; }
-#endif
-        /// <summary>Dispute detailed status. See [dispute sub-status](/api-reference/disputes#dispute-sub-status) for all possible values.</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? SubStatus { get; set; }
-#nullable restore
-#else
-        public string SubStatus { get; set; }
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.V40025Data"/> and sets the default values.
@@ -87,15 +57,9 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "can_withdraw", n => { CanWithdraw = n.GetBoolValue(); } },
-                { "created_at", n => { CreatedAt = n.GetDateTimeOffsetValue(); } },
-                { "created_by", n => { CreatedBy = n.GetStringValue(); } },
+                { "action", n => { Action = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40025DataAction>(global::Soenneker.Wise.OpenApiClient.Models.V40025DataAction.CreateFromDiscriminatorValue); } },
                 { "occurred_at", n => { OccurredAt = n.GetDateTimeOffsetValue(); } },
-                { "reason", n => { Reason = n.GetStringValue(); } },
                 { "resource", n => { Resource = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40025DataResource>(global::Soenneker.Wise.OpenApiClient.Models.V40025DataResource.CreateFromDiscriminatorValue); } },
-                { "status", n => { Status = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40025DataStatus>(); } },
-                { "status_message", n => { StatusMessage = n.GetStringValue(); } },
-                { "sub_status", n => { SubStatus = n.GetStringValue(); } },
             };
         }
         /// <summary>
@@ -105,15 +69,9 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteBoolValue("can_withdraw", CanWithdraw);
-            writer.WriteDateTimeOffsetValue("created_at", CreatedAt);
-            writer.WriteStringValue("created_by", CreatedBy);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40025DataAction>("action", Action);
             writer.WriteDateTimeOffsetValue("occurred_at", OccurredAt);
-            writer.WriteStringValue("reason", Reason);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40025DataResource>("resource", Resource);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40025DataStatus>("status", Status);
-            writer.WriteStringValue("status_message", StatusMessage);
-            writer.WriteStringValue("sub_status", SubStatus);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

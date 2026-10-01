@@ -14,22 +14,6 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>The current state of the user.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.V40018DataCurrentState? CurrentState { get; set; }
-        /// <summary>The reason for deactivation.</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? DeactivationReason { get; set; }
-#nullable restore
-#else
-        public string DeactivationReason { get; set; }
-#endif
-        /// <summary>If the type is `ACCOUNT_SUSPENSION`, it is possible to appeal the deactivation by contacting Wise.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.V40018DataDeactivationType? DeactivationType { get; set; }
-        /// <summary>When the user state change occurred.</summary>
-        public DateTimeOffset? OccurredAt { get; set; }
-        /// <summary>The previous_state property</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.V40018DataPreviousState? PreviousState { get; set; }
         /// <summary>The resource property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -63,11 +47,6 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "current_state", n => { CurrentState = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40018DataCurrentState>(); } },
-                { "deactivation_reason", n => { DeactivationReason = n.GetStringValue(); } },
-                { "deactivation_type", n => { DeactivationType = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40018DataDeactivationType>(); } },
-                { "occurred_at", n => { OccurredAt = n.GetDateTimeOffsetValue(); } },
-                { "previous_state", n => { PreviousState = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40018DataPreviousState>(); } },
                 { "resource", n => { Resource = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40018DataResource>(global::Soenneker.Wise.OpenApiClient.Models.V40018DataResource.CreateFromDiscriminatorValue); } },
             };
         }
@@ -78,11 +57,6 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40018DataCurrentState>("current_state", CurrentState);
-            writer.WriteStringValue("deactivation_reason", DeactivationReason);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40018DataDeactivationType>("deactivation_type", DeactivationType);
-            writer.WriteDateTimeOffsetValue("occurred_at", OccurredAt);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40018DataPreviousState>("previous_state", PreviousState);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40018DataResource>("resource", Resource);
             writer.WriteAdditionalData(AdditionalData);
         }

@@ -2,54 +2,42 @@
 #pragma warning disable CS0618
 using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions.Serialization;
-using Microsoft.Kiota.Abstractions;
 using System.Collections.Generic;
 using System.IO;
 using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
+    /// <summary>
+    /// Details about a specific field validation error.
+    /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    #pragma warning disable CS1591
-    public partial class ValidationError2 : ApiException, IAdditionalDataHolder, IParsable
-    #pragma warning restore CS1591
+    public partial class ValidationError2 : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>The individual validation errors.</summary>
+        /// <summary>Machine-readable validation error code.Possible codes:- `parameter_missing` - A required parameter was not provided- `parameter_invalid` - A parameter value is invalid- `invalid_file_extension` - File type or extension is not allowed- `file_size_exceeds_max_limit` - File exceeds the maximum allowed size</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.ValidationError2ErrorsItem>? Errors { get; set; }
+        public string? Code { get; set; }
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.ValidationError2ErrorsItem> Errors { get; set; }
+        public string Code { get; set; }
 #endif
-        /// <summary>The API path associated with the error.</summary>
+        /// <summary>A human-readable description of the validation failure.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Instance { get; set; }
+        public string? Detail { get; set; }
 #nullable restore
 #else
-        public string Instance { get; set; }
+        public string Detail { get; set; }
 #endif
-        /// <summary>The primary error message.</summary>
-        public override string Message { get => base.Message; }
-        /// <summary>The HTTP status code.</summary>
-        public int? Status { get; set; }
-        /// <summary>A short summary of the error.</summary>
+        /// <summary>The field that caused the validation error.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Title { get; set; }
+        public string? Ref { get; set; }
 #nullable restore
 #else
-        public string Title { get; set; }
-#endif
-        /// <summary>A URI identifying the error type.</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? Type { get; set; }
-#nullable restore
-#else
-        public string Type { get; set; }
+        public string Ref { get; set; }
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.ValidationError2"/> and sets the default values.
@@ -76,11 +64,9 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "errors", n => { Errors = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.ValidationError2ErrorsItem>(global::Soenneker.Wise.OpenApiClient.Models.ValidationError2ErrorsItem.CreateFromDiscriminatorValue)?.AsList(); } },
-                { "instance", n => { Instance = n.GetStringValue(); } },
-                { "status", n => { Status = n.GetIntValue(); } },
-                { "title", n => { Title = n.GetStringValue(); } },
-                { "type", n => { Type = n.GetStringValue(); } },
+                { "code", n => { Code = n.GetStringValue(); } },
+                { "detail", n => { Detail = n.GetStringValue(); } },
+                { "ref", n => { Ref = n.GetStringValue(); } },
             };
         }
         /// <summary>
@@ -90,11 +76,9 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.ValidationError2ErrorsItem>("errors", Errors);
-            writer.WriteStringValue("instance", Instance);
-            writer.WriteIntValue("status", Status);
-            writer.WriteStringValue("title", Title);
-            writer.WriteStringValue("type", Type);
+            writer.WriteStringValue("code", Code);
+            writer.WriteStringValue("detail", Detail);
+            writer.WriteStringValue("ref", Ref);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

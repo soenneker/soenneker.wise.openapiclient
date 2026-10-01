@@ -22,7 +22,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string CardToken { get; set; }
 #endif
-        /// <summary>API `client_id`</summary>
+        /// <summary>Your api_client_id</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? ClientId { get; set; }
@@ -32,7 +32,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #endif
         /// <summary>ID of the profile that owns the card.</summary>
         public long? ProfileId { get; set; }
-        /// <summary>Webhook notification of type &apos;card&apos;.</summary>
+        /// <summary>Resource type (always `card`)</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Type { get; set; }

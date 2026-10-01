@@ -2,6 +2,7 @@
 #pragma warning disable CS0618
 using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions;
+using Soenneker.Wise.OpenApiClient.Simulation.Transfers.Item.DeliveryUpdate;
 using Soenneker.Wise.OpenApiClient.Simulation.Transfers.Item.Item;
 using Soenneker.Wise.OpenApiClient.Simulation.Transfers.Item.PayoutFailure;
 using System.Collections.Generic;
@@ -16,6 +17,11 @@ namespace Soenneker.Wise.OpenApiClient.Simulation.Transfers.Item
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class WithTransferItemRequestBuilder : BaseRequestBuilder
     {
+        /// <summary>The deliveryUpdate property</summary>
+        public global::Soenneker.Wise.OpenApiClient.Simulation.Transfers.Item.DeliveryUpdate.DeliveryUpdateRequestBuilder DeliveryUpdate
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.Simulation.Transfers.Item.DeliveryUpdate.DeliveryUpdateRequestBuilder(PathParameters, RequestAdapter);
+        }
         /// <summary>The payoutFailure property</summary>
         public global::Soenneker.Wise.OpenApiClient.Simulation.Transfers.Item.PayoutFailure.PayoutFailureRequestBuilder PayoutFailure
         {

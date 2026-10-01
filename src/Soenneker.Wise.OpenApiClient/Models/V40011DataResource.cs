@@ -14,13 +14,13 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Last 4 digits of the card.</summary>
+        /// <summary>The card program associated with this card order. A card program is how Wise refers to all the cards you will be issuing with us, grouped by product type and issuing country.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? CardLastDigits { get; set; }
+        public string? CardProgram { get; set; }
 #nullable restore
 #else
-        public string CardLastDigits { get; set; }
+        public string CardProgram { get; set; }
 #endif
         /// <summary>Unique identifier of the card.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -30,7 +30,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string CardToken { get; set; }
 #endif
-        /// <summary>Your `api_client_id`</summary>
+        /// <summary>API `client_id`</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? ClientId { get; set; }
@@ -40,7 +40,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #endif
         /// <summary>ID of the profile that owns the card.</summary>
         public long? ProfileId { get; set; }
-        /// <summary>Resource type (always `card`).</summary>
+        /// <summary>Webhook notification of type &apos;card&apos;.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Type { get; set; }
@@ -73,7 +73,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "card_last_digits", n => { CardLastDigits = n.GetStringValue(); } },
+                { "card_program", n => { CardProgram = n.GetStringValue(); } },
                 { "card_token", n => { CardToken = n.GetStringValue(); } },
                 { "client_id", n => { ClientId = n.GetStringValue(); } },
                 { "profile_id", n => { ProfileId = n.GetLongValue(); } },
@@ -87,7 +87,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteStringValue("card_last_digits", CardLastDigits);
+            writer.WriteStringValue("card_program", CardProgram);
             writer.WriteStringValue("card_token", CardToken);
             writer.WriteStringValue("client_id", ClientId);
             writer.WriteLongValue("profile_id", ProfileId);

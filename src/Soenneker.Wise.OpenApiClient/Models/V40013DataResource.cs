@@ -14,9 +14,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>ID of the profile.</summary>
-        public long? Id { get; set; }
-        /// <summary>Profile resource type (always set to `profile`).</summary>
+        /// <summary>ID of the hold limit breach.</summary>
+        public long? HoldLimitBreachId { get; set; }
+        /// <summary>ID of the profile that owns the breach.</summary>
+        public long? ProfileId { get; set; }
+        /// <summary>Resource type. Always `hold-limit-breach`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Type { get; set; }
@@ -49,7 +51,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "id", n => { Id = n.GetLongValue(); } },
+                { "hold_limit_breach_id", n => { HoldLimitBreachId = n.GetLongValue(); } },
+                { "profile_id", n => { ProfileId = n.GetLongValue(); } },
                 { "type", n => { Type = n.GetStringValue(); } },
             };
         }
@@ -60,7 +63,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteLongValue("id", Id);
+            writer.WriteLongValue("hold_limit_breach_id", HoldLimitBreachId);
+            writer.WriteLongValue("profile_id", ProfileId);
             writer.WriteStringValue("type", Type);
             writer.WriteAdditionalData(AdditionalData);
         }

@@ -14,34 +14,18 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>ID of the case.</summary>
-        public long? CaseId { get; set; }
-        /// <summary>Type of the case. Value must be `GENERAL_ENQUIRY`. More case types to be added in the future.</summary>
+        /// <summary>Batch group ID</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? CaseType { get; set; }
+        public string? BatchGroupId { get; set; }
 #nullable restore
 #else
-        public string CaseType { get; set; }
+        public string BatchGroupId { get; set; }
 #endif
-        /// <summary>The details property</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.V40022DataResourceDetails? Details { get; set; }
-#nullable restore
-#else
-        public global::Soenneker.Wise.OpenApiClient.Models.V40022DataResourceDetails Details { get; set; }
-#endif
-        /// <summary>Status of the case.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.V40022DataResourceStatus? Status { get; set; }
-        /// <summary>Type of resource for webhook. Will always be `partner-support-case`.</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? Type { get; set; }
-#nullable restore
-#else
-        public string Type { get; set; }
-#endif
+        /// <summary>Payment initiation ID</summary>
+        public long? Id { get; set; }
+        /// <summary>The ID of the profile this payment belongs to.</summary>
+        public long? ProfileId { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.V40022DataResource"/> and sets the default values.
         /// </summary>
@@ -67,11 +51,9 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "case_id", n => { CaseId = n.GetLongValue(); } },
-                { "case_type", n => { CaseType = n.GetStringValue(); } },
-                { "details", n => { Details = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40022DataResourceDetails>(global::Soenneker.Wise.OpenApiClient.Models.V40022DataResourceDetails.CreateFromDiscriminatorValue); } },
-                { "status", n => { Status = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40022DataResourceStatus>(); } },
-                { "type", n => { Type = n.GetStringValue(); } },
+                { "batch_group_id", n => { BatchGroupId = n.GetStringValue(); } },
+                { "id", n => { Id = n.GetLongValue(); } },
+                { "profile_id", n => { ProfileId = n.GetLongValue(); } },
             };
         }
         /// <summary>
@@ -81,11 +63,9 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteLongValue("case_id", CaseId);
-            writer.WriteStringValue("case_type", CaseType);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40022DataResourceDetails>("details", Details);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40022DataResourceStatus>("status", Status);
-            writer.WriteStringValue("type", Type);
+            writer.WriteStringValue("batch_group_id", BatchGroupId);
+            writer.WriteLongValue("id", Id);
+            writer.WriteLongValue("profile_id", ProfileId);
             writer.WriteAdditionalData(AdditionalData);
         }
     }
