@@ -22,6 +22,14 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string AddressFirstLine { get; set; }
 #endif
+        /// <summary>City of residential address.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? City { get; set; }
+#nullable restore
+#else
+        public string City { get; set; }
+#endif
         /// <summary>3 character country code.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -38,6 +46,32 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string DateOfBirth { get; set; }
 #endif
+        /// <summary>Document issuing country as an ISO 3166-1 alpha-3 code.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? DocumentCountryIso3Code { get; set; }
+#nullable restore
+#else
+        public string DocumentCountryIso3Code { get; set; }
+#endif
+        /// <summary>Document number or identifier.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? DocumentId { get; set; }
+#nullable restore
+#else
+        public string DocumentId { get; set; }
+#endif
+        /// <summary>Identification document type.</summary>
+        public global::Soenneker.Wise.OpenApiClient.Models.ProfileUboUpdateRequestItemDocumentType? DocumentType { get; set; }
+        /// <summary>Owner email address.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? Email { get; set; }
+#nullable restore
+#else
+        public string Email { get; set; }
+#endif
         /// <summary>Owner full name.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -46,8 +80,32 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string Name { get; set; }
 #endif
+        /// <summary>Nationality as an ISO 3166-1 alpha-2 or alpha-3 country code.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? Nationality { get; set; }
+#nullable restore
+#else
+        public string Nationality { get; set; }
+#endif
         /// <summary>Percentage of ownership.</summary>
         public int? OwnershipPercentage { get; set; }
+        /// <summary>City of birth.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? PlaceOfBirthCity { get; set; }
+#nullable restore
+#else
+        public string PlaceOfBirthCity { get; set; }
+#endif
+        /// <summary>Country of birth as an ISO 3166-1 alpha-3 code.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? PlaceOfBirthCountryIso3Code { get; set; }
+#nullable restore
+#else
+        public string PlaceOfBirthCountryIso3Code { get; set; }
+#endif
         /// <summary>Address post code.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -55,6 +113,14 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #nullable restore
 #else
         public string PostCode { get; set; }
+#endif
+        /// <summary>State or region of residential address.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? State { get; set; }
+#nullable restore
+#else
+        public string State { get; set; }
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.ProfileUboUpdateRequestRequestBodyItem"/> and sets the default values.
@@ -82,11 +148,20 @@ namespace Soenneker.Wise.OpenApiClient.Models
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "addressFirstLine", n => { AddressFirstLine = n.GetStringValue(); } },
+                { "city", n => { City = n.GetStringValue(); } },
                 { "countryOfResidenceIso3Code", n => { CountryOfResidenceIso3Code = n.GetStringValue(); } },
                 { "dateOfBirth", n => { DateOfBirth = n.GetStringValue(); } },
+                { "documentCountryIso3Code", n => { DocumentCountryIso3Code = n.GetStringValue(); } },
+                { "documentId", n => { DocumentId = n.GetStringValue(); } },
+                { "documentType", n => { DocumentType = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileUboUpdateRequestItemDocumentType>(); } },
+                { "email", n => { Email = n.GetStringValue(); } },
                 { "name", n => { Name = n.GetStringValue(); } },
+                { "nationality", n => { Nationality = n.GetStringValue(); } },
                 { "ownershipPercentage", n => { OwnershipPercentage = n.GetIntValue(); } },
+                { "placeOfBirthCity", n => { PlaceOfBirthCity = n.GetStringValue(); } },
+                { "placeOfBirthCountryIso3Code", n => { PlaceOfBirthCountryIso3Code = n.GetStringValue(); } },
                 { "postCode", n => { PostCode = n.GetStringValue(); } },
+                { "state", n => { State = n.GetStringValue(); } },
             };
         }
         /// <summary>
@@ -97,11 +172,20 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("addressFirstLine", AddressFirstLine);
+            writer.WriteStringValue("city", City);
             writer.WriteStringValue("countryOfResidenceIso3Code", CountryOfResidenceIso3Code);
             writer.WriteStringValue("dateOfBirth", DateOfBirth);
+            writer.WriteStringValue("documentCountryIso3Code", DocumentCountryIso3Code);
+            writer.WriteStringValue("documentId", DocumentId);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileUboUpdateRequestItemDocumentType>("documentType", DocumentType);
+            writer.WriteStringValue("email", Email);
             writer.WriteStringValue("name", Name);
+            writer.WriteStringValue("nationality", Nationality);
             writer.WriteIntValue("ownershipPercentage", OwnershipPercentage);
+            writer.WriteStringValue("placeOfBirthCity", PlaceOfBirthCity);
+            writer.WriteStringValue("placeOfBirthCountryIso3Code", PlaceOfBirthCountryIso3Code);
             writer.WriteStringValue("postCode", PostCode);
+            writer.WriteStringValue("state", State);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

@@ -34,7 +34,7 @@ namespace Soenneker.Wise.OpenApiClient.Balances.AccountDetails.Item
         {
         }
         /// <summary>
-        /// Retrieves account details by ID. Account details identify an account that can receive funds(e.g. an IBAN, or a sort code and account number). GB, US and BE account details are supported.Requesting account details for an unsupported country returns `404 Not Found`. For coverage acrossall countries, use the [2026Q3 account details API](https://docs.wise.com/api-reference/bank-account-details/bankaccountdetailsget).
+        /// Retrieves account details by ID. Account details identify an account that can receive funds(e.g. an IBAN, or a sort code and account number). GB, US and BE account details are supported.Requesting account details for an unsupported country returns `404 Not Found`. For coverage acrossall countries, use the [2026Q3 account details API](https://docs.wise.com/api-reference/2026q3/bank-account-details/bankaccountdetailsget).
         /// </summary>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.AccountDetails"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
@@ -57,7 +57,7 @@ namespace Soenneker.Wise.OpenApiClient.Balances.AccountDetails.Item
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.AccountDetails>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.AccountDetails.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Retrieves account details by ID. Account details identify an account that can receive funds(e.g. an IBAN, or a sort code and account number). GB, US and BE account details are supported.Requesting account details for an unsupported country returns `404 Not Found`. For coverage acrossall countries, use the [2026Q3 account details API](https://docs.wise.com/api-reference/bank-account-details/bankaccountdetailsget).
+        /// Retrieves account details by ID. Account details identify an account that can receive funds(e.g. an IBAN, or a sort code and account number). GB, US and BE account details are supported.Requesting account details for an unsupported country returns `404 Not Found`. For coverage acrossall countries, use the [2026Q3 account details API](https://docs.wise.com/api-reference/2026q3/bank-account-details/bankaccountdetailsget).
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>

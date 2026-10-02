@@ -22,6 +22,14 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string AddressFirstLine { get; set; }
 #endif
+        /// <summary>City of residential address.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? City { get; set; }
+#nullable restore
+#else
+        public string City { get; set; }
+#endif
         /// <summary>3 character country code.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -64,6 +72,14 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string PostCode { get; set; }
 #endif
+        /// <summary>State or region of residential address.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? State { get; set; }
+#nullable restore
+#else
+        public string State { get; set; }
+#endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.Ubo"/> and sets the default values.
         /// </summary>
@@ -90,12 +106,14 @@ namespace Soenneker.Wise.OpenApiClient.Models
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "addressFirstLine", n => { AddressFirstLine = n.GetStringValue(); } },
+                { "city", n => { City = n.GetStringValue(); } },
                 { "countryOfResidenceIso3Code", n => { CountryOfResidenceIso3Code = n.GetStringValue(); } },
                 { "dateOfBirth", n => { DateOfBirth = n.GetStringValue(); } },
                 { "id", n => { Id = n.GetStringValue(); } },
                 { "name", n => { Name = n.GetStringValue(); } },
                 { "ownershipPercentage", n => { OwnershipPercentage = n.GetIntValue(); } },
                 { "postCode", n => { PostCode = n.GetStringValue(); } },
+                { "state", n => { State = n.GetStringValue(); } },
             };
         }
         /// <summary>
@@ -106,12 +124,14 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("addressFirstLine", AddressFirstLine);
+            writer.WriteStringValue("city", City);
             writer.WriteStringValue("countryOfResidenceIso3Code", CountryOfResidenceIso3Code);
             writer.WriteStringValue("dateOfBirth", DateOfBirth);
             writer.WriteStringValue("id", Id);
             writer.WriteStringValue("name", Name);
             writer.WriteIntValue("ownershipPercentage", OwnershipPercentage);
             writer.WriteStringValue("postCode", PostCode);
+            writer.WriteStringValue("state", State);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

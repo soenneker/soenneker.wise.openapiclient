@@ -84,7 +84,7 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.Item.Ubos
             return collectionResult?.AsList();
         }
         /// <summary>
-        /// Overrides ultimate beneficial owners in the business profile.Returns the list of all ultimate beneficial owners associated with the business profile.
+        /// Replaces the entire collection of ultimate beneficial owners in the business profile.Returns the list of all ultimate beneficial owners associated with the business profile.
         /// </summary>
         /// <returns>A List&lt;global::Soenneker.Wise.OpenApiClient.Models.Ubo&gt;</returns>
         /// <param name="body">The request body</param>
@@ -151,7 +151,7 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.Item.Ubos
             return requestInfo;
         }
         /// <summary>
-        /// Overrides ultimate beneficial owners in the business profile.Returns the list of all ultimate beneficial owners associated with the business profile.
+        /// Replaces the entire collection of ultimate beneficial owners in the business profile.Returns the list of all ultimate beneficial owners associated with the business profile.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>

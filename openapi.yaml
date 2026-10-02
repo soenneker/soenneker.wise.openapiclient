@@ -4220,7 +4220,7 @@ paths:
         Found`. For coverage across
 
         all countries, use the [2026Q3 account details
-        API](https://docs.wise.com/api-reference/bank-account-details/bankaccountdetailsget).
+        API](https://docs.wise.com/api-reference/2026q3/bank-account-details/bankaccountdetailsget).
       summary: Get account details by ID
       operationId: getAccountDetails
       parameters:
@@ -14649,6 +14649,27 @@ paths:
                     stateCode:
                       type: string
                       description: State code.
+                contactDetails:
+                  type: object
+                  description: >-
+                    Optional contact details for the business, separate from the
+                    representative's contact details.
+                  required:
+                    - email
+                    - phoneNumber
+                  properties:
+                    email:
+                      type: string
+                      format: email
+                      minLength: 1
+                      description: Contact email address for the business.
+                      example: contact@innovate-solutions.co.uk
+                    phoneNumber:
+                      type: string
+                      minLength: 5
+                      maxLength: 25
+                      description: Contact phone number for the business.
+                      example: '+441617891234'
                 externalCustomerId:
                   type: string
                   description: >-
@@ -14835,6 +14856,9 @@ paths:
                     countryIso2Code: gb
                     countryIso3Code: gbr
                     postCode: '11111'
+                  contactDetails:
+                    email: contact@innovate-solutions.co.uk
+                    phoneNumber: '+441617891234'
                   externalCustomerId: 67890-biz-acct
                   actorEmail: biz-acct@abcl.com
                   industryCategories:
@@ -14879,6 +14903,9 @@ paths:
                     countryIso2Code: gb
                     countryIso3Code: gbr
                     postCode: '11111'
+                  contactDetails:
+                    email: contact@innovate-solutions.co.uk
+                    phoneNumber: '+441617891234'
                   externalCustomerId: 67890-biz-acct
                   actorEmail: biz-acct@abcl.com
                   industryCategories:
@@ -15242,6 +15269,27 @@ paths:
                     - DIRECTOR
                     - OTHER
                   example: OWNER
+                contactDetails:
+                  type: object
+                  description: >-
+                    Optional contact details for the business, separate from the
+                    representative's contact details.
+                  required:
+                    - email
+                    - phoneNumber
+                  properties:
+                    email:
+                      type: string
+                      format: email
+                      minLength: 1
+                      description: Contact email address for the business.
+                      example: contact@innovate-solutions.co.uk
+                    phoneNumber:
+                      type: string
+                      minLength: 5
+                      maxLength: 25
+                      description: Contact phone number for the business.
+                      example: '+441617891234'
                 externalCustomerId:
                   type: string
                   description: >-
@@ -16146,12 +16194,17 @@ paths:
             format: int64
         - $ref: '#/components/parameters/X-External-Correlation-Id'
       requestBody:
+        required: true
         content:
           application/json:
             schema:
               type: array
               items:
                 type: object
+                required:
+                  - name
+                  - dateOfBirth
+                  - countryOfResidenceIso3Code
                 properties:
                   name:
                     type: string
@@ -16173,6 +16226,53 @@ paths:
                     type: string
                     description: Address post code.
                     example: FK 12345
+                  documentType:
+                    type: string
+                    description: Identification document type.
+                    enum:
+                      - PASSPORT
+                      - NATIONAL_ID
+                      - RESIDENCE_PERMIT
+                      - DRIVING_LICENSE
+                      - CPF
+                    example: PASSPORT
+                  documentId:
+                    type: string
+                    description: Document number or identifier.
+                    example: AA299822313
+                  documentCountryIso3Code:
+                    type: string
+                    description: Document issuing country as an ISO 3166-1 alpha-3 code.
+                    example: usa
+                  nationality:
+                    type: string
+                    description: >-
+                      Nationality as an ISO 3166-1 alpha-2 or alpha-3 country
+                      code.
+                    example: usa
+                  email:
+                    type: string
+                    description: Owner email address.
+                    minLength: 1
+                    maxLength: 255
+                    pattern: ^.+@.+$
+                    example: john.doe@example.com
+                  placeOfBirthCity:
+                    type: string
+                    description: City of birth.
+                    example: London
+                  placeOfBirthCountryIso3Code:
+                    type: string
+                    description: Country of birth as an ISO 3166-1 alpha-3 code.
+                    example: gbr
+                  city:
+                    type: string
+                    description: City of residential address.
+                    example: Phoenix
+                  state:
+                    type: string
+                    description: State or region of residential address.
+                    example: AZ
                   ownershipPercentage:
                     type:
                       - integer
@@ -16189,15 +16289,33 @@ paths:
                     countryOfResidenceIso3Code: usa
                     addressFirstLine: 123 Fake St
                     postCode: FK 12345
+                    documentType: PASSPORT
+                    documentId: AA299822313
+                    documentCountryIso3Code: usa
+                    nationality: usa
+                    email: john.doe@example.com
+                    placeOfBirthCity: London
+                    placeOfBirthCountryIso3Code: gbr
+                    city: Phoenix
+                    state: AZ
                     ownershipPercentage: 30
                   - name: Jane Doe
                     dateOfBirth: '1981-12-07'
                     countryOfResidenceIso3Code: usa
                     addressFirstLine: 125 Fake St
                     postCode: FK 12545
+                    documentType: DRIVING_LICENSE
+                    documentId: DL12345
+                    documentCountryIso3Code: usa
+                    nationality: usa
+                    email: jane.doe@example.com
+                    placeOfBirthCity: London
+                    placeOfBirthCountryIso3Code: gbr
+                    city: Phoenix
+                    state: AZ
                     ownershipPercentage: 70
       responses:
-        '200':
+        '201':
           description: >-
             List of all ultimate beneficial owners associated with the business
             profile.
@@ -16214,6 +16332,8 @@ paths:
                   countryOfResidenceIso3Code: usa
                   addressFirstLine: 123 Fake St
                   postCode: FK 12345
+                  city: Phoenix
+                  state: AZ
                   ownershipPercentage: 30
                 - id: 912ce3f31c8b3a10572137e78417caa3
                   name: Jane Doe
@@ -16221,6 +16341,8 @@ paths:
                   countryOfResidenceIso3Code: usa
                   addressFirstLine: 125 Fake St
                   postCode: FK 12545
+                  city: Phoenix
+                  state: AZ
                   ownershipPercentage: 70
           headers:
             X-External-Correlation-Id:
@@ -16264,6 +16386,8 @@ paths:
                   countryOfResidenceIso3Code: usa
                   addressFirstLine: 123 Fake St
                   postCode: FK 12345
+                  city: Phoenix
+                  state: AZ
                   ownershipPercentage: 30
                 - id: 912ce3f31c8b3a10572137e78417caa3
                   name: Jane Doe
@@ -16271,6 +16395,8 @@ paths:
                   countryOfResidenceIso3Code: usa
                   addressFirstLine: 125 Fake St
                   postCode: FK 12545
+                  city: Phoenix
+                  state: AZ
                   ownershipPercentage: 70
           headers:
             X-External-Correlation-Id:
@@ -16283,7 +16409,8 @@ paths:
       operationId: profileUboUpdate
       summary: Update business ultimate owners
       description: >
-        Overrides ultimate beneficial owners in the business profile.
+        Replaces the entire collection of ultimate beneficial owners in the
+        business profile.
 
 
         Returns the list of all ultimate beneficial owners associated with the
@@ -16302,12 +16429,17 @@ paths:
             format: int64
         - $ref: '#/components/parameters/X-External-Correlation-Id'
       requestBody:
+        required: true
         content:
           application/json:
             schema:
               type: array
               items:
                 type: object
+                required:
+                  - name
+                  - dateOfBirth
+                  - countryOfResidenceIso3Code
                 properties:
                   name:
                     type: string
@@ -16329,6 +16461,53 @@ paths:
                     type: string
                     description: Address post code.
                     example: FK 12345
+                  documentType:
+                    type: string
+                    description: Identification document type.
+                    enum:
+                      - PASSPORT
+                      - NATIONAL_ID
+                      - RESIDENCE_PERMIT
+                      - DRIVING_LICENSE
+                      - CPF
+                    example: PASSPORT
+                  documentId:
+                    type: string
+                    description: Document number or identifier.
+                    example: AA299822313
+                  documentCountryIso3Code:
+                    type: string
+                    description: Document issuing country as an ISO 3166-1 alpha-3 code.
+                    example: usa
+                  nationality:
+                    type: string
+                    description: >-
+                      Nationality as an ISO 3166-1 alpha-2 or alpha-3 country
+                      code.
+                    example: usa
+                  email:
+                    type: string
+                    description: Owner email address.
+                    minLength: 1
+                    maxLength: 255
+                    pattern: ^.+@.+$
+                    example: john.doe@example.com
+                  placeOfBirthCity:
+                    type: string
+                    description: City of birth.
+                    example: London
+                  placeOfBirthCountryIso3Code:
+                    type: string
+                    description: Country of birth as an ISO 3166-1 alpha-3 code.
+                    example: gbr
+                  city:
+                    type: string
+                    description: City of residential address.
+                    example: Phoenix
+                  state:
+                    type: string
+                    description: State or region of residential address.
+                    example: AZ
                   ownershipPercentage:
                     type:
                       - integer
@@ -16345,12 +16524,30 @@ paths:
                     countryOfResidenceIso3Code: usa
                     addressFirstLine: 123 Fake St
                     postCode: FK 12345
+                    documentType: PASSPORT
+                    documentId: AA299822313
+                    documentCountryIso3Code: usa
+                    nationality: usa
+                    email: john.doe@example.com
+                    placeOfBirthCity: London
+                    placeOfBirthCountryIso3Code: gbr
+                    city: Phoenix
+                    state: AZ
                     ownershipPercentage: 30
                   - name: Jane Doe
                     dateOfBirth: '1981-12-07'
                     countryOfResidenceIso3Code: usa
                     addressFirstLine: 125 Fake St
                     postCode: FK 12545
+                    documentType: DRIVING_LICENSE
+                    documentId: DL12345
+                    documentCountryIso3Code: usa
+                    nationality: usa
+                    email: jane.doe@example.com
+                    placeOfBirthCity: London
+                    placeOfBirthCountryIso3Code: gbr
+                    city: Phoenix
+                    state: AZ
                     ownershipPercentage: 70
       responses:
         '200':
@@ -16370,6 +16567,8 @@ paths:
                   countryOfResidenceIso3Code: usa
                   addressFirstLine: 123 Fake St
                   postCode: FK 12345
+                  city: Phoenix
+                  state: AZ
                   ownershipPercentage: 30
                 - id: c36b687d28ad44ad8c3864411f5f2612
                   name: Jane Doe
@@ -16377,6 +16576,8 @@ paths:
                   countryOfResidenceIso3Code: usa
                   addressFirstLine: 125 Fake St
                   postCode: FK 12545
+                  city: Phoenix
+                  state: AZ
                   ownershipPercentage: 70
           headers:
             X-External-Correlation-Id:
@@ -32973,6 +33174,14 @@ components:
           type: string
           description: Address post code.
           example: FK 12345
+        city:
+          type: string
+          description: City of residential address.
+          example: Phoenix
+        state:
+          type: string
+          description: State or region of residential address.
+          example: AZ
         ownershipPercentage:
           type:
             - integer

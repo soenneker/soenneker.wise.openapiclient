@@ -74,6 +74,14 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessUpdateRequestCompanyRole? CompanyRole { get; set; }
         /// <summary>Company legal form.</summary>
         public global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessUpdateRequestCompanyType? CompanyType { get; set; }
+        /// <summary>Optional contact details for the business, separate from the representative&apos;s contact details.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessUpdateRequestContactDetails? ContactDetails { get; set; }
+#nullable restore
+#else
+        public global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessUpdateRequestContactDetails ContactDetails { get; set; }
+#endif
         /// <summary>An external reference identifier mapping the customer of this profile to your system.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -168,6 +176,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "businessNameInKatakana", n => { BusinessNameInKatakana = n.GetStringValue(); } },
                 { "companyRole", n => { CompanyRole = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessUpdateRequestCompanyRole>(); } },
                 { "companyType", n => { CompanyType = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessUpdateRequestCompanyType>(); } },
+                { "contactDetails", n => { ContactDetails = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessUpdateRequestContactDetails>(global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessUpdateRequestContactDetails.CreateFromDiscriminatorValue); } },
                 { "externalCustomerId", n => { ExternalCustomerId = n.GetStringValue(); } },
                 { "firstLevelCategory", n => { FirstLevelCategory = n.GetStringValue(); } },
                 { "id", n => { Id = n.GetLongValue(); } },
@@ -194,6 +203,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteStringValue("businessNameInKatakana", BusinessNameInKatakana);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessUpdateRequestCompanyRole>("companyRole", CompanyRole);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessUpdateRequestCompanyType>("companyType", CompanyType);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessUpdateRequestContactDetails>("contactDetails", ContactDetails);
             writer.WriteStringValue("externalCustomerId", ExternalCustomerId);
             writer.WriteStringValue("firstLevelCategory", FirstLevelCategory);
             writer.WriteLongValue("id", Id);

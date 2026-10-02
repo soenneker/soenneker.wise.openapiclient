@@ -1889,7 +1889,7 @@
           "bank-account-details"
         ],
         "summary": "Get account details by ID",
-        "description": "Retrieves account details by ID. Account details identify an account that can receive funds\n(e.g. an IBAN, or a sort code and account number). GB, US and BE account details are supported.\nRequesting account details for an unsupported country returns \u0060404 Not Found\u0060. For coverage across\nall countries, use the [2026Q3 account details API](https://docs.wise.com/api-reference/bank-account-details/bankaccountdetailsget).\n",
+        "description": "Retrieves account details by ID. Account details identify an account that can receive funds\n(e.g. an IBAN, or a sort code and account number). GB, US and BE account details are supported.\nRequesting account details for an unsupported country returns \u0060404 Not Found\u0060. For coverage across\nall countries, use the [2026Q3 account details API](https://docs.wise.com/api-reference/2026q3/bank-account-details/bankaccountdetailsget).\n",
         "operationId": "GetAccountDetails",
         "parameters": [
           {
@@ -11950,6 +11950,10 @@
                       "countryIso3Code": "gbr",
                       "postCode": "11111"
                     },
+                    "contactDetails": {
+                      "email": "contact@innovate-solutions.co.uk",
+                      "phoneNumber": "\u002B441617891234"
+                    },
                     "externalCustomerId": "67890-biz-acct",
                     "actorEmail": "biz-acct@abcl.com",
                     "industryCategories": [
@@ -12003,6 +12007,10 @@
                       "countryIso2Code": "gb",
                       "countryIso3Code": "gbr",
                       "postCode": "11111"
+                    },
+                    "contactDetails": {
+                      "email": "contact@innovate-solutions.co.uk",
+                      "phoneNumber": "\u002B441617891234"
                     },
                     "externalCustomerId": "67890-biz-acct",
                     "actorEmail": "biz-acct@abcl.com",
@@ -12917,6 +12925,15 @@
                       "countryOfResidenceIso3Code": "usa",
                       "addressFirstLine": "123 Fake St",
                       "postCode": "FK 12345",
+                      "documentType": "PASSPORT",
+                      "documentId": "AA299822313",
+                      "documentCountryIso3Code": "usa",
+                      "nationality": "usa",
+                      "email": "john.doe@example.com",
+                      "placeOfBirthCity": "London",
+                      "placeOfBirthCountryIso3Code": "gbr",
+                      "city": "Phoenix",
+                      "state": "AZ",
                       "ownershipPercentage": 30
                     },
                     {
@@ -12925,16 +12942,26 @@
                       "countryOfResidenceIso3Code": "usa",
                       "addressFirstLine": "125 Fake St",
                       "postCode": "FK 12545",
+                      "documentType": "DRIVING_LICENSE",
+                      "documentId": "DL12345",
+                      "documentCountryIso3Code": "usa",
+                      "nationality": "usa",
+                      "email": "jane.doe@example.com",
+                      "placeOfBirthCity": "London",
+                      "placeOfBirthCountryIso3Code": "gbr",
+                      "city": "Phoenix",
+                      "state": "AZ",
                       "ownershipPercentage": 70
                     }
                   ]
                 }
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
-          "200": {
+          "201": {
             "description": "List of all ultimate beneficial owners associated with the business profile.",
             "headers": {
               "X-External-Correlation-Id": {
@@ -12947,7 +12974,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ProfileUboCreate200ResponseSchema"
+                  "$ref": "#/components/schemas/ProfileUboCreate201ResponseSchema"
                 },
                 "example": [
                   {
@@ -12957,6 +12984,8 @@
                     "countryOfResidenceIso3Code": "usa",
                     "addressFirstLine": "123 Fake St",
                     "postCode": "FK 12345",
+                    "city": "Phoenix",
+                    "state": "AZ",
                     "ownershipPercentage": 30
                   },
                   {
@@ -12966,6 +12995,8 @@
                     "countryOfResidenceIso3Code": "usa",
                     "addressFirstLine": "125 Fake St",
                     "postCode": "FK 12545",
+                    "city": "Phoenix",
+                    "state": "AZ",
                     "ownershipPercentage": 70
                   }
                 ]
@@ -13030,6 +13061,8 @@
                     "countryOfResidenceIso3Code": "usa",
                     "addressFirstLine": "123 Fake St",
                     "postCode": "FK 12345",
+                    "city": "Phoenix",
+                    "state": "AZ",
                     "ownershipPercentage": 30
                   },
                   {
@@ -13039,6 +13072,8 @@
                     "countryOfResidenceIso3Code": "usa",
                     "addressFirstLine": "125 Fake St",
                     "postCode": "FK 12545",
+                    "city": "Phoenix",
+                    "state": "AZ",
                     "ownershipPercentage": 70
                   }
                 ]
@@ -13061,7 +13096,7 @@
           "profile"
         ],
         "summary": "Update business ultimate owners",
-        "description": "Overrides ultimate beneficial owners in the business profile.\n\nReturns the list of all ultimate beneficial owners associated with the business profile.\n",
+        "description": "Replaces the entire collection of ultimate beneficial owners in the business profile.\n\nReturns the list of all ultimate beneficial owners associated with the business profile.\n",
         "operationId": "ProfileUboUpdate",
         "parameters": [
           {
@@ -13095,6 +13130,15 @@
                       "countryOfResidenceIso3Code": "usa",
                       "addressFirstLine": "123 Fake St",
                       "postCode": "FK 12345",
+                      "documentType": "PASSPORT",
+                      "documentId": "AA299822313",
+                      "documentCountryIso3Code": "usa",
+                      "nationality": "usa",
+                      "email": "john.doe@example.com",
+                      "placeOfBirthCity": "London",
+                      "placeOfBirthCountryIso3Code": "gbr",
+                      "city": "Phoenix",
+                      "state": "AZ",
                       "ownershipPercentage": 30
                     },
                     {
@@ -13103,13 +13147,23 @@
                       "countryOfResidenceIso3Code": "usa",
                       "addressFirstLine": "125 Fake St",
                       "postCode": "FK 12545",
+                      "documentType": "DRIVING_LICENSE",
+                      "documentId": "DL12345",
+                      "documentCountryIso3Code": "usa",
+                      "nationality": "usa",
+                      "email": "jane.doe@example.com",
+                      "placeOfBirthCity": "London",
+                      "placeOfBirthCountryIso3Code": "gbr",
+                      "city": "Phoenix",
+                      "state": "AZ",
                       "ownershipPercentage": 70
                     }
                   ]
                 }
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "200": {
@@ -13135,6 +13189,8 @@
                     "countryOfResidenceIso3Code": "usa",
                     "addressFirstLine": "123 Fake St",
                     "postCode": "FK 12345",
+                    "city": "Phoenix",
+                    "state": "AZ",
                     "ownershipPercentage": 30
                   },
                   {
@@ -13144,6 +13200,8 @@
                     "countryOfResidenceIso3Code": "usa",
                     "addressFirstLine": "125 Fake St",
                     "postCode": "FK 12545",
+                    "city": "Phoenix",
+                    "state": "AZ",
                     "ownershipPercentage": 70
                   }
                 ]
@@ -26647,6 +26705,16 @@
             "type": "string",
             "description": "Address post code.",
             "example": "FK 12345"
+          },
+          "city": {
+            "type": "string",
+            "description": "City of residential address.",
+            "example": "Phoenix"
+          },
+          "state": {
+            "type": "string",
+            "description": "State or region of residential address.",
+            "example": "AZ"
           },
           "ownershipPercentage": {
             "type": [
@@ -47176,6 +47244,9 @@
           "address": {
             "$ref": "#/components/schemas/ProfileBusinessCreateV3RequestAddress"
           },
+          "contactDetails": {
+            "$ref": "#/components/schemas/ProfileBusinessCreateV3RequestContactDetails"
+          },
           "externalCustomerId": {
             "type": "string",
             "description": "An external reference identifier mapping the customer of this profile to your system.",
@@ -47353,6 +47424,9 @@
           },
           "companyRole": {
             "$ref": "#/components/schemas/ProfileBusinessUpdateRequestCompanyRole"
+          },
+          "contactDetails": {
+            "$ref": "#/components/schemas/ProfileBusinessUpdateRequestContactDetails"
           },
           "externalCustomerId": {
             "type": "string",
@@ -47672,7 +47746,7 @@
           "$ref": "#/components/schemas/ProfileUboCreateRequestItem"
         }
       },
-      "ProfileUboCreate200Response": {
+      "ProfileUboCreate201Response": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/Ubo"
@@ -51556,7 +51630,7 @@
           "$ref": "#/components/schemas/ProfileUboCreateRequestRequestBodyItem"
         }
       },
-      "ProfileUboCreate200ResponseSchema": {
+      "ProfileUboCreate201ResponseSchema": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/Ubo"
@@ -53296,6 +53370,30 @@
           }
         }
       },
+      "ProfileBusinessCreateV3RequestContactDetails": {
+        "required": [
+          "email",
+          "phoneNumber"
+        ],
+        "type": "object",
+        "properties": {
+          "email": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Contact email address for the business.",
+            "format": "email",
+            "example": "contact@innovate-solutions.co.uk"
+          },
+          "phoneNumber": {
+            "maxLength": 25,
+            "minLength": 5,
+            "type": "string",
+            "description": "Contact phone number for the business.",
+            "example": "\u002B441617891234"
+          }
+        },
+        "description": "Optional contact details for the business, separate from the representative\u0027s contact details."
+      },
       "ProfileBusinessCreateV3RequestOperationalAddressesItem": {
         "type": "object",
         "properties": {
@@ -53456,6 +53554,30 @@
           }
         }
       },
+      "ProfileBusinessUpdateRequestContactDetails": {
+        "required": [
+          "email",
+          "phoneNumber"
+        ],
+        "type": "object",
+        "properties": {
+          "email": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Contact email address for the business.",
+            "format": "email",
+            "example": "contact@innovate-solutions.co.uk"
+          },
+          "phoneNumber": {
+            "maxLength": 25,
+            "minLength": 5,
+            "type": "string",
+            "description": "Contact phone number for the business.",
+            "example": "\u002B441617891234"
+          }
+        },
+        "description": "Optional contact details for the business, separate from the representative\u0027s contact details."
+      },
       "ProfileBusinessUpdateRequestOperationalAddressesItem": {
         "type": "object",
         "properties": {
@@ -53596,6 +53718,11 @@
         }
       },
       "ProfileUboCreateRequestItem": {
+        "required": [
+          "name",
+          "dateOfBirth",
+          "countryOfResidenceIso3Code"
+        ],
         "type": "object",
         "properties": {
           "name": {
@@ -53622,6 +53749,52 @@
             "type": "string",
             "description": "Address post code.",
             "example": "FK 12345"
+          },
+          "documentType": {
+            "$ref": "#/components/schemas/ProfileUboCreateRequestItemDocumentType"
+          },
+          "documentId": {
+            "type": "string",
+            "description": "Document number or identifier.",
+            "example": "AA299822313"
+          },
+          "documentCountryIso3Code": {
+            "type": "string",
+            "description": "Document issuing country as an ISO 3166-1 alpha-3 code.",
+            "example": "usa"
+          },
+          "nationality": {
+            "type": "string",
+            "description": "Nationality as an ISO 3166-1 alpha-2 or alpha-3 country code.",
+            "example": "usa"
+          },
+          "email": {
+            "maxLength": 255,
+            "minLength": 1,
+            "pattern": "^.\u002B@.\u002B$",
+            "type": "string",
+            "description": "Owner email address.",
+            "example": "john.doe@example.com"
+          },
+          "placeOfBirthCity": {
+            "type": "string",
+            "description": "City of birth.",
+            "example": "London"
+          },
+          "placeOfBirthCountryIso3Code": {
+            "type": "string",
+            "description": "Country of birth as an ISO 3166-1 alpha-3 code.",
+            "example": "gbr"
+          },
+          "city": {
+            "type": "string",
+            "description": "City of residential address.",
+            "example": "Phoenix"
+          },
+          "state": {
+            "type": "string",
+            "description": "State or region of residential address.",
+            "example": "AZ"
           },
           "ownershipPercentage": {
             "type": [
@@ -53635,6 +53808,11 @@
         }
       },
       "ProfileUboUpdateRequestItem": {
+        "required": [
+          "name",
+          "dateOfBirth",
+          "countryOfResidenceIso3Code"
+        ],
         "type": "object",
         "properties": {
           "name": {
@@ -53661,6 +53839,52 @@
             "type": "string",
             "description": "Address post code.",
             "example": "FK 12345"
+          },
+          "documentType": {
+            "$ref": "#/components/schemas/ProfileUboUpdateRequestItemDocumentType"
+          },
+          "documentId": {
+            "type": "string",
+            "description": "Document number or identifier.",
+            "example": "AA299822313"
+          },
+          "documentCountryIso3Code": {
+            "type": "string",
+            "description": "Document issuing country as an ISO 3166-1 alpha-3 code.",
+            "example": "usa"
+          },
+          "nationality": {
+            "type": "string",
+            "description": "Nationality as an ISO 3166-1 alpha-2 or alpha-3 country code.",
+            "example": "usa"
+          },
+          "email": {
+            "maxLength": 255,
+            "minLength": 1,
+            "pattern": "^.\u002B@.\u002B$",
+            "type": "string",
+            "description": "Owner email address.",
+            "example": "john.doe@example.com"
+          },
+          "placeOfBirthCity": {
+            "type": "string",
+            "description": "City of birth.",
+            "example": "London"
+          },
+          "placeOfBirthCountryIso3Code": {
+            "type": "string",
+            "description": "Country of birth as an ISO 3166-1 alpha-3 code.",
+            "example": "gbr"
+          },
+          "city": {
+            "type": "string",
+            "description": "City of residential address.",
+            "example": "Phoenix"
+          },
+          "state": {
+            "type": "string",
+            "description": "State or region of residential address.",
+            "example": "AZ"
           },
           "ownershipPercentage": {
             "type": [
@@ -54312,6 +54536,11 @@
         }
       },
       "ProfileUboCreateRequestRequestBodyItem": {
+        "required": [
+          "name",
+          "dateOfBirth",
+          "countryOfResidenceIso3Code"
+        ],
         "type": "object",
         "properties": {
           "name": {
@@ -54338,6 +54567,52 @@
             "type": "string",
             "description": "Address post code.",
             "example": "FK 12345"
+          },
+          "documentType": {
+            "$ref": "#/components/schemas/ProfileUboCreateRequestItemDocumentType"
+          },
+          "documentId": {
+            "type": "string",
+            "description": "Document number or identifier.",
+            "example": "AA299822313"
+          },
+          "documentCountryIso3Code": {
+            "type": "string",
+            "description": "Document issuing country as an ISO 3166-1 alpha-3 code.",
+            "example": "usa"
+          },
+          "nationality": {
+            "type": "string",
+            "description": "Nationality as an ISO 3166-1 alpha-2 or alpha-3 country code.",
+            "example": "usa"
+          },
+          "email": {
+            "maxLength": 255,
+            "minLength": 1,
+            "pattern": "^.\u002B@.\u002B$",
+            "type": "string",
+            "description": "Owner email address.",
+            "example": "john.doe@example.com"
+          },
+          "placeOfBirthCity": {
+            "type": "string",
+            "description": "City of birth.",
+            "example": "London"
+          },
+          "placeOfBirthCountryIso3Code": {
+            "type": "string",
+            "description": "Country of birth as an ISO 3166-1 alpha-3 code.",
+            "example": "gbr"
+          },
+          "city": {
+            "type": "string",
+            "description": "City of residential address.",
+            "example": "Phoenix"
+          },
+          "state": {
+            "type": "string",
+            "description": "State or region of residential address.",
+            "example": "AZ"
           },
           "ownershipPercentage": {
             "type": [
@@ -54351,6 +54626,11 @@
         }
       },
       "ProfileUboUpdateRequestRequestBodyItem": {
+        "required": [
+          "name",
+          "dateOfBirth",
+          "countryOfResidenceIso3Code"
+        ],
         "type": "object",
         "properties": {
           "name": {
@@ -54377,6 +54657,52 @@
             "type": "string",
             "description": "Address post code.",
             "example": "FK 12345"
+          },
+          "documentType": {
+            "$ref": "#/components/schemas/ProfileUboUpdateRequestItemDocumentType"
+          },
+          "documentId": {
+            "type": "string",
+            "description": "Document number or identifier.",
+            "example": "AA299822313"
+          },
+          "documentCountryIso3Code": {
+            "type": "string",
+            "description": "Document issuing country as an ISO 3166-1 alpha-3 code.",
+            "example": "usa"
+          },
+          "nationality": {
+            "type": "string",
+            "description": "Nationality as an ISO 3166-1 alpha-2 or alpha-3 country code.",
+            "example": "usa"
+          },
+          "email": {
+            "maxLength": 255,
+            "minLength": 1,
+            "pattern": "^.\u002B@.\u002B$",
+            "type": "string",
+            "description": "Owner email address.",
+            "example": "john.doe@example.com"
+          },
+          "placeOfBirthCity": {
+            "type": "string",
+            "description": "City of birth.",
+            "example": "London"
+          },
+          "placeOfBirthCountryIso3Code": {
+            "type": "string",
+            "description": "Country of birth as an ISO 3166-1 alpha-3 code.",
+            "example": "gbr"
+          },
+          "city": {
+            "type": "string",
+            "description": "City of residential address.",
+            "example": "Phoenix"
+          },
+          "state": {
+            "type": "string",
+            "description": "State or region of residential address.",
+            "example": "AZ"
           },
           "ownershipPercentage": {
             "type": [
@@ -61116,6 +61442,84 @@
             {
               "value": "RSA_OAEP_256",
               "name": "RsaOaep256"
+            }
+          ]
+        }
+      },
+      "ProfileUboCreateRequestItemDocumentType": {
+        "enum": [
+          "PASSPORT",
+          "NATIONAL_ID",
+          "RESIDENCE_PERMIT",
+          "DRIVING_LICENSE",
+          "CPF"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Identification document type.",
+        "example": "PASSPORT",
+        "x-ms-enum": {
+          "name": "ProfileUboCreateRequestItemDocumentType",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "PASSPORT",
+              "name": "Passport"
+            },
+            {
+              "value": "NATIONAL_ID",
+              "name": "NationalId"
+            },
+            {
+              "value": "RESIDENCE_PERMIT",
+              "name": "ResidencePermit"
+            },
+            {
+              "value": "DRIVING_LICENSE",
+              "name": "DrivingLicense"
+            },
+            {
+              "value": "CPF",
+              "name": "Cpf"
+            }
+          ]
+        }
+      },
+      "ProfileUboUpdateRequestItemDocumentType": {
+        "enum": [
+          "PASSPORT",
+          "NATIONAL_ID",
+          "RESIDENCE_PERMIT",
+          "DRIVING_LICENSE",
+          "CPF"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Identification document type.",
+        "example": "PASSPORT",
+        "x-ms-enum": {
+          "name": "ProfileUboUpdateRequestItemDocumentType",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "PASSPORT",
+              "name": "Passport"
+            },
+            {
+              "value": "NATIONAL_ID",
+              "name": "NationalId"
+            },
+            {
+              "value": "RESIDENCE_PERMIT",
+              "name": "ResidencePermit"
+            },
+            {
+              "value": "DRIVING_LICENSE",
+              "name": "DrivingLicense"
+            },
+            {
+              "value": "CPF",
+              "name": "Cpf"
             }
           ]
         }

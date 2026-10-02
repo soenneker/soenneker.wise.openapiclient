@@ -90,6 +90,14 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestCompanyRole? CompanyRole { get; set; }
         /// <summary>Company legal form.</summary>
         public global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestCompanyType? CompanyType { get; set; }
+        /// <summary>Optional contact details for the business, separate from the representative&apos;s contact details.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestContactDetails? ContactDetails { get; set; }
+#nullable restore
+#else
+        public global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestContactDetails ContactDetails { get; set; }
+#endif
         /// <summary>An external reference identifier mapping the customer of this profile to your system.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -184,6 +192,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "businessRepresentative", n => { BusinessRepresentative = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentative>(global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentative.CreateFromDiscriminatorValue); } },
                 { "companyRole", n => { CompanyRole = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestCompanyRole>(); } },
                 { "companyType", n => { CompanyType = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestCompanyType>(); } },
+                { "contactDetails", n => { ContactDetails = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestContactDetails>(global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestContactDetails.CreateFromDiscriminatorValue); } },
                 { "externalCustomerId", n => { ExternalCustomerId = n.GetStringValue(); } },
                 { "firstLevelCategory", n => { FirstLevelCategory = n.GetStringValue(); } },
                 { "industryCategories", n => { IndustryCategories = n.GetCollectionOfPrimitiveValues<string>()?.AsList(); } },
@@ -211,6 +220,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentative>("businessRepresentative", BusinessRepresentative);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestCompanyRole>("companyRole", CompanyRole);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestCompanyType>("companyType", CompanyType);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestContactDetails>("contactDetails", ContactDetails);
             writer.WriteStringValue("externalCustomerId", ExternalCustomerId);
             writer.WriteStringValue("firstLevelCategory", FirstLevelCategory);
             writer.WriteCollectionOfPrimitiveValues<string>("industryCategories", IndustryCategories);
