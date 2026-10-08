@@ -2,7 +2,7 @@
   "openapi": "3.1.2",
   "info": {
     "title": "Wise Platform API",
-    "description": "The Wise Platform API is a REST-based interface that enables programmatic access to Wise\u0027s payment infrastructure. All endpoints return JSON-formatted responses and use standard HTTP methods and status codes.\n{% admonition type=\u0022success\u0022 name=\u0022New to wise?\u0022 %}\n  We strongly recommend first reading our **[Getting Started Guide](/guides/developer/index.md)** to help you set up credentials and make your first call.\n{% /admonition %}\n\nBefore you begin {% .title-2 .m-t-5 %}\n\nTo use this API reference effectively, you should have:\n\n- Received Valid [API credentials from Wise](/guides/developer/auth-and-security/index.md) (Client ID and Client Secret)\n- Understand OAuth 2.0 authentication\n- Be familiar with RESTful API concepts\n\nWe recommend connecting to our Docs MCP Server.\n{% connect-mcp /%}\n\nCore API resources {% .title-2 .m-t-5 .m-b-0 %}\n\n| Resource | Purpose |\n|----------|---------|\n| **[Quote](/api-reference/quote)** | Exchange rate and fee calculations |\n| **[Recipient](/api-reference/recipient)** | Beneficiary account management |\n| **[Transfer](/api-reference/transfer)** | Payment creation and execution |\n| **[Balance](/api-reference/balance)** | Multi-currency account operations |\n| **[Profile](/api-reference/profile)** | Account ownership details |\n| **[Rate](/api-reference/rate)** | Current and historical exchange rates |\n\n**Not sure which workflow to build?**\u003Cbr\u003E\nStart with our [Integration Guides](/guides/product/send-money/use-cases/index.md) for step-by-step implementation examples.{% .m-t-3 .m-b-5 %}\n",
+    "description": "The Wise Platform API is a REST-based interface that enables programmatic access to Wise\u0027s payment infrastructure. All endpoints return JSON-formatted responses and use standard HTTP methods and status codes, except the browser-based [SAML](/api-reference/saml) single sign-on endpoints, which return XML metadata or redirects.\n{% admonition type=\u0022success\u0022 name=\u0022New to wise?\u0022 %}\n  We strongly recommend first reading our **[Getting Started Guide](/guides/developer/index.md)** to help you set up credentials and make your first call.\n{% /admonition %}\n\nBefore you begin {% .title-2 .m-t-5 %}\n\nTo use this API reference effectively, you should have:\n\n- Received Valid [API credentials from Wise](/guides/developer/auth-and-security/index.md) (Client ID and Client Secret)\n- Understand OAuth 2.0 authentication\n- Be familiar with RESTful API concepts\n\nWe recommend connecting to our Docs MCP Server.\n{% connect-mcp /%}\n\nCore API resources {% .title-2 .m-t-5 .m-b-0 %}\n\n| Resource | Purpose |\n|----------|---------|\n| **[Quote](/api-reference/quote)** | Exchange rate and fee calculations |\n| **[Recipient](/api-reference/recipient)** | Beneficiary account management |\n| **[Transfer](/api-reference/transfer)** | Payment creation and execution |\n| **[Balance](/api-reference/balance)** | Multi-currency account operations |\n| **[Profile](/api-reference/profile)** | Account ownership details |\n| **[Rate](/api-reference/rate)** | Current and historical exchange rates |\n\n**Not sure which workflow to build?**\u003Cbr\u003E\nStart with our [Integration Guides](/guides/product/send-money/use-cases/index.md) for step-by-step implementation examples.{% .m-t-3 .m-b-5 %}\n",
     "version": "2026Q4"
   },
   "servers": [
@@ -2167,6 +2167,118 @@
           },
           {
             "PersonalToken": []
+          }
+        ]
+      }
+    },
+    "/profiles/{profileId}/account-details/payments/{paymentId}/returns": {
+      "post": {
+        "tags": [
+          "bank-account-details"
+        ],
+        "summary": "Create payment return",
+        "description": "Creates a return for a payment received to bank account details.\n\nWhen you create a return, you must provide the ID of the payment you wish to return as well as the ID of the profile that received the payment. In addition, you can provide a \u0060reason\u0060 for the return in the request body. When returning SWIFT payments, \u0060reason\u0060 is a required field.\n",
+        "operationId": "BankAccountDetailsReturnsCreate",
+        "parameters": [
+          {
+            "name": "profileId",
+            "in": "path",
+            "description": "The ID of the profile that received the payment.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "example": 12345678
+            }
+          },
+          {
+            "name": "paymentId",
+            "in": "path",
+            "description": "The ID of the payment to return.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "example": 987654321
+            }
+          },
+          {
+            "description": "Optional UUID for correlating requests across systems. If provided, Wise echoes it back in the response. Maximum 36 characters. [Learn more](/guides/developer/headers/correlation-id).\n",
+            "$ref": "#/components/parameters/X-External-Correlation-Id"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BankAccountDetailsReturnsCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Payment return created.",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BankAccountDetailsReturnsCreate201Response"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BankAccountDetailsReturnsCreate400Response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Payment not found.",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BankAccountDetailsReturnsCreate404Response"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit exceeded. Retry after the number of seconds specified in the \u0060Retry-After\u0060 header.",
+            "$ref": "#/components/responses/429"
+          }
+        },
+        "security": [
+          {
+            "UserToken": []
           }
         ]
       }
@@ -8695,6 +8807,104 @@
         ]
       }
     },
+    "/login/saml2/sso": {
+      "post": {
+        "tags": [
+          "saml"
+        ],
+        "summary": "Assertion Consumer Service (ACS)",
+        "description": "Receives the SAML authentication response from your identity provider after you authenticate.\n\nThe identity provider sends a \u0060SAMLResponse\u0060 to this endpoint using the SAML HTTP POST binding. The response is validated and, if successful, completes your SAML sign-in.\n\nThis endpoint implements the [SAML 2.0 Web Browser SSO Profile](https://docs.oasis-open.org/security/saml/v2.0/saml-profiles-2.0-os.pdf). For details of the SAML message format and protocol requirements, refer to the OASIS SAML 2.0 specification.\n",
+        "operationId": "SamlAssertionConsumerService",
+        "parameters": [
+          {
+            "description": "Optional UUID for correlating requests across systems. If provided, Wise echoes it back in the response. Maximum 36 characters. [Learn more](/guides/developer/headers/correlation-id).\n",
+            "$ref": "#/components/parameters/X-External-Correlation-Id"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/SamlAssertionConsumerServiceXWwwFormUrlencodedRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "302": {
+            "description": "The SAML response was processed. Your browser is redirected to continue the sign-in flow.",
+            "headers": {
+              "Location": {
+                "description": "URL your browser is redirected to.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit exceeded. Retry after the number of seconds specified in the \u0060Retry-After\u0060 header.",
+            "$ref": "#/components/responses/429"
+          }
+        },
+        "security": []
+      }
+    },
+    "/saml2/metadata": {
+      "get": {
+        "tags": [
+          "saml"
+        ],
+        "summary": "Retrieve SP metadata",
+        "description": "Returns the SAML 2.0 metadata for the service provider.\n\nUse this metadata when configuring the service provider in your identity provider. It includes the information required by the identity provider, such as the service provider entity ID, Assertion Consumer Service endpoint, supported bindings, and signing certificate information where applicable.\n\nThe response is an XML document conforming to the [SAML 2.0 Metadata specification](https://docs.oasis-open.org/security/saml/v2.0/saml-metadata-2.0-os.pdf).\n\nWhere supported, we recommend configuring your identity provider using this metadata rather than entering SAML settings manually.\n",
+        "operationId": "SamlMetadataGet",
+        "parameters": [
+          {
+            "description": "Optional UUID for correlating requests across systems. If provided, Wise echoes it back in the response. Maximum 36 characters. [Learn more](/guides/developer/headers/correlation-id).\n",
+            "$ref": "#/components/parameters/X-External-Correlation-Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The service provider metadata.",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/samlmetadata\u002Bxml": {
+                "schema": {
+                  "$ref": "#/components/schemas/SamlMetadataGet200SamlmetadataXmlResponseSchema"
+                },
+                "examples": {
+                  "sandboxMetadata": {
+                    "summary": "Sandbox service provider metadata",
+                    "description": "The signing certificate is shortened. Retrieve the metadata from the endpoint to get the current certificate.",
+                    "value": "\u003C?xml version=\u00221.0\u0022 encoding=\u0022UTF-8\u0022?\u003E\n\u003Cmd:EntityDescriptor xmlns:md=\u0022urn:oasis:names:tc:SAML:2.0:metadata\u0022 entityID=\u0022https://wise.com/saml/sp/login\u0022\u003E\n  \u003Cmd:SPSSODescriptor protocolSupportEnumeration=\u0022urn:oasis:names:tc:SAML:2.0:protocol\u0022\u003E\n    \u003Cmd:KeyDescriptor use=\u0022signing\u0022\u003E\n      \u003Cds:KeyInfo xmlns:ds=\u0022http://www.w3.org/2000/09/xmldsig#\u0022\u003E\n        \u003Cds:X509Data\u003E\n          \u003Cds:X509Certificate\u003EMIIEQjCCAqqgAwIBAgIUUUF\u002BVCaEJllClaROLMa1bXBj2x0...\u003C/ds:X509Certificate\u003E\n        \u003C/ds:X509Data\u003E\n      \u003C/ds:KeyInfo\u003E\n    \u003C/md:KeyDescriptor\u003E\n    \u003Cmd:AssertionConsumerService Binding=\u0022urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST\u0022 Location=\u0022https://api.wise-sandbox.com/2026Q4/login/saml2/sso\u0022 index=\u00221\u0022/\u003E\n  \u003C/md:SPSSODescriptor\u003E\n\u003C/md:EntityDescriptor\u003E\n"
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit exceeded. Retry after the number of seconds specified in the \u0060Retry-After\u0060 header.",
+            "$ref": "#/components/responses/429"
+          }
+        },
+        "security": []
+      }
+    },
     "/application/users/{userId}/phone-numbers": {
       "post": {
         "tags": [
@@ -10863,7 +11073,9 @@
                     "value": {
                       "profileId": 14556049,
                       "fileId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
-                      "fileName": "company-registration.pdf"
+                      "fileName": "company-registration.pdf",
+                      "createdAt": "2026-09-28T10:00:00.123",
+                      "purpose": "GENERAL"
                     }
                   },
                   "pngUpload": {
@@ -10871,7 +11083,9 @@
                     "value": {
                       "profileId": 14556049,
                       "fileId": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
-                      "fileName": "identity-document.png"
+                      "fileName": "identity-document.png",
+                      "createdAt": "2026-09-29T10:00:00.123",
+                      "purpose": "GENERAL"
                     }
                   },
                   "jpegUpload": {
@@ -10879,7 +11093,9 @@
                     "value": {
                       "profileId": 14556049,
                       "fileId": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
-                      "fileName": "identity-document.jpg"
+                      "fileName": "identity-document.jpg",
+                      "createdAt": "2026-09-30T10:00:00.123",
+                      "purpose": "GENERAL"
                     }
                   }
                 }
@@ -25770,7 +25986,9 @@
         "required": [
           "profileId",
           "fileId",
-          "fileName"
+          "fileName",
+          "createdAt",
+          "purpose"
         ],
         "type": "object",
         "properties": {
@@ -25793,6 +26011,14 @@
             "type": "string",
             "description": "The original name of the uploaded file.",
             "example": "company-registration.pdf"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Timestamp when the file was uploaded.\nFormat: ISO 8601 datetime without timezone (server timezone is UTC).\n",
+            "example": "2026-09-30T10:00:00.123"
+          },
+          "purpose": {
+            "$ref": "#/components/schemas/FilePurpose"
           }
         },
         "description": "Response returned after successfully uploading a file."
@@ -45372,6 +45598,55 @@
           "$ref": "#/components/schemas/BankAccountDetailsOrdersList200ResponseItem"
         }
       },
+      "BankAccountDetailsReturnsCreateRequest": {
+        "type": "object",
+        "properties": {
+          "reason": {
+            "$ref": "#/components/schemas/BankAccountDetailsReturnsCreateRequestReason"
+          }
+        }
+      },
+      "BankAccountDetailsReturnsCreate201Response": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "ID of the return created.",
+            "format": "uuid",
+            "example": "4cc39f2b-3513-453d-8792-9ccc22e513c3"
+          }
+        }
+      },
+      "BankAccountDetailsReturnsCreate400Response": {
+        "type": "object",
+        "properties": {
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BankAccountDetailsReturnsCreate400ResponseErrorsItem"
+            }
+          },
+          "message": {
+            "type": "string",
+            "description": "The primary error message."
+          }
+        }
+      },
+      "BankAccountDetailsReturnsCreate404Response": {
+        "type": "object",
+        "properties": {
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BankAccountDetailsReturnsCreate404ResponseErrorsItem"
+            }
+          },
+          "message": {
+            "type": "string",
+            "description": "The primary error message."
+          }
+        }
+      },
       "BatchGroupCreateRequest": {
         "required": [
           "sourceCurrency",
@@ -46852,6 +47127,26 @@
             "example": "Invalid user credentials."
           }
         }
+      },
+      "SamlAssertionConsumerServiceXWwwFormUrlencodedRequest": {
+        "required": [
+          "SAMLResponse"
+        ],
+        "type": "object",
+        "properties": {
+          "SAMLResponse": {
+            "type": "string",
+            "description": "Base64-encoded SAML \u0060\u003Csamlp:Response\u003E\u0060 message issued by the identity provider."
+          },
+          "RelayState": {
+            "type": "string",
+            "description": "Opaque state value. If the authentication request included a \u0060RelayState\u0060, the identity provider returns it unchanged."
+          }
+        }
+      },
+      "SamlMetadataGet200SamlmetadataXmlResponse": {
+        "type": "string",
+        "description": "SAML 2.0 \u0060\u003Cmd:EntityDescriptor\u003E\u0060 XML document."
       },
       "UserSecurityPhoneNumberCreateRequest": {
         "type": "object",
@@ -51577,6 +51872,10 @@
         },
         "description": "List of currency codes."
       },
+      "SamlMetadataGet200SamlmetadataXmlResponseSchema": {
+        "type": "string",
+        "description": "SAML 2.0 \u0060\u003Cmd:EntityDescriptor\u003E\u0060 XML document."
+      },
       "PaymentInstrumentGetAllPayins200Response": {
         "type": "object",
         "properties": {
@@ -52643,6 +52942,50 @@
               "$ref": "#/components/schemas/BankAccountDetailsOrdersList200ResponseItemRequirementsItem"
             },
             "description": "List of requirements for the order."
+          }
+        }
+      },
+      "BankAccountDetailsReturnsCreate400ResponseErrorsItem": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Error code.",
+            "example": "error.payment-return.invalid"
+          },
+          "message": {
+            "type": "string",
+            "description": "Error message.",
+            "example": "A valid reason is required to return a Swift payment"
+          },
+          "arguments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BankAccountDetailsReturnsCreate400ResponseErrorsItemArgumentsItem"
+            },
+            "description": "Additional context values related to the error."
+          }
+        }
+      },
+      "BankAccountDetailsReturnsCreate404ResponseErrorsItem": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Error code.",
+            "example": "error.payment.not-found"
+          },
+          "message": {
+            "type": "string",
+            "description": "Error message.",
+            "example": "No payment found with id [123456789] for profile id [987654321]"
+          },
+          "arguments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BankAccountDetailsReturnsCreate404ResponseErrorsItemArgumentsItem"
+            },
+            "description": "Additional context values related to the error."
           }
         }
       },
@@ -55046,6 +55389,12 @@
             "$ref": "#/components/schemas/BankAccountDetailsOrdersList200ResponseItemRequirementsItemStatus"
           }
         }
+      },
+      "BankAccountDetailsReturnsCreate400ResponseErrorsItemArgumentsItem": {
+        "type": "object"
+      },
+      "BankAccountDetailsReturnsCreate404ResponseErrorsItemArgumentsItem": {
+        "type": "object"
       },
       "KycReviewRequirementSubmit400ResponseErrorsItemAttributes": {
         "type": "object"
@@ -59747,6 +60096,50 @@
           ]
         }
       },
+      "BankAccountDetailsReturnsCreateRequestReason": {
+        "enum": [
+          "INCORRECT_ACCOUNT_NUMBER",
+          "CLOSED_ACCOUNT",
+          "BLOCKED_ACCOUNT",
+          "CANCELLATION_REQUEST",
+          "REGULATORY",
+          "CUSTOMER_REQUEST"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Reason for the return. Required when returning SWIFT payments.\n",
+        "example": "CLOSED_ACCOUNT",
+        "x-ms-enum": {
+          "name": "BankAccountDetailsReturnsCreateRequestReason",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "INCORRECT_ACCOUNT_NUMBER",
+              "name": "IncorrectAccountNumber"
+            },
+            {
+              "value": "CLOSED_ACCOUNT",
+              "name": "ClosedAccount"
+            },
+            {
+              "value": "BLOCKED_ACCOUNT",
+              "name": "BlockedAccount"
+            },
+            {
+              "value": "CANCELLATION_REQUEST",
+              "name": "CancellationRequest"
+            },
+            {
+              "value": "REGULATORY",
+              "name": "Regulatory"
+            },
+            {
+              "value": "CUSTOMER_REQUEST",
+              "name": "CustomerRequest"
+            }
+          ]
+        }
+      },
       "BatchGroupUpdateRequestStatus": {
         "enum": [
           "COMPLETED",
@@ -62678,6 +63071,11 @@
       "x-displayName": "OAuth Token"
     },
     {
+      "name": "saml",
+      "description": "Sign in to Wise using single sign-on (SSO) with your SAML 2.0 identity provider. Wise acts as the SAML service provider.\n\nThese endpoints follow the [SAML 2.0 Web Browser SSO Profile](https://docs.oasis-open.org/security/saml/v2.0/saml-profiles-2.0-os.pdf). They are part of a browser-based sign-in flow and are not general-purpose REST API endpoints, so they do not use API tokens.\n\nSAML SSO requires configuration on the Wise side. To enable it for your integration, contact your Wise implementation team.\n\nTo set up SSO, configure Wise as a service provider in your identity provider using the [service provider metadata](/api-reference/saml/samlmetadataget). After you authenticate, your identity provider sends the SAML response to the [Assertion Consumer Service](/api-reference/saml/samlassertionconsumerservice) endpoint.\n",
+      "x-displayName": "SAML"
+    },
+    {
       "name": "case",
       "description": "Cases enable you to open, retrieve, and respond to support and operations queries through direct API.\n\nThe Cases API allows you to integrate your back-end tooling, enabling:\n- Faster responses through automated workflows\n- Structured data via typed messages and submissions\n- Operational efficiencies with programmatic case management\n\n**Case statuses**\n- cases can move through different statuses.\n  \n| Status | Description | Partner Action |\n|--------|-------------|----------------|\n| \u0060CREATING\u0060 | Case being created | Wait |\n| \u0060IN_REVIEW\u0060 | Case being actioned | No action needed |\n| \u0060WAITING_CUSTOMER_INPUT\u0060 | Information required | Respond |\n| \u0060RESOLVED\u0060 | Case solved and closed | None |\n| \u0060FAILED\u0060 | Case creation failed | Contact support |\n\n{% img src=\u0022/images/diagrams/case-status-flow-v2.svg\u0022 /%}\n\n**Message types**\n- Messages are typed and structured:\n\nRequest messages:\n- \u0060DEPOSIT_SANCTION_HIT_REQUEST\u0060\n- \u0060RECIPIENT_SANCTION_HIT_REQUEST\u0060\n- \u0060REFERENCE_SANCTION_HIT_REQUEST\u0060\n- \u0060RECIPIENT_LOCATION_HIT_REQUEST\u0060\n- \u0060REFERENCE_LOCATION_HIT_REQUEST\u0060\n- \u0060FREEFORM\u0060 - Free text communication\n\nSubmission messages (from partner):\n- \u0060*_SUBMISSION\u0060 - Structured response to requests\n- \u0060FREEFORM\u0060 - Free text communication",
       "x-displayName": "Cases"
@@ -62822,7 +63220,8 @@
     {
       "name": "Authentication",
       "tags": [
-        "oauth-token"
+        "oauth-token",
+        "saml"
       ]
     },
     {

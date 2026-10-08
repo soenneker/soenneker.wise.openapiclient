@@ -5,7 +5,9 @@ info:
   description: >
     The Wise Platform API is a REST-based interface that enables programmatic
     access to Wise's payment infrastructure. All endpoints return JSON-formatted
-    responses and use standard HTTP methods and status codes.
+    responses and use standard HTTP methods and status codes, except the
+    browser-based [SAML](/api-reference/saml) single sign-on endpoints, which
+    return XML metadata or redirects.
 
     {% admonition type="success" name="New to wise?" %}
       We strongly recommend first reading our **[Getting Started Guide](/guides/developer/index.md)** to help you set up credentials and make your first call.
@@ -1102,6 +1104,28 @@ tags:
       Wise Platform API, requesting a new access token before attempting a
       series of API calls on behalf of an individual user will avoid issues with
       expired access tokens.
+  - name: saml
+    x-displayName: SAML
+    description: >
+      Sign in to Wise using single sign-on (SSO) with your SAML 2.0 identity
+      provider. Wise acts as the SAML service provider.
+
+
+      These endpoints follow the [SAML 2.0 Web Browser SSO
+      Profile](https://docs.oasis-open.org/security/saml/v2.0/saml-profiles-2.0-os.pdf).
+      They are part of a browser-based sign-in flow and are not general-purpose
+      REST API endpoints, so they do not use API tokens.
+
+
+      SAML SSO requires configuration on the Wise side. To enable it for your
+      integration, contact your Wise implementation team.
+
+
+      To set up SSO, configure Wise as a service provider in your identity
+      provider using the [service provider
+      metadata](/api-reference/saml/samlmetadataget). After you authenticate,
+      your identity provider sends the SAML response to the [Assertion Consumer
+      Service](/api-reference/saml/samlassertionconsumerservice) endpoint.
   - name: case
     x-displayName: Cases
     description: >-
@@ -1505,6 +1529,7 @@ x-tagGroups:
   - name: Authentication
     tags:
       - oauth-token
+      - saml
   - name: Enhanced Security
     tags:
       - jose
@@ -4503,6 +4528,149 @@ paths:
                               - PENDING_TW
                               - DONE
                             example: DONE
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '429':
+          $ref: '#/components/responses/429'
+  /profiles/{profileId}/account-details/payments/{paymentId}/returns:
+    post:
+      tags:
+        - bank-account-details
+      summary: Create payment return
+      operationId: bankAccountDetailsReturnsCreate
+      security:
+        - UserToken: []
+      description: >
+        Creates a return for a payment received to bank account details.
+
+
+        When you create a return, you must provide the ID of the payment you
+        wish to return as well as the ID of the profile that received the
+        payment. In addition, you can provide a `reason` for the return in the
+        request body. When returning SWIFT payments, `reason` is a required
+        field.
+      parameters:
+        - name: profileId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+            example: 12345678
+          description: The ID of the profile that received the payment.
+        - name: paymentId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+            example: 987654321
+          description: The ID of the payment to return.
+        - $ref: '#/components/parameters/X-External-Correlation-Id'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reason:
+                  type: string
+                  description: >
+                    Reason for the return. Required when returning SWIFT
+                    payments.
+                  enum:
+                    - INCORRECT_ACCOUNT_NUMBER
+                    - CLOSED_ACCOUNT
+                    - BLOCKED_ACCOUNT
+                    - CANCELLATION_REQUEST
+                    - REGULATORY
+                    - CUSTOMER_REQUEST
+                  example: CLOSED_ACCOUNT
+      responses:
+        '201':
+          description: Payment return created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    description: ID of the return created.
+                    example: 4cc39f2b-3513-453d-8792-9ccc22e513c3
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Error code.
+                          example: error.payment-return.invalid
+                        message:
+                          type: string
+                          description: Error message.
+                          example: A valid reason is required to return a Swift payment
+                        arguments:
+                          type: array
+                          description: Additional context values related to the error.
+                          items: {}
+                          example:
+                            - 987654321
+                            - 123456789
+                            - null
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '404':
+          description: Payment not found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Error code.
+                          example: error.payment.not-found
+                        message:
+                          type: string
+                          description: Error message.
+                          example: >-
+                            No payment found with id [123456789] for profile id
+                            [987654321]
+                        arguments:
+                          type: array
+                          description: Additional context values related to the error.
+                          items: {}
+                          example:
+                            - 987654321
+                            - 123456789
+                            - null
           headers:
             X-External-Correlation-Id:
               $ref: '#/components/headers/X-External-Correlation-Id'
@@ -11515,6 +11683,128 @@ paths:
           $ref: '#/components/responses/429'
       parameters:
         - $ref: '#/components/parameters/X-External-Correlation-Id'
+  /login/saml2/sso:
+    post:
+      operationId: samlAssertionConsumerService
+      summary: Assertion Consumer Service (ACS)
+      description: >
+        Receives the SAML authentication response from your identity provider
+        after you authenticate.
+
+
+        The identity provider sends a `SAMLResponse` to this endpoint using the
+        SAML HTTP POST binding. The response is validated and, if successful,
+        completes your SAML sign-in.
+
+
+        This endpoint implements the [SAML 2.0 Web Browser SSO
+        Profile](https://docs.oasis-open.org/security/saml/v2.0/saml-profiles-2.0-os.pdf).
+        For details of the SAML message format and protocol requirements, refer
+        to the OASIS SAML 2.0 specification.
+      tags:
+        - saml
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                SAMLResponse:
+                  type: string
+                  description: >-
+                    Base64-encoded SAML `<samlp:Response>` message issued by the
+                    identity provider.
+                RelayState:
+                  type: string
+                  description: >-
+                    Opaque state value. If the authentication request included a
+                    `RelayState`, the identity provider returns it unchanged.
+              required:
+                - SAMLResponse
+      responses:
+        '302':
+          description: >-
+            The SAML response was processed. Your browser is redirected to
+            continue the sign-in flow.
+          headers:
+            Location:
+              description: URL your browser is redirected to.
+              schema:
+                type: string
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '429':
+          $ref: '#/components/responses/429'
+      parameters:
+        - $ref: '#/components/parameters/X-External-Correlation-Id'
+  /saml2/metadata:
+    get:
+      operationId: samlMetadataGet
+      summary: Retrieve SP metadata
+      description: >
+        Returns the SAML 2.0 metadata for the service provider.
+
+
+        Use this metadata when configuring the service provider in your identity
+        provider. It includes the information required by the identity provider,
+        such as the service provider entity ID, Assertion Consumer Service
+        endpoint, supported bindings, and signing certificate information where
+        applicable.
+
+
+        The response is an XML document conforming to the [SAML 2.0 Metadata
+        specification](https://docs.oasis-open.org/security/saml/v2.0/saml-metadata-2.0-os.pdf).
+
+
+        Where supported, we recommend configuring your identity provider using
+        this metadata rather than entering SAML settings manually.
+      tags:
+        - saml
+      security: []
+      responses:
+        '200':
+          description: The service provider metadata.
+          content:
+            application/samlmetadata+xml:
+              schema:
+                type: string
+                description: SAML 2.0 `<md:EntityDescriptor>` XML document.
+              examples:
+                sandboxMetadata:
+                  summary: Sandbox service provider metadata
+                  description: >-
+                    The signing certificate is shortened. Retrieve the metadata
+                    from the endpoint to get the current certificate.
+                  value: >
+                    <?xml version="1.0" encoding="UTF-8"?>
+
+                    <md:EntityDescriptor
+                    xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata"
+                    entityID="https://wise.com/saml/sp/login">
+                      <md:SPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+                        <md:KeyDescriptor use="signing">
+                          <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+                            <ds:X509Data>
+                              <ds:X509Certificate>MIIEQjCCAqqgAwIBAgIUUUF+VCaEJllClaROLMa1bXBj2x0...</ds:X509Certificate>
+                            </ds:X509Data>
+                          </ds:KeyInfo>
+                        </md:KeyDescriptor>
+                        <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://api.wise-sandbox.com/2026Q4/login/saml2/sso" index="1"/>
+                      </md:SPSSODescriptor>
+                    </md:EntityDescriptor>
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '429':
+          $ref: '#/components/responses/429'
+      parameters:
+        - $ref: '#/components/parameters/X-External-Correlation-Id'
   /application/users/{userId}/phone-numbers:
     post:
       operationId: userSecurityPhoneNumberCreate
@@ -13313,18 +13603,24 @@ paths:
                     profileId: 14556049
                     fileId: a1b2c3d4-e5f6-7890-abcd-ef1234567890
                     fileName: company-registration.pdf
+                    createdAt: '2026-09-28T10:00:00.123'
+                    purpose: GENERAL
                 pngUpload:
                   summary: PNG image uploaded
                   value:
                     profileId: 14556049
                     fileId: b2c3d4e5-f6a7-8901-bcde-f12345678901
                     fileName: identity-document.png
+                    createdAt: '2026-09-29T10:00:00.123'
+                    purpose: GENERAL
                 jpegUpload:
                   summary: JPEG image uploaded
                   value:
                     profileId: 14556049
                     fileId: b2c3d4e5-f6a7-8901-bcde-f12345678901
                     fileName: identity-document.jpg
+                    createdAt: '2026-09-30T10:00:00.123'
+                    purpose: GENERAL
           headers:
             X-External-Correlation-Id:
               $ref: '#/components/headers/X-External-Correlation-Id'
@@ -32498,10 +32794,20 @@ components:
           description: The original name of the uploaded file.
           maxLength: 128
           example: company-registration.pdf
+        createdAt:
+          type: string
+          description: |
+            Timestamp when the file was uploaded.
+            Format: ISO 8601 datetime without timezone (server timezone is UTC).
+          example: '2026-09-30T10:00:00.123'
+        purpose:
+          $ref: '#/components/schemas/file-purpose'
       required:
         - profileId
         - fileId
         - fileName
+        - createdAt
+        - purpose
     error-response-2:
       type: object
       title: Error Response

@@ -15,6 +15,14 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
+        /// <summary>Timestamp when the file was uploaded.Format: ISO 8601 datetime without timezone (server timezone is UTC).</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? CreatedAt { get; set; }
+#nullable restore
+#else
+        public string CreatedAt { get; set; }
+#endif
         /// <summary>Unique identifier of the uploaded file (UUID v4).</summary>
         public Guid? FileId { get; set; }
         /// <summary>The original name of the uploaded file.</summary>
@@ -27,6 +35,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #endif
         /// <summary>The ID of the profile this file belongs to.</summary>
         public long? ProfileId { get; set; }
+        /// <summary>The purpose of the file upload.</summary>
+        public global::Soenneker.Wise.OpenApiClient.Models.FilePurpose? Purpose { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.FileUploadResponse"/> and sets the default values.
         /// </summary>
@@ -52,9 +62,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
+                { "createdAt", n => { CreatedAt = n.GetStringValue(); } },
                 { "fileId", n => { FileId = n.GetGuidValue(); } },
                 { "fileName", n => { FileName = n.GetStringValue(); } },
                 { "profileId", n => { ProfileId = n.GetLongValue(); } },
+                { "purpose", n => { Purpose = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.FilePurpose>(); } },
             };
         }
         /// <summary>
@@ -64,9 +76,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
+            writer.WriteStringValue("createdAt", CreatedAt);
             writer.WriteGuidValue("fileId", FileId);
             writer.WriteStringValue("fileName", FileName);
             writer.WriteLongValue("profileId", ProfileId);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.FilePurpose>("purpose", Purpose);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

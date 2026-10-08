@@ -22,6 +22,7 @@ using Soenneker.Wise.OpenApiClient.EmbeddedFlows;
 using Soenneker.Wise.OpenApiClient.Facetec;
 using Soenneker.Wise.OpenApiClient.GpiTracking;
 using Soenneker.Wise.OpenApiClient.IncomingTransfers;
+using Soenneker.Wise.OpenApiClient.Login;
 using Soenneker.Wise.OpenApiClient.Me;
 using Soenneker.Wise.OpenApiClient.MultiCurrencyAccount;
 using Soenneker.Wise.OpenApiClient.Oauth;
@@ -29,6 +30,7 @@ using Soenneker.Wise.OpenApiClient.OneTimeToken;
 using Soenneker.Wise.OpenApiClient.Profiles;
 using Soenneker.Wise.OpenApiClient.Quotes;
 using Soenneker.Wise.OpenApiClient.Rates;
+using Soenneker.Wise.OpenApiClient.Saml2;
 using Soenneker.Wise.OpenApiClient.Settlement;
 using Soenneker.Wise.OpenApiClient.Settlements;
 using Soenneker.Wise.OpenApiClient.Simulation;
@@ -130,6 +132,11 @@ namespace Soenneker.Wise.OpenApiClient
         {
             get => new global::Soenneker.Wise.OpenApiClient.IncomingTransfers.IncomingTransfersRequestBuilder(PathParameters, RequestAdapter);
         }
+        /// <summary>The login property</summary>
+        public global::Soenneker.Wise.OpenApiClient.Login.LoginRequestBuilder Login
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.Login.LoginRequestBuilder(PathParameters, RequestAdapter);
+        }
         /// <summary>The me property</summary>
         public global::Soenneker.Wise.OpenApiClient.Me.MeRequestBuilder Me
         {
@@ -164,6 +171,11 @@ namespace Soenneker.Wise.OpenApiClient
         public global::Soenneker.Wise.OpenApiClient.Rates.RatesRequestBuilder Rates
         {
             get => new global::Soenneker.Wise.OpenApiClient.Rates.RatesRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The saml2 property</summary>
+        public global::Soenneker.Wise.OpenApiClient.Saml2.Saml2RequestBuilder Saml2
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.Saml2.Saml2RequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The settlement property</summary>
         public global::Soenneker.Wise.OpenApiClient.Settlement.SettlementRequestBuilder Settlement

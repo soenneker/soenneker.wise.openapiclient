@@ -4,6 +4,7 @@ using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions.Serialization;
 using Microsoft.Kiota.Abstractions;
 using Soenneker.Wise.OpenApiClient.Models;
+using Soenneker.Wise.OpenApiClient.Profiles.Item.AccountDetails;
 using Soenneker.Wise.OpenApiClient.Profiles.Item.AccountDetailsOrders;
 using Soenneker.Wise.OpenApiClient.Profiles.Item.Activities;
 using Soenneker.Wise.OpenApiClient.Profiles.Item.AdditionalVerification;
@@ -52,6 +53,11 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.Item
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class WithProfileItemRequestBuilder : BaseRequestBuilder
     {
+        /// <summary>The accountDetails property</summary>
+        public global::Soenneker.Wise.OpenApiClient.Profiles.Item.AccountDetails.AccountDetailsRequestBuilder AccountDetails
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.Profiles.Item.AccountDetails.AccountDetailsRequestBuilder(PathParameters, RequestAdapter);
+        }
         /// <summary>The accountDetailsOrders property</summary>
         public global::Soenneker.Wise.OpenApiClient.Profiles.Item.AccountDetailsOrders.AccountDetailsOrdersRequestBuilder AccountDetailsOrders
         {
