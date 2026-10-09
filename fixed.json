@@ -15094,7 +15094,7 @@
           "recipient"
         ],
         "summary": "Check account and quote compatibility",
-        "description": "Use this endpoint to check the compatibility of a recipient account with a quote before creating a transfer. This validation includes:\n\n- Re-validating the recipient account details.\n- Checking all required fields are present (for example, recipient address for USD transfers).\n- Verifying account details with the recipient\u0027s bank (for supported currencies).\n\nThis operation is optional, but useful to identify potential issues before transfer creation.\n\n{% admonition type=\u0022info\u0022 %}\nThe confirmations object is only populated for currencies that support [recipient verification](/guides/product/send-money/recipient-verification). If absent, only standard validations apply.\n{% /admonition %}\n",
+        "description": "Use this endpoint to check the compatibility of a recipient account with a quote before creating a transfer. This validation includes:\n\n- Re-validating the recipient account details.\n- Checking all required fields are present (for example, recipient address for USD transfers).\n- Verifying account details with the recipient\u0027s bank (for supported currencies).\n\nThis operation is optional, but useful to identify potential issues before transfer creation.\n\n{% admonition type=\u0022info\u0022 %}\nThe confirmations object is only populated for currencies that support [recipient verification](/guides/product/send-money/recipients/recipient-verification). If absent, only standard validations apply.\n{% /admonition %}\n",
         "operationId": "RecipientCompatibilityCheck",
         "parameters": [
           {
@@ -15124,7 +15124,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns the compatibility result, including any verification outcomes. See the [Recipient verification guide](/guides/product/send-money/recipient-verification) for details about handling the \u0060confirmations\u0060 object.",
+            "description": "Returns the compatibility result, including any verification outcomes. See the [Recipient verification guide](/guides/product/send-money/recipients/recipient-verification) for details about handling the \u0060confirmations\u0060 object.",
             "headers": {
               "X-External-Correlation-Id": {
                 "$ref": "#/components/headers/X-External-Correlation-Id"
@@ -20280,7 +20280,7 @@
           {
             "name": "status",
             "in": "query",
-            "description": "Comma separated list of one or more status codes to filter transfers. See [Tracking Transfers](/guides/product/send-money/tracking-transfers) for complete list of statuses",
+            "description": "Comma separated list of one or more status codes to filter transfers.\nSee [Transfer statuses](/guides/product/send-money/tracking/transfer-statuses) for complete list of statuses.",
             "schema": {
               "type": "string"
             }
@@ -27251,7 +27251,7 @@
             "description": "Array of confirmation outcomes. Currently, it is safe to assume there is only one element in the outcomes array."
           }
         },
-        "description": "Contains verification results for the recipient\u0027s details. Only populated for currencies with recipient verification enabled (CNY, KRW, INR, IDR, EUR). \n\nSee the [Recipient verification guides](/guides/product/send-money/recipient-verification) for details about how to handle this verification data by currency.\n"
+        "description": "Contains verification results for the recipient\u0027s details. Only populated for currencies with recipient verification enabled (CNY, KRW, INR, IDR, EUR). \n\nSee the [Recipient verification guides](/guides/product/send-money/recipients/recipient-verification) for details about how to handle this verification data by currency.\n"
       },
       "SettlementAllocationRequest": {
         "required": [
@@ -28641,7 +28641,7 @@
           },
           "status": {
             "type": "string",
-            "description": "Transfer current status. See [Tracking Transfers](/guides/product/send-money/tracking-transfers) for all possible statuses.",
+            "description": "Transfer current status.\nSee [Transfer statuses](/guides/product/send-money/tracking/transfer-statuses) for all possible statuses.",
             "example": "incoming_payment_waiting"
           },
           "reference": {
@@ -35445,7 +35445,7 @@
             "description": "Array of confirmation outcomes. Currently, it is safe to assume there is only one element in the outcomes array."
           }
         },
-        "description": "Contains verification results for the recipient\u0027s details. Only populated for currencies with recipient verification enabled (CNY, KRW, INR, IDR, EUR). \n\nSee the [Recipient verification guides](/guides/product/send-money/recipient-verification) for details about how to handle this verification data by currency.\n"
+        "description": "Contains verification results for the recipient\u0027s details. Only populated for currencies with recipient verification enabled (CNY, KRW, INR, IDR, EUR). \n\nSee the [Recipient verification guides](/guides/product/send-money/recipients/recipient-verification) for details about how to handle this verification data by currency.\n"
       },
       "RecipientCreateRequestDetails": {
         "type": "object",
@@ -36098,7 +36098,7 @@
           },
           "current_state": {
             "type": "string",
-            "description": "Current transfer status. See [Transfer Statuses](/guides/product/send-money/tracking-transfers) for possible values.\n",
+            "description": "Current transfer status. See [Transfer statuses](/guides/product/send-money/tracking/transfer-statuses) for possible values.\n",
             "example": "processing"
           },
           "previous_state": {
@@ -36125,7 +36125,7 @@
           },
           "current_state": {
             "type": "string",
-            "description": "Current transfer status. See [Transfer Statuses](/guides/product/send-money/tracking-transfers) for possible values.\n",
+            "description": "Current transfer status. See [Transfer statuses](/guides/product/send-money/tracking/transfer-statuses) for possible values.\n",
             "example": "processing"
           },
           "previous_state": {
@@ -49513,7 +49513,7 @@
           },
           "status": {
             "type": "string",
-            "description": "Transfer current status. See [Tracking Transfers](/guides/product/send-money/tracking-transfers) for all possible statuses.",
+            "description": "Transfer current status.\nSee [Transfer statuses](/guides/product/send-money/tracking/transfer-statuses) for all possible statuses.",
             "example": "incoming_payment_waiting"
           },
           "reference": {
@@ -49644,7 +49644,7 @@
           },
           "status": {
             "type": "string",
-            "description": "Transfer current status. See [Tracking Transfers](/guides/product/send-money/tracking-transfers) for all possible statuses.",
+            "description": "Transfer current status.\nSee [Transfer statuses](/guides/product/send-money/tracking/transfer-statuses) for all possible statuses.",
             "example": "incoming_payment_waiting"
           },
           "reference": {
@@ -52166,7 +52166,7 @@
           },
           "status": {
             "type": "string",
-            "description": "Transfer current status. See [Tracking Transfers](/guides/product/send-money/tracking-transfers) for all possible statuses.",
+            "description": "Transfer current status.\nSee [Transfer statuses](/guides/product/send-money/tracking/transfer-statuses) for all possible statuses.",
             "example": "incoming_payment_waiting"
           },
           "reference": {

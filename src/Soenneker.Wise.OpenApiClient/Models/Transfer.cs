@@ -61,7 +61,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #endif
         /// <summary>Transfer amount in source currency</summary>
         public double? SourceValue { get; set; }
-        /// <summary>Transfer current status. See [Tracking Transfers](/guides/product/send-money/tracking-transfers) for all possible statuses.</summary>
+        /// <summary>Transfer current status.See [Transfer statuses](/guides/product/send-money/tracking/transfer-statuses) for all possible statuses.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Status { get; set; }

@@ -19293,8 +19293,8 @@ paths:
 
         The confirmations object is only populated for currencies that support
         [recipient
-        verification](/guides/product/send-money/recipient-verification). If
-        absent, only standard validations apply.
+        verification](/guides/product/send-money/recipients/recipient-verification).
+        If absent, only standard validations apply.
 
         {% /admonition %}
       tags:
@@ -19322,8 +19322,8 @@ paths:
           description: >-
             Returns the compatibility result, including any verification
             outcomes. See the [Recipient verification
-            guide](/guides/product/send-money/recipient-verification) for
-            details about handling the `confirmations` object.
+            guide](/guides/product/send-money/recipients/recipient-verification)
+            for details about handling the `confirmations` object.
           content:
             application/json:
               schema:
@@ -23905,9 +23905,11 @@ paths:
           required: false
           description: >-
             Comma separated list of one or more status codes to filter
-            transfers. See [Tracking
-            Transfers](/guides/product/send-money/tracking-transfers) for
-            complete list of statuses
+            transfers.
+
+            See [Transfer
+            statuses](/guides/product/send-money/tracking/transfer-statuses) for
+            complete list of statuses.
           schema:
             type: string
         - name: sourceCurrency
@@ -34151,8 +34153,8 @@ components:
 
 
             See the [Recipient verification
-            guides](/guides/product/send-money/recipient-verification) for
-            details about how to handle this verification data by currency.
+            guides](/guides/product/send-money/recipients/recipient-verification)
+            for details about how to handle this verification data by currency.
           properties:
             acceptedOutcomes:
               type: boolean
@@ -34628,8 +34630,8 @@ components:
 
 
         See the [Recipient verification
-        guides](/guides/product/send-money/recipient-verification) for details
-        about how to handle this verification data by currency.
+        guides](/guides/product/send-money/recipients/recipient-verification)
+        for details about how to handle this verification data by currency.
       properties:
         acceptedOutcomes:
           type: boolean
@@ -36184,9 +36186,11 @@ components:
         status:
           type: string
           description: >-
-            Transfer current status. See [Tracking
-            Transfers](/guides/product/send-money/tracking-transfers) for all
-            possible statuses.
+            Transfer current status.
+
+            See [Transfer
+            statuses](/guides/product/send-money/tracking/transfer-statuses) for
+            all possible statuses.
           example: incoming_payment_waiting
         reference:
           type: string
@@ -38827,8 +38831,8 @@ components:
               type: string
               description: >
                 Current transfer status. See [Transfer
-                Statuses](/guides/product/send-money/tracking-transfers) for
-                possible values.
+                statuses](/guides/product/send-money/tracking/transfer-statuses)
+                for possible values.
               example: processing
             previous_state:
               type:
@@ -38898,8 +38902,8 @@ components:
               type: string
               description: >
                 Current transfer status. See [Transfer
-                Statuses](/guides/product/send-money/tracking-transfers) for
-                possible values.
+                statuses](/guides/product/send-money/tracking/transfer-statuses)
+                for possible values.
               example: processing
             previous_state:
               type:

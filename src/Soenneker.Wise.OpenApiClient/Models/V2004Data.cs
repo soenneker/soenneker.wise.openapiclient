@@ -14,7 +14,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Current transfer status. See [Transfer Statuses](/guides/product/send-money/tracking-transfers) for possible values.</summary>
+        /// <summary>Current transfer status. See [Transfer statuses](/guides/product/send-money/tracking/transfer-statuses) for possible values.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? CurrentState { get; set; }

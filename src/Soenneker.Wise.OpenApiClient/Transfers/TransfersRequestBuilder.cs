@@ -176,7 +176,7 @@ namespace Soenneker.Wise.OpenApiClient.Transfers
             [QueryParameter("sourceCurrency")]
             public string SourceCurrency { get; set; }
 #endif
-            /// <summary>Comma separated list of one or more status codes to filter transfers. See [Tracking Transfers](/guides/product/send-money/tracking-transfers) for complete list of statuses</summary>
+            /// <summary>Comma separated list of one or more status codes to filter transfers.See [Transfer statuses](/guides/product/send-money/tracking/transfer-statuses) for complete list of statuses.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
             [QueryParameter("status")]
