@@ -34,7 +34,7 @@ namespace Soenneker.Wise.OpenApiClient.Simulation.Settlement.Funds
         {
         }
         /// <summary>
-        ///     Simulates the receipt of funds for a specific settlement allocation.    This endpoint allows you to simulate the receipt of funds associated with    a given allocation, which can be useful for testing and validation purposes.    Upon successful simulation, a 204 No Content response is returned.
+        ///     Simulates the receipt of funds for a specific settlement allocation.    This endpoint allows you to simulate the receipt of funds associated with    a given allocation, which can be useful for testing and validation purposes.    Upon successful simulation, a 204 No Content response is returned.    
         /// </summary>
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
@@ -58,7 +58,7 @@ namespace Soenneker.Wise.OpenApiClient.Simulation.Settlement.Funds
             await RequestAdapter.SendNoContentAsync(requestInfo, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        ///     Simulates the receipt of funds for a specific settlement allocation.    This endpoint allows you to simulate the receipt of funds associated with    a given allocation, which can be useful for testing and validation purposes.    Upon successful simulation, a 204 No Content response is returned.
+        ///     Simulates the receipt of funds for a specific settlement allocation.    This endpoint allows you to simulate the receipt of funds associated with    a given allocation, which can be useful for testing and validation purposes.    Upon successful simulation, a 204 No Content response is returned.    
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>

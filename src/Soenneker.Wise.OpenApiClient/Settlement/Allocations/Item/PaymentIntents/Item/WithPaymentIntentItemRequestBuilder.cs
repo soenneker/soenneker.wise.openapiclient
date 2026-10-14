@@ -34,7 +34,7 @@ namespace Soenneker.Wise.OpenApiClient.Settlement.Allocations.Item.PaymentIntent
         {
         }
         /// <summary>
-        ///     Retrieves the details of a specific payment intent within a settlement allocation.
+        ///     Retrieves the details of a specific payment intent within a settlement allocation.    
         /// </summary>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.GetPaymentIntentResponseContent"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
@@ -57,7 +57,7 @@ namespace Soenneker.Wise.OpenApiClient.Settlement.Allocations.Item.PaymentIntent
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.GetPaymentIntentResponseContent>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.GetPaymentIntentResponseContent.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        ///     Retrieves the details of a specific payment intent within a settlement allocation.
+        ///     Retrieves the details of a specific payment intent within a settlement allocation.    
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>

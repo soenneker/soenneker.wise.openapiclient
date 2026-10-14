@@ -4245,7 +4245,7 @@ paths:
         Found`. For coverage across
 
         all countries, use the [2026Q3 account details
-        API](https://docs.wise.com/api-reference/2026q3/bank-account-details/bankaccountdetailsget).
+        API](https://docs.wise.com/api-reference/bank-account-details/bankaccountdetailsget).
       summary: Get account details by ID
       operationId: getAccountDetails
       parameters:
@@ -19508,6 +19508,7 @@ paths:
 
           Retrieves the details of a settlement allocation by its ID.
           Optionally includes paginated payment intents associated with the allocation.
+          
       summary: Get a settlement allocation
       operationId: GetSettlementAllocation
       parameters:
@@ -19607,6 +19608,7 @@ paths:
       description: |2-
 
             Retrieves the details of a specific payment intent within a settlement allocation.
+            
       summary: Get a payment intent
       operationId: GetPaymentIntent
       parameters:
@@ -20291,6 +20293,7 @@ paths:
             This endpoint allows you to simulate the receipt of funds associated with
             a given allocation, which can be useful for testing and validation purposes.
             Upon successful simulation, a 204 No Content response is returned.
+            
       summary: Simulate settlement allocation funds received
       operationId: SimulateSettlementAllocationsFunds
       requestBody:
@@ -24606,6 +24609,7 @@ paths:
             * **TRUSTED_PRE_FUND_BULK** — Funds for the transfer will be settled through a bulk payment at a later date. This method is not applicable for First Party partner account transfers.
 
             If funding from `BALANCE`, and your multi-currency account does not have the required funds to complete the action, then this call will fail with an "insufficient funds" error. Once funds are added and available, you must call this endpoint again.
+            
       summary: Fund a Transfer
       operationId: transferFund
       requestBody:
@@ -36626,11 +36630,10 @@ components:
       properties:
         reference:
           type: string
-          minLength: 1
-          pattern: \S
           description: >-
-            Unique customer ID in your system. This allows us to uniquely
-            identify each originator
+            Unique customer ID in your system. This allows Wise to identify each
+            originator for compliance purposes. All transfers sent by the same
+            originator must use the same `originator.reference` value.
           example: CST-2991992
         name:
           $ref: '#/components/schemas/Name'
@@ -36640,7 +36643,6 @@ components:
           description: Payment originator date of birth
           format: date
           example: '1977-07-01'
-          x-temporal-constraint: past
         nationality:
           type: string
           description: >-
@@ -36676,11 +36678,10 @@ components:
       properties:
         reference:
           type: string
-          minLength: 1
-          pattern: \S
           description: >-
-            Unique customer ID in your system. This allows us to uniquely
-            identify each originator
+            Unique customer ID in your system. This allows Wise to identify each
+            originator for compliance purposes. All transfers sent by the same
+            originator must use the same `originator.reference` value.
           example: CST-2991992
         name:
           $ref: '#/components/schemas/Name'

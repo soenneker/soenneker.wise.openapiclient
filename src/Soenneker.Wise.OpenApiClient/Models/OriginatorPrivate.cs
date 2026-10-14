@@ -57,7 +57,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string Nationality { get; set; }
 #endif
-        /// <summary>Unique customer ID in your system. This allows us to uniquely identify each originator</summary>
+        /// <summary>Unique customer ID in your system. This allows Wise to identify each originator for compliance purposes. All transfers sent by the same originator must use the same `originator.reference` value.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Reference { get; set; }

@@ -1889,7 +1889,7 @@
           "bank-account-details"
         ],
         "summary": "Get account details by ID",
-        "description": "Retrieves account details by ID. Account details identify an account that can receive funds\n(e.g. an IBAN, or a sort code and account number). GB, US and BE account details are supported.\nRequesting account details for an unsupported country returns \u0060404 Not Found\u0060. For coverage across\nall countries, use the [2026Q3 account details API](https://docs.wise.com/api-reference/2026q3/bank-account-details/bankaccountdetailsget).\n",
+        "description": "Retrieves account details by ID. Account details identify an account that can receive funds\n(e.g. an IBAN, or a sort code and account number). GB, US and BE account details are supported.\nRequesting account details for an unsupported country returns \u0060404 Not Found\u0060. For coverage across\nall countries, use the [2026Q3 account details API](https://docs.wise.com/api-reference/bank-account-details/bankaccountdetailsget).\n",
         "operationId": "GetAccountDetails",
         "parameters": [
           {
@@ -15350,7 +15350,7 @@
           "settlement"
         ],
         "summary": "Get a settlement allocation",
-        "description": "\n  Retrieves the details of a settlement allocation by its ID.\n  Optionally includes paginated payment intents associated with the allocation.",
+        "description": "\n  Retrieves the details of a settlement allocation by its ID.\n  Optionally includes paginated payment intents associated with the allocation.\n  ",
         "operationId": "GetSettlementAllocation",
         "parameters": [
           {
@@ -15486,7 +15486,7 @@
           "settlement"
         ],
         "summary": "Get a payment intent",
-        "description": "\n    Retrieves the details of a specific payment intent within a settlement allocation.",
+        "description": "\n    Retrieves the details of a specific payment intent within a settlement allocation.\n    ",
         "operationId": "GetPaymentIntent",
         "parameters": [
           {
@@ -16242,7 +16242,7 @@
           "simulation"
         ],
         "summary": "Simulate settlement allocation funds received",
-        "description": "\n    Simulates the receipt of funds for a specific settlement allocation.\n    This endpoint allows you to simulate the receipt of funds associated with\n    a given allocation, which can be useful for testing and validation purposes.\n    Upon successful simulation, a 204 No Content response is returned.",
+        "description": "\n    Simulates the receipt of funds for a specific settlement allocation.\n    This endpoint allows you to simulate the receipt of funds associated with\n    a given allocation, which can be useful for testing and validation purposes.\n    Upon successful simulation, a 204 No Content response is returned.\n    ",
         "operationId": "SimulateSettlementAllocationsFunds",
         "parameters": [
           {
@@ -21130,7 +21130,7 @@
           "transfer"
         ],
         "summary": "Fund a Transfer",
-        "description": "\n    {% admonition type=\u0022warning\u0022 %}\n      This endpoint is SCA protected when it applies. If your profile is registered within the UK and/or EEA, SCA most likely applies to you.\n      Please read more about [implementing SCA](/guides/developer/auth-and-security/sca-and-2fa).\n    {% /admonition %}\n\n    This API call is the final step for executing payouts when using a balance with Wise. Upon calling the endpoint, Wise will begin the processing of the transfer, depending on the status of funds.\n\n    When using the transfer by transfer settlement model, the following funding type(s) must be used:\n\n    * **BALANCE** \u2014 Funds are pulled from a multi-currency account held with Wise.\n\n    When funding through the Bulk Settlement model, the following funding type(s) must be used:\n\n    * **TRUSTED_PRE_FUND_BULK** \u2014 Funds for the transfer will be settled through a bulk payment at a later date. This method is not applicable for First Party partner account transfers.\n\n    If funding from \u0060BALANCE\u0060, and your multi-currency account does not have the required funds to complete the action, then this call will fail with an \u0022insufficient funds\u0022 error. Once funds are added and available, you must call this endpoint again.",
+        "description": "\n    {% admonition type=\u0022warning\u0022 %}\n      This endpoint is SCA protected when it applies. If your profile is registered within the UK and/or EEA, SCA most likely applies to you.\n      Please read more about [implementing SCA](/guides/developer/auth-and-security/sca-and-2fa).\n    {% /admonition %}\n\n    This API call is the final step for executing payouts when using a balance with Wise. Upon calling the endpoint, Wise will begin the processing of the transfer, depending on the status of funds.\n\n    When using the transfer by transfer settlement model, the following funding type(s) must be used:\n\n    * **BALANCE** \u2014 Funds are pulled from a multi-currency account held with Wise.\n\n    When funding through the Bulk Settlement model, the following funding type(s) must be used:\n\n    * **TRUSTED_PRE_FUND_BULK** \u2014 Funds for the transfer will be settled through a bulk payment at a later date. This method is not applicable for First Party partner account transfers.\n\n    If funding from \u0060BALANCE\u0060, and your multi-currency account does not have the required funds to complete the action, then this call will fail with an \u0022insufficient funds\u0022 error. Once funds are added and available, you must call this endpoint again.\n    ",
         "operationId": "TransferFund",
         "parameters": [
           {
@@ -28961,10 +28961,8 @@
         "type": "object",
         "properties": {
           "reference": {
-            "minLength": 1,
-            "pattern": "\\S",
             "type": "string",
-            "description": "Unique customer ID in your system. This allows us to uniquely identify each originator",
+            "description": "Unique customer ID in your system. This allows Wise to identify each originator for compliance purposes. All transfers sent by the same originator must use the same \u0060originator.reference\u0060 value.",
             "example": "CST-2991992"
           },
           "name": {
@@ -28975,8 +28973,7 @@
             "type": "string",
             "description": "Payment originator date of birth",
             "format": "date",
-            "example": "1977-07-01",
-            "x-temporal-constraint": "past"
+            "example": "1977-07-01"
           },
           "nationality": {
             "type": "string",
@@ -29015,10 +29012,8 @@
         "type": "object",
         "properties": {
           "reference": {
-            "minLength": 1,
-            "pattern": "\\S",
             "type": "string",
-            "description": "Unique customer ID in your system. This allows us to uniquely identify each originator",
+            "description": "Unique customer ID in your system. This allows Wise to identify each originator for compliance purposes. All transfers sent by the same originator must use the same \u0060originator.reference\u0060 value.",
             "example": "CST-2991992"
           },
           "name": {
@@ -29029,8 +29024,7 @@
             "type": "string",
             "description": "Payment originator date of birth",
             "format": "date",
-            "example": "1977-07-01",
-            "x-temporal-constraint": "past"
+            "example": "1977-07-01"
           },
           "nationality": {
             "type": "string",
@@ -29059,10 +29053,8 @@
         "type": "object",
         "properties": {
           "reference": {
-            "minLength": 1,
-            "pattern": "\\S",
             "type": "string",
-            "description": "Unique customer ID in your system. This allows us to uniquely identify each originator",
+            "description": "Unique customer ID in your system. This allows Wise to identify each originator for compliance purposes. All transfers sent by the same originator must use the same \u0060originator.reference\u0060 value.",
             "example": "CST-2991992"
           },
           "name": {
@@ -29103,10 +29095,8 @@
         "type": "object",
         "properties": {
           "reference": {
-            "minLength": 1,
-            "pattern": "\\S",
             "type": "string",
-            "description": "Unique customer ID in your system. This allows us to uniquely identify each originator",
+            "description": "Unique customer ID in your system. This allows Wise to identify each originator for compliance purposes. All transfers sent by the same originator must use the same \u0060originator.reference\u0060 value.",
             "example": "CST-2991992"
           },
           "name": {
@@ -29154,10 +29144,8 @@
         ],
         "properties": {
           "reference": {
-            "minLength": 1,
-            "pattern": "\\S",
             "type": "string",
-            "description": "Unique customer ID in your system. This allows us to uniquely identify each originator",
+            "description": "Unique customer ID in your system. This allows Wise to identify each originator for compliance purposes. All transfers sent by the same originator must use the same \u0060originator.reference\u0060 value.",
             "example": "CST-2991992"
           },
           "name": {
@@ -29168,8 +29156,7 @@
             "type": "string",
             "description": "Payment originator date of birth",
             "format": "date",
-            "example": "1977-07-01",
-            "x-temporal-constraint": "past"
+            "example": "1977-07-01"
           },
           "nationality": {
             "type": "string",
