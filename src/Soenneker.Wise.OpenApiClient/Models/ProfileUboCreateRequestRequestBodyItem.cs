@@ -22,7 +22,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string AddressFirstLine { get; set; }
 #endif
-        /// <summary>City of residential address.</summary>
+        /// <summary>City of residential address. Required if `countryOfResidenceIso3Code` is `usa`. Maximum 255 characters.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? City { get; set; }
@@ -90,7 +90,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #endif
         /// <summary>Percentage of ownership.</summary>
         public int? OwnershipPercentage { get; set; }
-        /// <summary>City of birth.</summary>
+        /// <summary>City of birth. Required if the business profile&apos;s registered address is in the EU or EEA. Maximum 255 characters.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? PlaceOfBirthCity { get; set; }
@@ -98,7 +98,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string PlaceOfBirthCity { get; set; }
 #endif
-        /// <summary>Country of birth as an ISO 3166-1 alpha-3 code.</summary>
+        /// <summary>Country of birth as an ISO 3166-1 alpha-3 code. Required if the business profile&apos;s registered address is in the EU or EEA.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? PlaceOfBirthCountryIso3Code { get; set; }
@@ -114,7 +114,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string PostCode { get; set; }
 #endif
-        /// <summary>State or region of residential address.</summary>
+        /// <summary>State or region of residential address. Required if `countryOfResidenceIso3Code` is `usa`. Maximum 32 characters.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? State { get; set; }

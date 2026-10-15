@@ -16555,19 +16555,31 @@ paths:
                     example: john.doe@example.com
                   placeOfBirthCity:
                     type: string
-                    description: City of birth.
+                    description: >-
+                      City of birth. Required if the business profile's
+                      registered address is in the EU or EEA. Maximum 255
+                      characters.
                     example: London
                   placeOfBirthCountryIso3Code:
                     type: string
-                    description: Country of birth as an ISO 3166-1 alpha-3 code.
+                    description: >-
+                      Country of birth as an ISO 3166-1 alpha-3 code. Required
+                      if the business profile's registered address is in the EU
+                      or EEA.
                     example: gbr
                   city:
                     type: string
-                    description: City of residential address.
+                    description: >-
+                      City of residential address. Required if
+                      `countryOfResidenceIso3Code` is `usa`. Maximum 255
+                      characters.
                     example: Phoenix
                   state:
                     type: string
-                    description: State or region of residential address.
+                    description: >-
+                      State or region of residential address. Required if
+                      `countryOfResidenceIso3Code` is `usa`. Maximum 32
+                      characters.
                     example: AZ
                   ownershipPercentage:
                     type:
@@ -16640,6 +16652,45 @@ paths:
                   city: Phoenix
                   state: AZ
                   ownershipPercentage: 70
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '400':
+          description: >
+            Validation failed and no owners were saved. Errors are grouped per
+            owner: `parameter` is the submitted owner, and each entry in its
+            `errors` list carries one error code in `message`.
+
+
+            Residential address error codes:
+
+            - `CityRequired` — `city` is missing for an owner whose
+            `countryOfResidenceIso3Code` is `usa`
+
+            - `StateRequired` — `state` is missing for an owner whose
+            `countryOfResidenceIso3Code` is `usa`
+
+            - `CityTooLong` — `city` is longer than 255 characters
+
+            - `StateInvalid` — `state` is longer than 32 characters
+          content:
+            application/json:
+              example:
+                code: not.valid
+                message: >-
+                  Cannot update shareholders for profile 12345 due to validation
+                  errors
+                errors:
+                  - parameter: >-
+                      {"addressFirstLine":"123 Fake
+                      St","city":null,"countryOfResidenceIso3Code":"usa","dateOfBirth":"1982-05-20","documentCountryIso3Code":null,"documentId":null,"documentType":null,"email":null,"name":"John
+                      Doe","nationality":null,"ownershipPercentage":30,"placeOfBirthCity":null,"placeOfBirthCountryIso3Code":null,"postCode":"FK
+                      12345","state":null}
+                    errors:
+                      - message: CityRequired
+                      - message: StateRequired
           headers:
             X-External-Correlation-Id:
               $ref: '#/components/headers/X-External-Correlation-Id'
@@ -16790,19 +16841,31 @@ paths:
                     example: john.doe@example.com
                   placeOfBirthCity:
                     type: string
-                    description: City of birth.
+                    description: >-
+                      City of birth. Required if the business profile's
+                      registered address is in the EU or EEA. Maximum 255
+                      characters.
                     example: London
                   placeOfBirthCountryIso3Code:
                     type: string
-                    description: Country of birth as an ISO 3166-1 alpha-3 code.
+                    description: >-
+                      Country of birth as an ISO 3166-1 alpha-3 code. Required
+                      if the business profile's registered address is in the EU
+                      or EEA.
                     example: gbr
                   city:
                     type: string
-                    description: City of residential address.
+                    description: >-
+                      City of residential address. Required if
+                      `countryOfResidenceIso3Code` is `usa`. Maximum 255
+                      characters.
                     example: Phoenix
                   state:
                     type: string
-                    description: State or region of residential address.
+                    description: >-
+                      State or region of residential address. Required if
+                      `countryOfResidenceIso3Code` is `usa`. Maximum 32
+                      characters.
                     example: AZ
                   ownershipPercentage:
                     type:
@@ -16875,6 +16938,45 @@ paths:
                   city: Phoenix
                   state: AZ
                   ownershipPercentage: 70
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '400':
+          description: >
+            Validation failed and no owners were saved. Errors are grouped per
+            owner: `parameter` is the submitted owner, and each entry in its
+            `errors` list carries one error code in `message`.
+
+
+            Residential address error codes:
+
+            - `CityRequired` — `city` is missing for an owner whose
+            `countryOfResidenceIso3Code` is `usa`
+
+            - `StateRequired` — `state` is missing for an owner whose
+            `countryOfResidenceIso3Code` is `usa`
+
+            - `CityTooLong` — `city` is longer than 255 characters
+
+            - `StateInvalid` — `state` is longer than 32 characters
+          content:
+            application/json:
+              example:
+                code: not.valid
+                message: >-
+                  Cannot update shareholders for profile 12345 due to validation
+                  errors
+                errors:
+                  - parameter: >-
+                      {"addressFirstLine":"123 Fake
+                      St","city":null,"countryOfResidenceIso3Code":"usa","dateOfBirth":"1982-05-20","documentCountryIso3Code":null,"documentId":null,"documentType":null,"email":null,"name":"John
+                      Doe","nationality":null,"ownershipPercentage":30,"placeOfBirthCity":null,"placeOfBirthCountryIso3Code":null,"postCode":"FK
+                      12345","state":null}
+                    errors:
+                      - message: CityRequired
+                      - message: StateRequired
           headers:
             X-External-Correlation-Id:
               $ref: '#/components/headers/X-External-Correlation-Id'

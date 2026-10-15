@@ -13219,6 +13219,42 @@
               }
             }
           },
+          "400": {
+            "description": "Validation failed and no owners were saved. Errors are grouped per owner: \u0060parameter\u0060 is the submitted owner, and each entry in its \u0060errors\u0060 list carries one error code in \u0060message\u0060.\n\nResidential address error codes:\n- \u0060CityRequired\u0060 \u2014 \u0060city\u0060 is missing for an owner whose \u0060countryOfResidenceIso3Code\u0060 is \u0060usa\u0060\n- \u0060StateRequired\u0060 \u2014 \u0060state\u0060 is missing for an owner whose \u0060countryOfResidenceIso3Code\u0060 is \u0060usa\u0060\n- \u0060CityTooLong\u0060 \u2014 \u0060city\u0060 is longer than 255 characters\n- \u0060StateInvalid\u0060 \u2014 \u0060state\u0060 is longer than 32 characters\n",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileUboCreate400Response"
+                },
+                "example": {
+                  "code": "not.valid",
+                  "message": "Cannot update shareholders for profile 12345 due to validation errors",
+                  "errors": [
+                    {
+                      "parameter": "{\u0022addressFirstLine\u0022:\u0022123 Fake St\u0022,\u0022city\u0022:null,\u0022countryOfResidenceIso3Code\u0022:\u0022usa\u0022,\u0022dateOfBirth\u0022:\u00221982-05-20\u0022,\u0022documentCountryIso3Code\u0022:null,\u0022documentId\u0022:null,\u0022documentType\u0022:null,\u0022email\u0022:null,\u0022name\u0022:\u0022John Doe\u0022,\u0022nationality\u0022:null,\u0022ownershipPercentage\u0022:30,\u0022placeOfBirthCity\u0022:null,\u0022placeOfBirthCountryIso3Code\u0022:null,\u0022postCode\u0022:\u0022FK 12345\u0022,\u0022state\u0022:null}",
+                      "errors": [
+                        {
+                          "message": "CityRequired"
+                        },
+                        {
+                          "message": "StateRequired"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "x-schema-inferred-from-examples": true
+              }
+            }
+          },
           "429": {
             "description": "Rate limit exceeded. Retry after the number of seconds specified in the \u0060Retry-After\u0060 header.",
             "$ref": "#/components/responses/429"
@@ -13421,6 +13457,42 @@
                     "ownershipPercentage": 70
                   }
                 ]
+              }
+            }
+          },
+          "400": {
+            "description": "Validation failed and no owners were saved. Errors are grouped per owner: \u0060parameter\u0060 is the submitted owner, and each entry in its \u0060errors\u0060 list carries one error code in \u0060message\u0060.\n\nResidential address error codes:\n- \u0060CityRequired\u0060 \u2014 \u0060city\u0060 is missing for an owner whose \u0060countryOfResidenceIso3Code\u0060 is \u0060usa\u0060\n- \u0060StateRequired\u0060 \u2014 \u0060state\u0060 is missing for an owner whose \u0060countryOfResidenceIso3Code\u0060 is \u0060usa\u0060\n- \u0060CityTooLong\u0060 \u2014 \u0060city\u0060 is longer than 255 characters\n- \u0060StateInvalid\u0060 \u2014 \u0060state\u0060 is longer than 32 characters\n",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileUboUpdate400Response"
+                },
+                "example": {
+                  "code": "not.valid",
+                  "message": "Cannot update shareholders for profile 12345 due to validation errors",
+                  "errors": [
+                    {
+                      "parameter": "{\u0022addressFirstLine\u0022:\u0022123 Fake St\u0022,\u0022city\u0022:null,\u0022countryOfResidenceIso3Code\u0022:\u0022usa\u0022,\u0022dateOfBirth\u0022:\u00221982-05-20\u0022,\u0022documentCountryIso3Code\u0022:null,\u0022documentId\u0022:null,\u0022documentType\u0022:null,\u0022email\u0022:null,\u0022name\u0022:\u0022John Doe\u0022,\u0022nationality\u0022:null,\u0022ownershipPercentage\u0022:30,\u0022placeOfBirthCity\u0022:null,\u0022placeOfBirthCountryIso3Code\u0022:null,\u0022postCode\u0022:\u0022FK 12345\u0022,\u0022state\u0022:null}",
+                      "errors": [
+                        {
+                          "message": "CityRequired"
+                        },
+                        {
+                          "message": "StateRequired"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "x-schema-inferred-from-examples": true
               }
             }
           },
@@ -48034,6 +48106,23 @@
           "$ref": "#/components/schemas/Ubo"
         }
       },
+      "ProfileUboCreate400Response": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProfileUboCreate400ResponseErrorsItem"
+            }
+          }
+        }
+      },
       "ProfileUboList200Response": {
         "type": "array",
         "items": {
@@ -48050,6 +48139,23 @@
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/Ubo"
+        }
+      },
+      "ProfileUboUpdate400Response": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProfileUboUpdate400ResponseErrorsItem"
+            }
+          }
         }
       },
       "ProfileVerificationStatusCheck200Response": {
@@ -54108,22 +54214,22 @@
           },
           "placeOfBirthCity": {
             "type": "string",
-            "description": "City of birth.",
+            "description": "City of birth. Required if the business profile\u0027s registered address is in the EU or EEA. Maximum 255 characters.",
             "example": "London"
           },
           "placeOfBirthCountryIso3Code": {
             "type": "string",
-            "description": "Country of birth as an ISO 3166-1 alpha-3 code.",
+            "description": "Country of birth as an ISO 3166-1 alpha-3 code. Required if the business profile\u0027s registered address is in the EU or EEA.",
             "example": "gbr"
           },
           "city": {
             "type": "string",
-            "description": "City of residential address.",
+            "description": "City of residential address. Required if \u0060countryOfResidenceIso3Code\u0060 is \u0060usa\u0060. Maximum 255 characters.",
             "example": "Phoenix"
           },
           "state": {
             "type": "string",
-            "description": "State or region of residential address.",
+            "description": "State or region of residential address. Required if \u0060countryOfResidenceIso3Code\u0060 is \u0060usa\u0060. Maximum 32 characters.",
             "example": "AZ"
           },
           "ownershipPercentage": {
@@ -54134,6 +54240,20 @@
             "description": "Percentage of ownership.",
             "format": "int32",
             "example": 30
+          }
+        }
+      },
+      "ProfileUboCreate400ResponseErrorsItem": {
+        "type": "object",
+        "properties": {
+          "parameter": {
+            "type": "string"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProfileUboCreate400ResponseErrorsItemErrorsItem"
+            }
           }
         }
       },
@@ -54198,22 +54318,22 @@
           },
           "placeOfBirthCity": {
             "type": "string",
-            "description": "City of birth.",
+            "description": "City of birth. Required if the business profile\u0027s registered address is in the EU or EEA. Maximum 255 characters.",
             "example": "London"
           },
           "placeOfBirthCountryIso3Code": {
             "type": "string",
-            "description": "Country of birth as an ISO 3166-1 alpha-3 code.",
+            "description": "Country of birth as an ISO 3166-1 alpha-3 code. Required if the business profile\u0027s registered address is in the EU or EEA.",
             "example": "gbr"
           },
           "city": {
             "type": "string",
-            "description": "City of residential address.",
+            "description": "City of residential address. Required if \u0060countryOfResidenceIso3Code\u0060 is \u0060usa\u0060. Maximum 255 characters.",
             "example": "Phoenix"
           },
           "state": {
             "type": "string",
-            "description": "State or region of residential address.",
+            "description": "State or region of residential address. Required if \u0060countryOfResidenceIso3Code\u0060 is \u0060usa\u0060. Maximum 32 characters.",
             "example": "AZ"
           },
           "ownershipPercentage": {
@@ -54224,6 +54344,20 @@
             "description": "Percentage of ownership.",
             "format": "int32",
             "example": 30
+          }
+        }
+      },
+      "ProfileUboUpdate400ResponseErrorsItem": {
+        "type": "object",
+        "properties": {
+          "parameter": {
+            "type": "string"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProfileUboUpdate400ResponseErrorsItemErrorsItem"
+            }
           }
         }
       },
@@ -54926,22 +55060,22 @@
           },
           "placeOfBirthCity": {
             "type": "string",
-            "description": "City of birth.",
+            "description": "City of birth. Required if the business profile\u0027s registered address is in the EU or EEA. Maximum 255 characters.",
             "example": "London"
           },
           "placeOfBirthCountryIso3Code": {
             "type": "string",
-            "description": "Country of birth as an ISO 3166-1 alpha-3 code.",
+            "description": "Country of birth as an ISO 3166-1 alpha-3 code. Required if the business profile\u0027s registered address is in the EU or EEA.",
             "example": "gbr"
           },
           "city": {
             "type": "string",
-            "description": "City of residential address.",
+            "description": "City of residential address. Required if \u0060countryOfResidenceIso3Code\u0060 is \u0060usa\u0060. Maximum 255 characters.",
             "example": "Phoenix"
           },
           "state": {
             "type": "string",
-            "description": "State or region of residential address.",
+            "description": "State or region of residential address. Required if \u0060countryOfResidenceIso3Code\u0060 is \u0060usa\u0060. Maximum 32 characters.",
             "example": "AZ"
           },
           "ownershipPercentage": {
@@ -55016,22 +55150,22 @@
           },
           "placeOfBirthCity": {
             "type": "string",
-            "description": "City of birth.",
+            "description": "City of birth. Required if the business profile\u0027s registered address is in the EU or EEA. Maximum 255 characters.",
             "example": "London"
           },
           "placeOfBirthCountryIso3Code": {
             "type": "string",
-            "description": "Country of birth as an ISO 3166-1 alpha-3 code.",
+            "description": "Country of birth as an ISO 3166-1 alpha-3 code. Required if the business profile\u0027s registered address is in the EU or EEA.",
             "example": "gbr"
           },
           "city": {
             "type": "string",
-            "description": "City of residential address.",
+            "description": "City of residential address. Required if \u0060countryOfResidenceIso3Code\u0060 is \u0060usa\u0060. Maximum 255 characters.",
             "example": "Phoenix"
           },
           "state": {
             "type": "string",
-            "description": "State or region of residential address.",
+            "description": "State or region of residential address. Required if \u0060countryOfResidenceIso3Code\u0060 is \u0060usa\u0060. Maximum 32 characters.",
             "example": "AZ"
           },
           "ownershipPercentage": {
@@ -55612,6 +55746,22 @@
             "type": "string",
             "description": "Contact phone number in international phone number format. Required unless Business Representative ID is provided.",
             "example": "\u002B3725064992"
+          }
+        }
+      },
+      "ProfileUboCreate400ResponseErrorsItemErrorsItem": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "ProfileUboUpdate400ResponseErrorsItemErrorsItem": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
           }
         }
       },
