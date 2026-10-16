@@ -10221,6 +10221,7 @@ paths:
               - SOURCE_OF_WEALTH
               - SOURCE_OF_WEALTH_INFO
               - SOURCE_OF_WEALTH_PROOF
+              - SSN_DECLARATION
               - TAX_RESIDENCY
               - USE_CASE_COUNTRIES
         - $ref: '#/components/parameters/X-External-Correlation-Id'
@@ -15133,6 +15134,38 @@ paths:
                         Date of birth. Required unless Business Representative
                         ID is provided.
                       example: '1977-07-01'
+                    localizedInformation:
+                      type: array
+                      description: >
+                        Optional localized information for the business
+                        representative.
+
+                        For Kana names, provide both firstName and lastName
+                        entries
+
+                        with localeScriptCode set to Kana.
+
+                        Each combination of key and localeScriptCode must be
+                        unique.
+                      items:
+                        type: object
+                        required:
+                          - key
+                          - value
+                          - localeScriptCode
+                        properties:
+                          key:
+                            type: string
+                            description: Name of the field being localized.
+                            example: firstName
+                          value:
+                            type: string
+                            description: Localized value of the field.
+                            example: タロウ
+                          localeScriptCode:
+                            type: string
+                            description: Script code for the localized value.
+                            example: Kana
             examples:
               withRepresentativeDetails:
                 summary: With Business Representative details
@@ -15170,6 +15203,13 @@ paths:
                   businessRepresentative:
                     firstName: Oliver
                     lastName: Wilson
+                    localizedInformation:
+                      - key: firstName
+                        value: オリバー
+                        localeScriptCode: Kana
+                      - key: lastName
+                        value: ウィルソン
+                        localeScriptCode: Kana
                     preferredName: Olivia
                     address:
                       addressFirstLine: 50 Sunflower Ave
@@ -15828,6 +15868,36 @@ paths:
                   type: string
                   description: Email of the actor.
                   example: biz-acct@abcl.com
+                localizedInformation:
+                  type: array
+                  description: >
+                    Optional localized information for the business
+                    representative.
+
+                    For Kana names, provide both firstName and lastName entries
+
+                    with localeScriptCode set to Kana.
+
+                    Each combination of key and localeScriptCode must be unique.
+                  items:
+                    type: object
+                    required:
+                      - key
+                      - value
+                      - localeScriptCode
+                    properties:
+                      key:
+                        type: string
+                        description: Name of the field being localized.
+                        example: firstName
+                      value:
+                        type: string
+                        description: Localized value of the field.
+                        example: タロウ
+                      localeScriptCode:
+                        type: string
+                        description: Script code for the localized value.
+                        example: Kana
             examples:
               updateDetails:
                 summary: Update Details
@@ -15836,6 +15906,13 @@ paths:
                   contactDetails:
                     email: o.wilson@example.com
                     phoneNumber: '+3725064992'
+                  localizedInformation:
+                    - key: firstName
+                      value: タロウ
+                      localeScriptCode: Kana
+                    - key: lastName
+                      value: ヤマダ
+                      localeScriptCode: Kana
               transferOfAuthorisation:
                 summary: Transfer of Authorisation
                 value:

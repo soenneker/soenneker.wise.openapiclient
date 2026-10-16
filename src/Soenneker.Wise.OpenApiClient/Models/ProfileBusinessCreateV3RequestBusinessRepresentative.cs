@@ -57,6 +57,14 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string LastName { get; set; }
 #endif
+        /// <summary>Optional localized information for the business representative.For Kana names, provide both firstName and lastName entrieswith localeScriptCode set to Kana.Each combination of key and localeScriptCode must be unique.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public List<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentativeLocalizedInformationItem>? LocalizedInformation { get; set; }
+#nullable restore
+#else
+        public List<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentativeLocalizedInformationItem> LocalizedInformation { get; set; }
+#endif
         /// <summary>Preferred first name, if different to the legal first name.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -96,6 +104,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "dateOfBirth", n => { DateOfBirth = n.GetStringValue(); } },
                 { "firstName", n => { FirstName = n.GetStringValue(); } },
                 { "lastName", n => { LastName = n.GetStringValue(); } },
+                { "localizedInformation", n => { LocalizedInformation = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentativeLocalizedInformationItem>(global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentativeLocalizedInformationItem.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "preferredName", n => { PreferredName = n.GetStringValue(); } },
             };
         }
@@ -112,6 +121,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteStringValue("dateOfBirth", DateOfBirth);
             writer.WriteStringValue("firstName", FirstName);
             writer.WriteStringValue("lastName", LastName);
+            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentativeLocalizedInformationItem>("localizedInformation", LocalizedInformation);
             writer.WriteStringValue("preferredName", PreferredName);
             writer.WriteAdditionalData(AdditionalData);
         }

@@ -12189,6 +12189,18 @@
                     "businessRepresentative": {
                       "firstName": "Oliver",
                       "lastName": "Wilson",
+                      "localizedInformation": [
+                        {
+                          "key": "firstName",
+                          "value": "\u30AA\u30EA\u30D0\u30FC",
+                          "localeScriptCode": "Kana"
+                        },
+                        {
+                          "key": "lastName",
+                          "value": "\u30A6\u30A3\u30EB\u30BD\u30F3",
+                          "localeScriptCode": "Kana"
+                        }
+                      ],
                       "preferredName": "Olivia",
                       "address": {
                         "addressFirstLine": "50 Sunflower Ave",
@@ -12553,7 +12565,19 @@
                     "contactDetails": {
                       "email": "o.wilson@example.com",
                       "phoneNumber": "\u002B3725064992"
-                    }
+                    },
+                    "localizedInformation": [
+                      {
+                        "key": "firstName",
+                        "value": "\u30BF\u30ED\u30A6",
+                        "localeScriptCode": "Kana"
+                      },
+                      {
+                        "key": "lastName",
+                        "value": "\u30E4\u30DE\u30C0",
+                        "localeScriptCode": "Kana"
+                      }
+                    ]
                   }
                 },
                 "transferOfAuthorisation": {
@@ -47857,6 +47881,13 @@
             "type": "string",
             "description": "Email of the actor.",
             "example": "biz-acct@abcl.com"
+          },
+          "localizedInformation": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProfileBusinessRepresentativeUpdateRequestLocalizedInformationItem"
+            },
+            "description": "Optional localized information for the business representative.\nFor Kana names, provide both firstName and lastName entries\nwith localeScriptCode set to Kana.\nEach combination of key and localeScriptCode must be unique.\n"
           }
         }
       },
@@ -53890,6 +53921,13 @@
             "type": "string",
             "description": "Date of birth. Required unless Business Representative ID is provided.",
             "example": "1977-07-01"
+          },
+          "localizedInformation": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProfileBusinessCreateV3RequestBusinessRepresentativeLocalizedInformationItem"
+            },
+            "description": "Optional localized information for the business representative.\nFor Kana names, provide both firstName and lastName entries\nwith localeScriptCode set to Kana.\nEach combination of key and localeScriptCode must be unique.\n"
           }
         },
         "description": "Business representative details. Provide either the full representative details or just the \u0060businessRepresentativeId\u0060 to link an existing representative."
@@ -54085,6 +54123,31 @@
             "type": "string",
             "description": "Contact phone number in international phone number format, example \u0022\u002B1408XXXXXXX\u0022 of the person representing the business. Please speak with your integration account manager for details on how customer communication is handled for your integration.",
             "example": "\u002B3725064992"
+          }
+        }
+      },
+      "ProfileBusinessRepresentativeUpdateRequestLocalizedInformationItem": {
+        "required": [
+          "key",
+          "value",
+          "localeScriptCode"
+        ],
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "Name of the field being localized.",
+            "example": "firstName"
+          },
+          "value": {
+            "type": "string",
+            "description": "Localized value of the field.",
+            "example": "\u30BF\u30ED\u30A6"
+          },
+          "localeScriptCode": {
+            "type": "string",
+            "description": "Script code for the localized value.",
+            "example": "Kana"
           }
         }
       },
@@ -55746,6 +55809,31 @@
             "type": "string",
             "description": "Contact phone number in international phone number format. Required unless Business Representative ID is provided.",
             "example": "\u002B3725064992"
+          }
+        }
+      },
+      "ProfileBusinessCreateV3RequestBusinessRepresentativeLocalizedInformationItem": {
+        "required": [
+          "key",
+          "value",
+          "localeScriptCode"
+        ],
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "Name of the field being localized.",
+            "example": "firstName"
+          },
+          "value": {
+            "type": "string",
+            "description": "Localized value of the field.",
+            "example": "\u30BF\u30ED\u30A6"
+          },
+          "localeScriptCode": {
+            "type": "string",
+            "description": "Script code for the localized value.",
+            "example": "Kana"
           }
         }
       },
@@ -62655,6 +62743,7 @@
           "SOURCE_OF_WEALTH",
           "SOURCE_OF_WEALTH_INFO",
           "SOURCE_OF_WEALTH_PROOF",
+          "SSN_DECLARATION",
           "TAX_RESIDENCY",
           "USE_CASE_COUNTRIES"
         ],
@@ -62779,6 +62868,10 @@
             {
               "value": "SOURCE_OF_WEALTH_PROOF",
               "name": "SourceOfWealthProof"
+            },
+            {
+              "value": "SSN_DECLARATION",
+              "name": "SsnDeclaration"
             },
             {
               "value": "TAX_RESIDENCY",
