@@ -8,46 +8,27 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Payment initiation for funding a batch group via direct debit.
+    /// Composed type wrapper for classes <see cref="global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationDirectDebit"/>, <see cref="global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationPayinSession"/>
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    public partial class PaymentInitiation : IAdditionalDataHolder, IParsable
+    public partial class PaymentInitiation : IComposedTypeWrapper, IParsable
     {
-        /// <summary>External account ID associated with the payment.</summary>
-        public long? AccountId { get; set; }
-        /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
-        public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Batch group ID.</summary>
-        public Guid? BatchGroupId { get; set; }
-        /// <summary>Date and time when the payment initiation was created.</summary>
-        public DateTimeOffset? CreatedTime { get; set; }
-        /// <summary>Payment initiation ID.</summary>
-        public long? Id { get; set; }
-        /// <summary>The ID of the profile this payment belongs to.</summary>
-        public long? ProfileId { get; set; }
-        /// <summary>Payment reference that will be passed to the network. Can be used for reconciliation.</summary>
+        /// <summary>Composed type representation for type <see cref="global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationDirectDebit"/></summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Reference { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationDirectDebit? PaymentInitiationDirectDebit { get; set; }
 #nullable restore
 #else
-        public string Reference { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationDirectDebit PaymentInitiationDirectDebit { get; set; }
 #endif
-        /// <summary>Payment initiation status:- `NEW` — Payment initiation created- `PROCESSING` — Payment is being processed- `COMPLETED` — Payment completed successfully- `FAILED` — Payment failed- `CHARGED_BACK` — Payment was charged back</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationStatus? Status { get; set; }
-        /// <summary>Transfer ID of the direct debit payment. Present only after the direct debit is initiated.</summary>
-        public long? TransferId { get; set; }
-        /// <summary>Payment type.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.DirectDebitType? Type { get; set; }
-        /// <summary>The ID of the user who initiated this payment.</summary>
-        public long? UserId { get; set; }
-        /// <summary>
-        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiation"/> and sets the default values.
-        /// </summary>
-        public PaymentInitiation()
-        {
-            AdditionalData = new Dictionary<string, object>();
-        }
+        /// <summary>Composed type representation for type <see cref="global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationPayinSession"/></summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationPayinSession? PaymentInitiationPayinSession { get; set; }
+#nullable restore
+#else
+        public global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationPayinSession PaymentInitiationPayinSession { get; set; }
+#endif
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
@@ -56,7 +37,17 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiation CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiation();
+            var mappingValue = parseNode.GetChildNode("type")?.GetStringValue();
+            var result = new global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiation();
+            if("DIRECT_DEBIT".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+            {
+                result.PaymentInitiationDirectDebit = new global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationDirectDebit();
+            }
+            else if("PAYIN_SESSION".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+            {
+                result.PaymentInitiationPayinSession = new global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationPayinSession();
+            }
+            return result;
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -64,19 +55,15 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
         public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
         {
-            return new Dictionary<string, Action<IParseNode>>
+            if(PaymentInitiationDirectDebit != null)
             {
-                { "accountId", n => { AccountId = n.GetLongValue(); } },
-                { "batchGroupId", n => { BatchGroupId = n.GetGuidValue(); } },
-                { "createdTime", n => { CreatedTime = n.GetDateTimeOffsetValue(); } },
-                { "id", n => { Id = n.GetLongValue(); } },
-                { "profileId", n => { ProfileId = n.GetLongValue(); } },
-                { "reference", n => { Reference = n.GetStringValue(); } },
-                { "status", n => { Status = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationStatus>(); } },
-                { "transferId", n => { TransferId = n.GetLongValue(); } },
-                { "type", n => { Type = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.DirectDebitType>(); } },
-                { "userId", n => { UserId = n.GetLongValue(); } },
-            };
+                return PaymentInitiationDirectDebit.GetFieldDeserializers();
+            }
+            else if(PaymentInitiationPayinSession != null)
+            {
+                return PaymentInitiationPayinSession.GetFieldDeserializers();
+            }
+            return new Dictionary<string, Action<IParseNode>>();
         }
         /// <summary>
         /// Serializes information the current object
@@ -85,17 +72,14 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteLongValue("accountId", AccountId);
-            writer.WriteGuidValue("batchGroupId", BatchGroupId);
-            writer.WriteDateTimeOffsetValue("createdTime", CreatedTime);
-            writer.WriteLongValue("id", Id);
-            writer.WriteLongValue("profileId", ProfileId);
-            writer.WriteStringValue("reference", Reference);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationStatus>("status", Status);
-            writer.WriteLongValue("transferId", TransferId);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.DirectDebitType>("type", Type);
-            writer.WriteLongValue("userId", UserId);
-            writer.WriteAdditionalData(AdditionalData);
+            if(PaymentInitiationDirectDebit != null)
+            {
+                writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationDirectDebit>(null, PaymentInitiationDirectDebit);
+            }
+            else if(PaymentInitiationPayinSession != null)
+            {
+                writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationPayinSession>(null, PaymentInitiationPayinSession);
+            }
         }
     }
 }

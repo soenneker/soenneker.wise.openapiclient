@@ -34,9 +34,9 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.Item.KycRequirements.Item
         {
         }
         /// <summary>
-        /// Submit a KYC requirement for a KYC Review.- A KYC requirement can only be submitted if the KYC Review status is `WAITING_CUSTOMER_INPUT` or `PASSED_WITH_REQUIREMENTS`.- A KYC requirement should only be submitted if its `state` is `NOT_PROVIDED` and `apiCollectionSupported` is `true`.See the [KYC requirement types](/guides/product/kyc/wise-kyc/kyc-requirement-types) guide for the full list of supported requirement types, submission data structures, and accepted values.
+        /// Submit a KYC requirement for a KYC Review.- A KYC requirement can only be submitted if the KYC Review status is `WAITING_CUSTOMER_INPUT` or `PASSED_WITH_REQUIREMENTS`.- A KYC requirement should only be submitted if its `state` is `NOT_PROVIDED` and `apiCollectionSupported` is `true`.The structure of `submissionData` depends on the `requirementKey`. If you already know which requirement type you are implementing, select it in the request body to see its fields and a matching request sample.To explore which requirement types exist and what each one collects, see the [KYC requirement types](/guides/product/account-setup/customer-onboarding/kyc-requirement-types) guide for the full list of supported requirement types, submission data structures, and accepted values.
         /// </summary>
-        /// <param name="body">The request body</param>
+        /// <param name="body">The request body depends on the `requirementKey`. Select the requirement type you are submitting to see its `submissionData` fields and whether `files` are needed.See the [KYC requirement types](/guides/product/account-setup/customer-onboarding/kyc-requirement-types) guide for an overview of all requirement types.</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.KycReviewRequirementSubmit400Response">When receiving a 400 status code</exception>
@@ -60,10 +60,10 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.Item.KycRequirements.Item
             await RequestAdapter.SendNoContentAsync(requestInfo, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Submit a KYC requirement for a KYC Review.- A KYC requirement can only be submitted if the KYC Review status is `WAITING_CUSTOMER_INPUT` or `PASSED_WITH_REQUIREMENTS`.- A KYC requirement should only be submitted if its `state` is `NOT_PROVIDED` and `apiCollectionSupported` is `true`.See the [KYC requirement types](/guides/product/kyc/wise-kyc/kyc-requirement-types) guide for the full list of supported requirement types, submission data structures, and accepted values.
+        /// Submit a KYC requirement for a KYC Review.- A KYC requirement can only be submitted if the KYC Review status is `WAITING_CUSTOMER_INPUT` or `PASSED_WITH_REQUIREMENTS`.- A KYC requirement should only be submitted if its `state` is `NOT_PROVIDED` and `apiCollectionSupported` is `true`.The structure of `submissionData` depends on the `requirementKey`. If you already know which requirement type you are implementing, select it in the request body to see its fields and a matching request sample.To explore which requirement types exist and what each one collects, see the [KYC requirement types](/guides/product/account-setup/customer-onboarding/kyc-requirement-types) guide for the full list of supported requirement types, submission data structures, and accepted values.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
-        /// <param name="body">The request body</param>
+        /// <param name="body">The request body depends on the `requirementKey`. Select the requirement type you are submitting to see its `submissionData` fields and whether `files` are needed.See the [KYC requirement types](/guides/product/account-setup/customer-onboarding/kyc-requirement-types) guide for an overview of all requirement types.</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable

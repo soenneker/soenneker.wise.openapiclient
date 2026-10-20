@@ -4988,7 +4988,7 @@ paths:
     post:
       tags:
         - batch-group
-      summary: Fund a batch group
+      summary: Fund a batch group via balance
       operationId: batchGroupFund
       security:
         - UserToken: []
@@ -5138,19 +5138,25 @@ paths:
     post:
       tags:
         - batch-group
-      summary: Fund a batch group via direct debit
+      summary: Fund a batch group
       operationId: batchGroupPaymentInitiationCreate
       security:
         - UserToken: []
       description: >
-        Funds all transfers in a batch group via direct debit. The batch group
-        must be in the `COMPLETED` state.
+        Funds all transfers in a batch group. The batch group must be in the
+        `COMPLETED` state.
 
 
-        To use this funding method, you must link an external bank account
-        first. See [direct debit account
+        The `type` field determines the funding method and which fields are
+        required:
+
+        - `DIRECT_DEBIT` — Funds the batch group via direct debit. You must link
+        an external bank account first. See [direct debit account
         creation](/api-reference/direct-debit-account/directdebitaccountcreate)
         for more information.
+
+        - `PAYIN_SESSION` — Funds the batch group using the payin session
+        associated with the batch group.
 
 
         {% admonition type="warning" name="SCA protected endpoint" %}
@@ -5187,31 +5193,14 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              required:
-                - type
-                - accountId
-              properties:
-                type:
-                  type: string
-                  description: The method of payment to use.
-                  enum:
-                    - DIRECT_DEBIT
-                  example: DIRECT_DEBIT
-                accountId:
-                  type: integer
-                  format: int64
-                  description: >-
-                    Direct debit account ID. See [direct debit account
-                    creation](/api-reference/direct-debit-account/directdebitaccountcreate).
-                  example: 1
-                reference:
-                  type: string
-                  description: >-
-                    Optional payment initiation reference. Maximum 10
-                    characters. If not provided, a reference will be generated
-                    automatically.
-                  example: B1234567
+              discriminator:
+                propertyName: type
+                mapping:
+                  DIRECT_DEBIT: '#/components/schemas/PaymentInitiationDirectDebitRequest'
+                  PAYIN_SESSION: '#/components/schemas/PaymentInitiationPayinSessionRequest'
+              oneOf:
+                - $ref: '#/components/schemas/PaymentInitiationDirectDebitRequest'
+                - $ref: '#/components/schemas/PaymentInitiationPayinSessionRequest'
       responses:
         '200':
           description: >
@@ -10163,10 +10152,16 @@ paths:
         `NOT_PROVIDED` and `apiCollectionSupported` is `true`.
 
 
-        See the [KYC requirement
-        types](/guides/product/kyc/wise-kyc/kyc-requirement-types) guide for the
-        full list of supported requirement types, submission data structures,
-        and accepted values.
+        The structure of `submissionData` depends on the `requirementKey`. If
+        you already know which requirement type you are implementing, select it
+        in the request body to see its fields and a matching request sample.
+
+
+        To explore which requirement types exist and what each one collects, see
+        the [KYC requirement
+        types](/guides/product/account-setup/customer-onboarding/kyc-requirement-types)
+        guide for the full list of supported requirement types, submission data
+        structures, and accepted values.
       tags:
         - kyc-review
       security:
@@ -10186,9 +10181,11 @@ paths:
             The KYC requirement type to submit.
 
 
-            See the [KYC requirement
-            types](/guides/product/kyc/wise-kyc/kyc-requirement-types) guide for
-            details on each type.
+            To see the fields for a requirement type, select it in the request
+            body dropdown below. To compare all requirement types, see the [KYC
+            requirement
+            types](/guides/product/account-setup/customer-onboarding/kyc-requirement-types)
+            guide.
           schema:
             type: string
             enum:
@@ -10230,84 +10227,12 @@ paths:
         content:
           multipart/form-data:
             schema:
-              type: object
-              required:
-                - submissionData
-              properties:
-                submissionData:
-                  type: string
-                  format: application/json
-                  description: >
-                    A JSON string containing the following fields:
-
-
-                    - `data` — an object whose fields vary by requirement type.
-                    Some requirement types do not require a `data` field.
-
-                    - `version` — the submission version, currently `"V1"`.
-
-                    - `kycReviewId` — the ID of the KYC Review this submission
-                    belongs to.
-
-
-                    For example, the JSON payload would look like below, but it
-                    should be included as a string value in the multipart form
-                    field:
-
-
-                    ```json
-
-                    {
-                      "data": {
-                        "accountPurpose": "SENDING_MONEY_TO_FRIENDS_OR_FAMILY"
-                      },
-                      "version": "V1",
-                      "kycReviewId": "93a903ea-636c-4c86-a25c-cf6d2bd00e81"
-                    }
-
-                    ```
-
-
-                    See the [KYC requirement
-                    types](/guides/product/kyc/wise-kyc/kyc-requirement-types)
-                    guide for the `data` structure and accepted values for each
-                    requirement type.
-                files:
-                  type: array
-                  items:
-                    type: string
-                    format: binary
-                  description: >
-                    One or more files to upload. Required for certain
-                    requirement types.
-
-
-                    There are 3 accepted types for documents, they must be
-                    provided with the below content-type/Mime-type and have a
-                    matching file extension.
-
-
-                    ContentType/MimeType & file extension:
-                      - `image/png` & `.png`
-                      - `image/jpeg` & (`.jpg` or `jpeg`)
-                      - `application/pdf` & `.pdf`
-
-
-                    See the [KYC requirement
-                    types](/guides/product/kyc/wise-kyc/kyc-requirement-types)
-                    guide for which types require files.
-            example:
-              submissionData: >-
-                {"data":{"accountPurpose":"SENDING_MONEY_TO_FRIENDS_OR_FAMILY"},"version":"V1","kycReviewId":"93a903ea-636c-4c86-a25c-cf6d2bd00e81"}
-      x-codeSamples:
-        - lang: bash
-          label: cURL
-          source: |
-            curl -X POST \
-              'https://api.wise-sandbox.com/v2/profiles/{profileId}/kyc-requirements/{requirementKey}' \
-              -H 'Authorization: Bearer <token>' \
-              -F 'submissionData={"data":{"accountPurpose":"SENDING_MONEY_TO_FRIENDS_OR_FAMILY"},"version":"V1","kycReviewId":"93a903ea-636c-4c86-a25c-cf6d2bd00e81"};type=application/json' \
-              -F 'files=@"<file>"'
+              $ref: '#/components/schemas/request-body'
+            encoding:
+              submissionData:
+                contentType: application/json
+              files:
+                contentType: image/png, image/jpeg, application/pdf
       responses:
         '202':
           description: KYC requirement successfully submitted.
@@ -29403,7 +29328,58 @@ components:
             done using [Payin Funding
             API](/guides/product/send-money/funding/direct-debit/create-payin#create-payin).
           example: 23330542-8e9e-419f-95eb-312b880f92ad
-    PaymentInitiation:
+    PaymentInitiationDirectDebitRequest:
+      title: Direct debit
+      type: object
+      description: >
+        Funds all transfers in the batch group via direct debit.
+
+
+        To use this funding method, you must link an external bank account
+        first. See [direct debit account
+        creation](/api-reference/direct-debit-account/directdebitaccountcreate)
+        for more information.
+      required:
+        - type
+        - accountId
+      properties:
+        type:
+          type: string
+          description: The method of payment to use.
+          enum:
+            - DIRECT_DEBIT
+          example: DIRECT_DEBIT
+        accountId:
+          type: integer
+          format: int64
+          description: >-
+            Direct debit account ID. See [direct debit account
+            creation](/api-reference/direct-debit-account/directdebitaccountcreate).
+          example: 1
+        reference:
+          type: string
+          description: >-
+            Optional payment initiation reference. Maximum 10 characters. If not
+            provided, a reference will be generated automatically.
+          example: B1234567
+    PaymentInitiationPayinSessionRequest:
+      title: Payin session
+      type: object
+      description: >
+        Funds all transfers in the batch group using the payin session
+        associated with the batch group (see `payinSessionId` on the [batch
+        group](/api-reference/batch-group)).
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          description: The method of payment to use.
+          enum:
+            - PAYIN_SESSION
+          example: PAYIN_SESSION
+    PaymentInitiationDirectDebit:
+      title: Direct debit
       type: object
       description: Payment initiation for funding a batch group via direct debit.
       properties:
@@ -29468,12 +29444,87 @@ components:
           description: >-
             Transfer ID of the direct debit payment. Present only after the
             direct debit is initiated.
-          example: null
+          example: 2149510998
         createdTime:
           type: string
           format: date-time
           description: Date and time when the payment initiation was created.
           example: '2022-01-01T19:51:41.423404Z'
+    PaymentInitiationPayinSession:
+      title: Payin session
+      type: object
+      description: Payment initiation for funding a batch group via payin session.
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Payment initiation ID.
+          example: 12345
+        batchGroupId:
+          type: string
+          format: uuid
+          description: Batch group ID.
+          example: 068e186d-9632-4937-b753-af3e53f4d0b0
+        reference:
+          type: string
+          description: >-
+            Payment reference that will be passed to the network. Can be used
+            for reconciliation.
+          example: B1234567
+        userId:
+          type: integer
+          format: int64
+          description: The ID of the user who initiated this payment.
+          example: 33333333
+        profileId:
+          type: integer
+          format: int64
+          description: The ID of the profile this payment belongs to.
+          example: 44444444
+        type:
+          type: string
+          description: Payment type.
+          enum:
+            - PAYIN_SESSION
+          example: PAYIN_SESSION
+        status:
+          type: string
+          description: |
+            Payment initiation status:
+            - `NEW` — Payment initiation created
+            - `PROCESSING` — Payment is being processed
+            - `COMPLETED` — Payment completed successfully
+            - `FAILED` — Payment failed
+            - `CHARGED_BACK` — Payment was charged back
+          enum:
+            - NEW
+            - PROCESSING
+            - COMPLETED
+            - FAILED
+            - CHARGED_BACK
+          example: NEW
+        payinSessionId:
+          type: string
+          format: uuid
+          description: ID of the payin session used to fund the batch group.
+          example: 7c1f3a52-9d4e-4b8a-a6f2-3e5d8c9b0a17
+        createdTime:
+          type: string
+          format: date-time
+          description: Date and time when the payment initiation was created.
+          example: '2022-01-01T19:51:41.423404Z'
+    PaymentInitiation:
+      description: >
+        Payment initiation for funding a batch group. The response shape depends
+        on the funding method used.
+      discriminator:
+        propertyName: type
+        mapping:
+          DIRECT_DEBIT: '#/components/schemas/PaymentInitiationDirectDebit'
+          PAYIN_SESSION: '#/components/schemas/PaymentInitiationPayinSession'
+      oneOf:
+        - $ref: '#/components/schemas/PaymentInitiationDirectDebit'
+        - $ref: '#/components/schemas/PaymentInitiationPayinSession'
     Card:
       type: object
       description: The Card resource represents a Wise card linked to a profile.
@@ -31411,6 +31462,2743 @@ components:
             items:
               type: object
               $ref: '#/components/schemas/kyc-requirement'
+    select-requirement-type:
+      title: Select a requirement type
+      description: >-
+        The request body depends on the requirement type being submitted. Select
+        it from the list to see the `submissionData` fields and whether `files`
+        are needed; the request sample updates to match.
+      not: {}
+    version:
+      type: string
+      description: The submission version.
+      enum:
+        - V1
+      example: V1
+    kyc-review-id:
+      type: string
+      format: uuid
+      description: The ID of the KYC Review this submission belongs to.
+      example: 93a903ea-636c-4c86-a25c-cf6d2bd00e81
+    account-intent:
+      title: ACCOUNT_INTENT
+      description: >
+        How the customer intends to use their Wise account.
+
+
+        See
+        [ACCOUNT_INTENT](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#account_intent)
+        in the KYC requirement types guide for more details.
+      type: object
+      required:
+        - submissionData
+      properties:
+        submissionData:
+          description: |
+            ```json {% title="Example" %}
+            {
+              "data": {
+                "accountIntent": "PAYING_FOR_GOODS_OR_SERVICES_ABROAD"
+              },
+              "version": "V1",
+              "kycReviewId": "93a903ea-636c-4c86-a25c-cf6d2bd00e81"
+            }
+            ```
+          type: object
+          required:
+            - data
+            - version
+            - kycReviewId
+          properties:
+            data:
+              type: object
+              required:
+                - accountIntent
+              properties:
+                accountIntent:
+                  type: string
+                  description: >
+                    How the customer intends to use their Wise account. The
+                    accepted values depend on whether the profile is personal or
+                    business.
+
+
+                    Depending on what triggered the KYC review, only some of
+                    these values may be accepted. Other values are rejected with
+                    a `400` error.
+                  anyOf:
+                    - title: Personal profiles
+                      type: string
+                      enum:
+                        - CONTRIBUTING_TO_PERSONAL_SAVINGS
+                        - GENERAL_MONTHLY_LIVING_EXPENSES
+                        - >-
+                          INVESTING_IN_FUNDS_STOCKS_BONDS_OPTIONS_FUTURES_OR_OTHER
+                        - PAYING_FOR_GOODS_OR_SERVICES_ABROAD
+                        - PAYING_RENT_MORTGAGE_BANK_LOAN_INSURANCE_CREDIT
+                        - PAYING_RENT_UTILITIES_OR_PROPERTY_CHARGES
+                        - RECEIVE_SALARY_IN_DIFFERENT_CURRENCY
+                        - RECEIVE_PENSION_IN_DIFFERENT_CURRENCY
+                        - SENDING_MONEY_REGULARLY_TO_FAMILY
+                        - >-
+                          SENDING_MONEY_TO_MY_OWN_ACCOUNT_TO_BENEFIT_FROM_EXHCANGE_RATE
+                        - >-
+                          EDD_BORDERLESS_PERSONAL_RECEIVING_SALARY_IN_DIFFERENT_CURRENCY
+                        - >-
+                          EDD_BORDERLESS_PERSONAL_RECEIVING_FINANCIAL_SUPPORT_FROM_FAMILY
+                        - >-
+                          EDD_BORDERLESS_PERSONAL_RECEIVING_MONEY_FOR_FREELANCE_OR_CONTRACTOR_SERVICES
+                        - >-
+                          EDD_BORDERLESS_PERSONAL_STORING_MONEY_TO_MANAGE_RATE_FLUCTUATION_RISK
+                        - >-
+                          EDD_BORDERLESS_PERSONAL_USING_AS_LOCAL_BANK_ACCOUNT_IN_FOREIGN_COUNTRY
+                        - >-
+                          EDD_BORDERLESS_PERSONAL_PAYING_FOR_RENT_MORTGAGE_BANK_LOAN_INSURANCE_CREDIT_CARD
+                    - title: Business profiles
+                      type: string
+                      enum:
+                        - >-
+                          EDD_BORDERLESS_BUSINESS_PAYING_SUPPLIERS_CONTRACTORS_EMPLOYEES
+                        - >-
+                          EDD_BORDERLESS_BUSINESS_PAYING_SUPPLIERS_CONTRACTORS_EMPLOYEES_AND_RECEIVING_MONEY_FOR_SERVICES
+                        - >-
+                          PAYING_SUPPLIERS_CONTRACTORS_EMPLOYEES_AND_RECEIVING_MONEY_FOR_SERVICES
+                        - >-
+                          INVESTING_IN_FUNDS_STOCKS_BONDS_OPTIONS_FUTURES_OR_OTHER
+                        - DISTRIBUTING_COMPANY_PROFITS_OR_PAYING_DIVIDENDS
+                        - PAYING_RENT_MORTGAGE_BANK_LOAN_INSURANCE_CREDIT
+                        - PAYING_FOR_GOODS_SERVICES_ABROAD
+                        - PAYING_RENT_UTILITIES_OR_PROPERTY_CHARGES
+                        - PAYING_SUPPLIERS_CONTRACTORS_EMPLOYEES
+                        - PAYING_TAX_ON_PROFIT_OR_PROPERTY
+                        - TRANSFER_WITHIN_COMPANY_OR_GROUP
+                        - EDD_BORDERLESS_BUSINESS_MAKING_INTRA_COMPANY_TRANSFERS
+                  example: PAYING_FOR_GOODS_OR_SERVICES_ABROAD
+            version:
+              $ref: '#/components/schemas/version'
+            kycReviewId:
+              $ref: '#/components/schemas/kyc-review-id'
+    account-purpose:
+      title: ACCOUNT_PURPOSE
+      description: >
+        The purpose of the account.
+
+
+        See
+        [ACCOUNT_PURPOSE](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#account_purpose)
+        in the KYC requirement types guide for more details.
+      type: object
+      required:
+        - submissionData
+      properties:
+        submissionData:
+          description: |
+            ```json {% title="Example" %}
+            {
+              "data": {
+                "accountPurpose": "SENDING_MONEY_TO_FRIENDS_OR_FAMILY"
+              },
+              "version": "V1",
+              "kycReviewId": "93a903ea-636c-4c86-a25c-cf6d2bd00e81"
+            }
+            ```
+          type: object
+          required:
+            - data
+            - version
+            - kycReviewId
+          properties:
+            data:
+              type: object
+              required:
+                - accountPurpose
+              properties:
+                accountPurpose:
+                  type: string
+                  enum:
+                    - SENDING_MONEY_TO_FRIENDS_OR_FAMILY
+                    - MOVING_SAVINGS
+                    - GENERAL_LIVING_EXPENSES
+                    - BUYING_GOODS_OR_SERVICES_ABROAD
+                    - PAYING_FOR_MORTGAGE_OR_LOAN
+                    - PAYING_BILLS
+                    - RECEIVING_SALARY_OR_PENSION
+                    - INVESTING
+                  example: SENDING_MONEY_TO_FRIENDS_OR_FAMILY
+            version:
+              $ref: '#/components/schemas/version'
+            kycReviewId:
+              $ref: '#/components/schemas/kyc-review-id'
+    currency:
+      type: string
+      description: The currency code (e.g. `USD`, `EUR`).
+      example: USD
+    annual-volume:
+      title: ANNUAL_VOLUME
+      description: >
+        A rough estimate of the yearly volume the customer intends to send or
+        receive.
+
+
+        See
+        [ANNUAL_VOLUME](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#annual_volume)
+        in the KYC requirement types guide for more details.
+      type: object
+      required:
+        - submissionData
+      properties:
+        submissionData:
+          description: |
+            ```json {% title="Example" %}
+            {
+              "data": {
+                "amount": 10000.00,
+                "currency": "USD"
+              },
+              "version": "V1",
+              "kycReviewId": "93a903ea-636c-4c86-a25c-cf6d2bd00e81"
+            }
+            ```
+          type: object
+          required:
+            - data
+            - version
+            - kycReviewId
+          properties:
+            data:
+              type: object
+              required:
+                - amount
+                - currency
+              properties:
+                amount:
+                  type: number
+                  exclusiveMinimum: 0
+                  description: >-
+                    The estimated annual volume amount. Must be greater than
+                    zero.
+                  example: 10000
+                currency:
+                  $ref: '#/components/schemas/currency'
+            version:
+              $ref: '#/components/schemas/version'
+            kycReviewId:
+              $ref: '#/components/schemas/kyc-review-id'
+    business-annual-income:
+      title: BUSINESS_ANNUAL_INCOME
+      description: >
+        The organisation's approximate gross yearly income.
+
+
+        See
+        [BUSINESS_ANNUAL_INCOME](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_annual_income)
+        in the KYC requirement types guide for more details.
+      type: object
+      required:
+        - submissionData
+      properties:
+        submissionData:
+          description: |
+            ```json {% title="Example" %}
+            {
+              "data": {
+                "amount": 4500.00,
+                "currency": "USD"
+              },
+              "version": "V1",
+              "kycReviewId": "93a903ea-636c-4c86-a25c-cf6d2bd00e81"
+            }
+            ```
+          type: object
+          required:
+            - data
+            - version
+            - kycReviewId
+          properties:
+            data:
+              type: object
+              required:
+                - amount
+                - currency
+              properties:
+                amount:
+                  type: number
+                  exclusiveMinimum: 0
+                  description: The gross yearly income amount. Must be greater than zero.
+                  example: 4500
+                currency:
+                  $ref: '#/components/schemas/currency'
+            version:
+              $ref: '#/components/schemas/version'
+            kycReviewId:
+              $ref: '#/components/schemas/kyc-review-id'
+    business-authorisation-id:
+      title: BUSINESS_AUTHORISATION_ID
+      description: >
+        The identification document of one company Director. This document is
+        required to verify authorisation to act on the account on behalf of the
+        organisation. It is only asked for if the Business Representative (the
+        account creator) is not listed as a Director of the company.
+
+
+        No `data` field is needed. See
+        [BUSINESS_AUTHORISATION_ID](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_authorisation_id)
+        in the KYC requirement types guide for more details.
+      type: object
+      required:
+        - submissionData
+        - files
+      properties:
+        submissionData:
+          description: |
+            ```json {% title="Example" %}
+            {
+              "version": "V1",
+              "kycReviewId": "93a903ea-636c-4c86-a25c-cf6d2bd00e81"
+            }
+            ```
+          type: object
+          required:
+            - version
+            - kycReviewId
+          properties:
+            version:
+              $ref: '#/components/schemas/version'
+            kycReviewId:
+              $ref: '#/components/schemas/kyc-review-id'
+        files:
+          type: array
+          items:
+            type: string
+            format: binary
+          examples:
+            - - document.pdf
+          description: >
+            Upload the identification document.
+
+
+            Accepted file types: `image/png` (`.png`), `image/jpeg` (`.jpg` or
+            `.jpeg`) and `application/pdf` (`.pdf`). The content type must match
+            the file extension.
+
+
+            ```json {% title="Example" %}
+
+            ["document.pdf"]
+
+            ```
+    business-authorisation-letter:
+      title: BUSINESS_AUTHORISATION_LETTER
+      description: >
+        A document authorising the Business Representative to act on the account
+        on behalf of the organisation. When the Business Representative is also
+        a Director, they are automatically authorised and this document is not
+        needed.
+
+
+        The document must include:
+
+        - Business name, legal type, registration number, country of
+        incorporation and registered address.
+
+        - Legal Representative's (the Director) name, date of birth, function in
+        the company (such as Director), permission to act on behalf of the
+        organisation and signature.
+
+        - Authorised Representative's (the Business Representative) name, date
+        of birth, authority to act on the account and signature.
+
+        - Date of issue.
+
+
+        No `data` field is needed. See
+        [BUSINESS_AUTHORISATION_LETTER](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_authorisation_letter)
+        in the KYC requirement types guide for more details.
+      type: object
+      required:
+        - submissionData
+        - files
+      properties:
+        submissionData:
+          description: |
+            ```json {% title="Example" %}
+            {
+              "version": "V1",
+              "kycReviewId": "93a903ea-636c-4c86-a25c-cf6d2bd00e81"
+            }
+            ```
+          type: object
+          required:
+            - version
+            - kycReviewId
+          properties:
+            version:
+              $ref: '#/components/schemas/version'
+            kycReviewId:
+              $ref: '#/components/schemas/kyc-review-id'
+        files:
+          type: array
+          items:
+            type: string
+            format: binary
+          examples:
+            - - document.pdf
+          description: >
+            Upload the authorisation letter.
+
+
+            Accepted file types: `image/png` (`.png`), `image/jpeg` (`.jpg` or
+            `.jpeg`) and `application/pdf` (`.pdf`). The content type must match
+            the file extension.
+
+
+            ```json {% title="Example" %}
+
+            ["document.pdf"]
+
+            ```
+    business-controlling-person:
+      title: BUSINESS_CONTROLLING_PERSON
+      description: >
+        Declare exactly one shareholder as the person who controls the business
+        and provide their business title.
+
+
+        See
+        [BUSINESS_CONTROLLING_PERSON](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_controlling_person)
+        in the KYC requirement types guide for more details.
+      type: object
+      required:
+        - submissionData
+      properties:
+        submissionData:
+          description: |
+            ```json {% title="Example" %}
+            {
+              "data": {
+                "shareholderId": "7ff6c4998a59d71ad9834041727017d2",
+                "businessTitle": "CEO"
+              },
+              "version": "V1",
+              "kycReviewId": "93a903ea-636c-4c86-a25c-cf6d2bd00e81"
+            }
+            ```
+          type: object
+          required:
+            - data
+            - version
+            - kycReviewId
+          properties:
+            data:
+              type: object
+              required:
+                - shareholderId
+                - businessTitle
+              properties:
+                shareholderId:
+                  type: string
+                  description: >-
+                    The ID of the shareholder declared as the controlling
+                    person. Use the `id` returned by the [List
+                    UBOs](/api-reference/profile/profileubolist) endpoint.
+                  example: 7ff6c4998a59d71ad9834041727017d2
+                businessTitle:
+                  type: string
+                  description: The controlling person's title or role in the business.
+                  enum:
+                    - GENERAL_PARTNER
+                    - FOUNDER
+                    - CEO
+                    - PRESIDENT
+                    - MANAGING_DIRECTOR
+                    - COO
+                    - CFO
+                    - TREASURER
+                    - EXECUTIVE_DIRECTOR
+                    - VICE_PRESIDENT
+                  example: CEO
+            version:
+              $ref: '#/components/schemas/version'
+            kycReviewId:
+              $ref: '#/components/schemas/kyc-review-id'
+    business-directors-check:
+      title: BUSINESS_DIRECTORS_CHECK
+      description: >
+        Confirm the directors of the business. Directors can be members of the
+        board of directors, general partners or part of executive management. If
+        a director is another business, a document identifying the individuals
+        directing that business is needed.
+
+
+        No `data` field is needed. See
+        [BUSINESS_DIRECTORS_CHECK](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_directors_check)
+        in the KYC requirement types guide for more details.
+      type: object
+      required:
+        - submissionData
+        - files
+      properties:
+        submissionData:
+          description: |
+            ```json {% title="Example" %}
+            {
+              "version": "V1",
+              "kycReviewId": "93a903ea-636c-4c86-a25c-cf6d2bd00e81"
+            }
+            ```
+          type: object
+          required:
+            - version
+            - kycReviewId
+          properties:
+            version:
+              $ref: '#/components/schemas/version'
+            kycReviewId:
+              $ref: '#/components/schemas/kyc-review-id'
+        files:
+          type: array
+          items:
+            type: string
+            format: binary
+          examples:
+            - - document.pdf
+          description: >
+            Upload the relevant documents.
+
+
+            Accepted file types: `image/png` (`.png`), `image/jpeg` (`.jpg` or
+            `.jpeg`) and `application/pdf` (`.pdf`). The content type must match
+            the file extension.
+
+
+            ```json {% title="Example" %}
+
+            ["document.pdf"]
+
+            ```
+    business-income-classification:
+      title: BUSINESS_INCOME_CLASSIFICATION
+      description: >
+        Under the Common Reporting Standard (CRS), we are required to collect
+        your business's tax classification based on how it earns income.
+        Depending on your selection, we may need to ask for additional
+        information (such as tax details on controlling persons).
+
+
+        See
+        [BUSINESS_INCOME_CLASSIFICATION](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_income_classification)
+        in the KYC requirement types guide for more details.
+      type: object
+      required:
+        - submissionData
+      properties:
+        submissionData:
+          description: |
+            ```json {% title="Example" %}
+            {
+              "data": {
+                "classificationType": "ACTIVE_NFE"
+              },
+              "version": "V1",
+              "kycReviewId": "93a903ea-636c-4c86-a25c-cf6d2bd00e81"
+            }
+            ```
+          type: object
+          required:
+            - data
+            - version
+            - kycReviewId
+          properties:
+            data:
+              type: object
+              required:
+                - classificationType
+              properties:
+                classificationType:
+                  type: string
+                  description: >
+                    The business's CRS classification.
+
+                    - `ACTIVE_NFE` - Active non-financial entity: more than 50%
+                    of the business's income comes from sales, services,
+                    donations, or grants.
+
+                    - `PASSIVE_NFE` - Passive non-financial entity: more than
+                    50% of the business's income comes from dividends, interest,
+                    rent, or royalties.
+
+                    - `FI_INVESTMENT_ENTITY` - Financial institution (FI) that
+                    manages investment, hedge, or private equity funds, or is a
+                    foundation funded by investments.
+
+                    - `FI_NON_INVESTMENT_ENTITY` - FI such as a bank, credit
+                    union, custodial institution, or similar.
+                  enum:
+                    - ACTIVE_NFE
+                    - PASSIVE_NFE
+                    - FI_INVESTMENT_ENTITY
+                    - FI_NON_INVESTMENT_ENTITY
+                  example: ACTIVE_NFE
+            version:
+              $ref: '#/components/schemas/version'
+            kycReviewId:
+              $ref: '#/components/schemas/kyc-review-id'
+    business-monthly-volume:
+      title: BUSINESS_MONTHLY_VOLUME
+      description: >
+        A rough estimate of the monthly volumes the business intends to send or
+        receive.
+
+
+        See
+        [BUSINESS_MONTHLY_VOLUME](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_monthly_volume)
+        in the KYC requirement types guide for more details.
+      type: object
+      required:
+        - submissionData
+      properties:
+        submissionData:
+          description: |
+            ```json {% title="Example" %}
+            {
+              "data": {
+                "amount": 4500.00,
+                "currency": "USD"
+              },
+              "version": "V1",
+              "kycReviewId": "93a903ea-636c-4c86-a25c-cf6d2bd00e81"
+            }
+            ```
+          type: object
+          required:
+            - data
+            - version
+            - kycReviewId
+          properties:
+            data:
+              type: object
+              required:
+                - amount
+                - currency
+              properties:
+                amount:
+                  type: number
+                  exclusiveMinimum: 0
+                  description: The estimated monthly volume. Must be greater than zero.
+                  example: 4500
+                currency:
+                  $ref: '#/components/schemas/currency'
+            version:
+              $ref: '#/components/schemas/version'
+            kycReviewId:
+              $ref: '#/components/schemas/kyc-review-id'
+    business-registration-docs:
+      title: BUSINESS_REGISTRATION_DOCS
+      description: >
+        Proof of Business Registration, such as a certificate of incorporation,
+        articles of association, or an official registry excerpt. It should be
+        the document on record with the local business or tax authority. It must
+        show:
+
+        - The business name, identification number and full registered address.
+
+        - The directors, managers, partners, trustees or members of the
+        executive board.
+
+        - The owners, members or shareholders and their respective holdings.
+
+
+        If any of the above information has changed since formation, upload a
+        document showing the most up to date details.
+
+
+        No `data` field is needed. See
+        [BUSINESS_REGISTRATION_DOCS](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_registration_docs)
+        in the KYC requirement types guide for more details.
+      type: object
+      required:
+        - submissionData
+        - files
+      properties:
+        submissionData:
+          description: |
+            ```json {% title="Example" %}
+            {
+              "version": "V1",
+              "kycReviewId": "93a903ea-636c-4c86-a25c-cf6d2bd00e81"
+            }
+            ```
+          type: object
+          required:
+            - version
+            - kycReviewId
+          properties:
+            version:
+              $ref: '#/components/schemas/version'
+            kycReviewId:
+              $ref: '#/components/schemas/kyc-review-id'
+        files:
+          type: array
+          items:
+            type: string
+            format: binary
+          examples:
+            - - document.pdf
+          description: >
+            Upload the registration documents.
+
+
+            Accepted file types: `image/png` (`.png`), `image/jpeg` (`.jpg` or
+            `.jpeg`) and `application/pdf` (`.pdf`). The content type must match
+            the file extension.
+
+
+            ```json {% title="Example" %}
+
+            ["document.pdf"]
+
+            ```
+    business-shareholder-contact-details:
+      title: BUSINESS_SHAREHOLDER_CONTACT_DETAILS
+      description: >
+        Provide contact details, including email addresses, for all current
+        shareholders of the business. Submit all contact details in a single
+        request; requests that omit any shareholders are rejected.
+
+
+        See
+        [BUSINESS_SHAREHOLDER_CONTACT_DETAILS](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_shareholder_contact_details)
+        in the KYC requirement types guide for more details.
+      type: object
+      required:
+        - submissionData
+      properties:
+        submissionData:
+          description: |
+            ```json {% title="Example" %}
+            {
+              "data": {
+                "businessShareholderContactDetails": [
+                  {
+                    "shareholderId": "7ff6c4998a59d71ad9834041727017d2",
+                    "email": "shareholder-one@example.com"
+                  },
+                  {
+                    "shareholderId": "a9578a5a0544d06fd737566c627518a4",
+                    "email": "shareholder-two@example.com"
+                  }
+                ]
+              },
+              "version": "V1",
+              "kycReviewId": "93a903ea-636c-4c86-a25c-cf6d2bd00e81"
+            }
+            ```
+          type: object
+          required:
+            - data
+            - version
+            - kycReviewId
+          properties:
+            data:
+              type: object
+              required:
+                - businessShareholderContactDetails
+              properties:
+                businessShareholderContactDetails:
+                  type: array
+                  description: Provide each current shareholder exactly once.
+                  items:
+                    type: object
+                    required:
+                      - shareholderId
+                      - email
+                    properties:
+                      shareholderId:
+                        type: string
+                        description: >-
+                          The shareholder ID. Use the `id` returned by the [List
+                          UBOs](/api-reference/profile/profileubolist) endpoint.
+                        example: 7ff6c4998a59d71ad9834041727017d2
+                      email:
+                        type: string
+                        format: email
+                        maxLength: 255
+                        description: >-
+                          The shareholder's email address. It must be a valid
+                          email address with no more than 255 characters.
+                        example: shareholder-one@example.com
+            version:
+              $ref: '#/components/schemas/version'
+            kycReviewId:
+              $ref: '#/components/schemas/kyc-review-id'
+    business-shareholders-check:
+      title: BUSINESS_SHAREHOLDERS_CHECK
+      description: >
+        Documents showing who ultimately owns and controls the company (e.g. a
+        recent shareholder register, operating agreement, or partnership deed).
+        If an owner is another business, a document identifying the individuals
+        who are the ultimate beneficial owners of that business is needed.
+
+
+        No `data` field is needed. See
+        [BUSINESS_SHAREHOLDERS_CHECK](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_shareholders_check)
+        in the KYC requirement types guide for more details.
+      type: object
+      required:
+        - submissionData
+        - files
+      properties:
+        submissionData:
+          description: |
+            ```json {% title="Example" %}
+            {
+              "version": "V1",
+              "kycReviewId": "93a903ea-636c-4c86-a25c-cf6d2bd00e81"
+            }
+            ```
+          type: object
+          required:
+            - version
+            - kycReviewId
+          properties:
+            version:
+              $ref: '#/components/schemas/version'
+            kycReviewId:
+              $ref: '#/components/schemas/kyc-review-id'
+        files:
+          type: array
+          items:
+            type: string
+            format: binary
+          examples:
+            - - document.pdf
+          description: >
+            Upload the relevant documents.
+
+
+            Accepted file types: `image/png` (`.png`), `image/jpeg` (`.jpg` or
+            `.jpeg`) and `application/pdf` (`.pdf`). The content type must match
+            the file extension.
+
+
+            ```json {% title="Example" %}
+
+            ["document.pdf"]
+
+            ```
+    business-source-of-wealth:
+      title: BUSINESS_SOURCE_OF_WEALTH
+      description: >
+        The source of the business's wealth.
+
+
+        See
+        [BUSINESS_SOURCE_OF_WEALTH](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_source_of_wealth)
+        in the KYC requirement types guide for more details.
+      type: object
+      required:
+        - submissionData
+      properties:
+        submissionData:
+          description: |
+            ```json {% title="Example" %}
+            {
+              "data": {
+                "sourceOfWealthList": [
+                  "BUSINESS_ACTIVITIES",
+                  "OTHER"
+                ],
+                "otherSourceOfWealthDescription": "Loan from friends"
+              },
+              "version": "V1",
+              "kycReviewId": "93a903ea-636c-4c86-a25c-cf6d2bd00e81"
+            }
+            ```
+          type: object
+          required:
+            - data
+            - version
+            - kycReviewId
+          properties:
+            data:
+              type: object
+              required:
+                - sourceOfWealthList
+              properties:
+                sourceOfWealthList:
+                  type: array
+                  items:
+                    type: string
+                    enum:
+                      - BUSINESS_ACTIVITIES
+                      - INVESTMENTS
+                      - LOAN_OR_OTHER_FINANCING
+                      - DONATION
+                      - GRANTS
+                      - OTHER
+                  example:
+                    - BUSINESS_ACTIVITIES
+                    - OTHER
+                otherSourceOfWealthDescription:
+                  type: string
+                  description: Required if `OTHER` is provided in `sourceOfWealthList`.
+                  example: Loan from friends
+            version:
+              $ref: '#/components/schemas/version'
+            kycReviewId:
+              $ref: '#/components/schemas/kyc-review-id'
+    business-source-of-wealth-info:
+      title: BUSINESS_SOURCE_OF_WEALTH_INFO
+      description: >
+        The source of the business's wealth and whether it is used to fund the
+        action.
+
+
+        See
+        [BUSINESS_SOURCE_OF_WEALTH_INFO](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_source_of_wealth_info)
+        in the KYC requirement types guide for more details.
+      type: object
+      required:
+        - submissionData
+      properties:
+        submissionData:
+          description: |
+            ```json {% title="Example" %}
+            {
+              "data": {
+                "sourceOfWealthList": [
+                  {
+                    "businessSourceOfWealthInfo": "BUSINESS_LOAN",
+                    "isSourceOfFund": false
+                  },
+                  {
+                    "businessSourceOfWealthInfo": "GRANTS",
+                    "isSourceOfFund": true
+                  }
+                ]
+              },
+              "version": "V1",
+              "kycReviewId": "93a903ea-636c-4c86-a25c-cf6d2bd00e81"
+            }
+            ```
+          type: object
+          required:
+            - data
+            - version
+            - kycReviewId
+          properties:
+            data:
+              type: object
+              required:
+                - sourceOfWealthList
+              properties:
+                sourceOfWealthList:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      businessSourceOfWealthInfo:
+                        type: string
+                        enum:
+                          - REVENUE
+                          - PERSONAL_FUNDING
+                          - BUSINESS_LOAN
+                          - FUNDING_AND_SHAREHOLDER_INVESTMENTS
+                          - INVESTMENT_INCOME
+                          - DONATIONS
+                          - GRANTS
+                          - LEGAL
+                        example: BUSINESS_LOAN
+                      isSourceOfFund:
+                        type: boolean
+                        description: >-
+                          Whether this source of wealth is used to fund the
+                          action.
+                        example: false
+            version:
+              $ref: '#/components/schemas/version'
+            kycReviewId:
+              $ref: '#/components/schemas/kyc-review-id'
+    business-source-of-wealth-proof:
+      title: BUSINESS_SOURCE_OF_WEALTH_PROOF
+      description: >
+        A high-quality photo or PDF of a document proving the source of the
+        business's wealth. The required documentation varies depending on the
+        selected source category. Examples include the most recent 3-6 months
+        worth of bank statements, latest audited financials, latest tax returns,
+        loan agreements, or investment contracts that are less than 12 months
+        old. The document should display the business income amount (if you have
+        more than one type of income, you will have to upload documents for each
+        of them), the business name, the issue date and signatures, if
+        applicable.
+
+
+        See
+        [BUSINESS_SOURCE_OF_WEALTH_PROOF](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_source_of_wealth_proof)
+        in the KYC requirement types guide for more details.
+      type: object
+      required:
+        - submissionData
+        - files
+      properties:
+        submissionData:
+          description: |
+            ```json {% title="Example" %}
+            {
+              "data": {
+                "sourceOfWealthType": "REVENUE",
+                "documentType": "SAVINGS_STATEMENT"
+              },
+              "version": "V1",
+              "kycReviewId": "93a903ea-636c-4c86-a25c-cf6d2bd00e81"
+            }
+            ```
+          type: object
+          required:
+            - data
+            - version
+            - kycReviewId
+          properties:
+            data:
+              type: object
+              properties:
+                sourceOfWealthType:
+                  type: string
+                  enum:
+                    - REVENUE
+                    - PERSONAL_FUNDING
+                    - BUSINESS_LOAN
+                    - FUNDING_AND_SHAREHOLDER_INVESTMENTS
+                    - INVESTMENT_INCOME
+                    - DONATIONS
+                    - GRANTS
+                    - LEGAL
+                  example: REVENUE
+                documentType:
+                  type: string
+                  enum:
+                    - PAYSLIP
+                    - INVOICES
+                    - CONTRACTS
+                    - TAX_DOCUMENTS
+                    - AUDITED_FINANCIAL_STATEMENTS
+                    - E_COMMERCE_STATEMENTS
+                    - PERSONAL_INVESTMENT
+                    - PERSONAL_LOAN_AGREEMENT
+                    - PERSONAL_TAX_DECLARATION
+                    - LOAN_AGREEMENT
+                    - EQUITY_AGREEMENT
+                    - SUBSCRIPTION_AGREEMENT
+                    - SAVINGS_STATEMENT
+                    - ASSET_SALE_AGREEMENT
+                    - SHARE_SALE_CERTIFICATE
+                    - DONATION_RECEIPTS
+                    - GRANT_APPROVAL_LETTER
+                    - WRITTEN_CONFIRMATION
+                    - BANK_STATEMENT
+                  example: SAVINGS_STATEMENT
+            version:
+              $ref: '#/components/schemas/version'
+            kycReviewId:
+              $ref: '#/components/schemas/kyc-review-id'
+        files:
+          type: array
+          items:
+            type: string
+            format: binary
+          examples:
+            - - document.pdf
+          description: >
+            Upload the proof document.
+
+
+            Accepted file types: `image/png` (`.png`), `image/jpeg` (`.jpg` or
+            `.jpeg`) and `application/pdf` (`.pdf`). The content type must match
+            the file extension.
+
+
+            ```json {% title="Example" %}
+
+            ["document.pdf"]
+
+            ```
+    business-ultimate-beneficial-owner-id:
+      title: BUSINESS_ULTIMATE_BENEFICIAL_OWNER_ID
+      description: >
+        The Ultimate Beneficial Owner (UBO) ID document should be submitted for
+        all UBOs that have more than 25% share. While this requirement is
+        `NOT_PROVIDED`, its `attributes.requiredUbos` lists the shareholder IDs
+        that still need an ID document.
+
+
+        Provide a clear copy of the ID document. The full document needs to be
+        in frame and all information on the document needs to be visible. If the
+        document has information on the backside, both sides are needed. Expired
+        documents and documents issued over 15 years ago cannot be accepted.
+
+
+        When `data.documentType` is `SSN`, set `data.ssn` instead of the file
+        names and don't upload files.
+
+
+        See
+        [BUSINESS_ULTIMATE_BENEFICIAL_OWNER_ID](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_ultimate_beneficial_owner_id)
+        in the KYC requirement types guide for more details.
+      type: object
+      anyOf:
+        - title: Document upload
+          description: >-
+            Submit an ID document for the UBO. Upload the document in `files`,
+            with file names matching `frontSideFileName` and `backSideFileName`.
+          type: object
+          required:
+            - submissionData
+            - files
+          properties:
+            submissionData:
+              description: |
+                ```json {% title="Example" %}
+                {
+                  "data": {
+                    "documentType": "NATIONAL_ID",
+                    "shareholderId": "489209",
+                    "frontSideFileName": "image1.jpeg",
+                    "backSideFileName": "image2.jpeg"
+                  },
+                  "version": "V1",
+                  "kycReviewId": "93a903ea-636c-4c86-a25c-cf6d2bd00e81"
+                }
+                ```
+              type: object
+              required:
+                - data
+                - version
+                - kycReviewId
+              properties:
+                data:
+                  type: object
+                  required:
+                    - documentType
+                    - shareholderId
+                  properties:
+                    documentType:
+                      type: string
+                      description: >
+                        Accepted document types vary by the region the business
+                        is located in.
+
+
+                        **US business address** (United States, American Samoa,
+                        Guam, North Mariana Islands, Puerto Rico, United States
+                        Virgin Islands, United States Minor Outlying Islands):
+
+                        - `NON_US_DRIVING_LICENSE`
+
+                        - `NON_US_NATIONAL_ID`
+
+                        - `NON_US_PASSPORT`
+
+
+                        **EEA business address:**
+
+                        - `NATIONAL_ID`
+
+                        - `PASSPORT`
+
+
+                        **Other regions:**
+
+                        - `DRIVING_LICENSE`
+
+                        - `NATIONAL_ID`
+
+                        - `PASSPORT`
+
+
+                        US businesses can submit an SSN instead of a document;
+                        select **SSN** above.
+                      enum:
+                        - NON_US_DRIVING_LICENSE
+                        - NON_US_NATIONAL_ID
+                        - NON_US_PASSPORT
+                        - DRIVING_LICENSE
+                        - NATIONAL_ID
+                        - PASSPORT
+                      example: NATIONAL_ID
+                    shareholderId:
+                      type: string
+                      description: >-
+                        The UBO's shareholder ID. Use the `id` returned by the
+                        [Create UBO](/api-reference/profile/profileubocreate) or
+                        [List UBOs](/api-reference/profile/profileubolist)
+                        endpoints.
+                      example: '489209'
+                    frontSideFileName:
+                      type: string
+                      description: >-
+                        Filename of the front side image. Required for document
+                        types with front and back.
+                      example: image1.jpeg
+                    backSideFileName:
+                      type: string
+                      description: >-
+                        Filename of the back side image. Required for document
+                        types with front and back.
+                      example: image2.jpeg
+                version:
+                  $ref: '#/components/schemas/version'
+                kycReviewId:
+                  $ref: '#/components/schemas/kyc-review-id'
+            files:
+              type: array
+              items:
+                type: string
+                format: binary
+              examples:
+                - - image1.jpeg
+                  - image2.jpeg
+              description: >
+                Upload the ID document, with file names matching
+                `data.frontSideFileName` and `data.backSideFileName`.
+
+
+                Accepted file types: `image/png` (`.png`), `image/jpeg` (`.jpg`
+                or `.jpeg`) and `application/pdf` (`.pdf`). The content type
+                must match the file extension.
+
+
+                ```json {% title="Example" %}
+
+                ["image1.jpeg", "image2.jpeg"]
+
+                ```
+        - title: SSN
+          description: >-
+            For businesses with a US business address, submit the UBO's Social
+            Security Number instead of an ID document. No files are needed.
+          type: object
+          required:
+            - submissionData
+          properties:
+            submissionData:
+              description: |
+                ```json {% title="Example" %}
+                {
+                  "data": {
+                    "documentType": "SSN",
+                    "shareholderId": "489209",
+                    "ssn": "555501234"
+                  },
+                  "version": "V1",
+                  "kycReviewId": "93a903ea-636c-4c86-a25c-cf6d2bd00e81"
+                }
+                ```
+              type: object
+              required:
+                - data
+                - version
+                - kycReviewId
+              properties:
+                data:
+                  type: object
+                  required:
+                    - documentType
+                    - shareholderId
+                    - ssn
+                  properties:
+                    documentType:
+                      type: string
+                      enum:
+                        - SSN
+                      example: SSN
+                    shareholderId:
+                      type: string
+                      description: >-
+                        The UBO's shareholder ID. Use the `id` returned by the
+                        [Create UBO](/api-reference/profile/profileubocreate) or
+                        [List UBOs](/api-reference/profile/profileubolist)
+                        endpoints.
+                      example: '489209'
+                    ssn:
+                      type: string
+                      description: >-
+                        The UBO's Social Security Number, as 9 digits without
+                        dashes.
+                      pattern: ^[0-9]{9}$
+                      example: '555501234'
+                version:
+                  $ref: '#/components/schemas/version'
+                kycReviewId:
+                  $ref: '#/components/schemas/kyc-review-id'
+    business-use-case:
+      title: BUSINESS_USE_CASE
+      description: >
+        How the business intends to use the Wise account.
+
+
+        See
+        [BUSINESS_USE_CASE](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_use_case)
+        in the KYC requirement types guide for more details.
+      type: object
+      required:
+        - submissionData
+      properties:
+        submissionData:
+          description: |
+            ```json {% title="Example" %}
+            {
+              "data": {
+                "useCases": [
+                  "DONATION",
+                  "PAYING_RENT_OR_UTILITIES"
+                ]
+              },
+              "version": "V1",
+              "kycReviewId": "93a903ea-636c-4c86-a25c-cf6d2bd00e81"
+            }
+            ```
+          type: object
+          required:
+            - data
+            - version
+            - kycReviewId
+          properties:
+            data:
+              type: object
+              required:
+                - useCases
+              properties:
+                useCases:
+                  type: array
+                  minItems: 1
+                  items:
+                    type: string
+                    enum:
+                      - INVESTING_IN_FUNDS_STOCKS_BONDS_OR_SIMILAR
+                      - DISTRIBUTING_COMPANY_PROFITS_OR_PAYING_DIVIDENDS
+                      - PAYING_MORTGAGE_BANK_LOAN_INSURANCE_OR_CREDIT
+                      - PAYING_FOR_GOODS_PROPERTIES_OR_SERVICES_ABROAD
+                      - PAYING_RENT_OR_UTILITIES
+                      - PAYING_SUPPLIERS_CONTRACTORS_OR_EMPLOYEES
+                      - PAYING_TAX_ON_PROFIT_OR_PROPERTY
+                      - TRANSFER_WITHIN_COMPANY_OR_GROUP
+                      - RECEIVE_INVESTMENTS_OR_FUNDS
+                      - RECEIVE_PAYMENTS_FROM_CLIENTS
+                      - DONATION
+                      - OTHER
+                  example:
+                    - DONATION
+                    - PAYING_RENT_OR_UTILITIES
+            version:
+              $ref: '#/components/schemas/version'
+            kycReviewId:
+              $ref: '#/components/schemas/kyc-review-id'
+    id-document:
+      title: ID_DOCUMENT
+      description: >
+        Provide a clear copy of the ID document. The full document needs to be
+        in frame and all information on the document needs to be visible. If the
+        document has information on the backside, both sides are needed. Expired
+        documents and documents issued over 15 years ago cannot be accepted.
+
+
+        See
+        [ID_DOCUMENT](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#id_document)
+        in the KYC requirement types guide for more details.
+      type: object
+      required:
+        - submissionData
+        - files
+      properties:
+        submissionData:
+          description: |
+            ```json {% title="Example" %}
+            {
+              "data": {
+                "issuingCountry": "GB",
+                "documentType": "DRIVERS_LICENSE",
+                "frontSideFileName": "front_side.jpg",
+                "backSideFileName": "back_side.jpg"
+              },
+              "version": "V1",
+              "kycReviewId": "93a903ea-636c-4c86-a25c-cf6d2bd00e81"
+            }
+            ```
+          type: object
+          required:
+            - data
+            - version
+            - kycReviewId
+          properties:
+            data:
+              type: object
+              properties:
+                issuingCountry:
+                  type: string
+                  description: ISO 3166-1 alpha-2 country code.
+                  example: GB
+                documentType:
+                  type: string
+                  enum:
+                    - PASSPORT
+                    - ID_CARD
+                    - DRIVERS_LICENSE
+                    - TAX_ID
+                    - RESIDENCE_PERMIT
+                  example: DRIVERS_LICENSE
+                frontSideFileName:
+                  type: string
+                  description: >-
+                    Filename of the front side image. Required for `ID_CARD`,
+                    `DRIVERS_LICENSE`, `TAX_ID`, `RESIDENCE_PERMIT`.
+                  example: front_side.jpg
+                backSideFileName:
+                  type: string
+                  description: >-
+                    Filename of the back side image. Required for `ID_CARD`,
+                    `DRIVERS_LICENSE`, `TAX_ID`, `RESIDENCE_PERMIT`.
+                  example: back_side.jpg
+            version:
+              $ref: '#/components/schemas/version'
+            kycReviewId:
+              $ref: '#/components/schemas/kyc-review-id'
+        files:
+          type: array
+          items:
+            type: string
+            format: binary
+          examples:
+            - - front_side.jpg
+              - back_side.jpg
+          description: >
+            Upload the ID document, with file names matching `frontSideFileName`
+            and `backSideFileName`.
+
+
+            Accepted file types: `image/png` (`.png`), `image/jpeg` (`.jpg` or
+            `.jpeg`) and `application/pdf` (`.pdf`). The content type must match
+            the file extension.
+
+
+            ```json {% title="Example" %}
+
+            ["front_side.jpg", "back_side.jpg"]
+
+            ```
+    income:
+      title: INCOME
+      description: >
+        Approximate gross yearly income.
+
+
+        See
+        [INCOME](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#income)
+        in the KYC requirement types guide for more details.
+      type: object
+      required:
+        - submissionData
+      properties:
+        submissionData:
+          description: |
+            ```json {% title="Example" %}
+            {
+              "data": {
+                "amount": 50000.00,
+                "currency": "USD",
+                "incomeType": "SALARY"
+              },
+              "version": "V1",
+              "kycReviewId": "93a903ea-636c-4c86-a25c-cf6d2bd00e81"
+            }
+            ```
+          type: object
+          required:
+            - data
+            - version
+            - kycReviewId
+          properties:
+            data:
+              type: object
+              properties:
+                amount:
+                  type: number
+                  exclusiveMinimum: 0
+                  description: The gross yearly income amount. Must be greater than zero.
+                  example: 50000
+                currency:
+                  $ref: '#/components/schemas/currency'
+                incomeType:
+                  type: string
+                  enum:
+                    - SALARY
+                    - INVESTMENTS
+                    - PENSION
+                    - INHERITANCE
+                    - LOAN
+                    - PROPERTY_SALE
+                    - FREELANCER
+                    - FAMILY
+                    - STUDENT
+                    - GOVERNMENT_BENEFITS
+                  example: SALARY
+                incomeExplanation:
+                  type:
+                    - string
+                    - 'null'
+                  description: Optional. A free-text description of the income source.
+                  example: Salary from full-time employment
+            version:
+              $ref: '#/components/schemas/version'
+            kycReviewId:
+              $ref: '#/components/schemas/kyc-review-id'
+    india-transfer-purpose:
+      title: INDIA_TRANSFER_PURPOSE
+      description: >
+        The code representing the purpose of the profile's transfer, along with
+        supporting documents based on the code provided. This only appears for
+        transfers from INR to one of GBP, USD, EUR, AUD, CAD, SGD.
+
+
+        See
+        [INDIA_TRANSFER_PURPOSE](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#india_transfer_purpose)
+        in the KYC requirement types guide for more details.
+      type: object
+      required:
+        - submissionData
+        - files
+      properties:
+        submissionData:
+          description: |
+            ```json {% title="Example" %}
+            {
+              "data": {
+                "code": "OVERSEAS_EDUCATION",
+                "tcsTaxApplies": false,
+                "educationPaidWithLoan": true,
+                "passportFileName": "file1.png",
+                "additionalDocumentFileName": "file2.png",
+                "loanDocumentFileName": "file3.png"
+              },
+              "version": "V1",
+              "kycReviewId": "93a903ea-636c-4c86-a25c-cf6d2bd00e81"
+            }
+            ```
+          type: object
+          required:
+            - data
+            - version
+            - kycReviewId
+          properties:
+            data:
+              type: object
+              required:
+                - code
+                - tcsTaxApplies
+                - educationPaidWithLoan
+                - passportFileName
+                - additionalDocumentFileName
+              properties:
+                code:
+                  type: string
+                  description: Represents the purpose of the profile's transfer.
+                  enum:
+                    - OVERSEAS_EDUCATION
+                    - EDUCATION_EXPENSES
+                    - BUSINESS_TRAVEL
+                    - VACATION
+                    - MEDICAL_TREATMENT
+                  example: OVERSEAS_EDUCATION
+                tcsTaxApplies:
+                  type: boolean
+                  description: >-
+                    Must be set to `true` if the profile has remitted more than
+                    INR 10 lakhs (including the current transaction) in the
+                    current financial year.
+                  example: false
+                educationPaidWithLoan:
+                  type: boolean
+                  description: >-
+                    If `code` is `OVERSEAS_EDUCATION` or `EDUCATION_EXPENSES`,
+                    set to `true` if the profile is paying for this transfer
+                    with a loan from a financial institution. For other codes
+                    set to `false`.
+                  example: true
+                passportFileName:
+                  type: string
+                  description: Filename for the profile's passport image.
+                  example: file1.png
+                additionalDocumentFileName:
+                  type: string
+                  description: >
+                    Filename for the additional document provided. The type of
+                    file supplied as additional document must be based on the
+                    `code`, and must be in the profile's name.
+
+                    - For `OVERSEAS_EDUCATION` or `EDUCATION_EXPENSES` this can
+                    be a visa or university admission letter.
+
+                    - For `BUSINESS_TRAVEL` or `VACATION` this can be a visa or
+                    travel ticket.
+
+                    - For `MEDICAL_TREATMENT` this can be a hospital invoice,
+                    doctor's confirmation, or appointment letter.
+                  example: file2.png
+                loanDocumentFileName:
+                  type: string
+                  description: >-
+                    Required when `educationPaidWithLoan` is `true`. Filename
+                    for the loan sanction letter including sanctioned amount and
+                    borrower details.
+                  example: file3.png
+            version:
+              $ref: '#/components/schemas/version'
+            kycReviewId:
+              $ref: '#/components/schemas/kyc-review-id'
+        files:
+          type: array
+          items:
+            type: string
+            format: binary
+          examples:
+            - - file1.png
+              - file2.png
+              - file3.png
+          description: >
+            Upload the supporting documents, with file names matching the
+            `*FileName` fields.
+
+
+            Accepted file types: `image/png` (`.png`), `image/jpeg` (`.jpg` or
+            `.jpeg`) and `application/pdf` (`.pdf`). The content type must match
+            the file extension.
+
+
+            ```json {% title="Example" %}
+
+            ["file1.png", "file2.png", "file3.png"]
+
+            ```
+    jpn-business-cert:
+      title: JPN_BUSINESS_CERT
+      description: >
+        Certificate of Registered Matters for the business. Required for
+        corporations only in Japan. The document verifies: business name,
+        registered address, registration date, business activities, directors,
+        and must be issued within 6 months.
+
+
+        No `data` field is needed. See
+        [JPN_BUSINESS_CERT](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#jpn_business_cert)
+        in the KYC requirement types guide for more details.
+      type: object
+      required:
+        - submissionData
+        - files
+      properties:
+        submissionData:
+          description: |
+            ```json {% title="Example" %}
+            {
+              "version": "V1",
+              "kycReviewId": "93a903ea-636c-4c86-a25c-cf6d2bd00e81"
+            }
+            ```
+          type: object
+          required:
+            - version
+            - kycReviewId
+          properties:
+            version:
+              $ref: '#/components/schemas/version'
+            kycReviewId:
+              $ref: '#/components/schemas/kyc-review-id'
+        files:
+          type: array
+          items:
+            type: string
+            format: binary
+          examples:
+            - - document.pdf
+          description: >
+            Upload the business document.
+
+
+            Accepted file types: `image/png` (`.png`), `image/jpeg` (`.jpg` or
+            `.jpeg`) and `application/pdf` (`.pdf`). The content type must match
+            the file extension.
+
+
+            ```json {% title="Example" %}
+
+            ["document.pdf"]
+
+            ```
+    jpn-personal-mynumber:
+      title: JPN_PERSONAL_MYNUMBER
+      description: >
+        Proof of My Number for the customer. My Number is a 12-digit ID number
+        issued to all Japan citizens and residents, including resident
+        foreigners living in Japan for over 90 days. All the information (name,
+        DOB, address) on a My Number document has to match the information on
+        the profile and on the ID document.
+
+
+        See
+        [JPN_PERSONAL_MYNUMBER](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#jpn_personal_mynumber)
+        in the KYC requirement types guide for more details.
+      type: object
+      required:
+        - submissionData
+        - files
+      properties:
+        submissionData:
+          description: |
+            ```json {% title="Example" %}
+            {
+              "data": {
+                "documentType": "MY_NUMBER_CARD",
+                "frontSideFileName": "front.jpg",
+                "backSideFileName": "back.jpg"
+              },
+              "version": "V1",
+              "kycReviewId": "93a903ea-636c-4c86-a25c-cf6d2bd00e81"
+            }
+            ```
+          type: object
+          required:
+            - data
+            - version
+            - kycReviewId
+          properties:
+            data:
+              type: object
+              properties:
+                documentType:
+                  type: string
+                  description: The type of My Number document being submitted.
+                  enum:
+                    - MY_NUMBER_CARD
+                    - MY_NUMBER_NOTIFICATION_CARD
+                    - RESIDENCE_CERTIFICATE
+                  example: MY_NUMBER_CARD
+                frontSideFileName:
+                  type: string
+                  description: >-
+                    The file name of the front-side image. Must match the name
+                    of one of the uploaded files. Required for `MY_NUMBER_CARD`
+                    and `MY_NUMBER_NOTIFICATION_CARD`; not required for
+                    `RESIDENCE_CERTIFICATE`.
+                  example: front.jpg
+                backSideFileName:
+                  type: string
+                  description: >-
+                    The file name of the back-side image. Must match the name of
+                    one of the uploaded files. Required for `MY_NUMBER_CARD` and
+                    `MY_NUMBER_NOTIFICATION_CARD`; not required for
+                    `RESIDENCE_CERTIFICATE`.
+                  example: back.jpg
+            version:
+              $ref: '#/components/schemas/version'
+            kycReviewId:
+              $ref: '#/components/schemas/kyc-review-id'
+        files:
+          type: array
+          items:
+            type: string
+            format: binary
+          examples:
+            - - front.jpg
+              - back.jpg
+          description: >
+            The required number of files depends on `documentType`:
+
+
+            | Document type | File requirements |
+
+            |---|---|
+
+            | `MY_NUMBER_CARD` | 2 files (front and back) |
+
+            | `MY_NUMBER_NOTIFICATION_CARD` | 2 files (front and back) |
+
+            | `RESIDENCE_CERTIFICATE` | 1 or more files (all pages) |
+
+
+            Accepted file types: `image/png` (`.png`), `image/jpeg` (`.jpg` or
+            `.jpeg`) and `application/pdf` (`.pdf`). The content type must match
+            the file extension.
+
+
+            ```json {% title="Example" %}
+
+            ["front.jpg", "back.jpg"]
+
+            ```
+    legal-entity-shareholder:
+      title: LEGAL_ENTITY_SHAREHOLDER
+      description: >
+        A legal entity shareholder is another business or organisation that
+        directly or indirectly owns part or all of the business being onboarded.
+        Provide the name, registered country and ownership percentage of every
+        legal entity shareholder that owns 25% or more, directly or indirectly.
+        Do not include individual shareholders or the business being onboarded.
+        If there are no qualifying legal entity shareholders, submit an empty
+        list.
+
+
+        See
+        [LEGAL_ENTITY_SHAREHOLDER](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#legal_entity_shareholder)
+        in the KYC requirement types guide for more details.
+      type: object
+      required:
+        - submissionData
+      properties:
+        submissionData:
+          description: |
+            ```json {% title="Example" %}
+            {
+              "data": {
+                "legalEntityShareholders": [
+                  {
+                    "name": "Example Holdings Inc",
+                    "country": "US",
+                    "ownershipPercentage": 40
+                  }
+                ]
+              },
+              "version": "V1",
+              "kycReviewId": "93a903ea-636c-4c86-a25c-cf6d2bd00e81"
+            }
+            ```
+          type: object
+          required:
+            - data
+            - version
+            - kycReviewId
+          properties:
+            data:
+              type: object
+              required:
+                - legalEntityShareholders
+              properties:
+                legalEntityShareholders:
+                  type: array
+                  description: The legal entity shareholders of the business.
+                  items:
+                    type: object
+                    required:
+                      - name
+                      - country
+                      - ownershipPercentage
+                    properties:
+                      name:
+                        type: string
+                        description: >-
+                          The shareholder's name. Must not match the business
+                          name.
+                        example: Example Holdings Inc
+                      country:
+                        type: string
+                        description: >-
+                          The shareholder's country as an uppercase ISO 3166-1
+                          alpha-2 country code.
+                        example: US
+                      ownershipPercentage:
+                        type: integer
+                        minimum: 1
+                        maximum: 100
+                        description: >-
+                          The shareholder's ownership percentage, between 1 and
+                          100 inclusive. The combined total may exceed 100. This
+                          is expected behaviour for multi-layered corporate
+                          structures.
+                        example: 40
+            version:
+              $ref: '#/components/schemas/version'
+            kycReviewId:
+              $ref: '#/components/schemas/kyc-review-id'
+    proof-of-trading-address:
+      title: PROOF_OF_TRADING_ADDRESS
+      description: >
+        High-quality image or PDF of a document verifying the physical location
+        of the business operations. The document must clearly display the
+        business name (or owner's name), the full trading address, an issue
+        date, and the issuer's identity (e.g. bank or utility logo). Utility
+        bills and bank statements must be less than 3 months old. Other
+        documents (like tax bills, insurance policies, or licences) must be less
+        than 12 months old.
+
+
+        See
+        [PROOF_OF_TRADING_ADDRESS](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#proof_of_trading_address)
+        in the KYC requirement types guide for more details.
+      type: object
+      required:
+        - submissionData
+        - files
+      properties:
+        submissionData:
+          description: |
+            ```json {% title="Example" %}
+            {
+              "data": {
+                "documentType": "UTILITY_BILL",
+                "tradingAddressId": 4711
+              },
+              "version": "V1",
+              "kycReviewId": "93a903ea-636c-4c86-a25c-cf6d2bd00e81"
+            }
+            ```
+          type: object
+          required:
+            - data
+            - version
+            - kycReviewId
+          properties:
+            data:
+              type: object
+              properties:
+                documentType:
+                  type: string
+                  enum:
+                    - ID_DOCUMENT
+                    - UTILITY_BILL
+                    - PHONE_BILL
+                    - LEASE_AGREEMENT
+                    - BANK_STATEMENT
+                    - BUSINESS_REGISTRATION
+                    - TAX_BILL
+                    - TAX_DOCUMENT
+                    - INSURANCE_POLICY
+                    - OTHER
+                  example: UTILITY_BILL
+                tradingAddressId:
+                  type: integer
+                  format: int64
+                  description: >-
+                    The trading address ID, from the addresses on the business
+                    profile.
+                  example: 4711
+            version:
+              $ref: '#/components/schemas/version'
+            kycReviewId:
+              $ref: '#/components/schemas/kyc-review-id'
+        files:
+          type: array
+          items:
+            type: string
+            format: binary
+          examples:
+            - - document.pdf
+          description: >
+            Upload the proof document.
+
+
+            Accepted file types: `image/png` (`.png`), `image/jpeg` (`.jpg` or
+            `.jpeg`) and `application/pdf` (`.pdf`). The content type must match
+            the file extension.
+
+
+            ```json {% title="Example" %}
+
+            ["document.pdf"]
+
+            ```
+    source-of-funds:
+      title: SOURCE_OF_FUNDS
+      description: >
+        The origin category of the money used to finance a specific transaction
+        or operation.
+
+
+        See
+        [SOURCE_OF_FUNDS](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#source_of_funds)
+        in the KYC requirement types guide for more details.
+      type: object
+      required:
+        - submissionData
+      properties:
+        submissionData:
+          description: |
+            ```json {% title="Example" %}
+            {
+              "data": {
+                "category": "SALARY"
+              },
+              "version": "V1",
+              "kycReviewId": "93a903ea-636c-4c86-a25c-cf6d2bd00e81"
+            }
+            ```
+          type: object
+          required:
+            - data
+            - version
+            - kycReviewId
+          properties:
+            data:
+              type: object
+              properties:
+                category:
+                  type: string
+                  description: >-
+                    The origin category of the money. The accepted values depend
+                    on whether the profile is personal or business.
+                  anyOf:
+                    - title: Personal profiles
+                      type: string
+                      enum:
+                        - SALARY
+                        - INVESTMENT
+                        - INHERITANCE
+                        - LOAN
+                        - PROPERTY_SALE
+                        - FROM_FAMILY
+                        - OTHER
+                    - title: Business profiles
+                      type: string
+                      enum:
+                        - BUSINESS_OPERATING
+                        - BUSINESS_INVESTING
+                        - BUSINESS_FINANCING
+                        - OTHER
+                  example: SALARY
+                explanation:
+                  type:
+                    - string
+                    - 'null'
+                  description: Required if `category` is `OTHER`.
+                  example: Monthly salary from my employer
+            version:
+              $ref: '#/components/schemas/version'
+            kycReviewId:
+              $ref: '#/components/schemas/kyc-review-id'
+    source-of-wealth:
+      title: SOURCE_OF_WEALTH
+      description: >
+        Source of wealth document upload.
+
+
+        No `data` field is needed. See
+        [SOURCE_OF_WEALTH](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#source_of_wealth)
+        in the KYC requirement types guide for more details.
+      type: object
+      required:
+        - submissionData
+        - files
+      properties:
+        submissionData:
+          description: |
+            ```json {% title="Example" %}
+            {
+              "version": "V1",
+              "kycReviewId": "93a903ea-636c-4c86-a25c-cf6d2bd00e81"
+            }
+            ```
+          type: object
+          required:
+            - version
+            - kycReviewId
+          properties:
+            version:
+              $ref: '#/components/schemas/version'
+            kycReviewId:
+              $ref: '#/components/schemas/kyc-review-id'
+        files:
+          type: array
+          items:
+            type: string
+            format: binary
+          examples:
+            - - document.pdf
+          description: >
+            Upload the source of wealth document.
+
+
+            Accepted file types: `image/png` (`.png`), `image/jpeg` (`.jpg` or
+            `.jpeg`) and `application/pdf` (`.pdf`). The content type must match
+            the file extension.
+
+
+            ```json {% title="Example" %}
+
+            ["document.pdf"]
+
+            ```
+    source-of-wealth-info:
+      title: SOURCE_OF_WEALTH_INFO
+      description: >
+        Whether there is a secondary source of income, and if so its type and
+        amount. When `hasSecondaryIncome` is `false`, no other fields are
+        required.
+
+
+        See
+        [SOURCE_OF_WEALTH_INFO](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#source_of_wealth_info)
+        in the KYC requirement types guide for more details.
+      type: object
+      required:
+        - submissionData
+      properties:
+        submissionData:
+          description: |
+            ```json {% title="Example" %}
+            {
+              "data": {
+                "hasSecondaryIncome": true,
+                "secondaryIncomeType": "SALARY",
+                "amount": 20000.00,
+                "currency": "USD"
+              },
+              "version": "V1",
+              "kycReviewId": "93a903ea-636c-4c86-a25c-cf6d2bd00e81"
+            }
+            ```
+          type: object
+          required:
+            - data
+            - version
+            - kycReviewId
+          properties:
+            data:
+              type: object
+              required:
+                - hasSecondaryIncome
+              properties:
+                hasSecondaryIncome:
+                  type: boolean
+                  description: Set to `true` if there's a secondary source of income.
+                  example: true
+                secondaryIncomeType:
+                  type: string
+                  description: >-
+                    Required when `hasSecondaryIncome` is `true`. Accepted
+                    values for personal profiles.
+                  enum:
+                    - SALARY
+                    - PENSION
+                    - INHERITANCE
+                    - PROPERTY_SALE
+                    - LOAN
+                    - INVESTMENTS
+                    - OTHER
+                  example: SALARY
+                secondaryIncomeDescription:
+                  type:
+                    - string
+                    - 'null'
+                  description: >-
+                    Optional. A free-text description of the secondary income
+                    source.
+                  example: Part-time salary from a second job
+                amount:
+                  type: number
+                  exclusiveMinimum: 0
+                  description: >-
+                    Required when `hasSecondaryIncome` is `true`. The secondary
+                    income amount. Must be greater than zero.
+                  example: 20000
+                currency:
+                  $ref: '#/components/schemas/currency'
+                  description: >-
+                    Required when `hasSecondaryIncome` is `true`. The currency
+                    code (e.g. `USD`, `EUR`).
+            version:
+              $ref: '#/components/schemas/version'
+            kycReviewId:
+              $ref: '#/components/schemas/kyc-review-id'
+    source-of-wealth-proof:
+      title: SOURCE_OF_WEALTH_PROOF
+      description: >
+        A document proving the secondary source of wealth income. The accepted
+        document types depend on the `secondaryIncomeType` provided.
+
+
+        See
+        [SOURCE_OF_WEALTH_PROOF](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#source_of_wealth_proof)
+        in the KYC requirement types guide for more details.
+      type: object
+      required:
+        - submissionData
+        - files
+      properties:
+        submissionData:
+          description: |
+            ```json {% title="Example" %}
+            {
+              "data": {
+                "secondaryIncomeType": "SALARY",
+                "secondaryIncomeDocumentType": "PAYSLIP"
+              },
+              "version": "V1",
+              "kycReviewId": "93a903ea-636c-4c86-a25c-cf6d2bd00e81"
+            }
+            ```
+          type: object
+          required:
+            - data
+            - version
+            - kycReviewId
+          properties:
+            data:
+              type: object
+              properties:
+                secondaryIncomeType:
+                  type: string
+                  description: Accepted values for personal profiles.
+                  enum:
+                    - SALARY
+                    - PENSION
+                    - INHERITANCE
+                    - PROPERTY_SALE
+                    - LOAN
+                    - INVESTMENTS
+                    - OTHER
+                  example: SALARY
+                secondaryIncomeDocumentType:
+                  type: string
+                  description: The type of document being uploaded.
+                  examples:
+                    - PAYSLIP
+                  anyOf:
+                    - title: Select an income type
+                      description: >-
+                        The accepted values depend on `secondaryIncomeType`.
+                        Select the income type from the list to see its document
+                        types.
+                      not: {}
+                    - title: SALARY
+                      description: >-
+                        Document types accepted when `secondaryIncomeType` is
+                        `SALARY`.
+                      type: string
+                      enum:
+                        - PAYSLIP
+                        - TAX_RETURN
+                        - EMPLOYMENT_CONTRACT
+                        - PROOF_OF_EMPLOYMENT
+                        - BANK_STATEMENT
+                    - title: INVESTMENTS
+                      description: >-
+                        Document types accepted when `secondaryIncomeType` is
+                        `INVESTMENTS`.
+                      type: string
+                      enum:
+                        - TAX_RETURN
+                        - STOCK_PLAN_EXERCISE_CONFIRMATION
+                        - PORTFOLIO_STATEMENT
+                        - DIVIDEND_VOUCHER
+                        - BANK_STATEMENT
+                    - title: INHERITANCE
+                      description: >-
+                        Document types accepted when `secondaryIncomeType` is
+                        `INHERITANCE`.
+                      type: string
+                      enum:
+                        - TAX_RETURN
+                        - GRANT_OF_PROBATE
+                        - WILL
+                        - TRUST_DEED
+                    - title: PENSION
+                      description: >-
+                        Document types accepted when `secondaryIncomeType` is
+                        `PENSION`.
+                      type: string
+                      enum:
+                        - TAX_RETURN
+                        - PENSION_STATEMENT
+                        - BANK_STATEMENT
+                    - title: PROPERTY_SALE
+                      description: >-
+                        Document types accepted when `secondaryIncomeType` is
+                        `PROPERTY_SALE`.
+                      type: string
+                      enum:
+                        - TAX_RETURN
+                        - SALE_CONTRACT
+                        - SETTLEMENT_STATEMENT
+                        - BANK_STATEMENT
+                    - title: LOAN
+                      description: >-
+                        Document types accepted when `secondaryIncomeType` is
+                        `LOAN`.
+                      type: string
+                      enum:
+                        - LOAN_AGREEMENT
+                        - BANK_STATEMENT
+                    - title: OTHER
+                      description: >-
+                        Document types accepted when `secondaryIncomeType` is
+                        `OTHER`.
+                      type: string
+                      enum:
+                        - GIFT_LETTER
+                        - SCHOLARSHIP
+                        - LEASE_AGREEMENT
+                        - BANK_STATEMENT
+                        - OTHER
+                secondaryIncomeDescription:
+                  type:
+                    - string
+                    - 'null'
+                  description: >-
+                    Optional. A free-text description of the secondary income
+                    source.
+                  example: Payslip from a second, part-time job
+            version:
+              $ref: '#/components/schemas/version'
+            kycReviewId:
+              $ref: '#/components/schemas/kyc-review-id'
+        files:
+          type: array
+          items:
+            type: string
+            format: binary
+          examples:
+            - - document.pdf
+          description: >
+            Upload the proof document.
+
+
+            Accepted file types: `image/png` (`.png`), `image/jpeg` (`.jpg` or
+            `.jpeg`) and `application/pdf` (`.pdf`). The content type must match
+            the file extension.
+
+
+            ```json {% title="Example" %}
+
+            ["document.pdf"]
+
+            ```
+    tax-residency:
+      title: TAX_RESIDENCY
+      description: >
+        Users must declare all countries where they hold tax residency. While
+        this is usually where a user lives and works, those with more complex
+        setups (e.g. digital nomads) must list all applicable jurisdictions.
+
+
+        Depending on the user's situation and the Wise entity they are onboarded
+        to, there are three distinct submission scenarios for tax residency.
+        Files are not required for any scenario.
+
+
+        See
+        [TAX_RESIDENCY](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#tax_residency)
+        in the KYC requirement types guide for more details and the TIN types
+        accepted per country.
+      type: object
+      required:
+        - submissionData
+      properties:
+        submissionData:
+          anyOf:
+            - title: Local Entity TIN Exemptions
+              description: >
+                If a customer is onboarded to a local Wise entity, providing a
+                TIN for that specific country is not required. View the full
+                list of Wise Group Entities
+                [here](https://wise.com/help/articles/2974131/what-are-the-wise-group-entities).
+                If you are unsure which entity your customers are onboarded to,
+                please contact your Account Manager.
+
+
+                ```json {% title="Example" %}
+
+                {
+                  "data": {
+                    "taxInfoList": [
+                      {
+                        "taxCountry": "SG"
+                      }
+                    ]
+                  },
+                  "version": "V1",
+                  "kycReviewId": "93a903ea-636c-4c86-a25c-cf6d2bd00e81"
+                }
+
+                ```
+              type: object
+              required:
+                - data
+                - version
+                - kycReviewId
+              properties:
+                data:
+                  type: object
+                  required:
+                    - taxInfoList
+                  properties:
+                    taxInfoList:
+                      type: array
+                      description: >-
+                        A list of tax residency objects for every country where
+                        the user is a tax resident.
+                      examples:
+                        - - taxCountry: SG
+                      items:
+                        type: object
+                        required:
+                          - taxCountry
+                        properties:
+                          taxCountry:
+                            type: string
+                            description: >-
+                              ISO 3166-1 alpha-2 country code of the tax
+                              residency.
+                            example: SG
+                version:
+                  $ref: '#/components/schemas/version'
+                kycReviewId:
+                  $ref: '#/components/schemas/kyc-review-id'
+            - title: Standard CRS Collection
+              description: >
+                For customers not onboarded to a local Wise entity, a Tax
+                Identification Number (TIN) is mandatory for all declared tax
+                residencies. If a TIN cannot be provided, a `skipReason` must be
+                given instead.
+
+
+                ```json {% title="Example" %}
+
+                {
+                  "data": {
+                    "taxInfoList": [
+                      {
+                        "taxCountry": "SG",
+                        "taxId": {
+                          "type": "SG_NRIC",
+                          "number": "S1234567A"
+                        }
+                      },
+                      {
+                        "taxCountry": "BR",
+                        "skipReason": "WAITING_FOR_TAX_ID"
+                      }
+                    ]
+                  },
+                  "version": "V1",
+                  "kycReviewId": "93a903ea-636c-4c86-a25c-cf6d2bd00e81"
+                }
+
+                ```
+              type: object
+              required:
+                - data
+                - version
+                - kycReviewId
+              properties:
+                data:
+                  type: object
+                  required:
+                    - taxInfoList
+                  properties:
+                    taxInfoList:
+                      type: array
+                      description: >-
+                        A list of tax residency objects for every country where
+                        the user is a tax resident.
+                      examples:
+                        - - taxCountry: SG
+                            taxId:
+                              type: SG_NRIC
+                              number: S1234567A
+                          - taxCountry: BR
+                            skipReason: WAITING_FOR_TAX_ID
+                      items:
+                        type: object
+                        required:
+                          - taxCountry
+                        anyOf:
+                          - title: With TIN
+                            required:
+                              - taxId
+                          - title: With skip reason
+                            required:
+                              - skipReason
+                        properties:
+                          taxCountry:
+                            type: string
+                            description: >-
+                              ISO 3166-1 alpha-2 country code of the tax
+                              residency.
+                            example: SG
+                          taxId:
+                            type: object
+                            description: >-
+                              An object containing tax identification details.
+                              Provide either `taxId` or `skipReason`.
+                            required:
+                              - type
+                              - number
+                            properties:
+                              type:
+                                type: string
+                                description: >-
+                                  The specific TIN identifier type for that
+                                  country. See the [TIN types
+                                  reference](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#tin-types-reference).
+                                example: SG_NRIC
+                              number:
+                                type: string
+                                description: The actual tax identification number.
+                                example: S1234567A
+                          skipReason:
+                            type: string
+                            description: >
+                              Justification for not providing a TIN. Provide
+                              either `taxId` or `skipReason`.
+
+                              - `TAX_EXEMPT` — the customer's income is exempt
+                              from taxation.
+
+                              - `RETIRED_OR_UNEMPLOYED` — the customer is
+                              currently retired or unemployed.
+
+                              - `NO_TAXABLE_INCOME` — the customer does not have
+                              any taxable income.
+
+                              - `WAITING_FOR_TAX_ID` — the customer is waiting
+                              to receive their TIN.
+
+                              - `WITHIN_TIME_FRAME` — the customer is within the
+                              time frame for obtaining a TIN.
+
+                              - `DID_NOT_FILE_INCOME` — the customer did not
+                              file a tax return.
+                            enum:
+                              - TAX_EXEMPT
+                              - RETIRED_OR_UNEMPLOYED
+                              - NO_TAXABLE_INCOME
+                              - WAITING_FOR_TAX_ID
+                              - WITHIN_TIME_FRAME
+                              - DID_NOT_FILE_INCOME
+                version:
+                  $ref: '#/components/schemas/version'
+                kycReviewId:
+                  $ref: '#/components/schemas/kyc-review-id'
+            - title: Golden Visa Declarations
+              description: >
+                For customers whose only tax residency is in a Golden Visa
+                sponsor country, a mandatory Golden Visa Declaration must be
+                completed. All fields within the `goldenVisaDeclaration` object
+                must be set to `true`. Refer to the [full list of Golden Visa
+                countries](https://wise.com/us/blog/golden-visa-countries#which-countries-have-golden-visa-programs)
+                to identify applicable jurisdictions. If any declaration value
+                is `false`, the customer defaults to Standard CRS Collection and
+                must provide a TIN.
+
+
+                ```json {% title="Example" %}
+
+                {
+                  "data": {
+                    "taxInfoList": [
+                      {
+                        "taxCountry": "AE",
+                        "skipReason": "NO_TAXABLE_INCOME"
+                      },
+                      {
+                        "taxCountry": "AG",
+                        "skipReason": "WITHIN_TIME_FRAME"
+                      },
+                      {
+                        "taxCountry": "BS",
+                        "skipReason": "DID_NOT_FILE_INCOME"
+                      }
+                    ],
+                    "goldenVisaDeclaration": {
+                      "NO_OTHER_RESIDENCE": true,
+                      "WITHIN_TIME_FRAME": true,
+                      "DID_NOT_FILE_INCOME": true
+                    }
+                  },
+                  "version": "V1",
+                  "kycReviewId": "93a903ea-636c-4c86-a25c-cf6d2bd00e81"
+                }
+
+                ```
+              type: object
+              required:
+                - data
+                - version
+                - kycReviewId
+              properties:
+                data:
+                  type: object
+                  required:
+                    - taxInfoList
+                    - goldenVisaDeclaration
+                  properties:
+                    taxInfoList:
+                      type: array
+                      description: >-
+                        A list of tax residency objects for every country where
+                        the user is a tax resident.
+                      examples:
+                        - - taxCountry: AE
+                            skipReason: NO_TAXABLE_INCOME
+                          - taxCountry: AG
+                            skipReason: WITHIN_TIME_FRAME
+                          - taxCountry: BS
+                            skipReason: DID_NOT_FILE_INCOME
+                      items:
+                        type: object
+                        required:
+                          - taxCountry
+                        properties:
+                          taxCountry:
+                            type: string
+                            description: >-
+                              ISO 3166-1 alpha-2 country code of the tax
+                              residency.
+                            example: AE
+                          skipReason:
+                            type: string
+                            description: >
+                              Justification for not providing a TIN.
+
+                              - `NO_TAXABLE_INCOME` — the customer does not have
+                              any taxable income.
+
+                              - `WITHIN_TIME_FRAME` — the customer is within the
+                              time frame for obtaining a TIN.
+
+                              - `DID_NOT_FILE_INCOME` — the customer did not
+                              file a tax return.
+                            enum:
+                              - NO_TAXABLE_INCOME
+                              - WITHIN_TIME_FRAME
+                              - DID_NOT_FILE_INCOME
+                    goldenVisaDeclaration:
+                      type: object
+                      description: >-
+                        A set of affirmations required for users holding
+                        specific residency-by-investment visas. All values must
+                        be set to `true`.
+                      required:
+                        - NO_OTHER_RESIDENCE
+                        - WITHIN_TIME_FRAME
+                        - DID_NOT_FILE_INCOME
+                      properties:
+                        NO_OTHER_RESIDENCE:
+                          type: boolean
+                          description: >-
+                            Customer does not hold residency rights in any other
+                            jurisdiction.
+                          example: true
+                        WITHIN_TIME_FRAME:
+                          type: boolean
+                          description: >-
+                            Customer did not spend more than 90 days in any
+                            other jurisdiction in the previous year.
+                          example: true
+                        DID_NOT_FILE_INCOME:
+                          type: boolean
+                          description: >-
+                            Customer did not file a tax return in any other
+                            jurisdiction during the previous year.
+                          example: true
+                version:
+                  $ref: '#/components/schemas/version'
+                kycReviewId:
+                  $ref: '#/components/schemas/kyc-review-id'
+    use-case-countries:
+      title: USE_CASE_COUNTRIES
+      description: >
+        Country codes where the business intends to send money. If unsure,
+        select the country codes that correspond with the target currencies.
+
+
+        See
+        [USE_CASE_COUNTRIES](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#use_case_countries)
+        in the KYC requirement types guide for more details.
+      type: object
+      required:
+        - submissionData
+      properties:
+        submissionData:
+          description: |
+            ```json {% title="Example" %}
+            {
+              "data": {
+                "useCaseCountries": [
+                  "usa",
+                  "gbr",
+                  "deu"
+                ]
+              },
+              "version": "V1",
+              "kycReviewId": "93a903ea-636c-4c86-a25c-cf6d2bd00e81"
+            }
+            ```
+          type: object
+          required:
+            - data
+            - version
+            - kycReviewId
+          properties:
+            data:
+              type: object
+              required:
+                - useCaseCountries
+              properties:
+                useCaseCountries:
+                  type: array
+                  description: Country codes in ISO 3166-1 alpha-3 standard.
+                  items:
+                    type: string
+                  example:
+                    - usa
+                    - gbr
+                    - deu
+            version:
+              $ref: '#/components/schemas/version'
+            kycReviewId:
+              $ref: '#/components/schemas/kyc-review-id'
+    request-body:
+      type: object
+      description: >
+        The request body depends on the `requirementKey`. Select the requirement
+        type you are submitting to see its `submissionData` fields and whether
+        `files` are needed.
+
+
+        See the [KYC requirement
+        types](/guides/product/account-setup/customer-onboarding/kyc-requirement-types)
+        guide for an overview of all requirement types.
+      anyOf:
+        - $ref: '#/components/schemas/select-requirement-type'
+        - $ref: '#/components/schemas/account-intent'
+        - $ref: '#/components/schemas/account-purpose'
+        - $ref: '#/components/schemas/annual-volume'
+        - $ref: '#/components/schemas/business-annual-income'
+        - $ref: '#/components/schemas/business-authorisation-id'
+        - $ref: '#/components/schemas/business-authorisation-letter'
+        - $ref: '#/components/schemas/business-controlling-person'
+        - $ref: '#/components/schemas/business-directors-check'
+        - $ref: '#/components/schemas/business-income-classification'
+        - $ref: '#/components/schemas/business-monthly-volume'
+        - $ref: '#/components/schemas/business-registration-docs'
+        - $ref: '#/components/schemas/business-shareholder-contact-details'
+        - $ref: '#/components/schemas/business-shareholders-check'
+        - $ref: '#/components/schemas/business-source-of-wealth'
+        - $ref: '#/components/schemas/business-source-of-wealth-info'
+        - $ref: '#/components/schemas/business-source-of-wealth-proof'
+        - $ref: '#/components/schemas/business-ultimate-beneficial-owner-id'
+        - $ref: '#/components/schemas/business-use-case'
+        - $ref: '#/components/schemas/id-document'
+        - $ref: '#/components/schemas/income'
+        - $ref: '#/components/schemas/india-transfer-purpose'
+        - $ref: '#/components/schemas/jpn-business-cert'
+        - $ref: '#/components/schemas/jpn-personal-mynumber'
+        - $ref: '#/components/schemas/legal-entity-shareholder'
+        - $ref: '#/components/schemas/proof-of-trading-address'
+        - $ref: '#/components/schemas/source-of-funds'
+        - $ref: '#/components/schemas/source-of-wealth'
+        - $ref: '#/components/schemas/source-of-wealth-info'
+        - $ref: '#/components/schemas/source-of-wealth-proof'
+        - $ref: '#/components/schemas/tax-residency'
+        - $ref: '#/components/schemas/use-case-countries'
     client-credentials-grant:
       type: object
       required:

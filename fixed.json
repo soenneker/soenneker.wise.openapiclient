@@ -2595,7 +2595,7 @@
         "tags": [
           "batch-group"
         ],
-        "summary": "Fund a batch group",
+        "summary": "Fund a batch group via balance",
         "description": "Funds all transfers in a batch group from a multi-currency account balance. Transfers are paid out immediately.\n\nThe batch group must first be completed and there must be enough funds in the account for the whole batch. Otherwise, an insufficient funds error is returned.\n\n{% admonition type=\u0022warning\u0022 name=\u0022SCA protected endpoint\u0022 %}\nThis endpoint is SCA protected. SCA requirements apply to profiles registered outside of the following regions: US, AU, NZ, SG, CA, MY. \n\nReview the [Strong Customer Authentication guide](/guides/developer/auth-and-security/sca-and-2fa) for more details.\n{% /admonition %}\n",
         "operationId": "BatchGroupFund",
         "parameters": [
@@ -2675,8 +2675,8 @@
         "tags": [
           "batch-group"
         ],
-        "summary": "Fund a batch group via direct debit",
-        "description": "Funds all transfers in a batch group via direct debit. The batch group must be in the \u0060COMPLETED\u0060 state.\n\nTo use this funding method, you must link an external bank account first. See [direct debit account creation](/api-reference/direct-debit-account/directdebitaccountcreate) for more information.\n\n{% admonition type=\u0022warning\u0022 name=\u0022SCA protected endpoint\u0022 %}\nThis endpoint is SCA protected. SCA requirements apply to profiles registered outside of the following regions: US, AU, NZ, SG, CA, MY. \n\nReview the [Strong Customer Authentication guide](/guides/developer/auth-and-security/sca-and-2fa) for more details.\n{% /admonition %}\n",
+        "summary": "Fund a batch group",
+        "description": "Funds all transfers in a batch group. The batch group must be in the \u0060COMPLETED\u0060 state.\n\nThe \u0060type\u0060 field determines the funding method and which fields are required:\n- \u0060DIRECT_DEBIT\u0060 \u2014 Funds the batch group via direct debit. You must link an external bank account first. See [direct debit account creation](/api-reference/direct-debit-account/directdebitaccountcreate) for more information.\n- \u0060PAYIN_SESSION\u0060 \u2014 Funds the batch group using the payin session associated with the batch group.\n\n{% admonition type=\u0022warning\u0022 name=\u0022SCA protected endpoint\u0022 %}\nThis endpoint is SCA protected. SCA requirements apply to profiles registered outside of the following regions: US, AU, NZ, SG, CA, MY. \n\nReview the [Strong Customer Authentication guide](/guides/developer/auth-and-security/sca-and-2fa) for more details.\n{% /admonition %}\n",
         "operationId": "BatchGroupPaymentInitiationCreate",
         "parameters": [
           {
@@ -7296,7 +7296,7 @@
           "kyc-review"
         ],
         "summary": "Submit a KYC Requirement",
-        "description": "Submit a KYC requirement for a KYC Review.\n\n- A KYC requirement can only be submitted if the KYC Review status is \u0060WAITING_CUSTOMER_INPUT\u0060 or \u0060PASSED_WITH_REQUIREMENTS\u0060.\n- A KYC requirement should only be submitted if its \u0060state\u0060 is \u0060NOT_PROVIDED\u0060 and \u0060apiCollectionSupported\u0060 is \u0060true\u0060.\n\nSee the [KYC requirement types](/guides/product/kyc/wise-kyc/kyc-requirement-types) guide for the full list of supported requirement types, submission data structures, and accepted values.\n",
+        "description": "Submit a KYC requirement for a KYC Review.\n\n- A KYC requirement can only be submitted if the KYC Review status is \u0060WAITING_CUSTOMER_INPUT\u0060 or \u0060PASSED_WITH_REQUIREMENTS\u0060.\n- A KYC requirement should only be submitted if its \u0060state\u0060 is \u0060NOT_PROVIDED\u0060 and \u0060apiCollectionSupported\u0060 is \u0060true\u0060.\n\nThe structure of \u0060submissionData\u0060 depends on the \u0060requirementKey\u0060. If you already know which requirement type you are implementing, select it in the request body to see its fields and a matching request sample.\n\nTo explore which requirement types exist and what each one collects, see the [KYC requirement types](/guides/product/account-setup/customer-onboarding/kyc-requirement-types) guide for the full list of supported requirement types, submission data structures, and accepted values.\n",
         "operationId": "KycReviewRequirementSubmit",
         "parameters": [
           {
@@ -7312,7 +7312,7 @@
           {
             "name": "requirementKey",
             "in": "path",
-            "description": "The KYC requirement type to submit.\n\nSee the [KYC requirement types](/guides/product/kyc/wise-kyc/kyc-requirement-types) guide for details on each type.\n",
+            "description": "The KYC requirement type to submit.\n\nTo see the fields for a requirement type, select it in the request body dropdown below. To compare all requirement types, see the [KYC requirement types](/guides/product/account-setup/customer-onboarding/kyc-requirement-types) guide.\n",
             "required": true,
             "schema": {
               "$ref": "#/components/schemas/KycReviewRequirementSubmitRequirementKeyParameter"
@@ -7327,10 +7327,15 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/KycReviewRequirementSubmitFormDataRequest"
+                "$ref": "#/components/schemas/RequestBody"
               },
-              "example": {
-                "submissionData": "{\u0022data\u0022:{\u0022accountPurpose\u0022:\u0022SENDING_MONEY_TO_FRIENDS_OR_FAMILY\u0022},\u0022version\u0022:\u0022V1\u0022,\u0022kycReviewId\u0022:\u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022}"
+              "encoding": {
+                "submissionData": {
+                  "contentType": "application/json"
+                },
+                "files": {
+                  "contentType": "image/png, image/jpeg, application/pdf"
+                }
               }
             }
           },
@@ -8052,13 +8057,6 @@
         "security": [
           {
             "UserToken": []
-          }
-        ],
-        "x-codeSamples": [
-          {
-            "lang": "bash",
-            "label": "cURL",
-            "source": "curl -X POST \\\n  \u0027https://api.wise-sandbox.com/v2/profiles/{profileId}/kyc-requirements/{requirementKey}\u0027 \\\n  -H \u0027Authorization: Bearer \u003Ctoken\u003E\u0027 \\\n  -F \u0027submissionData={\u0022data\u0022:{\u0022accountPurpose\u0022:\u0022SENDING_MONEY_TO_FRIENDS_OR_FAMILY\u0022},\u0022version\u0022:\u0022V1\u0022,\u0022kycReviewId\u0022:\u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022};type=application/json\u0027 \\\n  -F \u0027files=@\u0022\u003Cfile\u003E\u0022\u0027\n"
           }
         ]
       }
@@ -24044,7 +24042,46 @@
           "batch-group"
         ]
       },
-      "PaymentInitiation": {
+      "PaymentInitiationDirectDebitRequest": {
+        "title": "Direct debit",
+        "required": [
+          "type",
+          "accountId"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/DirectDebitType"
+          },
+          "accountId": {
+            "type": "integer",
+            "description": "Direct debit account ID. See [direct debit account creation](/api-reference/direct-debit-account/directdebitaccountcreate).",
+            "format": "int64",
+            "example": 1
+          },
+          "reference": {
+            "type": "string",
+            "description": "Optional payment initiation reference. Maximum 10 characters. If not provided, a reference will be generated automatically.",
+            "example": "B1234567"
+          }
+        },
+        "description": "Funds all transfers in the batch group via direct debit.\n\nTo use this funding method, you must link an external bank account first. See [direct debit account creation](/api-reference/direct-debit-account/directdebitaccountcreate) for more information.\n"
+      },
+      "PaymentInitiationPayinSessionRequest": {
+        "title": "Payin session",
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/PayinSessionType"
+          }
+        },
+        "description": "Funds all transfers in the batch group using the payin session associated with the batch group (see \u0060payinSessionId\u0060 on the [batch group](/api-reference/batch-group)).\n"
+      },
+      "PaymentInitiationDirectDebit": {
+        "title": "Direct debit",
         "type": "object",
         "properties": {
           "id": {
@@ -24080,7 +24117,7 @@
             "$ref": "#/components/schemas/DirectDebitType"
           },
           "status": {
-            "$ref": "#/components/schemas/PaymentInitiationStatus"
+            "$ref": "#/components/schemas/PaymentInitiationDirectDebitStatus"
           },
           "accountId": {
             "type": "integer",
@@ -24095,7 +24132,7 @@
             ],
             "description": "Transfer ID of the direct debit payment. Present only after the direct debit is initiated.",
             "format": "int64",
-            "example": null
+            "example": 2149510998
           },
           "createdTime": {
             "type": "string",
@@ -24105,6 +24142,145 @@
           }
         },
         "description": "Payment initiation for funding a batch group via direct debit."
+      },
+      "PaymentInitiationPayinSession": {
+        "title": "Payin session",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Payment initiation ID.",
+            "format": "int64",
+            "example": 12345
+          },
+          "batchGroupId": {
+            "type": "string",
+            "description": "Batch group ID.",
+            "format": "uuid",
+            "example": "068e186d-9632-4937-b753-af3e53f4d0b0"
+          },
+          "reference": {
+            "type": "string",
+            "description": "Payment reference that will be passed to the network. Can be used for reconciliation.",
+            "example": "B1234567"
+          },
+          "userId": {
+            "type": "integer",
+            "description": "The ID of the user who initiated this payment.",
+            "format": "int64",
+            "example": 33333333
+          },
+          "profileId": {
+            "type": "integer",
+            "description": "The ID of the profile this payment belongs to.",
+            "format": "int64",
+            "example": 44444444
+          },
+          "type": {
+            "$ref": "#/components/schemas/PayinSessionType"
+          },
+          "status": {
+            "$ref": "#/components/schemas/PaymentInitiationPayinSessionStatus"
+          },
+          "payinSessionId": {
+            "type": "string",
+            "description": "ID of the payin session used to fund the batch group.",
+            "format": "uuid",
+            "example": "7c1f3a52-9d4e-4b8a-a6f2-3e5d8c9b0a17"
+          },
+          "createdTime": {
+            "type": "string",
+            "description": "Date and time when the payment initiation was created.",
+            "format": "date-time",
+            "example": "2022-01-01T19:51:41.423404Z"
+          }
+        },
+        "description": "Payment initiation for funding a batch group via payin session."
+      },
+      "PaymentInitiation": {
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/PaymentInitiationDirectDebit"
+          },
+          {
+            "$ref": "#/components/schemas/PaymentInitiationPayinSession"
+          }
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Payment initiation ID.",
+            "format": "int64",
+            "example": 12345
+          },
+          "batchGroupId": {
+            "type": "string",
+            "description": "Batch group ID.",
+            "format": "uuid",
+            "example": "068e186d-9632-4937-b753-af3e53f4d0b0"
+          },
+          "reference": {
+            "type": "string",
+            "description": "Payment reference that will be passed to the network. Can be used for reconciliation.",
+            "example": "B1234567"
+          },
+          "userId": {
+            "type": "integer",
+            "description": "The ID of the user who initiated this payment.",
+            "format": "int64",
+            "example": 33333333
+          },
+          "profileId": {
+            "type": "integer",
+            "description": "The ID of the profile this payment belongs to.",
+            "format": "int64",
+            "example": 44444444
+          },
+          "accountId": {
+            "type": "integer",
+            "description": "External account ID associated with the payment.",
+            "format": "int64",
+            "example": 1
+          },
+          "transferId": {
+            "type": [
+              "null",
+              "integer"
+            ],
+            "description": "Transfer ID of the direct debit payment. Present only after the direct debit is initiated.",
+            "format": "int64",
+            "example": 2149510998
+          },
+          "createdTime": {
+            "type": "string",
+            "description": "Date and time when the payment initiation was created.",
+            "format": "date-time",
+            "example": "2022-01-01T19:51:41.423404Z"
+          },
+          "payinSessionId": {
+            "type": "string",
+            "description": "ID of the payin session used to fund the batch group.",
+            "format": "uuid",
+            "example": "7c1f3a52-9d4e-4b8a-a6f2-3e5d8c9b0a17"
+          },
+          "type": {
+            "type": "string"
+          }
+        },
+        "description": "Payment initiation for funding a batch group. The response shape depends on the funding method used.\n",
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "DIRECT_DEBIT": "#/components/schemas/PaymentInitiationDirectDebit",
+            "PAYIN_SESSION": "#/components/schemas/PaymentInitiationPayinSession",
+            "PaymentInitiationDirectDebit": "#/components/schemas/PaymentInitiationDirectDebit",
+            "PaymentInitiationPayinSession": "#/components/schemas/PaymentInitiationPayinSession"
+          }
+        }
       },
       "Card": {
         "type": "object",
@@ -24837,6 +25013,755 @@
         "x-tags": [
           "kyc-review"
         ]
+      },
+      "SelectRequirementType": {
+        "title": "Select a requirement type",
+        "type": "object",
+        "not": {},
+        "description": "The request body depends on the requirement type being submitted. Select it from the list to see the \u0060submissionData\u0060 fields and whether \u0060files\u0060 are needed; the request sample updates to match."
+      },
+      "Version": {
+        "enum": [
+          "V1"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "The submission version.",
+        "example": "V1"
+      },
+      "KycReviewId": {
+        "type": "string",
+        "description": "The ID of the KYC Review this submission belongs to.",
+        "format": "uuid",
+        "example": "93a903ea-636c-4c86-a25c-cf6d2bd00e81"
+      },
+      "AccountIntent": {
+        "title": "ACCOUNT_INTENT",
+        "required": [
+          "submissionData"
+        ],
+        "type": "object",
+        "properties": {
+          "submissionData": {
+            "$ref": "#/components/schemas/AccountIntentSubmissionData"
+          }
+        },
+        "description": "How the customer intends to use their Wise account.\n\nSee [ACCOUNT_INTENT](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#account_intent) in the KYC requirement types guide for more details.\n"
+      },
+      "AccountPurpose": {
+        "title": "ACCOUNT_PURPOSE",
+        "required": [
+          "submissionData"
+        ],
+        "type": "object",
+        "properties": {
+          "submissionData": {
+            "$ref": "#/components/schemas/AccountPurposeSubmissionData"
+          }
+        },
+        "description": "The purpose of the account.\n\nSee [ACCOUNT_PURPOSE](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#account_purpose) in the KYC requirement types guide for more details.\n"
+      },
+      "Currency": {
+        "type": "string",
+        "description": "The currency code (e.g. \u0060USD\u0060, \u0060EUR\u0060).",
+        "example": "USD"
+      },
+      "AnnualVolume": {
+        "title": "ANNUAL_VOLUME",
+        "required": [
+          "submissionData"
+        ],
+        "type": "object",
+        "properties": {
+          "submissionData": {
+            "$ref": "#/components/schemas/AnnualVolumeSubmissionData"
+          }
+        },
+        "description": "A rough estimate of the yearly volume the customer intends to send or receive.\n\nSee [ANNUAL_VOLUME](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#annual_volume) in the KYC requirement types guide for more details.\n"
+      },
+      "BusinessAnnualIncome": {
+        "title": "BUSINESS_ANNUAL_INCOME",
+        "required": [
+          "submissionData"
+        ],
+        "type": "object",
+        "properties": {
+          "submissionData": {
+            "$ref": "#/components/schemas/BusinessAnnualIncomeSubmissionData"
+          }
+        },
+        "description": "The organisation\u0027s approximate gross yearly income.\n\nSee [BUSINESS_ANNUAL_INCOME](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_annual_income) in the KYC requirement types guide for more details.\n"
+      },
+      "BusinessAuthorisationId": {
+        "title": "BUSINESS_AUTHORISATION_ID",
+        "required": [
+          "submissionData",
+          "files"
+        ],
+        "type": "object",
+        "properties": {
+          "submissionData": {
+            "$ref": "#/components/schemas/BusinessAuthorisationIdSubmissionData"
+          },
+          "files": {
+            "examples": [
+              [
+                "document.pdf"
+              ]
+            ],
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "binary"
+            },
+            "description": "Upload the identification document.\n\nAccepted file types: \u0060image/png\u0060 (\u0060.png\u0060), \u0060image/jpeg\u0060 (\u0060.jpg\u0060 or \u0060.jpeg\u0060) and \u0060application/pdf\u0060 (\u0060.pdf\u0060). The content type must match the file extension.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n[\u0022document.pdf\u0022]\n\u0060\u0060\u0060\n"
+          }
+        },
+        "description": "The identification document of one company Director. This document is required to verify authorisation to act on the account on behalf of the organisation. It is only asked for if the Business Representative (the account creator) is not listed as a Director of the company.\n\nNo \u0060data\u0060 field is needed. See [BUSINESS_AUTHORISATION_ID](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_authorisation_id) in the KYC requirement types guide for more details.\n"
+      },
+      "BusinessAuthorisationLetter": {
+        "title": "BUSINESS_AUTHORISATION_LETTER",
+        "required": [
+          "submissionData",
+          "files"
+        ],
+        "type": "object",
+        "properties": {
+          "submissionData": {
+            "$ref": "#/components/schemas/BusinessAuthorisationLetterSubmissionData"
+          },
+          "files": {
+            "examples": [
+              [
+                "document.pdf"
+              ]
+            ],
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "binary"
+            },
+            "description": "Upload the authorisation letter.\n\nAccepted file types: \u0060image/png\u0060 (\u0060.png\u0060), \u0060image/jpeg\u0060 (\u0060.jpg\u0060 or \u0060.jpeg\u0060) and \u0060application/pdf\u0060 (\u0060.pdf\u0060). The content type must match the file extension.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n[\u0022document.pdf\u0022]\n\u0060\u0060\u0060\n"
+          }
+        },
+        "description": "A document authorising the Business Representative to act on the account on behalf of the organisation. When the Business Representative is also a Director, they are automatically authorised and this document is not needed.\n\nThe document must include:\n- Business name, legal type, registration number, country of incorporation and registered address.\n- Legal Representative\u0027s (the Director) name, date of birth, function in the company (such as Director), permission to act on behalf of the organisation and signature.\n- Authorised Representative\u0027s (the Business Representative) name, date of birth, authority to act on the account and signature.\n- Date of issue.\n\nNo \u0060data\u0060 field is needed. See [BUSINESS_AUTHORISATION_LETTER](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_authorisation_letter) in the KYC requirement types guide for more details.\n"
+      },
+      "BusinessControllingPerson": {
+        "title": "BUSINESS_CONTROLLING_PERSON",
+        "required": [
+          "submissionData"
+        ],
+        "type": "object",
+        "properties": {
+          "submissionData": {
+            "$ref": "#/components/schemas/BusinessControllingPersonSubmissionData"
+          }
+        },
+        "description": "Declare exactly one shareholder as the person who controls the business and provide their business title.\n\nSee [BUSINESS_CONTROLLING_PERSON](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_controlling_person) in the KYC requirement types guide for more details.\n"
+      },
+      "BusinessDirectorsCheck": {
+        "title": "BUSINESS_DIRECTORS_CHECK",
+        "required": [
+          "submissionData",
+          "files"
+        ],
+        "type": "object",
+        "properties": {
+          "submissionData": {
+            "$ref": "#/components/schemas/BusinessDirectorsCheckSubmissionData"
+          },
+          "files": {
+            "examples": [
+              [
+                "document.pdf"
+              ]
+            ],
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "binary"
+            },
+            "description": "Upload the relevant documents.\n\nAccepted file types: \u0060image/png\u0060 (\u0060.png\u0060), \u0060image/jpeg\u0060 (\u0060.jpg\u0060 or \u0060.jpeg\u0060) and \u0060application/pdf\u0060 (\u0060.pdf\u0060). The content type must match the file extension.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n[\u0022document.pdf\u0022]\n\u0060\u0060\u0060\n"
+          }
+        },
+        "description": "Confirm the directors of the business. Directors can be members of the board of directors, general partners or part of executive management. If a director is another business, a document identifying the individuals directing that business is needed.\n\nNo \u0060data\u0060 field is needed. See [BUSINESS_DIRECTORS_CHECK](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_directors_check) in the KYC requirement types guide for more details.\n"
+      },
+      "BusinessIncomeClassification": {
+        "title": "BUSINESS_INCOME_CLASSIFICATION",
+        "required": [
+          "submissionData"
+        ],
+        "type": "object",
+        "properties": {
+          "submissionData": {
+            "$ref": "#/components/schemas/BusinessIncomeClassificationSubmissionData"
+          }
+        },
+        "description": "Under the Common Reporting Standard (CRS), we are required to collect your business\u0027s tax classification based on how it earns income. Depending on your selection, we may need to ask for additional information (such as tax details on controlling persons).\n\nSee [BUSINESS_INCOME_CLASSIFICATION](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_income_classification) in the KYC requirement types guide for more details.\n"
+      },
+      "BusinessMonthlyVolume": {
+        "title": "BUSINESS_MONTHLY_VOLUME",
+        "required": [
+          "submissionData"
+        ],
+        "type": "object",
+        "properties": {
+          "submissionData": {
+            "$ref": "#/components/schemas/BusinessMonthlyVolumeSubmissionData"
+          }
+        },
+        "description": "A rough estimate of the monthly volumes the business intends to send or receive.\n\nSee [BUSINESS_MONTHLY_VOLUME](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_monthly_volume) in the KYC requirement types guide for more details.\n"
+      },
+      "BusinessRegistrationDocs": {
+        "title": "BUSINESS_REGISTRATION_DOCS",
+        "required": [
+          "submissionData",
+          "files"
+        ],
+        "type": "object",
+        "properties": {
+          "submissionData": {
+            "$ref": "#/components/schemas/BusinessRegistrationDocsSubmissionData"
+          },
+          "files": {
+            "examples": [
+              [
+                "document.pdf"
+              ]
+            ],
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "binary"
+            },
+            "description": "Upload the registration documents.\n\nAccepted file types: \u0060image/png\u0060 (\u0060.png\u0060), \u0060image/jpeg\u0060 (\u0060.jpg\u0060 or \u0060.jpeg\u0060) and \u0060application/pdf\u0060 (\u0060.pdf\u0060). The content type must match the file extension.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n[\u0022document.pdf\u0022]\n\u0060\u0060\u0060\n"
+          }
+        },
+        "description": "Proof of Business Registration, such as a certificate of incorporation, articles of association, or an official registry excerpt. It should be the document on record with the local business or tax authority. It must show:\n- The business name, identification number and full registered address.\n- The directors, managers, partners, trustees or members of the executive board.\n- The owners, members or shareholders and their respective holdings.\n\nIf any of the above information has changed since formation, upload a document showing the most up to date details.\n\nNo \u0060data\u0060 field is needed. See [BUSINESS_REGISTRATION_DOCS](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_registration_docs) in the KYC requirement types guide for more details.\n"
+      },
+      "BusinessShareholderContactDetails": {
+        "title": "BUSINESS_SHAREHOLDER_CONTACT_DETAILS",
+        "required": [
+          "submissionData"
+        ],
+        "type": "object",
+        "properties": {
+          "submissionData": {
+            "$ref": "#/components/schemas/BusinessShareholderContactDetailsSubmissionData"
+          }
+        },
+        "description": "Provide contact details, including email addresses, for all current shareholders of the business. Submit all contact details in a single request; requests that omit any shareholders are rejected.\n\nSee [BUSINESS_SHAREHOLDER_CONTACT_DETAILS](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_shareholder_contact_details) in the KYC requirement types guide for more details.\n"
+      },
+      "BusinessShareholdersCheck": {
+        "title": "BUSINESS_SHAREHOLDERS_CHECK",
+        "required": [
+          "submissionData",
+          "files"
+        ],
+        "type": "object",
+        "properties": {
+          "submissionData": {
+            "$ref": "#/components/schemas/BusinessShareholdersCheckSubmissionData"
+          },
+          "files": {
+            "examples": [
+              [
+                "document.pdf"
+              ]
+            ],
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "binary"
+            },
+            "description": "Upload the relevant documents.\n\nAccepted file types: \u0060image/png\u0060 (\u0060.png\u0060), \u0060image/jpeg\u0060 (\u0060.jpg\u0060 or \u0060.jpeg\u0060) and \u0060application/pdf\u0060 (\u0060.pdf\u0060). The content type must match the file extension.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n[\u0022document.pdf\u0022]\n\u0060\u0060\u0060\n"
+          }
+        },
+        "description": "Documents showing who ultimately owns and controls the company (e.g. a recent shareholder register, operating agreement, or partnership deed). If an owner is another business, a document identifying the individuals who are the ultimate beneficial owners of that business is needed.\n\nNo \u0060data\u0060 field is needed. See [BUSINESS_SHAREHOLDERS_CHECK](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_shareholders_check) in the KYC requirement types guide for more details.\n"
+      },
+      "BusinessSourceOfWealth": {
+        "title": "BUSINESS_SOURCE_OF_WEALTH",
+        "required": [
+          "submissionData"
+        ],
+        "type": "object",
+        "properties": {
+          "submissionData": {
+            "$ref": "#/components/schemas/BusinessSourceOfWealthSubmissionData"
+          }
+        },
+        "description": "The source of the business\u0027s wealth.\n\nSee [BUSINESS_SOURCE_OF_WEALTH](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_source_of_wealth) in the KYC requirement types guide for more details.\n"
+      },
+      "BusinessSourceOfWealthInfo": {
+        "title": "BUSINESS_SOURCE_OF_WEALTH_INFO",
+        "required": [
+          "submissionData"
+        ],
+        "type": "object",
+        "properties": {
+          "submissionData": {
+            "$ref": "#/components/schemas/BusinessSourceOfWealthInfoSubmissionData"
+          }
+        },
+        "description": "The source of the business\u0027s wealth and whether it is used to fund the action.\n\nSee [BUSINESS_SOURCE_OF_WEALTH_INFO](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_source_of_wealth_info) in the KYC requirement types guide for more details.\n"
+      },
+      "BusinessSourceOfWealthProof": {
+        "title": "BUSINESS_SOURCE_OF_WEALTH_PROOF",
+        "required": [
+          "submissionData",
+          "files"
+        ],
+        "type": "object",
+        "properties": {
+          "submissionData": {
+            "$ref": "#/components/schemas/BusinessSourceOfWealthProofSubmissionData"
+          },
+          "files": {
+            "examples": [
+              [
+                "document.pdf"
+              ]
+            ],
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "binary"
+            },
+            "description": "Upload the proof document.\n\nAccepted file types: \u0060image/png\u0060 (\u0060.png\u0060), \u0060image/jpeg\u0060 (\u0060.jpg\u0060 or \u0060.jpeg\u0060) and \u0060application/pdf\u0060 (\u0060.pdf\u0060). The content type must match the file extension.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n[\u0022document.pdf\u0022]\n\u0060\u0060\u0060\n"
+          }
+        },
+        "description": "A high-quality photo or PDF of a document proving the source of the business\u0027s wealth. The required documentation varies depending on the selected source category. Examples include the most recent 3-6 months worth of bank statements, latest audited financials, latest tax returns, loan agreements, or investment contracts that are less than 12 months old. The document should display the business income amount (if you have more than one type of income, you will have to upload documents for each of them), the business name, the issue date and signatures, if applicable.\n\nSee [BUSINESS_SOURCE_OF_WEALTH_PROOF](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_source_of_wealth_proof) in the KYC requirement types guide for more details.\n"
+      },
+      "BusinessUltimateBeneficialOwnerId": {
+        "title": "BUSINESS_ULTIMATE_BENEFICIAL_OWNER_ID",
+        "type": "object",
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/BusinessUltimateBeneficialOwnerIdDocumentUpload"
+          },
+          {
+            "$ref": "#/components/schemas/BusinessUltimateBeneficialOwnerIdSsn"
+          }
+        ],
+        "properties": {
+          "files": {
+            "examples": [
+              [
+                "image1.jpeg",
+                "image2.jpeg"
+              ]
+            ],
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "binary"
+            },
+            "description": "Upload the ID document, with file names matching \u0060data.frontSideFileName\u0060 and \u0060data.backSideFileName\u0060.\n\nAccepted file types: \u0060image/png\u0060 (\u0060.png\u0060), \u0060image/jpeg\u0060 (\u0060.jpg\u0060 or \u0060.jpeg\u0060) and \u0060application/pdf\u0060 (\u0060.pdf\u0060). The content type must match the file extension.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n[\u0022image1.jpeg\u0022, \u0022image2.jpeg\u0022]\n\u0060\u0060\u0060\n"
+          }
+        },
+        "description": "The Ultimate Beneficial Owner (UBO) ID document should be submitted for all UBOs that have more than 25% share. While this requirement is \u0060NOT_PROVIDED\u0060, its \u0060attributes.requiredUbos\u0060 lists the shareholder IDs that still need an ID document.\n\nProvide a clear copy of the ID document. The full document needs to be in frame and all information on the document needs to be visible. If the document has information on the backside, both sides are needed. Expired documents and documents issued over 15 years ago cannot be accepted.\n\nWhen \u0060data.documentType\u0060 is \u0060SSN\u0060, set \u0060data.ssn\u0060 instead of the file names and don\u0027t upload files.\n\nSee [BUSINESS_ULTIMATE_BENEFICIAL_OWNER_ID](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_ultimate_beneficial_owner_id) in the KYC requirement types guide for more details.\n"
+      },
+      "BusinessUseCase": {
+        "title": "BUSINESS_USE_CASE",
+        "required": [
+          "submissionData"
+        ],
+        "type": "object",
+        "properties": {
+          "submissionData": {
+            "$ref": "#/components/schemas/BusinessUseCaseSubmissionData"
+          }
+        },
+        "description": "How the business intends to use the Wise account.\n\nSee [BUSINESS_USE_CASE](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_use_case) in the KYC requirement types guide for more details.\n"
+      },
+      "IdDocument": {
+        "title": "ID_DOCUMENT",
+        "required": [
+          "submissionData",
+          "files"
+        ],
+        "type": "object",
+        "properties": {
+          "submissionData": {
+            "$ref": "#/components/schemas/IdDocumentSubmissionData"
+          },
+          "files": {
+            "examples": [
+              [
+                "front_side.jpg",
+                "back_side.jpg"
+              ]
+            ],
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "binary"
+            },
+            "description": "Upload the ID document, with file names matching \u0060frontSideFileName\u0060 and \u0060backSideFileName\u0060.\n\nAccepted file types: \u0060image/png\u0060 (\u0060.png\u0060), \u0060image/jpeg\u0060 (\u0060.jpg\u0060 or \u0060.jpeg\u0060) and \u0060application/pdf\u0060 (\u0060.pdf\u0060). The content type must match the file extension.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n[\u0022front_side.jpg\u0022, \u0022back_side.jpg\u0022]\n\u0060\u0060\u0060\n"
+          }
+        },
+        "description": "Provide a clear copy of the ID document. The full document needs to be in frame and all information on the document needs to be visible. If the document has information on the backside, both sides are needed. Expired documents and documents issued over 15 years ago cannot be accepted.\n\nSee [ID_DOCUMENT](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#id_document) in the KYC requirement types guide for more details.\n"
+      },
+      "Income": {
+        "title": "INCOME",
+        "required": [
+          "submissionData"
+        ],
+        "type": "object",
+        "properties": {
+          "submissionData": {
+            "$ref": "#/components/schemas/IncomeSubmissionData"
+          }
+        },
+        "description": "Approximate gross yearly income.\n\nSee [INCOME](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#income) in the KYC requirement types guide for more details.\n"
+      },
+      "IndiaTransferPurpose": {
+        "title": "INDIA_TRANSFER_PURPOSE",
+        "required": [
+          "submissionData",
+          "files"
+        ],
+        "type": "object",
+        "properties": {
+          "submissionData": {
+            "$ref": "#/components/schemas/IndiaTransferPurposeSubmissionData"
+          },
+          "files": {
+            "examples": [
+              [
+                "file1.png",
+                "file2.png",
+                "file3.png"
+              ]
+            ],
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "binary"
+            },
+            "description": "Upload the supporting documents, with file names matching the \u0060*FileName\u0060 fields.\n\nAccepted file types: \u0060image/png\u0060 (\u0060.png\u0060), \u0060image/jpeg\u0060 (\u0060.jpg\u0060 or \u0060.jpeg\u0060) and \u0060application/pdf\u0060 (\u0060.pdf\u0060). The content type must match the file extension.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n[\u0022file1.png\u0022, \u0022file2.png\u0022, \u0022file3.png\u0022]\n\u0060\u0060\u0060\n"
+          }
+        },
+        "description": "The code representing the purpose of the profile\u0027s transfer, along with supporting documents based on the code provided. This only appears for transfers from INR to one of GBP, USD, EUR, AUD, CAD, SGD.\n\nSee [INDIA_TRANSFER_PURPOSE](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#india_transfer_purpose) in the KYC requirement types guide for more details.\n"
+      },
+      "JpnBusinessCert": {
+        "title": "JPN_BUSINESS_CERT",
+        "required": [
+          "submissionData",
+          "files"
+        ],
+        "type": "object",
+        "properties": {
+          "submissionData": {
+            "$ref": "#/components/schemas/JpnBusinessCertSubmissionData"
+          },
+          "files": {
+            "examples": [
+              [
+                "document.pdf"
+              ]
+            ],
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "binary"
+            },
+            "description": "Upload the business document.\n\nAccepted file types: \u0060image/png\u0060 (\u0060.png\u0060), \u0060image/jpeg\u0060 (\u0060.jpg\u0060 or \u0060.jpeg\u0060) and \u0060application/pdf\u0060 (\u0060.pdf\u0060). The content type must match the file extension.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n[\u0022document.pdf\u0022]\n\u0060\u0060\u0060\n"
+          }
+        },
+        "description": "Certificate of Registered Matters for the business. Required for corporations only in Japan. The document verifies: business name, registered address, registration date, business activities, directors, and must be issued within 6 months.\n\nNo \u0060data\u0060 field is needed. See [JPN_BUSINESS_CERT](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#jpn_business_cert) in the KYC requirement types guide for more details.\n"
+      },
+      "JpnPersonalMynumber": {
+        "title": "JPN_PERSONAL_MYNUMBER",
+        "required": [
+          "submissionData",
+          "files"
+        ],
+        "type": "object",
+        "properties": {
+          "submissionData": {
+            "$ref": "#/components/schemas/JpnPersonalMynumberSubmissionData"
+          },
+          "files": {
+            "examples": [
+              [
+                "front.jpg",
+                "back.jpg"
+              ]
+            ],
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "binary"
+            },
+            "description": "The required number of files depends on \u0060documentType\u0060:\n\n| Document type | File requirements |\n|---|---|\n| \u0060MY_NUMBER_CARD\u0060 | 2 files (front and back) |\n| \u0060MY_NUMBER_NOTIFICATION_CARD\u0060 | 2 files (front and back) |\n| \u0060RESIDENCE_CERTIFICATE\u0060 | 1 or more files (all pages) |\n\nAccepted file types: \u0060image/png\u0060 (\u0060.png\u0060), \u0060image/jpeg\u0060 (\u0060.jpg\u0060 or \u0060.jpeg\u0060) and \u0060application/pdf\u0060 (\u0060.pdf\u0060). The content type must match the file extension.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n[\u0022front.jpg\u0022, \u0022back.jpg\u0022]\n\u0060\u0060\u0060\n"
+          }
+        },
+        "description": "Proof of My Number for the customer. My Number is a 12-digit ID number issued to all Japan citizens and residents, including resident foreigners living in Japan for over 90 days. All the information (name, DOB, address) on a My Number document has to match the information on the profile and on the ID document.\n\nSee [JPN_PERSONAL_MYNUMBER](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#jpn_personal_mynumber) in the KYC requirement types guide for more details.\n"
+      },
+      "LegalEntityShareholder": {
+        "title": "LEGAL_ENTITY_SHAREHOLDER",
+        "required": [
+          "submissionData"
+        ],
+        "type": "object",
+        "properties": {
+          "submissionData": {
+            "$ref": "#/components/schemas/LegalEntityShareholderSubmissionData"
+          }
+        },
+        "description": "A legal entity shareholder is another business or organisation that directly or indirectly owns part or all of the business being onboarded. Provide the name, registered country and ownership percentage of every legal entity shareholder that owns 25% or more, directly or indirectly. Do not include individual shareholders or the business being onboarded. If there are no qualifying legal entity shareholders, submit an empty list.\n\nSee [LEGAL_ENTITY_SHAREHOLDER](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#legal_entity_shareholder) in the KYC requirement types guide for more details.\n"
+      },
+      "ProofOfTradingAddress": {
+        "title": "PROOF_OF_TRADING_ADDRESS",
+        "required": [
+          "submissionData",
+          "files"
+        ],
+        "type": "object",
+        "properties": {
+          "submissionData": {
+            "$ref": "#/components/schemas/ProofOfTradingAddressSubmissionData"
+          },
+          "files": {
+            "examples": [
+              [
+                "document.pdf"
+              ]
+            ],
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "binary"
+            },
+            "description": "Upload the proof document.\n\nAccepted file types: \u0060image/png\u0060 (\u0060.png\u0060), \u0060image/jpeg\u0060 (\u0060.jpg\u0060 or \u0060.jpeg\u0060) and \u0060application/pdf\u0060 (\u0060.pdf\u0060). The content type must match the file extension.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n[\u0022document.pdf\u0022]\n\u0060\u0060\u0060\n"
+          }
+        },
+        "description": "High-quality image or PDF of a document verifying the physical location of the business operations. The document must clearly display the business name (or owner\u0027s name), the full trading address, an issue date, and the issuer\u0027s identity (e.g. bank or utility logo). Utility bills and bank statements must be less than 3 months old. Other documents (like tax bills, insurance policies, or licences) must be less than 12 months old.\n\nSee [PROOF_OF_TRADING_ADDRESS](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#proof_of_trading_address) in the KYC requirement types guide for more details.\n"
+      },
+      "SourceOfFunds": {
+        "title": "SOURCE_OF_FUNDS",
+        "required": [
+          "submissionData"
+        ],
+        "type": "object",
+        "properties": {
+          "submissionData": {
+            "$ref": "#/components/schemas/SourceOfFundsSubmissionData"
+          }
+        },
+        "description": "The origin category of the money used to finance a specific transaction or operation.\n\nSee [SOURCE_OF_FUNDS](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#source_of_funds) in the KYC requirement types guide for more details.\n"
+      },
+      "SourceOfWealth": {
+        "title": "SOURCE_OF_WEALTH",
+        "required": [
+          "submissionData",
+          "files"
+        ],
+        "type": "object",
+        "properties": {
+          "submissionData": {
+            "$ref": "#/components/schemas/SourceOfWealthSubmissionData"
+          },
+          "files": {
+            "examples": [
+              [
+                "document.pdf"
+              ]
+            ],
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "binary"
+            },
+            "description": "Upload the source of wealth document.\n\nAccepted file types: \u0060image/png\u0060 (\u0060.png\u0060), \u0060image/jpeg\u0060 (\u0060.jpg\u0060 or \u0060.jpeg\u0060) and \u0060application/pdf\u0060 (\u0060.pdf\u0060). The content type must match the file extension.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n[\u0022document.pdf\u0022]\n\u0060\u0060\u0060\n"
+          }
+        },
+        "description": "Source of wealth document upload.\n\nNo \u0060data\u0060 field is needed. See [SOURCE_OF_WEALTH](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#source_of_wealth) in the KYC requirement types guide for more details.\n"
+      },
+      "SourceOfWealthInfo": {
+        "title": "SOURCE_OF_WEALTH_INFO",
+        "required": [
+          "submissionData"
+        ],
+        "type": "object",
+        "properties": {
+          "submissionData": {
+            "$ref": "#/components/schemas/SourceOfWealthInfoSubmissionData"
+          }
+        },
+        "description": "Whether there is a secondary source of income, and if so its type and amount. When \u0060hasSecondaryIncome\u0060 is \u0060false\u0060, no other fields are required.\n\nSee [SOURCE_OF_WEALTH_INFO](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#source_of_wealth_info) in the KYC requirement types guide for more details.\n"
+      },
+      "SourceOfWealthProof": {
+        "title": "SOURCE_OF_WEALTH_PROOF",
+        "required": [
+          "submissionData",
+          "files"
+        ],
+        "type": "object",
+        "properties": {
+          "submissionData": {
+            "$ref": "#/components/schemas/SourceOfWealthProofSubmissionData"
+          },
+          "files": {
+            "examples": [
+              [
+                "document.pdf"
+              ]
+            ],
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "binary"
+            },
+            "description": "Upload the proof document.\n\nAccepted file types: \u0060image/png\u0060 (\u0060.png\u0060), \u0060image/jpeg\u0060 (\u0060.jpg\u0060 or \u0060.jpeg\u0060) and \u0060application/pdf\u0060 (\u0060.pdf\u0060). The content type must match the file extension.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n[\u0022document.pdf\u0022]\n\u0060\u0060\u0060\n"
+          }
+        },
+        "description": "A document proving the secondary source of wealth income. The accepted document types depend on the \u0060secondaryIncomeType\u0060 provided.\n\nSee [SOURCE_OF_WEALTH_PROOF](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#source_of_wealth_proof) in the KYC requirement types guide for more details.\n"
+      },
+      "TaxResidency": {
+        "title": "TAX_RESIDENCY",
+        "required": [
+          "submissionData"
+        ],
+        "type": "object",
+        "properties": {
+          "submissionData": {
+            "$ref": "#/components/schemas/TaxResidencySubmissionData"
+          }
+        },
+        "description": "Users must declare all countries where they hold tax residency. While this is usually where a user lives and works, those with more complex setups (e.g. digital nomads) must list all applicable jurisdictions.\n\nDepending on the user\u0027s situation and the Wise entity they are onboarded to, there are three distinct submission scenarios for tax residency. Files are not required for any scenario.\n\nSee [TAX_RESIDENCY](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#tax_residency) in the KYC requirement types guide for more details and the TIN types accepted per country.\n"
+      },
+      "UseCaseCountries": {
+        "title": "USE_CASE_COUNTRIES",
+        "required": [
+          "submissionData"
+        ],
+        "type": "object",
+        "properties": {
+          "submissionData": {
+            "$ref": "#/components/schemas/UseCaseCountriesSubmissionData"
+          }
+        },
+        "description": "Country codes where the business intends to send money. If unsure, select the country codes that correspond with the target currencies.\n\nSee [USE_CASE_COUNTRIES](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#use_case_countries) in the KYC requirement types guide for more details.\n"
+      },
+      "RequestBody": {
+        "type": "object",
+        "anyOf": [
+          {
+            "type": "object",
+            "description": "The request body depends on the requirement type being submitted. Select it from the list to see the \u0060submissionData\u0060 fields and whether \u0060files\u0060 are needed; the request sample updates to match."
+          },
+          {
+            "$ref": "#/components/schemas/AccountIntent"
+          },
+          {
+            "$ref": "#/components/schemas/AccountPurpose"
+          },
+          {
+            "$ref": "#/components/schemas/AnnualVolume"
+          },
+          {
+            "$ref": "#/components/schemas/BusinessAnnualIncome"
+          },
+          {
+            "$ref": "#/components/schemas/BusinessAuthorisationId"
+          },
+          {
+            "$ref": "#/components/schemas/BusinessAuthorisationLetter"
+          },
+          {
+            "$ref": "#/components/schemas/BusinessControllingPerson"
+          },
+          {
+            "$ref": "#/components/schemas/BusinessDirectorsCheck"
+          },
+          {
+            "$ref": "#/components/schemas/BusinessIncomeClassification"
+          },
+          {
+            "$ref": "#/components/schemas/BusinessMonthlyVolume"
+          },
+          {
+            "$ref": "#/components/schemas/BusinessRegistrationDocs"
+          },
+          {
+            "$ref": "#/components/schemas/BusinessShareholderContactDetails"
+          },
+          {
+            "$ref": "#/components/schemas/BusinessShareholdersCheck"
+          },
+          {
+            "$ref": "#/components/schemas/BusinessSourceOfWealth"
+          },
+          {
+            "$ref": "#/components/schemas/BusinessSourceOfWealthInfo"
+          },
+          {
+            "$ref": "#/components/schemas/BusinessSourceOfWealthProof"
+          },
+          {
+            "$ref": "#/components/schemas/BusinessUltimateBeneficialOwnerId"
+          },
+          {
+            "$ref": "#/components/schemas/BusinessUseCase"
+          },
+          {
+            "$ref": "#/components/schemas/IdDocument"
+          },
+          {
+            "$ref": "#/components/schemas/Income"
+          },
+          {
+            "$ref": "#/components/schemas/IndiaTransferPurpose"
+          },
+          {
+            "$ref": "#/components/schemas/JpnBusinessCert"
+          },
+          {
+            "$ref": "#/components/schemas/JpnPersonalMynumber"
+          },
+          {
+            "$ref": "#/components/schemas/LegalEntityShareholder"
+          },
+          {
+            "$ref": "#/components/schemas/ProofOfTradingAddress"
+          },
+          {
+            "$ref": "#/components/schemas/SourceOfFunds"
+          },
+          {
+            "$ref": "#/components/schemas/SourceOfWealth"
+          },
+          {
+            "$ref": "#/components/schemas/SourceOfWealthInfo"
+          },
+          {
+            "$ref": "#/components/schemas/SourceOfWealthProof"
+          },
+          {
+            "$ref": "#/components/schemas/TaxResidency"
+          },
+          {
+            "$ref": "#/components/schemas/UseCaseCountries"
+          }
+        ],
+        "properties": {
+          "files": {
+            "examples": [
+              [
+                "document.pdf"
+              ]
+            ],
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "binary"
+            },
+            "description": "Upload the identification document.\n\nAccepted file types: \u0060image/png\u0060 (\u0060.png\u0060), \u0060image/jpeg\u0060 (\u0060.jpg\u0060 or \u0060.jpeg\u0060) and \u0060application/pdf\u0060 (\u0060.pdf\u0060). The content type must match the file extension.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n[\u0022document.pdf\u0022]\n\u0060\u0060\u0060\n"
+          }
+        },
+        "description": "The request body depends on the \u0060requirementKey\u0060. Select the requirement type you are submitting to see its \u0060submissionData\u0060 fields and whether \u0060files\u0060 are needed.\n\nSee the [KYC requirement types](/guides/product/account-setup/customer-onboarding/kyc-requirement-types) guide for an overview of all requirement types.\n"
       },
       "ClientCredentialsGrant": {
         "required": [
@@ -33611,6 +34536,133 @@
           }
         }
       },
+      "AccountIntentSubmissionDataDataAccountIntent": {
+        "type": "string",
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/AccountIntentSubmissionDataDataAccountIntentAnyOf1"
+          },
+          {
+            "$ref": "#/components/schemas/AccountIntentSubmissionDataDataAccountIntentAnyOf2"
+          }
+        ],
+        "description": "How the customer intends to use their Wise account. The accepted values depend on whether the profile is personal or business.\n\nDepending on what triggered the KYC review, only some of these values may be accepted. Other values are rejected with a \u0060400\u0060 error.\n",
+        "example": "PAYING_FOR_GOODS_OR_SERVICES_ABROAD"
+      },
+      "BusinessUltimateBeneficialOwnerIdDocumentUpload": {
+        "title": "Document upload",
+        "required": [
+          "submissionData",
+          "files"
+        ],
+        "type": "object",
+        "properties": {
+          "submissionData": {
+            "$ref": "#/components/schemas/BusinessUltimateBeneficialOwnerIdDocumentUploadSubmissionData"
+          },
+          "files": {
+            "examples": [
+              [
+                "image1.jpeg",
+                "image2.jpeg"
+              ]
+            ],
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "binary"
+            },
+            "description": "Upload the ID document, with file names matching \u0060data.frontSideFileName\u0060 and \u0060data.backSideFileName\u0060.\n\nAccepted file types: \u0060image/png\u0060 (\u0060.png\u0060), \u0060image/jpeg\u0060 (\u0060.jpg\u0060 or \u0060.jpeg\u0060) and \u0060application/pdf\u0060 (\u0060.pdf\u0060). The content type must match the file extension.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n[\u0022image1.jpeg\u0022, \u0022image2.jpeg\u0022]\n\u0060\u0060\u0060\n"
+          }
+        },
+        "description": "Submit an ID document for the UBO. Upload the document in \u0060files\u0060, with file names matching \u0060frontSideFileName\u0060 and \u0060backSideFileName\u0060."
+      },
+      "BusinessUltimateBeneficialOwnerIdSsn": {
+        "title": "SSN",
+        "required": [
+          "submissionData"
+        ],
+        "type": "object",
+        "properties": {
+          "submissionData": {
+            "$ref": "#/components/schemas/BusinessUltimateBeneficialOwnerIdSsnSubmissionData"
+          }
+        },
+        "description": "For businesses with a US business address, submit the UBO\u0027s Social Security Number instead of an ID document. No files are needed."
+      },
+      "SourceOfFundsSubmissionDataDataCategory": {
+        "type": "string",
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/SourceOfFundsSubmissionDataDataCategoryAnyOf1"
+          },
+          {
+            "$ref": "#/components/schemas/SourceOfFundsSubmissionDataDataCategoryAnyOf2"
+          }
+        ],
+        "description": "The origin category of the money. The accepted values depend on whether the profile is personal or business.",
+        "example": "SALARY"
+      },
+      "SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentType": {
+        "examples": [
+          "PAYSLIP"
+        ],
+        "type": "string",
+        "anyOf": [
+          {
+            "title": "Select an income type",
+            "type": "object",
+            "not": {},
+            "description": "The accepted values depend on \u0060secondaryIncomeType\u0060. Select the income type from the list to see its document types."
+          },
+          {
+            "$ref": "#/components/schemas/SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeWrapper"
+          },
+          {
+            "$ref": "#/components/schemas/SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeWrapper2"
+          },
+          {
+            "$ref": "#/components/schemas/SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeWrapper3"
+          },
+          {
+            "$ref": "#/components/schemas/SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeWrapper4"
+          },
+          {
+            "$ref": "#/components/schemas/SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeWrapper5"
+          },
+          {
+            "$ref": "#/components/schemas/SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeWrapper6"
+          },
+          {
+            "$ref": "#/components/schemas/SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeWrapper7"
+          }
+        ],
+        "description": "The type of document being uploaded."
+      },
+      "TaxResidencySubmissionData": {
+        "type": "object",
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/TaxResidencySubmissionDataLocalEntityTinExemptions"
+          },
+          {
+            "$ref": "#/components/schemas/TaxResidencySubmissionDataStandardCrsCollection"
+          },
+          {
+            "$ref": "#/components/schemas/TaxResidencySubmissionDataGoldenVisaDeclarations"
+          }
+        ],
+        "properties": {
+          "version": {
+            "$ref": "#/components/schemas/Version"
+          },
+          "kycReviewId": {
+            "type": "string",
+            "description": "The ID of the KYC Review this submission belongs to.",
+            "format": "uuid"
+          }
+        }
+      },
       "ContentSubmissionDataSubmissionData": {
         "type": "object",
         "oneOf": [
@@ -34024,6 +35076,75 @@
           }
         }
       },
+      "TaxResidencySubmissionDataLocalEntityTinExemptions": {
+        "title": "Local Entity TIN Exemptions",
+        "required": [
+          "data",
+          "version",
+          "kycReviewId"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/TaxResidencySubmissionDataLocalEntityTinExemptionsData"
+          },
+          "version": {
+            "$ref": "#/components/schemas/Version"
+          },
+          "kycReviewId": {
+            "type": "string",
+            "description": "The ID of the KYC Review this submission belongs to.",
+            "format": "uuid"
+          }
+        },
+        "description": "If a customer is onboarded to a local Wise entity, providing a TIN for that specific country is not required. View the full list of Wise Group Entities [here](https://wise.com/help/articles/2974131/what-are-the-wise-group-entities). If you are unsure which entity your customers are onboarded to, please contact your Account Manager.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022data\u0022: {\n    \u0022taxInfoList\u0022: [\n      {\n        \u0022taxCountry\u0022: \u0022SG\u0022\n      }\n    ]\n  },\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
+      },
+      "TaxResidencySubmissionDataStandardCrsCollection": {
+        "title": "Standard CRS Collection",
+        "required": [
+          "data",
+          "version",
+          "kycReviewId"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/TaxResidencySubmissionDataStandardCrsCollectionData"
+          },
+          "version": {
+            "$ref": "#/components/schemas/Version"
+          },
+          "kycReviewId": {
+            "type": "string",
+            "description": "The ID of the KYC Review this submission belongs to.",
+            "format": "uuid"
+          }
+        },
+        "description": "For customers not onboarded to a local Wise entity, a Tax Identification Number (TIN) is mandatory for all declared tax residencies. If a TIN cannot be provided, a \u0060skipReason\u0060 must be given instead.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022data\u0022: {\n    \u0022taxInfoList\u0022: [\n      {\n        \u0022taxCountry\u0022: \u0022SG\u0022,\n        \u0022taxId\u0022: {\n          \u0022type\u0022: \u0022SG_NRIC\u0022,\n          \u0022number\u0022: \u0022S1234567A\u0022\n        }\n      },\n      {\n        \u0022taxCountry\u0022: \u0022BR\u0022,\n        \u0022skipReason\u0022: \u0022WAITING_FOR_TAX_ID\u0022\n      }\n    ]\n  },\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
+      },
+      "TaxResidencySubmissionDataGoldenVisaDeclarations": {
+        "title": "Golden Visa Declarations",
+        "required": [
+          "data",
+          "version",
+          "kycReviewId"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/TaxResidencySubmissionDataGoldenVisaDeclarationsData"
+          },
+          "version": {
+            "$ref": "#/components/schemas/Version"
+          },
+          "kycReviewId": {
+            "type": "string",
+            "description": "The ID of the KYC Review this submission belongs to.",
+            "format": "uuid"
+          }
+        },
+        "description": "For customers whose only tax residency is in a Golden Visa sponsor country, a mandatory Golden Visa Declaration must be completed. All fields within the \u0060goldenVisaDeclaration\u0060 object must be set to \u0060true\u0060. Refer to the [full list of Golden Visa countries](https://wise.com/us/blog/golden-visa-countries#which-countries-have-golden-visa-programs) to identify applicable jurisdictions. If any declaration value is \u0060false\u0060, the customer defaults to Standard CRS Collection and must provide a TIN.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022data\u0022: {\n    \u0022taxInfoList\u0022: [\n      {\n        \u0022taxCountry\u0022: \u0022AE\u0022,\n        \u0022skipReason\u0022: \u0022NO_TAXABLE_INCOME\u0022\n      },\n      {\n        \u0022taxCountry\u0022: \u0022AG\u0022,\n        \u0022skipReason\u0022: \u0022WITHIN_TIME_FRAME\u0022\n      },\n      {\n        \u0022taxCountry\u0022: \u0022BS\u0022,\n        \u0022skipReason\u0022: \u0022DID_NOT_FILE_INCOME\u0022\n      }\n    ],\n    \u0022goldenVisaDeclaration\u0022: {\n      \u0022NO_OTHER_RESIDENCE\u0022: true,\n      \u0022WITHIN_TIME_FRAME\u0022: true,\n      \u0022DID_NOT_FILE_INCOME\u0022: true\n    }\n  },\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
+      },
       "ContentSubmissionDataSubmissionDataIndividualSubmission": {
         "title": "Individual submission",
         "type": "object",
@@ -34160,6 +35281,41 @@
         "properties": {
           "bic": {
             "$ref": "#/components/schemas/V430DataResourcePreviousInstructingAgentsItemAllOf2Bic"
+          }
+        }
+      },
+      "TaxResidencySubmissionDataStandardCrsCollectionDataTaxInfoListItem": {
+        "required": [
+          "taxCountry"
+        ],
+        "type": "object",
+        "anyOf": [
+          {
+            "title": "With TIN",
+            "required": [
+              "taxId"
+            ],
+            "type": "object"
+          },
+          {
+            "title": "With skip reason",
+            "required": [
+              "skipReason"
+            ],
+            "type": "object"
+          }
+        ],
+        "properties": {
+          "taxCountry": {
+            "type": "string",
+            "description": "ISO 3166-1 alpha-2 country code of the tax residency.",
+            "example": "SG"
+          },
+          "taxId": {
+            "$ref": "#/components/schemas/TaxResidencySubmissionDataStandardCrsCollectionDataTaxInfoListItemTaxId"
+          },
+          "skipReason": {
+            "$ref": "#/components/schemas/TaxResidencySubmissionDataStandardCrsCollectionDataTaxInfoListItemSkipReason"
           }
         }
       },
@@ -34897,6 +36053,616 @@
           }
         },
         "description": "An object that refers to the action or process this KYC Review pertains to."
+      },
+      "AccountIntentSubmissionData": {
+        "required": [
+          "data",
+          "version",
+          "kycReviewId"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/AccountIntentSubmissionDataData"
+          },
+          "version": {
+            "$ref": "#/components/schemas/Version"
+          },
+          "kycReviewId": {
+            "type": "string",
+            "description": "The ID of the KYC Review this submission belongs to.",
+            "format": "uuid"
+          }
+        },
+        "description": "\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022data\u0022: {\n    \u0022accountIntent\u0022: \u0022PAYING_FOR_GOODS_OR_SERVICES_ABROAD\u0022\n  },\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
+      },
+      "AccountPurposeSubmissionData": {
+        "required": [
+          "data",
+          "version",
+          "kycReviewId"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/AccountPurposeSubmissionDataData"
+          },
+          "version": {
+            "$ref": "#/components/schemas/Version"
+          },
+          "kycReviewId": {
+            "type": "string",
+            "description": "The ID of the KYC Review this submission belongs to.",
+            "format": "uuid"
+          }
+        },
+        "description": "\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022data\u0022: {\n    \u0022accountPurpose\u0022: \u0022SENDING_MONEY_TO_FRIENDS_OR_FAMILY\u0022\n  },\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
+      },
+      "AnnualVolumeSubmissionData": {
+        "required": [
+          "data",
+          "version",
+          "kycReviewId"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/AnnualVolumeSubmissionDataData"
+          },
+          "version": {
+            "$ref": "#/components/schemas/Version"
+          },
+          "kycReviewId": {
+            "type": "string",
+            "description": "The ID of the KYC Review this submission belongs to.",
+            "format": "uuid"
+          }
+        },
+        "description": "\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022data\u0022: {\n    \u0022amount\u0022: 10000.00,\n    \u0022currency\u0022: \u0022USD\u0022\n  },\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
+      },
+      "BusinessAnnualIncomeSubmissionData": {
+        "required": [
+          "data",
+          "version",
+          "kycReviewId"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/BusinessAnnualIncomeSubmissionDataData"
+          },
+          "version": {
+            "$ref": "#/components/schemas/Version"
+          },
+          "kycReviewId": {
+            "type": "string",
+            "description": "The ID of the KYC Review this submission belongs to.",
+            "format": "uuid"
+          }
+        },
+        "description": "\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022data\u0022: {\n    \u0022amount\u0022: 4500.00,\n    \u0022currency\u0022: \u0022USD\u0022\n  },\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
+      },
+      "BusinessAuthorisationIdSubmissionData": {
+        "required": [
+          "version",
+          "kycReviewId"
+        ],
+        "type": "object",
+        "properties": {
+          "version": {
+            "$ref": "#/components/schemas/Version"
+          },
+          "kycReviewId": {
+            "type": "string",
+            "description": "The ID of the KYC Review this submission belongs to.",
+            "format": "uuid"
+          }
+        },
+        "description": "\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
+      },
+      "BusinessAuthorisationLetterSubmissionData": {
+        "required": [
+          "version",
+          "kycReviewId"
+        ],
+        "type": "object",
+        "properties": {
+          "version": {
+            "$ref": "#/components/schemas/Version"
+          },
+          "kycReviewId": {
+            "type": "string",
+            "description": "The ID of the KYC Review this submission belongs to.",
+            "format": "uuid"
+          }
+        },
+        "description": "\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
+      },
+      "BusinessControllingPersonSubmissionData": {
+        "required": [
+          "data",
+          "version",
+          "kycReviewId"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/BusinessControllingPersonSubmissionDataData"
+          },
+          "version": {
+            "$ref": "#/components/schemas/Version"
+          },
+          "kycReviewId": {
+            "type": "string",
+            "description": "The ID of the KYC Review this submission belongs to.",
+            "format": "uuid"
+          }
+        },
+        "description": "\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022data\u0022: {\n    \u0022shareholderId\u0022: \u00227ff6c4998a59d71ad9834041727017d2\u0022,\n    \u0022businessTitle\u0022: \u0022CEO\u0022\n  },\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
+      },
+      "BusinessDirectorsCheckSubmissionData": {
+        "required": [
+          "version",
+          "kycReviewId"
+        ],
+        "type": "object",
+        "properties": {
+          "version": {
+            "$ref": "#/components/schemas/Version"
+          },
+          "kycReviewId": {
+            "type": "string",
+            "description": "The ID of the KYC Review this submission belongs to.",
+            "format": "uuid"
+          }
+        },
+        "description": "\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
+      },
+      "BusinessIncomeClassificationSubmissionData": {
+        "required": [
+          "data",
+          "version",
+          "kycReviewId"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/BusinessIncomeClassificationSubmissionDataData"
+          },
+          "version": {
+            "$ref": "#/components/schemas/Version"
+          },
+          "kycReviewId": {
+            "type": "string",
+            "description": "The ID of the KYC Review this submission belongs to.",
+            "format": "uuid"
+          }
+        },
+        "description": "\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022data\u0022: {\n    \u0022classificationType\u0022: \u0022ACTIVE_NFE\u0022\n  },\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
+      },
+      "BusinessMonthlyVolumeSubmissionData": {
+        "required": [
+          "data",
+          "version",
+          "kycReviewId"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/BusinessMonthlyVolumeSubmissionDataData"
+          },
+          "version": {
+            "$ref": "#/components/schemas/Version"
+          },
+          "kycReviewId": {
+            "type": "string",
+            "description": "The ID of the KYC Review this submission belongs to.",
+            "format": "uuid"
+          }
+        },
+        "description": "\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022data\u0022: {\n    \u0022amount\u0022: 4500.00,\n    \u0022currency\u0022: \u0022USD\u0022\n  },\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
+      },
+      "BusinessRegistrationDocsSubmissionData": {
+        "required": [
+          "version",
+          "kycReviewId"
+        ],
+        "type": "object",
+        "properties": {
+          "version": {
+            "$ref": "#/components/schemas/Version"
+          },
+          "kycReviewId": {
+            "type": "string",
+            "description": "The ID of the KYC Review this submission belongs to.",
+            "format": "uuid"
+          }
+        },
+        "description": "\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
+      },
+      "BusinessShareholderContactDetailsSubmissionData": {
+        "required": [
+          "data",
+          "version",
+          "kycReviewId"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/BusinessShareholderContactDetailsSubmissionDataData"
+          },
+          "version": {
+            "$ref": "#/components/schemas/Version"
+          },
+          "kycReviewId": {
+            "type": "string",
+            "description": "The ID of the KYC Review this submission belongs to.",
+            "format": "uuid"
+          }
+        },
+        "description": "\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022data\u0022: {\n    \u0022businessShareholderContactDetails\u0022: [\n      {\n        \u0022shareholderId\u0022: \u00227ff6c4998a59d71ad9834041727017d2\u0022,\n        \u0022email\u0022: \u0022shareholder-one@example.com\u0022\n      },\n      {\n        \u0022shareholderId\u0022: \u0022a9578a5a0544d06fd737566c627518a4\u0022,\n        \u0022email\u0022: \u0022shareholder-two@example.com\u0022\n      }\n    ]\n  },\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
+      },
+      "BusinessShareholdersCheckSubmissionData": {
+        "required": [
+          "version",
+          "kycReviewId"
+        ],
+        "type": "object",
+        "properties": {
+          "version": {
+            "$ref": "#/components/schemas/Version"
+          },
+          "kycReviewId": {
+            "type": "string",
+            "description": "The ID of the KYC Review this submission belongs to.",
+            "format": "uuid"
+          }
+        },
+        "description": "\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
+      },
+      "BusinessSourceOfWealthSubmissionData": {
+        "required": [
+          "data",
+          "version",
+          "kycReviewId"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/BusinessSourceOfWealthSubmissionDataData"
+          },
+          "version": {
+            "$ref": "#/components/schemas/Version"
+          },
+          "kycReviewId": {
+            "type": "string",
+            "description": "The ID of the KYC Review this submission belongs to.",
+            "format": "uuid"
+          }
+        },
+        "description": "\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022data\u0022: {\n    \u0022sourceOfWealthList\u0022: [\n      \u0022BUSINESS_ACTIVITIES\u0022,\n      \u0022OTHER\u0022\n    ],\n    \u0022otherSourceOfWealthDescription\u0022: \u0022Loan from friends\u0022\n  },\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
+      },
+      "BusinessSourceOfWealthInfoSubmissionData": {
+        "required": [
+          "data",
+          "version",
+          "kycReviewId"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/BusinessSourceOfWealthInfoSubmissionDataData"
+          },
+          "version": {
+            "$ref": "#/components/schemas/Version"
+          },
+          "kycReviewId": {
+            "type": "string",
+            "description": "The ID of the KYC Review this submission belongs to.",
+            "format": "uuid"
+          }
+        },
+        "description": "\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022data\u0022: {\n    \u0022sourceOfWealthList\u0022: [\n      {\n        \u0022businessSourceOfWealthInfo\u0022: \u0022BUSINESS_LOAN\u0022,\n        \u0022isSourceOfFund\u0022: false\n      },\n      {\n        \u0022businessSourceOfWealthInfo\u0022: \u0022GRANTS\u0022,\n        \u0022isSourceOfFund\u0022: true\n      }\n    ]\n  },\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
+      },
+      "BusinessSourceOfWealthProofSubmissionData": {
+        "required": [
+          "data",
+          "version",
+          "kycReviewId"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/BusinessSourceOfWealthProofSubmissionDataData"
+          },
+          "version": {
+            "$ref": "#/components/schemas/Version"
+          },
+          "kycReviewId": {
+            "type": "string",
+            "description": "The ID of the KYC Review this submission belongs to.",
+            "format": "uuid"
+          }
+        },
+        "description": "\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022data\u0022: {\n    \u0022sourceOfWealthType\u0022: \u0022REVENUE\u0022,\n    \u0022documentType\u0022: \u0022SAVINGS_STATEMENT\u0022\n  },\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
+      },
+      "BusinessUseCaseSubmissionData": {
+        "required": [
+          "data",
+          "version",
+          "kycReviewId"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/BusinessUseCaseSubmissionDataData"
+          },
+          "version": {
+            "$ref": "#/components/schemas/Version"
+          },
+          "kycReviewId": {
+            "type": "string",
+            "description": "The ID of the KYC Review this submission belongs to.",
+            "format": "uuid"
+          }
+        },
+        "description": "\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022data\u0022: {\n    \u0022useCases\u0022: [\n      \u0022DONATION\u0022,\n      \u0022PAYING_RENT_OR_UTILITIES\u0022\n    ]\n  },\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
+      },
+      "IdDocumentSubmissionData": {
+        "required": [
+          "data",
+          "version",
+          "kycReviewId"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/IdDocumentSubmissionDataData"
+          },
+          "version": {
+            "$ref": "#/components/schemas/Version"
+          },
+          "kycReviewId": {
+            "type": "string",
+            "description": "The ID of the KYC Review this submission belongs to.",
+            "format": "uuid"
+          }
+        },
+        "description": "\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022data\u0022: {\n    \u0022issuingCountry\u0022: \u0022GB\u0022,\n    \u0022documentType\u0022: \u0022DRIVERS_LICENSE\u0022,\n    \u0022frontSideFileName\u0022: \u0022front_side.jpg\u0022,\n    \u0022backSideFileName\u0022: \u0022back_side.jpg\u0022\n  },\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
+      },
+      "IncomeSubmissionData": {
+        "required": [
+          "data",
+          "version",
+          "kycReviewId"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/IncomeSubmissionDataData"
+          },
+          "version": {
+            "$ref": "#/components/schemas/Version"
+          },
+          "kycReviewId": {
+            "type": "string",
+            "description": "The ID of the KYC Review this submission belongs to.",
+            "format": "uuid"
+          }
+        },
+        "description": "\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022data\u0022: {\n    \u0022amount\u0022: 50000.00,\n    \u0022currency\u0022: \u0022USD\u0022,\n    \u0022incomeType\u0022: \u0022SALARY\u0022\n  },\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
+      },
+      "IndiaTransferPurposeSubmissionData": {
+        "required": [
+          "data",
+          "version",
+          "kycReviewId"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/IndiaTransferPurposeSubmissionDataData"
+          },
+          "version": {
+            "$ref": "#/components/schemas/Version"
+          },
+          "kycReviewId": {
+            "type": "string",
+            "description": "The ID of the KYC Review this submission belongs to.",
+            "format": "uuid"
+          }
+        },
+        "description": "\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022data\u0022: {\n    \u0022code\u0022: \u0022OVERSEAS_EDUCATION\u0022,\n    \u0022tcsTaxApplies\u0022: false,\n    \u0022educationPaidWithLoan\u0022: true,\n    \u0022passportFileName\u0022: \u0022file1.png\u0022,\n    \u0022additionalDocumentFileName\u0022: \u0022file2.png\u0022,\n    \u0022loanDocumentFileName\u0022: \u0022file3.png\u0022\n  },\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
+      },
+      "JpnBusinessCertSubmissionData": {
+        "required": [
+          "version",
+          "kycReviewId"
+        ],
+        "type": "object",
+        "properties": {
+          "version": {
+            "$ref": "#/components/schemas/Version"
+          },
+          "kycReviewId": {
+            "type": "string",
+            "description": "The ID of the KYC Review this submission belongs to.",
+            "format": "uuid"
+          }
+        },
+        "description": "\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
+      },
+      "JpnPersonalMynumberSubmissionData": {
+        "required": [
+          "data",
+          "version",
+          "kycReviewId"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/JpnPersonalMynumberSubmissionDataData"
+          },
+          "version": {
+            "$ref": "#/components/schemas/Version"
+          },
+          "kycReviewId": {
+            "type": "string",
+            "description": "The ID of the KYC Review this submission belongs to.",
+            "format": "uuid"
+          }
+        },
+        "description": "\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022data\u0022: {\n    \u0022documentType\u0022: \u0022MY_NUMBER_CARD\u0022,\n    \u0022frontSideFileName\u0022: \u0022front.jpg\u0022,\n    \u0022backSideFileName\u0022: \u0022back.jpg\u0022\n  },\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
+      },
+      "LegalEntityShareholderSubmissionData": {
+        "required": [
+          "data",
+          "version",
+          "kycReviewId"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/LegalEntityShareholderSubmissionDataData"
+          },
+          "version": {
+            "$ref": "#/components/schemas/Version"
+          },
+          "kycReviewId": {
+            "type": "string",
+            "description": "The ID of the KYC Review this submission belongs to.",
+            "format": "uuid"
+          }
+        },
+        "description": "\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022data\u0022: {\n    \u0022legalEntityShareholders\u0022: [\n      {\n        \u0022name\u0022: \u0022Example Holdings Inc\u0022,\n        \u0022country\u0022: \u0022US\u0022,\n        \u0022ownershipPercentage\u0022: 40\n      }\n    ]\n  },\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
+      },
+      "ProofOfTradingAddressSubmissionData": {
+        "required": [
+          "data",
+          "version",
+          "kycReviewId"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/ProofOfTradingAddressSubmissionDataData"
+          },
+          "version": {
+            "$ref": "#/components/schemas/Version"
+          },
+          "kycReviewId": {
+            "type": "string",
+            "description": "The ID of the KYC Review this submission belongs to.",
+            "format": "uuid"
+          }
+        },
+        "description": "\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022data\u0022: {\n    \u0022documentType\u0022: \u0022UTILITY_BILL\u0022,\n    \u0022tradingAddressId\u0022: 4711\n  },\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
+      },
+      "SourceOfFundsSubmissionData": {
+        "required": [
+          "data",
+          "version",
+          "kycReviewId"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/SourceOfFundsSubmissionDataData"
+          },
+          "version": {
+            "$ref": "#/components/schemas/Version"
+          },
+          "kycReviewId": {
+            "type": "string",
+            "description": "The ID of the KYC Review this submission belongs to.",
+            "format": "uuid"
+          }
+        },
+        "description": "\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022data\u0022: {\n    \u0022category\u0022: \u0022SALARY\u0022\n  },\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
+      },
+      "SourceOfWealthSubmissionData": {
+        "required": [
+          "version",
+          "kycReviewId"
+        ],
+        "type": "object",
+        "properties": {
+          "version": {
+            "$ref": "#/components/schemas/Version"
+          },
+          "kycReviewId": {
+            "type": "string",
+            "description": "The ID of the KYC Review this submission belongs to.",
+            "format": "uuid"
+          }
+        },
+        "description": "\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
+      },
+      "SourceOfWealthInfoSubmissionData": {
+        "required": [
+          "data",
+          "version",
+          "kycReviewId"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/SourceOfWealthInfoSubmissionDataData"
+          },
+          "version": {
+            "$ref": "#/components/schemas/Version"
+          },
+          "kycReviewId": {
+            "type": "string",
+            "description": "The ID of the KYC Review this submission belongs to.",
+            "format": "uuid"
+          }
+        },
+        "description": "\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022data\u0022: {\n    \u0022hasSecondaryIncome\u0022: true,\n    \u0022secondaryIncomeType\u0022: \u0022SALARY\u0022,\n    \u0022amount\u0022: 20000.00,\n    \u0022currency\u0022: \u0022USD\u0022\n  },\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
+      },
+      "SourceOfWealthProofSubmissionData": {
+        "required": [
+          "data",
+          "version",
+          "kycReviewId"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/SourceOfWealthProofSubmissionDataData"
+          },
+          "version": {
+            "$ref": "#/components/schemas/Version"
+          },
+          "kycReviewId": {
+            "type": "string",
+            "description": "The ID of the KYC Review this submission belongs to.",
+            "format": "uuid"
+          }
+        },
+        "description": "\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022data\u0022: {\n    \u0022secondaryIncomeType\u0022: \u0022SALARY\u0022,\n    \u0022secondaryIncomeDocumentType\u0022: \u0022PAYSLIP\u0022\n  },\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
+      },
+      "UseCaseCountriesSubmissionData": {
+        "required": [
+          "data",
+          "version",
+          "kycReviewId"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/UseCaseCountriesSubmissionDataData"
+          },
+          "version": {
+            "$ref": "#/components/schemas/Version"
+          },
+          "kycReviewId": {
+            "type": "string",
+            "description": "The ID of the KYC Review this submission belongs to.",
+            "format": "uuid"
+          }
+        },
+        "description": "\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022data\u0022: {\n    \u0022useCaseCountries\u0022: [\n      \u0022usa\u0022,\n      \u0022gbr\u0022,\n      \u0022deu\u0022\n    ]\n  },\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
       },
       "OttResponseOneTimeTokenProperties": {
         "type": "object",
@@ -38051,6 +39817,137 @@
         },
         "description": "Group of related fields shown together in UI."
       },
+      "BusinessUltimateBeneficialOwnerIdDocumentUploadSubmissionData": {
+        "required": [
+          "data",
+          "version",
+          "kycReviewId"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/BusinessUltimateBeneficialOwnerIdDocumentUploadSubmissionDataData"
+          },
+          "version": {
+            "$ref": "#/components/schemas/Version"
+          },
+          "kycReviewId": {
+            "type": "string",
+            "description": "The ID of the KYC Review this submission belongs to.",
+            "format": "uuid"
+          }
+        },
+        "description": "\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022data\u0022: {\n    \u0022documentType\u0022: \u0022NATIONAL_ID\u0022,\n    \u0022shareholderId\u0022: \u0022489209\u0022,\n    \u0022frontSideFileName\u0022: \u0022image1.jpeg\u0022,\n    \u0022backSideFileName\u0022: \u0022image2.jpeg\u0022\n  },\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
+      },
+      "BusinessUltimateBeneficialOwnerIdSsnSubmissionData": {
+        "required": [
+          "data",
+          "version",
+          "kycReviewId"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/BusinessUltimateBeneficialOwnerIdSsnSubmissionDataData"
+          },
+          "version": {
+            "$ref": "#/components/schemas/Version"
+          },
+          "kycReviewId": {
+            "type": "string",
+            "description": "The ID of the KYC Review this submission belongs to.",
+            "format": "uuid"
+          }
+        },
+        "description": "\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022data\u0022: {\n    \u0022documentType\u0022: \u0022SSN\u0022,\n    \u0022shareholderId\u0022: \u0022489209\u0022,\n    \u0022ssn\u0022: \u0022555501234\u0022\n  },\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
+      },
+      "TaxResidencySubmissionDataLocalEntityTinExemptionsData": {
+        "required": [
+          "taxInfoList"
+        ],
+        "type": "object",
+        "properties": {
+          "taxInfoList": {
+            "examples": [
+              [
+                {
+                  "taxCountry": "SG"
+                }
+              ]
+            ],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaxResidencySubmissionDataLocalEntityTinExemptionsDataTaxInfoListItem"
+            },
+            "description": "A list of tax residency objects for every country where the user is a tax resident."
+          }
+        }
+      },
+      "TaxResidencySubmissionDataStandardCrsCollectionData": {
+        "required": [
+          "taxInfoList"
+        ],
+        "type": "object",
+        "properties": {
+          "taxInfoList": {
+            "examples": [
+              [
+                {
+                  "taxCountry": "SG",
+                  "taxId": {
+                    "type": "SG_NRIC",
+                    "number": "S1234567A"
+                  }
+                },
+                {
+                  "taxCountry": "BR",
+                  "skipReason": "WAITING_FOR_TAX_ID"
+                }
+              ]
+            ],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaxResidencySubmissionDataStandardCrsCollectionDataTaxInfoListItem"
+            },
+            "description": "A list of tax residency objects for every country where the user is a tax resident."
+          }
+        }
+      },
+      "TaxResidencySubmissionDataGoldenVisaDeclarationsData": {
+        "required": [
+          "taxInfoList",
+          "goldenVisaDeclaration"
+        ],
+        "type": "object",
+        "properties": {
+          "taxInfoList": {
+            "examples": [
+              [
+                {
+                  "taxCountry": "AE",
+                  "skipReason": "NO_TAXABLE_INCOME"
+                },
+                {
+                  "taxCountry": "AG",
+                  "skipReason": "WITHIN_TIME_FRAME"
+                },
+                {
+                  "taxCountry": "BS",
+                  "skipReason": "DID_NOT_FILE_INCOME"
+                }
+              ]
+            ],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaxResidencySubmissionDataGoldenVisaDeclarationsDataTaxInfoListItem"
+            },
+            "description": "A list of tax residency objects for every country where the user is a tax resident."
+          },
+          "goldenVisaDeclaration": {
+            "$ref": "#/components/schemas/TaxResidencySubmissionDataGoldenVisaDeclarationsDataGoldenVisaDeclaration"
+          }
+        }
+      },
       "ContentSubmissionDataSubmissionDataIndividualSubmissionIndividual": {
         "required": [
           "name"
@@ -38171,6 +40068,26 @@
             "$ref": "#/components/schemas/V430DataResourceSenderAllOf2BankDetailsAddress"
           }
         }
+      },
+      "TaxResidencySubmissionDataStandardCrsCollectionDataTaxInfoListItemTaxId": {
+        "required": [
+          "type",
+          "number"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "The specific TIN identifier type for that country. See the [TIN types reference](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#tin-types-reference).",
+            "example": "SG_NRIC"
+          },
+          "number": {
+            "type": "string",
+            "description": "The actual tax identification number.",
+            "example": "S1234567A"
+          }
+        },
+        "description": "An object containing tax identification details. Provide either \u0060taxId\u0060 or \u0060skipReason\u0060."
       },
       "AddressDetailsOccupationsItem": {
         "type": "object",
@@ -38464,6 +40381,407 @@
         "description": "Key-value object containing metadata of the underlying product object that triggered the KYC Review.\nFor \u0060QUOTE\u0060, \u0060TRANSFER\u0060 and \u0060ADD_MONEY\u0060 types, \u0060triggerData\u0060 contains an \u0060id\u0060 field that refers to their respective IDs.\nFor \u0060BANK_ACCOUNT_DETAILS\u0060, \u0060triggerData\u0060 has a field called \u0060currencies\u0060 which contains a list of currencies (e.g. USD, SGD, EUR) that the bank details have been created for.\n\nFields and their data types for each \u0060triggerReference.type\u0060:\n- \u0060QUOTE\u0060 - \u0060id\u0060 (uuid)\n- \u0060TRANSFER\u0060 - \u0060id\u0060 (long)\n- \u0060ADD_MONEY\u0060 - \u0060id\u0060 (long)\n- \u0060BANK_ACCOUNT_DETAILS\u0060 - \u0060currencies\u0060 (list of string)\n",
         "example": {
           "id": "ba83a43a-f623-46f0-956d-196c13e2ab01"
+        }
+      },
+      "AccountIntentSubmissionDataData": {
+        "required": [
+          "accountIntent"
+        ],
+        "type": "object",
+        "properties": {
+          "accountIntent": {
+            "$ref": "#/components/schemas/AccountIntentSubmissionDataDataAccountIntent"
+          }
+        }
+      },
+      "AccountPurposeSubmissionDataData": {
+        "required": [
+          "accountPurpose"
+        ],
+        "type": "object",
+        "properties": {
+          "accountPurpose": {
+            "$ref": "#/components/schemas/AccountPurposeSubmissionDataDataAccountPurpose"
+          }
+        }
+      },
+      "AnnualVolumeSubmissionDataData": {
+        "required": [
+          "amount",
+          "currency"
+        ],
+        "type": "object",
+        "properties": {
+          "amount": {
+            "exclusiveMinimum": 0,
+            "type": "number",
+            "description": "The estimated annual volume amount. Must be greater than zero.",
+            "example": 10000
+          },
+          "currency": {
+            "type": "string",
+            "description": "The currency code (e.g. \u0060USD\u0060, \u0060EUR\u0060)."
+          }
+        }
+      },
+      "BusinessAnnualIncomeSubmissionDataData": {
+        "required": [
+          "amount",
+          "currency"
+        ],
+        "type": "object",
+        "properties": {
+          "amount": {
+            "exclusiveMinimum": 0,
+            "type": "number",
+            "description": "The gross yearly income amount. Must be greater than zero.",
+            "example": 4500
+          },
+          "currency": {
+            "type": "string",
+            "description": "The currency code (e.g. \u0060USD\u0060, \u0060EUR\u0060)."
+          }
+        }
+      },
+      "BusinessControllingPersonSubmissionDataData": {
+        "required": [
+          "shareholderId",
+          "businessTitle"
+        ],
+        "type": "object",
+        "properties": {
+          "shareholderId": {
+            "type": "string",
+            "description": "The ID of the shareholder declared as the controlling person. Use the \u0060id\u0060 returned by the [List UBOs](/api-reference/profile/profileubolist) endpoint.",
+            "example": "7ff6c4998a59d71ad9834041727017d2"
+          },
+          "businessTitle": {
+            "$ref": "#/components/schemas/BusinessControllingPersonSubmissionDataDataBusinessTitle"
+          }
+        }
+      },
+      "BusinessIncomeClassificationSubmissionDataData": {
+        "required": [
+          "classificationType"
+        ],
+        "type": "object",
+        "properties": {
+          "classificationType": {
+            "$ref": "#/components/schemas/BusinessIncomeClassificationSubmissionDataDataClassificationType"
+          }
+        }
+      },
+      "BusinessMonthlyVolumeSubmissionDataData": {
+        "required": [
+          "amount",
+          "currency"
+        ],
+        "type": "object",
+        "properties": {
+          "amount": {
+            "exclusiveMinimum": 0,
+            "type": "number",
+            "description": "The estimated monthly volume. Must be greater than zero.",
+            "example": 4500
+          },
+          "currency": {
+            "type": "string",
+            "description": "The currency code (e.g. \u0060USD\u0060, \u0060EUR\u0060)."
+          }
+        }
+      },
+      "BusinessShareholderContactDetailsSubmissionDataData": {
+        "required": [
+          "businessShareholderContactDetails"
+        ],
+        "type": "object",
+        "properties": {
+          "businessShareholderContactDetails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BusinessShareholderContactDetailsSubmissionDataDataBusinessShareholderContactDetailsItem"
+            },
+            "description": "Provide each current shareholder exactly once."
+          }
+        }
+      },
+      "BusinessSourceOfWealthSubmissionDataData": {
+        "required": [
+          "sourceOfWealthList"
+        ],
+        "type": "object",
+        "properties": {
+          "sourceOfWealthList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BusinessSourceOfWealthSubmissionDataDataSourceOfWealthListItem"
+            }
+          },
+          "otherSourceOfWealthDescription": {
+            "type": "string",
+            "description": "Required if \u0060OTHER\u0060 is provided in \u0060sourceOfWealthList\u0060.",
+            "example": "Loan from friends"
+          }
+        }
+      },
+      "BusinessSourceOfWealthInfoSubmissionDataData": {
+        "required": [
+          "sourceOfWealthList"
+        ],
+        "type": "object",
+        "properties": {
+          "sourceOfWealthList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BusinessSourceOfWealthInfoSubmissionDataDataSourceOfWealthListItem"
+            }
+          }
+        }
+      },
+      "BusinessSourceOfWealthProofSubmissionDataData": {
+        "type": "object",
+        "properties": {
+          "sourceOfWealthType": {
+            "$ref": "#/components/schemas/BusinessSourceOfWealthProofSubmissionDataDataSourceOfWealthType"
+          },
+          "documentType": {
+            "$ref": "#/components/schemas/BusinessSourceOfWealthProofSubmissionDataDataDocumentType"
+          }
+        }
+      },
+      "BusinessUseCaseSubmissionDataData": {
+        "required": [
+          "useCases"
+        ],
+        "type": "object",
+        "properties": {
+          "useCases": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BusinessUseCaseSubmissionDataDataUseCasesItem"
+            }
+          }
+        }
+      },
+      "IdDocumentSubmissionDataData": {
+        "type": "object",
+        "properties": {
+          "issuingCountry": {
+            "type": "string",
+            "description": "ISO 3166-1 alpha-2 country code.",
+            "example": "GB"
+          },
+          "documentType": {
+            "$ref": "#/components/schemas/IdDocumentSubmissionDataDataDocumentType"
+          },
+          "frontSideFileName": {
+            "type": "string",
+            "description": "Filename of the front side image. Required for \u0060ID_CARD\u0060, \u0060DRIVERS_LICENSE\u0060, \u0060TAX_ID\u0060, \u0060RESIDENCE_PERMIT\u0060.",
+            "example": "front_side.jpg"
+          },
+          "backSideFileName": {
+            "type": "string",
+            "description": "Filename of the back side image. Required for \u0060ID_CARD\u0060, \u0060DRIVERS_LICENSE\u0060, \u0060TAX_ID\u0060, \u0060RESIDENCE_PERMIT\u0060.",
+            "example": "back_side.jpg"
+          }
+        }
+      },
+      "IncomeSubmissionDataData": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "exclusiveMinimum": 0,
+            "type": "number",
+            "description": "The gross yearly income amount. Must be greater than zero.",
+            "example": 50000
+          },
+          "currency": {
+            "type": "string",
+            "description": "The currency code (e.g. \u0060USD\u0060, \u0060EUR\u0060)."
+          },
+          "incomeType": {
+            "$ref": "#/components/schemas/IncomeSubmissionDataDataIncomeType"
+          },
+          "incomeExplanation": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Optional. A free-text description of the income source.",
+            "example": "Salary from full-time employment"
+          }
+        }
+      },
+      "IndiaTransferPurposeSubmissionDataData": {
+        "required": [
+          "code",
+          "tcsTaxApplies",
+          "educationPaidWithLoan",
+          "passportFileName",
+          "additionalDocumentFileName"
+        ],
+        "type": "object",
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/IndiaTransferPurposeSubmissionDataDataCode"
+          },
+          "tcsTaxApplies": {
+            "type": "boolean",
+            "description": "Must be set to \u0060true\u0060 if the profile has remitted more than INR 10 lakhs (including the current transaction) in the current financial year.",
+            "example": false
+          },
+          "educationPaidWithLoan": {
+            "type": "boolean",
+            "description": "If \u0060code\u0060 is \u0060OVERSEAS_EDUCATION\u0060 or \u0060EDUCATION_EXPENSES\u0060, set to \u0060true\u0060 if the profile is paying for this transfer with a loan from a financial institution. For other codes set to \u0060false\u0060.",
+            "example": true
+          },
+          "passportFileName": {
+            "type": "string",
+            "description": "Filename for the profile\u0027s passport image.",
+            "example": "file1.png"
+          },
+          "additionalDocumentFileName": {
+            "type": "string",
+            "description": "Filename for the additional document provided. The type of file supplied as additional document must be based on the \u0060code\u0060, and must be in the profile\u0027s name.\n- For \u0060OVERSEAS_EDUCATION\u0060 or \u0060EDUCATION_EXPENSES\u0060 this can be a visa or university admission letter.\n- For \u0060BUSINESS_TRAVEL\u0060 or \u0060VACATION\u0060 this can be a visa or travel ticket.\n- For \u0060MEDICAL_TREATMENT\u0060 this can be a hospital invoice, doctor\u0027s confirmation, or appointment letter.\n",
+            "example": "file2.png"
+          },
+          "loanDocumentFileName": {
+            "type": "string",
+            "description": "Required when \u0060educationPaidWithLoan\u0060 is \u0060true\u0060. Filename for the loan sanction letter including sanctioned amount and borrower details.",
+            "example": "file3.png"
+          }
+        }
+      },
+      "JpnPersonalMynumberSubmissionDataData": {
+        "type": "object",
+        "properties": {
+          "documentType": {
+            "$ref": "#/components/schemas/JpnPersonalMynumberSubmissionDataDataDocumentType"
+          },
+          "frontSideFileName": {
+            "type": "string",
+            "description": "The file name of the front-side image. Must match the name of one of the uploaded files. Required for \u0060MY_NUMBER_CARD\u0060 and \u0060MY_NUMBER_NOTIFICATION_CARD\u0060; not required for \u0060RESIDENCE_CERTIFICATE\u0060.",
+            "example": "front.jpg"
+          },
+          "backSideFileName": {
+            "type": "string",
+            "description": "The file name of the back-side image. Must match the name of one of the uploaded files. Required for \u0060MY_NUMBER_CARD\u0060 and \u0060MY_NUMBER_NOTIFICATION_CARD\u0060; not required for \u0060RESIDENCE_CERTIFICATE\u0060.",
+            "example": "back.jpg"
+          }
+        }
+      },
+      "LegalEntityShareholderSubmissionDataData": {
+        "required": [
+          "legalEntityShareholders"
+        ],
+        "type": "object",
+        "properties": {
+          "legalEntityShareholders": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LegalEntityShareholderSubmissionDataDataLegalEntityShareholdersItem"
+            },
+            "description": "The legal entity shareholders of the business."
+          }
+        }
+      },
+      "ProofOfTradingAddressSubmissionDataData": {
+        "type": "object",
+        "properties": {
+          "documentType": {
+            "$ref": "#/components/schemas/ProofOfTradingAddressSubmissionDataDataDocumentType"
+          },
+          "tradingAddressId": {
+            "type": "integer",
+            "description": "The trading address ID, from the addresses on the business profile.",
+            "format": "int64",
+            "example": 4711
+          }
+        }
+      },
+      "SourceOfFundsSubmissionDataData": {
+        "type": "object",
+        "properties": {
+          "category": {
+            "$ref": "#/components/schemas/SourceOfFundsSubmissionDataDataCategory"
+          },
+          "explanation": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Required if \u0060category\u0060 is \u0060OTHER\u0060.",
+            "example": "Monthly salary from my employer"
+          }
+        }
+      },
+      "SourceOfWealthInfoSubmissionDataData": {
+        "required": [
+          "hasSecondaryIncome"
+        ],
+        "type": "object",
+        "properties": {
+          "hasSecondaryIncome": {
+            "type": "boolean",
+            "description": "Set to \u0060true\u0060 if there\u0027s a secondary source of income.",
+            "example": true
+          },
+          "secondaryIncomeType": {
+            "$ref": "#/components/schemas/SourceOfWealthInfoSubmissionDataDataSecondaryIncomeType"
+          },
+          "secondaryIncomeDescription": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Optional. A free-text description of the secondary income source.",
+            "example": "Part-time salary from a second job"
+          },
+          "amount": {
+            "exclusiveMinimum": 0,
+            "type": "number",
+            "description": "Required when \u0060hasSecondaryIncome\u0060 is \u0060true\u0060. The secondary income amount. Must be greater than zero.",
+            "example": 20000
+          },
+          "currency": {
+            "type": "string",
+            "description": "The currency code (e.g. \u0060USD\u0060, \u0060EUR\u0060)."
+          }
+        }
+      },
+      "SourceOfWealthProofSubmissionDataData": {
+        "type": "object",
+        "properties": {
+          "secondaryIncomeType": {
+            "$ref": "#/components/schemas/SourceOfWealthProofSubmissionDataDataSecondaryIncomeType"
+          },
+          "secondaryIncomeDocumentType": {
+            "$ref": "#/components/schemas/SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentType"
+          },
+          "secondaryIncomeDescription": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Optional. A free-text description of the secondary income source.",
+            "example": "Payslip from a second, part-time job"
+          }
+        }
+      },
+      "UseCaseCountriesSubmissionDataData": {
+        "required": [
+          "useCaseCountries"
+        ],
+        "type": "object",
+        "properties": {
+          "useCaseCountries": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Country codes in ISO 3166-1 alpha-3 standard."
+          }
         }
       },
       "OttResponseOneTimeTokenPropertiesChallengesItem": {
@@ -42113,6 +44431,112 @@
         },
         "description": "A single field descriptor."
       },
+      "BusinessUltimateBeneficialOwnerIdDocumentUploadSubmissionDataData": {
+        "required": [
+          "documentType",
+          "shareholderId"
+        ],
+        "type": "object",
+        "properties": {
+          "documentType": {
+            "$ref": "#/components/schemas/BusinessUltimateBeneficialOwnerIdDocumentUploadSubmissionDataDataDocumentType"
+          },
+          "shareholderId": {
+            "type": "string",
+            "description": "The UBO\u0027s shareholder ID. Use the \u0060id\u0060 returned by the [Create UBO](/api-reference/profile/profileubocreate) or [List UBOs](/api-reference/profile/profileubolist) endpoints.",
+            "example": "489209"
+          },
+          "frontSideFileName": {
+            "type": "string",
+            "description": "Filename of the front side image. Required for document types with front and back.",
+            "example": "image1.jpeg"
+          },
+          "backSideFileName": {
+            "type": "string",
+            "description": "Filename of the back side image. Required for document types with front and back.",
+            "example": "image2.jpeg"
+          }
+        }
+      },
+      "BusinessUltimateBeneficialOwnerIdSsnSubmissionDataData": {
+        "required": [
+          "documentType",
+          "shareholderId",
+          "ssn"
+        ],
+        "type": "object",
+        "properties": {
+          "documentType": {
+            "$ref": "#/components/schemas/SsnDocumentType"
+          },
+          "shareholderId": {
+            "type": "string",
+            "description": "The UBO\u0027s shareholder ID. Use the \u0060id\u0060 returned by the [Create UBO](/api-reference/profile/profileubocreate) or [List UBOs](/api-reference/profile/profileubolist) endpoints.",
+            "example": "489209"
+          },
+          "ssn": {
+            "pattern": "^[0-9]{9}$",
+            "type": "string",
+            "description": "The UBO\u0027s Social Security Number, as 9 digits without dashes.",
+            "example": "555501234"
+          }
+        }
+      },
+      "TaxResidencySubmissionDataLocalEntityTinExemptionsDataTaxInfoListItem": {
+        "required": [
+          "taxCountry"
+        ],
+        "type": "object",
+        "properties": {
+          "taxCountry": {
+            "type": "string",
+            "description": "ISO 3166-1 alpha-2 country code of the tax residency.",
+            "example": "SG"
+          }
+        }
+      },
+      "TaxResidencySubmissionDataGoldenVisaDeclarationsDataTaxInfoListItem": {
+        "required": [
+          "taxCountry"
+        ],
+        "type": "object",
+        "properties": {
+          "taxCountry": {
+            "type": "string",
+            "description": "ISO 3166-1 alpha-2 country code of the tax residency.",
+            "example": "AE"
+          },
+          "skipReason": {
+            "$ref": "#/components/schemas/TaxResidencySubmissionDataGoldenVisaDeclarationsDataTaxInfoListItemSkipReason"
+          }
+        }
+      },
+      "TaxResidencySubmissionDataGoldenVisaDeclarationsDataGoldenVisaDeclaration": {
+        "required": [
+          "NO_OTHER_RESIDENCE",
+          "WITHIN_TIME_FRAME",
+          "DID_NOT_FILE_INCOME"
+        ],
+        "type": "object",
+        "properties": {
+          "NO_OTHER_RESIDENCE": {
+            "type": "boolean",
+            "description": "Customer does not hold residency rights in any other jurisdiction.",
+            "example": true
+          },
+          "WITHIN_TIME_FRAME": {
+            "type": "boolean",
+            "description": "Customer did not spend more than 90 days in any other jurisdiction in the previous year.",
+            "example": true
+          },
+          "DID_NOT_FILE_INCOME": {
+            "type": "boolean",
+            "description": "Customer did not file a tax return in any other jurisdiction during the previous year.",
+            "example": true
+          }
+        },
+        "description": "A set of affirmations required for users holding specific residency-by-investment visas. All values must be set to \u0060true\u0060."
+      },
       "V430DataResourceRecipientAllOf2BankDetailsAddress": {
         "type": "object",
         "properties": {
@@ -42259,6 +44683,67 @@
           }
         },
         "description": "Not returned if empty"
+      },
+      "BusinessShareholderContactDetailsSubmissionDataDataBusinessShareholderContactDetailsItem": {
+        "required": [
+          "shareholderId",
+          "email"
+        ],
+        "type": "object",
+        "properties": {
+          "shareholderId": {
+            "type": "string",
+            "description": "The shareholder ID. Use the \u0060id\u0060 returned by the [List UBOs](/api-reference/profile/profileubolist) endpoint.",
+            "example": "7ff6c4998a59d71ad9834041727017d2"
+          },
+          "email": {
+            "maxLength": 255,
+            "type": "string",
+            "description": "The shareholder\u0027s email address. It must be a valid email address with no more than 255 characters.",
+            "format": "email",
+            "example": "shareholder-one@example.com"
+          }
+        }
+      },
+      "BusinessSourceOfWealthInfoSubmissionDataDataSourceOfWealthListItem": {
+        "type": "object",
+        "properties": {
+          "businessSourceOfWealthInfo": {
+            "$ref": "#/components/schemas/BusinessSourceOfWealthInfoSubmissionDataDataSourceOfWealthListItemBusinessSourceOfWealthInfo"
+          },
+          "isSourceOfFund": {
+            "type": "boolean",
+            "description": "Whether this source of wealth is used to fund the action.",
+            "example": false
+          }
+        }
+      },
+      "LegalEntityShareholderSubmissionDataDataLegalEntityShareholdersItem": {
+        "required": [
+          "name",
+          "country",
+          "ownershipPercentage"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The shareholder\u0027s name. Must not match the business name.",
+            "example": "Example Holdings Inc"
+          },
+          "country": {
+            "type": "string",
+            "description": "The shareholder\u0027s country as an uppercase ISO 3166-1 alpha-2 country code.",
+            "example": "US"
+          },
+          "ownershipPercentage": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer",
+            "description": "The shareholder\u0027s ownership percentage, between 1 and 100 inclusive. The combined total may exceed 100. This is expected behaviour for multi-layered corporate structures.",
+            "example": 40
+          }
+        }
       },
       "OttResponseOneTimeTokenPropertiesChallengesItemPrimaryChallenge": {
         "type": "object",
@@ -45887,14 +48372,18 @@
       },
       "BatchGroupPaymentInitiationCreateRequest": {
         "required": [
-          "type",
-          "accountId"
+          "type"
         ],
         "type": "object",
-        "properties": {
-          "type": {
-            "$ref": "#/components/schemas/DirectDebitType"
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/PaymentInitiationDirectDebitRequest"
           },
+          {
+            "$ref": "#/components/schemas/PaymentInitiationPayinSessionRequest"
+          }
+        ],
+        "properties": {
           "accountId": {
             "type": "integer",
             "description": "Direct debit account ID. See [direct debit account creation](/api-reference/direct-debit-account/directdebitaccountcreate).",
@@ -45905,6 +48394,18 @@
             "type": "string",
             "description": "Optional payment initiation reference. Maximum 10 characters. If not provided, a reference will be generated automatically.",
             "example": "B1234567"
+          },
+          "type": {
+            "type": "string"
+          }
+        },
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "DIRECT_DEBIT": "#/components/schemas/PaymentInitiationDirectDebitRequest",
+            "PAYIN_SESSION": "#/components/schemas/PaymentInitiationPayinSessionRequest",
+            "PaymentInitiationDirectDebitRequest": "#/components/schemas/PaymentInitiationDirectDebitRequest",
+            "PaymentInitiationPayinSessionRequest": "#/components/schemas/PaymentInitiationPayinSessionRequest"
           }
         }
       },
@@ -46820,27 +49321,6 @@
             "type": "string",
             "description": "URL where the user will be redirected at the end of the flow. Can contain query params and path fragments. It has to be a valid URL as per [RFC 2396](https://www.ietf.org/rfc/rfc2396.txt).",
             "example": "https://example.com"
-          }
-        }
-      },
-      "KycReviewRequirementSubmitFormDataRequest": {
-        "required": [
-          "submissionData"
-        ],
-        "type": "object",
-        "properties": {
-          "submissionData": {
-            "type": "string",
-            "description": "A JSON string containing the following fields:\n\n- \u0060data\u0060 \u2014 an object whose fields vary by requirement type. Some requirement types do not require a \u0060data\u0060 field.\n- \u0060version\u0060 \u2014 the submission version, currently \u0060\u0022V1\u0022\u0060.\n- \u0060kycReviewId\u0060 \u2014 the ID of the KYC Review this submission belongs to.\n\nFor example, the JSON payload would look like below, but it should be included as a string value in the multipart form field:\n\n\u0060\u0060\u0060json\n{\n  \u0022data\u0022: {\n    \u0022accountPurpose\u0022: \u0022SENDING_MONEY_TO_FRIENDS_OR_FAMILY\u0022\n  },\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n\nSee the [KYC requirement types](/guides/product/kyc/wise-kyc/kyc-requirement-types) guide for the \u0060data\u0060 structure and accepted values for each requirement type.\n",
-            "format": "application/json"
-          },
-          "files": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "format": "binary"
-            },
-            "description": "One or more files to upload. Required for certain requirement types.\n\nThere are 3 accepted types for documents, they must be provided with the below content-type/Mime-type and have a matching file extension.\n\nContentType/MimeType \u0026 file extension:\n  - \u0060image/png\u0060 \u0026 \u0060.png\u0060\n  - \u0060image/jpeg\u0060 \u0026 (\u0060.jpg\u0060 or \u0060jpeg\u0060)\n  - \u0060application/pdf\u0060 \u0026 \u0060.pdf\u0060\n\n\nSee the [KYC requirement types](/guides/product/kyc/wise-kyc/kyc-requirement-types) guide for which types require files.\n"
           }
         }
       },
@@ -51769,6 +54249,83 @@
           ]
         }
       },
+      "SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeWrapper": {
+        "required": [
+          "value"
+        ],
+        "type": "object",
+        "properties": {
+          "value": {
+            "$ref": "#/components/schemas/SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeWrapperValue"
+          }
+        }
+      },
+      "SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeWrapper2": {
+        "required": [
+          "value"
+        ],
+        "type": "object",
+        "properties": {
+          "value": {
+            "$ref": "#/components/schemas/SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeWrapper2Value"
+          }
+        }
+      },
+      "SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeWrapper3": {
+        "required": [
+          "value"
+        ],
+        "type": "object",
+        "properties": {
+          "value": {
+            "$ref": "#/components/schemas/SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeWrapper3Value"
+          }
+        }
+      },
+      "SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeWrapper4": {
+        "required": [
+          "value"
+        ],
+        "type": "object",
+        "properties": {
+          "value": {
+            "$ref": "#/components/schemas/SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeWrapper4Value"
+          }
+        }
+      },
+      "SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeWrapper5": {
+        "required": [
+          "value"
+        ],
+        "type": "object",
+        "properties": {
+          "value": {
+            "$ref": "#/components/schemas/SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeWrapper5Value"
+          }
+        }
+      },
+      "SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeWrapper6": {
+        "required": [
+          "value"
+        ],
+        "type": "object",
+        "properties": {
+          "value": {
+            "$ref": "#/components/schemas/SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeWrapper6Value"
+          }
+        }
+      },
+      "SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeWrapper7": {
+        "required": [
+          "value"
+        ],
+        "type": "object",
+        "properties": {
+          "value": {
+            "$ref": "#/components/schemas/SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeWrapper7Value"
+          }
+        }
+      },
       "ExamplePayload": {
         "type": "object",
         "description": "Placeholder schema for path example refs"
@@ -56353,7 +58910,7 @@
         ],
         "type": "string",
         "additionalProperties": false,
-        "description": "Payment type.",
+        "description": "The method of payment to use.",
         "example": "DIRECT_DEBIT",
         "x-ms-enum": {
           "name": "DirectDebitType",
@@ -56366,7 +58923,26 @@
           ]
         }
       },
-      "PaymentInitiationStatus": {
+      "PayinSessionType": {
+        "enum": [
+          "PAYIN_SESSION"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "The method of payment to use.",
+        "example": "PAYIN_SESSION",
+        "x-ms-enum": {
+          "name": "PayinSessionType",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "PAYIN_SESSION",
+              "name": "PayinSession"
+            }
+          ]
+        }
+      },
+      "PaymentInitiationDirectDebitStatus": {
         "enum": [
           "NEW",
           "PROCESSING",
@@ -56379,7 +58955,46 @@
         "description": "Payment initiation status:\n- \u0060NEW\u0060 \u2014 Payment initiation created\n- \u0060PROCESSING\u0060 \u2014 Payment is being processed\n- \u0060COMPLETED\u0060 \u2014 Payment completed successfully\n- \u0060FAILED\u0060 \u2014 Payment failed\n- \u0060CHARGED_BACK\u0060 \u2014 Payment was charged back\n",
         "example": "NEW",
         "x-ms-enum": {
-          "name": "PaymentInitiationStatus",
+          "name": "PaymentInitiationDirectDebitStatus",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "NEW",
+              "name": "NewValue"
+            },
+            {
+              "value": "PROCESSING",
+              "name": "Processing"
+            },
+            {
+              "value": "COMPLETED",
+              "name": "Completed"
+            },
+            {
+              "value": "FAILED",
+              "name": "Failed"
+            },
+            {
+              "value": "CHARGED_BACK",
+              "name": "ChargedBack"
+            }
+          ]
+        }
+      },
+      "PaymentInitiationPayinSessionStatus": {
+        "enum": [
+          "NEW",
+          "PROCESSING",
+          "COMPLETED",
+          "FAILED",
+          "CHARGED_BACK"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Payment initiation status:\n- \u0060NEW\u0060 \u2014 Payment initiation created\n- \u0060PROCESSING\u0060 \u2014 Payment is being processed\n- \u0060COMPLETED\u0060 \u2014 Payment completed successfully\n- \u0060FAILED\u0060 \u2014 Payment failed\n- \u0060CHARGED_BACK\u0060 \u2014 Payment was charged back\n",
+        "example": "NEW",
+        "x-ms-enum": {
+          "name": "PaymentInitiationPayinSessionStatus",
           "modelAsString": false,
           "values": [
             {
@@ -57804,6 +60419,296 @@
             {
               "value": "recipients#state-change",
               "name": "RecipientsHashStateChange"
+            }
+          ]
+        }
+      },
+      "AccountIntentSubmissionDataDataAccountIntentAnyOf1": {
+        "title": "Personal profiles",
+        "enum": [
+          "CONTRIBUTING_TO_PERSONAL_SAVINGS",
+          "GENERAL_MONTHLY_LIVING_EXPENSES",
+          "INVESTING_IN_FUNDS_STOCKS_BONDS_OPTIONS_FUTURES_OR_OTHER",
+          "PAYING_FOR_GOODS_OR_SERVICES_ABROAD",
+          "PAYING_RENT_MORTGAGE_BANK_LOAN_INSURANCE_CREDIT",
+          "PAYING_RENT_UTILITIES_OR_PROPERTY_CHARGES",
+          "RECEIVE_SALARY_IN_DIFFERENT_CURRENCY",
+          "RECEIVE_PENSION_IN_DIFFERENT_CURRENCY",
+          "SENDING_MONEY_REGULARLY_TO_FAMILY",
+          "SENDING_MONEY_TO_MY_OWN_ACCOUNT_TO_BENEFIT_FROM_EXHCANGE_RATE",
+          "EDD_BORDERLESS_PERSONAL_RECEIVING_SALARY_IN_DIFFERENT_CURRENCY",
+          "EDD_BORDERLESS_PERSONAL_RECEIVING_FINANCIAL_SUPPORT_FROM_FAMILY",
+          "EDD_BORDERLESS_PERSONAL_RECEIVING_MONEY_FOR_FREELANCE_OR_CONTRACTOR_SERVICES",
+          "EDD_BORDERLESS_PERSONAL_STORING_MONEY_TO_MANAGE_RATE_FLUCTUATION_RISK",
+          "EDD_BORDERLESS_PERSONAL_USING_AS_LOCAL_BANK_ACCOUNT_IN_FOREIGN_COUNTRY",
+          "EDD_BORDERLESS_PERSONAL_PAYING_FOR_RENT_MORTGAGE_BANK_LOAN_INSURANCE_CREDIT_CARD"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "x-ms-enum": {
+          "name": "AccountIntentSubmissionDataDataAccountIntentAnyOf1",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "CONTRIBUTING_TO_PERSONAL_SAVINGS",
+              "name": "ContributingToPersonalSavings"
+            },
+            {
+              "value": "GENERAL_MONTHLY_LIVING_EXPENSES",
+              "name": "GeneralMonthlyLivingExpenses"
+            },
+            {
+              "value": "INVESTING_IN_FUNDS_STOCKS_BONDS_OPTIONS_FUTURES_OR_OTHER",
+              "name": "InvestingInFundsStocksBondsOptionsFuturesOrOther"
+            },
+            {
+              "value": "PAYING_FOR_GOODS_OR_SERVICES_ABROAD",
+              "name": "PayingForGoodsOrServicesAbroad"
+            },
+            {
+              "value": "PAYING_RENT_MORTGAGE_BANK_LOAN_INSURANCE_CREDIT",
+              "name": "PayingRentMortgageBankLoanInsuranceCredit"
+            },
+            {
+              "value": "PAYING_RENT_UTILITIES_OR_PROPERTY_CHARGES",
+              "name": "PayingRentUtilitiesOrPropertyCharges"
+            },
+            {
+              "value": "RECEIVE_SALARY_IN_DIFFERENT_CURRENCY",
+              "name": "ReceiveSalaryInDifferentCurrency"
+            },
+            {
+              "value": "RECEIVE_PENSION_IN_DIFFERENT_CURRENCY",
+              "name": "ReceivePensionInDifferentCurrency"
+            },
+            {
+              "value": "SENDING_MONEY_REGULARLY_TO_FAMILY",
+              "name": "SendingMoneyRegularlyToFamily"
+            },
+            {
+              "value": "SENDING_MONEY_TO_MY_OWN_ACCOUNT_TO_BENEFIT_FROM_EXHCANGE_RATE",
+              "name": "SendingMoneyToMyOwnAccountToBenefitFromExhcangeRate"
+            },
+            {
+              "value": "EDD_BORDERLESS_PERSONAL_RECEIVING_SALARY_IN_DIFFERENT_CURRENCY",
+              "name": "EddBorderlessPersonalReceivingSalaryInDifferentCurrency"
+            },
+            {
+              "value": "EDD_BORDERLESS_PERSONAL_RECEIVING_FINANCIAL_SUPPORT_FROM_FAMILY",
+              "name": "EddBorderlessPersonalReceivingFinancialSupportFromFamily"
+            },
+            {
+              "value": "EDD_BORDERLESS_PERSONAL_RECEIVING_MONEY_FOR_FREELANCE_OR_CONTRACTOR_SERVICES",
+              "name": "EddBorderlessPersonalReceivingMoneyForFreelanceOrContractorServices"
+            },
+            {
+              "value": "EDD_BORDERLESS_PERSONAL_STORING_MONEY_TO_MANAGE_RATE_FLUCTUATION_RISK",
+              "name": "EddBorderlessPersonalStoringMoneyToManageRateFluctuationRisk"
+            },
+            {
+              "value": "EDD_BORDERLESS_PERSONAL_USING_AS_LOCAL_BANK_ACCOUNT_IN_FOREIGN_COUNTRY",
+              "name": "EddBorderlessPersonalUsingAsLocalBankAccountInForeignCountry"
+            },
+            {
+              "value": "EDD_BORDERLESS_PERSONAL_PAYING_FOR_RENT_MORTGAGE_BANK_LOAN_INSURANCE_CREDIT_CARD",
+              "name": "EddBorderlessPersonalPayingForRentMortgageBankLoanInsuranceCreditCard"
+            }
+          ]
+        }
+      },
+      "AccountIntentSubmissionDataDataAccountIntentAnyOf2": {
+        "title": "Business profiles",
+        "enum": [
+          "EDD_BORDERLESS_BUSINESS_PAYING_SUPPLIERS_CONTRACTORS_EMPLOYEES",
+          "EDD_BORDERLESS_BUSINESS_PAYING_SUPPLIERS_CONTRACTORS_EMPLOYEES_AND_RECEIVING_MONEY_FOR_SERVICES",
+          "PAYING_SUPPLIERS_CONTRACTORS_EMPLOYEES_AND_RECEIVING_MONEY_FOR_SERVICES",
+          "INVESTING_IN_FUNDS_STOCKS_BONDS_OPTIONS_FUTURES_OR_OTHER",
+          "DISTRIBUTING_COMPANY_PROFITS_OR_PAYING_DIVIDENDS",
+          "PAYING_RENT_MORTGAGE_BANK_LOAN_INSURANCE_CREDIT",
+          "PAYING_FOR_GOODS_SERVICES_ABROAD",
+          "PAYING_RENT_UTILITIES_OR_PROPERTY_CHARGES",
+          "PAYING_SUPPLIERS_CONTRACTORS_EMPLOYEES",
+          "PAYING_TAX_ON_PROFIT_OR_PROPERTY",
+          "TRANSFER_WITHIN_COMPANY_OR_GROUP",
+          "EDD_BORDERLESS_BUSINESS_MAKING_INTRA_COMPANY_TRANSFERS"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "x-ms-enum": {
+          "name": "AccountIntentSubmissionDataDataAccountIntentAnyOf2",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "EDD_BORDERLESS_BUSINESS_PAYING_SUPPLIERS_CONTRACTORS_EMPLOYEES",
+              "name": "EddBorderlessBusinessPayingSuppliersContractorsEmployees"
+            },
+            {
+              "value": "EDD_BORDERLESS_BUSINESS_PAYING_SUPPLIERS_CONTRACTORS_EMPLOYEES_AND_RECEIVING_MONEY_FOR_SERVICES",
+              "name": "EddBorderlessBusinessPayingSuppliersContractorsEmployeesAndReceivingMoneyForServices"
+            },
+            {
+              "value": "PAYING_SUPPLIERS_CONTRACTORS_EMPLOYEES_AND_RECEIVING_MONEY_FOR_SERVICES",
+              "name": "PayingSuppliersContractorsEmployeesAndReceivingMoneyForServices"
+            },
+            {
+              "value": "INVESTING_IN_FUNDS_STOCKS_BONDS_OPTIONS_FUTURES_OR_OTHER",
+              "name": "InvestingInFundsStocksBondsOptionsFuturesOrOther"
+            },
+            {
+              "value": "DISTRIBUTING_COMPANY_PROFITS_OR_PAYING_DIVIDENDS",
+              "name": "DistributingCompanyProfitsOrPayingDividends"
+            },
+            {
+              "value": "PAYING_RENT_MORTGAGE_BANK_LOAN_INSURANCE_CREDIT",
+              "name": "PayingRentMortgageBankLoanInsuranceCredit"
+            },
+            {
+              "value": "PAYING_FOR_GOODS_SERVICES_ABROAD",
+              "name": "PayingForGoodsServicesAbroad"
+            },
+            {
+              "value": "PAYING_RENT_UTILITIES_OR_PROPERTY_CHARGES",
+              "name": "PayingRentUtilitiesOrPropertyCharges"
+            },
+            {
+              "value": "PAYING_SUPPLIERS_CONTRACTORS_EMPLOYEES",
+              "name": "PayingSuppliersContractorsEmployees"
+            },
+            {
+              "value": "PAYING_TAX_ON_PROFIT_OR_PROPERTY",
+              "name": "PayingTaxOnProfitOrProperty"
+            },
+            {
+              "value": "TRANSFER_WITHIN_COMPANY_OR_GROUP",
+              "name": "TransferWithinCompanyOrGroup"
+            },
+            {
+              "value": "EDD_BORDERLESS_BUSINESS_MAKING_INTRA_COMPANY_TRANSFERS",
+              "name": "EddBorderlessBusinessMakingIntraCompanyTransfers"
+            }
+          ]
+        }
+      },
+      "SourceOfFundsSubmissionDataDataCategoryAnyOf1": {
+        "title": "Personal profiles",
+        "enum": [
+          "SALARY",
+          "INVESTMENT",
+          "INHERITANCE",
+          "LOAN",
+          "PROPERTY_SALE",
+          "FROM_FAMILY",
+          "OTHER"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "x-ms-enum": {
+          "name": "SourceOfFundsSubmissionDataDataCategoryAnyOf1",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "SALARY",
+              "name": "Salary"
+            },
+            {
+              "value": "INVESTMENT",
+              "name": "Investment"
+            },
+            {
+              "value": "INHERITANCE",
+              "name": "Inheritance"
+            },
+            {
+              "value": "LOAN",
+              "name": "Loan"
+            },
+            {
+              "value": "PROPERTY_SALE",
+              "name": "PropertySale"
+            },
+            {
+              "value": "FROM_FAMILY",
+              "name": "FromFamily"
+            },
+            {
+              "value": "OTHER",
+              "name": "Other"
+            }
+          ]
+        }
+      },
+      "SourceOfFundsSubmissionDataDataCategoryAnyOf2": {
+        "title": "Business profiles",
+        "enum": [
+          "BUSINESS_OPERATING",
+          "BUSINESS_INVESTING",
+          "BUSINESS_FINANCING",
+          "OTHER"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "x-ms-enum": {
+          "name": "SourceOfFundsSubmissionDataDataCategoryAnyOf2",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "BUSINESS_OPERATING",
+              "name": "BusinessOperating"
+            },
+            {
+              "value": "BUSINESS_INVESTING",
+              "name": "BusinessInvesting"
+            },
+            {
+              "value": "BUSINESS_FINANCING",
+              "name": "BusinessFinancing"
+            },
+            {
+              "value": "OTHER",
+              "name": "Other"
+            }
+          ]
+        }
+      },
+      "TaxResidencySubmissionDataStandardCrsCollectionDataTaxInfoListItemSkipReason": {
+        "enum": [
+          "TAX_EXEMPT",
+          "RETIRED_OR_UNEMPLOYED",
+          "NO_TAXABLE_INCOME",
+          "WAITING_FOR_TAX_ID",
+          "WITHIN_TIME_FRAME",
+          "DID_NOT_FILE_INCOME"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Justification for not providing a TIN. Provide either \u0060taxId\u0060 or \u0060skipReason\u0060.\n- \u0060TAX_EXEMPT\u0060 \u2014 the customer\u0027s income is exempt from taxation.\n- \u0060RETIRED_OR_UNEMPLOYED\u0060 \u2014 the customer is currently retired or unemployed.\n- \u0060NO_TAXABLE_INCOME\u0060 \u2014 the customer does not have any taxable income.\n- \u0060WAITING_FOR_TAX_ID\u0060 \u2014 the customer is waiting to receive their TIN.\n- \u0060WITHIN_TIME_FRAME\u0060 \u2014 the customer is within the time frame for obtaining a TIN.\n- \u0060DID_NOT_FILE_INCOME\u0060 \u2014 the customer did not file a tax return.\n",
+        "x-ms-enum": {
+          "name": "TaxResidencySubmissionDataStandardCrsCollectionDataTaxInfoListItemSkipReason",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "TAX_EXEMPT",
+              "name": "TaxExempt"
+            },
+            {
+              "value": "RETIRED_OR_UNEMPLOYED",
+              "name": "RetiredOrUnemployed"
+            },
+            {
+              "value": "NO_TAXABLE_INCOME",
+              "name": "NoTaxableIncome"
+            },
+            {
+              "value": "WAITING_FOR_TAX_ID",
+              "name": "WaitingForTaxId"
+            },
+            {
+              "value": "WITHIN_TIME_FRAME",
+              "name": "WithinTimeFrame"
+            },
+            {
+              "value": "DID_NOT_FILE_INCOME",
+              "name": "DidNotFileIncome"
             }
           ]
         }
@@ -59390,6 +62295,762 @@
           ]
         }
       },
+      "AccountPurposeSubmissionDataDataAccountPurpose": {
+        "enum": [
+          "SENDING_MONEY_TO_FRIENDS_OR_FAMILY",
+          "MOVING_SAVINGS",
+          "GENERAL_LIVING_EXPENSES",
+          "BUYING_GOODS_OR_SERVICES_ABROAD",
+          "PAYING_FOR_MORTGAGE_OR_LOAN",
+          "PAYING_BILLS",
+          "RECEIVING_SALARY_OR_PENSION",
+          "INVESTING"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "example": "SENDING_MONEY_TO_FRIENDS_OR_FAMILY",
+        "x-ms-enum": {
+          "name": "AccountPurposeSubmissionDataDataAccountPurpose",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "SENDING_MONEY_TO_FRIENDS_OR_FAMILY",
+              "name": "SendingMoneyToFriendsOrFamily"
+            },
+            {
+              "value": "MOVING_SAVINGS",
+              "name": "MovingSavings"
+            },
+            {
+              "value": "GENERAL_LIVING_EXPENSES",
+              "name": "GeneralLivingExpenses"
+            },
+            {
+              "value": "BUYING_GOODS_OR_SERVICES_ABROAD",
+              "name": "BuyingGoodsOrServicesAbroad"
+            },
+            {
+              "value": "PAYING_FOR_MORTGAGE_OR_LOAN",
+              "name": "PayingForMortgageOrLoan"
+            },
+            {
+              "value": "PAYING_BILLS",
+              "name": "PayingBills"
+            },
+            {
+              "value": "RECEIVING_SALARY_OR_PENSION",
+              "name": "ReceivingSalaryOrPension"
+            },
+            {
+              "value": "INVESTING",
+              "name": "Investing"
+            }
+          ]
+        }
+      },
+      "BusinessControllingPersonSubmissionDataDataBusinessTitle": {
+        "enum": [
+          "GENERAL_PARTNER",
+          "FOUNDER",
+          "CEO",
+          "PRESIDENT",
+          "MANAGING_DIRECTOR",
+          "COO",
+          "CFO",
+          "TREASURER",
+          "EXECUTIVE_DIRECTOR",
+          "VICE_PRESIDENT"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "The controlling person\u0027s title or role in the business.",
+        "example": "CEO",
+        "x-ms-enum": {
+          "name": "BusinessControllingPersonSubmissionDataDataBusinessTitle",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "GENERAL_PARTNER",
+              "name": "GeneralPartner"
+            },
+            {
+              "value": "FOUNDER",
+              "name": "Founder"
+            },
+            {
+              "value": "CEO",
+              "name": "Ceo"
+            },
+            {
+              "value": "PRESIDENT",
+              "name": "President"
+            },
+            {
+              "value": "MANAGING_DIRECTOR",
+              "name": "ManagingDirector"
+            },
+            {
+              "value": "COO",
+              "name": "Coo"
+            },
+            {
+              "value": "CFO",
+              "name": "Cfo"
+            },
+            {
+              "value": "TREASURER",
+              "name": "Treasurer"
+            },
+            {
+              "value": "EXECUTIVE_DIRECTOR",
+              "name": "ExecutiveDirector"
+            },
+            {
+              "value": "VICE_PRESIDENT",
+              "name": "VicePresident"
+            }
+          ]
+        }
+      },
+      "BusinessIncomeClassificationSubmissionDataDataClassificationType": {
+        "enum": [
+          "ACTIVE_NFE",
+          "PASSIVE_NFE",
+          "FI_INVESTMENT_ENTITY",
+          "FI_NON_INVESTMENT_ENTITY"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "The business\u0027s CRS classification.\n- \u0060ACTIVE_NFE\u0060 - Active non-financial entity: more than 50% of the business\u0027s income comes from sales, services, donations, or grants.\n- \u0060PASSIVE_NFE\u0060 - Passive non-financial entity: more than 50% of the business\u0027s income comes from dividends, interest, rent, or royalties.\n- \u0060FI_INVESTMENT_ENTITY\u0060 - Financial institution (FI) that manages investment, hedge, or private equity funds, or is a foundation funded by investments.\n- \u0060FI_NON_INVESTMENT_ENTITY\u0060 - FI such as a bank, credit union, custodial institution, or similar.\n",
+        "example": "ACTIVE_NFE",
+        "x-ms-enum": {
+          "name": "BusinessIncomeClassificationSubmissionDataDataClassificationType",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "ACTIVE_NFE",
+              "name": "ActiveNfe"
+            },
+            {
+              "value": "PASSIVE_NFE",
+              "name": "PassiveNfe"
+            },
+            {
+              "value": "FI_INVESTMENT_ENTITY",
+              "name": "FiInvestmentEntity"
+            },
+            {
+              "value": "FI_NON_INVESTMENT_ENTITY",
+              "name": "FiNonInvestmentEntity"
+            }
+          ]
+        }
+      },
+      "BusinessSourceOfWealthSubmissionDataDataSourceOfWealthListItem": {
+        "enum": [
+          "BUSINESS_ACTIVITIES",
+          "INVESTMENTS",
+          "LOAN_OR_OTHER_FINANCING",
+          "DONATION",
+          "GRANTS",
+          "OTHER"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "x-ms-enum": {
+          "name": "BusinessSourceOfWealthSubmissionDataDataSourceOfWealthListItem",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "BUSINESS_ACTIVITIES",
+              "name": "BusinessActivities"
+            },
+            {
+              "value": "INVESTMENTS",
+              "name": "Investments"
+            },
+            {
+              "value": "LOAN_OR_OTHER_FINANCING",
+              "name": "LoanOrOtherFinancing"
+            },
+            {
+              "value": "DONATION",
+              "name": "Donation"
+            },
+            {
+              "value": "GRANTS",
+              "name": "Grants"
+            },
+            {
+              "value": "OTHER",
+              "name": "Other"
+            }
+          ]
+        }
+      },
+      "BusinessSourceOfWealthProofSubmissionDataDataSourceOfWealthType": {
+        "enum": [
+          "REVENUE",
+          "PERSONAL_FUNDING",
+          "BUSINESS_LOAN",
+          "FUNDING_AND_SHAREHOLDER_INVESTMENTS",
+          "INVESTMENT_INCOME",
+          "DONATIONS",
+          "GRANTS",
+          "LEGAL"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "example": "REVENUE",
+        "x-ms-enum": {
+          "name": "BusinessSourceOfWealthProofSubmissionDataDataSourceOfWealthType",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "REVENUE",
+              "name": "Revenue"
+            },
+            {
+              "value": "PERSONAL_FUNDING",
+              "name": "PersonalFunding"
+            },
+            {
+              "value": "BUSINESS_LOAN",
+              "name": "BusinessLoan"
+            },
+            {
+              "value": "FUNDING_AND_SHAREHOLDER_INVESTMENTS",
+              "name": "FundingAndShareholderInvestments"
+            },
+            {
+              "value": "INVESTMENT_INCOME",
+              "name": "InvestmentIncome"
+            },
+            {
+              "value": "DONATIONS",
+              "name": "Donations"
+            },
+            {
+              "value": "GRANTS",
+              "name": "Grants"
+            },
+            {
+              "value": "LEGAL",
+              "name": "Legal"
+            }
+          ]
+        }
+      },
+      "BusinessSourceOfWealthProofSubmissionDataDataDocumentType": {
+        "enum": [
+          "PAYSLIP",
+          "INVOICES",
+          "CONTRACTS",
+          "TAX_DOCUMENTS",
+          "AUDITED_FINANCIAL_STATEMENTS",
+          "E_COMMERCE_STATEMENTS",
+          "PERSONAL_INVESTMENT",
+          "PERSONAL_LOAN_AGREEMENT",
+          "PERSONAL_TAX_DECLARATION",
+          "LOAN_AGREEMENT",
+          "EQUITY_AGREEMENT",
+          "SUBSCRIPTION_AGREEMENT",
+          "SAVINGS_STATEMENT",
+          "ASSET_SALE_AGREEMENT",
+          "SHARE_SALE_CERTIFICATE",
+          "DONATION_RECEIPTS",
+          "GRANT_APPROVAL_LETTER",
+          "WRITTEN_CONFIRMATION",
+          "BANK_STATEMENT"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "example": "SAVINGS_STATEMENT",
+        "x-ms-enum": {
+          "name": "BusinessSourceOfWealthProofSubmissionDataDataDocumentType",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "PAYSLIP",
+              "name": "Payslip"
+            },
+            {
+              "value": "INVOICES",
+              "name": "Invoices"
+            },
+            {
+              "value": "CONTRACTS",
+              "name": "Contracts"
+            },
+            {
+              "value": "TAX_DOCUMENTS",
+              "name": "TaxDocuments"
+            },
+            {
+              "value": "AUDITED_FINANCIAL_STATEMENTS",
+              "name": "AuditedFinancialStatements"
+            },
+            {
+              "value": "E_COMMERCE_STATEMENTS",
+              "name": "ECommerceStatements"
+            },
+            {
+              "value": "PERSONAL_INVESTMENT",
+              "name": "PersonalInvestment"
+            },
+            {
+              "value": "PERSONAL_LOAN_AGREEMENT",
+              "name": "PersonalLoanAgreement"
+            },
+            {
+              "value": "PERSONAL_TAX_DECLARATION",
+              "name": "PersonalTaxDeclaration"
+            },
+            {
+              "value": "LOAN_AGREEMENT",
+              "name": "LoanAgreement"
+            },
+            {
+              "value": "EQUITY_AGREEMENT",
+              "name": "EquityAgreement"
+            },
+            {
+              "value": "SUBSCRIPTION_AGREEMENT",
+              "name": "SubscriptionAgreement"
+            },
+            {
+              "value": "SAVINGS_STATEMENT",
+              "name": "SavingsStatement"
+            },
+            {
+              "value": "ASSET_SALE_AGREEMENT",
+              "name": "AssetSaleAgreement"
+            },
+            {
+              "value": "SHARE_SALE_CERTIFICATE",
+              "name": "ShareSaleCertificate"
+            },
+            {
+              "value": "DONATION_RECEIPTS",
+              "name": "DonationReceipts"
+            },
+            {
+              "value": "GRANT_APPROVAL_LETTER",
+              "name": "GrantApprovalLetter"
+            },
+            {
+              "value": "WRITTEN_CONFIRMATION",
+              "name": "WrittenConfirmation"
+            },
+            {
+              "value": "BANK_STATEMENT",
+              "name": "BankStatement"
+            }
+          ]
+        }
+      },
+      "BusinessUseCaseSubmissionDataDataUseCasesItem": {
+        "enum": [
+          "INVESTING_IN_FUNDS_STOCKS_BONDS_OR_SIMILAR",
+          "DISTRIBUTING_COMPANY_PROFITS_OR_PAYING_DIVIDENDS",
+          "PAYING_MORTGAGE_BANK_LOAN_INSURANCE_OR_CREDIT",
+          "PAYING_FOR_GOODS_PROPERTIES_OR_SERVICES_ABROAD",
+          "PAYING_RENT_OR_UTILITIES",
+          "PAYING_SUPPLIERS_CONTRACTORS_OR_EMPLOYEES",
+          "PAYING_TAX_ON_PROFIT_OR_PROPERTY",
+          "TRANSFER_WITHIN_COMPANY_OR_GROUP",
+          "RECEIVE_INVESTMENTS_OR_FUNDS",
+          "RECEIVE_PAYMENTS_FROM_CLIENTS",
+          "DONATION",
+          "OTHER"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "x-ms-enum": {
+          "name": "BusinessUseCaseSubmissionDataDataUseCasesItem",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "INVESTING_IN_FUNDS_STOCKS_BONDS_OR_SIMILAR",
+              "name": "InvestingInFundsStocksBondsOrSimilar"
+            },
+            {
+              "value": "DISTRIBUTING_COMPANY_PROFITS_OR_PAYING_DIVIDENDS",
+              "name": "DistributingCompanyProfitsOrPayingDividends"
+            },
+            {
+              "value": "PAYING_MORTGAGE_BANK_LOAN_INSURANCE_OR_CREDIT",
+              "name": "PayingMortgageBankLoanInsuranceOrCredit"
+            },
+            {
+              "value": "PAYING_FOR_GOODS_PROPERTIES_OR_SERVICES_ABROAD",
+              "name": "PayingForGoodsPropertiesOrServicesAbroad"
+            },
+            {
+              "value": "PAYING_RENT_OR_UTILITIES",
+              "name": "PayingRentOrUtilities"
+            },
+            {
+              "value": "PAYING_SUPPLIERS_CONTRACTORS_OR_EMPLOYEES",
+              "name": "PayingSuppliersContractorsOrEmployees"
+            },
+            {
+              "value": "PAYING_TAX_ON_PROFIT_OR_PROPERTY",
+              "name": "PayingTaxOnProfitOrProperty"
+            },
+            {
+              "value": "TRANSFER_WITHIN_COMPANY_OR_GROUP",
+              "name": "TransferWithinCompanyOrGroup"
+            },
+            {
+              "value": "RECEIVE_INVESTMENTS_OR_FUNDS",
+              "name": "ReceiveInvestmentsOrFunds"
+            },
+            {
+              "value": "RECEIVE_PAYMENTS_FROM_CLIENTS",
+              "name": "ReceivePaymentsFromClients"
+            },
+            {
+              "value": "DONATION",
+              "name": "Donation"
+            },
+            {
+              "value": "OTHER",
+              "name": "Other"
+            }
+          ]
+        }
+      },
+      "IdDocumentSubmissionDataDataDocumentType": {
+        "enum": [
+          "PASSPORT",
+          "ID_CARD",
+          "DRIVERS_LICENSE",
+          "TAX_ID",
+          "RESIDENCE_PERMIT"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "example": "DRIVERS_LICENSE",
+        "x-ms-enum": {
+          "name": "IdDocumentSubmissionDataDataDocumentType",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "PASSPORT",
+              "name": "Passport"
+            },
+            {
+              "value": "ID_CARD",
+              "name": "IdCard"
+            },
+            {
+              "value": "DRIVERS_LICENSE",
+              "name": "DriversLicense"
+            },
+            {
+              "value": "TAX_ID",
+              "name": "TaxId"
+            },
+            {
+              "value": "RESIDENCE_PERMIT",
+              "name": "ResidencePermit"
+            }
+          ]
+        }
+      },
+      "IncomeSubmissionDataDataIncomeType": {
+        "enum": [
+          "SALARY",
+          "INVESTMENTS",
+          "PENSION",
+          "INHERITANCE",
+          "LOAN",
+          "PROPERTY_SALE",
+          "FREELANCER",
+          "FAMILY",
+          "STUDENT",
+          "GOVERNMENT_BENEFITS"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "example": "SALARY",
+        "x-ms-enum": {
+          "name": "IncomeSubmissionDataDataIncomeType",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "SALARY",
+              "name": "Salary"
+            },
+            {
+              "value": "INVESTMENTS",
+              "name": "Investments"
+            },
+            {
+              "value": "PENSION",
+              "name": "Pension"
+            },
+            {
+              "value": "INHERITANCE",
+              "name": "Inheritance"
+            },
+            {
+              "value": "LOAN",
+              "name": "Loan"
+            },
+            {
+              "value": "PROPERTY_SALE",
+              "name": "PropertySale"
+            },
+            {
+              "value": "FREELANCER",
+              "name": "Freelancer"
+            },
+            {
+              "value": "FAMILY",
+              "name": "Family"
+            },
+            {
+              "value": "STUDENT",
+              "name": "Student"
+            },
+            {
+              "value": "GOVERNMENT_BENEFITS",
+              "name": "GovernmentBenefits"
+            }
+          ]
+        }
+      },
+      "IndiaTransferPurposeSubmissionDataDataCode": {
+        "enum": [
+          "OVERSEAS_EDUCATION",
+          "EDUCATION_EXPENSES",
+          "BUSINESS_TRAVEL",
+          "VACATION",
+          "MEDICAL_TREATMENT"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Represents the purpose of the profile\u0027s transfer.",
+        "example": "OVERSEAS_EDUCATION",
+        "x-ms-enum": {
+          "name": "IndiaTransferPurposeSubmissionDataDataCode",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "OVERSEAS_EDUCATION",
+              "name": "OverseasEducation"
+            },
+            {
+              "value": "EDUCATION_EXPENSES",
+              "name": "EducationExpenses"
+            },
+            {
+              "value": "BUSINESS_TRAVEL",
+              "name": "BusinessTravel"
+            },
+            {
+              "value": "VACATION",
+              "name": "Vacation"
+            },
+            {
+              "value": "MEDICAL_TREATMENT",
+              "name": "MedicalTreatment"
+            }
+          ]
+        }
+      },
+      "JpnPersonalMynumberSubmissionDataDataDocumentType": {
+        "enum": [
+          "MY_NUMBER_CARD",
+          "MY_NUMBER_NOTIFICATION_CARD",
+          "RESIDENCE_CERTIFICATE"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "The type of My Number document being submitted.",
+        "example": "MY_NUMBER_CARD",
+        "x-ms-enum": {
+          "name": "JpnPersonalMynumberSubmissionDataDataDocumentType",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "MY_NUMBER_CARD",
+              "name": "MyNumberCard"
+            },
+            {
+              "value": "MY_NUMBER_NOTIFICATION_CARD",
+              "name": "MyNumberNotificationCard"
+            },
+            {
+              "value": "RESIDENCE_CERTIFICATE",
+              "name": "ResidenceCertificate"
+            }
+          ]
+        }
+      },
+      "ProofOfTradingAddressSubmissionDataDataDocumentType": {
+        "enum": [
+          "ID_DOCUMENT",
+          "UTILITY_BILL",
+          "PHONE_BILL",
+          "LEASE_AGREEMENT",
+          "BANK_STATEMENT",
+          "BUSINESS_REGISTRATION",
+          "TAX_BILL",
+          "TAX_DOCUMENT",
+          "INSURANCE_POLICY",
+          "OTHER"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "example": "UTILITY_BILL",
+        "x-ms-enum": {
+          "name": "ProofOfTradingAddressSubmissionDataDataDocumentType",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "ID_DOCUMENT",
+              "name": "IdDocument"
+            },
+            {
+              "value": "UTILITY_BILL",
+              "name": "UtilityBill"
+            },
+            {
+              "value": "PHONE_BILL",
+              "name": "PhoneBill"
+            },
+            {
+              "value": "LEASE_AGREEMENT",
+              "name": "LeaseAgreement"
+            },
+            {
+              "value": "BANK_STATEMENT",
+              "name": "BankStatement"
+            },
+            {
+              "value": "BUSINESS_REGISTRATION",
+              "name": "BusinessRegistration"
+            },
+            {
+              "value": "TAX_BILL",
+              "name": "TaxBill"
+            },
+            {
+              "value": "TAX_DOCUMENT",
+              "name": "TaxDocument"
+            },
+            {
+              "value": "INSURANCE_POLICY",
+              "name": "InsurancePolicy"
+            },
+            {
+              "value": "OTHER",
+              "name": "Other"
+            }
+          ]
+        }
+      },
+      "SourceOfWealthInfoSubmissionDataDataSecondaryIncomeType": {
+        "enum": [
+          "SALARY",
+          "PENSION",
+          "INHERITANCE",
+          "PROPERTY_SALE",
+          "LOAN",
+          "INVESTMENTS",
+          "OTHER"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Required when \u0060hasSecondaryIncome\u0060 is \u0060true\u0060. Accepted values for personal profiles.",
+        "example": "SALARY",
+        "x-ms-enum": {
+          "name": "SourceOfWealthInfoSubmissionDataDataSecondaryIncomeType",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "SALARY",
+              "name": "Salary"
+            },
+            {
+              "value": "PENSION",
+              "name": "Pension"
+            },
+            {
+              "value": "INHERITANCE",
+              "name": "Inheritance"
+            },
+            {
+              "value": "PROPERTY_SALE",
+              "name": "PropertySale"
+            },
+            {
+              "value": "LOAN",
+              "name": "Loan"
+            },
+            {
+              "value": "INVESTMENTS",
+              "name": "Investments"
+            },
+            {
+              "value": "OTHER",
+              "name": "Other"
+            }
+          ]
+        }
+      },
+      "SourceOfWealthProofSubmissionDataDataSecondaryIncomeType": {
+        "enum": [
+          "SALARY",
+          "PENSION",
+          "INHERITANCE",
+          "PROPERTY_SALE",
+          "LOAN",
+          "INVESTMENTS",
+          "OTHER"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Accepted values for personal profiles.",
+        "example": "SALARY",
+        "x-ms-enum": {
+          "name": "SourceOfWealthProofSubmissionDataDataSecondaryIncomeType",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "SALARY",
+              "name": "Salary"
+            },
+            {
+              "value": "PENSION",
+              "name": "Pension"
+            },
+            {
+              "value": "INHERITANCE",
+              "name": "Inheritance"
+            },
+            {
+              "value": "PROPERTY_SALE",
+              "name": "PropertySale"
+            },
+            {
+              "value": "LOAN",
+              "name": "Loan"
+            },
+            {
+              "value": "INVESTMENTS",
+              "name": "Investments"
+            },
+            {
+              "value": "OTHER",
+              "name": "Other"
+            }
+          ]
+        }
+      },
       "V40021DataResourceState": {
         "enum": [
           "ACTIVE",
@@ -59613,6 +63274,149 @@
             {
               "value": "select",
               "name": "Select"
+            }
+          ]
+        }
+      },
+      "BusinessUltimateBeneficialOwnerIdDocumentUploadSubmissionDataDataDocumentType": {
+        "enum": [
+          "NON_US_DRIVING_LICENSE",
+          "NON_US_NATIONAL_ID",
+          "NON_US_PASSPORT",
+          "DRIVING_LICENSE",
+          "NATIONAL_ID",
+          "PASSPORT"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Accepted document types vary by the region the business is located in.\n\n**US business address** (United States, American Samoa, Guam, North Mariana Islands, Puerto Rico, United States Virgin Islands, United States Minor Outlying Islands):\n- \u0060NON_US_DRIVING_LICENSE\u0060\n- \u0060NON_US_NATIONAL_ID\u0060\n- \u0060NON_US_PASSPORT\u0060\n\n**EEA business address:**\n- \u0060NATIONAL_ID\u0060\n- \u0060PASSPORT\u0060\n\n**Other regions:**\n- \u0060DRIVING_LICENSE\u0060\n- \u0060NATIONAL_ID\u0060\n- \u0060PASSPORT\u0060\n\nUS businesses can submit an SSN instead of a document; select **SSN** above.\n",
+        "example": "NATIONAL_ID",
+        "x-ms-enum": {
+          "name": "BusinessUltimateBeneficialOwnerIdDocumentUploadSubmissionDataDataDocumentType",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "NON_US_DRIVING_LICENSE",
+              "name": "NonUsDrivingLicense"
+            },
+            {
+              "value": "NON_US_NATIONAL_ID",
+              "name": "NonUsNationalId"
+            },
+            {
+              "value": "NON_US_PASSPORT",
+              "name": "NonUsPassport"
+            },
+            {
+              "value": "DRIVING_LICENSE",
+              "name": "DrivingLicense"
+            },
+            {
+              "value": "NATIONAL_ID",
+              "name": "NationalId"
+            },
+            {
+              "value": "PASSPORT",
+              "name": "Passport"
+            }
+          ]
+        }
+      },
+      "SsnDocumentType": {
+        "enum": [
+          "SSN"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "example": "SSN",
+        "x-ms-enum": {
+          "name": "SsnDocumentType",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "SSN",
+              "name": "Ssn"
+            }
+          ]
+        }
+      },
+      "TaxResidencySubmissionDataGoldenVisaDeclarationsDataTaxInfoListItemSkipReason": {
+        "enum": [
+          "NO_TAXABLE_INCOME",
+          "WITHIN_TIME_FRAME",
+          "DID_NOT_FILE_INCOME"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Justification for not providing a TIN.\n- \u0060NO_TAXABLE_INCOME\u0060 \u2014 the customer does not have any taxable income.\n- \u0060WITHIN_TIME_FRAME\u0060 \u2014 the customer is within the time frame for obtaining a TIN.\n- \u0060DID_NOT_FILE_INCOME\u0060 \u2014 the customer did not file a tax return.\n",
+        "x-ms-enum": {
+          "name": "TaxResidencySubmissionDataGoldenVisaDeclarationsDataTaxInfoListItemSkipReason",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "NO_TAXABLE_INCOME",
+              "name": "NoTaxableIncome"
+            },
+            {
+              "value": "WITHIN_TIME_FRAME",
+              "name": "WithinTimeFrame"
+            },
+            {
+              "value": "DID_NOT_FILE_INCOME",
+              "name": "DidNotFileIncome"
+            }
+          ]
+        }
+      },
+      "BusinessSourceOfWealthInfoSubmissionDataDataSourceOfWealthListItemBusinessSourceOfWealthInfo": {
+        "enum": [
+          "REVENUE",
+          "PERSONAL_FUNDING",
+          "BUSINESS_LOAN",
+          "FUNDING_AND_SHAREHOLDER_INVESTMENTS",
+          "INVESTMENT_INCOME",
+          "DONATIONS",
+          "GRANTS",
+          "LEGAL"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "example": "BUSINESS_LOAN",
+        "x-ms-enum": {
+          "name": "BusinessSourceOfWealthInfoSubmissionDataDataSourceOfWealthListItemBusinessSourceOfWealthInfo",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "REVENUE",
+              "name": "Revenue"
+            },
+            {
+              "value": "PERSONAL_FUNDING",
+              "name": "PersonalFunding"
+            },
+            {
+              "value": "BUSINESS_LOAN",
+              "name": "BusinessLoan"
+            },
+            {
+              "value": "FUNDING_AND_SHAREHOLDER_INVESTMENTS",
+              "name": "FundingAndShareholderInvestments"
+            },
+            {
+              "value": "INVESTMENT_INCOME",
+              "name": "InvestmentIncome"
+            },
+            {
+              "value": "DONATIONS",
+              "name": "Donations"
+            },
+            {
+              "value": "GRANTS",
+              "name": "Grants"
+            },
+            {
+              "value": "LEGAL",
+              "name": "Legal"
             }
           ]
         }
@@ -61642,6 +65446,244 @@
             {
               "value": "BUSINESS",
               "name": "Business"
+            }
+          ]
+        }
+      },
+      "SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeWrapperValue": {
+        "title": "SALARY",
+        "enum": [
+          "PAYSLIP",
+          "TAX_RETURN",
+          "EMPLOYMENT_CONTRACT",
+          "PROOF_OF_EMPLOYMENT",
+          "BANK_STATEMENT"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Document types accepted when \u0060secondaryIncomeType\u0060 is \u0060SALARY\u0060.",
+        "x-ms-enum": {
+          "name": "SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeWrapperValue",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "PAYSLIP",
+              "name": "Payslip"
+            },
+            {
+              "value": "TAX_RETURN",
+              "name": "TaxReturn"
+            },
+            {
+              "value": "EMPLOYMENT_CONTRACT",
+              "name": "EmploymentContract"
+            },
+            {
+              "value": "PROOF_OF_EMPLOYMENT",
+              "name": "ProofOfEmployment"
+            },
+            {
+              "value": "BANK_STATEMENT",
+              "name": "BankStatement"
+            }
+          ]
+        }
+      },
+      "SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeWrapper2Value": {
+        "title": "INVESTMENTS",
+        "enum": [
+          "TAX_RETURN",
+          "STOCK_PLAN_EXERCISE_CONFIRMATION",
+          "PORTFOLIO_STATEMENT",
+          "DIVIDEND_VOUCHER",
+          "BANK_STATEMENT"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Document types accepted when \u0060secondaryIncomeType\u0060 is \u0060INVESTMENTS\u0060.",
+        "x-ms-enum": {
+          "name": "SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeWrapper2Value",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "TAX_RETURN",
+              "name": "TaxReturn"
+            },
+            {
+              "value": "STOCK_PLAN_EXERCISE_CONFIRMATION",
+              "name": "StockPlanExerciseConfirmation"
+            },
+            {
+              "value": "PORTFOLIO_STATEMENT",
+              "name": "PortfolioStatement"
+            },
+            {
+              "value": "DIVIDEND_VOUCHER",
+              "name": "DividendVoucher"
+            },
+            {
+              "value": "BANK_STATEMENT",
+              "name": "BankStatement"
+            }
+          ]
+        }
+      },
+      "SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeWrapper3Value": {
+        "title": "INHERITANCE",
+        "enum": [
+          "TAX_RETURN",
+          "GRANT_OF_PROBATE",
+          "WILL",
+          "TRUST_DEED"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Document types accepted when \u0060secondaryIncomeType\u0060 is \u0060INHERITANCE\u0060.",
+        "x-ms-enum": {
+          "name": "SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeWrapper3Value",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "TAX_RETURN",
+              "name": "TaxReturn"
+            },
+            {
+              "value": "GRANT_OF_PROBATE",
+              "name": "GrantOfProbate"
+            },
+            {
+              "value": "WILL",
+              "name": "Will"
+            },
+            {
+              "value": "TRUST_DEED",
+              "name": "TrustDeed"
+            }
+          ]
+        }
+      },
+      "SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeWrapper4Value": {
+        "title": "PENSION",
+        "enum": [
+          "TAX_RETURN",
+          "PENSION_STATEMENT",
+          "BANK_STATEMENT"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Document types accepted when \u0060secondaryIncomeType\u0060 is \u0060PENSION\u0060.",
+        "x-ms-enum": {
+          "name": "SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeWrapper4Value",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "TAX_RETURN",
+              "name": "TaxReturn"
+            },
+            {
+              "value": "PENSION_STATEMENT",
+              "name": "PensionStatement"
+            },
+            {
+              "value": "BANK_STATEMENT",
+              "name": "BankStatement"
+            }
+          ]
+        }
+      },
+      "SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeWrapper5Value": {
+        "title": "PROPERTY_SALE",
+        "enum": [
+          "TAX_RETURN",
+          "SALE_CONTRACT",
+          "SETTLEMENT_STATEMENT",
+          "BANK_STATEMENT"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Document types accepted when \u0060secondaryIncomeType\u0060 is \u0060PROPERTY_SALE\u0060.",
+        "x-ms-enum": {
+          "name": "SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeWrapper5Value",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "TAX_RETURN",
+              "name": "TaxReturn"
+            },
+            {
+              "value": "SALE_CONTRACT",
+              "name": "SaleContract"
+            },
+            {
+              "value": "SETTLEMENT_STATEMENT",
+              "name": "SettlementStatement"
+            },
+            {
+              "value": "BANK_STATEMENT",
+              "name": "BankStatement"
+            }
+          ]
+        }
+      },
+      "SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeWrapper6Value": {
+        "title": "LOAN",
+        "enum": [
+          "LOAN_AGREEMENT",
+          "BANK_STATEMENT"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Document types accepted when \u0060secondaryIncomeType\u0060 is \u0060LOAN\u0060.",
+        "x-ms-enum": {
+          "name": "SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeWrapper6Value",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "LOAN_AGREEMENT",
+              "name": "LoanAgreement"
+            },
+            {
+              "value": "BANK_STATEMENT",
+              "name": "BankStatement"
+            }
+          ]
+        }
+      },
+      "SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeWrapper7Value": {
+        "title": "OTHER",
+        "enum": [
+          "GIFT_LETTER",
+          "SCHOLARSHIP",
+          "LEASE_AGREEMENT",
+          "BANK_STATEMENT",
+          "OTHER"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "Document types accepted when \u0060secondaryIncomeType\u0060 is \u0060OTHER\u0060.",
+        "x-ms-enum": {
+          "name": "SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeWrapper7Value",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "GIFT_LETTER",
+              "name": "GiftLetter"
+            },
+            {
+              "value": "SCHOLARSHIP",
+              "name": "Scholarship"
+            },
+            {
+              "value": "LEASE_AGREEMENT",
+              "name": "LeaseAgreement"
+            },
+            {
+              "value": "BANK_STATEMENT",
+              "name": "BankStatement"
+            },
+            {
+              "value": "OTHER",
+              "name": "Other"
             }
           ]
         }

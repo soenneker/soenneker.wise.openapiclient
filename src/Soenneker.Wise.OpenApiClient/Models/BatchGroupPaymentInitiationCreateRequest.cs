@@ -7,32 +7,28 @@ using System.IO;
 using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
+    /// <summary>
+    /// Composed type wrapper for classes <see cref="global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationDirectDebitRequest"/>, <see cref="global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationPayinSessionRequest"/>
+    /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    #pragma warning disable CS1591
-    public partial class BatchGroupPaymentInitiationCreateRequest : IAdditionalDataHolder, IParsable
-    #pragma warning restore CS1591
+    public partial class BatchGroupPaymentInitiationCreateRequest : IComposedTypeWrapper, IParsable
     {
-        /// <summary>Direct debit account ID. See [direct debit account creation](/api-reference/direct-debit-account/directdebitaccountcreate).</summary>
-        public long? AccountId { get; set; }
-        /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
-        public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Optional payment initiation reference. Maximum 10 characters. If not provided, a reference will be generated automatically.</summary>
+        /// <summary>Composed type representation for type <see cref="global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationDirectDebitRequest"/></summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Reference { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationDirectDebitRequest? PaymentInitiationDirectDebitRequest { get; set; }
 #nullable restore
 #else
-        public string Reference { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationDirectDebitRequest PaymentInitiationDirectDebitRequest { get; set; }
 #endif
-        /// <summary>Payment type.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.DirectDebitType? Type { get; set; }
-        /// <summary>
-        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.BatchGroupPaymentInitiationCreateRequest"/> and sets the default values.
-        /// </summary>
-        public BatchGroupPaymentInitiationCreateRequest()
-        {
-            AdditionalData = new Dictionary<string, object>();
-        }
+        /// <summary>Composed type representation for type <see cref="global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationPayinSessionRequest"/></summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationPayinSessionRequest? PaymentInitiationPayinSessionRequest { get; set; }
+#nullable restore
+#else
+        public global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationPayinSessionRequest PaymentInitiationPayinSessionRequest { get; set; }
+#endif
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
@@ -41,7 +37,17 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.BatchGroupPaymentInitiationCreateRequest CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.BatchGroupPaymentInitiationCreateRequest();
+            var mappingValue = parseNode.GetChildNode("type")?.GetStringValue();
+            var result = new global::Soenneker.Wise.OpenApiClient.Models.BatchGroupPaymentInitiationCreateRequest();
+            if("DIRECT_DEBIT".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+            {
+                result.PaymentInitiationDirectDebitRequest = new global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationDirectDebitRequest();
+            }
+            else if("PAYIN_SESSION".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+            {
+                result.PaymentInitiationPayinSessionRequest = new global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationPayinSessionRequest();
+            }
+            return result;
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -49,12 +55,15 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
         public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
         {
-            return new Dictionary<string, Action<IParseNode>>
+            if(PaymentInitiationDirectDebitRequest != null)
             {
-                { "accountId", n => { AccountId = n.GetLongValue(); } },
-                { "reference", n => { Reference = n.GetStringValue(); } },
-                { "type", n => { Type = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.DirectDebitType>(); } },
-            };
+                return PaymentInitiationDirectDebitRequest.GetFieldDeserializers();
+            }
+            else if(PaymentInitiationPayinSessionRequest != null)
+            {
+                return PaymentInitiationPayinSessionRequest.GetFieldDeserializers();
+            }
+            return new Dictionary<string, Action<IParseNode>>();
         }
         /// <summary>
         /// Serializes information the current object
@@ -63,10 +72,14 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteLongValue("accountId", AccountId);
-            writer.WriteStringValue("reference", Reference);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.DirectDebitType>("type", Type);
-            writer.WriteAdditionalData(AdditionalData);
+            if(PaymentInitiationDirectDebitRequest != null)
+            {
+                writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationDirectDebitRequest>(null, PaymentInitiationDirectDebitRequest);
+            }
+            else if(PaymentInitiationPayinSessionRequest != null)
+            {
+                writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationPayinSessionRequest>(null, PaymentInitiationPayinSessionRequest);
+            }
         }
     }
 }

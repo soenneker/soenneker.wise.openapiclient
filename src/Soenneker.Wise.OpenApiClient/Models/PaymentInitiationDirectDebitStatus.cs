@@ -5,7 +5,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>Payment initiation status:- `NEW` — Payment initiation created- `PROCESSING` — Payment is being processed- `COMPLETED` — Payment completed successfully- `FAILED` — Payment failed- `CHARGED_BACK` — Payment was charged back</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    public enum PaymentInitiationStatus
+    public enum PaymentInitiationDirectDebitStatus
     {
         [EnumMember(Value = "NEW")]
         #pragma warning disable CS1591

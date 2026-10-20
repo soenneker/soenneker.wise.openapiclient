@@ -16,7 +16,7 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.Item.KycRequirements
     public partial class KycRequirementsRequestBuilder : BaseRequestBuilder
     {
         /// <summary>Gets an item from the Soenneker.Wise.OpenApiClient.profiles.item.kycRequirements.item collection</summary>
-        /// <param name="position">The KYC requirement type to submit.See the [KYC requirement types](/guides/product/kyc/wise-kyc/kyc-requirement-types) guide for details on each type.</param>
+        /// <param name="position">The KYC requirement type to submit.To see the fields for a requirement type, select it in the request body dropdown below. To compare all requirement types, see the [KYC requirement types](/guides/product/account-setup/customer-onboarding/kyc-requirement-types) guide.</param>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Profiles.Item.KycRequirements.Item.WithRequirementKeyItemRequestBuilder"/></returns>
         public global::Soenneker.Wise.OpenApiClient.Profiles.Item.KycRequirements.Item.WithRequirementKeyItemRequestBuilder this[string position]
         {
