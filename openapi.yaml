@@ -10798,6 +10798,33 @@ paths:
                         detail: >-
                           All values in the golden visa declaration must be set
                           to true.
+                invalid-ssn-number:
+                  summary: Invalid ssnNumber provided
+                  value:
+                    type: /errors/types/validation
+                    title: Validation Error
+                    status: 400
+                    instance: /v2/profiles/{profileId}/kyc-requirements/SSN_DECLARATION
+                    errors:
+                      - code: invalid_value
+                        ref: ssnNumber
+                        detail: >-
+                          ssnNumber must be a valid 9-digit Social Security
+                          Number
+                invalid-ssn-unavailable-reason:
+                  summary: Invalid ssnUnavailableReason provided
+                  value:
+                    type: /errors/types/validation
+                    title: Validation Error
+                    status: 400
+                    instance: /v2/profiles/{profileId}/kyc-requirements/SSN_DECLARATION
+                    errors:
+                      - code: invalid_value
+                        ref: ssnUnavailableReason
+                        detail: 'Invalid ssnUnavailableReason submitted: invalid'
+                        attributes:
+                          acceptedValues:
+                            - NON_US_CITIZEN
           headers:
             X-External-Correlation-Id:
               $ref: '#/components/headers/X-External-Correlation-Id'
@@ -33769,6 +33796,93 @@ components:
             ["document.pdf"]
 
             ```
+    ssn-declaration:
+      title: SSN_DECLARATION
+      description: >
+        Declaration of the customer's US Social Security Number (SSN). This
+        requirement only applies to customers in the US region.
+
+
+        Customers either provide their SSN or, if they don't have one, a reason
+        why it is unavailable. Exactly one of `ssnNumber` or
+        `ssnUnavailableReason` must be provided; the other must be `null`. Files
+        are not required for either scenario.
+
+
+        See
+        [SSN_DECLARATION](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#ssn_declaration)
+        in the KYC requirement types guide for more details and sandbox test
+        data.
+      type: object
+      required:
+        - submissionData
+      properties:
+        submissionData:
+          anyOf:
+            - title: SSN available
+              description: |
+                ```json {% title="Example" %}
+                {
+                  "data": {
+                    "ssnNumber": "123-45-6789"
+                  },
+                  "version": "V1",
+                  "kycReviewId": "93a903ea-636c-4c86-a25c-cf6d2bd00e81"
+                }
+                ```
+              type: object
+              required:
+                - data
+                - version
+                - kycReviewId
+              properties:
+                data:
+                  type: object
+                  required:
+                    - ssnNumber
+                  properties:
+                    ssnNumber:
+                      type: string
+                      description: >-
+                        The customer's 9-digit Social Security Number (including
+                        or excluding dashes).
+                      example: 123-45-6789
+                version:
+                  $ref: '#/components/schemas/version'
+                kycReviewId:
+                  $ref: '#/components/schemas/kyc-review-id'
+            - title: SSN unavailable
+              description: |
+                ```json {% title="Example" %}
+                {
+                  "data": {
+                    "ssnUnavailableReason": "NON_US_CITIZEN"
+                  },
+                  "version": "V1",
+                  "kycReviewId": "93a903ea-636c-4c86-a25c-cf6d2bd00e81"
+                }
+                ```
+              type: object
+              required:
+                - data
+                - version
+                - kycReviewId
+              properties:
+                data:
+                  type: object
+                  required:
+                    - ssnUnavailableReason
+                  properties:
+                    ssnUnavailableReason:
+                      type: string
+                      description: The reason the customer can't provide an SSN.
+                      enum:
+                        - NON_US_CITIZEN
+                      example: NON_US_CITIZEN
+                version:
+                  $ref: '#/components/schemas/version'
+                kycReviewId:
+                  $ref: '#/components/schemas/kyc-review-id'
     tax-residency:
       title: TAX_RESIDENCY
       description: >
@@ -33872,7 +33986,7 @@ components:
                       },
                       {
                         "taxCountry": "BR",
-                        "skipReason": "WAITING_FOR_TAX_ID"
+                        "skipReason": "TAX_EXEMPT"
                       }
                     ]
                   },
@@ -33903,7 +34017,7 @@ components:
                               type: SG_NRIC
                               number: S1234567A
                           - taxCountry: BR
-                            skipReason: WAITING_FOR_TAX_ID
+                            skipReason: NO_TAXABLE_INCOME
                       items:
                         type: object
                         required:
@@ -33956,22 +34070,10 @@ components:
 
                               - `NO_TAXABLE_INCOME` — the customer does not have
                               any taxable income.
-
-                              - `WAITING_FOR_TAX_ID` — the customer is waiting
-                              to receive their TIN.
-
-                              - `WITHIN_TIME_FRAME` — the customer is within the
-                              time frame for obtaining a TIN.
-
-                              - `DID_NOT_FILE_INCOME` — the customer did not
-                              file a tax return.
                             enum:
                               - TAX_EXEMPT
                               - RETIRED_OR_UNEMPLOYED
                               - NO_TAXABLE_INCOME
-                              - WAITING_FOR_TAX_ID
-                              - WITHIN_TIME_FRAME
-                              - DID_NOT_FILE_INCOME
                 version:
                   $ref: '#/components/schemas/version'
                 kycReviewId:
@@ -33999,11 +34101,11 @@ components:
                       },
                       {
                         "taxCountry": "AG",
-                        "skipReason": "WITHIN_TIME_FRAME"
+                        "skipReason": "NO_TAXABLE_INCOME"
                       },
                       {
                         "taxCountry": "BS",
-                        "skipReason": "DID_NOT_FILE_INCOME"
+                        "skipReason": "TAX_EXEMPT"
                       }
                     ],
                     "goldenVisaDeclaration": {
@@ -34038,9 +34140,9 @@ components:
                         - - taxCountry: AE
                             skipReason: NO_TAXABLE_INCOME
                           - taxCountry: AG
-                            skipReason: WITHIN_TIME_FRAME
+                            skipReason: NO_TAXABLE_INCOME
                           - taxCountry: BS
-                            skipReason: DID_NOT_FILE_INCOME
+                            skipReason: TAX_EXEMPT
                       items:
                         type: object
                         required:
@@ -34057,18 +34159,18 @@ components:
                             description: >
                               Justification for not providing a TIN.
 
+                              - `TAX_EXEMPT` — the customer's income is exempt
+                              from taxation.
+
+                              - `RETIRED_OR_UNEMPLOYED` — the customer is
+                              currently retired or unemployed.
+
                               - `NO_TAXABLE_INCOME` — the customer does not have
                               any taxable income.
-
-                              - `WITHIN_TIME_FRAME` — the customer is within the
-                              time frame for obtaining a TIN.
-
-                              - `DID_NOT_FILE_INCOME` — the customer did not
-                              file a tax return.
                             enum:
+                              - TAX_EXEMPT
+                              - RETIRED_OR_UNEMPLOYED
                               - NO_TAXABLE_INCOME
-                              - WITHIN_TIME_FRAME
-                              - DID_NOT_FILE_INCOME
                     goldenVisaDeclaration:
                       type: object
                       description: >-
@@ -34197,6 +34299,7 @@ components:
         - $ref: '#/components/schemas/source-of-wealth'
         - $ref: '#/components/schemas/source-of-wealth-info'
         - $ref: '#/components/schemas/source-of-wealth-proof'
+        - $ref: '#/components/schemas/ssn-declaration'
         - $ref: '#/components/schemas/tax-residency'
         - $ref: '#/components/schemas/use-case-countries'
     client-credentials-grant:

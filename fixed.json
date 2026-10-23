@@ -8022,6 +8022,43 @@
                         }
                       ]
                     }
+                  },
+                  "invalid-ssn-number": {
+                    "summary": "Invalid ssnNumber provided",
+                    "value": {
+                      "type": "/errors/types/validation",
+                      "title": "Validation Error",
+                      "status": 400,
+                      "instance": "/v2/profiles/{profileId}/kyc-requirements/SSN_DECLARATION",
+                      "errors": [
+                        {
+                          "code": "invalid_value",
+                          "ref": "ssnNumber",
+                          "detail": "ssnNumber must be a valid 9-digit Social Security Number"
+                        }
+                      ]
+                    }
+                  },
+                  "invalid-ssn-unavailable-reason": {
+                    "summary": "Invalid ssnUnavailableReason provided",
+                    "value": {
+                      "type": "/errors/types/validation",
+                      "title": "Validation Error",
+                      "status": 400,
+                      "instance": "/v2/profiles/{profileId}/kyc-requirements/SSN_DECLARATION",
+                      "errors": [
+                        {
+                          "code": "invalid_value",
+                          "ref": "ssnUnavailableReason",
+                          "detail": "Invalid ssnUnavailableReason submitted: invalid",
+                          "attributes": {
+                            "acceptedValues": [
+                              "NON_US_CITIZEN"
+                            ]
+                          }
+                        }
+                      ]
+                    }
                   }
                 }
               }
@@ -25619,6 +25656,19 @@
         },
         "description": "A document proving the secondary source of wealth income. The accepted document types depend on the \u0060secondaryIncomeType\u0060 provided.\n\nSee [SOURCE_OF_WEALTH_PROOF](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#source_of_wealth_proof) in the KYC requirement types guide for more details.\n"
       },
+      "SsnDeclaration": {
+        "title": "SSN_DECLARATION",
+        "required": [
+          "submissionData"
+        ],
+        "type": "object",
+        "properties": {
+          "submissionData": {
+            "$ref": "#/components/schemas/SsnDeclarationSubmissionData"
+          }
+        },
+        "description": "Declaration of the customer\u0027s US Social Security Number (SSN). This requirement only applies to customers in the US region.\n\nCustomers either provide their SSN or, if they don\u0027t have one, a reason why it is unavailable. Exactly one of \u0060ssnNumber\u0060 or \u0060ssnUnavailableReason\u0060 must be provided; the other must be \u0060null\u0060. Files are not required for either scenario.\n\nSee [SSN_DECLARATION](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#ssn_declaration) in the KYC requirement types guide for more details and sandbox test data.\n"
+      },
       "TaxResidency": {
         "title": "TAX_RESIDENCY",
         "required": [
@@ -25738,6 +25788,9 @@
           },
           {
             "$ref": "#/components/schemas/SourceOfWealthProof"
+          },
+          {
+            "$ref": "#/components/schemas/SsnDeclaration"
           },
           {
             "$ref": "#/components/schemas/TaxResidency"
@@ -34639,6 +34692,27 @@
         ],
         "description": "The type of document being uploaded."
       },
+      "SsnDeclarationSubmissionData": {
+        "type": "object",
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/SsnDeclarationSubmissionDataSsnAvailable"
+          },
+          {
+            "$ref": "#/components/schemas/SsnDeclarationSubmissionDataSsnUnavailable"
+          }
+        ],
+        "properties": {
+          "version": {
+            "$ref": "#/components/schemas/Version"
+          },
+          "kycReviewId": {
+            "type": "string",
+            "description": "The ID of the KYC Review this submission belongs to.",
+            "format": "uuid"
+          }
+        }
+      },
       "TaxResidencySubmissionData": {
         "type": "object",
         "anyOf": [
@@ -35076,6 +35150,52 @@
           }
         }
       },
+      "SsnDeclarationSubmissionDataSsnAvailable": {
+        "title": "SSN available",
+        "required": [
+          "data",
+          "version",
+          "kycReviewId"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/SsnDeclarationSubmissionDataSsnAvailableData"
+          },
+          "version": {
+            "$ref": "#/components/schemas/Version"
+          },
+          "kycReviewId": {
+            "type": "string",
+            "description": "The ID of the KYC Review this submission belongs to.",
+            "format": "uuid"
+          }
+        },
+        "description": "\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022data\u0022: {\n    \u0022ssnNumber\u0022: \u0022123-45-6789\u0022\n  },\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
+      },
+      "SsnDeclarationSubmissionDataSsnUnavailable": {
+        "title": "SSN unavailable",
+        "required": [
+          "data",
+          "version",
+          "kycReviewId"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/SsnDeclarationSubmissionDataSsnUnavailableData"
+          },
+          "version": {
+            "$ref": "#/components/schemas/Version"
+          },
+          "kycReviewId": {
+            "type": "string",
+            "description": "The ID of the KYC Review this submission belongs to.",
+            "format": "uuid"
+          }
+        },
+        "description": "\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022data\u0022: {\n    \u0022ssnUnavailableReason\u0022: \u0022NON_US_CITIZEN\u0022\n  },\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
+      },
       "TaxResidencySubmissionDataLocalEntityTinExemptions": {
         "title": "Local Entity TIN Exemptions",
         "required": [
@@ -35120,7 +35240,7 @@
             "format": "uuid"
           }
         },
-        "description": "For customers not onboarded to a local Wise entity, a Tax Identification Number (TIN) is mandatory for all declared tax residencies. If a TIN cannot be provided, a \u0060skipReason\u0060 must be given instead.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022data\u0022: {\n    \u0022taxInfoList\u0022: [\n      {\n        \u0022taxCountry\u0022: \u0022SG\u0022,\n        \u0022taxId\u0022: {\n          \u0022type\u0022: \u0022SG_NRIC\u0022,\n          \u0022number\u0022: \u0022S1234567A\u0022\n        }\n      },\n      {\n        \u0022taxCountry\u0022: \u0022BR\u0022,\n        \u0022skipReason\u0022: \u0022WAITING_FOR_TAX_ID\u0022\n      }\n    ]\n  },\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
+        "description": "For customers not onboarded to a local Wise entity, a Tax Identification Number (TIN) is mandatory for all declared tax residencies. If a TIN cannot be provided, a \u0060skipReason\u0060 must be given instead.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022data\u0022: {\n    \u0022taxInfoList\u0022: [\n      {\n        \u0022taxCountry\u0022: \u0022SG\u0022,\n        \u0022taxId\u0022: {\n          \u0022type\u0022: \u0022SG_NRIC\u0022,\n          \u0022number\u0022: \u0022S1234567A\u0022\n        }\n      },\n      {\n        \u0022taxCountry\u0022: \u0022BR\u0022,\n        \u0022skipReason\u0022: \u0022TAX_EXEMPT\u0022\n      }\n    ]\n  },\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
       },
       "TaxResidencySubmissionDataGoldenVisaDeclarations": {
         "title": "Golden Visa Declarations",
@@ -35143,7 +35263,7 @@
             "format": "uuid"
           }
         },
-        "description": "For customers whose only tax residency is in a Golden Visa sponsor country, a mandatory Golden Visa Declaration must be completed. All fields within the \u0060goldenVisaDeclaration\u0060 object must be set to \u0060true\u0060. Refer to the [full list of Golden Visa countries](https://wise.com/us/blog/golden-visa-countries#which-countries-have-golden-visa-programs) to identify applicable jurisdictions. If any declaration value is \u0060false\u0060, the customer defaults to Standard CRS Collection and must provide a TIN.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022data\u0022: {\n    \u0022taxInfoList\u0022: [\n      {\n        \u0022taxCountry\u0022: \u0022AE\u0022,\n        \u0022skipReason\u0022: \u0022NO_TAXABLE_INCOME\u0022\n      },\n      {\n        \u0022taxCountry\u0022: \u0022AG\u0022,\n        \u0022skipReason\u0022: \u0022WITHIN_TIME_FRAME\u0022\n      },\n      {\n        \u0022taxCountry\u0022: \u0022BS\u0022,\n        \u0022skipReason\u0022: \u0022DID_NOT_FILE_INCOME\u0022\n      }\n    ],\n    \u0022goldenVisaDeclaration\u0022: {\n      \u0022NO_OTHER_RESIDENCE\u0022: true,\n      \u0022WITHIN_TIME_FRAME\u0022: true,\n      \u0022DID_NOT_FILE_INCOME\u0022: true\n    }\n  },\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
+        "description": "For customers whose only tax residency is in a Golden Visa sponsor country, a mandatory Golden Visa Declaration must be completed. All fields within the \u0060goldenVisaDeclaration\u0060 object must be set to \u0060true\u0060. Refer to the [full list of Golden Visa countries](https://wise.com/us/blog/golden-visa-countries#which-countries-have-golden-visa-programs) to identify applicable jurisdictions. If any declaration value is \u0060false\u0060, the customer defaults to Standard CRS Collection and must provide a TIN.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022data\u0022: {\n    \u0022taxInfoList\u0022: [\n      {\n        \u0022taxCountry\u0022: \u0022AE\u0022,\n        \u0022skipReason\u0022: \u0022NO_TAXABLE_INCOME\u0022\n      },\n      {\n        \u0022taxCountry\u0022: \u0022AG\u0022,\n        \u0022skipReason\u0022: \u0022NO_TAXABLE_INCOME\u0022\n      },\n      {\n        \u0022taxCountry\u0022: \u0022BS\u0022,\n        \u0022skipReason\u0022: \u0022TAX_EXEMPT\u0022\n      }\n    ],\n    \u0022goldenVisaDeclaration\u0022: {\n      \u0022NO_OTHER_RESIDENCE\u0022: true,\n      \u0022WITHIN_TIME_FRAME\u0022: true,\n      \u0022DID_NOT_FILE_INCOME\u0022: true\n    }\n  },\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
       },
       "ContentSubmissionDataSubmissionDataIndividualSubmission": {
         "title": "Individual submission",
@@ -39861,6 +39981,30 @@
         },
         "description": "\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022data\u0022: {\n    \u0022documentType\u0022: \u0022SSN\u0022,\n    \u0022shareholderId\u0022: \u0022489209\u0022,\n    \u0022ssn\u0022: \u0022555501234\u0022\n  },\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
       },
+      "SsnDeclarationSubmissionDataSsnAvailableData": {
+        "required": [
+          "ssnNumber"
+        ],
+        "type": "object",
+        "properties": {
+          "ssnNumber": {
+            "type": "string",
+            "description": "The customer\u0027s 9-digit Social Security Number (including or excluding dashes).",
+            "example": "123-45-6789"
+          }
+        }
+      },
+      "SsnDeclarationSubmissionDataSsnUnavailableData": {
+        "required": [
+          "ssnUnavailableReason"
+        ],
+        "type": "object",
+        "properties": {
+          "ssnUnavailableReason": {
+            "$ref": "#/components/schemas/NonUsCitizenSsnUnavailableReason"
+          }
+        }
+      },
       "TaxResidencySubmissionDataLocalEntityTinExemptionsData": {
         "required": [
           "taxInfoList"
@@ -39901,7 +40045,7 @@
                 },
                 {
                   "taxCountry": "BR",
-                  "skipReason": "WAITING_FOR_TAX_ID"
+                  "skipReason": "NO_TAXABLE_INCOME"
                 }
               ]
             ],
@@ -39929,11 +40073,11 @@
                 },
                 {
                   "taxCountry": "AG",
-                  "skipReason": "WITHIN_TIME_FRAME"
+                  "skipReason": "NO_TAXABLE_INCOME"
                 },
                 {
                   "taxCountry": "BS",
-                  "skipReason": "DID_NOT_FILE_INCOME"
+                  "skipReason": "TAX_EXEMPT"
                 }
               ]
             ],
@@ -60674,14 +60818,11 @@
         "enum": [
           "TAX_EXEMPT",
           "RETIRED_OR_UNEMPLOYED",
-          "NO_TAXABLE_INCOME",
-          "WAITING_FOR_TAX_ID",
-          "WITHIN_TIME_FRAME",
-          "DID_NOT_FILE_INCOME"
+          "NO_TAXABLE_INCOME"
         ],
         "type": "string",
         "additionalProperties": false,
-        "description": "Justification for not providing a TIN. Provide either \u0060taxId\u0060 or \u0060skipReason\u0060.\n- \u0060TAX_EXEMPT\u0060 \u2014 the customer\u0027s income is exempt from taxation.\n- \u0060RETIRED_OR_UNEMPLOYED\u0060 \u2014 the customer is currently retired or unemployed.\n- \u0060NO_TAXABLE_INCOME\u0060 \u2014 the customer does not have any taxable income.\n- \u0060WAITING_FOR_TAX_ID\u0060 \u2014 the customer is waiting to receive their TIN.\n- \u0060WITHIN_TIME_FRAME\u0060 \u2014 the customer is within the time frame for obtaining a TIN.\n- \u0060DID_NOT_FILE_INCOME\u0060 \u2014 the customer did not file a tax return.\n",
+        "description": "Justification for not providing a TIN. Provide either \u0060taxId\u0060 or \u0060skipReason\u0060.\n- \u0060TAX_EXEMPT\u0060 \u2014 the customer\u0027s income is exempt from taxation.\n- \u0060RETIRED_OR_UNEMPLOYED\u0060 \u2014 the customer is currently retired or unemployed.\n- \u0060NO_TAXABLE_INCOME\u0060 \u2014 the customer does not have any taxable income.\n",
         "x-ms-enum": {
           "name": "TaxResidencySubmissionDataStandardCrsCollectionDataTaxInfoListItemSkipReason",
           "modelAsString": false,
@@ -60697,18 +60838,6 @@
             {
               "value": "NO_TAXABLE_INCOME",
               "name": "NoTaxableIncome"
-            },
-            {
-              "value": "WAITING_FOR_TAX_ID",
-              "name": "WaitingForTaxId"
-            },
-            {
-              "value": "WITHIN_TIME_FRAME",
-              "name": "WithinTimeFrame"
-            },
-            {
-              "value": "DID_NOT_FILE_INCOME",
-              "name": "DidNotFileIncome"
             }
           ]
         }
@@ -62130,6 +62259,25 @@
           ]
         }
       },
+      "NonUsCitizenSsnUnavailableReason": {
+        "enum": [
+          "NON_US_CITIZEN"
+        ],
+        "type": "string",
+        "additionalProperties": false,
+        "description": "The reason the customer can\u0027t provide an SSN.",
+        "example": "NON_US_CITIZEN",
+        "x-ms-enum": {
+          "name": "NonUsCitizenSsnUnavailableReason",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "NON_US_CITIZEN",
+              "name": "NonUsCitizen"
+            }
+          ]
+        }
+      },
       "FreeFormFormat": {
         "enum": [
           "FREE_FORM"
@@ -63342,28 +63490,28 @@
       },
       "TaxResidencySubmissionDataGoldenVisaDeclarationsDataTaxInfoListItemSkipReason": {
         "enum": [
-          "NO_TAXABLE_INCOME",
-          "WITHIN_TIME_FRAME",
-          "DID_NOT_FILE_INCOME"
+          "TAX_EXEMPT",
+          "RETIRED_OR_UNEMPLOYED",
+          "NO_TAXABLE_INCOME"
         ],
         "type": "string",
         "additionalProperties": false,
-        "description": "Justification for not providing a TIN.\n- \u0060NO_TAXABLE_INCOME\u0060 \u2014 the customer does not have any taxable income.\n- \u0060WITHIN_TIME_FRAME\u0060 \u2014 the customer is within the time frame for obtaining a TIN.\n- \u0060DID_NOT_FILE_INCOME\u0060 \u2014 the customer did not file a tax return.\n",
+        "description": "Justification for not providing a TIN.\n- \u0060TAX_EXEMPT\u0060 \u2014 the customer\u0027s income is exempt from taxation.\n- \u0060RETIRED_OR_UNEMPLOYED\u0060 \u2014 the customer is currently retired or unemployed.\n- \u0060NO_TAXABLE_INCOME\u0060 \u2014 the customer does not have any taxable income.\n",
         "x-ms-enum": {
           "name": "TaxResidencySubmissionDataGoldenVisaDeclarationsDataTaxInfoListItemSkipReason",
           "modelAsString": false,
           "values": [
             {
+              "value": "TAX_EXEMPT",
+              "name": "TaxExempt"
+            },
+            {
+              "value": "RETIRED_OR_UNEMPLOYED",
+              "name": "RetiredOrUnemployed"
+            },
+            {
               "value": "NO_TAXABLE_INCOME",
               "name": "NoTaxableIncome"
-            },
-            {
-              "value": "WITHIN_TIME_FRAME",
-              "name": "WithinTimeFrame"
-            },
-            {
-              "value": "DID_NOT_FILE_INCOME",
-              "name": "DidNotFileIncome"
             }
           ]
         }
