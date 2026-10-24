@@ -17,10 +17,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The arguments property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.SimulationSwiftIn400ResponseErrorsItemArgumentsItem>? Arguments { get; set; }
+        public UntypedNode? Arguments { get; set; }
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.SimulationSwiftIn400ResponseErrorsItemArgumentsItem> Arguments { get; set; }
+        public UntypedNode Arguments { get; set; }
 #endif
         /// <summary>The code property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -71,7 +71,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "arguments", n => { Arguments = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.SimulationSwiftIn400ResponseErrorsItemArgumentsItem>(global::Soenneker.Wise.OpenApiClient.Models.SimulationSwiftIn400ResponseErrorsItemArgumentsItem.CreateFromDiscriminatorValue)?.AsList(); } },
+                { "arguments", n => { Arguments = n.GetObjectValue<UntypedNode>(UntypedNode.CreateFromDiscriminatorValue); } },
                 { "code", n => { Code = n.GetStringValue(); } },
                 { "message", n => { Message = n.GetStringValue(); } },
                 { "path", n => { Path = n.GetStringValue(); } },
@@ -84,7 +84,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.SimulationSwiftIn400ResponseErrorsItemArgumentsItem>("arguments", Arguments);
+            writer.WriteObjectValue<UntypedNode>("arguments", Arguments);
             writer.WriteStringValue("code", Code);
             writer.WriteStringValue("message", Message);
             writer.WriteStringValue("path", Path);

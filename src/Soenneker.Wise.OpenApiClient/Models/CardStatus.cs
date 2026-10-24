@@ -15,7 +15,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>The value property</summary>
+        /// <summary>Status value. One of:- `ACTIVE` - Card is active and can be used- `INACTIVE` - Card is inactive and all transactions will be declined- `BLOCKED` - Card is blocked and cannot be reversed back to any state- `FROZEN` - Card is temporarily frozen; all authorization requests will be declined- `PARTNER_SUSPENDED` - Card is suspended by Wise temporarily (do not display to end customers)- `EXPIRED` - Card is expired- `PURGED` - Cardholder data (e.g. PAN, PIN) has been purged after the retention period (555 days after the card&apos;s expiry date)</summary>
         public global::Soenneker.Wise.OpenApiClient.Models.CardStatusValue? Value { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.CardStatus"/> and sets the default values.

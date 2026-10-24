@@ -30,8 +30,14 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string EventType { get; set; }
 #endif
-        /// <summary>Version of the event schema. Determined by the `schema_version` on your [webhook subscription](/api-reference/webhook).</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.Value400SchemaVersion? SchemaVersion { get; set; }
+        /// <summary>The schema_version property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? SchemaVersion { get; set; }
+#nullable restore
+#else
+        public string SchemaVersion { get; set; }
+#endif
         /// <summary>Timestamp when the event was sent.</summary>
         public DateTimeOffset? SentAt { get; set; }
         /// <summary>ID of the webhook subscription that triggered this event.</summary>
@@ -63,7 +69,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             {
                 { "data", n => { Data = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40026Data>(global::Soenneker.Wise.OpenApiClient.Models.V40026Data.CreateFromDiscriminatorValue); } },
                 { "event_type", n => { EventType = n.GetStringValue(); } },
-                { "schema_version", n => { SchemaVersion = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.Value400SchemaVersion>(); } },
+                { "schema_version", n => { SchemaVersion = n.GetStringValue(); } },
                 { "sent_at", n => { SentAt = n.GetDateTimeOffsetValue(); } },
                 { "subscription_id", n => { SubscriptionId = n.GetGuidValue(); } },
             };
@@ -77,7 +83,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40026Data>("data", Data);
             writer.WriteStringValue("event_type", EventType);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.Value400SchemaVersion>("schema_version", SchemaVersion);
+            writer.WriteStringValue("schema_version", SchemaVersion);
             writer.WriteDateTimeOffsetValue("sent_at", SentAt);
             writer.WriteGuidValue("subscription_id", SubscriptionId);
             writer.WriteAdditionalData(AdditionalData);

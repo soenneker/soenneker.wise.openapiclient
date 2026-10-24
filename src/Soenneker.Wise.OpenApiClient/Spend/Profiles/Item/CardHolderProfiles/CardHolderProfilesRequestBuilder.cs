@@ -10,7 +10,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.CardHolderProfiles
 {
     /// <summary>
-    /// Builds and executes requests for operations under \spend\profiles\{businessProfile-id}\card-holder-profiles
+    /// Builds and executes requests for operations under \spend\profiles\{profileId}\card-holder-profiles
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class CardHolderProfilesRequestBuilder : BaseRequestBuilder
@@ -32,7 +32,7 @@ namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.CardHolderProfiles
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public CardHolderProfilesRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{businessProfile%2Did}/card-holder-profiles", pathParameters)
+        public CardHolderProfilesRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{profileId}/card-holder-profiles", pathParameters)
         {
         }
         /// <summary>
@@ -40,7 +40,7 @@ namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.CardHolderProfiles
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public CardHolderProfilesRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{businessProfile%2Did}/card-holder-profiles", rawUrl)
+        public CardHolderProfilesRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{profileId}/card-holder-profiles", rawUrl)
         {
         }
     }

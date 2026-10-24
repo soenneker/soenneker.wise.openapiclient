@@ -23,21 +23,21 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #endif
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Structured address details.</summary>
+        /// <summary>The address property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.Address6? Address { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.V430DataResourceSenderAddress? Address { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.Address6 Address { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.V430DataResourceSenderAddress Address { get; set; }
 #endif
-        /// <summary>Bank or financial institution details.</summary>
+        /// <summary>The bank_details property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.BankDetails2? BankDetails { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.V430DataResourceSenderBankDetails? BankDetails { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.BankDetails2 BankDetails { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.V430DataResourceSenderBankDetails BankDetails { get; set; }
 #endif
         /// <summary>Party name.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -73,8 +73,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "account", n => { Account = n.GetStringValue(); } },
-                { "address", n => { Address = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Address6>(global::Soenneker.Wise.OpenApiClient.Models.Address6.CreateFromDiscriminatorValue); } },
-                { "bank_details", n => { BankDetails = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.BankDetails2>(global::Soenneker.Wise.OpenApiClient.Models.BankDetails2.CreateFromDiscriminatorValue); } },
+                { "address", n => { Address = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V430DataResourceSenderAddress>(global::Soenneker.Wise.OpenApiClient.Models.V430DataResourceSenderAddress.CreateFromDiscriminatorValue); } },
+                { "bank_details", n => { BankDetails = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V430DataResourceSenderBankDetails>(global::Soenneker.Wise.OpenApiClient.Models.V430DataResourceSenderBankDetails.CreateFromDiscriminatorValue); } },
                 { "name", n => { Name = n.GetStringValue(); } },
             };
         }
@@ -86,8 +86,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("account", Account);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Address6>("address", Address);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.BankDetails2>("bank_details", BankDetails);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V430DataResourceSenderAddress>("address", Address);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V430DataResourceSenderBankDetails>("bank_details", BankDetails);
             writer.WriteStringValue("name", Name);
             writer.WriteAdditionalData(AdditionalData);
         }

@@ -7,64 +7,28 @@ using System.IO;
 using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
+    /// <summary>
+    /// Composed type wrapper for classes <see cref="global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestBusinessProfile"/>, <see cref="global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestPersonalProfile"/>
+    /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    #pragma warning disable CS1591
-    public partial class VerificationUploadEvidencesRequest : IAdditionalDataHolder, IParsable
-    #pragma warning restore CS1591
+    public partial class VerificationUploadEvidencesRequest : IComposedTypeWrapper, IParsable
     {
-        /// <summary>The primary reason for using the account.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestAccountPurpose? AccountPurpose { get; set; }
-        /// <summary>Additional reasons and specific examples for using Wise account. This is a free-text field.</summary>
+        /// <summary>Composed type representation for type <see cref="global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestBusinessProfile"/></summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? AccountPurposeExplanation { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestBusinessProfile? VerificationUploadEvidencesRequestBusinessProfile { get; set; }
 #nullable restore
 #else
-        public string AccountPurposeExplanation { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestBusinessProfile VerificationUploadEvidencesRequestBusinessProfile { get; set; }
 #endif
-        /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
-        public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Expected annual income in Euros. Must be submitted with mainSourceOfIncome.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestAnnualIncome? AnnualIncome { get; set; }
-        /// <summary>How the business intends to use the platform.</summary>
+        /// <summary>Composed type representation for type <see cref="global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestPersonalProfile"/></summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestBusinessUseCaseItem?>? BusinessUseCase { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestPersonalProfile? VerificationUploadEvidencesRequestPersonalProfile { get; set; }
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestBusinessUseCaseItem?> BusinessUseCase { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestPersonalProfile VerificationUploadEvidencesRequestPersonalProfile { get; set; }
 #endif
-        /// <summary>Additional ways you earn money that were not identified in the provided documents. This is a free-text field.</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? IncomeExplanation { get; set; }
-#nullable restore
-#else
-        public string IncomeExplanation { get; set; }
-#endif
-        /// <summary>List of ISO 3166-1 alpha-3 country codes.&lt;br&gt;Check the [lists of countries you can send money to with Wise](https://wise.com/help/articles/2571942/what-countries-can-i-send-to).</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public List<string>? IntendedCountries { get; set; }
-#nullable restore
-#else
-        public List<string> IntendedCountries { get; set; }
-#endif
-        /// <summary>Primary source of business funding.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestMainSourceOfFunding? MainSourceOfFunding { get; set; }
-        /// <summary>Primary source of income. Must be submitted with annualIncome.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestMainSourceOfIncome? MainSourceOfIncome { get; set; }
-        /// <summary>Expected monthly transaction volume in Euros.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestMonthlyAnticipatedVolume? MonthlyAnticipatedVolume { get; set; }
-        /// <summary>Expected yearly transaction volume in Euros.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestYearlyAnticipatedVolume? YearlyAnticipatedVolume { get; set; }
-        /// <summary>
-        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequest"/> and sets the default values.
-        /// </summary>
-        public VerificationUploadEvidencesRequest()
-        {
-            AdditionalData = new Dictionary<string, object>();
-        }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
@@ -73,7 +37,17 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequest CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequest();
+            var mappingValue = parseNode.GetChildNode("")?.GetStringValue();
+            var result = new global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequest();
+            if("VerificationUploadEvidencesRequestBusinessProfile".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+            {
+                result.VerificationUploadEvidencesRequestBusinessProfile = new global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestBusinessProfile();
+            }
+            else if("VerificationUploadEvidencesRequestPersonalProfile".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+            {
+                result.VerificationUploadEvidencesRequestPersonalProfile = new global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestPersonalProfile();
+            }
+            return result;
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -81,19 +55,15 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
         public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
         {
-            return new Dictionary<string, Action<IParseNode>>
+            if(VerificationUploadEvidencesRequestBusinessProfile != null)
             {
-                { "accountPurpose", n => { AccountPurpose = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestAccountPurpose>(); } },
-                { "accountPurposeExplanation", n => { AccountPurposeExplanation = n.GetStringValue(); } },
-                { "annualIncome", n => { AnnualIncome = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestAnnualIncome>(); } },
-                { "businessUseCase", n => { BusinessUseCase = n.GetCollectionOfEnumValues<global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestBusinessUseCaseItem>()?.AsList(); } },
-                { "incomeExplanation", n => { IncomeExplanation = n.GetStringValue(); } },
-                { "intendedCountries", n => { IntendedCountries = n.GetCollectionOfPrimitiveValues<string>()?.AsList(); } },
-                { "mainSourceOfFunding", n => { MainSourceOfFunding = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestMainSourceOfFunding>(); } },
-                { "mainSourceOfIncome", n => { MainSourceOfIncome = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestMainSourceOfIncome>(); } },
-                { "monthlyAnticipatedVolume", n => { MonthlyAnticipatedVolume = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestMonthlyAnticipatedVolume>(); } },
-                { "yearlyAnticipatedVolume", n => { YearlyAnticipatedVolume = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestYearlyAnticipatedVolume>(); } },
-            };
+                return VerificationUploadEvidencesRequestBusinessProfile.GetFieldDeserializers();
+            }
+            else if(VerificationUploadEvidencesRequestPersonalProfile != null)
+            {
+                return VerificationUploadEvidencesRequestPersonalProfile.GetFieldDeserializers();
+            }
+            return new Dictionary<string, Action<IParseNode>>();
         }
         /// <summary>
         /// Serializes information the current object
@@ -102,17 +72,14 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestAccountPurpose>("accountPurpose", AccountPurpose);
-            writer.WriteStringValue("accountPurposeExplanation", AccountPurposeExplanation);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestAnnualIncome>("annualIncome", AnnualIncome);
-            writer.WriteCollectionOfEnumValues<global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestBusinessUseCaseItem>("businessUseCase", BusinessUseCase);
-            writer.WriteStringValue("incomeExplanation", IncomeExplanation);
-            writer.WriteCollectionOfPrimitiveValues<string>("intendedCountries", IntendedCountries);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestMainSourceOfFunding>("mainSourceOfFunding", MainSourceOfFunding);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestMainSourceOfIncome>("mainSourceOfIncome", MainSourceOfIncome);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestMonthlyAnticipatedVolume>("monthlyAnticipatedVolume", MonthlyAnticipatedVolume);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestYearlyAnticipatedVolume>("yearlyAnticipatedVolume", YearlyAnticipatedVolume);
-            writer.WriteAdditionalData(AdditionalData);
+            if(VerificationUploadEvidencesRequestBusinessProfile != null)
+            {
+                writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestBusinessProfile>(null, VerificationUploadEvidencesRequestBusinessProfile);
+            }
+            else if(VerificationUploadEvidencesRequestPersonalProfile != null)
+            {
+                writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestPersonalProfile>(null, VerificationUploadEvidencesRequestPersonalProfile);
+            }
         }
     }
 }

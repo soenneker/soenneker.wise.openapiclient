@@ -55,19 +55,19 @@ namespace Soenneker.Wise.OpenApiClient.Models
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
             var mappingValue = parseNode.GetChildNode("grant_type")?.GetStringValue();
             var result = new global::Soenneker.Wise.OpenApiClient.Models.OAuthTokenCreateXWwwFormUrlencodedRequest();
-            if("AuthorizationCodeGrant".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+            if("authorization_code".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
             {
                 result.AuthorizationCodeGrant = new global::Soenneker.Wise.OpenApiClient.Models.AuthorizationCodeGrant();
             }
-            else if("ClientCredentialsGrant".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+            else if("client_credentials".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
             {
                 result.ClientCredentialsGrant = new global::Soenneker.Wise.OpenApiClient.Models.ClientCredentialsGrant();
             }
-            else if("RefreshTokenGrant".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+            else if("refresh_token".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
             {
                 result.RefreshTokenGrant = new global::Soenneker.Wise.OpenApiClient.Models.RefreshTokenGrant();
             }
-            else if("RegistrationCodeGrant".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+            else if("registration_code".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
             {
                 result.RegistrationCodeGrant = new global::Soenneker.Wise.OpenApiClient.Models.RegistrationCodeGrant();
             }

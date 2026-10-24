@@ -12,7 +12,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.CardHolderProfiles.Item.SpendLimits
 {
     /// <summary>
-    /// Builds and executes requests for operations under \spend\profiles\{businessProfile-id}\card-holder-profiles\{cardHolderProfileId}\spend-limits
+    /// Builds and executes requests for operations under \spend\profiles\{profileId}\card-holder-profiles\{cardHolderProfileId}\spend-limits
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class SpendLimitsRequestBuilder : BaseRequestBuilder
@@ -22,7 +22,7 @@ namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.CardHolderProfiles.It
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public SpendLimitsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{businessProfile%2Did}/card-holder-profiles/{cardHolderProfileId}/spend-limits", pathParameters)
+        public SpendLimitsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{profileId}/card-holder-profiles/{cardHolderProfileId}/spend-limits", pathParameters)
         {
         }
         /// <summary>
@@ -30,7 +30,7 @@ namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.CardHolderProfiles.It
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public SpendLimitsRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{businessProfile%2Did}/card-holder-profiles/{cardHolderProfileId}/spend-limits", rawUrl)
+        public SpendLimitsRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/spend/profiles/{profileId}/card-holder-profiles/{cardHolderProfileId}/spend-limits", rawUrl)
         {
         }
         /// <summary>

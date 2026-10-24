@@ -51,11 +51,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
             {
                 result.FundingRequestBalance = new global::Soenneker.Wise.OpenApiClient.Models.FundingRequestBalance();
             }
-            else if("FundingRequestTrustedPreFund".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+            else if("TRUSTED_PRE_FUND_TX".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
             {
                 result.FundingRequestTrustedPreFund = new global::Soenneker.Wise.OpenApiClient.Models.FundingRequestTrustedPreFund();
             }
-            else if("FundingRequestTrustedPreFundBulk".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+            else if("TRUSTED_PRE_FUND_BULK".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
             {
                 result.FundingRequestTrustedPreFundBulk = new global::Soenneker.Wise.OpenApiClient.Models.FundingRequestTrustedPreFundBulk();
             }
