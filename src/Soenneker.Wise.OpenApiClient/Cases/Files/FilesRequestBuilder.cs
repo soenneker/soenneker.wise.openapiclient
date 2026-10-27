@@ -22,7 +22,7 @@ namespace Soenneker.Wise.OpenApiClient.Cases.Files
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public FilesRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/cases/files", pathParameters)
+        public FilesRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/cases/files{?pageNumber*,pageSize*,profileId*}", pathParameters)
         {
         }
         /// <summary>
@@ -30,8 +30,39 @@ namespace Soenneker.Wise.OpenApiClient.Cases.Files
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public FilesRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/cases/files", rawUrl)
+        public FilesRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/cases/files{?pageNumber*,pageSize*,profileId*}", rawUrl)
         {
+        }
+        /// <summary>
+        /// Returns a paginated list of metadata for files uploaded.Use `profileId` to retrieve files for a specific profile.If omitted, returns files across all profiles.
+        /// </summary>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.FileListResponse"/></returns>
+        /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
+        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.FileListValidationError">When receiving a 400 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Error401Unauthorized2">When receiving a 401 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Error403Forbidden2">When receiving a 403 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent">When receiving a 429 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.ErrorResponse2">When receiving a 500 status code</exception>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.FileListResponse?> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.Cases.Files.FilesRequestBuilder.FilesRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
+#nullable restore
+#else
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.FileListResponse> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.Cases.Files.FilesRequestBuilder.FilesRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
+#endif
+            var requestInfo = ToGetRequestInformation(requestConfiguration);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "400", global::Soenneker.Wise.OpenApiClient.Models.FileListValidationError.CreateFromDiscriminatorValue },
+                { "401", global::Soenneker.Wise.OpenApiClient.Models.Error401Unauthorized2.CreateFromDiscriminatorValue },
+                { "403", global::Soenneker.Wise.OpenApiClient.Models.Error403Forbidden2.CreateFromDiscriminatorValue },
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
+                { "500", global::Soenneker.Wise.OpenApiClient.Models.ErrorResponse2.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.FileListResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.FileListResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Uploads a file that can be used as supporting documentation for cases.All files are scanned for malware before being accepted.
@@ -67,6 +98,25 @@ namespace Soenneker.Wise.OpenApiClient.Cases.Files
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.FileUploadResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.FileUploadResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
+        /// Returns a paginated list of metadata for files uploaded.Use `profileId` to retrieve files for a specific profile.If omitted, returns files across all profiles.
+        /// </summary>
+        /// <returns>A <see cref="RequestInformation"/></returns>
+        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.Cases.Files.FilesRequestBuilder.FilesRequestBuilderGetQueryParameters>>? requestConfiguration = default)
+        {
+#nullable restore
+#else
+        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.Cases.Files.FilesRequestBuilder.FilesRequestBuilderGetQueryParameters>> requestConfiguration = default)
+        {
+#endif
+            var requestInfo = new RequestInformation(Method.GET, UrlTemplate, PathParameters);
+            requestInfo.Configure(requestConfiguration);
+            requestInfo.Headers.TryAdd("Accept", "application/json");
+            return requestInfo;
+        }
+        /// <summary>
         /// Uploads a file that can be used as supporting documentation for cases.All files are scanned for malware before being accepted.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
@@ -96,6 +146,22 @@ namespace Soenneker.Wise.OpenApiClient.Cases.Files
         public global::Soenneker.Wise.OpenApiClient.Cases.Files.FilesRequestBuilder WithUrl(string rawUrl)
         {
             return new global::Soenneker.Wise.OpenApiClient.Cases.Files.FilesRequestBuilder(rawUrl, RequestAdapter);
+        }
+        /// <summary>
+        /// Returns a paginated list of metadata for files uploaded.Use `profileId` to retrieve files for a specific profile.If omitted, returns files across all profiles.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+        public partial class FilesRequestBuilderGetQueryParameters 
+        {
+            /// <summary>The page number to retrieve. Must be at least `1`.</summary>
+            [QueryParameter("pageNumber")]
+            public int? PageNumber { get; set; }
+            /// <summary>The maximum number of files to return per page. Between `1` and `100`.</summary>
+            [QueryParameter("pageSize")]
+            public int? PageSize { get; set; }
+            /// <summary>Filter files by profile ID.Omit this parameter to retrieve files across all profiles.</summary>
+            [QueryParameter("profileId")]
+            public long? ProfileId { get; set; }
         }
     }
 }

@@ -1123,7 +1123,8 @@ tags:
 
       To set up SSO, configure Wise as a service provider in your identity
       provider using the [service provider
-      metadata](/api-reference/saml/samlmetadataget). After you authenticate,
+      metadata](/api-reference/saml/samlmetadataget). To start sign-in from
+      Wise, open SP-initiated login in your browser. After you authenticate,
       your identity provider sends the SAML response to the [Assertion Consumer
       Service](/api-reference/saml/samlassertionconsumerservice) endpoint.
   - name: case
@@ -1192,9 +1193,10 @@ tags:
   - name: case-files
     x-displayName: Files
     description: >-
-      Securely upload supporting documentation to Wise. Each upload returns a
-      file ID, which you then pass to any endpoint that documents support for
-      it. Files currently work with the Cases API only.
+      Securely upload supporting documentation to Wise and list your uploaded
+      files with their metadata. Each upload returns a file ID, which you can
+      pass to any endpoint that documents support for it. Files currently work
+      with the Cases API only.
   - name: payins
     x-displayName: Payins
     description: >-
@@ -11746,7 +11748,7 @@ paths:
                             </ds:X509Data>
                           </ds:KeyInfo>
                         </md:KeyDescriptor>
-                        <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://api.wise-sandbox.com/2026Q4/login/saml2/sso" index="1"/>
+                        <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://api.wise-sandbox.com/2027Q1/login/saml2/sso" index="1"/>
                       </md:SPSSODescriptor>
                     </md:EntityDescriptor>
           headers:
@@ -11758,6 +11760,58 @@ paths:
           $ref: '#/components/responses/429'
       parameters:
         - $ref: '#/components/parameters/X-External-Correlation-Id'
+  /saml2/authenticate/{registrationId}:
+    get:
+      operationId: samlAuthenticate
+      summary: Start SP-initiated login
+      description: >
+        Starts an SP-initiated SAML authentication flow.
+
+
+        When you open this endpoint, you are redirected to your configured
+        identity provider with a SAML authentication request. After you
+        authenticate, your identity provider sends the resulting SAML response
+        to the [Assertion Consumer
+        Service](/api-reference/saml/samlassertionconsumerservice) endpoint.
+
+
+        Open this endpoint in your browser. It is not a general-purpose REST API
+        endpoint.
+
+
+        The authentication flow follows the [SAML 2.0 Web Browser SSO
+        Profile](https://docs.oasis-open.org/security/saml/v2.0/saml-profiles-2.0-os.pdf).
+      tags:
+        - saml
+      security: []
+      parameters:
+        - name: registrationId
+          in: path
+          required: true
+          description: >-
+            Identifier of the identity provider configuration to authenticate
+            with.
+          schema:
+            type: string
+        - $ref: '#/components/parameters/X-External-Correlation-Id'
+      responses:
+        '302':
+          description: >-
+            Your browser is redirected to your identity provider with a SAML
+            authentication request.
+          headers:
+            Location:
+              description: >-
+                Identity provider single sign-on URL, including the SAML
+                authentication request.
+              schema:
+                type: string
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '429':
+          $ref: '#/components/responses/429'
   /application/users/{userId}/phone-numbers:
     post:
       operationId: userSecurityPhoneNumberCreate
@@ -13708,7 +13762,7 @@ paths:
                         ref: file
                         detail: File extension does not match content type
                 profileNotConnected:
-                  summary: You do not own this profile
+                  summary: Profile is not associated with Partner
                   value:
                     type: /errors/types/validation
                     title: Validation Error
@@ -13804,6 +13858,198 @@ paths:
               $ref: '#/components/headers/x-trace-id'
       parameters:
         - $ref: '#/components/parameters/X-External-Correlation-Id'
+    get:
+      operationId: caseFileList
+      summary: List files
+      description: |
+        Returns a paginated list of metadata for files uploaded.
+        Use `profileId` to retrieve files for a specific profile.
+        If omitted, returns files across all profiles.
+      tags:
+        - case-files
+      security:
+        - ClientCredentialsToken: []
+      parameters:
+        - name: pageNumber
+          in: query
+          required: false
+          description: The page number to retrieve. Must be at least `1`.
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+            default: 1
+          example: 1
+        - name: pageSize
+          in: query
+          required: false
+          description: >-
+            The maximum number of files to return per page. Between `1` and
+            `100`.
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+            maximum: 100
+            default: 100
+          example: 2
+        - name: profileId
+          in: query
+          required: false
+          description: |
+            Filter files by profile ID.
+            Omit this parameter to retrieve files across all profiles.
+          schema:
+            type: integer
+            format: int64
+          example: 14556049
+        - $ref: '#/components/parameters/X-External-Correlation-Id'
+      x-codeSamples:
+        - lang: bash
+          label: cURL
+          source: |
+            curl -X GET "https://api.wise.com/2027Q1/cases/files" \
+              -H "Authorization: Bearer YOUR_API_TOKEN"
+        - lang: bash
+          label: cURL - Filter by profile
+          source: >
+            curl -X GET
+            "https://api.wise.com/2027Q1/cases/files?pageNumber=1&pageSize=2&profileId=14556049"
+            \
+              -H "Authorization: Bearer YOUR_API_TOKEN"
+      responses:
+        '200':
+          description: Paginated list of files
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/file-list-response'
+              example:
+                files:
+                  - profileId: 14556049
+                    fileId: a1b2c3d4-e5f6-4789-abcd-ef1234567890
+                    fileName: company-registration.pdf
+                    createdAt: '2026-09-30T10:00:00.123'
+                    purpose: GENERAL
+                  - profileId: 14556049
+                    fileId: b2c3d4e5-f6a7-4890-bcde-f12345678901
+                    fileName: identity-document.png
+                    createdAt: '2026-09-29T10:00:00.123'
+                    purpose: GENERAL
+                totalFiles: 5
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '400':
+          description: Bad request - validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/file-list-validation-error'
+              examples:
+                pageNumberTooSmall:
+                  summary: Page number is less than 1
+                  value:
+                    type: /errors/types/validation
+                    title: Validation Error
+                    status: 400
+                    instance: /cases/files
+                    errors:
+                      - code: parameter_invalid
+                        ref: pageNumber
+                        detail: Page number must be greater than or equal to 1
+                pageSizeTooSmall:
+                  summary: Page size is less than 1
+                  value:
+                    type: /errors/types/validation
+                    title: Validation Error
+                    status: 400
+                    instance: /cases/files
+                    errors:
+                      - code: parameter_invalid
+                        ref: pageSize
+                        detail: Page size must be greater than or equal to 1
+                pageSizeTooLarge:
+                  summary: Page size exceeds 100
+                  value:
+                    type: /errors/types/validation
+                    title: Validation Error
+                    status: 400
+                    instance: /cases/files
+                    errors:
+                      - code: parameter_invalid
+                        ref: pageSize
+                        detail: Page size must be less than or equal to 100
+                profileNotConnected:
+                  summary: Profile is not associated with Partner
+                  value:
+                    type: /errors/types/validation
+                    title: Validation Error
+                    status: 400
+                    instance: /cases/files
+                    errors:
+                      - code: parameter_invalid
+                        ref: profileId
+                        detail: Profile does not belong to Partner
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '401':
+          description: Unauthorized - missing or invalid authentication
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error-401-unauthorized-2'
+              example:
+                type: /errors/types/access
+                title: Unauthorized
+                status: 401
+                detail: Authentication required
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '403':
+          description: Forbidden - insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error-403-forbidden-2'
+              example:
+                type: /errors/types/access
+                title: Forbidden
+                status: 403
+                detail: Unauthorized
+                code: forbidden
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error-response-2'
+              example:
+                type: /errors/types/internal
+                title: Internal Server Error
+                status: 500
+                detail: An unexpected error occurred. Please try again later.
+                instance: /cases/files
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
   /profiles/{profileId}/payin-sessions/{payinSessionId}/paynow:
     post:
       operationId: paynowCreate
@@ -18410,6 +18656,14 @@ paths:
         /rates?source=EUR&target=USD&from=2019-02-13T14:53:01&to=2019-03-13T14:53:01&group=minute`<br>
 
         Fetch exchange rate history over period of time with 1 minute interval.
+
+
+        {% admonition type="warning" %}
+
+        This endpoint only supports Bearer authentication for non-Affiliate
+        partners.
+
+        {% /admonition %}
       tags:
         - rate
       security:
@@ -19570,14 +19824,52 @@ paths:
   /settlement/allocations:
     post:
       summary: Create a settlement allocation request
-      description: >-
+      description: >
         Creates a new settlement allocation request with a Settlement Allocation
-        Request (SAR) file containing payment intents
+        Request (SAR) file containing payment intents.
+
+
+        This endpoint requires **HMAC request signing** in addition to a bearer
+        token. See [HMAC request
+        signing](/guides/developer/auth-and-security/hmac) for the full
+        algorithm, a verified test vector, and troubleshooting.
       operationId: createFundsAllocationRequest
       tags:
         - settlement
       security:
         - ClientCredentialsToken: []
+          HmacSignature: []
+          HmacSignatureTimestamp: []
+      parameters:
+        - name: X-Signature
+          in: header
+          required: true
+          description: >
+            HMAC-SHA256 signature of the request content, hex-encoded in
+            lowercase (64 characters).
+
+            Must be sent together with `X-Signature-Timestamp`.
+          schema:
+            type: string
+            pattern: ^[0-9a-f]{64}$
+          example: 1023c8e2a19cc42260968ab2dcf1698e8344a2939ac97f686d21aacb650273e2
+        - name: X-Signature-Timestamp
+          in: header
+          required: true
+          description: >
+            Unix timestamp in **seconds** at which `X-Signature` was generated,
+            as a decimal string.
+
+
+            This value is part of the signed canonical string, so it must
+            exactly match the timestamp used to compute the signature. Requests
+            more than 300 seconds from Wise server time are rejected in either
+            direction.
+          schema:
+            type: string
+            pattern: ^[0-9]+$
+          example: '1700000000'
+        - $ref: '#/components/parameters/X-External-Correlation-Id'
       requestBody:
         required: true
         content:
@@ -19609,7 +19901,32 @@ paths:
             x-trace-id:
               $ref: '#/components/headers/x-trace-id'
         '400':
-          description: Invalid request
+          description: >
+            Invalid request. Signature failures are returned with this status
+            and a `detail` field identifying the cause:
+
+
+            | detail | Cause |
+
+            | -------- | ----- |
+
+            | `Missing required X-Signature header` | The `X-Signature` header
+            was absent or blank. |
+
+            | `Missing required X-Signature-Timestamp header` | The
+            `X-Signature-Timestamp` header was absent or blank. |
+
+            | `Invalid timestamp format` | `X-Signature-Timestamp` is not a
+            whole number of seconds. |
+
+            | `Signature timestamp expired` | The timestamp is more than 300
+            seconds from Wise server time, in either direction. |
+
+            | `Invalid signature encoding` | `X-Signature` is not valid
+            lowercase hexadecimal. |
+
+            | `Invalid signature` | The signature did not match the request
+            content. |
           headers:
             X-External-Correlation-Id:
               $ref: '#/components/headers/X-External-Correlation-Id'
@@ -19631,8 +19948,6 @@ paths:
               $ref: '#/components/headers/x-trace-id'
         '429':
           $ref: '#/components/responses/429'
-      parameters:
-        - $ref: '#/components/parameters/X-External-Correlation-Id'
   /settlement/allocations/{allocationId}:
     get:
       description: |2-
@@ -20074,7 +20389,7 @@ paths:
       tags:
         - simulation
       servers:
-        - url: https://api.wise-sandbox.com/2026Q4
+        - url: https://api.wise-sandbox.com/2027Q1
           description: Sandbox Environment
       security:
         - UserToken: []
@@ -28209,16 +28524,116 @@ components:
         application/json:
           schema:
             type: object
+  securitySchemes:
+    UserToken:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: >
+        User Access Token for making API calls on behalf of a Wise user.
+
+
+        Can be obtained via two OAuth 2.0 flows:
+
+        - **registration_code grant**: For partners creating users via API
+
+        - **authorization_code grant**: For partners using Wise's authorization
+        page
+
+
+        Access tokens are valid for 12 hours and can be refreshed using a
+        refresh token.
+    PersonalToken:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: >
+        Personal API Token for individual personal or small business users.
+
+        Generated from Wise.com > Settings > Connect and manage apps > API
+        tokens.
+
+        Has limited API access compared to OAuth tokens (PSD2 restrictions apply
+        for EU/UK users).
+    ClientCredentialsToken:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: >
+        Application-level token for partner operations that don't require a
+        specific user context, such as bulk settlement and card spend controls.
+
+
+        Obtained via `POST /oauth/token` with Basic Authentication
+        (client-id:client-secret) and `grant_type=client_credentials`.
+
+
+        Valid for 12 hours. No refresh token — fetch a new token when expired.
+
+
+        See [create an OAuth token](/api-reference/oauth-token/oauthtokencreate)
+        for details.
+    BasicAuth:
+      type: http
+      scheme: basic
+      x-defaultUsername: <client_id>
+      x-defaultPassword: <client_secret>
+      description: >
+        Basic Authentication using your Client ID and Client Secret as the
+        username and password.
+
+
+        Client credentials are provided by Wise when your partnership begins.
+        See [Getting Started](/guides/developer) for details.
+    HmacSignature:
+      type: apiKey
+      in: header
+      name: X-Signature
+      description: >
+        HMAC-SHA256 signature proving the request body has not been tampered
+        with, hex-encoded in lowercase.
+
+
+        Check the API reference for the endpoint you are calling to see whether
+        it requires HMAC signing. Where it applies, it is used **in addition
+        to** a bearer token, not instead of one.
+
+
+        The signature is computed over a canonical string built from the request
+        timestamp and a SHA-256 hash of each signed part:
+
+
+        ```
+
+        {timestamp}.{sha256_hex(json_part)}.{sha256_hex(file_part)}
+
+        ```
+
+
+        Must be sent together with the `X-Signature-Timestamp` header.
+        Signatures are accepted within 300 seconds of Wise server time.
+
+
+        See [HMAC request signing](/guides/developer/auth-and-security/hmac) for
+        the full algorithm, a verified test vector, and troubleshooting.
+    HmacSignatureTimestamp:
+      type: apiKey
+      in: header
+      name: X-Signature-Timestamp
+      description: >
+        The Unix timestamp in **seconds** at which the `X-Signature` value was
+        generated, as a decimal string.
+
+
+        This value is part of the signed canonical string, so it must match the
+        timestamp used when computing the signature exactly. Requests more than
+        300 seconds away from Wise server time are rejected in either direction,
+        which limits how long a captured request can be replayed.
+
+
+        See [HMAC request signing](/guides/developer/auth-and-security/hmac) for
+        details.
   schemas:
-    CurrencyCode:
-      type: string
-      description: ISO 4217 currency code
-      pattern: ^[A-Z]{3}$
-      example: USD
-    Bic:
-      description: Business Identifier Code, also known as Swift Code.
-      type: string
-      pattern: ^[A-Z]{4}[A-Z]{2}[A-Z0-9]{2}([A-Z0-9]{3})?$
     ChallengeResultRequest:
       type: object
       required:
@@ -35821,6 +36236,206 @@ components:
             detail: 'Cannot submit message for case in final state: RESOLVED'
             instance: /public/v2/cases/12345678/messages
             code: operation_not_supported
+    listed-file:
+      type: object
+      description: Metadata for an uploaded file.
+      properties:
+        profileId:
+          type: integer
+          format: int64
+          description: The ID of the profile this file belongs to.
+          example: 14556049
+        fileId:
+          type: string
+          format: uuid
+          description: Unique identifier of the uploaded file.
+          minLength: 36
+          maxLength: 36
+          example: a1b2c3d4-e5f6-4789-abcd-ef1234567890
+        fileName:
+          type: string
+          description: The name of the uploaded file.
+          maxLength: 128
+          example: company-registration.pdf
+        createdAt:
+          type: string
+          description: |
+            Timestamp when the file was uploaded.
+            Format: ISO 8601 datetime without timezone (server timezone is UTC).
+          example: '2026-09-30T10:00:00.123'
+        purpose:
+          type: string
+          description: The purpose of the file upload.
+          enum:
+            - GENERAL
+          example: GENERAL
+      required:
+        - profileId
+        - fileId
+        - fileName
+        - createdAt
+        - purpose
+    file-list-response:
+      type: object
+      description: >-
+        A page of files uploaded by your application and the total number of
+        matching files.
+      properties:
+        files:
+          type: array
+          description: >
+            Collection of file metadata for the requested page. Ordered by
+            `createdAt` descending and then `fileId` descending.
+          items:
+            $ref: '#/components/schemas/listed-file'
+        totalFiles:
+          type: integer
+          format: int64
+          minimum: 0
+          description: Total number of files across all pages.
+          example: 3
+      required:
+        - files
+        - totalFiles
+    error-response-2:
+      type: object
+      title: Error Response
+      description: |
+        Standard error response structure following RFC 7807 Problem Details.
+
+        All error responses include a `type` URI identifying the error category,
+        a human-readable `title`, and the HTTP `status` code.
+      properties:
+        type:
+          type: string
+          description: |
+            A URI reference that identifies the error type.
+
+            Common types:
+            - `/errors/types/validation` - Request validation failed
+            - `/errors/types/access` - Authentication or authorization error
+            - `/errors/types/domain` - Domain-specific business rule violation
+          example: /errors/types/validation
+        title:
+          type: string
+          description: A short, human-readable summary of the error type.
+          example: Validation Error
+        status:
+          type: integer
+          description: The HTTP status code.
+          example: 400
+        detail:
+          type: string
+          description: >-
+            A human-readable explanation specific to this occurrence of the
+            error.
+          example: Unauthorized
+        instance:
+          type: string
+          description: The request path that caused the error.
+          example: /cases/files
+        code:
+          type: string
+          description: A machine-readable error code for domain errors.
+          example: forbidden
+      required:
+        - type
+        - title
+        - status
+    file-list-validation-error:
+      allOf:
+        - $ref: '#/components/schemas/error-response-2'
+        - type: object
+          title: File List Validation Error (400)
+          description: |
+            Returned when the request fails validation.
+
+            **Common causes:**
+            - Page number is less than 1
+            - Page size is less than 1 or greater than 100
+            - A query parameter is not a valid integer
+            - The specified profile is not associated with Partner
+          properties:
+            type:
+              example: /errors/types/validation
+            title:
+              example: Validation Error
+            status:
+              example: 400
+            instance:
+              example: /cases/files
+            errors:
+              type: array
+              description: List of query parameter validation errors.
+              items:
+                type: object
+                properties:
+                  code:
+                    type: string
+                    description: A machine-readable validation error code.
+                    example: parameter_invalid
+                  ref:
+                    type: string
+                    description: The query parameter that caused the validation error.
+                    example: pageNumber
+                  detail:
+                    type: string
+                    description: A human-readable description of the validation failure.
+                    example: Page number must be greater than or equal to 1
+                required:
+                  - code
+                  - ref
+                  - detail
+          required:
+            - errors
+    error-401-unauthorized-2:
+      allOf:
+        - $ref: '#/components/schemas/error-response-2'
+        - type: object
+          title: Unauthorized Error (401)
+          description: |
+            Returned when authentication is missing or invalid.
+
+            **Common causes:**
+            - Missing `Authorization` header
+            - Expired or invalid bearer token
+          properties:
+            type:
+              example: /errors/types/access
+            title:
+              example: Unauthorized
+            status:
+              example: 401
+          example:
+            type: /errors/types/access
+            title: Unauthorized
+            status: 401
+            detail: Authentication required
+    error-403-forbidden-2:
+      allOf:
+        - $ref: '#/components/schemas/error-response-2'
+        - type: object
+          title: Forbidden Error (403)
+          description: |
+            Returned when the client does not have sufficient permissions.
+
+            **Common causes:**
+            - Client credentials do not have the required permission
+          properties:
+            type:
+              example: /errors/types/access
+            title:
+              example: Forbidden
+            status:
+              example: 403
+            code:
+              example: forbidden
+          example:
+            type: /errors/types/access
+            title: Forbidden
+            status: 403
+            detail: Unauthorized
+            code: forbidden
     file-purpose:
       type: string
       description: The purpose of the file upload.
@@ -35884,51 +36499,6 @@ components:
         - fileName
         - createdAt
         - purpose
-    error-response-2:
-      type: object
-      title: Error Response
-      description: |
-        Standard error response structure following RFC 7807 Problem Details.
-
-        All error responses include a `type` URI identifying the error category,
-        a human-readable `title`, and the HTTP `status` code.
-      properties:
-        type:
-          type: string
-          description: |
-            A URI reference that identifies the error type.
-
-            Common types:
-            - `/errors/types/validation` - Request validation failed
-            - `/errors/types/access` - Authentication or authorization error
-            - `/errors/types/domain` - Domain-specific business rule violation
-          example: /errors/types/validation
-        title:
-          type: string
-          description: A short, human-readable summary of the error type.
-          example: Validation Error
-        status:
-          type: integer
-          description: The HTTP status code.
-          example: 400
-        detail:
-          type: string
-          description: >-
-            A human-readable explanation specific to this occurrence of the
-            error.
-          example: Unauthorized
-        instance:
-          type: string
-          description: The request path that caused the error.
-          example: /cases/files
-        code:
-          type: string
-          description: A machine-readable error code for domain errors.
-          example: forbidden
-      required:
-        - type
-        - title
-        - status
     validation-error-2:
       type: object
       title: Validation Error Detail
@@ -36015,54 +36585,6 @@ components:
               - code: parameter_missing
                 ref: purpose
                 detail: purpose must be provided
-    error-401-unauthorized-2:
-      allOf:
-        - $ref: '#/components/schemas/error-response-2'
-        - type: object
-          title: Unauthorized Error (401)
-          description: |
-            Returned when authentication is missing or invalid.
-
-            **Common causes:**
-            - Missing `Authorization` header
-            - Expired or invalid bearer token
-          properties:
-            type:
-              example: /errors/types/access
-            title:
-              example: Unauthorized
-            status:
-              example: 401
-          example:
-            type: /errors/types/access
-            title: Unauthorized
-            status: 401
-            detail: Authentication required
-    error-403-forbidden-2:
-      allOf:
-        - $ref: '#/components/schemas/error-response-2'
-        - type: object
-          title: Forbidden Error (403)
-          description: |
-            Returned when the client does not have sufficient permissions.
-
-            **Common causes:**
-            - Client credentials do not have the required permission
-          properties:
-            type:
-              example: /errors/types/access
-            title:
-              example: Forbidden
-            status:
-              example: 403
-            code:
-              example: forbidden
-          example:
-            type: /errors/types/access
-            title: Forbidden
-            status: 403
-            detail: Unauthorized
-            code: forbidden
     error-429-too-many-requests:
       allOf:
         - $ref: '#/components/schemas/error-response-2'
@@ -37809,6 +38331,11 @@ components:
                       type: string
                       description: The recommended value for the field.
                       example: Joe Doe
+    CurrencyCode:
+      type: string
+      description: ISO 4217 currency code
+      pattern: ^[A-Z]{3}$
+      example: USD
     settlement-allocation-request:
       type: object
       required:
@@ -38359,6 +38886,10 @@ components:
         beneficiaryAddress:
           description: Beneficiary address.
           $ref: '#/components/schemas/Address-3'
+    Bic:
+      description: Business Identifier Code, also known as Swift Code.
+      type: string
+      pattern: ^[A-Z]{4}[A-Z]{2}[A-Z0-9]{2}([A-Z0-9]{3})?$
     Address-4:
       type: object
       properties:
@@ -49576,64 +50107,3 @@ components:
                       type: string
                       description: Partner client ID associated with the recipient.
                       example: hosted-kyc-test-client
-  securitySchemes:
-    UserToken:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-      description: >
-        User Access Token for making API calls on behalf of a Wise user.
-
-
-        Can be obtained via two OAuth 2.0 flows:
-
-        - **registration_code grant**: For partners creating users via API
-
-        - **authorization_code grant**: For partners using Wise's authorization
-        page
-
-
-        Access tokens are valid for 12 hours and can be refreshed using a
-        refresh token.
-    PersonalToken:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-      description: >
-        Personal API Token for individual personal or small business users.
-
-        Generated from Wise.com > Settings > Connect and manage apps > API
-        tokens.
-
-        Has limited API access compared to OAuth tokens (PSD2 restrictions apply
-        for EU/UK users).
-    ClientCredentialsToken:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-      description: >
-        Application-level token for partner operations that don't require a
-        specific user context, such as bulk settlement and card spend controls.
-
-
-        Obtained via `POST /oauth/token` with Basic Authentication
-        (client-id:client-secret) and `grant_type=client_credentials`.
-
-
-        Valid for 12 hours. No refresh token — fetch a new token when expired.
-
-
-        See [create an OAuth token](/api-reference/oauth-token/oauthtokencreate)
-        for details.
-    BasicAuth:
-      type: http
-      scheme: basic
-      x-defaultUsername: <client_id>
-      x-defaultPassword: <client_secret>
-      description: >
-        Basic Authentication using your Client ID and Client Secret as the
-        username and password.
-
-
-        Client credentials are provided by Wise when your partnership begins.
-        See [Getting Started](/guides/developer) for details.

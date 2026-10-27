@@ -2,6 +2,7 @@
 #pragma warning disable CS0618
 using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions;
+using Soenneker.Wise.OpenApiClient.Saml2.Authenticate;
 using Soenneker.Wise.OpenApiClient.Saml2.Metadata;
 using System.Collections.Generic;
 using System.IO;
@@ -15,6 +16,11 @@ namespace Soenneker.Wise.OpenApiClient.Saml2
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class Saml2RequestBuilder : BaseRequestBuilder
     {
+        /// <summary>The authenticate property</summary>
+        public global::Soenneker.Wise.OpenApiClient.Saml2.Authenticate.AuthenticateRequestBuilder Authenticate
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.Saml2.Authenticate.AuthenticateRequestBuilder(PathParameters, RequestAdapter);
+        }
         /// <summary>The metadata property</summary>
         public global::Soenneker.Wise.OpenApiClient.Saml2.Metadata.MetadataRequestBuilder Metadata
         {

@@ -47,7 +47,7 @@ namespace Soenneker.Wise.OpenApiClient.Settlement.Allocations
         {
         }
         /// <summary>
-        /// Creates a new settlement allocation request with a Settlement Allocation Request (SAR) file containing payment intents
+        /// Creates a new settlement allocation request with a Settlement Allocation Request (SAR) file containing payment intents.This endpoint requires **HMAC request signing** in addition to a bearer token. See [HMAC request signing](/guides/developer/auth-and-security/hmac) for the full algorithm, a verified test vector, and troubleshooting.
         /// </summary>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.SettlementAllocationResponse"/></returns>
         /// <param name="body">The request body</param>
@@ -72,7 +72,7 @@ namespace Soenneker.Wise.OpenApiClient.Settlement.Allocations
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.SettlementAllocationResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.SettlementAllocationResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Creates a new settlement allocation request with a Settlement Allocation Request (SAR) file containing payment intents
+        /// Creates a new settlement allocation request with a Settlement Allocation Request (SAR) file containing payment intents.This endpoint requires **HMAC request signing** in addition to a bearer token. See [HMAC request signing](/guides/developer/auth-and-security/hmac) for the full algorithm, a verified test vector, and troubleshooting.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>

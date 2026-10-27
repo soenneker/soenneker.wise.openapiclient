@@ -1482,8 +1482,7 @@
             "in": "query",
             "description": "Filter by breach state. One of \u0060OPEN\u0060, \u0060CLOSED\u0060",
             "schema": {
-              "type": "string",
-              "format": "string"
+              "type": "string"
             },
             "example": "OPEN"
           },
@@ -1492,8 +1491,7 @@
             "in": "query",
             "description": "Filter by closing reason. One of \u0060AUTOMATICALLY_RESOLVED\u0060, \u0060MANUALLY_RESOLVED\u0060",
             "schema": {
-              "type": "string",
-              "format": "string"
+              "type": "string"
             },
             "example": "AUTOMATICALLY_RESOLVED"
           },
@@ -8926,9 +8924,58 @@
                   "sandboxMetadata": {
                     "summary": "Sandbox service provider metadata",
                     "description": "The signing certificate is shortened. Retrieve the metadata from the endpoint to get the current certificate.",
-                    "value": "\u003C?xml version=\u00221.0\u0022 encoding=\u0022UTF-8\u0022?\u003E\n\u003Cmd:EntityDescriptor xmlns:md=\u0022urn:oasis:names:tc:SAML:2.0:metadata\u0022 entityID=\u0022https://wise.com/saml/sp/login\u0022\u003E\n  \u003Cmd:SPSSODescriptor protocolSupportEnumeration=\u0022urn:oasis:names:tc:SAML:2.0:protocol\u0022\u003E\n    \u003Cmd:KeyDescriptor use=\u0022signing\u0022\u003E\n      \u003Cds:KeyInfo xmlns:ds=\u0022http://www.w3.org/2000/09/xmldsig#\u0022\u003E\n        \u003Cds:X509Data\u003E\n          \u003Cds:X509Certificate\u003EMIIEQjCCAqqgAwIBAgIUUUF\u002BVCaEJllClaROLMa1bXBj2x0...\u003C/ds:X509Certificate\u003E\n        \u003C/ds:X509Data\u003E\n      \u003C/ds:KeyInfo\u003E\n    \u003C/md:KeyDescriptor\u003E\n    \u003Cmd:AssertionConsumerService Binding=\u0022urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST\u0022 Location=\u0022https://api.wise-sandbox.com/2026Q4/login/saml2/sso\u0022 index=\u00221\u0022/\u003E\n  \u003C/md:SPSSODescriptor\u003E\n\u003C/md:EntityDescriptor\u003E\n"
+                    "value": "\u003C?xml version=\u00221.0\u0022 encoding=\u0022UTF-8\u0022?\u003E\n\u003Cmd:EntityDescriptor xmlns:md=\u0022urn:oasis:names:tc:SAML:2.0:metadata\u0022 entityID=\u0022https://wise.com/saml/sp/login\u0022\u003E\n  \u003Cmd:SPSSODescriptor protocolSupportEnumeration=\u0022urn:oasis:names:tc:SAML:2.0:protocol\u0022\u003E\n    \u003Cmd:KeyDescriptor use=\u0022signing\u0022\u003E\n      \u003Cds:KeyInfo xmlns:ds=\u0022http://www.w3.org/2000/09/xmldsig#\u0022\u003E\n        \u003Cds:X509Data\u003E\n          \u003Cds:X509Certificate\u003EMIIEQjCCAqqgAwIBAgIUUUF\u002BVCaEJllClaROLMa1bXBj2x0...\u003C/ds:X509Certificate\u003E\n        \u003C/ds:X509Data\u003E\n      \u003C/ds:KeyInfo\u003E\n    \u003C/md:KeyDescriptor\u003E\n    \u003Cmd:AssertionConsumerService Binding=\u0022urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST\u0022 Location=\u0022https://api.wise-sandbox.com/2027Q1/login/saml2/sso\u0022 index=\u00221\u0022/\u003E\n  \u003C/md:SPSSODescriptor\u003E\n\u003C/md:EntityDescriptor\u003E\n"
                   }
                 }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit exceeded. Retry after the number of seconds specified in the \u0060Retry-After\u0060 header.",
+            "$ref": "#/components/responses/429"
+          }
+        },
+        "security": []
+      }
+    },
+    "/saml2/authenticate/{registrationId}": {
+      "get": {
+        "tags": [
+          "saml"
+        ],
+        "summary": "Start SP-initiated login",
+        "description": "Starts an SP-initiated SAML authentication flow.\n\nWhen you open this endpoint, you are redirected to your configured identity provider with a SAML authentication request. After you authenticate, your identity provider sends the resulting SAML response to the [Assertion Consumer Service](/api-reference/saml/samlassertionconsumerservice) endpoint.\n\nOpen this endpoint in your browser. It is not a general-purpose REST API endpoint.\n\nThe authentication flow follows the [SAML 2.0 Web Browser SSO Profile](https://docs.oasis-open.org/security/saml/v2.0/saml-profiles-2.0-os.pdf).\n",
+        "operationId": "SamlAuthenticate",
+        "parameters": [
+          {
+            "name": "registrationId",
+            "in": "path",
+            "description": "Identifier of the identity provider configuration to authenticate with.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Optional UUID for correlating requests across systems. If provided, Wise echoes it back in the response. Maximum 36 characters. [Learn more](/guides/developer/headers/correlation-id).\n",
+            "$ref": "#/components/parameters/X-External-Correlation-Id"
+          }
+        ],
+        "responses": {
+          "302": {
+            "description": "Your browser is redirected to your identity provider with a SAML authentication request.",
+            "headers": {
+              "Location": {
+                "description": "Identity provider single sign-on URL, including the SAML authentication request.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
               }
             }
           },
@@ -11330,7 +11377,7 @@
                     }
                   },
                   "profileNotConnected": {
-                    "summary": "You do not own this profile",
+                    "summary": "Profile is not associated with Partner",
                     "value": {
                       "type": "/errors/types/validation",
                       "title": "Validation Error",
@@ -11471,6 +11518,273 @@
             "ClientCredentialsToken": []
           }
         ]
+      },
+      "get": {
+        "tags": [
+          "case-files"
+        ],
+        "summary": "List files",
+        "description": "Returns a paginated list of metadata for files uploaded.\nUse \u0060profileId\u0060 to retrieve files for a specific profile.\nIf omitted, returns files across all profiles.\n",
+        "operationId": "CaseFileList",
+        "parameters": [
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "description": "The page number to retrieve. Must be at least \u00601\u0060.",
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            },
+            "example": 1
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "The maximum number of files to return per page. Between \u00601\u0060 and \u0060100\u0060.",
+            "schema": {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32",
+              "default": 100
+            },
+            "example": 2
+          },
+          {
+            "name": "profileId",
+            "in": "query",
+            "description": "Filter files by profile ID.\nOmit this parameter to retrieve files across all profiles.\n",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 14556049
+          },
+          {
+            "description": "Optional UUID for correlating requests across systems. If provided, Wise echoes it back in the response. Maximum 36 characters. [Learn more](/guides/developer/headers/correlation-id).\n",
+            "$ref": "#/components/parameters/X-External-Correlation-Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated list of files",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileListResponse"
+                },
+                "example": {
+                  "files": [
+                    {
+                      "profileId": 14556049,
+                      "fileId": "a1b2c3d4-e5f6-4789-abcd-ef1234567890",
+                      "fileName": "company-registration.pdf",
+                      "createdAt": "2026-09-30T10:00:00.123",
+                      "purpose": "GENERAL"
+                    },
+                    {
+                      "profileId": 14556049,
+                      "fileId": "b2c3d4e5-f6a7-4890-bcde-f12345678901",
+                      "fileName": "identity-document.png",
+                      "createdAt": "2026-09-29T10:00:00.123",
+                      "purpose": "GENERAL"
+                    }
+                  ],
+                  "totalFiles": 5
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - validation failed",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileListValidationError"
+                },
+                "examples": {
+                  "pageNumberTooSmall": {
+                    "summary": "Page number is less than 1",
+                    "value": {
+                      "type": "/errors/types/validation",
+                      "title": "Validation Error",
+                      "status": 400,
+                      "instance": "/cases/files",
+                      "errors": [
+                        {
+                          "code": "parameter_invalid",
+                          "ref": "pageNumber",
+                          "detail": "Page number must be greater than or equal to 1"
+                        }
+                      ]
+                    }
+                  },
+                  "pageSizeTooSmall": {
+                    "summary": "Page size is less than 1",
+                    "value": {
+                      "type": "/errors/types/validation",
+                      "title": "Validation Error",
+                      "status": 400,
+                      "instance": "/cases/files",
+                      "errors": [
+                        {
+                          "code": "parameter_invalid",
+                          "ref": "pageSize",
+                          "detail": "Page size must be greater than or equal to 1"
+                        }
+                      ]
+                    }
+                  },
+                  "pageSizeTooLarge": {
+                    "summary": "Page size exceeds 100",
+                    "value": {
+                      "type": "/errors/types/validation",
+                      "title": "Validation Error",
+                      "status": 400,
+                      "instance": "/cases/files",
+                      "errors": [
+                        {
+                          "code": "parameter_invalid",
+                          "ref": "pageSize",
+                          "detail": "Page size must be less than or equal to 100"
+                        }
+                      ]
+                    }
+                  },
+                  "profileNotConnected": {
+                    "summary": "Profile is not associated with Partner",
+                    "value": {
+                      "type": "/errors/types/validation",
+                      "title": "Validation Error",
+                      "status": 400,
+                      "instance": "/cases/files",
+                      "errors": [
+                        {
+                          "code": "parameter_invalid",
+                          "ref": "profileId",
+                          "detail": "Profile does not belong to Partner"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - missing or invalid authentication",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error401Unauthorized2"
+                },
+                "example": {
+                  "type": "/errors/types/access",
+                  "title": "Unauthorized",
+                  "status": 401,
+                  "detail": "Authentication required"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - insufficient permissions",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error403Forbidden2"
+                },
+                "example": {
+                  "type": "/errors/types/access",
+                  "title": "Forbidden",
+                  "status": 403,
+                  "detail": "Unauthorized",
+                  "code": "forbidden"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit exceeded. Retry after the number of seconds specified in the \u0060Retry-After\u0060 header.",
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "description": "Internal server error",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse2"
+                },
+                "example": {
+                  "type": "/errors/types/internal",
+                  "title": "Internal Server Error",
+                  "status": 500,
+                  "detail": "An unexpected error occurred. Please try again later.",
+                  "instance": "/cases/files"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ClientCredentialsToken": []
+          }
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "bash",
+            "label": "cURL",
+            "source": "curl -X GET \u0022https://api.wise.com/2027Q1/cases/files\u0022 \\\n  -H \u0022Authorization: Bearer YOUR_API_TOKEN\u0022\n"
+          },
+          {
+            "lang": "bash",
+            "label": "cURL - Filter by profile",
+            "source": "curl -X GET \u0022https://api.wise.com/2027Q1/cases/files?pageNumber=1\u0026pageSize=2\u0026profileId=14556049\u0022 \\\n  -H \u0022Authorization: Bearer YOUR_API_TOKEN\u0022\n"
+          }
+        ]
       }
     },
     "/profiles/{profileId}/payin-sessions/{payinSessionId}/paynow": {
@@ -11498,8 +11812,7 @@
             "description": "Payin Session ID retrieved from Transfer object.",
             "required": true,
             "schema": {
-              "type": "string",
-              "format": "string"
+              "type": "string"
             }
           },
           {
@@ -14443,7 +14756,7 @@
           "rate"
         ],
         "summary": "Retrieve current rates",
-        "description": "{% admonition type=\u0022warning\u0022 %}\nThe \u0060from\u0060, \u0060to\u0060, and \u0060group\u0060 parameters are not testable in our Sandbox environment at this time.\n{% /admonition %}\n\n\u0060GET /rates\u0060\u003Cbr\u003E\nFetch latest exchange rates of all currencies.\n\n\u0060GET /rates?source=EUR\u0026target=USD\u0060\u003Cbr\u003E\nFetch latest exchange rate of one currency pair.\n\n\u0060GET /rates?source=EUR\u0026target=USD\u0026time=2019-02-13T14:53:01\u0060\u003Cbr\u003E\nFetch exchange rate of specific historical timestamp.\n\n\u0060GET /rates?source=EUR\u0026target=USD\u0026from=2019-02-13T14:53:01\u0026to=2019-03-13T14:53:01\u0026group=day\u0060\u003Cbr\u003E\nFetch exchange rate history over period of time with daily interval.\n\n\u0060GET /rates?source=EUR\u0026target=USD\u0026from=2019-02-13T14:53:01\u0026to=2019-03-13T14:53:01\u0026group=hour\u0060\u003Cbr\u003E\nFetch exchange rate history over period of time with hourly interval.\n\n\u0060GET /rates?source=EUR\u0026target=USD\u0026from=2019-02-13T14:53:01\u0026to=2019-03-13T14:53:01\u0026group=minute\u0060\u003Cbr\u003E\nFetch exchange rate history over period of time with 1 minute interval.\n",
+        "description": "{% admonition type=\u0022warning\u0022 %}\nThe \u0060from\u0060, \u0060to\u0060, and \u0060group\u0060 parameters are not testable in our Sandbox environment at this time.\n{% /admonition %}\n\n\u0060GET /rates\u0060\u003Cbr\u003E\nFetch latest exchange rates of all currencies.\n\n\u0060GET /rates?source=EUR\u0026target=USD\u0060\u003Cbr\u003E\nFetch latest exchange rate of one currency pair.\n\n\u0060GET /rates?source=EUR\u0026target=USD\u0026time=2019-02-13T14:53:01\u0060\u003Cbr\u003E\nFetch exchange rate of specific historical timestamp.\n\n\u0060GET /rates?source=EUR\u0026target=USD\u0026from=2019-02-13T14:53:01\u0026to=2019-03-13T14:53:01\u0026group=day\u0060\u003Cbr\u003E\nFetch exchange rate history over period of time with daily interval.\n\n\u0060GET /rates?source=EUR\u0026target=USD\u0026from=2019-02-13T14:53:01\u0026to=2019-03-13T14:53:01\u0026group=hour\u0060\u003Cbr\u003E\nFetch exchange rate history over period of time with hourly interval.\n\n\u0060GET /rates?source=EUR\u0026target=USD\u0026from=2019-02-13T14:53:01\u0026to=2019-03-13T14:53:01\u0026group=minute\u0060\u003Cbr\u003E\nFetch exchange rate history over period of time with 1 minute interval.\n\n{% admonition type=\u0022warning\u0022 %}\nThis endpoint only supports Bearer authentication for non-Affiliate partners.\n{% /admonition %}\n",
         "operationId": "RateGet",
         "parameters": [
           {
@@ -15393,9 +15706,31 @@
           "settlement"
         ],
         "summary": "Create a settlement allocation request",
-        "description": "Creates a new settlement allocation request with a Settlement Allocation Request (SAR) file containing payment intents",
+        "description": "Creates a new settlement allocation request with a Settlement Allocation Request (SAR) file containing payment intents.\n\nThis endpoint requires **HMAC request signing** in addition to a bearer token. See [HMAC request signing](/guides/developer/auth-and-security/hmac) for the full algorithm, a verified test vector, and troubleshooting.\n",
         "operationId": "CreateFundsAllocationRequest",
         "parameters": [
+          {
+            "name": "X-Signature",
+            "in": "header",
+            "description": "HMAC-SHA256 signature of the request content, hex-encoded in lowercase (64 characters).\nMust be sent together with \u0060X-Signature-Timestamp\u0060.\n",
+            "required": true,
+            "schema": {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            "example": "1023c8e2a19cc42260968ab2dcf1698e8344a2939ac97f686d21aacb650273e2"
+          },
+          {
+            "name": "X-Signature-Timestamp",
+            "in": "header",
+            "description": "Unix timestamp in **seconds** at which \u0060X-Signature\u0060 was generated, as a decimal string.\n\nThis value is part of the signed canonical string, so it must exactly match the timestamp used to compute the signature. Requests more than 300 seconds from Wise server time are rejected in either direction.\n",
+            "required": true,
+            "schema": {
+              "pattern": "^[0-9]\u002B$",
+              "type": "string"
+            },
+            "example": "1700000000"
+          },
           {
             "description": "Optional UUID for correlating requests across systems. If provided, Wise echoes it back in the response. Maximum 36 characters. [Learn more](/guides/developer/headers/correlation-id).\n",
             "$ref": "#/components/parameters/X-External-Correlation-Id"
@@ -15431,7 +15766,7 @@
             }
           },
           "400": {
-            "description": "Invalid request",
+            "description": "Invalid request. Signature failures are returned with this status and a \u0060detail\u0060 field identifying the cause:\n\n| detail | Cause |\n| -------- | ----- |\n| \u0060Missing required X-Signature header\u0060 | The \u0060X-Signature\u0060 header was absent or blank. |\n| \u0060Missing required X-Signature-Timestamp header\u0060 | The \u0060X-Signature-Timestamp\u0060 header was absent or blank. |\n| \u0060Invalid timestamp format\u0060 | \u0060X-Signature-Timestamp\u0060 is not a whole number of seconds. |\n| \u0060Signature timestamp expired\u0060 | The timestamp is more than 300 seconds from Wise server time, in either direction. |\n| \u0060Invalid signature encoding\u0060 | \u0060X-Signature\u0060 is not valid lowercase hexadecimal. |\n| \u0060Invalid signature\u0060 | The signature did not match the request content. |\n",
             "headers": {
               "X-External-Correlation-Id": {
                 "$ref": "#/components/headers/X-External-Correlation-Id"
@@ -15470,7 +15805,9 @@
         },
         "security": [
           {
-            "ClientCredentialsToken": []
+            "ClientCredentialsToken": [],
+            "HmacSignature": [],
+            "HmacSignatureTimestamp": []
           }
         ]
       }
@@ -16202,7 +16539,7 @@
         ],
         "servers": [
           {
-            "url": "https://api.wise-sandbox.com/2026Q4",
+            "url": "https://api.wise-sandbox.com/2027Q1",
             "description": "Sandbox Environment"
           }
         ]
@@ -23019,17 +23356,6 @@
   },
   "components": {
     "schemas": {
-      "CurrencyCode": {
-        "pattern": "^[A-Z]{3}$",
-        "type": "string",
-        "description": "ISO 4217 currency code",
-        "example": "USD"
-      },
-      "Bic": {
-        "pattern": "^[A-Z]{4}[A-Z]{2}[A-Z0-9]{2}([A-Z0-9]{3})?$",
-        "type": "string",
-        "description": "Business Identifier Code, also known as Swift Code."
-      },
       "ChallengeResultRequest": {
         "required": [
           "transactionReference",
@@ -26885,6 +27211,241 @@
           "code": "operation_not_supported"
         }
       },
+      "ListedFile": {
+        "required": [
+          "profileId",
+          "fileId",
+          "fileName",
+          "createdAt",
+          "purpose"
+        ],
+        "type": "object",
+        "properties": {
+          "profileId": {
+            "type": "integer",
+            "description": "The ID of the profile this file belongs to.",
+            "format": "int64",
+            "example": 14556049
+          },
+          "fileId": {
+            "maxLength": 36,
+            "minLength": 36,
+            "type": "string",
+            "description": "Unique identifier of the uploaded file.",
+            "format": "uuid",
+            "example": "a1b2c3d4-e5f6-4789-abcd-ef1234567890"
+          },
+          "fileName": {
+            "maxLength": 128,
+            "type": "string",
+            "description": "The name of the uploaded file.",
+            "example": "company-registration.pdf"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Timestamp when the file was uploaded.\nFormat: ISO 8601 datetime without timezone (server timezone is UTC).\n",
+            "example": "2026-09-30T10:00:00.123"
+          },
+          "purpose": {
+            "$ref": "#/components/schemas/GeneralPurpose"
+          }
+        },
+        "description": "Metadata for an uploaded file."
+      },
+      "FileListResponse": {
+        "required": [
+          "files",
+          "totalFiles"
+        ],
+        "type": "object",
+        "properties": {
+          "files": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ListedFile"
+            },
+            "description": "Collection of file metadata for the requested page. Ordered by \u0060createdAt\u0060 descending and then \u0060fileId\u0060 descending.\n"
+          },
+          "totalFiles": {
+            "minimum": 0,
+            "type": "integer",
+            "description": "Total number of files across all pages.",
+            "format": "int64",
+            "example": 3
+          }
+        },
+        "description": "A page of files uploaded by your application and the total number of matching files."
+      },
+      "ErrorResponse2": {
+        "title": "Error Response",
+        "required": [
+          "type",
+          "title",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "A URI reference that identifies the error type.\n\nCommon types:\n- \u0060/errors/types/validation\u0060 - Request validation failed\n- \u0060/errors/types/access\u0060 - Authentication or authorization error\n- \u0060/errors/types/domain\u0060 - Domain-specific business rule violation\n",
+            "example": "/errors/types/validation"
+          },
+          "title": {
+            "type": "string",
+            "description": "A short, human-readable summary of the error type.",
+            "example": "Validation Error"
+          },
+          "status": {
+            "type": "integer",
+            "description": "The HTTP status code.",
+            "example": 400
+          },
+          "detail": {
+            "type": "string",
+            "description": "A human-readable explanation specific to this occurrence of the error.",
+            "example": "Unauthorized"
+          },
+          "instance": {
+            "type": "string",
+            "description": "The request path that caused the error.",
+            "example": "/cases/files"
+          },
+          "code": {
+            "type": "string",
+            "description": "A machine-readable error code for domain errors.",
+            "example": "forbidden"
+          }
+        },
+        "description": "Standard error response structure following RFC 7807 Problem Details.\n\nAll error responses include a \u0060type\u0060 URI identifying the error category,\na human-readable \u0060title\u0060, and the HTTP \u0060status\u0060 code.\n"
+      },
+      "FileListValidationError": {
+        "required": [
+          "type",
+          "title",
+          "status",
+          "errors"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "A URI reference that identifies the error type.\n\nCommon types:\n- \u0060/errors/types/validation\u0060 - Request validation failed\n- \u0060/errors/types/access\u0060 - Authentication or authorization error\n- \u0060/errors/types/domain\u0060 - Domain-specific business rule violation\n",
+            "example": "/errors/types/validation"
+          },
+          "title": {
+            "type": "string",
+            "description": "A short, human-readable summary of the error type.",
+            "example": "Validation Error"
+          },
+          "status": {
+            "type": "integer",
+            "description": "The HTTP status code.",
+            "example": 400
+          },
+          "detail": {
+            "type": "string",
+            "description": "A human-readable explanation specific to this occurrence of the error.",
+            "example": "Unauthorized"
+          },
+          "instance": {
+            "type": "string",
+            "description": "The request path that caused the error.",
+            "example": "/cases/files"
+          },
+          "code": {
+            "type": "string",
+            "description": "A machine-readable error code for domain errors.",
+            "example": "forbidden"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FileListValidationErrorFileListValidationError400ErrorsItem"
+            },
+            "description": "List of query parameter validation errors."
+          }
+        }
+      },
+      "Error401Unauthorized2": {
+        "required": [
+          "type",
+          "title",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "A URI reference that identifies the error type.\n\nCommon types:\n- \u0060/errors/types/validation\u0060 - Request validation failed\n- \u0060/errors/types/access\u0060 - Authentication or authorization error\n- \u0060/errors/types/domain\u0060 - Domain-specific business rule violation\n",
+            "example": "/errors/types/validation"
+          },
+          "title": {
+            "type": "string",
+            "description": "A short, human-readable summary of the error type.",
+            "example": "Validation Error"
+          },
+          "status": {
+            "type": "integer",
+            "description": "The HTTP status code.",
+            "example": 400
+          },
+          "detail": {
+            "type": "string",
+            "description": "A human-readable explanation specific to this occurrence of the error.",
+            "example": "Unauthorized"
+          },
+          "instance": {
+            "type": "string",
+            "description": "The request path that caused the error.",
+            "example": "/cases/files"
+          },
+          "code": {
+            "type": "string",
+            "description": "A machine-readable error code for domain errors.",
+            "example": "forbidden"
+          }
+        }
+      },
+      "Error403Forbidden2": {
+        "required": [
+          "type",
+          "title",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "A URI reference that identifies the error type.\n\nCommon types:\n- \u0060/errors/types/validation\u0060 - Request validation failed\n- \u0060/errors/types/access\u0060 - Authentication or authorization error\n- \u0060/errors/types/domain\u0060 - Domain-specific business rule violation\n",
+            "example": "/errors/types/validation"
+          },
+          "title": {
+            "type": "string",
+            "description": "A short, human-readable summary of the error type.",
+            "example": "Validation Error"
+          },
+          "status": {
+            "type": "integer",
+            "description": "The HTTP status code.",
+            "example": 400
+          },
+          "detail": {
+            "type": "string",
+            "description": "A human-readable explanation specific to this occurrence of the error.",
+            "example": "Unauthorized"
+          },
+          "instance": {
+            "type": "string",
+            "description": "The request path that caused the error.",
+            "example": "/cases/files"
+          },
+          "code": {
+            "type": "string",
+            "description": "A machine-readable error code for domain errors.",
+            "example": "forbidden"
+          }
+        }
+      },
       "FilePurpose": {
         "enum": [
           "GENERAL"
@@ -26967,48 +27528,6 @@
         },
         "description": "Response returned after successfully uploading a file."
       },
-      "ErrorResponse2": {
-        "title": "Error Response",
-        "required": [
-          "type",
-          "title",
-          "status"
-        ],
-        "type": "object",
-        "properties": {
-          "type": {
-            "type": "string",
-            "description": "A URI reference that identifies the error type.\n\nCommon types:\n- \u0060/errors/types/validation\u0060 - Request validation failed\n- \u0060/errors/types/access\u0060 - Authentication or authorization error\n- \u0060/errors/types/domain\u0060 - Domain-specific business rule violation\n",
-            "example": "/errors/types/validation"
-          },
-          "title": {
-            "type": "string",
-            "description": "A short, human-readable summary of the error type.",
-            "example": "Validation Error"
-          },
-          "status": {
-            "type": "integer",
-            "description": "The HTTP status code.",
-            "example": 400
-          },
-          "detail": {
-            "type": "string",
-            "description": "A human-readable explanation specific to this occurrence of the error.",
-            "example": "Unauthorized"
-          },
-          "instance": {
-            "type": "string",
-            "description": "The request path that caused the error.",
-            "example": "/cases/files"
-          },
-          "code": {
-            "type": "string",
-            "description": "A machine-readable error code for domain errors.",
-            "example": "forbidden"
-          }
-        },
-        "description": "Standard error response structure following RFC 7807 Problem Details.\n\nAll error responses include a \u0060type\u0060 URI identifying the error category,\na human-readable \u0060title\u0060, and the HTTP \u0060status\u0060 code.\n"
-      },
       "ValidationError2": {
         "title": "Validation Error Detail",
         "required": [
@@ -27080,86 +27599,6 @@
               "$ref": "#/components/schemas/ValidationError2"
             },
             "description": "List of field-level validation errors."
-          }
-        }
-      },
-      "Error401Unauthorized2": {
-        "required": [
-          "type",
-          "title",
-          "status"
-        ],
-        "type": "object",
-        "properties": {
-          "type": {
-            "type": "string",
-            "description": "A URI reference that identifies the error type.\n\nCommon types:\n- \u0060/errors/types/validation\u0060 - Request validation failed\n- \u0060/errors/types/access\u0060 - Authentication or authorization error\n- \u0060/errors/types/domain\u0060 - Domain-specific business rule violation\n",
-            "example": "/errors/types/validation"
-          },
-          "title": {
-            "type": "string",
-            "description": "A short, human-readable summary of the error type.",
-            "example": "Validation Error"
-          },
-          "status": {
-            "type": "integer",
-            "description": "The HTTP status code.",
-            "example": 400
-          },
-          "detail": {
-            "type": "string",
-            "description": "A human-readable explanation specific to this occurrence of the error.",
-            "example": "Unauthorized"
-          },
-          "instance": {
-            "type": "string",
-            "description": "The request path that caused the error.",
-            "example": "/cases/files"
-          },
-          "code": {
-            "type": "string",
-            "description": "A machine-readable error code for domain errors.",
-            "example": "forbidden"
-          }
-        }
-      },
-      "Error403Forbidden2": {
-        "required": [
-          "type",
-          "title",
-          "status"
-        ],
-        "type": "object",
-        "properties": {
-          "type": {
-            "type": "string",
-            "description": "A URI reference that identifies the error type.\n\nCommon types:\n- \u0060/errors/types/validation\u0060 - Request validation failed\n- \u0060/errors/types/access\u0060 - Authentication or authorization error\n- \u0060/errors/types/domain\u0060 - Domain-specific business rule violation\n",
-            "example": "/errors/types/validation"
-          },
-          "title": {
-            "type": "string",
-            "description": "A short, human-readable summary of the error type.",
-            "example": "Validation Error"
-          },
-          "status": {
-            "type": "integer",
-            "description": "The HTTP status code.",
-            "example": 400
-          },
-          "detail": {
-            "type": "string",
-            "description": "A human-readable explanation specific to this occurrence of the error.",
-            "example": "Unauthorized"
-          },
-          "instance": {
-            "type": "string",
-            "description": "The request path that caused the error.",
-            "example": "/cases/files"
-          },
-          "code": {
-            "type": "string",
-            "description": "A machine-readable error code for domain errors.",
-            "example": "forbidden"
           }
         }
       },
@@ -28209,6 +28648,12 @@
         },
         "description": "Contains verification results for the recipient\u0027s details. Only populated for currencies with recipient verification enabled (CNY, KRW, INR, IDR, EUR). \n\nSee the [Recipient verification guides](/guides/product/send-money/recipients/recipient-verification) for details about how to handle this verification data by currency.\n"
       },
+      "CurrencyCode": {
+        "pattern": "^[A-Z]{3}$",
+        "type": "string",
+        "description": "ISO 4217 currency code",
+        "example": "USD"
+      },
       "SettlementAllocationRequest": {
         "required": [
           "paymentReference",
@@ -28990,6 +29435,11 @@
             "$ref": "#/components/schemas/Address32"
           }
         }
+      },
+      "Bic": {
+        "pattern": "^[A-Z]{4}[A-Z]{2}[A-Z0-9]{2}([A-Z0-9]{3})?$",
+        "type": "string",
+        "description": "Business Identifier Code, also known as Swift Code."
       },
       "Address4": {
         "type": "object",
@@ -34712,8 +35162,11 @@
         ],
         "description": "The data for the message submission. Structure varies based on submission type.\n"
       },
-      "Error400ValidationValidationError400": {
-        "title": "Validation Error (400)",
+      "FileListValidationErrorFileListValidationError400": {
+        "title": "File List Validation Error (400)",
+        "required": [
+          "errors"
+        ],
         "type": "object",
         "properties": {
           "type": {
@@ -34731,25 +35184,12 @@
           "errors": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ValidationError2"
+              "$ref": "#/components/schemas/FileListValidationErrorFileListValidationError400ErrorsItem"
             },
-            "description": "List of field-level validation errors."
+            "description": "List of query parameter validation errors."
           }
         },
-        "description": "Returned when the request fails validation.\n\n**Common causes:**\n- Missing required fields (\u0060profileId\u0060, \u0060purpose\u0060)\n- Invalid \u0060purpose\u0060 value\n- File is empty or missing\n- Unsupported file content type (only \u0060application/pdf\u0060, \u0060image/jpeg\u0060, \u0060image/png\u0060 allowed)\n- File extension does not match the content type\n- File exceeds 15 MB size limit\n- File name exceeds 128 characters\n- You do not own the specified profile\n- File failed security scan (malware detected)\n",
-        "example": {
-          "type": "/errors/types/validation",
-          "title": "Validation Error",
-          "status": 400,
-          "instance": "/cases/files",
-          "errors": [
-            {
-              "code": "parameter_missing",
-              "ref": "purpose",
-              "detail": "purpose must be provided"
-            }
-          ]
-        }
+        "description": "Returned when the request fails validation.\n\n**Common causes:**\n- Page number is less than 1\n- Page size is less than 1 or greater than 100\n- A query parameter is not a valid integer\n- The specified profile is not associated with Partner\n"
       },
       "Error401Unauthorized2UnauthorizedError401": {
         "title": "Unauthorized Error (401)",
@@ -34797,6 +35237,45 @@
           "status": 403,
           "detail": "Unauthorized",
           "code": "forbidden"
+        }
+      },
+      "Error400ValidationValidationError400": {
+        "title": "Validation Error (400)",
+        "type": "object",
+        "properties": {
+          "type": {
+            "example": "/errors/types/validation"
+          },
+          "title": {
+            "example": "Validation Error"
+          },
+          "status": {
+            "example": 400
+          },
+          "instance": {
+            "example": "/cases/files"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationError2"
+            },
+            "description": "List of field-level validation errors."
+          }
+        },
+        "description": "Returned when the request fails validation.\n\n**Common causes:**\n- Missing required fields (\u0060profileId\u0060, \u0060purpose\u0060)\n- Invalid \u0060purpose\u0060 value\n- File is empty or missing\n- Unsupported file content type (only \u0060application/pdf\u0060, \u0060image/jpeg\u0060, \u0060image/png\u0060 allowed)\n- File extension does not match the content type\n- File exceeds 15 MB size limit\n- File name exceeds 128 characters\n- You do not own the specified profile\n- File failed security scan (malware detected)\n",
+        "example": {
+          "type": "/errors/types/validation",
+          "title": "Validation Error",
+          "status": 400,
+          "instance": "/cases/files",
+          "errors": [
+            {
+              "code": "parameter_missing",
+              "ref": "purpose",
+              "detail": "purpose must be provided"
+            }
+          ]
         }
       },
       "Error429TooManyRequestsTooManyRequestsError429": {
@@ -39927,6 +40406,31 @@
           }
         },
         "description": "\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022data\u0022: {\n    \u0022documentType\u0022: \u0022SSN\u0022,\n    \u0022shareholderId\u0022: \u0022489209\u0022,\n    \u0022ssn\u0022: \u0022555501234\u0022\n  },\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
+      },
+      "FileListValidationErrorFileListValidationError400ErrorsItem": {
+        "required": [
+          "code",
+          "ref",
+          "detail"
+        ],
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "A machine-readable validation error code.",
+            "example": "parameter_invalid"
+          },
+          "ref": {
+            "type": "string",
+            "description": "The query parameter that caused the validation error.",
+            "example": "pageNumber"
+          },
+          "detail": {
+            "type": "string",
+            "description": "A human-readable description of the validation failure.",
+            "example": "Page number must be greater than or equal to 1"
+          }
+        }
       },
       "SsnDeclarationSubmissionDataSsnAvailableData": {
         "required": [
@@ -59420,6 +59924,24 @@
           ]
         }
       },
+      "GeneralPurpose": {
+        "enum": [
+          "GENERAL"
+        ],
+        "type": "string",
+        "description": "The purpose of the file upload.",
+        "example": "GENERAL",
+        "x-ms-enum": {
+          "name": "GeneralPurpose",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "GENERAL",
+              "name": "General"
+            }
+          ]
+        }
+      },
       "PersonalType": {
         "enum": [
           "PERSONAL"
@@ -66519,6 +67041,18 @@
         "scheme": "basic",
         "x-defaultUsername": "\u003Cclient_id\u003E",
         "x-defaultPassword": "\u003Cclient_secret\u003E"
+      },
+      "HmacSignature": {
+        "type": "apiKey",
+        "description": "HMAC-SHA256 signature proving the request body has not been tampered with, hex-encoded in lowercase.\n\nCheck the API reference for the endpoint you are calling to see whether it requires HMAC signing. Where it applies, it is used **in addition to** a bearer token, not instead of one.\n\nThe signature is computed over a canonical string built from the request timestamp and a SHA-256 hash of each signed part:\n\n\u0060\u0060\u0060\n{timestamp}.{sha256_hex(json_part)}.{sha256_hex(file_part)}\n\u0060\u0060\u0060\n\nMust be sent together with the \u0060X-Signature-Timestamp\u0060 header. Signatures are accepted within 300 seconds of Wise server time.\n\nSee [HMAC request signing](/guides/developer/auth-and-security/hmac) for the full algorithm, a verified test vector, and troubleshooting.\n",
+        "name": "X-Signature",
+        "in": "header"
+      },
+      "HmacSignatureTimestamp": {
+        "type": "apiKey",
+        "description": "The Unix timestamp in **seconds** at which the \u0060X-Signature\u0060 value was generated, as a decimal string.\n\nThis value is part of the signed canonical string, so it must match the timestamp used when computing the signature exactly. Requests more than 300 seconds away from Wise server time are rejected in either direction, which limits how long a captured request can be replayed.\n\nSee [HMAC request signing](/guides/developer/auth-and-security/hmac) for details.\n",
+        "name": "X-Signature-Timestamp",
+        "in": "header"
       }
     }
   },
@@ -66660,7 +67194,7 @@
     },
     {
       "name": "saml",
-      "description": "Sign in to Wise using single sign-on (SSO) with your SAML 2.0 identity provider. Wise acts as the SAML service provider.\n\nThese endpoints follow the [SAML 2.0 Web Browser SSO Profile](https://docs.oasis-open.org/security/saml/v2.0/saml-profiles-2.0-os.pdf). They are part of a browser-based sign-in flow and are not general-purpose REST API endpoints, so they do not use API tokens.\n\nSAML SSO requires configuration on the Wise side. To enable it for your integration, contact your Wise implementation team.\n\nTo set up SSO, configure Wise as a service provider in your identity provider using the [service provider metadata](/api-reference/saml/samlmetadataget). After you authenticate, your identity provider sends the SAML response to the [Assertion Consumer Service](/api-reference/saml/samlassertionconsumerservice) endpoint.\n",
+      "description": "Sign in to Wise using single sign-on (SSO) with your SAML 2.0 identity provider. Wise acts as the SAML service provider.\n\nThese endpoints follow the [SAML 2.0 Web Browser SSO Profile](https://docs.oasis-open.org/security/saml/v2.0/saml-profiles-2.0-os.pdf). They are part of a browser-based sign-in flow and are not general-purpose REST API endpoints, so they do not use API tokens.\n\nSAML SSO requires configuration on the Wise side. To enable it for your integration, contact your Wise implementation team.\n\nTo set up SSO, configure Wise as a service provider in your identity provider using the [service provider metadata](/api-reference/saml/samlmetadataget). To start sign-in from Wise, open SP-initiated login in your browser. After you authenticate, your identity provider sends the SAML response to the [Assertion Consumer Service](/api-reference/saml/samlassertionconsumerservice) endpoint.\n",
       "x-displayName": "SAML"
     },
     {
@@ -66670,7 +67204,7 @@
     },
     {
       "name": "case-files",
-      "description": "Securely upload supporting documentation to Wise. Each upload returns a file ID, which you then pass to any endpoint that documents support for it. Files currently work with the Cases API only.",
+      "description": "Securely upload supporting documentation to Wise and list your uploaded files with their metadata. Each upload returns a file ID, which you can pass to any endpoint that documents support for it. Files currently work with the Cases API only.",
       "x-displayName": "Files"
     },
     {
