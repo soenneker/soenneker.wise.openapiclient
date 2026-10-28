@@ -16819,7 +16819,8 @@ paths:
                     type: string
                     description: >-
                       Nationality as an ISO 3166-1 alpha-2 or alpha-3 country
-                      code.
+                      code. Required if the business profile's registered
+                      address is in Singapore.
                     example: usa
                   email:
                     type: string
@@ -17105,7 +17106,8 @@ paths:
                     type: string
                     description: >-
                       Nationality as an ISO 3166-1 alpha-2 or alpha-3 country
-                      code.
+                      code. Required if the business profile's registered
+                      address is in Singapore.
                     example: usa
                   email:
                     type: string

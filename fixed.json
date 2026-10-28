@@ -56890,7 +56890,7 @@
           },
           "nationality": {
             "type": "string",
-            "description": "Nationality as an ISO 3166-1 alpha-2 or alpha-3 country code.",
+            "description": "Nationality as an ISO 3166-1 alpha-2 or alpha-3 country code. Required if the business profile\u0027s registered address is in Singapore.",
             "example": "usa"
           },
           "email": {
@@ -56994,7 +56994,7 @@
           },
           "nationality": {
             "type": "string",
-            "description": "Nationality as an ISO 3166-1 alpha-2 or alpha-3 country code.",
+            "description": "Nationality as an ISO 3166-1 alpha-2 or alpha-3 country code. Required if the business profile\u0027s registered address is in Singapore.",
             "example": "usa"
           },
           "email": {
@@ -57736,7 +57736,7 @@
           },
           "nationality": {
             "type": "string",
-            "description": "Nationality as an ISO 3166-1 alpha-2 or alpha-3 country code.",
+            "description": "Nationality as an ISO 3166-1 alpha-2 or alpha-3 country code. Required if the business profile\u0027s registered address is in Singapore.",
             "example": "usa"
           },
           "email": {
@@ -57826,7 +57826,7 @@
           },
           "nationality": {
             "type": "string",
-            "description": "Nationality as an ISO 3166-1 alpha-2 or alpha-3 country code.",
+            "description": "Nationality as an ISO 3166-1 alpha-2 or alpha-3 country code. Required if the business profile\u0027s registered address is in Singapore.",
             "example": "usa"
           },
           "email": {

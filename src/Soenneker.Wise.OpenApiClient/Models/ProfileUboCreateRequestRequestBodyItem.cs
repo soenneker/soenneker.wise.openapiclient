@@ -80,7 +80,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public string Name { get; set; }
 #endif
-        /// <summary>Nationality as an ISO 3166-1 alpha-2 or alpha-3 country code.</summary>
+        /// <summary>Nationality as an ISO 3166-1 alpha-2 or alpha-3 country code. Required if the business profile&apos;s registered address is in Singapore.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Nationality { get; set; }
