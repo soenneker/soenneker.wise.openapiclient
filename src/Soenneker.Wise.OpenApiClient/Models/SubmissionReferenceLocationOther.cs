@@ -17,10 +17,14 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("location") is { } nullNodeLocation && nullNodeLocation.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Location = null;
-            if (parseNode.GetChildNode("paymentExplanation") is { } nullNodePaymentExplanation && nullNodePaymentExplanation.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PaymentExplanation = null;
-            if (parseNode.GetChildNode("referenceDescription") is { } nullNodeReferenceDescription && nullNodeReferenceDescription.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ReferenceDescription = null;
-            if (parseNode.GetChildNode("relatedToLocation") is { } nullNodeRelatedToLocation && nullNodeRelatedToLocation.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) RelatedToLocation = null;
+            if (parseNode.GetChildNode("location") is null) { _explicitNullValueLocation = default!; _explicitNullProperties?.Remove("location"); }
+            else if (parseNode.GetChildNode("location") is { } nullNodeLocation && nullNodeLocation.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Location = null;
+            if (parseNode.GetChildNode("paymentExplanation") is null) { _explicitNullValuePaymentExplanation = default!; _explicitNullProperties?.Remove("paymentExplanation"); }
+            else if (parseNode.GetChildNode("paymentExplanation") is { } nullNodePaymentExplanation && nullNodePaymentExplanation.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PaymentExplanation = null;
+            if (parseNode.GetChildNode("referenceDescription") is null) { _explicitNullValueReferenceDescription = default!; _explicitNullProperties?.Remove("referenceDescription"); }
+            else if (parseNode.GetChildNode("referenceDescription") is { } nullNodeReferenceDescription && nullNodeReferenceDescription.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ReferenceDescription = null;
+            if (parseNode.GetChildNode("relatedToLocation") is null) { _explicitNullValueRelatedToLocation = default!; _explicitNullProperties?.Remove("relatedToLocation"); }
+            else if (parseNode.GetChildNode("relatedToLocation") is { } nullNodeRelatedToLocation && nullNodeRelatedToLocation.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) RelatedToLocation = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -28,41 +32,41 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The specific location being addressed.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Location { get => _explicitNullValueLocation; set { _explicitNullValueLocation = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("location"); else _explicitNullProperties?.Remove("location"); } }
+        public string? Location { get => _explicitNullValueLocation; set { _explicitNullValueLocation = value; AdditionalData?.Remove("location"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("location"); else _explicitNullProperties?.Remove("location"); } }
         private string? _explicitNullValueLocation = default!;
 #nullable restore
 #else
-        public string Location { get => _explicitNullValueLocation; set { _explicitNullValueLocation = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("location"); else _explicitNullProperties?.Remove("location"); } }
+        public string Location { get => _explicitNullValueLocation; set { _explicitNullValueLocation = value; AdditionalData?.Remove("location"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("location"); else _explicitNullProperties?.Remove("location"); } }
         private string _explicitNullValueLocation = default!;
 #endif
         /// <summary>Explanation of the purpose of the payment.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? PaymentExplanation { get => _explicitNullValuePaymentExplanation; set { _explicitNullValuePaymentExplanation = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("paymentExplanation"); else _explicitNullProperties?.Remove("paymentExplanation"); } }
+        public string? PaymentExplanation { get => _explicitNullValuePaymentExplanation; set { _explicitNullValuePaymentExplanation = value; AdditionalData?.Remove("paymentExplanation"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("paymentExplanation"); else _explicitNullProperties?.Remove("paymentExplanation"); } }
         private string? _explicitNullValuePaymentExplanation = default!;
 #nullable restore
 #else
-        public string PaymentExplanation { get => _explicitNullValuePaymentExplanation; set { _explicitNullValuePaymentExplanation = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("paymentExplanation"); else _explicitNullProperties?.Remove("paymentExplanation"); } }
+        public string PaymentExplanation { get => _explicitNullValuePaymentExplanation; set { _explicitNullValuePaymentExplanation = value; AdditionalData?.Remove("paymentExplanation"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("paymentExplanation"); else _explicitNullProperties?.Remove("paymentExplanation"); } }
         private string _explicitNullValuePaymentExplanation = default!;
 #endif
         /// <summary>Description of the payment reference that triggered the location hit.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? ReferenceDescription { get => _explicitNullValueReferenceDescription; set { _explicitNullValueReferenceDescription = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("referenceDescription"); else _explicitNullProperties?.Remove("referenceDescription"); } }
+        public string? ReferenceDescription { get => _explicitNullValueReferenceDescription; set { _explicitNullValueReferenceDescription = value; AdditionalData?.Remove("referenceDescription"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("referenceDescription"); else _explicitNullProperties?.Remove("referenceDescription"); } }
         private string? _explicitNullValueReferenceDescription = default!;
 #nullable restore
 #else
-        public string ReferenceDescription { get => _explicitNullValueReferenceDescription; set { _explicitNullValueReferenceDescription = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("referenceDescription"); else _explicitNullProperties?.Remove("referenceDescription"); } }
+        public string ReferenceDescription { get => _explicitNullValueReferenceDescription; set { _explicitNullValueReferenceDescription = value; AdditionalData?.Remove("referenceDescription"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("referenceDescription"); else _explicitNullProperties?.Remove("referenceDescription"); } }
         private string _explicitNullValueReferenceDescription = default!;
 #endif
         /// <summary>Explanation of how the reference is related to the flagged location.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? RelatedToLocation { get => _explicitNullValueRelatedToLocation; set { _explicitNullValueRelatedToLocation = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("relatedToLocation"); else _explicitNullProperties?.Remove("relatedToLocation"); } }
+        public string? RelatedToLocation { get => _explicitNullValueRelatedToLocation; set { _explicitNullValueRelatedToLocation = value; AdditionalData?.Remove("relatedToLocation"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("relatedToLocation"); else _explicitNullProperties?.Remove("relatedToLocation"); } }
         private string? _explicitNullValueRelatedToLocation = default!;
 #nullable restore
 #else
-        public string RelatedToLocation { get => _explicitNullValueRelatedToLocation; set { _explicitNullValueRelatedToLocation = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("relatedToLocation"); else _explicitNullProperties?.Remove("relatedToLocation"); } }
+        public string RelatedToLocation { get => _explicitNullValueRelatedToLocation; set { _explicitNullValueRelatedToLocation = value; AdditionalData?.Remove("relatedToLocation"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("relatedToLocation"); else _explicitNullProperties?.Remove("relatedToLocation"); } }
         private string _explicitNullValueRelatedToLocation = default!;
 #endif
         /// <summary>

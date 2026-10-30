@@ -17,9 +17,12 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("secondaryIncomeDescription") is { } nullNodeSecondaryIncomeDescription && nullNodeSecondaryIncomeDescription.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SecondaryIncomeDescription = null;
-            if (parseNode.GetChildNode("secondaryIncomeDocumentType") is { } nullNodeSecondaryIncomeDocumentType && nullNodeSecondaryIncomeDocumentType.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SecondaryIncomeDocumentType = null;
-            if (parseNode.GetChildNode("secondaryIncomeType") is { } nullNodeSecondaryIncomeType && nullNodeSecondaryIncomeType.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SecondaryIncomeType = null;
+            if (parseNode.GetChildNode("secondaryIncomeDescription") is null) { _explicitNullValueSecondaryIncomeDescription = default!; _explicitNullProperties?.Remove("secondaryIncomeDescription"); }
+            else if (parseNode.GetChildNode("secondaryIncomeDescription") is { } nullNodeSecondaryIncomeDescription && nullNodeSecondaryIncomeDescription.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SecondaryIncomeDescription = null;
+            if (parseNode.GetChildNode("secondaryIncomeDocumentType") is null) { _explicitNullValueSecondaryIncomeDocumentType = default!; _explicitNullProperties?.Remove("secondaryIncomeDocumentType"); }
+            else if (parseNode.GetChildNode("secondaryIncomeDocumentType") is { } nullNodeSecondaryIncomeDocumentType && nullNodeSecondaryIncomeDocumentType.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SecondaryIncomeDocumentType = null;
+            if (parseNode.GetChildNode("secondaryIncomeType") is null) { _explicitNullValueSecondaryIncomeType = default!; _explicitNullProperties?.Remove("secondaryIncomeType"); }
+            else if (parseNode.GetChildNode("secondaryIncomeType") is { } nullNodeSecondaryIncomeType && nullNodeSecondaryIncomeType.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SecondaryIncomeType = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -27,25 +30,25 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Optional. A free-text description of the secondary income source.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? SecondaryIncomeDescription { get => _explicitNullValueSecondaryIncomeDescription; set { _explicitNullValueSecondaryIncomeDescription = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("secondaryIncomeDescription"); else _explicitNullProperties?.Remove("secondaryIncomeDescription"); } }
+        public string? SecondaryIncomeDescription { get => _explicitNullValueSecondaryIncomeDescription; set { _explicitNullValueSecondaryIncomeDescription = value; AdditionalData?.Remove("secondaryIncomeDescription"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("secondaryIncomeDescription"); else _explicitNullProperties?.Remove("secondaryIncomeDescription"); } }
         private string? _explicitNullValueSecondaryIncomeDescription = default!;
 #nullable restore
 #else
-        public string SecondaryIncomeDescription { get => _explicitNullValueSecondaryIncomeDescription; set { _explicitNullValueSecondaryIncomeDescription = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("secondaryIncomeDescription"); else _explicitNullProperties?.Remove("secondaryIncomeDescription"); } }
+        public string SecondaryIncomeDescription { get => _explicitNullValueSecondaryIncomeDescription; set { _explicitNullValueSecondaryIncomeDescription = value; AdditionalData?.Remove("secondaryIncomeDescription"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("secondaryIncomeDescription"); else _explicitNullProperties?.Remove("secondaryIncomeDescription"); } }
         private string _explicitNullValueSecondaryIncomeDescription = default!;
 #endif
         /// <summary>The type of document being uploaded.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentType? SecondaryIncomeDocumentType { get => _explicitNullValueSecondaryIncomeDocumentType; set { _explicitNullValueSecondaryIncomeDocumentType = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("secondaryIncomeDocumentType"); else _explicitNullProperties?.Remove("secondaryIncomeDocumentType"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentType? SecondaryIncomeDocumentType { get => _explicitNullValueSecondaryIncomeDocumentType; set { _explicitNullValueSecondaryIncomeDocumentType = value; AdditionalData?.Remove("secondaryIncomeDocumentType"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("secondaryIncomeDocumentType"); else _explicitNullProperties?.Remove("secondaryIncomeDocumentType"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentType? _explicitNullValueSecondaryIncomeDocumentType = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentType SecondaryIncomeDocumentType { get => _explicitNullValueSecondaryIncomeDocumentType; set { _explicitNullValueSecondaryIncomeDocumentType = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("secondaryIncomeDocumentType"); else _explicitNullProperties?.Remove("secondaryIncomeDocumentType"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentType SecondaryIncomeDocumentType { get => _explicitNullValueSecondaryIncomeDocumentType; set { _explicitNullValueSecondaryIncomeDocumentType = value; AdditionalData?.Remove("secondaryIncomeDocumentType"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("secondaryIncomeDocumentType"); else _explicitNullProperties?.Remove("secondaryIncomeDocumentType"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentType _explicitNullValueSecondaryIncomeDocumentType = default!;
 #endif
         /// <summary>Accepted values for personal profiles.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.SourceOfWealthProofSubmissionDataDataSecondaryIncomeType? SecondaryIncomeType { get => _explicitNullValueSecondaryIncomeType; set { _explicitNullValueSecondaryIncomeType = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("secondaryIncomeType"); else _explicitNullProperties?.Remove("secondaryIncomeType"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.SourceOfWealthProofSubmissionDataDataSecondaryIncomeType? SecondaryIncomeType { get => _explicitNullValueSecondaryIncomeType; set { _explicitNullValueSecondaryIncomeType = value; AdditionalData?.Remove("secondaryIncomeType"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("secondaryIncomeType"); else _explicitNullProperties?.Remove("secondaryIncomeType"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.SourceOfWealthProofSubmissionDataDataSecondaryIncomeType? _explicitNullValueSecondaryIncomeType = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.SourceOfWealthProofSubmissionDataData"/> and sets the default values.
@@ -74,7 +77,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             {
                 { "secondaryIncomeDescription", n => { SecondaryIncomeDescription = n.GetStringValue(); } },
                 { "secondaryIncomeDocumentType", n => { SecondaryIncomeDocumentType = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentType>(global::Soenneker.Wise.OpenApiClient.Models.SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentType.CreateFromDiscriminatorValue); } },
-                { "secondaryIncomeType", n => { SecondaryIncomeType = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.SourceOfWealthProofSubmissionDataDataSecondaryIncomeType>(); } },
+                { "secondaryIncomeType", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.SourceOfWealthProofSubmissionDataDataSecondaryIncomeType>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueSecondaryIncomeType = default; _explicitNullProperties?.Remove("secondaryIncomeType"); AdditionalData["secondaryIncomeType"] = unknown; } else { SecondaryIncomeType = parsed; AdditionalData.Remove("secondaryIncomeType"); } } },
             };
         }
         /// <summary>

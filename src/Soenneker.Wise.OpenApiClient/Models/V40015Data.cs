@@ -17,8 +17,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("overdraft") is { } nullNodeOverdraft && nullNodeOverdraft.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Overdraft = null;
-            if (parseNode.GetChildNode("resource") is { } nullNodeResource && nullNodeResource.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Resource = null;
+            if (parseNode.GetChildNode("overdraft") is null) { _explicitNullValueOverdraft = default!; _explicitNullProperties?.Remove("overdraft"); }
+            else if (parseNode.GetChildNode("overdraft") is { } nullNodeOverdraft && nullNodeOverdraft.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Overdraft = null;
+            if (parseNode.GetChildNode("resource") is null) { _explicitNullValueResource = default!; _explicitNullProperties?.Remove("resource"); }
+            else if (parseNode.GetChildNode("resource") is { } nullNodeResource && nullNodeResource.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Resource = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -26,21 +28,21 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The overdraft property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.V40015DataOverdraft? Overdraft { get => _explicitNullValueOverdraft; set { _explicitNullValueOverdraft = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("overdraft"); else _explicitNullProperties?.Remove("overdraft"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.V40015DataOverdraft? Overdraft { get => _explicitNullValueOverdraft; set { _explicitNullValueOverdraft = value; AdditionalData?.Remove("overdraft"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("overdraft"); else _explicitNullProperties?.Remove("overdraft"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.V40015DataOverdraft? _explicitNullValueOverdraft = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.V40015DataOverdraft Overdraft { get => _explicitNullValueOverdraft; set { _explicitNullValueOverdraft = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("overdraft"); else _explicitNullProperties?.Remove("overdraft"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.V40015DataOverdraft Overdraft { get => _explicitNullValueOverdraft; set { _explicitNullValueOverdraft = value; AdditionalData?.Remove("overdraft"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("overdraft"); else _explicitNullProperties?.Remove("overdraft"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.V40015DataOverdraft _explicitNullValueOverdraft = default!;
 #endif
         /// <summary>The resource property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.V40015DataResource? Resource { get => _explicitNullValueResource; set { _explicitNullValueResource = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("resource"); else _explicitNullProperties?.Remove("resource"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.V40015DataResource? Resource { get => _explicitNullValueResource; set { _explicitNullValueResource = value; AdditionalData?.Remove("resource"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("resource"); else _explicitNullProperties?.Remove("resource"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.V40015DataResource? _explicitNullValueResource = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.V40015DataResource Resource { get => _explicitNullValueResource; set { _explicitNullValueResource = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("resource"); else _explicitNullProperties?.Remove("resource"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.V40015DataResource Resource { get => _explicitNullValueResource; set { _explicitNullValueResource = value; AdditionalData?.Remove("resource"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("resource"); else _explicitNullProperties?.Remove("resource"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.V40015DataResource _explicitNullValueResource = default!;
 #endif
         /// <summary>

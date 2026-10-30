@@ -17,50 +17,55 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("balance_id") is { } nullNodeBalanceId && nullNodeBalanceId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) BalanceId = null;
-            if (parseNode.GetChildNode("debited_amount") is { } nullNodeDebitedAmount && nullNodeDebitedAmount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) DebitedAmount = null;
-            if (parseNode.GetChildNode("fee") is { } nullNodeFee && nullNodeFee.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Fee = null;
-            if (parseNode.GetChildNode("for_amount") is { } nullNodeForAmount && nullNodeForAmount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ForAmount = null;
-            if (parseNode.GetChildNode("rate") is { } nullNodeRate && nullNodeRate.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Rate = null;
+            if (parseNode.GetChildNode("balance_id") is null) { _explicitNullValueBalanceId = default!; _explicitNullProperties?.Remove("balance_id"); }
+            else if (parseNode.GetChildNode("balance_id") is { } nullNodeBalanceId && nullNodeBalanceId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) BalanceId = null;
+            if (parseNode.GetChildNode("debited_amount") is null) { _explicitNullValueDebitedAmount = default!; _explicitNullProperties?.Remove("debited_amount"); }
+            else if (parseNode.GetChildNode("debited_amount") is { } nullNodeDebitedAmount && nullNodeDebitedAmount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) DebitedAmount = null;
+            if (parseNode.GetChildNode("fee") is null) { _explicitNullValueFee = default!; _explicitNullProperties?.Remove("fee"); }
+            else if (parseNode.GetChildNode("fee") is { } nullNodeFee && nullNodeFee.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Fee = null;
+            if (parseNode.GetChildNode("for_amount") is null) { _explicitNullValueForAmount = default!; _explicitNullProperties?.Remove("for_amount"); }
+            else if (parseNode.GetChildNode("for_amount") is { } nullNodeForAmount && nullNodeForAmount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ForAmount = null;
+            if (parseNode.GetChildNode("rate") is null) { _explicitNullValueRate = default!; _explicitNullProperties?.Remove("rate"); }
+            else if (parseNode.GetChildNode("rate") is { } nullNodeRate && nullNodeRate.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Rate = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Balance ID</summary>
-        public long? BalanceId { get => _explicitNullValueBalanceId; set { _explicitNullValueBalanceId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("balance_id"); else _explicitNullProperties?.Remove("balance_id"); } }
+        public long? BalanceId { get => _explicitNullValueBalanceId; set { _explicitNullValueBalanceId = value; AdditionalData?.Remove("balance_id"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("balance_id"); else _explicitNullProperties?.Remove("balance_id"); } }
         private long? _explicitNullValueBalanceId = default!;
         /// <summary>The debited_amount property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.V20011DataDebitsItemDebitedAmount? DebitedAmount { get => _explicitNullValueDebitedAmount; set { _explicitNullValueDebitedAmount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("debited_amount"); else _explicitNullProperties?.Remove("debited_amount"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.V20011DataDebitsItemDebitedAmount? DebitedAmount { get => _explicitNullValueDebitedAmount; set { _explicitNullValueDebitedAmount = value; AdditionalData?.Remove("debited_amount"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("debited_amount"); else _explicitNullProperties?.Remove("debited_amount"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.V20011DataDebitsItemDebitedAmount? _explicitNullValueDebitedAmount = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.V20011DataDebitsItemDebitedAmount DebitedAmount { get => _explicitNullValueDebitedAmount; set { _explicitNullValueDebitedAmount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("debited_amount"); else _explicitNullProperties?.Remove("debited_amount"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.V20011DataDebitsItemDebitedAmount DebitedAmount { get => _explicitNullValueDebitedAmount; set { _explicitNullValueDebitedAmount = value; AdditionalData?.Remove("debited_amount"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("debited_amount"); else _explicitNullProperties?.Remove("debited_amount"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.V20011DataDebitsItemDebitedAmount _explicitNullValueDebitedAmount = default!;
 #endif
         /// <summary>The fee property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.V20011DataDebitsItemFee? Fee { get => _explicitNullValueFee; set { _explicitNullValueFee = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("fee"); else _explicitNullProperties?.Remove("fee"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.V20011DataDebitsItemFee? Fee { get => _explicitNullValueFee; set { _explicitNullValueFee = value; AdditionalData?.Remove("fee"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("fee"); else _explicitNullProperties?.Remove("fee"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.V20011DataDebitsItemFee? _explicitNullValueFee = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.V20011DataDebitsItemFee Fee { get => _explicitNullValueFee; set { _explicitNullValueFee = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("fee"); else _explicitNullProperties?.Remove("fee"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.V20011DataDebitsItemFee Fee { get => _explicitNullValueFee; set { _explicitNullValueFee = value; AdditionalData?.Remove("fee"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("fee"); else _explicitNullProperties?.Remove("fee"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.V20011DataDebitsItemFee _explicitNullValueFee = default!;
 #endif
         /// <summary>The for_amount property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.V20011DataDebitsItemForAmount? ForAmount { get => _explicitNullValueForAmount; set { _explicitNullValueForAmount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("for_amount"); else _explicitNullProperties?.Remove("for_amount"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.V20011DataDebitsItemForAmount? ForAmount { get => _explicitNullValueForAmount; set { _explicitNullValueForAmount = value; AdditionalData?.Remove("for_amount"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("for_amount"); else _explicitNullProperties?.Remove("for_amount"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.V20011DataDebitsItemForAmount? _explicitNullValueForAmount = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.V20011DataDebitsItemForAmount ForAmount { get => _explicitNullValueForAmount; set { _explicitNullValueForAmount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("for_amount"); else _explicitNullProperties?.Remove("for_amount"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.V20011DataDebitsItemForAmount ForAmount { get => _explicitNullValueForAmount; set { _explicitNullValueForAmount = value; AdditionalData?.Remove("for_amount"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("for_amount"); else _explicitNullProperties?.Remove("for_amount"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.V20011DataDebitsItemForAmount _explicitNullValueForAmount = default!;
 #endif
         /// <summary>Exchange rate</summary>
-        public decimal? Rate { get => _explicitNullValueRate; set { _explicitNullValueRate = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("rate"); else _explicitNullProperties?.Remove("rate"); } }
+        public decimal? Rate { get => _explicitNullValueRate; set { _explicitNullValueRate = value; AdditionalData?.Remove("rate"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("rate"); else _explicitNullProperties?.Remove("rate"); } }
         private decimal? _explicitNullValueRate = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.V20011DataDebitsItem"/> and sets the default values.

@@ -16470,7 +16470,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SimulationTransferDeliveryUpdate400Response"
+                  "$ref": "#/components/schemas/SimulationTransferDeliveryUpdate400ResponseError"
                 },
                 "examples": {
                   "unsupportedScheme": {
@@ -16579,7 +16579,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SimulationTransferDeliveryUpdate500Response"
+                  "$ref": "#/components/schemas/SimulationTransferDeliveryUpdate500ResponseError"
                 },
                 "examples": {
                   "submissionFailure": {
@@ -20987,7 +20987,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/TransferGet200Response"
+                  "$ref": "#/components/schemas/TransferCancel200Response"
                 }
               }
             }
@@ -52674,7 +52674,7 @@
       "TransferList200Response": {
         "type": "array",
         "items": {
-          "$ref": "#/components/schemas/TransferList200ResponseItem"
+          "$ref": "#/components/schemas/TransferCancel200Response"
         }
       },
       "TransferGet200Response": {
@@ -54651,7 +54651,7 @@
       "TransferList200ResponseSchema": {
         "type": "array",
         "items": {
-          "$ref": "#/components/schemas/TransferList200ResponseSchemaItem"
+          "$ref": "#/components/schemas/TransferCancel200Response"
         }
       },
       "TransferRequirementsValidate200ResponseSchema": {
@@ -69864,6 +69864,72 @@
         "required": [
           "schema_version"
         ]
+      },
+      "SimulationTransferDeliveryUpdate400ResponseError": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Error code."
+          },
+          "message": {
+            "type": "string",
+            "description": "Description of the error, when available."
+          },
+          "path": {
+            "type": "string",
+            "description": "Field associated with a validation error, when available."
+          },
+          "arguments": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Arguments associated with the error."
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SimulationError"
+            }
+          }
+        },
+        "x-client-original-error-schema": {
+          "$ref": "#/components/schemas/SimulationTransferDeliveryUpdate400Response"
+        }
+      },
+      "SimulationTransferDeliveryUpdate500ResponseError": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Error code."
+          },
+          "message": {
+            "type": "string",
+            "description": "Description of the error, when available."
+          },
+          "path": {
+            "type": "string",
+            "description": "Field associated with a validation error, when available."
+          },
+          "arguments": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Arguments associated with the error."
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SimulationError"
+            }
+          }
+        },
+        "x-client-original-error-schema": {
+          "$ref": "#/components/schemas/SimulationTransferDeliveryUpdate500Response"
+        }
       },
       "SimulateSanctionCaseSuccessResponse": {
         "anyOf": [

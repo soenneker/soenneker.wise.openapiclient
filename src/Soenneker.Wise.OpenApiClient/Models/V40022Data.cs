@@ -17,42 +17,47 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("current_status") is { } nullNodeCurrentStatus && nullNodeCurrentStatus.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CurrentStatus = null;
-            if (parseNode.GetChildNode("occurred_at") is { } nullNodeOccurredAt && nullNodeOccurredAt.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) OccurredAt = null;
-            if (parseNode.GetChildNode("previous_status") is { } nullNodePreviousStatus && nullNodePreviousStatus.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PreviousStatus = null;
-            if (parseNode.GetChildNode("resource") is { } nullNodeResource && nullNodeResource.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Resource = null;
-            if (parseNode.GetChildNode("return_code") is { } nullNodeReturnCode && nullNodeReturnCode.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ReturnCode = null;
+            if (parseNode.GetChildNode("current_status") is null) { _explicitNullValueCurrentStatus = default!; _explicitNullProperties?.Remove("current_status"); }
+            else if (parseNode.GetChildNode("current_status") is { } nullNodeCurrentStatus && nullNodeCurrentStatus.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CurrentStatus = null;
+            if (parseNode.GetChildNode("occurred_at") is null) { _explicitNullValueOccurredAt = default!; _explicitNullProperties?.Remove("occurred_at"); }
+            else if (parseNode.GetChildNode("occurred_at") is { } nullNodeOccurredAt && nullNodeOccurredAt.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) OccurredAt = null;
+            if (parseNode.GetChildNode("previous_status") is null) { _explicitNullValuePreviousStatus = default!; _explicitNullProperties?.Remove("previous_status"); }
+            else if (parseNode.GetChildNode("previous_status") is { } nullNodePreviousStatus && nullNodePreviousStatus.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PreviousStatus = null;
+            if (parseNode.GetChildNode("resource") is null) { _explicitNullValueResource = default!; _explicitNullProperties?.Remove("resource"); }
+            else if (parseNode.GetChildNode("resource") is { } nullNodeResource && nullNodeResource.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Resource = null;
+            if (parseNode.GetChildNode("return_code") is null) { _explicitNullValueReturnCode = default!; _explicitNullProperties?.Remove("return_code"); }
+            else if (parseNode.GetChildNode("return_code") is { } nullNodeReturnCode && nullNodeReturnCode.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ReturnCode = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Current payment initiation state.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.V40022DataCurrentStatus? CurrentStatus { get => _explicitNullValueCurrentStatus; set { _explicitNullValueCurrentStatus = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("current_status"); else _explicitNullProperties?.Remove("current_status"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.V40022DataCurrentStatus? CurrentStatus { get => _explicitNullValueCurrentStatus; set { _explicitNullValueCurrentStatus = value; AdditionalData?.Remove("current_status"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("current_status"); else _explicitNullProperties?.Remove("current_status"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.V40022DataCurrentStatus? _explicitNullValueCurrentStatus = default!;
         /// <summary>When the payment initiation state change occurred.</summary>
-        public DateTimeOffset? OccurredAt { get => _explicitNullValueOccurredAt; set { _explicitNullValueOccurredAt = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("occurred_at"); else _explicitNullProperties?.Remove("occurred_at"); } }
+        public DateTimeOffset? OccurredAt { get => _explicitNullValueOccurredAt; set { _explicitNullValueOccurredAt = value; AdditionalData?.Remove("occurred_at"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("occurred_at"); else _explicitNullProperties?.Remove("occurred_at"); } }
         private DateTimeOffset? _explicitNullValueOccurredAt = default!;
         /// <summary>Previous payment initiation state.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.V40022DataPreviousStatus? PreviousStatus { get => _explicitNullValuePreviousStatus; set { _explicitNullValuePreviousStatus = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("previous_status"); else _explicitNullProperties?.Remove("previous_status"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.V40022DataPreviousStatus? PreviousStatus { get => _explicitNullValuePreviousStatus; set { _explicitNullValuePreviousStatus = value; AdditionalData?.Remove("previous_status"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("previous_status"); else _explicitNullProperties?.Remove("previous_status"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.V40022DataPreviousStatus? _explicitNullValuePreviousStatus = default!;
         /// <summary>The resource property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.V40022DataResource? Resource { get => _explicitNullValueResource; set { _explicitNullValueResource = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("resource"); else _explicitNullProperties?.Remove("resource"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.V40022DataResource? Resource { get => _explicitNullValueResource; set { _explicitNullValueResource = value; AdditionalData?.Remove("resource"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("resource"); else _explicitNullProperties?.Remove("resource"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.V40022DataResource? _explicitNullValueResource = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.V40022DataResource Resource { get => _explicitNullValueResource; set { _explicitNullValueResource = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("resource"); else _explicitNullProperties?.Remove("resource"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.V40022DataResource Resource { get => _explicitNullValueResource; set { _explicitNullValueResource = value; AdditionalData?.Remove("resource"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("resource"); else _explicitNullProperties?.Remove("resource"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.V40022DataResource _explicitNullValueResource = default!;
 #endif
         /// <summary>Return code of the underlying payment system.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? ReturnCode { get => _explicitNullValueReturnCode; set { _explicitNullValueReturnCode = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("return_code"); else _explicitNullProperties?.Remove("return_code"); } }
+        public string? ReturnCode { get => _explicitNullValueReturnCode; set { _explicitNullValueReturnCode = value; AdditionalData?.Remove("return_code"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("return_code"); else _explicitNullProperties?.Remove("return_code"); } }
         private string? _explicitNullValueReturnCode = default!;
 #nullable restore
 #else
-        public string ReturnCode { get => _explicitNullValueReturnCode; set { _explicitNullValueReturnCode = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("return_code"); else _explicitNullProperties?.Remove("return_code"); } }
+        public string ReturnCode { get => _explicitNullValueReturnCode; set { _explicitNullValueReturnCode = value; AdditionalData?.Remove("return_code"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("return_code"); else _explicitNullProperties?.Remove("return_code"); } }
         private string _explicitNullValueReturnCode = default!;
 #endif
         /// <summary>
@@ -80,9 +85,9 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "current_status", n => { CurrentStatus = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40022DataCurrentStatus>(); } },
+                { "current_status", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40022DataCurrentStatus>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueCurrentStatus = default; _explicitNullProperties?.Remove("current_status"); AdditionalData["current_status"] = unknown; } else { CurrentStatus = parsed; AdditionalData.Remove("current_status"); } } },
                 { "occurred_at", n => { OccurredAt = n.GetDateTimeOffsetValue(); } },
-                { "previous_status", n => { PreviousStatus = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40022DataPreviousStatus>(); } },
+                { "previous_status", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40022DataPreviousStatus>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValuePreviousStatus = default; _explicitNullProperties?.Remove("previous_status"); AdditionalData["previous_status"] = unknown; } else { PreviousStatus = parsed; AdditionalData.Remove("previous_status"); } } },
                 { "resource", n => { Resource = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40022DataResource>(global::Soenneker.Wise.OpenApiClient.Models.V40022DataResource.CreateFromDiscriminatorValue); } },
                 { "return_code", n => { ReturnCode = n.GetStringValue(); } },
             };

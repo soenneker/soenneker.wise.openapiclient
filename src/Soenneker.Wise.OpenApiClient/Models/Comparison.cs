@@ -18,100 +18,109 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("amount") is { } nullNodeAmount && nullNodeAmount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Amount = null;
-            if (parseNode.GetChildNode("amountType") is { } nullNodeAmountType && nullNodeAmountType.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) AmountType = null;
-            if (parseNode.GetChildNode("providerCountry") is { } nullNodeProviderCountry && nullNodeProviderCountry.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ProviderCountry = null;
-            if (parseNode.GetChildNode("providers") is { } nullNodeProviders && nullNodeProviders.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Providers = null;
-            if (parseNode.GetChildNode("providerTypes") is { } nullNodeProviderTypes && nullNodeProviderTypes.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ProviderTypes = null;
-            if (parseNode.GetChildNode("sourceCountry") is { } nullNodeSourceCountry && nullNodeSourceCountry.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SourceCountry = null;
-            if (parseNode.GetChildNode("sourceCurrency") is { } nullNodeSourceCurrency && nullNodeSourceCurrency.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SourceCurrency = null;
-            if (parseNode.GetChildNode("targetCountry") is { } nullNodeTargetCountry && nullNodeTargetCountry.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TargetCountry = null;
-            if (parseNode.GetChildNode("targetCurrency") is { } nullNodeTargetCurrency && nullNodeTargetCurrency.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TargetCurrency = null;
+            if (parseNode.GetChildNode("amount") is null) { _explicitNullValueAmount = default!; _explicitNullProperties?.Remove("amount"); }
+            else if (parseNode.GetChildNode("amount") is { } nullNodeAmount && nullNodeAmount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Amount = null;
+            if (parseNode.GetChildNode("amountType") is null) { _explicitNullValueAmountType = default!; _explicitNullProperties?.Remove("amountType"); }
+            else if (parseNode.GetChildNode("amountType") is { } nullNodeAmountType && nullNodeAmountType.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) AmountType = null;
+            if (parseNode.GetChildNode("providerCountry") is null) { _explicitNullValueProviderCountry = default!; _explicitNullProperties?.Remove("providerCountry"); }
+            else if (parseNode.GetChildNode("providerCountry") is { } nullNodeProviderCountry && nullNodeProviderCountry.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ProviderCountry = null;
+            if (parseNode.GetChildNode("providers") is null) { _explicitNullValueProviders = default!; _explicitNullProperties?.Remove("providers"); }
+            else if (parseNode.GetChildNode("providers") is { } nullNodeProviders && nullNodeProviders.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Providers = null;
+            if (parseNode.GetChildNode("providerTypes") is null) { _explicitNullValueProviderTypes = default!; _explicitNullProperties?.Remove("providerTypes"); }
+            else if (parseNode.GetChildNode("providerTypes") is { } nullNodeProviderTypes && nullNodeProviderTypes.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ProviderTypes = null;
+            if (parseNode.GetChildNode("sourceCountry") is null) { _explicitNullValueSourceCountry = default!; _explicitNullProperties?.Remove("sourceCountry"); }
+            else if (parseNode.GetChildNode("sourceCountry") is { } nullNodeSourceCountry && nullNodeSourceCountry.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SourceCountry = null;
+            if (parseNode.GetChildNode("sourceCurrency") is null) { _explicitNullValueSourceCurrency = default!; _explicitNullProperties?.Remove("sourceCurrency"); }
+            else if (parseNode.GetChildNode("sourceCurrency") is { } nullNodeSourceCurrency && nullNodeSourceCurrency.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SourceCurrency = null;
+            if (parseNode.GetChildNode("targetCountry") is null) { _explicitNullValueTargetCountry = default!; _explicitNullProperties?.Remove("targetCountry"); }
+            else if (parseNode.GetChildNode("targetCountry") is { } nullNodeTargetCountry && nullNodeTargetCountry.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TargetCountry = null;
+            if (parseNode.GetChildNode("targetCurrency") is null) { _explicitNullValueTargetCurrency = default!; _explicitNullProperties?.Remove("targetCurrency"); }
+            else if (parseNode.GetChildNode("targetCurrency") is { } nullNodeTargetCurrency && nullNodeTargetCurrency.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TargetCurrency = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The comparison amount</summary>
-        public double? Amount { get => _explicitNullValueAmount; set { _explicitNullValueAmount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("amount"); else _explicitNullProperties?.Remove("amount"); } }
+        public double? Amount { get => _explicitNullValueAmount; set { _explicitNullValueAmount = value; AdditionalData?.Remove("amount"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("amount"); else _explicitNullProperties?.Remove("amount"); } }
         private double? _explicitNullValueAmount = default!;
         /// <summary>Whether the amount represents a send amount or recipient gets amount</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? AmountType { get => _explicitNullValueAmountType; set { _explicitNullValueAmountType = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("amountType"); else _explicitNullProperties?.Remove("amountType"); } }
+        public string? AmountType { get => _explicitNullValueAmountType; set { _explicitNullValueAmountType = value; AdditionalData?.Remove("amountType"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("amountType"); else _explicitNullProperties?.Remove("amountType"); } }
         private string? _explicitNullValueAmountType = default!;
 #nullable restore
 #else
-        public string AmountType { get => _explicitNullValueAmountType; set { _explicitNullValueAmountType = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("amountType"); else _explicitNullProperties?.Remove("amountType"); } }
+        public string AmountType { get => _explicitNullValueAmountType; set { _explicitNullValueAmountType = value; AdditionalData?.Remove("amountType"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("amountType"); else _explicitNullProperties?.Remove("amountType"); } }
         private string _explicitNullValueAmountType = default!;
 #endif
         /// <summary>Provider country (ISO 3166-1 Alpha-2 code)</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? ProviderCountry { get => _explicitNullValueProviderCountry; set { _explicitNullValueProviderCountry = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("providerCountry"); else _explicitNullProperties?.Remove("providerCountry"); } }
+        public string? ProviderCountry { get => _explicitNullValueProviderCountry; set { _explicitNullValueProviderCountry = value; AdditionalData?.Remove("providerCountry"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("providerCountry"); else _explicitNullProperties?.Remove("providerCountry"); } }
         private string? _explicitNullValueProviderCountry = default!;
 #nullable restore
 #else
-        public string ProviderCountry { get => _explicitNullValueProviderCountry; set { _explicitNullValueProviderCountry = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("providerCountry"); else _explicitNullProperties?.Remove("providerCountry"); } }
+        public string ProviderCountry { get => _explicitNullValueProviderCountry; set { _explicitNullValueProviderCountry = value; AdditionalData?.Remove("providerCountry"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("providerCountry"); else _explicitNullProperties?.Remove("providerCountry"); } }
         private string _explicitNullValueProviderCountry = default!;
 #endif
         /// <summary>List of providers with their estimated quotes</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItem>? Providers { get => _explicitNullValueProviders; set { _explicitNullValueProviders = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("providers"); else _explicitNullProperties?.Remove("providers"); } }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItem>? Providers { get => _explicitNullValueProviders; set { _explicitNullValueProviders = value; AdditionalData?.Remove("providers"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("providers"); else _explicitNullProperties?.Remove("providers"); } }
         private List<global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItem>? _explicitNullValueProviders = default!;
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItem> Providers { get => _explicitNullValueProviders; set { _explicitNullValueProviders = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("providers"); else _explicitNullProperties?.Remove("providers"); } }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItem> Providers { get => _explicitNullValueProviders; set { _explicitNullValueProviders = value; AdditionalData?.Remove("providers"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("providers"); else _explicitNullProperties?.Remove("providers"); } }
         private List<global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItem> _explicitNullValueProviders = default!;
 #endif
         /// <summary>List of provider types included in the response</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<string>? ProviderTypes { get => _explicitNullValueProviderTypes; set { _explicitNullValueProviderTypes = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("providerTypes"); else _explicitNullProperties?.Remove("providerTypes"); } }
+        public List<string>? ProviderTypes { get => _explicitNullValueProviderTypes; set { _explicitNullValueProviderTypes = value; AdditionalData?.Remove("providerTypes"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("providerTypes"); else _explicitNullProperties?.Remove("providerTypes"); } }
         private List<string>? _explicitNullValueProviderTypes = default!;
 #nullable restore
 #else
-        public List<string> ProviderTypes { get => _explicitNullValueProviderTypes; set { _explicitNullValueProviderTypes = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("providerTypes"); else _explicitNullProperties?.Remove("providerTypes"); } }
+        public List<string> ProviderTypes { get => _explicitNullValueProviderTypes; set { _explicitNullValueProviderTypes = value; AdditionalData?.Remove("providerTypes"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("providerTypes"); else _explicitNullProperties?.Remove("providerTypes"); } }
         private List<string> _explicitNullValueProviderTypes = default!;
 #endif
         /// <summary>Source country (ISO 3166-1 Alpha-2 code)</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? SourceCountry { get => _explicitNullValueSourceCountry; set { _explicitNullValueSourceCountry = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sourceCountry"); else _explicitNullProperties?.Remove("sourceCountry"); } }
+        public string? SourceCountry { get => _explicitNullValueSourceCountry; set { _explicitNullValueSourceCountry = value; AdditionalData?.Remove("sourceCountry"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sourceCountry"); else _explicitNullProperties?.Remove("sourceCountry"); } }
         private string? _explicitNullValueSourceCountry = default!;
 #nullable restore
 #else
-        public string SourceCountry { get => _explicitNullValueSourceCountry; set { _explicitNullValueSourceCountry = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sourceCountry"); else _explicitNullProperties?.Remove("sourceCountry"); } }
+        public string SourceCountry { get => _explicitNullValueSourceCountry; set { _explicitNullValueSourceCountry = value; AdditionalData?.Remove("sourceCountry"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sourceCountry"); else _explicitNullProperties?.Remove("sourceCountry"); } }
         private string _explicitNullValueSourceCountry = default!;
 #endif
         /// <summary>ISO 4217 source currency code</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? SourceCurrency { get => _explicitNullValueSourceCurrency; set { _explicitNullValueSourceCurrency = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sourceCurrency"); else _explicitNullProperties?.Remove("sourceCurrency"); } }
+        public string? SourceCurrency { get => _explicitNullValueSourceCurrency; set { _explicitNullValueSourceCurrency = value; AdditionalData?.Remove("sourceCurrency"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sourceCurrency"); else _explicitNullProperties?.Remove("sourceCurrency"); } }
         private string? _explicitNullValueSourceCurrency = default!;
 #nullable restore
 #else
-        public string SourceCurrency { get => _explicitNullValueSourceCurrency; set { _explicitNullValueSourceCurrency = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sourceCurrency"); else _explicitNullProperties?.Remove("sourceCurrency"); } }
+        public string SourceCurrency { get => _explicitNullValueSourceCurrency; set { _explicitNullValueSourceCurrency = value; AdditionalData?.Remove("sourceCurrency"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sourceCurrency"); else _explicitNullProperties?.Remove("sourceCurrency"); } }
         private string _explicitNullValueSourceCurrency = default!;
 #endif
         /// <summary>Target country (ISO 3166-1 Alpha-2 code)</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? TargetCountry { get => _explicitNullValueTargetCountry; set { _explicitNullValueTargetCountry = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("targetCountry"); else _explicitNullProperties?.Remove("targetCountry"); } }
+        public string? TargetCountry { get => _explicitNullValueTargetCountry; set { _explicitNullValueTargetCountry = value; AdditionalData?.Remove("targetCountry"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("targetCountry"); else _explicitNullProperties?.Remove("targetCountry"); } }
         private string? _explicitNullValueTargetCountry = default!;
 #nullable restore
 #else
-        public string TargetCountry { get => _explicitNullValueTargetCountry; set { _explicitNullValueTargetCountry = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("targetCountry"); else _explicitNullProperties?.Remove("targetCountry"); } }
+        public string TargetCountry { get => _explicitNullValueTargetCountry; set { _explicitNullValueTargetCountry = value; AdditionalData?.Remove("targetCountry"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("targetCountry"); else _explicitNullProperties?.Remove("targetCountry"); } }
         private string _explicitNullValueTargetCountry = default!;
 #endif
         /// <summary>ISO 4217 target currency code</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? TargetCurrency { get => _explicitNullValueTargetCurrency; set { _explicitNullValueTargetCurrency = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("targetCurrency"); else _explicitNullProperties?.Remove("targetCurrency"); } }
+        public string? TargetCurrency { get => _explicitNullValueTargetCurrency; set { _explicitNullValueTargetCurrency = value; AdditionalData?.Remove("targetCurrency"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("targetCurrency"); else _explicitNullProperties?.Remove("targetCurrency"); } }
         private string? _explicitNullValueTargetCurrency = default!;
 #nullable restore
 #else
-        public string TargetCurrency { get => _explicitNullValueTargetCurrency; set { _explicitNullValueTargetCurrency = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("targetCurrency"); else _explicitNullProperties?.Remove("targetCurrency"); } }
+        public string TargetCurrency { get => _explicitNullValueTargetCurrency; set { _explicitNullValueTargetCurrency = value; AdditionalData?.Remove("targetCurrency"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("targetCurrency"); else _explicitNullProperties?.Remove("targetCurrency"); } }
         private string _explicitNullValueTargetCurrency = default!;
 #endif
         /// <summary>

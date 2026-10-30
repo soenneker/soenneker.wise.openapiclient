@@ -17,8 +17,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("clientDeviceId") is { } nullNodeClientDeviceId && nullNodeClientDeviceId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ClientDeviceId = null;
-            if (parseNode.GetChildNode("clientWalletAccountId") is { } nullNodeClientWalletAccountId && nullNodeClientWalletAccountId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ClientWalletAccountId = null;
+            if (parseNode.GetChildNode("clientDeviceId") is null) { _explicitNullValueClientDeviceId = default!; _explicitNullProperties?.Remove("clientDeviceId"); }
+            else if (parseNode.GetChildNode("clientDeviceId") is { } nullNodeClientDeviceId && nullNodeClientDeviceId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ClientDeviceId = null;
+            if (parseNode.GetChildNode("clientWalletAccountId") is null) { _explicitNullValueClientWalletAccountId = default!; _explicitNullProperties?.Remove("clientWalletAccountId"); }
+            else if (parseNode.GetChildNode("clientWalletAccountId") is { } nullNodeClientWalletAccountId && nullNodeClientWalletAccountId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ClientWalletAccountId = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -26,21 +28,21 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Stable device identification set by Wallet Provider. Could be computer identifier or ID tied to hardware such as TEE_ID or SE_ID. This field must match the `clientDeviceId` wallet provider will send in token provision request.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? ClientDeviceId { get => _explicitNullValueClientDeviceId; set { _explicitNullValueClientDeviceId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("clientDeviceId"); else _explicitNullProperties?.Remove("clientDeviceId"); } }
+        public string? ClientDeviceId { get => _explicitNullValueClientDeviceId; set { _explicitNullValueClientDeviceId = value; AdditionalData?.Remove("clientDeviceId"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("clientDeviceId"); else _explicitNullProperties?.Remove("clientDeviceId"); } }
         private string? _explicitNullValueClientDeviceId = default!;
 #nullable restore
 #else
-        public string ClientDeviceId { get => _explicitNullValueClientDeviceId; set { _explicitNullValueClientDeviceId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("clientDeviceId"); else _explicitNullProperties?.Remove("clientDeviceId"); } }
+        public string ClientDeviceId { get => _explicitNullValueClientDeviceId; set { _explicitNullValueClientDeviceId = value; AdditionalData?.Remove("clientDeviceId"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("clientDeviceId"); else _explicitNullProperties?.Remove("clientDeviceId"); } }
         private string _explicitNullValueClientDeviceId = default!;
 #endif
         /// <summary>Client-provided consumer ID that identifies the Wallet Account Holder entity.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? ClientWalletAccountId { get => _explicitNullValueClientWalletAccountId; set { _explicitNullValueClientWalletAccountId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("clientWalletAccountId"); else _explicitNullProperties?.Remove("clientWalletAccountId"); } }
+        public string? ClientWalletAccountId { get => _explicitNullValueClientWalletAccountId; set { _explicitNullValueClientWalletAccountId = value; AdditionalData?.Remove("clientWalletAccountId"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("clientWalletAccountId"); else _explicitNullProperties?.Remove("clientWalletAccountId"); } }
         private string? _explicitNullValueClientWalletAccountId = default!;
 #nullable restore
 #else
-        public string ClientWalletAccountId { get => _explicitNullValueClientWalletAccountId; set { _explicitNullValueClientWalletAccountId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("clientWalletAccountId"); else _explicitNullProperties?.Remove("clientWalletAccountId"); } }
+        public string ClientWalletAccountId { get => _explicitNullValueClientWalletAccountId; set { _explicitNullValueClientWalletAccountId = value; AdditionalData?.Remove("clientWalletAccountId"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("clientWalletAccountId"); else _explicitNullProperties?.Remove("clientWalletAccountId"); } }
         private string _explicitNullValueClientWalletAccountId = default!;
 #endif
         /// <summary>

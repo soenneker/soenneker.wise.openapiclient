@@ -17,9 +17,12 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("payinBank") is { } nullNodePayinBank && nullNodePayinBank.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PayinBank = null;
-            if (parseNode.GetChildNode("payinBankAccount") is { } nullNodePayinBankAccount && nullNodePayinBankAccount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PayinBankAccount = null;
-            if (parseNode.GetChildNode("wiseInformation") is { } nullNodeWiseInformation && nullNodeWiseInformation.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) WiseInformation = null;
+            if (parseNode.GetChildNode("payinBank") is null) { _explicitNullValuePayinBank = default!; _explicitNullProperties?.Remove("payinBank"); }
+            else if (parseNode.GetChildNode("payinBank") is { } nullNodePayinBank && nullNodePayinBank.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PayinBank = null;
+            if (parseNode.GetChildNode("payinBankAccount") is null) { _explicitNullValuePayinBankAccount = default!; _explicitNullProperties?.Remove("payinBankAccount"); }
+            else if (parseNode.GetChildNode("payinBankAccount") is { } nullNodePayinBankAccount && nullNodePayinBankAccount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PayinBankAccount = null;
+            if (parseNode.GetChildNode("wiseInformation") is null) { _explicitNullValueWiseInformation = default!; _explicitNullProperties?.Remove("wiseInformation"); }
+            else if (parseNode.GetChildNode("wiseInformation") is { } nullNodeWiseInformation && nullNodeWiseInformation.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) WiseInformation = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -27,31 +30,31 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Information about the receiving bank.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.PayinDepositDetailGet200ResponsePayinBank? PayinBank { get => _explicitNullValuePayinBank; set { _explicitNullValuePayinBank = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("payinBank"); else _explicitNullProperties?.Remove("payinBank"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.PayinDepositDetailGet200ResponsePayinBank? PayinBank { get => _explicitNullValuePayinBank; set { _explicitNullValuePayinBank = value; AdditionalData?.Remove("payinBank"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("payinBank"); else _explicitNullProperties?.Remove("payinBank"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.PayinDepositDetailGet200ResponsePayinBank? _explicitNullValuePayinBank = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.PayinDepositDetailGet200ResponsePayinBank PayinBank { get => _explicitNullValuePayinBank; set { _explicitNullValuePayinBank = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("payinBank"); else _explicitNullProperties?.Remove("payinBank"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.PayinDepositDetailGet200ResponsePayinBank PayinBank { get => _explicitNullValuePayinBank; set { _explicitNullValuePayinBank = value; AdditionalData?.Remove("payinBank"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("payinBank"); else _explicitNullProperties?.Remove("payinBank"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.PayinDepositDetailGet200ResponsePayinBank _explicitNullValuePayinBank = default!;
 #endif
         /// <summary>Bank account details to use to send the payment to.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.PayinDepositDetailGet200ResponsePayinBankAccount? PayinBankAccount { get => _explicitNullValuePayinBankAccount; set { _explicitNullValuePayinBankAccount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("payinBankAccount"); else _explicitNullProperties?.Remove("payinBankAccount"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.PayinDepositDetailGet200ResponsePayinBankAccount? PayinBankAccount { get => _explicitNullValuePayinBankAccount; set { _explicitNullValuePayinBankAccount = value; AdditionalData?.Remove("payinBankAccount"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("payinBankAccount"); else _explicitNullProperties?.Remove("payinBankAccount"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.PayinDepositDetailGet200ResponsePayinBankAccount? _explicitNullValuePayinBankAccount = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.PayinDepositDetailGet200ResponsePayinBankAccount PayinBankAccount { get => _explicitNullValuePayinBankAccount; set { _explicitNullValuePayinBankAccount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("payinBankAccount"); else _explicitNullProperties?.Remove("payinBankAccount"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.PayinDepositDetailGet200ResponsePayinBankAccount PayinBankAccount { get => _explicitNullValuePayinBankAccount; set { _explicitNullValuePayinBankAccount = value; AdditionalData?.Remove("payinBankAccount"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("payinBankAccount"); else _explicitNullProperties?.Remove("payinBankAccount"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.PayinDepositDetailGet200ResponsePayinBankAccount _explicitNullValuePayinBankAccount = default!;
 #endif
         /// <summary>Information about the receiving Wise entity, the owner of the bank account.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.PayinDepositDetailGet200ResponseWiseInformation? WiseInformation { get => _explicitNullValueWiseInformation; set { _explicitNullValueWiseInformation = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("wiseInformation"); else _explicitNullProperties?.Remove("wiseInformation"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.PayinDepositDetailGet200ResponseWiseInformation? WiseInformation { get => _explicitNullValueWiseInformation; set { _explicitNullValueWiseInformation = value; AdditionalData?.Remove("wiseInformation"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("wiseInformation"); else _explicitNullProperties?.Remove("wiseInformation"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.PayinDepositDetailGet200ResponseWiseInformation? _explicitNullValueWiseInformation = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.PayinDepositDetailGet200ResponseWiseInformation WiseInformation { get => _explicitNullValueWiseInformation; set { _explicitNullValueWiseInformation = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("wiseInformation"); else _explicitNullProperties?.Remove("wiseInformation"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.PayinDepositDetailGet200ResponseWiseInformation WiseInformation { get => _explicitNullValueWiseInformation; set { _explicitNullValueWiseInformation = value; AdditionalData?.Remove("wiseInformation"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("wiseInformation"); else _explicitNullProperties?.Remove("wiseInformation"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.PayinDepositDetailGet200ResponseWiseInformation _explicitNullValueWiseInformation = default!;
 #endif
         /// <summary>

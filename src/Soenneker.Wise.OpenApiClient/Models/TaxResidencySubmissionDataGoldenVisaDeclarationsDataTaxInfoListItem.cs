@@ -17,23 +17,25 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("skipReason") is { } nullNodeSkipReason && nullNodeSkipReason.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SkipReason = null;
-            if (parseNode.GetChildNode("taxCountry") is { } nullNodeTaxCountry && nullNodeTaxCountry.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TaxCountry = null;
+            if (parseNode.GetChildNode("skipReason") is null) { _explicitNullValueSkipReason = default!; _explicitNullProperties?.Remove("skipReason"); }
+            else if (parseNode.GetChildNode("skipReason") is { } nullNodeSkipReason && nullNodeSkipReason.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SkipReason = null;
+            if (parseNode.GetChildNode("taxCountry") is null) { _explicitNullValueTaxCountry = default!; _explicitNullProperties?.Remove("taxCountry"); }
+            else if (parseNode.GetChildNode("taxCountry") is { } nullNodeTaxCountry && nullNodeTaxCountry.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TaxCountry = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Justification for not providing a TIN.- `TAX_EXEMPT` — the customer&apos;s income is exempt from taxation.- `RETIRED_OR_UNEMPLOYED` — the customer is currently retired or unemployed.- `NO_TAXABLE_INCOME` — the customer does not have any taxable income.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.TaxResidencySubmissionDataGoldenVisaDeclarationsDataTaxInfoListItemSkipReason? SkipReason { get => _explicitNullValueSkipReason; set { _explicitNullValueSkipReason = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("skipReason"); else _explicitNullProperties?.Remove("skipReason"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.TaxResidencySubmissionDataGoldenVisaDeclarationsDataTaxInfoListItemSkipReason? SkipReason { get => _explicitNullValueSkipReason; set { _explicitNullValueSkipReason = value; AdditionalData?.Remove("skipReason"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("skipReason"); else _explicitNullProperties?.Remove("skipReason"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.TaxResidencySubmissionDataGoldenVisaDeclarationsDataTaxInfoListItemSkipReason? _explicitNullValueSkipReason = default!;
         /// <summary>ISO 3166-1 alpha-2 country code of the tax residency.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? TaxCountry { get => _explicitNullValueTaxCountry; set { _explicitNullValueTaxCountry = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("taxCountry"); else _explicitNullProperties?.Remove("taxCountry"); } }
+        public string? TaxCountry { get => _explicitNullValueTaxCountry; set { _explicitNullValueTaxCountry = value; AdditionalData?.Remove("taxCountry"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("taxCountry"); else _explicitNullProperties?.Remove("taxCountry"); } }
         private string? _explicitNullValueTaxCountry = default!;
 #nullable restore
 #else
-        public string TaxCountry { get => _explicitNullValueTaxCountry; set { _explicitNullValueTaxCountry = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("taxCountry"); else _explicitNullProperties?.Remove("taxCountry"); } }
+        public string TaxCountry { get => _explicitNullValueTaxCountry; set { _explicitNullValueTaxCountry = value; AdditionalData?.Remove("taxCountry"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("taxCountry"); else _explicitNullProperties?.Remove("taxCountry"); } }
         private string _explicitNullValueTaxCountry = default!;
 #endif
         /// <summary>
@@ -61,7 +63,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "skipReason", n => { SkipReason = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.TaxResidencySubmissionDataGoldenVisaDeclarationsDataTaxInfoListItemSkipReason>(); } },
+                { "skipReason", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.TaxResidencySubmissionDataGoldenVisaDeclarationsDataTaxInfoListItemSkipReason>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueSkipReason = default; _explicitNullProperties?.Remove("skipReason"); AdditionalData["skipReason"] = unknown; } else { SkipReason = parsed; AdditionalData.Remove("skipReason"); } } },
                 { "taxCountry", n => { TaxCountry = n.GetStringValue(); } },
             };
         }

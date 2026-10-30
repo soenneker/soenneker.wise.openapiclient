@@ -17,13 +17,20 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("clientId") is { } nullNodeClientId && nullNodeClientId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ClientId = null;
-            if (parseNode.GetChildNode("deactivationTimestamp") is { } nullNodeDeactivationTimestamp && nullNodeDeactivationTimestamp.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) DeactivationTimestamp = null;
-            if (parseNode.GetChildNode("keyId") is { } nullNodeKeyId && nullNodeKeyId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) KeyId = null;
-            if (parseNode.GetChildNode("publicKeyMaterial") is { } nullNodePublicKeyMaterial && nullNodePublicKeyMaterial.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PublicKeyMaterial = null;
-            if (parseNode.GetChildNode("scope") is { } nullNodeScope && nullNodeScope.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Scope = null;
-            if (parseNode.GetChildNode("validFrom") is { } nullNodeValidFrom && nullNodeValidFrom.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ValidFrom = null;
-            if (parseNode.GetChildNode("validTill") is { } nullNodeValidTill && nullNodeValidTill.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ValidTill = null;
+            if (parseNode.GetChildNode("clientId") is null) { _explicitNullValueClientId = default!; _explicitNullProperties?.Remove("clientId"); }
+            else if (parseNode.GetChildNode("clientId") is { } nullNodeClientId && nullNodeClientId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ClientId = null;
+            if (parseNode.GetChildNode("deactivationTimestamp") is null) { _explicitNullValueDeactivationTimestamp = default!; _explicitNullProperties?.Remove("deactivationTimestamp"); }
+            else if (parseNode.GetChildNode("deactivationTimestamp") is { } nullNodeDeactivationTimestamp && nullNodeDeactivationTimestamp.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) DeactivationTimestamp = null;
+            if (parseNode.GetChildNode("keyId") is null) { _explicitNullValueKeyId = default!; _explicitNullProperties?.Remove("keyId"); }
+            else if (parseNode.GetChildNode("keyId") is { } nullNodeKeyId && nullNodeKeyId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) KeyId = null;
+            if (parseNode.GetChildNode("publicKeyMaterial") is null) { _explicitNullValuePublicKeyMaterial = default!; _explicitNullProperties?.Remove("publicKeyMaterial"); }
+            else if (parseNode.GetChildNode("publicKeyMaterial") is { } nullNodePublicKeyMaterial && nullNodePublicKeyMaterial.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PublicKeyMaterial = null;
+            if (parseNode.GetChildNode("scope") is null) { _explicitNullValueScope = default!; _explicitNullProperties?.Remove("scope"); }
+            else if (parseNode.GetChildNode("scope") is { } nullNodeScope && nullNodeScope.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Scope = null;
+            if (parseNode.GetChildNode("validFrom") is null) { _explicitNullValueValidFrom = default!; _explicitNullProperties?.Remove("validFrom"); }
+            else if (parseNode.GetChildNode("validFrom") is { } nullNodeValidFrom && nullNodeValidFrom.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ValidFrom = null;
+            if (parseNode.GetChildNode("validTill") is null) { _explicitNullValueValidTill = default!; _explicitNullProperties?.Remove("validTill"); }
+            else if (parseNode.GetChildNode("validTill") is { } nullNodeValidTill && nullNodeValidTill.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ValidTill = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -31,57 +38,57 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>This field is currently not in use and will always return `null`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? ClientId { get => _explicitNullValueClientId; set { _explicitNullValueClientId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("clientId"); else _explicitNullProperties?.Remove("clientId"); } }
+        public string? ClientId { get => _explicitNullValueClientId; set { _explicitNullValueClientId = value; AdditionalData?.Remove("clientId"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("clientId"); else _explicitNullProperties?.Remove("clientId"); } }
         private string? _explicitNullValueClientId = default!;
 #nullable restore
 #else
-        public string ClientId { get => _explicitNullValueClientId; set { _explicitNullValueClientId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("clientId"); else _explicitNullProperties?.Remove("clientId"); } }
+        public string ClientId { get => _explicitNullValueClientId; set { _explicitNullValueClientId = value; AdditionalData?.Remove("clientId"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("clientId"); else _explicitNullProperties?.Remove("clientId"); } }
         private string _explicitNullValueClientId = default!;
 #endif
         /// <summary>This field is currently not in use and will always return `null`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? DeactivationTimestamp { get => _explicitNullValueDeactivationTimestamp; set { _explicitNullValueDeactivationTimestamp = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("deactivationTimestamp"); else _explicitNullProperties?.Remove("deactivationTimestamp"); } }
+        public string? DeactivationTimestamp { get => _explicitNullValueDeactivationTimestamp; set { _explicitNullValueDeactivationTimestamp = value; AdditionalData?.Remove("deactivationTimestamp"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("deactivationTimestamp"); else _explicitNullProperties?.Remove("deactivationTimestamp"); } }
         private string? _explicitNullValueDeactivationTimestamp = default!;
 #nullable restore
 #else
-        public string DeactivationTimestamp { get => _explicitNullValueDeactivationTimestamp; set { _explicitNullValueDeactivationTimestamp = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("deactivationTimestamp"); else _explicitNullProperties?.Remove("deactivationTimestamp"); } }
+        public string DeactivationTimestamp { get => _explicitNullValueDeactivationTimestamp; set { _explicitNullValueDeactivationTimestamp = value; AdditionalData?.Remove("deactivationTimestamp"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("deactivationTimestamp"); else _explicitNullProperties?.Remove("deactivationTimestamp"); } }
         private string _explicitNullValueDeactivationTimestamp = default!;
 #endif
         /// <summary>Unique public key identifier in UUID format.</summary>
-        public Guid? KeyId { get => _explicitNullValueKeyId; set { _explicitNullValueKeyId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("keyId"); else _explicitNullProperties?.Remove("keyId"); } }
+        public Guid? KeyId { get => _explicitNullValueKeyId; set { _explicitNullValueKeyId = value; AdditionalData?.Remove("keyId"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("keyId"); else _explicitNullProperties?.Remove("keyId"); } }
         private Guid? _explicitNullValueKeyId = default!;
         /// <summary>The publicKeyMaterial property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.JoseRequestPublicKeysCreate201ResponsePublicKeyMaterial? PublicKeyMaterial { get => _explicitNullValuePublicKeyMaterial; set { _explicitNullValuePublicKeyMaterial = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("publicKeyMaterial"); else _explicitNullProperties?.Remove("publicKeyMaterial"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.JoseRequestPublicKeysCreate201ResponsePublicKeyMaterial? PublicKeyMaterial { get => _explicitNullValuePublicKeyMaterial; set { _explicitNullValuePublicKeyMaterial = value; AdditionalData?.Remove("publicKeyMaterial"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("publicKeyMaterial"); else _explicitNullProperties?.Remove("publicKeyMaterial"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.JoseRequestPublicKeysCreate201ResponsePublicKeyMaterial? _explicitNullValuePublicKeyMaterial = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.JoseRequestPublicKeysCreate201ResponsePublicKeyMaterial PublicKeyMaterial { get => _explicitNullValuePublicKeyMaterial; set { _explicitNullValuePublicKeyMaterial = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("publicKeyMaterial"); else _explicitNullProperties?.Remove("publicKeyMaterial"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.JoseRequestPublicKeysCreate201ResponsePublicKeyMaterial PublicKeyMaterial { get => _explicitNullValuePublicKeyMaterial; set { _explicitNullValuePublicKeyMaterial = value; AdditionalData?.Remove("publicKeyMaterial"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("publicKeyMaterial"); else _explicitNullProperties?.Remove("publicKeyMaterial"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.JoseRequestPublicKeysCreate201ResponsePublicKeyMaterial _explicitNullValuePublicKeyMaterial = default!;
 #endif
         /// <summary>Scope of the payload operation.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.JoseRequestPublicKeysCreate201ResponseScope? Scope { get => _explicitNullValueScope; set { _explicitNullValueScope = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("scope"); else _explicitNullProperties?.Remove("scope"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.JoseRequestPublicKeysCreate201ResponseScope? Scope { get => _explicitNullValueScope; set { _explicitNullValueScope = value; AdditionalData?.Remove("scope"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("scope"); else _explicitNullProperties?.Remove("scope"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.JoseRequestPublicKeysCreate201ResponseScope? _explicitNullValueScope = default!;
         /// <summary>The key is valid from this date. Format: `yyyy-MM-dd HH:mm:ss` (UTC).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? ValidFrom { get => _explicitNullValueValidFrom; set { _explicitNullValueValidFrom = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("validFrom"); else _explicitNullProperties?.Remove("validFrom"); } }
+        public string? ValidFrom { get => _explicitNullValueValidFrom; set { _explicitNullValueValidFrom = value; AdditionalData?.Remove("validFrom"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("validFrom"); else _explicitNullProperties?.Remove("validFrom"); } }
         private string? _explicitNullValueValidFrom = default!;
 #nullable restore
 #else
-        public string ValidFrom { get => _explicitNullValueValidFrom; set { _explicitNullValueValidFrom = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("validFrom"); else _explicitNullProperties?.Remove("validFrom"); } }
+        public string ValidFrom { get => _explicitNullValueValidFrom; set { _explicitNullValueValidFrom = value; AdditionalData?.Remove("validFrom"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("validFrom"); else _explicitNullProperties?.Remove("validFrom"); } }
         private string _explicitNullValueValidFrom = default!;
 #endif
         /// <summary>The key is valid until this date. Format: `yyyy-MM-dd HH:mm:ss` (UTC).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? ValidTill { get => _explicitNullValueValidTill; set { _explicitNullValueValidTill = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("validTill"); else _explicitNullProperties?.Remove("validTill"); } }
+        public string? ValidTill { get => _explicitNullValueValidTill; set { _explicitNullValueValidTill = value; AdditionalData?.Remove("validTill"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("validTill"); else _explicitNullProperties?.Remove("validTill"); } }
         private string? _explicitNullValueValidTill = default!;
 #nullable restore
 #else
-        public string ValidTill { get => _explicitNullValueValidTill; set { _explicitNullValueValidTill = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("validTill"); else _explicitNullProperties?.Remove("validTill"); } }
+        public string ValidTill { get => _explicitNullValueValidTill; set { _explicitNullValueValidTill = value; AdditionalData?.Remove("validTill"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("validTill"); else _explicitNullProperties?.Remove("validTill"); } }
         private string _explicitNullValueValidTill = default!;
 #endif
         /// <summary>
@@ -113,7 +120,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "deactivationTimestamp", n => { DeactivationTimestamp = n.GetStringValue(); } },
                 { "keyId", n => { KeyId = n.GetGuidValue(); } },
                 { "publicKeyMaterial", n => { PublicKeyMaterial = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.JoseRequestPublicKeysCreate201ResponsePublicKeyMaterial>(global::Soenneker.Wise.OpenApiClient.Models.JoseRequestPublicKeysCreate201ResponsePublicKeyMaterial.CreateFromDiscriminatorValue); } },
-                { "scope", n => { Scope = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.JoseRequestPublicKeysCreate201ResponseScope>(); } },
+                { "scope", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.JoseRequestPublicKeysCreate201ResponseScope>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueScope = default; _explicitNullProperties?.Remove("scope"); AdditionalData["scope"] = unknown; } else { Scope = parsed; AdditionalData.Remove("scope"); } } },
                 { "validFrom", n => { ValidFrom = n.GetStringValue(); } },
                 { "validTill", n => { ValidTill = n.GetStringValue(); } },
             };

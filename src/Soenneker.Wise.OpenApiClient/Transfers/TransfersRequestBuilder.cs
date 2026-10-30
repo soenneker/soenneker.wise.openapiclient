@@ -49,17 +49,17 @@ namespace Soenneker.Wise.OpenApiClient.Transfers
         /// <summary>
         /// Get the list of transfers for a given user&apos;s profile (defaults to user&apos;s personal profile).You can add query parameters to specify user&apos;s profile (personal or business), time period and/or payment status. For example, you can query all failed payments created since last week, or all completed payments created since yesterday.
         /// </summary>
-        /// <returns>A List&lt;global::Soenneker.Wise.OpenApiClient.Models.TransferList200ResponseSchemaItem&gt;</returns>
+        /// <returns>A List&lt;global::Soenneker.Wise.OpenApiClient.Models.TransferCancel200Response&gt;</returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<List<global::Soenneker.Wise.OpenApiClient.Models.TransferList200ResponseSchemaItem>?> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.Transfers.TransfersRequestBuilder.TransfersRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<List<global::Soenneker.Wise.OpenApiClient.Models.TransferCancel200Response>?> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.Transfers.TransfersRequestBuilder.TransfersRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<List<global::Soenneker.Wise.OpenApiClient.Models.TransferList200ResponseSchemaItem>> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.Transfers.TransfersRequestBuilder.TransfersRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<List<global::Soenneker.Wise.OpenApiClient.Models.TransferCancel200Response>> GetAsync(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.Transfers.TransfersRequestBuilder.TransfersRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
@@ -69,7 +69,7 @@ namespace Soenneker.Wise.OpenApiClient.Transfers
                 { "4XX", global::Soenneker.OpenApi.Generated.OpenApiRawError.CreateFromDiscriminatorValue },
                 { "5XX", global::Soenneker.OpenApi.Generated.OpenApiRawError.CreateFromDiscriminatorValue },
             };
-            var collectionResult = await RequestAdapter.SendCollectionAsync<global::Soenneker.Wise.OpenApiClient.Models.TransferList200ResponseSchemaItem>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.TransferList200ResponseSchemaItem.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
+            var collectionResult = await RequestAdapter.SendCollectionAsync<global::Soenneker.Wise.OpenApiClient.Models.TransferCancel200Response>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.TransferCancel200Response.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
             return collectionResult?.AsList();
         }
         /// <summary>
@@ -113,7 +113,7 @@ namespace Soenneker.Wise.OpenApiClient.Transfers
         public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<global::Soenneker.Wise.OpenApiClient.Transfers.TransfersRequestBuilder.TransfersRequestBuilderGetQueryParameters>> requestConfiguration = default)
         {
 #endif
-            var requestInfo = new RequestInformation(Method.GET, UrlTemplate, PathParameters);
+            var requestInfo = new RequestInformation(Method.GET, global::Soenneker.OpenApi.Generated.OpenApiServiceRoutes.Resolve(UrlTemplate, RequestAdapter.BaseUrl, "https://api.wise.com/2026Q4", "/transfers", PathParameters.ContainsKey("request-raw-url")), PathParameters);
             requestInfo.Configure(requestConfiguration);
             requestInfo.Headers.TryAdd("Accept", "application/json");
             return requestInfo;
@@ -134,7 +134,7 @@ namespace Soenneker.Wise.OpenApiClient.Transfers
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
-            var requestInfo = new RequestInformation(Method.POST, UrlTemplate, PathParameters);
+            var requestInfo = new RequestInformation(Method.POST, global::Soenneker.OpenApi.Generated.OpenApiServiceRoutes.Resolve(UrlTemplate, RequestAdapter.BaseUrl, "https://api.wise.com/2026Q4", "/transfers", PathParameters.ContainsKey("request-raw-url")), PathParameters);
             requestInfo.Configure(requestConfiguration);
             requestInfo.Headers.TryAdd("Accept", "application/json");
             requestInfo.SetContentFromParsable(RequestAdapter, "application/json", body);

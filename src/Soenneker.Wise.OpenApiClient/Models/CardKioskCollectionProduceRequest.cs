@@ -18,7 +18,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("kioskId") is { } nullNodeKioskId && nullNodeKioskId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) KioskId = null;
+            if (parseNode.GetChildNode("kioskId") is null) { _explicitNullValueKioskId = default!; _explicitNullProperties?.Remove("kioskId"); }
+            else if (parseNode.GetChildNode("kioskId") is { } nullNodeKioskId && nullNodeKioskId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) KioskId = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -26,11 +27,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Identifier that specifies on which kiosk the card should be produced.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? KioskId { get => _explicitNullValueKioskId; set { _explicitNullValueKioskId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("kioskId"); else _explicitNullProperties?.Remove("kioskId"); } }
+        public string? KioskId { get => _explicitNullValueKioskId; set { _explicitNullValueKioskId = value; AdditionalData?.Remove("kioskId"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("kioskId"); else _explicitNullProperties?.Remove("kioskId"); } }
         private string? _explicitNullValueKioskId = default!;
 #nullable restore
 #else
-        public string KioskId { get => _explicitNullValueKioskId; set { _explicitNullValueKioskId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("kioskId"); else _explicitNullProperties?.Remove("kioskId"); } }
+        public string KioskId { get => _explicitNullValueKioskId; set { _explicitNullValueKioskId = value; AdditionalData?.Remove("kioskId"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("kioskId"); else _explicitNullProperties?.Remove("kioskId"); } }
         private string _explicitNullValueKioskId = default!;
 #endif
         /// <summary>

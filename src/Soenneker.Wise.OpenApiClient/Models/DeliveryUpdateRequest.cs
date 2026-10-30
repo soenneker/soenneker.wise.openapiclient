@@ -17,32 +17,36 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("delivery_update") is { } nullNodeDeliveryUpdate && nullNodeDeliveryUpdate.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) DeliveryUpdate = null;
-            if (parseNode.GetChildNode("delivery_update_path") is { } nullNodeDeliveryUpdatePath && nullNodeDeliveryUpdatePath.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) DeliveryUpdatePath = null;
-            if (parseNode.GetChildNode("estimated_delivery_at") is { } nullNodeEstimatedDeliveryAt && nullNodeEstimatedDeliveryAt.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) EstimatedDeliveryAt = null;
-            if (parseNode.GetChildNode("scheme") is { } nullNodeScheme && nullNodeScheme.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Scheme = null;
+            if (parseNode.GetChildNode("delivery_update") is null) { _explicitNullValueDeliveryUpdate = default!; _explicitNullProperties?.Remove("delivery_update"); }
+            else if (parseNode.GetChildNode("delivery_update") is { } nullNodeDeliveryUpdate && nullNodeDeliveryUpdate.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) DeliveryUpdate = null;
+            if (parseNode.GetChildNode("delivery_update_path") is null) { _explicitNullValueDeliveryUpdatePath = default!; _explicitNullProperties?.Remove("delivery_update_path"); }
+            else if (parseNode.GetChildNode("delivery_update_path") is { } nullNodeDeliveryUpdatePath && nullNodeDeliveryUpdatePath.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) DeliveryUpdatePath = null;
+            if (parseNode.GetChildNode("estimated_delivery_at") is null) { _explicitNullValueEstimatedDeliveryAt = default!; _explicitNullProperties?.Remove("estimated_delivery_at"); }
+            else if (parseNode.GetChildNode("estimated_delivery_at") is { } nullNodeEstimatedDeliveryAt && nullNodeEstimatedDeliveryAt.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) EstimatedDeliveryAt = null;
+            if (parseNode.GetChildNode("scheme") is null) { _explicitNullValueScheme = default!; _explicitNullProperties?.Remove("scheme"); }
+            else if (parseNode.GetChildNode("scheme") is { } nullNodeScheme && nullNodeScheme.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Scheme = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The delivery signal to simulate. Must be a member of `delivery_update_path`, but need not be its last item.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.DeliveryUpdateRequestDeliveryUpdate? DeliveryUpdate { get => _explicitNullValueDeliveryUpdate; set { _explicitNullValueDeliveryUpdate = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("delivery_update"); else _explicitNullProperties?.Remove("delivery_update"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.DeliveryUpdateRequestDeliveryUpdate? DeliveryUpdate { get => _explicitNullValueDeliveryUpdate; set { _explicitNullValueDeliveryUpdate = value; AdditionalData?.Remove("delivery_update"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("delivery_update"); else _explicitNullProperties?.Remove("delivery_update"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.DeliveryUpdateRequestDeliveryUpdate? _explicitNullValueDeliveryUpdate = default!;
         /// <summary>Delivery signals supported by the simulated route, not a history of events.Select one or more distinct values in this progression order:`partner_accepted`, `recipient_provider_accepted`, `scheme_settled`,`account_credited`, `funds_available`. Values may be skipped.The service validates the order and requires this array to contain `delivery_update`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.DeliveryUpdate?>? DeliveryUpdatePath { get => _explicitNullValueDeliveryUpdatePath; set { _explicitNullValueDeliveryUpdatePath = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("delivery_update_path"); else _explicitNullProperties?.Remove("delivery_update_path"); } }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.DeliveryUpdate?>? DeliveryUpdatePath { get => _explicitNullValueDeliveryUpdatePath; set { _explicitNullValueDeliveryUpdatePath = value; AdditionalData?.Remove("delivery_update_path"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("delivery_update_path"); else _explicitNullProperties?.Remove("delivery_update_path"); } }
         private List<global::Soenneker.Wise.OpenApiClient.Models.DeliveryUpdate?>? _explicitNullValueDeliveryUpdatePath = default!;
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.DeliveryUpdate?> DeliveryUpdatePath { get => _explicitNullValueDeliveryUpdatePath; set { _explicitNullValueDeliveryUpdatePath = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("delivery_update_path"); else _explicitNullProperties?.Remove("delivery_update_path"); } }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.DeliveryUpdate?> DeliveryUpdatePath { get => _explicitNullValueDeliveryUpdatePath; set { _explicitNullValueDeliveryUpdatePath = value; AdditionalData?.Remove("delivery_update_path"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("delivery_update_path"); else _explicitNullProperties?.Remove("delivery_update_path"); } }
         private List<global::Soenneker.Wise.OpenApiClient.Models.DeliveryUpdate?> _explicitNullValueDeliveryUpdatePath = default!;
 #endif
         /// <summary>Optional estimated delivery time. May be omitted or null. Published timestamps are truncated to milliseconds.</summary>
-        public DateTimeOffset? EstimatedDeliveryAt { get => _explicitNullValueEstimatedDeliveryAt; set { _explicitNullValueEstimatedDeliveryAt = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("estimated_delivery_at"); else _explicitNullProperties?.Remove("estimated_delivery_at"); } }
+        public DateTimeOffset? EstimatedDeliveryAt { get => _explicitNullValueEstimatedDeliveryAt; set { _explicitNullValueEstimatedDeliveryAt = value; AdditionalData?.Remove("estimated_delivery_at"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("estimated_delivery_at"); else _explicitNullProperties?.Remove("estimated_delivery_at"); } }
         private DateTimeOffset? _explicitNullValueEstimatedDeliveryAt = default!;
         /// <summary>Payment scheme to include in the observation. May be omitted or null.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.DeliveryUpdateRequestScheme? Scheme { get => _explicitNullValueScheme; set { _explicitNullValueScheme = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("scheme"); else _explicitNullProperties?.Remove("scheme"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.DeliveryUpdateRequestScheme? Scheme { get => _explicitNullValueScheme; set { _explicitNullValueScheme = value; AdditionalData?.Remove("scheme"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("scheme"); else _explicitNullProperties?.Remove("scheme"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.DeliveryUpdateRequestScheme? _explicitNullValueScheme = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.DeliveryUpdateRequest"/> and sets the default values.
@@ -69,10 +73,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "delivery_update", n => { DeliveryUpdate = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.DeliveryUpdateRequestDeliveryUpdate>(); } },
+                { "delivery_update", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.DeliveryUpdateRequestDeliveryUpdate>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueDeliveryUpdate = default; _explicitNullProperties?.Remove("delivery_update"); AdditionalData["delivery_update"] = unknown; } else { DeliveryUpdate = parsed; AdditionalData.Remove("delivery_update"); } } },
                 { "delivery_update_path", n => { DeliveryUpdatePath = n.GetCollectionOfEnumValues<global::Soenneker.Wise.OpenApiClient.Models.DeliveryUpdate>()?.AsList(); } },
                 { "estimated_delivery_at", n => { EstimatedDeliveryAt = n.GetDateTimeOffsetValue(); } },
-                { "scheme", n => { Scheme = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.DeliveryUpdateRequestScheme>(); } },
+                { "scheme", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.DeliveryUpdateRequestScheme>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueScheme = default; _explicitNullProperties?.Remove("scheme"); AdditionalData["scheme"] = unknown; } else { Scheme = parsed; AdditionalData.Remove("scheme"); } } },
             };
         }
         /// <summary>

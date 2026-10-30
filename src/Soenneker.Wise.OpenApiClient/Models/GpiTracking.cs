@@ -18,109 +18,122 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("cancellationStatus") is { } nullNodeCancellationStatus && nullNodeCancellationStatus.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CancellationStatus = null;
-            if (parseNode.GetChildNode("completedAt") is { } nullNodeCompletedAt && nullNodeCompletedAt.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CompletedAt = null;
-            if (parseNode.GetChildNode("confirmedAmount") is { } nullNodeConfirmedAmount && nullNodeConfirmedAmount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ConfirmedAmount = null;
-            if (parseNode.GetChildNode("confirmedAt") is { } nullNodeConfirmedAt && nullNodeConfirmedAt.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ConfirmedAt = null;
-            if (parseNode.GetChildNode("events") is { } nullNodeEvents && nullNodeEvents.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Events = null;
-            if (parseNode.GetChildNode("initiatedAt") is { } nullNodeInitiatedAt && nullNodeInitiatedAt.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) InitiatedAt = null;
-            if (parseNode.GetChildNode("lastUpdatedAt") is { } nullNodeLastUpdatedAt && nullNodeLastUpdatedAt.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) LastUpdatedAt = null;
-            if (parseNode.GetChildNode("rejectionReason") is { } nullNodeRejectionReason && nullNodeRejectionReason.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) RejectionReason = null;
-            if (parseNode.GetChildNode("returnReason") is { } nullNodeReturnReason && nullNodeReturnReason.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ReturnReason = null;
-            if (parseNode.GetChildNode("status") is { } nullNodeStatus && nullNodeStatus.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Status = null;
-            if (parseNode.GetChildNode("statusReason") is { } nullNodeStatusReason && nullNodeStatusReason.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) StatusReason = null;
-            if (parseNode.GetChildNode("statusTime") is { } nullNodeStatusTime && nullNodeStatusTime.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) StatusTime = null;
-            if (parseNode.GetChildNode("uetr") is { } nullNodeUetr && nullNodeUetr.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Uetr = null;
+            if (parseNode.GetChildNode("cancellationStatus") is null) { _explicitNullValueCancellationStatus = default!; _explicitNullProperties?.Remove("cancellationStatus"); }
+            else if (parseNode.GetChildNode("cancellationStatus") is { } nullNodeCancellationStatus && nullNodeCancellationStatus.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CancellationStatus = null;
+            if (parseNode.GetChildNode("completedAt") is null) { _explicitNullValueCompletedAt = default!; _explicitNullProperties?.Remove("completedAt"); }
+            else if (parseNode.GetChildNode("completedAt") is { } nullNodeCompletedAt && nullNodeCompletedAt.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CompletedAt = null;
+            if (parseNode.GetChildNode("confirmedAmount") is null) { _explicitNullValueConfirmedAmount = default!; _explicitNullProperties?.Remove("confirmedAmount"); }
+            else if (parseNode.GetChildNode("confirmedAmount") is { } nullNodeConfirmedAmount && nullNodeConfirmedAmount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ConfirmedAmount = null;
+            if (parseNode.GetChildNode("confirmedAt") is null) { _explicitNullValueConfirmedAt = default!; _explicitNullProperties?.Remove("confirmedAt"); }
+            else if (parseNode.GetChildNode("confirmedAt") is { } nullNodeConfirmedAt && nullNodeConfirmedAt.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ConfirmedAt = null;
+            if (parseNode.GetChildNode("events") is null) { _explicitNullValueEvents = default!; _explicitNullProperties?.Remove("events"); }
+            else if (parseNode.GetChildNode("events") is { } nullNodeEvents && nullNodeEvents.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Events = null;
+            if (parseNode.GetChildNode("initiatedAt") is null) { _explicitNullValueInitiatedAt = default!; _explicitNullProperties?.Remove("initiatedAt"); }
+            else if (parseNode.GetChildNode("initiatedAt") is { } nullNodeInitiatedAt && nullNodeInitiatedAt.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) InitiatedAt = null;
+            if (parseNode.GetChildNode("lastUpdatedAt") is null) { _explicitNullValueLastUpdatedAt = default!; _explicitNullProperties?.Remove("lastUpdatedAt"); }
+            else if (parseNode.GetChildNode("lastUpdatedAt") is { } nullNodeLastUpdatedAt && nullNodeLastUpdatedAt.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) LastUpdatedAt = null;
+            if (parseNode.GetChildNode("rejectionReason") is null) { _explicitNullValueRejectionReason = default!; _explicitNullProperties?.Remove("rejectionReason"); }
+            else if (parseNode.GetChildNode("rejectionReason") is { } nullNodeRejectionReason && nullNodeRejectionReason.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) RejectionReason = null;
+            if (parseNode.GetChildNode("returnReason") is null) { _explicitNullValueReturnReason = default!; _explicitNullProperties?.Remove("returnReason"); }
+            else if (parseNode.GetChildNode("returnReason") is { } nullNodeReturnReason && nullNodeReturnReason.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ReturnReason = null;
+            if (parseNode.GetChildNode("status") is null) { _explicitNullValueStatus = default!; _explicitNullProperties?.Remove("status"); }
+            else if (parseNode.GetChildNode("status") is { } nullNodeStatus && nullNodeStatus.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Status = null;
+            if (parseNode.GetChildNode("statusReason") is null) { _explicitNullValueStatusReason = default!; _explicitNullProperties?.Remove("statusReason"); }
+            else if (parseNode.GetChildNode("statusReason") is { } nullNodeStatusReason && nullNodeStatusReason.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) StatusReason = null;
+            if (parseNode.GetChildNode("statusTime") is null) { _explicitNullValueStatusTime = default!; _explicitNullProperties?.Remove("statusTime"); }
+            else if (parseNode.GetChildNode("statusTime") is { } nullNodeStatusTime && nullNodeStatusTime.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) StatusTime = null;
+            if (parseNode.GetChildNode("uetr") is null) { _explicitNullValueUetr = default!; _explicitNullProperties?.Remove("uetr"); }
+            else if (parseNode.GetChildNode("uetr") is { } nullNodeUetr && nullNodeUetr.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Uetr = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Cancellation status, when a cancellation has been requested or resolved.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.GpiTrackingCancellationStatus? CancellationStatus { get => _explicitNullValueCancellationStatus; set { _explicitNullValueCancellationStatus = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("cancellationStatus"); else _explicitNullProperties?.Remove("cancellationStatus"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.GpiTrackingCancellationStatus? CancellationStatus { get => _explicitNullValueCancellationStatus; set { _explicitNullValueCancellationStatus = value; AdditionalData?.Remove("cancellationStatus"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("cancellationStatus"); else _explicitNullProperties?.Remove("cancellationStatus"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.GpiTrackingCancellationStatus? _explicitNullValueCancellationStatus = default!;
         /// <summary>When the transaction reached a completed state.</summary>
-        public DateTimeOffset? CompletedAt { get => _explicitNullValueCompletedAt; set { _explicitNullValueCompletedAt = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("completedAt"); else _explicitNullProperties?.Remove("completedAt"); } }
+        public DateTimeOffset? CompletedAt { get => _explicitNullValueCompletedAt; set { _explicitNullValueCompletedAt = value; AdditionalData?.Remove("completedAt"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("completedAt"); else _explicitNullProperties?.Remove("completedAt"); } }
         private DateTimeOffset? _explicitNullValueCompletedAt = default!;
         /// <summary>Amount credited to the creditor&apos;s account. Present when status is `ACCC`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.GpiTrackingMoney? ConfirmedAmount { get => _explicitNullValueConfirmedAmount; set { _explicitNullValueConfirmedAmount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("confirmedAmount"); else _explicitNullProperties?.Remove("confirmedAmount"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.GpiTrackingMoney? ConfirmedAmount { get => _explicitNullValueConfirmedAmount; set { _explicitNullValueConfirmedAmount = value; AdditionalData?.Remove("confirmedAmount"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("confirmedAmount"); else _explicitNullProperties?.Remove("confirmedAmount"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.GpiTrackingMoney? _explicitNullValueConfirmedAmount = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.GpiTrackingMoney ConfirmedAmount { get => _explicitNullValueConfirmedAmount; set { _explicitNullValueConfirmedAmount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("confirmedAmount"); else _explicitNullProperties?.Remove("confirmedAmount"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.GpiTrackingMoney ConfirmedAmount { get => _explicitNullValueConfirmedAmount; set { _explicitNullValueConfirmedAmount = value; AdditionalData?.Remove("confirmedAmount"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("confirmedAmount"); else _explicitNullProperties?.Remove("confirmedAmount"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.GpiTrackingMoney _explicitNullValueConfirmedAmount = default!;
 #endif
         /// <summary>When the funds were made available to the creditor. Present when status is `ACCC`.</summary>
-        public DateTimeOffset? ConfirmedAt { get => _explicitNullValueConfirmedAt; set { _explicitNullValueConfirmedAt = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("confirmedAt"); else _explicitNullProperties?.Remove("confirmedAt"); } }
+        public DateTimeOffset? ConfirmedAt { get => _explicitNullValueConfirmedAt; set { _explicitNullValueConfirmedAt = value; AdditionalData?.Remove("confirmedAt"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("confirmedAt"); else _explicitNullProperties?.Remove("confirmedAt"); } }
         private DateTimeOffset? _explicitNullValueConfirmedAt = default!;
         /// <summary>Ordered tracking events, latest first.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.GpiTrackingEvent>? Events { get => _explicitNullValueEvents; set { _explicitNullValueEvents = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("events"); else _explicitNullProperties?.Remove("events"); } }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.GpiTrackingEvent>? Events { get => _explicitNullValueEvents; set { _explicitNullValueEvents = value; AdditionalData?.Remove("events"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("events"); else _explicitNullProperties?.Remove("events"); } }
         private List<global::Soenneker.Wise.OpenApiClient.Models.GpiTrackingEvent>? _explicitNullValueEvents = default!;
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.GpiTrackingEvent> Events { get => _explicitNullValueEvents; set { _explicitNullValueEvents = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("events"); else _explicitNullProperties?.Remove("events"); } }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.GpiTrackingEvent> Events { get => _explicitNullValueEvents; set { _explicitNullValueEvents = value; AdditionalData?.Remove("events"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("events"); else _explicitNullProperties?.Remove("events"); } }
         private List<global::Soenneker.Wise.OpenApiClient.Models.GpiTrackingEvent> _explicitNullValueEvents = default!;
 #endif
         /// <summary>When transaction tracking was initiated.</summary>
-        public DateTimeOffset? InitiatedAt { get => _explicitNullValueInitiatedAt; set { _explicitNullValueInitiatedAt = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("initiatedAt"); else _explicitNullProperties?.Remove("initiatedAt"); } }
+        public DateTimeOffset? InitiatedAt { get => _explicitNullValueInitiatedAt; set { _explicitNullValueInitiatedAt = value; AdditionalData?.Remove("initiatedAt"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("initiatedAt"); else _explicitNullProperties?.Remove("initiatedAt"); } }
         private DateTimeOffset? _explicitNullValueInitiatedAt = default!;
         /// <summary>When the tracking record was last updated.</summary>
-        public DateTimeOffset? LastUpdatedAt { get => _explicitNullValueLastUpdatedAt; set { _explicitNullValueLastUpdatedAt = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("lastUpdatedAt"); else _explicitNullProperties?.Remove("lastUpdatedAt"); } }
+        public DateTimeOffset? LastUpdatedAt { get => _explicitNullValueLastUpdatedAt; set { _explicitNullValueLastUpdatedAt = value; AdditionalData?.Remove("lastUpdatedAt"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("lastUpdatedAt"); else _explicitNullProperties?.Remove("lastUpdatedAt"); } }
         private DateTimeOffset? _explicitNullValueLastUpdatedAt = default!;
         /// <summary>Rejection reason code, passed through as a SWIFT gpi rejection reason code (ISO 20022 external return/reason code). Present when status is `RJCT`. Known values include `AC04` (closed account number), `AC06` (blocked account), `AM09` (wrong amount), `BE01` (inconsistent with end customer), `RR04` (regulatory reason). Additional values may be introduced by SWIFT gpi; see the SWIFT gpi code lists.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? RejectionReason { get => _explicitNullValueRejectionReason; set { _explicitNullValueRejectionReason = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("rejectionReason"); else _explicitNullProperties?.Remove("rejectionReason"); } }
+        public string? RejectionReason { get => _explicitNullValueRejectionReason; set { _explicitNullValueRejectionReason = value; AdditionalData?.Remove("rejectionReason"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("rejectionReason"); else _explicitNullProperties?.Remove("rejectionReason"); } }
         private string? _explicitNullValueRejectionReason = default!;
 #nullable restore
 #else
-        public string RejectionReason { get => _explicitNullValueRejectionReason; set { _explicitNullValueRejectionReason = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("rejectionReason"); else _explicitNullProperties?.Remove("rejectionReason"); } }
+        public string RejectionReason { get => _explicitNullValueRejectionReason; set { _explicitNullValueRejectionReason = value; AdditionalData?.Remove("rejectionReason"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("rejectionReason"); else _explicitNullProperties?.Remove("rejectionReason"); } }
         private string _explicitNullValueRejectionReason = default!;
 #endif
         /// <summary>Return reason code, present when the transaction was returned or rejected, passed through as a SWIFT gpi return reason code (ISO 20022 external return/reason code). Known values include `AC04` (closed account number), `AC06` (blocked account), `AM09` (wrong amount), `BE01` (inconsistent with end customer), `RR04` (regulatory reason). Additional values may be introduced by SWIFT gpi; see the SWIFT gpi code lists.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? ReturnReason { get => _explicitNullValueReturnReason; set { _explicitNullValueReturnReason = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("returnReason"); else _explicitNullProperties?.Remove("returnReason"); } }
+        public string? ReturnReason { get => _explicitNullValueReturnReason; set { _explicitNullValueReturnReason = value; AdditionalData?.Remove("returnReason"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("returnReason"); else _explicitNullProperties?.Remove("returnReason"); } }
         private string? _explicitNullValueReturnReason = default!;
 #nullable restore
 #else
-        public string ReturnReason { get => _explicitNullValueReturnReason; set { _explicitNullValueReturnReason = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("returnReason"); else _explicitNullProperties?.Remove("returnReason"); } }
+        public string ReturnReason { get => _explicitNullValueReturnReason; set { _explicitNullValueReturnReason = value; AdditionalData?.Remove("returnReason"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("returnReason"); else _explicitNullProperties?.Remove("returnReason"); } }
         private string _explicitNullValueReturnReason = default!;
 #endif
         /// <summary>Overall tracking status of the transaction, passed through as a SWIFT gpi transaction status code. Known values: `ACSP` (accepted, settlement in progress), `ACCC` (accepted, settlement completed), `RJCT` (rejected). Additional values may be introduced by SWIFT gpi; see the SWIFT gpi code lists.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Status { get => _explicitNullValueStatus; set { _explicitNullValueStatus = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("status"); else _explicitNullProperties?.Remove("status"); } }
+        public string? Status { get => _explicitNullValueStatus; set { _explicitNullValueStatus = value; AdditionalData?.Remove("status"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("status"); else _explicitNullProperties?.Remove("status"); } }
         private string? _explicitNullValueStatus = default!;
 #nullable restore
 #else
-        public string Status { get => _explicitNullValueStatus; set { _explicitNullValueStatus = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("status"); else _explicitNullProperties?.Remove("status"); } }
+        public string Status { get => _explicitNullValueStatus; set { _explicitNullValueStatus = value; AdditionalData?.Remove("status"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("status"); else _explicitNullProperties?.Remove("status"); } }
         private string _explicitNullValueStatus = default!;
 #endif
         /// <summary>Sub-status detail, present when status is `ACSP`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.GpiTrackingStatusReason? StatusReason { get => _explicitNullValueStatusReason; set { _explicitNullValueStatusReason = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("statusReason"); else _explicitNullProperties?.Remove("statusReason"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.GpiTrackingStatusReason? StatusReason { get => _explicitNullValueStatusReason; set { _explicitNullValueStatusReason = value; AdditionalData?.Remove("statusReason"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("statusReason"); else _explicitNullProperties?.Remove("statusReason"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.GpiTrackingStatusReason? _explicitNullValueStatusReason = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.GpiTrackingStatusReason StatusReason { get => _explicitNullValueStatusReason; set { _explicitNullValueStatusReason = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("statusReason"); else _explicitNullProperties?.Remove("statusReason"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.GpiTrackingStatusReason StatusReason { get => _explicitNullValueStatusReason; set { _explicitNullValueStatusReason = value; AdditionalData?.Remove("statusReason"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("statusReason"); else _explicitNullProperties?.Remove("statusReason"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.GpiTrackingStatusReason _explicitNullValueStatusReason = default!;
 #endif
         /// <summary>When this status was reached. Present when status is `ACSP` or `RJCT`.</summary>
-        public DateTimeOffset? StatusTime { get => _explicitNullValueStatusTime; set { _explicitNullValueStatusTime = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("statusTime"); else _explicitNullProperties?.Remove("statusTime"); } }
+        public DateTimeOffset? StatusTime { get => _explicitNullValueStatusTime; set { _explicitNullValueStatusTime = value; AdditionalData?.Remove("statusTime"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("statusTime"); else _explicitNullProperties?.Remove("statusTime"); } }
         private DateTimeOffset? _explicitNullValueStatusTime = default!;
         /// <summary>The UETR of the tracked transaction.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Uetr { get => _explicitNullValueUetr; set { _explicitNullValueUetr = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("uetr"); else _explicitNullProperties?.Remove("uetr"); } }
+        public string? Uetr { get => _explicitNullValueUetr; set { _explicitNullValueUetr = value; AdditionalData?.Remove("uetr"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("uetr"); else _explicitNullProperties?.Remove("uetr"); } }
         private string? _explicitNullValueUetr = default!;
 #nullable restore
 #else
-        public string Uetr { get => _explicitNullValueUetr; set { _explicitNullValueUetr = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("uetr"); else _explicitNullProperties?.Remove("uetr"); } }
+        public string Uetr { get => _explicitNullValueUetr; set { _explicitNullValueUetr = value; AdditionalData?.Remove("uetr"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("uetr"); else _explicitNullProperties?.Remove("uetr"); } }
         private string _explicitNullValueUetr = default!;
 #endif
         /// <summary>
@@ -148,7 +161,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "cancellationStatus", n => { CancellationStatus = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.GpiTrackingCancellationStatus>(); } },
+                { "cancellationStatus", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.GpiTrackingCancellationStatus>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueCancellationStatus = default; _explicitNullProperties?.Remove("cancellationStatus"); AdditionalData["cancellationStatus"] = unknown; } else { CancellationStatus = parsed; AdditionalData.Remove("cancellationStatus"); } } },
                 { "completedAt", n => { CompletedAt = n.GetDateTimeOffsetValue(); } },
                 { "confirmedAmount", n => { ConfirmedAmount = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.GpiTrackingMoney>(global::Soenneker.Wise.OpenApiClient.Models.GpiTrackingMoney.CreateFromDiscriminatorValue); } },
                 { "confirmedAt", n => { ConfirmedAt = n.GetDateTimeOffsetValue(); } },

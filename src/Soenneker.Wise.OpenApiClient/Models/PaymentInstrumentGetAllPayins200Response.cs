@@ -17,7 +17,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("payins") is { } nullNodePayins && nullNodePayins.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Payins = null;
+            if (parseNode.GetChildNode("payins") is null) { _explicitNullValuePayins = default!; _explicitNullProperties?.Remove("payins"); }
+            else if (parseNode.GetChildNode("payins") is { } nullNodePayins && nullNodePayins.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Payins = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -25,11 +26,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The payins property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.PayinSessionPayinInitiationResource>? Payins { get => _explicitNullValuePayins; set { _explicitNullValuePayins = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("payins"); else _explicitNullProperties?.Remove("payins"); } }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.PayinSessionPayinInitiationResource>? Payins { get => _explicitNullValuePayins; set { _explicitNullValuePayins = value; AdditionalData?.Remove("payins"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("payins"); else _explicitNullProperties?.Remove("payins"); } }
         private List<global::Soenneker.Wise.OpenApiClient.Models.PayinSessionPayinInitiationResource>? _explicitNullValuePayins = default!;
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.PayinSessionPayinInitiationResource> Payins { get => _explicitNullValuePayins; set { _explicitNullValuePayins = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("payins"); else _explicitNullProperties?.Remove("payins"); } }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.PayinSessionPayinInitiationResource> Payins { get => _explicitNullValuePayins; set { _explicitNullValuePayins = value; AdditionalData?.Remove("payins"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("payins"); else _explicitNullProperties?.Remove("payins"); } }
         private List<global::Soenneker.Wise.OpenApiClient.Models.PayinSessionPayinInitiationResource> _explicitNullValuePayins = default!;
 #endif
         /// <summary>

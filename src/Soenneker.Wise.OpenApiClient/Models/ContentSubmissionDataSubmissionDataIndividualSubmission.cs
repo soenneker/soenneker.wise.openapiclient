@@ -17,7 +17,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("individual") is { } nullNodeIndividual && nullNodeIndividual.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Individual = null;
+            if (parseNode.GetChildNode("individual") is null) { _explicitNullValueIndividual = default!; _explicitNullProperties?.Remove("individual"); }
+            else if (parseNode.GetChildNode("individual") is { } nullNodeIndividual && nullNodeIndividual.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Individual = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -25,11 +26,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The individual property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.ContentSubmissionDataSubmissionDataIndividualSubmissionIndividual? Individual { get => _explicitNullValueIndividual; set { _explicitNullValueIndividual = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("individual"); else _explicitNullProperties?.Remove("individual"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.ContentSubmissionDataSubmissionDataIndividualSubmissionIndividual? Individual { get => _explicitNullValueIndividual; set { _explicitNullValueIndividual = value; AdditionalData?.Remove("individual"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("individual"); else _explicitNullProperties?.Remove("individual"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.ContentSubmissionDataSubmissionDataIndividualSubmissionIndividual? _explicitNullValueIndividual = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.ContentSubmissionDataSubmissionDataIndividualSubmissionIndividual Individual { get => _explicitNullValueIndividual; set { _explicitNullValueIndividual = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("individual"); else _explicitNullProperties?.Remove("individual"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.ContentSubmissionDataSubmissionDataIndividualSubmissionIndividual Individual { get => _explicitNullValueIndividual; set { _explicitNullValueIndividual = value; AdditionalData?.Remove("individual"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("individual"); else _explicitNullProperties?.Remove("individual"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.ContentSubmissionDataSubmissionDataIndividualSubmissionIndividual _explicitNullValueIndividual = default!;
 #endif
         /// <summary>

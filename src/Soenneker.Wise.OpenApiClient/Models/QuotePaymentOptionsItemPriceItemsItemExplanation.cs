@@ -18,8 +18,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("markdown") is { } nullNodeMarkdown && nullNodeMarkdown.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Markdown = null;
-            if (parseNode.GetChildNode("plainText") is { } nullNodePlainText && nullNodePlainText.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PlainText = null;
+            if (parseNode.GetChildNode("markdown") is null) { _explicitNullValueMarkdown = default!; _explicitNullProperties?.Remove("markdown"); }
+            else if (parseNode.GetChildNode("markdown") is { } nullNodeMarkdown && nullNodeMarkdown.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Markdown = null;
+            if (parseNode.GetChildNode("plainText") is null) { _explicitNullValuePlainText = default!; _explicitNullProperties?.Remove("plainText"); }
+            else if (parseNode.GetChildNode("plainText") is { } nullNodePlainText && nullNodePlainText.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PlainText = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -27,21 +29,21 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Formatted textual information about the item.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Markdown { get => _explicitNullValueMarkdown; set { _explicitNullValueMarkdown = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("markdown"); else _explicitNullProperties?.Remove("markdown"); } }
+        public string? Markdown { get => _explicitNullValueMarkdown; set { _explicitNullValueMarkdown = value; AdditionalData?.Remove("markdown"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("markdown"); else _explicitNullProperties?.Remove("markdown"); } }
         private string? _explicitNullValueMarkdown = default!;
 #nullable restore
 #else
-        public string Markdown { get => _explicitNullValueMarkdown; set { _explicitNullValueMarkdown = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("markdown"); else _explicitNullProperties?.Remove("markdown"); } }
+        public string Markdown { get => _explicitNullValueMarkdown; set { _explicitNullValueMarkdown = value; AdditionalData?.Remove("markdown"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("markdown"); else _explicitNullProperties?.Remove("markdown"); } }
         private string _explicitNullValueMarkdown = default!;
 #endif
         /// <summary>Plain text details about the item.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? PlainText { get => _explicitNullValuePlainText; set { _explicitNullValuePlainText = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("plainText"); else _explicitNullProperties?.Remove("plainText"); } }
+        public string? PlainText { get => _explicitNullValuePlainText; set { _explicitNullValuePlainText = value; AdditionalData?.Remove("plainText"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("plainText"); else _explicitNullProperties?.Remove("plainText"); } }
         private string? _explicitNullValuePlainText = default!;
 #nullable restore
 #else
-        public string PlainText { get => _explicitNullValuePlainText; set { _explicitNullValuePlainText = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("plainText"); else _explicitNullProperties?.Remove("plainText"); } }
+        public string PlainText { get => _explicitNullValuePlainText; set { _explicitNullValuePlainText = value; AdditionalData?.Remove("plainText"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("plainText"); else _explicitNullProperties?.Remove("plainText"); } }
         private string _explicitNullValuePlainText = default!;
 #endif
         /// <summary>

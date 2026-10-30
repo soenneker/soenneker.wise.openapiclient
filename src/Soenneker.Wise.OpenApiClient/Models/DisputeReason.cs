@@ -17,12 +17,18 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("code") is { } nullNodeCode && nullNodeCode.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Code = null;
-            if (parseNode.GetChildNode("description") is { } nullNodeDescription && nullNodeDescription.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Description = null;
-            if (parseNode.GetChildNode("isFraud") is { } nullNodeIsFraud && nullNodeIsFraud.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) IsFraud = null;
-            if (parseNode.GetChildNode("subOptions") is { } nullNodeSubOptions && nullNodeSubOptions.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SubOptions = null;
-            if (parseNode.GetChildNode("supportsMultipleTransactions") is { } nullNodeSupportsMultipleTransactions && nullNodeSupportsMultipleTransactions.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SupportsMultipleTransactions = null;
-            if (parseNode.GetChildNode("tooltip") is { } nullNodeTooltip && nullNodeTooltip.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Tooltip = null;
+            if (parseNode.GetChildNode("code") is null) { _explicitNullValueCode = default!; _explicitNullProperties?.Remove("code"); }
+            else if (parseNode.GetChildNode("code") is { } nullNodeCode && nullNodeCode.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Code = null;
+            if (parseNode.GetChildNode("description") is null) { _explicitNullValueDescription = default!; _explicitNullProperties?.Remove("description"); }
+            else if (parseNode.GetChildNode("description") is { } nullNodeDescription && nullNodeDescription.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Description = null;
+            if (parseNode.GetChildNode("isFraud") is null) { _explicitNullValueIsFraud = default!; _explicitNullProperties?.Remove("isFraud"); }
+            else if (parseNode.GetChildNode("isFraud") is { } nullNodeIsFraud && nullNodeIsFraud.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) IsFraud = null;
+            if (parseNode.GetChildNode("subOptions") is null) { _explicitNullValueSubOptions = default!; _explicitNullProperties?.Remove("subOptions"); }
+            else if (parseNode.GetChildNode("subOptions") is { } nullNodeSubOptions && nullNodeSubOptions.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SubOptions = null;
+            if (parseNode.GetChildNode("supportsMultipleTransactions") is null) { _explicitNullValueSupportsMultipleTransactions = default!; _explicitNullProperties?.Remove("supportsMultipleTransactions"); }
+            else if (parseNode.GetChildNode("supportsMultipleTransactions") is { } nullNodeSupportsMultipleTransactions && nullNodeSupportsMultipleTransactions.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SupportsMultipleTransactions = null;
+            if (parseNode.GetChildNode("tooltip") is null) { _explicitNullValueTooltip = default!; _explicitNullProperties?.Remove("tooltip"); }
+            else if (parseNode.GetChildNode("tooltip") is { } nullNodeTooltip && nullNodeTooltip.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Tooltip = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -30,47 +36,47 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The type of reasons available for the dispute. Top-level codes include `ATM_DISPENSED_NO_FUNDS`, `WRONG_AMOUNT`, `TROUBLE_WITH_GOODS_SERVICES`, `MERCHANT_CHARGED_AGAIN`, `NO_REFUND`, `UNAUTHORIZED`.If a reason has `subOptions`, use the sub-option reason code when submitting a dispute.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Code { get => _explicitNullValueCode; set { _explicitNullValueCode = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("code"); else _explicitNullProperties?.Remove("code"); } }
+        public string? Code { get => _explicitNullValueCode; set { _explicitNullValueCode = value; AdditionalData?.Remove("code"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("code"); else _explicitNullProperties?.Remove("code"); } }
         private string? _explicitNullValueCode = default!;
 #nullable restore
 #else
-        public string Code { get => _explicitNullValueCode; set { _explicitNullValueCode = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("code"); else _explicitNullProperties?.Remove("code"); } }
+        public string Code { get => _explicitNullValueCode; set { _explicitNullValueCode = value; AdditionalData?.Remove("code"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("code"); else _explicitNullProperties?.Remove("code"); } }
         private string _explicitNullValueCode = default!;
 #endif
         /// <summary>The description of the dispute reason.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Description { get => _explicitNullValueDescription; set { _explicitNullValueDescription = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("description"); else _explicitNullProperties?.Remove("description"); } }
+        public string? Description { get => _explicitNullValueDescription; set { _explicitNullValueDescription = value; AdditionalData?.Remove("description"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("description"); else _explicitNullProperties?.Remove("description"); } }
         private string? _explicitNullValueDescription = default!;
 #nullable restore
 #else
-        public string Description { get => _explicitNullValueDescription; set { _explicitNullValueDescription = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("description"); else _explicitNullProperties?.Remove("description"); } }
+        public string Description { get => _explicitNullValueDescription; set { _explicitNullValueDescription = value; AdditionalData?.Remove("description"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("description"); else _explicitNullProperties?.Remove("description"); } }
         private string _explicitNullValueDescription = default!;
 #endif
         /// <summary>Flag indicating that the dispute reason is fraud-related.</summary>
-        public bool? IsFraud { get => _explicitNullValueIsFraud; set { _explicitNullValueIsFraud = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("isFraud"); else _explicitNullProperties?.Remove("isFraud"); } }
+        public bool? IsFraud { get => _explicitNullValueIsFraud; set { _explicitNullValueIsFraud = value; AdditionalData?.Remove("isFraud"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("isFraud"); else _explicitNullProperties?.Remove("isFraud"); } }
         private bool? _explicitNullValueIsFraud = default!;
         /// <summary>Optional list of sub-reasons that should be used as the dispute reason.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.DisputeReason>? SubOptions { get => _explicitNullValueSubOptions; set { _explicitNullValueSubOptions = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("subOptions"); else _explicitNullProperties?.Remove("subOptions"); } }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.DisputeReason>? SubOptions { get => _explicitNullValueSubOptions; set { _explicitNullValueSubOptions = value; AdditionalData?.Remove("subOptions"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("subOptions"); else _explicitNullProperties?.Remove("subOptions"); } }
         private List<global::Soenneker.Wise.OpenApiClient.Models.DisputeReason>? _explicitNullValueSubOptions = default!;
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.DisputeReason> SubOptions { get => _explicitNullValueSubOptions; set { _explicitNullValueSubOptions = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("subOptions"); else _explicitNullProperties?.Remove("subOptions"); } }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.DisputeReason> SubOptions { get => _explicitNullValueSubOptions; set { _explicitNullValueSubOptions = value; AdditionalData?.Remove("subOptions"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("subOptions"); else _explicitNullProperties?.Remove("subOptions"); } }
         private List<global::Soenneker.Wise.OpenApiClient.Models.DisputeReason> _explicitNullValueSubOptions = default!;
 #endif
         /// <summary>Whether the dispute supports multiple transactions.</summary>
-        public bool? SupportsMultipleTransactions { get => _explicitNullValueSupportsMultipleTransactions; set { _explicitNullValueSupportsMultipleTransactions = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("supportsMultipleTransactions"); else _explicitNullProperties?.Remove("supportsMultipleTransactions"); } }
+        public bool? SupportsMultipleTransactions { get => _explicitNullValueSupportsMultipleTransactions; set { _explicitNullValueSupportsMultipleTransactions = value; AdditionalData?.Remove("supportsMultipleTransactions"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("supportsMultipleTransactions"); else _explicitNullProperties?.Remove("supportsMultipleTransactions"); } }
         private bool? _explicitNullValueSupportsMultipleTransactions = default!;
         /// <summary>Text to display when showing the dispute form to your users.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Tooltip { get => _explicitNullValueTooltip; set { _explicitNullValueTooltip = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("tooltip"); else _explicitNullProperties?.Remove("tooltip"); } }
+        public string? Tooltip { get => _explicitNullValueTooltip; set { _explicitNullValueTooltip = value; AdditionalData?.Remove("tooltip"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("tooltip"); else _explicitNullProperties?.Remove("tooltip"); } }
         private string? _explicitNullValueTooltip = default!;
 #nullable restore
 #else
-        public string Tooltip { get => _explicitNullValueTooltip; set { _explicitNullValueTooltip = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("tooltip"); else _explicitNullProperties?.Remove("tooltip"); } }
+        public string Tooltip { get => _explicitNullValueTooltip; set { _explicitNullValueTooltip = value; AdditionalData?.Remove("tooltip"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("tooltip"); else _explicitNullProperties?.Remove("tooltip"); } }
         private string _explicitNullValueTooltip = default!;
 #endif
         /// <summary>

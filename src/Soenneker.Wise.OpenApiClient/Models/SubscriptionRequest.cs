@@ -17,9 +17,12 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("delivery") is { } nullNodeDelivery && nullNodeDelivery.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Delivery = null;
-            if (parseNode.GetChildNode("name") is { } nullNodeName && nullNodeName.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Name = null;
-            if (parseNode.GetChildNode("trigger_on") is { } nullNodeTriggerOn && nullNodeTriggerOn.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TriggerOn = null;
+            if (parseNode.GetChildNode("delivery") is null) { _explicitNullValueDelivery = default!; _explicitNullProperties?.Remove("delivery"); }
+            else if (parseNode.GetChildNode("delivery") is { } nullNodeDelivery && nullNodeDelivery.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Delivery = null;
+            if (parseNode.GetChildNode("name") is null) { _explicitNullValueName = default!; _explicitNullProperties?.Remove("name"); }
+            else if (parseNode.GetChildNode("name") is { } nullNodeName && nullNodeName.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Name = null;
+            if (parseNode.GetChildNode("trigger_on") is null) { _explicitNullValueTriggerOn = default!; _explicitNullProperties?.Remove("trigger_on"); }
+            else if (parseNode.GetChildNode("trigger_on") is { } nullNodeTriggerOn && nullNodeTriggerOn.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TriggerOn = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -27,31 +30,31 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The delivery property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.SubscriptionRequestDelivery? Delivery { get => _explicitNullValueDelivery; set { _explicitNullValueDelivery = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("delivery"); else _explicitNullProperties?.Remove("delivery"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.SubscriptionRequestDelivery? Delivery { get => _explicitNullValueDelivery; set { _explicitNullValueDelivery = value; AdditionalData?.Remove("delivery"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("delivery"); else _explicitNullProperties?.Remove("delivery"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.SubscriptionRequestDelivery? _explicitNullValueDelivery = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.SubscriptionRequestDelivery Delivery { get => _explicitNullValueDelivery; set { _explicitNullValueDelivery = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("delivery"); else _explicitNullProperties?.Remove("delivery"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.SubscriptionRequestDelivery Delivery { get => _explicitNullValueDelivery; set { _explicitNullValueDelivery = value; AdditionalData?.Remove("delivery"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("delivery"); else _explicitNullProperties?.Remove("delivery"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.SubscriptionRequestDelivery _explicitNullValueDelivery = default!;
 #endif
         /// <summary>A custom name for your webhook to ease with identification.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Name { get => _explicitNullValueName; set { _explicitNullValueName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("name"); else _explicitNullProperties?.Remove("name"); } }
+        public string? Name { get => _explicitNullValueName; set { _explicitNullValueName = value; AdditionalData?.Remove("name"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("name"); else _explicitNullProperties?.Remove("name"); } }
         private string? _explicitNullValueName = default!;
 #nullable restore
 #else
-        public string Name { get => _explicitNullValueName; set { _explicitNullValueName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("name"); else _explicitNullProperties?.Remove("name"); } }
+        public string Name { get => _explicitNullValueName; set { _explicitNullValueName = value; AdditionalData?.Remove("name"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("name"); else _explicitNullProperties?.Remove("name"); } }
         private string _explicitNullValueName = default!;
 #endif
         /// <summary>[Choose from a list of available events](/api-reference/webhook-event).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? TriggerOn { get => _explicitNullValueTriggerOn; set { _explicitNullValueTriggerOn = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("trigger_on"); else _explicitNullProperties?.Remove("trigger_on"); } }
+        public string? TriggerOn { get => _explicitNullValueTriggerOn; set { _explicitNullValueTriggerOn = value; AdditionalData?.Remove("trigger_on"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("trigger_on"); else _explicitNullProperties?.Remove("trigger_on"); } }
         private string? _explicitNullValueTriggerOn = default!;
 #nullable restore
 #else
-        public string TriggerOn { get => _explicitNullValueTriggerOn; set { _explicitNullValueTriggerOn = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("trigger_on"); else _explicitNullProperties?.Remove("trigger_on"); } }
+        public string TriggerOn { get => _explicitNullValueTriggerOn; set { _explicitNullValueTriggerOn = value; AdditionalData?.Remove("trigger_on"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("trigger_on"); else _explicitNullProperties?.Remove("trigger_on"); } }
         private string _explicitNullValueTriggerOn = default!;
 #endif
         /// <summary>

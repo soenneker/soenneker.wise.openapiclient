@@ -17,11 +17,12 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("activation") is { } nullNodeActivation && nullNodeActivation.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Activation = null;
+            if (parseNode.GetChildNode("activation") is null) { _explicitNullValueActivation = default!; _explicitNullProperties?.Remove("activation"); }
+            else if (parseNode.GetChildNode("activation") is { } nullNodeActivation && nullNodeActivation.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Activation = null;
         }
 
         /// <summary>Approve or decline a payment token activation</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.DigitalWalletActivatePaymentTokenRequestActivation? Activation { get => _explicitNullValueActivation; set { _explicitNullValueActivation = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("activation"); else _explicitNullProperties?.Remove("activation"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.DigitalWalletActivatePaymentTokenRequestActivation? Activation { get => _explicitNullValueActivation; set { _explicitNullValueActivation = value; AdditionalData?.Remove("activation"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("activation"); else _explicitNullProperties?.Remove("activation"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.DigitalWalletActivatePaymentTokenRequestActivation? _explicitNullValueActivation = default!;
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
@@ -50,7 +51,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "activation", n => { Activation = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.DigitalWalletActivatePaymentTokenRequestActivation>(); } },
+                { "activation", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.DigitalWalletActivatePaymentTokenRequestActivation>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueActivation = default; _explicitNullProperties?.Remove("activation"); AdditionalData["activation"] = unknown; } else { Activation = parsed; AdditionalData.Remove("activation"); } } },
             };
         }
         /// <summary>

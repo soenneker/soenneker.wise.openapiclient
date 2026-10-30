@@ -17,31 +17,35 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("accountType") is { } nullNodeAccountType && nullNodeAccountType.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) AccountType = null;
-            if (parseNode.GetChildNode("eligibilityCode") is { } nullNodeEligibilityCode && nullNodeEligibilityCode.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) EligibilityCode = null;
-            if (parseNode.GetChildNode("eligible") is { } nullNodeEligible && nullNodeEligible.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Eligible = null;
-            if (parseNode.GetChildNode("ineligibilityReason") is { } nullNodeIneligibilityReason && nullNodeIneligibilityReason.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) IneligibilityReason = null;
+            if (parseNode.GetChildNode("accountType") is null) { _explicitNullValueAccountType = default!; _explicitNullProperties?.Remove("accountType"); }
+            else if (parseNode.GetChildNode("accountType") is { } nullNodeAccountType && nullNodeAccountType.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) AccountType = null;
+            if (parseNode.GetChildNode("eligibilityCode") is null) { _explicitNullValueEligibilityCode = default!; _explicitNullProperties?.Remove("eligibilityCode"); }
+            else if (parseNode.GetChildNode("eligibilityCode") is { } nullNodeEligibilityCode && nullNodeEligibilityCode.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) EligibilityCode = null;
+            if (parseNode.GetChildNode("eligible") is null) { _explicitNullValueEligible = default!; _explicitNullProperties?.Remove("eligible"); }
+            else if (parseNode.GetChildNode("eligible") is { } nullNodeEligible && nullNodeEligible.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Eligible = null;
+            if (parseNode.GetChildNode("ineligibilityReason") is null) { _explicitNullValueIneligibilityReason = default!; _explicitNullProperties?.Remove("ineligibilityReason"); }
+            else if (parseNode.GetChildNode("ineligibilityReason") is { } nullNodeIneligibilityReason && nullNodeIneligibilityReason.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) IneligibilityReason = null;
         }
 
         /// <summary>Account type available.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.McaEligibilityGet200ResponseAccountType? AccountType { get => _explicitNullValueAccountType; set { _explicitNullValueAccountType = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("accountType"); else _explicitNullProperties?.Remove("accountType"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.McaEligibilityGet200ResponseAccountType? AccountType { get => _explicitNullValueAccountType; set { _explicitNullValueAccountType = value; AdditionalData?.Remove("accountType"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("accountType"); else _explicitNullProperties?.Remove("accountType"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.McaEligibilityGet200ResponseAccountType? _explicitNullValueAccountType = default!;
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Eligibility status code.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.McaEligibilityGet200ResponseEligibilityCode? EligibilityCode { get => _explicitNullValueEligibilityCode; set { _explicitNullValueEligibilityCode = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("eligibilityCode"); else _explicitNullProperties?.Remove("eligibilityCode"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.McaEligibilityGet200ResponseEligibilityCode? EligibilityCode { get => _explicitNullValueEligibilityCode; set { _explicitNullValueEligibilityCode = value; AdditionalData?.Remove("eligibilityCode"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("eligibilityCode"); else _explicitNullProperties?.Remove("eligibilityCode"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.McaEligibilityGet200ResponseEligibilityCode? _explicitNullValueEligibilityCode = default!;
         /// <summary>Whether the profile is eligible for a multi currency account.</summary>
-        public bool? Eligible { get => _explicitNullValueEligible; set { _explicitNullValueEligible = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("eligible"); else _explicitNullProperties?.Remove("eligible"); } }
+        public bool? Eligible { get => _explicitNullValueEligible; set { _explicitNullValueEligible = value; AdditionalData?.Remove("eligible"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("eligible"); else _explicitNullProperties?.Remove("eligible"); } }
         private bool? _explicitNullValueEligible = default!;
         /// <summary>Reason the profile is not eligible.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? IneligibilityReason { get => _explicitNullValueIneligibilityReason; set { _explicitNullValueIneligibilityReason = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("ineligibilityReason"); else _explicitNullProperties?.Remove("ineligibilityReason"); } }
+        public string? IneligibilityReason { get => _explicitNullValueIneligibilityReason; set { _explicitNullValueIneligibilityReason = value; AdditionalData?.Remove("ineligibilityReason"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("ineligibilityReason"); else _explicitNullProperties?.Remove("ineligibilityReason"); } }
         private string? _explicitNullValueIneligibilityReason = default!;
 #nullable restore
 #else
-        public string IneligibilityReason { get => _explicitNullValueIneligibilityReason; set { _explicitNullValueIneligibilityReason = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("ineligibilityReason"); else _explicitNullProperties?.Remove("ineligibilityReason"); } }
+        public string IneligibilityReason { get => _explicitNullValueIneligibilityReason; set { _explicitNullValueIneligibilityReason = value; AdditionalData?.Remove("ineligibilityReason"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("ineligibilityReason"); else _explicitNullProperties?.Remove("ineligibilityReason"); } }
         private string _explicitNullValueIneligibilityReason = default!;
 #endif
         /// <summary>
@@ -69,8 +73,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "accountType", n => { AccountType = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.McaEligibilityGet200ResponseAccountType>(); } },
-                { "eligibilityCode", n => { EligibilityCode = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.McaEligibilityGet200ResponseEligibilityCode>(); } },
+                { "accountType", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.McaEligibilityGet200ResponseAccountType>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueAccountType = default; _explicitNullProperties?.Remove("accountType"); AdditionalData["accountType"] = unknown; } else { AccountType = parsed; AdditionalData.Remove("accountType"); } } },
+                { "eligibilityCode", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.McaEligibilityGet200ResponseEligibilityCode>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueEligibilityCode = default; _explicitNullProperties?.Remove("eligibilityCode"); AdditionalData["eligibilityCode"] = unknown; } else { EligibilityCode = parsed; AdditionalData.Remove("eligibilityCode"); } } },
                 { "eligible", n => { Eligible = n.GetBoolValue(); } },
                 { "ineligibilityReason", n => { IneligibilityReason = n.GetStringValue(); } },
             };

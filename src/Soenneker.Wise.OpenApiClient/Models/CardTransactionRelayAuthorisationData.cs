@@ -18,17 +18,19 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("fallback") is { } nullNodeFallback && nullNodeFallback.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Fallback = null;
-            if (parseNode.GetChildNode("responseCode") is { } nullNodeResponseCode && nullNodeResponseCode.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ResponseCode = null;
+            if (parseNode.GetChildNode("fallback") is null) { _explicitNullValueFallback = default!; _explicitNullProperties?.Remove("fallback"); }
+            else if (parseNode.GetChildNode("fallback") is { } nullNodeFallback && nullNodeFallback.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Fallback = null;
+            if (parseNode.GetChildNode("responseCode") is null) { _explicitNullValueResponseCode = default!; _explicitNullProperties?.Remove("responseCode"); }
+            else if (parseNode.GetChildNode("responseCode") is { } nullNodeResponseCode && nullNodeResponseCode.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ResponseCode = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Indicating whether there was a fallback applied by Wise</summary>
-        public bool? Fallback { get => _explicitNullValueFallback; set { _explicitNullValueFallback = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("fallback"); else _explicitNullProperties?.Remove("fallback"); } }
+        public bool? Fallback { get => _explicitNullValueFallback; set { _explicitNullValueFallback = value; AdditionalData?.Remove("fallback"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("fallback"); else _explicitNullProperties?.Remove("fallback"); } }
         private bool? _explicitNullValueFallback = default!;
         /// <summary>[ResponseCode](/guides/product/issue-cards/relayed-authorisation#authorisation-response) of the relayed authorisation. One of:- `APPROVED`- `PROCESSING_ERROR`- `NON_SUPPORTED_CURRENCY`- `NON_SUPPORTED_MCC_FOR_COUNTRY`- `BLOCKED_COUNTRY`- `TRANSACTION_TYPE_NOT_SUPPORTED`- `SUSPECTED_FRAUD`</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.CardTransactionRelayAuthorisationDataResponseCode? ResponseCode { get => _explicitNullValueResponseCode; set { _explicitNullValueResponseCode = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("responseCode"); else _explicitNullProperties?.Remove("responseCode"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardTransactionRelayAuthorisationDataResponseCode? ResponseCode { get => _explicitNullValueResponseCode; set { _explicitNullValueResponseCode = value; AdditionalData?.Remove("responseCode"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("responseCode"); else _explicitNullProperties?.Remove("responseCode"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.CardTransactionRelayAuthorisationDataResponseCode? _explicitNullValueResponseCode = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.CardTransactionRelayAuthorisationData"/> and sets the default values.
@@ -58,7 +60,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "fallback", n => { Fallback = n.GetBoolValue(); } },
-                { "responseCode", n => { ResponseCode = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CardTransactionRelayAuthorisationDataResponseCode>(); } },
+                { "responseCode", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CardTransactionRelayAuthorisationDataResponseCode>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueResponseCode = default; _explicitNullProperties?.Remove("responseCode"); AdditionalData["responseCode"] = unknown; } else { ResponseCode = parsed; AdditionalData.Remove("responseCode"); } } },
             };
         }
         /// <summary>

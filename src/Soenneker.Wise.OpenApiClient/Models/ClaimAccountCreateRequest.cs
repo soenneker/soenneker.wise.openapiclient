@@ -17,7 +17,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("registrationCode") is { } nullNodeRegistrationCode && nullNodeRegistrationCode.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) RegistrationCode = null;
+            if (parseNode.GetChildNode("registrationCode") is null) { _explicitNullValueRegistrationCode = default!; _explicitNullProperties?.Remove("registrationCode"); }
+            else if (parseNode.GetChildNode("registrationCode") is { } nullNodeRegistrationCode && nullNodeRegistrationCode.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) RegistrationCode = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -25,11 +26,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The `registration_code` obtained when [creating the user](/api-reference/user/usercreate).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? RegistrationCode { get => _explicitNullValueRegistrationCode; set { _explicitNullValueRegistrationCode = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("registrationCode"); else _explicitNullProperties?.Remove("registrationCode"); } }
+        public string? RegistrationCode { get => _explicitNullValueRegistrationCode; set { _explicitNullValueRegistrationCode = value; AdditionalData?.Remove("registrationCode"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("registrationCode"); else _explicitNullProperties?.Remove("registrationCode"); } }
         private string? _explicitNullValueRegistrationCode = default!;
 #nullable restore
 #else
-        public string RegistrationCode { get => _explicitNullValueRegistrationCode; set { _explicitNullValueRegistrationCode = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("registrationCode"); else _explicitNullProperties?.Remove("registrationCode"); } }
+        public string RegistrationCode { get => _explicitNullValueRegistrationCode; set { _explicitNullValueRegistrationCode = value; AdditionalData?.Remove("registrationCode"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("registrationCode"); else _explicitNullProperties?.Remove("registrationCode"); } }
         private string _explicitNullValueRegistrationCode = default!;
 #endif
         /// <summary>

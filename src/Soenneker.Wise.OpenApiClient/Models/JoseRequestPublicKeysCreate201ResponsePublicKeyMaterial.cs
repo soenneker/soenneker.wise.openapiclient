@@ -17,8 +17,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("algorithm") is { } nullNodeAlgorithm && nullNodeAlgorithm.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Algorithm = null;
-            if (parseNode.GetChildNode("keyMaterial") is { } nullNodeKeyMaterial && nullNodeKeyMaterial.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) KeyMaterial = null;
+            if (parseNode.GetChildNode("algorithm") is null) { _explicitNullValueAlgorithm = default!; _explicitNullProperties?.Remove("algorithm"); }
+            else if (parseNode.GetChildNode("algorithm") is { } nullNodeAlgorithm && nullNodeAlgorithm.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Algorithm = null;
+            if (parseNode.GetChildNode("keyMaterial") is null) { _explicitNullValueKeyMaterial = default!; _explicitNullProperties?.Remove("keyMaterial"); }
+            else if (parseNode.GetChildNode("keyMaterial") is { } nullNodeKeyMaterial && nullNodeKeyMaterial.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) KeyMaterial = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -26,21 +28,21 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Algorithm to be used for request signature verification or for response payload encryption.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Algorithm { get => _explicitNullValueAlgorithm; set { _explicitNullValueAlgorithm = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("algorithm"); else _explicitNullProperties?.Remove("algorithm"); } }
+        public string? Algorithm { get => _explicitNullValueAlgorithm; set { _explicitNullValueAlgorithm = value; AdditionalData?.Remove("algorithm"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("algorithm"); else _explicitNullProperties?.Remove("algorithm"); } }
         private string? _explicitNullValueAlgorithm = default!;
 #nullable restore
 #else
-        public string Algorithm { get => _explicitNullValueAlgorithm; set { _explicitNullValueAlgorithm = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("algorithm"); else _explicitNullProperties?.Remove("algorithm"); } }
+        public string Algorithm { get => _explicitNullValueAlgorithm; set { _explicitNullValueAlgorithm = value; AdditionalData?.Remove("algorithm"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("algorithm"); else _explicitNullProperties?.Remove("algorithm"); } }
         private string _explicitNullValueAlgorithm = default!;
 #endif
         /// <summary>Public key material in DER (Distinguished Encoding Rules) format and base64 encoded.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? KeyMaterial { get => _explicitNullValueKeyMaterial; set { _explicitNullValueKeyMaterial = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("keyMaterial"); else _explicitNullProperties?.Remove("keyMaterial"); } }
+        public string? KeyMaterial { get => _explicitNullValueKeyMaterial; set { _explicitNullValueKeyMaterial = value; AdditionalData?.Remove("keyMaterial"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("keyMaterial"); else _explicitNullProperties?.Remove("keyMaterial"); } }
         private string? _explicitNullValueKeyMaterial = default!;
 #nullable restore
 #else
-        public string KeyMaterial { get => _explicitNullValueKeyMaterial; set { _explicitNullValueKeyMaterial = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("keyMaterial"); else _explicitNullProperties?.Remove("keyMaterial"); } }
+        public string KeyMaterial { get => _explicitNullValueKeyMaterial; set { _explicitNullValueKeyMaterial = value; AdditionalData?.Remove("keyMaterial"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("keyMaterial"); else _explicitNullProperties?.Remove("keyMaterial"); } }
         private string _explicitNullValueKeyMaterial = default!;
 #endif
         /// <summary>

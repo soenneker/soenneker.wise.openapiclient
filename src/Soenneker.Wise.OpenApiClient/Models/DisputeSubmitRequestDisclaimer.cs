@@ -18,17 +18,19 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("allAnswered") is { } nullNodeAllAnswered && nullNodeAllAnswered.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) AllAnswered = null;
-            if (parseNode.GetChildNode("filesUploaded") is { } nullNodeFilesUploaded && nullNodeFilesUploaded.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) FilesUploaded = null;
+            if (parseNode.GetChildNode("allAnswered") is null) { _explicitNullValueAllAnswered = default!; _explicitNullProperties?.Remove("allAnswered"); }
+            else if (parseNode.GetChildNode("allAnswered") is { } nullNodeAllAnswered && nullNodeAllAnswered.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) AllAnswered = null;
+            if (parseNode.GetChildNode("filesUploaded") is null) { _explicitNullValueFilesUploaded = default!; _explicitNullProperties?.Remove("filesUploaded"); }
+            else if (parseNode.GetChildNode("filesUploaded") is { } nullNodeFilesUploaded && nullNodeFilesUploaded.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) FilesUploaded = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Acknowledgment that all questions have been answered. Must be `true` or the request will be rejected.</summary>
-        public bool? AllAnswered { get => _explicitNullValueAllAnswered; set { _explicitNullValueAllAnswered = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("allAnswered"); else _explicitNullProperties?.Remove("allAnswered"); } }
+        public bool? AllAnswered { get => _explicitNullValueAllAnswered; set { _explicitNullValueAllAnswered = value; AdditionalData?.Remove("allAnswered"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("allAnswered"); else _explicitNullProperties?.Remove("allAnswered"); } }
         private bool? _explicitNullValueAllAnswered = default!;
         /// <summary>Acknowledgment that all relevant files have been attached. Must be `true` or the request will be rejected.</summary>
-        public bool? FilesUploaded { get => _explicitNullValueFilesUploaded; set { _explicitNullValueFilesUploaded = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("filesUploaded"); else _explicitNullProperties?.Remove("filesUploaded"); } }
+        public bool? FilesUploaded { get => _explicitNullValueFilesUploaded; set { _explicitNullValueFilesUploaded = value; AdditionalData?.Remove("filesUploaded"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("filesUploaded"); else _explicitNullProperties?.Remove("filesUploaded"); } }
         private bool? _explicitNullValueFilesUploaded = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.DisputeSubmitRequestDisclaimer"/> and sets the default values.

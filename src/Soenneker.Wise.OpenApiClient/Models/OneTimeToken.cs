@@ -18,9 +18,12 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("challenges") is { } nullNodeChallenges && nullNodeChallenges.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Challenges = null;
-            if (parseNode.GetChildNode("oneTimeToken") is { } nullNodeOneTimeTokenProp && nullNodeOneTimeTokenProp.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) OneTimeTokenProp = null;
-            if (parseNode.GetChildNode("validity") is { } nullNodeValidity && nullNodeValidity.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Validity = null;
+            if (parseNode.GetChildNode("challenges") is null) { _explicitNullValueChallenges = default!; _explicitNullProperties?.Remove("challenges"); }
+            else if (parseNode.GetChildNode("challenges") is { } nullNodeChallenges && nullNodeChallenges.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Challenges = null;
+            if (parseNode.GetChildNode("oneTimeToken") is null) { _explicitNullValueOneTimeTokenProp = default!; _explicitNullProperties?.Remove("oneTimeToken"); }
+            else if (parseNode.GetChildNode("oneTimeToken") is { } nullNodeOneTimeTokenProp && nullNodeOneTimeTokenProp.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) OneTimeTokenProp = null;
+            if (parseNode.GetChildNode("validity") is null) { _explicitNullValueValidity = default!; _explicitNullProperties?.Remove("validity"); }
+            else if (parseNode.GetChildNode("validity") is { } nullNodeValidity && nullNodeValidity.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Validity = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -28,18 +31,18 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>An array of challenges.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.OneTimeTokenChallengesItem>? Challenges { get => _explicitNullValueChallenges; set { _explicitNullValueChallenges = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("challenges"); else _explicitNullProperties?.Remove("challenges"); } }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.OneTimeTokenChallengesItem>? Challenges { get => _explicitNullValueChallenges; set { _explicitNullValueChallenges = value; AdditionalData?.Remove("challenges"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("challenges"); else _explicitNullProperties?.Remove("challenges"); } }
         private List<global::Soenneker.Wise.OpenApiClient.Models.OneTimeTokenChallengesItem>? _explicitNullValueChallenges = default!;
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.OneTimeTokenChallengesItem> Challenges { get => _explicitNullValueChallenges; set { _explicitNullValueChallenges = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("challenges"); else _explicitNullProperties?.Remove("challenges"); } }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.OneTimeTokenChallengesItem> Challenges { get => _explicitNullValueChallenges; set { _explicitNullValueChallenges = value; AdditionalData?.Remove("challenges"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("challenges"); else _explicitNullProperties?.Remove("challenges"); } }
         private List<global::Soenneker.Wise.OpenApiClient.Models.OneTimeTokenChallengesItem> _explicitNullValueChallenges = default!;
 #endif
         /// <summary>A one-time token unique identifier.</summary>
-        public Guid? OneTimeTokenProp { get => _explicitNullValueOneTimeTokenProp; set { _explicitNullValueOneTimeTokenProp = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("oneTimeToken"); else _explicitNullProperties?.Remove("oneTimeToken"); } }
+        public Guid? OneTimeTokenProp { get => _explicitNullValueOneTimeTokenProp; set { _explicitNullValueOneTimeTokenProp = value; AdditionalData?.Remove("oneTimeToken"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("oneTimeToken"); else _explicitNullProperties?.Remove("oneTimeToken"); } }
         private Guid? _explicitNullValueOneTimeTokenProp = default!;
         /// <summary>The One-Time Token expiration in seconds.</summary>
-        public int? Validity { get => _explicitNullValueValidity; set { _explicitNullValueValidity = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("validity"); else _explicitNullProperties?.Remove("validity"); } }
+        public int? Validity { get => _explicitNullValueValidity; set { _explicitNullValueValidity = value; AdditionalData?.Remove("validity"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("validity"); else _explicitNullProperties?.Remove("validity"); } }
         private int? _explicitNullValueValidity = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.OneTimeToken"/> and sets the default values.

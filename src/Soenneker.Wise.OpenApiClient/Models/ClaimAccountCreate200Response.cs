@@ -17,7 +17,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("claimAccountCode") is { } nullNodeClaimAccountCode && nullNodeClaimAccountCode.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ClaimAccountCode = null;
+            if (parseNode.GetChildNode("claimAccountCode") is null) { _explicitNullValueClaimAccountCode = default!; _explicitNullProperties?.Remove("claimAccountCode"); }
+            else if (parseNode.GetChildNode("claimAccountCode") is { } nullNodeClaimAccountCode && nullNodeClaimAccountCode.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ClaimAccountCode = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -25,11 +26,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The `claim_account_code` to be used in the redirect to Wise.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? ClaimAccountCode { get => _explicitNullValueClaimAccountCode; set { _explicitNullValueClaimAccountCode = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("claimAccountCode"); else _explicitNullProperties?.Remove("claimAccountCode"); } }
+        public string? ClaimAccountCode { get => _explicitNullValueClaimAccountCode; set { _explicitNullValueClaimAccountCode = value; AdditionalData?.Remove("claimAccountCode"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("claimAccountCode"); else _explicitNullProperties?.Remove("claimAccountCode"); } }
         private string? _explicitNullValueClaimAccountCode = default!;
 #nullable restore
 #else
-        public string ClaimAccountCode { get => _explicitNullValueClaimAccountCode; set { _explicitNullValueClaimAccountCode = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("claimAccountCode"); else _explicitNullProperties?.Remove("claimAccountCode"); } }
+        public string ClaimAccountCode { get => _explicitNullValueClaimAccountCode; set { _explicitNullValueClaimAccountCode = value; AdditionalData?.Remove("claimAccountCode"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("claimAccountCode"); else _explicitNullProperties?.Remove("claimAccountCode"); } }
         private string _explicitNullValueClaimAccountCode = default!;
 #endif
         /// <summary>

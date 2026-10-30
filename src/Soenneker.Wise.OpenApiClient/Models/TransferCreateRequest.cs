@@ -17,36 +17,41 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("customerTransactionId") is { } nullNodeCustomerTransactionId && nullNodeCustomerTransactionId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CustomerTransactionId = null;
-            if (parseNode.GetChildNode("details") is { } nullNodeDetails && nullNodeDetails.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Details = null;
-            if (parseNode.GetChildNode("quoteUuid") is { } nullNodeQuoteUuid && nullNodeQuoteUuid.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) QuoteUuid = null;
-            if (parseNode.GetChildNode("sourceAccount") is { } nullNodeSourceAccount && nullNodeSourceAccount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SourceAccount = null;
-            if (parseNode.GetChildNode("targetAccount") is { } nullNodeTargetAccount && nullNodeTargetAccount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TargetAccount = null;
+            if (parseNode.GetChildNode("customerTransactionId") is null) { _explicitNullValueCustomerTransactionId = default!; _explicitNullProperties?.Remove("customerTransactionId"); }
+            else if (parseNode.GetChildNode("customerTransactionId") is { } nullNodeCustomerTransactionId && nullNodeCustomerTransactionId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CustomerTransactionId = null;
+            if (parseNode.GetChildNode("details") is null) { _explicitNullValueDetails = default!; _explicitNullProperties?.Remove("details"); }
+            else if (parseNode.GetChildNode("details") is { } nullNodeDetails && nullNodeDetails.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Details = null;
+            if (parseNode.GetChildNode("quoteUuid") is null) { _explicitNullValueQuoteUuid = default!; _explicitNullProperties?.Remove("quoteUuid"); }
+            else if (parseNode.GetChildNode("quoteUuid") is { } nullNodeQuoteUuid && nullNodeQuoteUuid.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) QuoteUuid = null;
+            if (parseNode.GetChildNode("sourceAccount") is null) { _explicitNullValueSourceAccount = default!; _explicitNullProperties?.Remove("sourceAccount"); }
+            else if (parseNode.GetChildNode("sourceAccount") is { } nullNodeSourceAccount && nullNodeSourceAccount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SourceAccount = null;
+            if (parseNode.GetChildNode("targetAccount") is null) { _explicitNullValueTargetAccount = default!; _explicitNullProperties?.Remove("targetAccount"); }
+            else if (parseNode.GetChildNode("targetAccount") is { } nullNodeTargetAccount && nullNodeTargetAccount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TargetAccount = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Required to perform idempotency check to avoid duplicate transfers in case of network failures or timeouts</summary>
-        public Guid? CustomerTransactionId { get => _explicitNullValueCustomerTransactionId; set { _explicitNullValueCustomerTransactionId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("customerTransactionId"); else _explicitNullProperties?.Remove("customerTransactionId"); } }
+        public Guid? CustomerTransactionId { get => _explicitNullValueCustomerTransactionId; set { _explicitNullValueCustomerTransactionId = value; AdditionalData?.Remove("customerTransactionId"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("customerTransactionId"); else _explicitNullProperties?.Remove("customerTransactionId"); } }
         private Guid? _explicitNullValueCustomerTransactionId = default!;
         /// <summary>The details property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.TransferCreateRequestDetails? Details { get => _explicitNullValueDetails; set { _explicitNullValueDetails = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("details"); else _explicitNullProperties?.Remove("details"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.TransferCreateRequestDetails? Details { get => _explicitNullValueDetails; set { _explicitNullValueDetails = value; AdditionalData?.Remove("details"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("details"); else _explicitNullProperties?.Remove("details"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.TransferCreateRequestDetails? _explicitNullValueDetails = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.TransferCreateRequestDetails Details { get => _explicitNullValueDetails; set { _explicitNullValueDetails = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("details"); else _explicitNullProperties?.Remove("details"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.TransferCreateRequestDetails Details { get => _explicitNullValueDetails; set { _explicitNullValueDetails = value; AdditionalData?.Remove("details"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("details"); else _explicitNullProperties?.Remove("details"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.TransferCreateRequestDetails _explicitNullValueDetails = default!;
 #endif
         /// <summary>V2 quote ID. You can only create one transfer per one quote. You cannot use same quote ID to create multiple transfers</summary>
-        public Guid? QuoteUuid { get => _explicitNullValueQuoteUuid; set { _explicitNullValueQuoteUuid = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("quoteUuid"); else _explicitNullProperties?.Remove("quoteUuid"); } }
+        public Guid? QuoteUuid { get => _explicitNullValueQuoteUuid; set { _explicitNullValueQuoteUuid = value; AdditionalData?.Remove("quoteUuid"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("quoteUuid"); else _explicitNullProperties?.Remove("quoteUuid"); } }
         private Guid? _explicitNullValueQuoteUuid = default!;
         /// <summary>Refund recipient account ID</summary>
-        public long? SourceAccount { get => _explicitNullValueSourceAccount; set { _explicitNullValueSourceAccount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sourceAccount"); else _explicitNullProperties?.Remove("sourceAccount"); } }
+        public long? SourceAccount { get => _explicitNullValueSourceAccount; set { _explicitNullValueSourceAccount = value; AdditionalData?.Remove("sourceAccount"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sourceAccount"); else _explicitNullProperties?.Remove("sourceAccount"); } }
         private long? _explicitNullValueSourceAccount = default!;
         /// <summary>Recipient account ID. You can create multiple transfers to same recipient account</summary>
-        public long? TargetAccount { get => _explicitNullValueTargetAccount; set { _explicitNullValueTargetAccount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("targetAccount"); else _explicitNullProperties?.Remove("targetAccount"); } }
+        public long? TargetAccount { get => _explicitNullValueTargetAccount; set { _explicitNullValueTargetAccount = value; AdditionalData?.Remove("targetAccount"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("targetAccount"); else _explicitNullProperties?.Remove("targetAccount"); } }
         private long? _explicitNullValueTargetAccount = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.TransferCreateRequest"/> and sets the default values.

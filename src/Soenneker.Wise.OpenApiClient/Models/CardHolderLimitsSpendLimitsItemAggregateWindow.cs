@@ -18,8 +18,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("daily") is { } nullNodeDaily && nullNodeDaily.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Daily = null;
-            if (parseNode.GetChildNode("monthly") is { } nullNodeMonthly && nullNodeMonthly.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Monthly = null;
+            if (parseNode.GetChildNode("daily") is null) { _explicitNullValueDaily = default!; _explicitNullProperties?.Remove("daily"); }
+            else if (parseNode.GetChildNode("daily") is { } nullNodeDaily && nullNodeDaily.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Daily = null;
+            if (parseNode.GetChildNode("monthly") is null) { _explicitNullValueMonthly = default!; _explicitNullProperties?.Remove("monthly"); }
+            else if (parseNode.GetChildNode("monthly") is { } nullNodeMonthly && nullNodeMonthly.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Monthly = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -27,21 +29,21 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The daily property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.CardHolderLimitsSpendLimitsItemAggregateWindowDaily? Daily { get => _explicitNullValueDaily; set { _explicitNullValueDaily = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("daily"); else _explicitNullProperties?.Remove("daily"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardHolderLimitsSpendLimitsItemAggregateWindowDaily? Daily { get => _explicitNullValueDaily; set { _explicitNullValueDaily = value; AdditionalData?.Remove("daily"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("daily"); else _explicitNullProperties?.Remove("daily"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.CardHolderLimitsSpendLimitsItemAggregateWindowDaily? _explicitNullValueDaily = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.CardHolderLimitsSpendLimitsItemAggregateWindowDaily Daily { get => _explicitNullValueDaily; set { _explicitNullValueDaily = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("daily"); else _explicitNullProperties?.Remove("daily"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardHolderLimitsSpendLimitsItemAggregateWindowDaily Daily { get => _explicitNullValueDaily; set { _explicitNullValueDaily = value; AdditionalData?.Remove("daily"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("daily"); else _explicitNullProperties?.Remove("daily"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.CardHolderLimitsSpendLimitsItemAggregateWindowDaily _explicitNullValueDaily = default!;
 #endif
         /// <summary>The monthly property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.CardHolderLimitsSpendLimitsItemAggregateWindowMonthly? Monthly { get => _explicitNullValueMonthly; set { _explicitNullValueMonthly = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("monthly"); else _explicitNullProperties?.Remove("monthly"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardHolderLimitsSpendLimitsItemAggregateWindowMonthly? Monthly { get => _explicitNullValueMonthly; set { _explicitNullValueMonthly = value; AdditionalData?.Remove("monthly"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("monthly"); else _explicitNullProperties?.Remove("monthly"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.CardHolderLimitsSpendLimitsItemAggregateWindowMonthly? _explicitNullValueMonthly = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.CardHolderLimitsSpendLimitsItemAggregateWindowMonthly Monthly { get => _explicitNullValueMonthly; set { _explicitNullValueMonthly = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("monthly"); else _explicitNullProperties?.Remove("monthly"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardHolderLimitsSpendLimitsItemAggregateWindowMonthly Monthly { get => _explicitNullValueMonthly; set { _explicitNullValueMonthly = value; AdditionalData?.Remove("monthly"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("monthly"); else _explicitNullProperties?.Remove("monthly"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.CardHolderLimitsSpendLimitsItemAggregateWindowMonthly _explicitNullValueMonthly = default!;
 #endif
         /// <summary>

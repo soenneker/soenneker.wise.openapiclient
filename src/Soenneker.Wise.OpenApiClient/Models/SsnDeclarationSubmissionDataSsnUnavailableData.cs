@@ -17,13 +17,14 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("ssnUnavailableReason") is { } nullNodeSsnUnavailableReason && nullNodeSsnUnavailableReason.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SsnUnavailableReason = null;
+            if (parseNode.GetChildNode("ssnUnavailableReason") is null) { _explicitNullValueSsnUnavailableReason = default!; _explicitNullProperties?.Remove("ssnUnavailableReason"); }
+            else if (parseNode.GetChildNode("ssnUnavailableReason") is { } nullNodeSsnUnavailableReason && nullNodeSsnUnavailableReason.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SsnUnavailableReason = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The reason the customer can&apos;t provide an SSN.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.NonUsCitizenSsnUnavailableReason? SsnUnavailableReason { get => _explicitNullValueSsnUnavailableReason; set { _explicitNullValueSsnUnavailableReason = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("ssnUnavailableReason"); else _explicitNullProperties?.Remove("ssnUnavailableReason"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.NonUsCitizenSsnUnavailableReason? SsnUnavailableReason { get => _explicitNullValueSsnUnavailableReason; set { _explicitNullValueSsnUnavailableReason = value; AdditionalData?.Remove("ssnUnavailableReason"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("ssnUnavailableReason"); else _explicitNullProperties?.Remove("ssnUnavailableReason"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.NonUsCitizenSsnUnavailableReason? _explicitNullValueSsnUnavailableReason = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.SsnDeclarationSubmissionDataSsnUnavailableData"/> and sets the default values.
@@ -50,7 +51,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "ssnUnavailableReason", n => { SsnUnavailableReason = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.NonUsCitizenSsnUnavailableReason>(); } },
+                { "ssnUnavailableReason", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.NonUsCitizenSsnUnavailableReason>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueSsnUnavailableReason = default; _explicitNullProperties?.Remove("ssnUnavailableReason"); AdditionalData["ssnUnavailableReason"] = unknown; } else { SsnUnavailableReason = parsed; AdditionalData.Remove("ssnUnavailableReason"); } } },
             };
         }
         /// <summary>

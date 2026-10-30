@@ -17,7 +17,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("legalEntityShareholders") is { } nullNodeLegalEntityShareholders && nullNodeLegalEntityShareholders.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) LegalEntityShareholders = null;
+            if (parseNode.GetChildNode("legalEntityShareholders") is null) { _explicitNullValueLegalEntityShareholders = default!; _explicitNullProperties?.Remove("legalEntityShareholders"); }
+            else if (parseNode.GetChildNode("legalEntityShareholders") is { } nullNodeLegalEntityShareholders && nullNodeLegalEntityShareholders.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) LegalEntityShareholders = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -25,11 +26,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The legal entity shareholders of the business.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.LegalEntityShareholderSubmissionDataDataLegalEntityShareholdersItem>? LegalEntityShareholders { get => _explicitNullValueLegalEntityShareholders; set { _explicitNullValueLegalEntityShareholders = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("legalEntityShareholders"); else _explicitNullProperties?.Remove("legalEntityShareholders"); } }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.LegalEntityShareholderSubmissionDataDataLegalEntityShareholdersItem>? LegalEntityShareholders { get => _explicitNullValueLegalEntityShareholders; set { _explicitNullValueLegalEntityShareholders = value; AdditionalData?.Remove("legalEntityShareholders"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("legalEntityShareholders"); else _explicitNullProperties?.Remove("legalEntityShareholders"); } }
         private List<global::Soenneker.Wise.OpenApiClient.Models.LegalEntityShareholderSubmissionDataDataLegalEntityShareholdersItem>? _explicitNullValueLegalEntityShareholders = default!;
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.LegalEntityShareholderSubmissionDataDataLegalEntityShareholdersItem> LegalEntityShareholders { get => _explicitNullValueLegalEntityShareholders; set { _explicitNullValueLegalEntityShareholders = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("legalEntityShareholders"); else _explicitNullProperties?.Remove("legalEntityShareholders"); } }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.LegalEntityShareholderSubmissionDataDataLegalEntityShareholdersItem> LegalEntityShareholders { get => _explicitNullValueLegalEntityShareholders; set { _explicitNullValueLegalEntityShareholders = value; AdditionalData?.Remove("legalEntityShareholders"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("legalEntityShareholders"); else _explicitNullProperties?.Remove("legalEntityShareholders"); } }
         private List<global::Soenneker.Wise.OpenApiClient.Models.LegalEntityShareholderSubmissionDataDataLegalEntityShareholdersItem> _explicitNullValueLegalEntityShareholders = default!;
 #endif
         /// <summary>

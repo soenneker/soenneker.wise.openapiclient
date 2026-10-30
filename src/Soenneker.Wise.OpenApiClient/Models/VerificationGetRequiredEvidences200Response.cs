@@ -18,7 +18,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("required_evidences") is { } nullNodeRequiredEvidences && nullNodeRequiredEvidences.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) RequiredEvidences = null;
+            if (parseNode.GetChildNode("required_evidences") is null) { _explicitNullValueRequiredEvidences = default!; _explicitNullProperties?.Remove("required_evidences"); }
+            else if (parseNode.GetChildNode("required_evidences") is { } nullNodeRequiredEvidences && nullNodeRequiredEvidences.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) RequiredEvidences = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -26,11 +27,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>List of evidence types required to complete verification.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<string>? RequiredEvidences { get => _explicitNullValueRequiredEvidences; set { _explicitNullValueRequiredEvidences = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("required_evidences"); else _explicitNullProperties?.Remove("required_evidences"); } }
+        public List<string>? RequiredEvidences { get => _explicitNullValueRequiredEvidences; set { _explicitNullValueRequiredEvidences = value; AdditionalData?.Remove("required_evidences"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("required_evidences"); else _explicitNullProperties?.Remove("required_evidences"); } }
         private List<string>? _explicitNullValueRequiredEvidences = default!;
 #nullable restore
 #else
-        public List<string> RequiredEvidences { get => _explicitNullValueRequiredEvidences; set { _explicitNullValueRequiredEvidences = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("required_evidences"); else _explicitNullProperties?.Remove("required_evidences"); } }
+        public List<string> RequiredEvidences { get => _explicitNullValueRequiredEvidences; set { _explicitNullValueRequiredEvidences = value; AdditionalData?.Remove("required_evidences"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("required_evidences"); else _explicitNullProperties?.Remove("required_evidences"); } }
         private List<string> _explicitNullValueRequiredEvidences = default!;
 #endif
         /// <summary>

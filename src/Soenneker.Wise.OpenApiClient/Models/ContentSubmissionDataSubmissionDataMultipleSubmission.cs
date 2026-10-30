@@ -17,7 +17,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("multiple") is { } nullNodeMultiple && nullNodeMultiple.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Multiple = null;
+            if (parseNode.GetChildNode("multiple") is null) { _explicitNullValueMultiple = default!; _explicitNullProperties?.Remove("multiple"); }
+            else if (parseNode.GetChildNode("multiple") is { } nullNodeMultiple && nullNodeMultiple.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Multiple = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -25,11 +26,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The multiple property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.ContentSubmissionDataSubmissionDataMultipleSubmissionMultiple? Multiple { get => _explicitNullValueMultiple; set { _explicitNullValueMultiple = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("multiple"); else _explicitNullProperties?.Remove("multiple"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.ContentSubmissionDataSubmissionDataMultipleSubmissionMultiple? Multiple { get => _explicitNullValueMultiple; set { _explicitNullValueMultiple = value; AdditionalData?.Remove("multiple"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("multiple"); else _explicitNullProperties?.Remove("multiple"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.ContentSubmissionDataSubmissionDataMultipleSubmissionMultiple? _explicitNullValueMultiple = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.ContentSubmissionDataSubmissionDataMultipleSubmissionMultiple Multiple { get => _explicitNullValueMultiple; set { _explicitNullValueMultiple = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("multiple"); else _explicitNullProperties?.Remove("multiple"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.ContentSubmissionDataSubmissionDataMultipleSubmissionMultiple Multiple { get => _explicitNullValueMultiple; set { _explicitNullValueMultiple = value; AdditionalData?.Remove("multiple"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("multiple"); else _explicitNullProperties?.Remove("multiple"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.ContentSubmissionDataSubmissionDataMultipleSubmissionMultiple _explicitNullValueMultiple = default!;
 #endif
         /// <summary>

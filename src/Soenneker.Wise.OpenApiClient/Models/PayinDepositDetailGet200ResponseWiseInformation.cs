@@ -18,8 +18,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("localAddress") is { } nullNodeLocalAddress && nullNodeLocalAddress.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) LocalAddress = null;
-            if (parseNode.GetChildNode("localCompanyName") is { } nullNodeLocalCompanyName && nullNodeLocalCompanyName.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) LocalCompanyName = null;
+            if (parseNode.GetChildNode("localAddress") is null) { _explicitNullValueLocalAddress = default!; _explicitNullProperties?.Remove("localAddress"); }
+            else if (parseNode.GetChildNode("localAddress") is { } nullNodeLocalAddress && nullNodeLocalAddress.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) LocalAddress = null;
+            if (parseNode.GetChildNode("localCompanyName") is null) { _explicitNullValueLocalCompanyName = default!; _explicitNullProperties?.Remove("localCompanyName"); }
+            else if (parseNode.GetChildNode("localCompanyName") is { } nullNodeLocalCompanyName && nullNodeLocalCompanyName.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) LocalCompanyName = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -27,21 +29,21 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Wise local address.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.PayinDepositDetailGet200ResponseWiseInformationLocalAddress? LocalAddress { get => _explicitNullValueLocalAddress; set { _explicitNullValueLocalAddress = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("localAddress"); else _explicitNullProperties?.Remove("localAddress"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.PayinDepositDetailGet200ResponseWiseInformationLocalAddress? LocalAddress { get => _explicitNullValueLocalAddress; set { _explicitNullValueLocalAddress = value; AdditionalData?.Remove("localAddress"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("localAddress"); else _explicitNullProperties?.Remove("localAddress"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.PayinDepositDetailGet200ResponseWiseInformationLocalAddress? _explicitNullValueLocalAddress = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.PayinDepositDetailGet200ResponseWiseInformationLocalAddress LocalAddress { get => _explicitNullValueLocalAddress; set { _explicitNullValueLocalAddress = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("localAddress"); else _explicitNullProperties?.Remove("localAddress"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.PayinDepositDetailGet200ResponseWiseInformationLocalAddress LocalAddress { get => _explicitNullValueLocalAddress; set { _explicitNullValueLocalAddress = value; AdditionalData?.Remove("localAddress"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("localAddress"); else _explicitNullProperties?.Remove("localAddress"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.PayinDepositDetailGet200ResponseWiseInformationLocalAddress _explicitNullValueLocalAddress = default!;
 #endif
         /// <summary>Wise local company name.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? LocalCompanyName { get => _explicitNullValueLocalCompanyName; set { _explicitNullValueLocalCompanyName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("localCompanyName"); else _explicitNullProperties?.Remove("localCompanyName"); } }
+        public string? LocalCompanyName { get => _explicitNullValueLocalCompanyName; set { _explicitNullValueLocalCompanyName = value; AdditionalData?.Remove("localCompanyName"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("localCompanyName"); else _explicitNullProperties?.Remove("localCompanyName"); } }
         private string? _explicitNullValueLocalCompanyName = default!;
 #nullable restore
 #else
-        public string LocalCompanyName { get => _explicitNullValueLocalCompanyName; set { _explicitNullValueLocalCompanyName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("localCompanyName"); else _explicitNullProperties?.Remove("localCompanyName"); } }
+        public string LocalCompanyName { get => _explicitNullValueLocalCompanyName; set { _explicitNullValueLocalCompanyName = value; AdditionalData?.Remove("localCompanyName"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("localCompanyName"); else _explicitNullProperties?.Remove("localCompanyName"); } }
         private string _explicitNullValueLocalCompanyName = default!;
 #endif
         /// <summary>

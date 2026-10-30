@@ -17,27 +17,30 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("current_status") is { } nullNodeCurrentStatus && nullNodeCurrentStatus.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CurrentStatus = null;
-            if (parseNode.GetChildNode("maximum_entitled_amount") is { } nullNodeMaximumEntitledAmount && nullNodeMaximumEntitledAmount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) MaximumEntitledAmount = null;
-            if (parseNode.GetChildNode("source_currency") is { } nullNodeSourceCurrency && nullNodeSourceCurrency.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SourceCurrency = null;
+            if (parseNode.GetChildNode("current_status") is null) { _explicitNullValueCurrentStatus = default!; _explicitNullProperties?.Remove("current_status"); }
+            else if (parseNode.GetChildNode("current_status") is { } nullNodeCurrentStatus && nullNodeCurrentStatus.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CurrentStatus = null;
+            if (parseNode.GetChildNode("maximum_entitled_amount") is null) { _explicitNullValueMaximumEntitledAmount = default!; _explicitNullProperties?.Remove("maximum_entitled_amount"); }
+            else if (parseNode.GetChildNode("maximum_entitled_amount") is { } nullNodeMaximumEntitledAmount && nullNodeMaximumEntitledAmount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) MaximumEntitledAmount = null;
+            if (parseNode.GetChildNode("source_currency") is null) { _explicitNullValueSourceCurrency = default!; _explicitNullProperties?.Remove("source_currency"); }
+            else if (parseNode.GetChildNode("source_currency") is { } nullNodeSourceCurrency && nullNodeSourceCurrency.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SourceCurrency = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Current verification status.- `verified` — Profile is verified. `maximum_entitled_amount` can be ignored (note that some regional limits may still apply).- `not_verified` with `maximum_entitled_amount: 0` — Profile is not verified. Any payments from the user will be delayed by verification.- `not_verified` with `maximum_entitled_amount &gt; 0` — Profile is not yet verified but the user can make payments up to a cumulative limit. Once reached, further payments may be delayed by additional verification requirements.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.ProfileVerificationStatusCheck200ResponseRoutesItemCurrentStatus? CurrentStatus { get => _explicitNullValueCurrentStatus; set { _explicitNullValueCurrentStatus = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("current_status"); else _explicitNullProperties?.Remove("current_status"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.ProfileVerificationStatusCheck200ResponseRoutesItemCurrentStatus? CurrentStatus { get => _explicitNullValueCurrentStatus; set { _explicitNullValueCurrentStatus = value; AdditionalData?.Remove("current_status"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("current_status"); else _explicitNullProperties?.Remove("current_status"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.ProfileVerificationStatusCheck200ResponseRoutesItemCurrentStatus? _explicitNullValueCurrentStatus = default!;
         /// <summary>Maximum entitled amount that can be transferred with the user&apos;s given verification state.</summary>
-        public double? MaximumEntitledAmount { get => _explicitNullValueMaximumEntitledAmount; set { _explicitNullValueMaximumEntitledAmount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("maximum_entitled_amount"); else _explicitNullProperties?.Remove("maximum_entitled_amount"); } }
+        public double? MaximumEntitledAmount { get => _explicitNullValueMaximumEntitledAmount; set { _explicitNullValueMaximumEntitledAmount = value; AdditionalData?.Remove("maximum_entitled_amount"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("maximum_entitled_amount"); else _explicitNullProperties?.Remove("maximum_entitled_amount"); } }
         private double? _explicitNullValueMaximumEntitledAmount = default!;
         /// <summary>ISO 4217 currency code.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? SourceCurrency { get => _explicitNullValueSourceCurrency; set { _explicitNullValueSourceCurrency = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("source_currency"); else _explicitNullProperties?.Remove("source_currency"); } }
+        public string? SourceCurrency { get => _explicitNullValueSourceCurrency; set { _explicitNullValueSourceCurrency = value; AdditionalData?.Remove("source_currency"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("source_currency"); else _explicitNullProperties?.Remove("source_currency"); } }
         private string? _explicitNullValueSourceCurrency = default!;
 #nullable restore
 #else
-        public string SourceCurrency { get => _explicitNullValueSourceCurrency; set { _explicitNullValueSourceCurrency = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("source_currency"); else _explicitNullProperties?.Remove("source_currency"); } }
+        public string SourceCurrency { get => _explicitNullValueSourceCurrency; set { _explicitNullValueSourceCurrency = value; AdditionalData?.Remove("source_currency"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("source_currency"); else _explicitNullProperties?.Remove("source_currency"); } }
         private string _explicitNullValueSourceCurrency = default!;
 #endif
         /// <summary>
@@ -65,7 +68,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "current_status", n => { CurrentStatus = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileVerificationStatusCheck200ResponseRoutesItemCurrentStatus>(); } },
+                { "current_status", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileVerificationStatusCheck200ResponseRoutesItemCurrentStatus>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueCurrentStatus = default; _explicitNullProperties?.Remove("current_status"); AdditionalData["current_status"] = unknown; } else { CurrentStatus = parsed; AdditionalData.Remove("current_status"); } } },
                 { "maximum_entitled_amount", n => { MaximumEntitledAmount = n.GetDoubleValue(); } },
                 { "source_currency", n => { SourceCurrency = n.GetStringValue(); } },
             };

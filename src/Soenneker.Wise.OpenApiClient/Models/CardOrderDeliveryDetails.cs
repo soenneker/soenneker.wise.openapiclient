@@ -18,45 +18,49 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("deliveryOption") is { } nullNodeDeliveryOption && nullNodeDeliveryOption.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) DeliveryOption = null;
-            if (parseNode.GetChildNode("deliveryVendor") is { } nullNodeDeliveryVendor && nullNodeDeliveryVendor.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) DeliveryVendor = null;
-            if (parseNode.GetChildNode("trackingNumber") is { } nullNodeTrackingNumber && nullNodeTrackingNumber.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TrackingNumber = null;
-            if (parseNode.GetChildNode("trackingUrl") is { } nullNodeTrackingUrl && nullNodeTrackingUrl.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TrackingUrl = null;
+            if (parseNode.GetChildNode("deliveryOption") is null) { _explicitNullValueDeliveryOption = default!; _explicitNullProperties?.Remove("deliveryOption"); }
+            else if (parseNode.GetChildNode("deliveryOption") is { } nullNodeDeliveryOption && nullNodeDeliveryOption.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) DeliveryOption = null;
+            if (parseNode.GetChildNode("deliveryVendor") is null) { _explicitNullValueDeliveryVendor = default!; _explicitNullProperties?.Remove("deliveryVendor"); }
+            else if (parseNode.GetChildNode("deliveryVendor") is { } nullNodeDeliveryVendor && nullNodeDeliveryVendor.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) DeliveryVendor = null;
+            if (parseNode.GetChildNode("trackingNumber") is null) { _explicitNullValueTrackingNumber = default!; _explicitNullProperties?.Remove("trackingNumber"); }
+            else if (parseNode.GetChildNode("trackingNumber") is { } nullNodeTrackingNumber && nullNodeTrackingNumber.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TrackingNumber = null;
+            if (parseNode.GetChildNode("trackingUrl") is null) { _explicitNullValueTrackingUrl = default!; _explicitNullProperties?.Remove("trackingUrl"); }
+            else if (parseNode.GetChildNode("trackingUrl") is { } nullNodeTrackingUrl && nullNodeTrackingUrl.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TrackingUrl = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The delivery option used on the card order.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.CardOrderDeliveryDetailsDeliveryOption? DeliveryOption { get => _explicitNullValueDeliveryOption; set { _explicitNullValueDeliveryOption = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("deliveryOption"); else _explicitNullProperties?.Remove("deliveryOption"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardOrderDeliveryDetailsDeliveryOption? DeliveryOption { get => _explicitNullValueDeliveryOption; set { _explicitNullValueDeliveryOption = value; AdditionalData?.Remove("deliveryOption"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("deliveryOption"); else _explicitNullProperties?.Remove("deliveryOption"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.CardOrderDeliveryDetailsDeliveryOption? _explicitNullValueDeliveryOption = default!;
         /// <summary>The name of the delivery vendor.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? DeliveryVendor { get => _explicitNullValueDeliveryVendor; set { _explicitNullValueDeliveryVendor = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("deliveryVendor"); else _explicitNullProperties?.Remove("deliveryVendor"); } }
+        public string? DeliveryVendor { get => _explicitNullValueDeliveryVendor; set { _explicitNullValueDeliveryVendor = value; AdditionalData?.Remove("deliveryVendor"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("deliveryVendor"); else _explicitNullProperties?.Remove("deliveryVendor"); } }
         private string? _explicitNullValueDeliveryVendor = default!;
 #nullable restore
 #else
-        public string DeliveryVendor { get => _explicitNullValueDeliveryVendor; set { _explicitNullValueDeliveryVendor = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("deliveryVendor"); else _explicitNullProperties?.Remove("deliveryVendor"); } }
+        public string DeliveryVendor { get => _explicitNullValueDeliveryVendor; set { _explicitNullValueDeliveryVendor = value; AdditionalData?.Remove("deliveryVendor"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("deliveryVendor"); else _explicitNullProperties?.Remove("deliveryVendor"); } }
         private string _explicitNullValueDeliveryVendor = default!;
 #endif
         /// <summary>The tracking number of the card delivery.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? TrackingNumber { get => _explicitNullValueTrackingNumber; set { _explicitNullValueTrackingNumber = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("trackingNumber"); else _explicitNullProperties?.Remove("trackingNumber"); } }
+        public string? TrackingNumber { get => _explicitNullValueTrackingNumber; set { _explicitNullValueTrackingNumber = value; AdditionalData?.Remove("trackingNumber"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("trackingNumber"); else _explicitNullProperties?.Remove("trackingNumber"); } }
         private string? _explicitNullValueTrackingNumber = default!;
 #nullable restore
 #else
-        public string TrackingNumber { get => _explicitNullValueTrackingNumber; set { _explicitNullValueTrackingNumber = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("trackingNumber"); else _explicitNullProperties?.Remove("trackingNumber"); } }
+        public string TrackingNumber { get => _explicitNullValueTrackingNumber; set { _explicitNullValueTrackingNumber = value; AdditionalData?.Remove("trackingNumber"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("trackingNumber"); else _explicitNullProperties?.Remove("trackingNumber"); } }
         private string _explicitNullValueTrackingNumber = default!;
 #endif
         /// <summary>The URL to track the card delivery.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? TrackingUrl { get => _explicitNullValueTrackingUrl; set { _explicitNullValueTrackingUrl = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("trackingUrl"); else _explicitNullProperties?.Remove("trackingUrl"); } }
+        public string? TrackingUrl { get => _explicitNullValueTrackingUrl; set { _explicitNullValueTrackingUrl = value; AdditionalData?.Remove("trackingUrl"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("trackingUrl"); else _explicitNullProperties?.Remove("trackingUrl"); } }
         private string? _explicitNullValueTrackingUrl = default!;
 #nullable restore
 #else
-        public string TrackingUrl { get => _explicitNullValueTrackingUrl; set { _explicitNullValueTrackingUrl = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("trackingUrl"); else _explicitNullProperties?.Remove("trackingUrl"); } }
+        public string TrackingUrl { get => _explicitNullValueTrackingUrl; set { _explicitNullValueTrackingUrl = value; AdditionalData?.Remove("trackingUrl"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("trackingUrl"); else _explicitNullProperties?.Remove("trackingUrl"); } }
         private string _explicitNullValueTrackingUrl = default!;
 #endif
         /// <summary>
@@ -84,7 +88,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "deliveryOption", n => { DeliveryOption = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CardOrderDeliveryDetailsDeliveryOption>(); } },
+                { "deliveryOption", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CardOrderDeliveryDetailsDeliveryOption>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueDeliveryOption = default; _explicitNullProperties?.Remove("deliveryOption"); AdditionalData["deliveryOption"] = unknown; } else { DeliveryOption = parsed; AdditionalData.Remove("deliveryOption"); } } },
                 { "deliveryVendor", n => { DeliveryVendor = n.GetStringValue(); } },
                 { "trackingNumber", n => { TrackingNumber = n.GetStringValue(); } },
                 { "trackingUrl", n => { TrackingUrl = n.GetStringValue(); } },

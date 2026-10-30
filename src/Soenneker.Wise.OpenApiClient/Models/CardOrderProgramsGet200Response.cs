@@ -17,7 +17,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("cardPrograms") is { } nullNodeCardPrograms && nullNodeCardPrograms.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CardPrograms = null;
+            if (parseNode.GetChildNode("cardPrograms") is null) { _explicitNullValueCardPrograms = default!; _explicitNullProperties?.Remove("cardPrograms"); }
+            else if (parseNode.GetChildNode("cardPrograms") is { } nullNodeCardPrograms && nullNodeCardPrograms.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CardPrograms = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -25,11 +26,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>List of available card programs. A Card Program is what Wise refers to all the cards that you will be issuing with us, grouped by product type and by issuing country.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.CardOrderProgramsGet200ResponseCardProgramsItem>? CardPrograms { get => _explicitNullValueCardPrograms; set { _explicitNullValueCardPrograms = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("cardPrograms"); else _explicitNullProperties?.Remove("cardPrograms"); } }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.CardOrderProgramsGet200ResponseCardProgramsItem>? CardPrograms { get => _explicitNullValueCardPrograms; set { _explicitNullValueCardPrograms = value; AdditionalData?.Remove("cardPrograms"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("cardPrograms"); else _explicitNullProperties?.Remove("cardPrograms"); } }
         private List<global::Soenneker.Wise.OpenApiClient.Models.CardOrderProgramsGet200ResponseCardProgramsItem>? _explicitNullValueCardPrograms = default!;
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.CardOrderProgramsGet200ResponseCardProgramsItem> CardPrograms { get => _explicitNullValueCardPrograms; set { _explicitNullValueCardPrograms = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("cardPrograms"); else _explicitNullProperties?.Remove("cardPrograms"); } }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.CardOrderProgramsGet200ResponseCardProgramsItem> CardPrograms { get => _explicitNullValueCardPrograms; set { _explicitNullValueCardPrograms = value; AdditionalData?.Remove("cardPrograms"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("cardPrograms"); else _explicitNullProperties?.Remove("cardPrograms"); } }
         private List<global::Soenneker.Wise.OpenApiClient.Models.CardOrderProgramsGet200ResponseCardProgramsItem> _explicitNullValueCardPrograms = default!;
 #endif
         /// <summary>

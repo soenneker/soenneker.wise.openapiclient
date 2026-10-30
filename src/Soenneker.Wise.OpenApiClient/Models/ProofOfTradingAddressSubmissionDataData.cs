@@ -17,17 +17,19 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("documentType") is { } nullNodeDocumentType && nullNodeDocumentType.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) DocumentType = null;
-            if (parseNode.GetChildNode("tradingAddressId") is { } nullNodeTradingAddressId && nullNodeTradingAddressId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TradingAddressId = null;
+            if (parseNode.GetChildNode("documentType") is null) { _explicitNullValueDocumentType = default!; _explicitNullProperties?.Remove("documentType"); }
+            else if (parseNode.GetChildNode("documentType") is { } nullNodeDocumentType && nullNodeDocumentType.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) DocumentType = null;
+            if (parseNode.GetChildNode("tradingAddressId") is null) { _explicitNullValueTradingAddressId = default!; _explicitNullProperties?.Remove("tradingAddressId"); }
+            else if (parseNode.GetChildNode("tradingAddressId") is { } nullNodeTradingAddressId && nullNodeTradingAddressId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TradingAddressId = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The documentType property</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.ProofOfTradingAddressSubmissionDataDataDocumentType? DocumentType { get => _explicitNullValueDocumentType; set { _explicitNullValueDocumentType = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("documentType"); else _explicitNullProperties?.Remove("documentType"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.ProofOfTradingAddressSubmissionDataDataDocumentType? DocumentType { get => _explicitNullValueDocumentType; set { _explicitNullValueDocumentType = value; AdditionalData?.Remove("documentType"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("documentType"); else _explicitNullProperties?.Remove("documentType"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.ProofOfTradingAddressSubmissionDataDataDocumentType? _explicitNullValueDocumentType = default!;
         /// <summary>The trading address ID, from the addresses on the business profile.</summary>
-        public long? TradingAddressId { get => _explicitNullValueTradingAddressId; set { _explicitNullValueTradingAddressId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("tradingAddressId"); else _explicitNullProperties?.Remove("tradingAddressId"); } }
+        public long? TradingAddressId { get => _explicitNullValueTradingAddressId; set { _explicitNullValueTradingAddressId = value; AdditionalData?.Remove("tradingAddressId"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("tradingAddressId"); else _explicitNullProperties?.Remove("tradingAddressId"); } }
         private long? _explicitNullValueTradingAddressId = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.ProofOfTradingAddressSubmissionDataData"/> and sets the default values.
@@ -54,7 +56,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "documentType", n => { DocumentType = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ProofOfTradingAddressSubmissionDataDataDocumentType>(); } },
+                { "documentType", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ProofOfTradingAddressSubmissionDataDataDocumentType>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueDocumentType = default; _explicitNullProperties?.Remove("documentType"); AdditionalData["documentType"] = unknown; } else { DocumentType = parsed; AdditionalData.Remove("documentType"); } } },
                 { "tradingAddressId", n => { TradingAddressId = n.GetLongValue(); } },
             };
         }

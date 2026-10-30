@@ -17,23 +17,25 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("challengeStatus") is { } nullNodeChallengeStatus && nullNodeChallengeStatus.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ChallengeStatus = null;
-            if (parseNode.GetChildNode("transactionReference") is { } nullNodeTransactionReference && nullNodeTransactionReference.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TransactionReference = null;
+            if (parseNode.GetChildNode("challengeStatus") is null) { _explicitNullValueChallengeStatus = default!; _explicitNullProperties?.Remove("challengeStatus"); }
+            else if (parseNode.GetChildNode("challengeStatus") is { } nullNodeChallengeStatus && nullNodeChallengeStatus.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ChallengeStatus = null;
+            if (parseNode.GetChildNode("transactionReference") is null) { _explicitNullValueTransactionReference = default!; _explicitNullProperties?.Remove("transactionReference"); }
+            else if (parseNode.GetChildNode("transactionReference") is { } nullNodeTransactionReference && nullNodeTransactionReference.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TransactionReference = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The customer&apos;s response to the 3DS challenge.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.ChallengeResultRequestChallengeStatus? ChallengeStatus { get => _explicitNullValueChallengeStatus; set { _explicitNullValueChallengeStatus = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("challengeStatus"); else _explicitNullProperties?.Remove("challengeStatus"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.ChallengeResultRequestChallengeStatus? ChallengeStatus { get => _explicitNullValueChallengeStatus; set { _explicitNullValueChallengeStatus = value; AdditionalData?.Remove("challengeStatus"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("challengeStatus"); else _explicitNullProperties?.Remove("challengeStatus"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.ChallengeResultRequestChallengeStatus? _explicitNullValueChallengeStatus = default!;
         /// <summary>Transaction reference as received in the 3DS challenge webhook event.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? TransactionReference { get => _explicitNullValueTransactionReference; set { _explicitNullValueTransactionReference = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("transactionReference"); else _explicitNullProperties?.Remove("transactionReference"); } }
+        public string? TransactionReference { get => _explicitNullValueTransactionReference; set { _explicitNullValueTransactionReference = value; AdditionalData?.Remove("transactionReference"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("transactionReference"); else _explicitNullProperties?.Remove("transactionReference"); } }
         private string? _explicitNullValueTransactionReference = default!;
 #nullable restore
 #else
-        public string TransactionReference { get => _explicitNullValueTransactionReference; set { _explicitNullValueTransactionReference = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("transactionReference"); else _explicitNullProperties?.Remove("transactionReference"); } }
+        public string TransactionReference { get => _explicitNullValueTransactionReference; set { _explicitNullValueTransactionReference = value; AdditionalData?.Remove("transactionReference"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("transactionReference"); else _explicitNullProperties?.Remove("transactionReference"); } }
         private string _explicitNullValueTransactionReference = default!;
 #endif
         /// <summary>
@@ -61,7 +63,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "challengeStatus", n => { ChallengeStatus = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ChallengeResultRequestChallengeStatus>(); } },
+                { "challengeStatus", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ChallengeResultRequestChallengeStatus>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueChallengeStatus = default; _explicitNullProperties?.Remove("challengeStatus"); AdditionalData["challengeStatus"] = unknown; } else { ChallengeStatus = parsed; AdditionalData.Remove("challengeStatus"); } } },
                 { "transactionReference", n => { TransactionReference = n.GetStringValue(); } },
             };
         }

@@ -17,8 +17,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("details") is { } nullNodeDetails && nullNodeDetails.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Details = null;
-            if (parseNode.GetChildNode("qrCodeInBase64") is { } nullNodeQrCodeInBase64 && nullNodeQrCodeInBase64.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) QrCodeInBase64 = null;
+            if (parseNode.GetChildNode("details") is null) { _explicitNullValueDetails = default!; _explicitNullProperties?.Remove("details"); }
+            else if (parseNode.GetChildNode("details") is { } nullNodeDetails && nullNodeDetails.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Details = null;
+            if (parseNode.GetChildNode("qrCodeInBase64") is null) { _explicitNullValueQrCodeInBase64 = default!; _explicitNullProperties?.Remove("qrCodeInBase64"); }
+            else if (parseNode.GetChildNode("qrCodeInBase64") is { } nullNodeQrCodeInBase64 && nullNodeQrCodeInBase64.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) QrCodeInBase64 = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -26,21 +28,21 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Manual input details that can be used by the end user to make the transfer without scanning the QR image.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.PaynowCreate200ResponseDetails? Details { get => _explicitNullValueDetails; set { _explicitNullValueDetails = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("details"); else _explicitNullProperties?.Remove("details"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.PaynowCreate200ResponseDetails? Details { get => _explicitNullValueDetails; set { _explicitNullValueDetails = value; AdditionalData?.Remove("details"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("details"); else _explicitNullProperties?.Remove("details"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.PaynowCreate200ResponseDetails? _explicitNullValueDetails = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.PaynowCreate200ResponseDetails Details { get => _explicitNullValueDetails; set { _explicitNullValueDetails = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("details"); else _explicitNullProperties?.Remove("details"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.PaynowCreate200ResponseDetails Details { get => _explicitNullValueDetails; set { _explicitNullValueDetails = value; AdditionalData?.Remove("details"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("details"); else _explicitNullProperties?.Remove("details"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.PaynowCreate200ResponseDetails _explicitNullValueDetails = default!;
 #endif
         /// <summary>An encoded QR image in base64 format, which can be decoded and displayed directly to the end user.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? QrCodeInBase64 { get => _explicitNullValueQrCodeInBase64; set { _explicitNullValueQrCodeInBase64 = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("qrCodeInBase64"); else _explicitNullProperties?.Remove("qrCodeInBase64"); } }
+        public string? QrCodeInBase64 { get => _explicitNullValueQrCodeInBase64; set { _explicitNullValueQrCodeInBase64 = value; AdditionalData?.Remove("qrCodeInBase64"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("qrCodeInBase64"); else _explicitNullProperties?.Remove("qrCodeInBase64"); } }
         private string? _explicitNullValueQrCodeInBase64 = default!;
 #nullable restore
 #else
-        public string QrCodeInBase64 { get => _explicitNullValueQrCodeInBase64; set { _explicitNullValueQrCodeInBase64 = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("qrCodeInBase64"); else _explicitNullProperties?.Remove("qrCodeInBase64"); } }
+        public string QrCodeInBase64 { get => _explicitNullValueQrCodeInBase64; set { _explicitNullValueQrCodeInBase64 = value; AdditionalData?.Remove("qrCodeInBase64"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("qrCodeInBase64"); else _explicitNullProperties?.Remove("qrCodeInBase64"); } }
         private string _explicitNullValueQrCodeInBase64 = default!;
 #endif
         /// <summary>

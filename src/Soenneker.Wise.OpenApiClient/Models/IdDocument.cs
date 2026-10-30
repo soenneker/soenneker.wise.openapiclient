@@ -18,8 +18,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("files") is { } nullNodeFiles && nullNodeFiles.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Files = null;
-            if (parseNode.GetChildNode("submissionData") is { } nullNodeSubmissionData && nullNodeSubmissionData.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SubmissionData = null;
+            if (parseNode.GetChildNode("files") is null) { _explicitNullValueFiles = default!; _explicitNullProperties?.Remove("files"); }
+            else if (parseNode.GetChildNode("files") is { } nullNodeFiles && nullNodeFiles.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Files = null;
+            if (parseNode.GetChildNode("submissionData") is null) { _explicitNullValueSubmissionData = default!; _explicitNullProperties?.Remove("submissionData"); }
+            else if (parseNode.GetChildNode("submissionData") is { } nullNodeSubmissionData && nullNodeSubmissionData.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SubmissionData = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -27,21 +29,21 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Upload the ID document, with file names matching `frontSideFileName` and `backSideFileName`.Accepted file types: `image/png` (`.png`), `image/jpeg` (`.jpg` or `.jpeg`) and `application/pdf` (`.pdf`). The content type must match the file extension.```json {% title=&quot;Example&quot; %}[&quot;front_side.jpg&quot;, &quot;back_side.jpg&quot;]```</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<byte[]>? Files { get => _explicitNullValueFiles; set { _explicitNullValueFiles = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("files"); else _explicitNullProperties?.Remove("files"); } }
+        public List<byte[]>? Files { get => _explicitNullValueFiles; set { _explicitNullValueFiles = value; AdditionalData?.Remove("files"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("files"); else _explicitNullProperties?.Remove("files"); } }
         private List<byte[]>? _explicitNullValueFiles = default!;
 #nullable restore
 #else
-        public List<byte[]> Files { get => _explicitNullValueFiles; set { _explicitNullValueFiles = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("files"); else _explicitNullProperties?.Remove("files"); } }
+        public List<byte[]> Files { get => _explicitNullValueFiles; set { _explicitNullValueFiles = value; AdditionalData?.Remove("files"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("files"); else _explicitNullProperties?.Remove("files"); } }
         private List<byte[]> _explicitNullValueFiles = default!;
 #endif
         /// <summary>```json {% title=&quot;Example&quot; %}{  &quot;data&quot;: {    &quot;issuingCountry&quot;: &quot;GB&quot;,    &quot;documentType&quot;: &quot;DRIVERS_LICENSE&quot;,    &quot;frontSideFileName&quot;: &quot;front_side.jpg&quot;,    &quot;backSideFileName&quot;: &quot;back_side.jpg&quot;  },  &quot;version&quot;: &quot;V1&quot;,  &quot;kycReviewId&quot;: &quot;93a903ea-636c-4c86-a25c-cf6d2bd00e81&quot;}```</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.IdDocumentSubmissionData? SubmissionData { get => _explicitNullValueSubmissionData; set { _explicitNullValueSubmissionData = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("submissionData"); else _explicitNullProperties?.Remove("submissionData"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.IdDocumentSubmissionData? SubmissionData { get => _explicitNullValueSubmissionData; set { _explicitNullValueSubmissionData = value; AdditionalData?.Remove("submissionData"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("submissionData"); else _explicitNullProperties?.Remove("submissionData"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.IdDocumentSubmissionData? _explicitNullValueSubmissionData = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.IdDocumentSubmissionData SubmissionData { get => _explicitNullValueSubmissionData; set { _explicitNullValueSubmissionData = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("submissionData"); else _explicitNullProperties?.Remove("submissionData"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.IdDocumentSubmissionData SubmissionData { get => _explicitNullValueSubmissionData; set { _explicitNullValueSubmissionData = value; AdditionalData?.Remove("submissionData"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("submissionData"); else _explicitNullProperties?.Remove("submissionData"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.IdDocumentSubmissionData _explicitNullValueSubmissionData = default!;
 #endif
         /// <summary>
@@ -69,7 +71,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "files", n => { Files = n.GetCollectionOfPrimitiveValues<byte[]>()?.AsList(); } },
+                { "files", n => { Files = global::System.Linq.Enumerable.Select(n.GetCollectionOfPrimitiveValues<string>(), value => value == null ? null! : global::System.Convert.FromBase64String(value))?.AsList(); } },
                 { "submissionData", n => { SubmissionData = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.IdDocumentSubmissionData>(global::Soenneker.Wise.OpenApiClient.Models.IdDocumentSubmissionData.CreateFromDiscriminatorValue); } },
             };
         }
@@ -80,7 +82,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteCollectionOfPrimitiveValues<byte[]>("files", Files);
+            writer.WriteCollectionOfPrimitiveValues<string>("files", Files == null ? null : global::System.Linq.Enumerable.Select(Files, value => value == null ? null! : global::System.Convert.ToBase64String(value)));
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.IdDocumentSubmissionData>("submissionData", SubmissionData);
             if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);

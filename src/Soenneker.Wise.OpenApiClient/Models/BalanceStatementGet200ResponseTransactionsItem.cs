@@ -17,14 +17,22 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("amount") is { } nullNodeAmount && nullNodeAmount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Amount = null;
-            if (parseNode.GetChildNode("date") is { } nullNodeDate && nullNodeDate.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Date = null;
-            if (parseNode.GetChildNode("details") is { } nullNodeDetails && nullNodeDetails.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Details = null;
-            if (parseNode.GetChildNode("exchangeDetails") is { } nullNodeExchangeDetails && nullNodeExchangeDetails.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ExchangeDetails = null;
-            if (parseNode.GetChildNode("referenceNumber") is { } nullNodeReferenceNumber && nullNodeReferenceNumber.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ReferenceNumber = null;
-            if (parseNode.GetChildNode("runningBalance") is { } nullNodeRunningBalance && nullNodeRunningBalance.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) RunningBalance = null;
-            if (parseNode.GetChildNode("totalFees") is { } nullNodeTotalFees && nullNodeTotalFees.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TotalFees = null;
-            if (parseNode.GetChildNode("type") is { } nullNodeType && nullNodeType.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Type = null;
+            if (parseNode.GetChildNode("amount") is null) { _explicitNullValueAmount = default!; _explicitNullProperties?.Remove("amount"); }
+            else if (parseNode.GetChildNode("amount") is { } nullNodeAmount && nullNodeAmount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Amount = null;
+            if (parseNode.GetChildNode("date") is null) { _explicitNullValueDate = default!; _explicitNullProperties?.Remove("date"); }
+            else if (parseNode.GetChildNode("date") is { } nullNodeDate && nullNodeDate.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Date = null;
+            if (parseNode.GetChildNode("details") is null) { _explicitNullValueDetails = default!; _explicitNullProperties?.Remove("details"); }
+            else if (parseNode.GetChildNode("details") is { } nullNodeDetails && nullNodeDetails.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Details = null;
+            if (parseNode.GetChildNode("exchangeDetails") is null) { _explicitNullValueExchangeDetails = default!; _explicitNullProperties?.Remove("exchangeDetails"); }
+            else if (parseNode.GetChildNode("exchangeDetails") is { } nullNodeExchangeDetails && nullNodeExchangeDetails.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ExchangeDetails = null;
+            if (parseNode.GetChildNode("referenceNumber") is null) { _explicitNullValueReferenceNumber = default!; _explicitNullProperties?.Remove("referenceNumber"); }
+            else if (parseNode.GetChildNode("referenceNumber") is { } nullNodeReferenceNumber && nullNodeReferenceNumber.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ReferenceNumber = null;
+            if (parseNode.GetChildNode("runningBalance") is null) { _explicitNullValueRunningBalance = default!; _explicitNullProperties?.Remove("runningBalance"); }
+            else if (parseNode.GetChildNode("runningBalance") is { } nullNodeRunningBalance && nullNodeRunningBalance.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) RunningBalance = null;
+            if (parseNode.GetChildNode("totalFees") is null) { _explicitNullValueTotalFees = default!; _explicitNullProperties?.Remove("totalFees"); }
+            else if (parseNode.GetChildNode("totalFees") is { } nullNodeTotalFees && nullNodeTotalFees.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TotalFees = null;
+            if (parseNode.GetChildNode("type") is null) { _explicitNullValueType = default!; _explicitNullProperties?.Remove("type"); }
+            else if (parseNode.GetChildNode("type") is { } nullNodeType && nullNodeType.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Type = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -32,68 +40,68 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Transaction amount.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemAmount? Amount { get => _explicitNullValueAmount; set { _explicitNullValueAmount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("amount"); else _explicitNullProperties?.Remove("amount"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemAmount? Amount { get => _explicitNullValueAmount; set { _explicitNullValueAmount = value; AdditionalData?.Remove("amount"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("amount"); else _explicitNullProperties?.Remove("amount"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemAmount? _explicitNullValueAmount = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemAmount Amount { get => _explicitNullValueAmount; set { _explicitNullValueAmount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("amount"); else _explicitNullProperties?.Remove("amount"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemAmount Amount { get => _explicitNullValueAmount; set { _explicitNullValueAmount = value; AdditionalData?.Remove("amount"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("amount"); else _explicitNullProperties?.Remove("amount"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemAmount _explicitNullValueAmount = default!;
 #endif
         /// <summary>Date when transaction was created.</summary>
-        public DateTimeOffset? Date { get => _explicitNullValueDate; set { _explicitNullValueDate = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("date"); else _explicitNullProperties?.Remove("date"); } }
+        public DateTimeOffset? Date { get => _explicitNullValueDate; set { _explicitNullValueDate = value; AdditionalData?.Remove("date"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("date"); else _explicitNullProperties?.Remove("date"); } }
         private DateTimeOffset? _explicitNullValueDate = default!;
         /// <summary>Transaction details.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemDetails? Details { get => _explicitNullValueDetails; set { _explicitNullValueDetails = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("details"); else _explicitNullProperties?.Remove("details"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemDetails? Details { get => _explicitNullValueDetails; set { _explicitNullValueDetails = value; AdditionalData?.Remove("details"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("details"); else _explicitNullProperties?.Remove("details"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemDetails? _explicitNullValueDetails = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemDetails Details { get => _explicitNullValueDetails; set { _explicitNullValueDetails = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("details"); else _explicitNullProperties?.Remove("details"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemDetails Details { get => _explicitNullValueDetails; set { _explicitNullValueDetails = value; AdditionalData?.Remove("details"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("details"); else _explicitNullProperties?.Remove("details"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemDetails _explicitNullValueDetails = default!;
 #endif
         /// <summary>Exchange details for card transactions abroad.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemExchangeDetails? ExchangeDetails { get => _explicitNullValueExchangeDetails; set { _explicitNullValueExchangeDetails = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("exchangeDetails"); else _explicitNullProperties?.Remove("exchangeDetails"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemExchangeDetails? ExchangeDetails { get => _explicitNullValueExchangeDetails; set { _explicitNullValueExchangeDetails = value; AdditionalData?.Remove("exchangeDetails"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("exchangeDetails"); else _explicitNullProperties?.Remove("exchangeDetails"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemExchangeDetails? _explicitNullValueExchangeDetails = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemExchangeDetails ExchangeDetails { get => _explicitNullValueExchangeDetails; set { _explicitNullValueExchangeDetails = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("exchangeDetails"); else _explicitNullProperties?.Remove("exchangeDetails"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemExchangeDetails ExchangeDetails { get => _explicitNullValueExchangeDetails; set { _explicitNullValueExchangeDetails = value; AdditionalData?.Remove("exchangeDetails"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("exchangeDetails"); else _explicitNullProperties?.Remove("exchangeDetails"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemExchangeDetails _explicitNullValueExchangeDetails = default!;
 #endif
         /// <summary>Wise assigned unique transaction reference number. Can be used to map refunds to the original transfer.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? ReferenceNumber { get => _explicitNullValueReferenceNumber; set { _explicitNullValueReferenceNumber = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("referenceNumber"); else _explicitNullProperties?.Remove("referenceNumber"); } }
+        public string? ReferenceNumber { get => _explicitNullValueReferenceNumber; set { _explicitNullValueReferenceNumber = value; AdditionalData?.Remove("referenceNumber"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("referenceNumber"); else _explicitNullProperties?.Remove("referenceNumber"); } }
         private string? _explicitNullValueReferenceNumber = default!;
 #nullable restore
 #else
-        public string ReferenceNumber { get => _explicitNullValueReferenceNumber; set { _explicitNullValueReferenceNumber = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("referenceNumber"); else _explicitNullProperties?.Remove("referenceNumber"); } }
+        public string ReferenceNumber { get => _explicitNullValueReferenceNumber; set { _explicitNullValueReferenceNumber = value; AdditionalData?.Remove("referenceNumber"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("referenceNumber"); else _explicitNullProperties?.Remove("referenceNumber"); } }
         private string _explicitNullValueReferenceNumber = default!;
 #endif
         /// <summary>Running balance after the transaction.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemRunningBalance? RunningBalance { get => _explicitNullValueRunningBalance; set { _explicitNullValueRunningBalance = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("runningBalance"); else _explicitNullProperties?.Remove("runningBalance"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemRunningBalance? RunningBalance { get => _explicitNullValueRunningBalance; set { _explicitNullValueRunningBalance = value; AdditionalData?.Remove("runningBalance"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("runningBalance"); else _explicitNullProperties?.Remove("runningBalance"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemRunningBalance? _explicitNullValueRunningBalance = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemRunningBalance RunningBalance { get => _explicitNullValueRunningBalance; set { _explicitNullValueRunningBalance = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("runningBalance"); else _explicitNullProperties?.Remove("runningBalance"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemRunningBalance RunningBalance { get => _explicitNullValueRunningBalance; set { _explicitNullValueRunningBalance = value; AdditionalData?.Remove("runningBalance"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("runningBalance"); else _explicitNullProperties?.Remove("runningBalance"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemRunningBalance _explicitNullValueRunningBalance = default!;
 #endif
         /// <summary>Transaction fees.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemTotalFees? TotalFees { get => _explicitNullValueTotalFees; set { _explicitNullValueTotalFees = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("totalFees"); else _explicitNullProperties?.Remove("totalFees"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemTotalFees? TotalFees { get => _explicitNullValueTotalFees; set { _explicitNullValueTotalFees = value; AdditionalData?.Remove("totalFees"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("totalFees"); else _explicitNullProperties?.Remove("totalFees"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemTotalFees? _explicitNullValueTotalFees = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemTotalFees TotalFees { get => _explicitNullValueTotalFees; set { _explicitNullValueTotalFees = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("totalFees"); else _explicitNullProperties?.Remove("totalFees"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemTotalFees TotalFees { get => _explicitNullValueTotalFees; set { _explicitNullValueTotalFees = value; AdditionalData?.Remove("totalFees"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("totalFees"); else _explicitNullProperties?.Remove("totalFees"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemTotalFees _explicitNullValueTotalFees = default!;
 #endif
         /// <summary>Transaction direction.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemType? Type { get => _explicitNullValueType; set { _explicitNullValueType = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("type"); else _explicitNullProperties?.Remove("type"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemType? Type { get => _explicitNullValueType; set { _explicitNullValueType = value; AdditionalData?.Remove("type"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("type"); else _explicitNullProperties?.Remove("type"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemType? _explicitNullValueType = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItem"/> and sets the default values.
@@ -127,7 +135,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "referenceNumber", n => { ReferenceNumber = n.GetStringValue(); } },
                 { "runningBalance", n => { RunningBalance = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemRunningBalance>(global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemRunningBalance.CreateFromDiscriminatorValue); } },
                 { "totalFees", n => { TotalFees = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemTotalFees>(global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemTotalFees.CreateFromDiscriminatorValue); } },
-                { "type", n => { Type = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemType>(); } },
+                { "type", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemType>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueType = default; _explicitNullProperties?.Remove("type"); AdditionalData["type"] = unknown; } else { Type = parsed; AdditionalData.Remove("type"); } } },
             };
         }
         /// <summary>

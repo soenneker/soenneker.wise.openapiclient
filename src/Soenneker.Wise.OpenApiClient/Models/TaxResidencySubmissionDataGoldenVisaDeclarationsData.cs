@@ -17,8 +17,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("goldenVisaDeclaration") is { } nullNodeGoldenVisaDeclaration && nullNodeGoldenVisaDeclaration.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) GoldenVisaDeclaration = null;
-            if (parseNode.GetChildNode("taxInfoList") is { } nullNodeTaxInfoList && nullNodeTaxInfoList.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TaxInfoList = null;
+            if (parseNode.GetChildNode("goldenVisaDeclaration") is null) { _explicitNullValueGoldenVisaDeclaration = default!; _explicitNullProperties?.Remove("goldenVisaDeclaration"); }
+            else if (parseNode.GetChildNode("goldenVisaDeclaration") is { } nullNodeGoldenVisaDeclaration && nullNodeGoldenVisaDeclaration.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) GoldenVisaDeclaration = null;
+            if (parseNode.GetChildNode("taxInfoList") is null) { _explicitNullValueTaxInfoList = default!; _explicitNullProperties?.Remove("taxInfoList"); }
+            else if (parseNode.GetChildNode("taxInfoList") is { } nullNodeTaxInfoList && nullNodeTaxInfoList.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TaxInfoList = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -26,21 +28,21 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>A set of affirmations required for users holding specific residency-by-investment visas. All values must be set to `true`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.TaxResidencySubmissionDataGoldenVisaDeclarationsDataGoldenVisaDeclaration? GoldenVisaDeclaration { get => _explicitNullValueGoldenVisaDeclaration; set { _explicitNullValueGoldenVisaDeclaration = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("goldenVisaDeclaration"); else _explicitNullProperties?.Remove("goldenVisaDeclaration"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.TaxResidencySubmissionDataGoldenVisaDeclarationsDataGoldenVisaDeclaration? GoldenVisaDeclaration { get => _explicitNullValueGoldenVisaDeclaration; set { _explicitNullValueGoldenVisaDeclaration = value; AdditionalData?.Remove("goldenVisaDeclaration"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("goldenVisaDeclaration"); else _explicitNullProperties?.Remove("goldenVisaDeclaration"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.TaxResidencySubmissionDataGoldenVisaDeclarationsDataGoldenVisaDeclaration? _explicitNullValueGoldenVisaDeclaration = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.TaxResidencySubmissionDataGoldenVisaDeclarationsDataGoldenVisaDeclaration GoldenVisaDeclaration { get => _explicitNullValueGoldenVisaDeclaration; set { _explicitNullValueGoldenVisaDeclaration = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("goldenVisaDeclaration"); else _explicitNullProperties?.Remove("goldenVisaDeclaration"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.TaxResidencySubmissionDataGoldenVisaDeclarationsDataGoldenVisaDeclaration GoldenVisaDeclaration { get => _explicitNullValueGoldenVisaDeclaration; set { _explicitNullValueGoldenVisaDeclaration = value; AdditionalData?.Remove("goldenVisaDeclaration"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("goldenVisaDeclaration"); else _explicitNullProperties?.Remove("goldenVisaDeclaration"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.TaxResidencySubmissionDataGoldenVisaDeclarationsDataGoldenVisaDeclaration _explicitNullValueGoldenVisaDeclaration = default!;
 #endif
         /// <summary>A list of tax residency objects for every country where the user is a tax resident.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.TaxResidencySubmissionDataGoldenVisaDeclarationsDataTaxInfoListItem>? TaxInfoList { get => _explicitNullValueTaxInfoList; set { _explicitNullValueTaxInfoList = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("taxInfoList"); else _explicitNullProperties?.Remove("taxInfoList"); } }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.TaxResidencySubmissionDataGoldenVisaDeclarationsDataTaxInfoListItem>? TaxInfoList { get => _explicitNullValueTaxInfoList; set { _explicitNullValueTaxInfoList = value; AdditionalData?.Remove("taxInfoList"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("taxInfoList"); else _explicitNullProperties?.Remove("taxInfoList"); } }
         private List<global::Soenneker.Wise.OpenApiClient.Models.TaxResidencySubmissionDataGoldenVisaDeclarationsDataTaxInfoListItem>? _explicitNullValueTaxInfoList = default!;
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.TaxResidencySubmissionDataGoldenVisaDeclarationsDataTaxInfoListItem> TaxInfoList { get => _explicitNullValueTaxInfoList; set { _explicitNullValueTaxInfoList = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("taxInfoList"); else _explicitNullProperties?.Remove("taxInfoList"); } }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.TaxResidencySubmissionDataGoldenVisaDeclarationsDataTaxInfoListItem> TaxInfoList { get => _explicitNullValueTaxInfoList; set { _explicitNullValueTaxInfoList = value; AdditionalData?.Remove("taxInfoList"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("taxInfoList"); else _explicitNullProperties?.Remove("taxInfoList"); } }
         private List<global::Soenneker.Wise.OpenApiClient.Models.TaxResidencySubmissionDataGoldenVisaDeclarationsDataTaxInfoListItem> _explicitNullValueTaxInfoList = default!;
 #endif
         /// <summary>

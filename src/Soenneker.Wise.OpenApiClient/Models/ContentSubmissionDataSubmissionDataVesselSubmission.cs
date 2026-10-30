@@ -17,7 +17,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("vessel") is { } nullNodeVessel && nullNodeVessel.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Vessel = null;
+            if (parseNode.GetChildNode("vessel") is null) { _explicitNullValueVessel = default!; _explicitNullProperties?.Remove("vessel"); }
+            else if (parseNode.GetChildNode("vessel") is { } nullNodeVessel && nullNodeVessel.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Vessel = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -25,11 +26,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The vessel property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.ContentSubmissionDataSubmissionDataVesselSubmissionVessel? Vessel { get => _explicitNullValueVessel; set { _explicitNullValueVessel = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("vessel"); else _explicitNullProperties?.Remove("vessel"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.ContentSubmissionDataSubmissionDataVesselSubmissionVessel? Vessel { get => _explicitNullValueVessel; set { _explicitNullValueVessel = value; AdditionalData?.Remove("vessel"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("vessel"); else _explicitNullProperties?.Remove("vessel"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.ContentSubmissionDataSubmissionDataVesselSubmissionVessel? _explicitNullValueVessel = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.ContentSubmissionDataSubmissionDataVesselSubmissionVessel Vessel { get => _explicitNullValueVessel; set { _explicitNullValueVessel = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("vessel"); else _explicitNullProperties?.Remove("vessel"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.ContentSubmissionDataSubmissionDataVesselSubmissionVessel Vessel { get => _explicitNullValueVessel; set { _explicitNullValueVessel = value; AdditionalData?.Remove("vessel"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("vessel"); else _explicitNullProperties?.Remove("vessel"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.ContentSubmissionDataSubmissionDataVesselSubmissionVessel _explicitNullValueVessel = default!;
 #endif
         /// <summary>

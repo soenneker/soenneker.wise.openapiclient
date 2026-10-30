@@ -18,11 +18,16 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("altText") is { } nullNodeAltText && nullNodeAltText.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) AltText = null;
-            if (parseNode.GetChildNode("circle") is { } nullNodeCircle && nullNodeCircle.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Circle = null;
-            if (parseNode.GetChildNode("inverse") is { } nullNodeInverse && nullNodeInverse.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Inverse = null;
-            if (parseNode.GetChildNode("normal") is { } nullNodeNormal && nullNodeNormal.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Normal = null;
-            if (parseNode.GetChildNode("white") is { } nullNodeWhite && nullNodeWhite.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) White = null;
+            if (parseNode.GetChildNode("altText") is null) { _explicitNullValueAltText = default!; _explicitNullProperties?.Remove("altText"); }
+            else if (parseNode.GetChildNode("altText") is { } nullNodeAltText && nullNodeAltText.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) AltText = null;
+            if (parseNode.GetChildNode("circle") is null) { _explicitNullValueCircle = default!; _explicitNullProperties?.Remove("circle"); }
+            else if (parseNode.GetChildNode("circle") is { } nullNodeCircle && nullNodeCircle.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Circle = null;
+            if (parseNode.GetChildNode("inverse") is null) { _explicitNullValueInverse = default!; _explicitNullProperties?.Remove("inverse"); }
+            else if (parseNode.GetChildNode("inverse") is { } nullNodeInverse && nullNodeInverse.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Inverse = null;
+            if (parseNode.GetChildNode("normal") is null) { _explicitNullValueNormal = default!; _explicitNullProperties?.Remove("normal"); }
+            else if (parseNode.GetChildNode("normal") is { } nullNodeNormal && nullNodeNormal.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Normal = null;
+            if (parseNode.GetChildNode("white") is null) { _explicitNullValueWhite = default!; _explicitNullProperties?.Remove("white"); }
+            else if (parseNode.GetChildNode("white") is { } nullNodeWhite && nullNodeWhite.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) White = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -30,51 +35,51 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Alt text for the provider logo</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? AltText { get => _explicitNullValueAltText; set { _explicitNullValueAltText = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("altText"); else _explicitNullProperties?.Remove("altText"); } }
+        public string? AltText { get => _explicitNullValueAltText; set { _explicitNullValueAltText = value; AdditionalData?.Remove("altText"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("altText"); else _explicitNullProperties?.Remove("altText"); } }
         private string? _explicitNullValueAltText = default!;
 #nullable restore
 #else
-        public string AltText { get => _explicitNullValueAltText; set { _explicitNullValueAltText = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("altText"); else _explicitNullProperties?.Remove("altText"); } }
+        public string AltText { get => _explicitNullValueAltText; set { _explicitNullValueAltText = value; AdditionalData?.Remove("altText"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("altText"); else _explicitNullProperties?.Remove("altText"); } }
         private string _explicitNullValueAltText = default!;
 #endif
         /// <summary>The circle property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosCircle? Circle { get => _explicitNullValueCircle; set { _explicitNullValueCircle = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("circle"); else _explicitNullProperties?.Remove("circle"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosCircle? Circle { get => _explicitNullValueCircle; set { _explicitNullValueCircle = value; AdditionalData?.Remove("circle"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("circle"); else _explicitNullProperties?.Remove("circle"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosCircle? _explicitNullValueCircle = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosCircle Circle { get => _explicitNullValueCircle; set { _explicitNullValueCircle = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("circle"); else _explicitNullProperties?.Remove("circle"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosCircle Circle { get => _explicitNullValueCircle; set { _explicitNullValueCircle = value; AdditionalData?.Remove("circle"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("circle"); else _explicitNullProperties?.Remove("circle"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosCircle _explicitNullValueCircle = default!;
 #endif
         /// <summary>The inverse property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosInverse? Inverse { get => _explicitNullValueInverse; set { _explicitNullValueInverse = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("inverse"); else _explicitNullProperties?.Remove("inverse"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosInverse? Inverse { get => _explicitNullValueInverse; set { _explicitNullValueInverse = value; AdditionalData?.Remove("inverse"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("inverse"); else _explicitNullProperties?.Remove("inverse"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosInverse? _explicitNullValueInverse = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosInverse Inverse { get => _explicitNullValueInverse; set { _explicitNullValueInverse = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("inverse"); else _explicitNullProperties?.Remove("inverse"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosInverse Inverse { get => _explicitNullValueInverse; set { _explicitNullValueInverse = value; AdditionalData?.Remove("inverse"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("inverse"); else _explicitNullProperties?.Remove("inverse"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosInverse _explicitNullValueInverse = default!;
 #endif
         /// <summary>The normal property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosNormal? Normal { get => _explicitNullValueNormal; set { _explicitNullValueNormal = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("normal"); else _explicitNullProperties?.Remove("normal"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosNormal? Normal { get => _explicitNullValueNormal; set { _explicitNullValueNormal = value; AdditionalData?.Remove("normal"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("normal"); else _explicitNullProperties?.Remove("normal"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosNormal? _explicitNullValueNormal = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosNormal Normal { get => _explicitNullValueNormal; set { _explicitNullValueNormal = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("normal"); else _explicitNullProperties?.Remove("normal"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosNormal Normal { get => _explicitNullValueNormal; set { _explicitNullValueNormal = value; AdditionalData?.Remove("normal"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("normal"); else _explicitNullProperties?.Remove("normal"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosNormal _explicitNullValueNormal = default!;
 #endif
         /// <summary>The white property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosWhite? White { get => _explicitNullValueWhite; set { _explicitNullValueWhite = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("white"); else _explicitNullProperties?.Remove("white"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosWhite? White { get => _explicitNullValueWhite; set { _explicitNullValueWhite = value; AdditionalData?.Remove("white"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("white"); else _explicitNullProperties?.Remove("white"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosWhite? _explicitNullValueWhite = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosWhite White { get => _explicitNullValueWhite; set { _explicitNullValueWhite = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("white"); else _explicitNullProperties?.Remove("white"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosWhite White { get => _explicitNullValueWhite; set { _explicitNullValueWhite = value; AdditionalData?.Remove("white"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("white"); else _explicitNullProperties?.Remove("white"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosWhite _explicitNullValueWhite = default!;
 #endif
         /// <summary>

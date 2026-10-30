@@ -17,7 +17,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("spendLimits") is { } nullNodeSpendLimits && nullNodeSpendLimits.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SpendLimits = null;
+            if (parseNode.GetChildNode("spendLimits") is null) { _explicitNullValueSpendLimits = default!; _explicitNullProperties?.Remove("spendLimits"); }
+            else if (parseNode.GetChildNode("spendLimits") is { } nullNodeSpendLimits && nullNodeSpendLimits.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SpendLimits = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -25,11 +26,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The spendLimits property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.ProfileLimits>? SpendLimits { get => _explicitNullValueSpendLimits; set { _explicitNullValueSpendLimits = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("spendLimits"); else _explicitNullProperties?.Remove("spendLimits"); } }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.ProfileLimits>? SpendLimits { get => _explicitNullValueSpendLimits; set { _explicitNullValueSpendLimits = value; AdditionalData?.Remove("spendLimits"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("spendLimits"); else _explicitNullProperties?.Remove("spendLimits"); } }
         private List<global::Soenneker.Wise.OpenApiClient.Models.ProfileLimits>? _explicitNullValueSpendLimits = default!;
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.ProfileLimits> SpendLimits { get => _explicitNullValueSpendLimits; set { _explicitNullValueSpendLimits = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("spendLimits"); else _explicitNullProperties?.Remove("spendLimits"); } }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.ProfileLimits> SpendLimits { get => _explicitNullValueSpendLimits; set { _explicitNullValueSpendLimits = value; AdditionalData?.Remove("spendLimits"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("spendLimits"); else _explicitNullProperties?.Remove("spendLimits"); } }
         private List<global::Soenneker.Wise.OpenApiClient.Models.ProfileLimits> _explicitNullValueSpendLimits = default!;
 #endif
         /// <summary>

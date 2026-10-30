@@ -18,13 +18,14 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("value") is { } nullNodeValue && nullNodeValue.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Value = null;
+            if (parseNode.GetChildNode("value") is null) { _explicitNullValueValue = default!; _explicitNullProperties?.Remove("value"); }
+            else if (parseNode.GetChildNode("value") is { } nullNodeValue && nullNodeValue.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Value = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Status value. One of:- `ACTIVE` - Card is active and can be used- `INACTIVE` - Card is inactive and all transactions will be declined- `BLOCKED` - Card is blocked and cannot be reversed back to any state- `FROZEN` - Card is temporarily frozen; all authorization requests will be declined- `PARTNER_SUSPENDED` - Card is suspended by Wise temporarily (do not display to end customers)- `EXPIRED` - Card is expired- `PURGED` - Cardholder data (e.g. PAN, PIN) has been purged after the retention period (555 days after the card&apos;s expiry date)</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.CardStatusValue? Value { get => _explicitNullValueValue; set { _explicitNullValueValue = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("value"); else _explicitNullProperties?.Remove("value"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardStatusValue? Value { get => _explicitNullValueValue; set { _explicitNullValueValue = value; AdditionalData?.Remove("value"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("value"); else _explicitNullProperties?.Remove("value"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.CardStatusValue? _explicitNullValueValue = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.CardStatus"/> and sets the default values.
@@ -51,7 +52,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "value", n => { Value = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CardStatusValue>(); } },
+                { "value", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CardStatusValue>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueValue = default; _explicitNullProperties?.Remove("value"); AdditionalData["value"] = unknown; } else { Value = parsed; AdditionalData.Remove("value"); } } },
             };
         }
         /// <summary>

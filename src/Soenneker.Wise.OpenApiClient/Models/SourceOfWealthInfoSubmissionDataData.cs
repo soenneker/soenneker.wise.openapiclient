@@ -17,43 +17,48 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("amount") is { } nullNodeAmount && nullNodeAmount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Amount = null;
-            if (parseNode.GetChildNode("currency") is { } nullNodeCurrency && nullNodeCurrency.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Currency = null;
-            if (parseNode.GetChildNode("hasSecondaryIncome") is { } nullNodeHasSecondaryIncome && nullNodeHasSecondaryIncome.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) HasSecondaryIncome = null;
-            if (parseNode.GetChildNode("secondaryIncomeDescription") is { } nullNodeSecondaryIncomeDescription && nullNodeSecondaryIncomeDescription.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SecondaryIncomeDescription = null;
-            if (parseNode.GetChildNode("secondaryIncomeType") is { } nullNodeSecondaryIncomeType && nullNodeSecondaryIncomeType.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SecondaryIncomeType = null;
+            if (parseNode.GetChildNode("amount") is null) { _explicitNullValueAmount = default!; _explicitNullProperties?.Remove("amount"); }
+            else if (parseNode.GetChildNode("amount") is { } nullNodeAmount && nullNodeAmount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Amount = null;
+            if (parseNode.GetChildNode("currency") is null) { _explicitNullValueCurrency = default!; _explicitNullProperties?.Remove("currency"); }
+            else if (parseNode.GetChildNode("currency") is { } nullNodeCurrency && nullNodeCurrency.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Currency = null;
+            if (parseNode.GetChildNode("hasSecondaryIncome") is null) { _explicitNullValueHasSecondaryIncome = default!; _explicitNullProperties?.Remove("hasSecondaryIncome"); }
+            else if (parseNode.GetChildNode("hasSecondaryIncome") is { } nullNodeHasSecondaryIncome && nullNodeHasSecondaryIncome.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) HasSecondaryIncome = null;
+            if (parseNode.GetChildNode("secondaryIncomeDescription") is null) { _explicitNullValueSecondaryIncomeDescription = default!; _explicitNullProperties?.Remove("secondaryIncomeDescription"); }
+            else if (parseNode.GetChildNode("secondaryIncomeDescription") is { } nullNodeSecondaryIncomeDescription && nullNodeSecondaryIncomeDescription.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SecondaryIncomeDescription = null;
+            if (parseNode.GetChildNode("secondaryIncomeType") is null) { _explicitNullValueSecondaryIncomeType = default!; _explicitNullProperties?.Remove("secondaryIncomeType"); }
+            else if (parseNode.GetChildNode("secondaryIncomeType") is { } nullNodeSecondaryIncomeType && nullNodeSecondaryIncomeType.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SecondaryIncomeType = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Required when `hasSecondaryIncome` is `true`. The secondary income amount. Must be greater than zero.</summary>
-        public double? Amount { get => _explicitNullValueAmount; set { _explicitNullValueAmount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("amount"); else _explicitNullProperties?.Remove("amount"); } }
+        public double? Amount { get => _explicitNullValueAmount; set { _explicitNullValueAmount = value; AdditionalData?.Remove("amount"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("amount"); else _explicitNullProperties?.Remove("amount"); } }
         private double? _explicitNullValueAmount = default!;
         /// <summary>The currency code (e.g. `USD`, `EUR`).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Currency { get => _explicitNullValueCurrency; set { _explicitNullValueCurrency = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("currency"); else _explicitNullProperties?.Remove("currency"); } }
+        public string? Currency { get => _explicitNullValueCurrency; set { _explicitNullValueCurrency = value; AdditionalData?.Remove("currency"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("currency"); else _explicitNullProperties?.Remove("currency"); } }
         private string? _explicitNullValueCurrency = default!;
 #nullable restore
 #else
-        public string Currency { get => _explicitNullValueCurrency; set { _explicitNullValueCurrency = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("currency"); else _explicitNullProperties?.Remove("currency"); } }
+        public string Currency { get => _explicitNullValueCurrency; set { _explicitNullValueCurrency = value; AdditionalData?.Remove("currency"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("currency"); else _explicitNullProperties?.Remove("currency"); } }
         private string _explicitNullValueCurrency = default!;
 #endif
         /// <summary>Set to `true` if there&apos;s a secondary source of income.</summary>
-        public bool? HasSecondaryIncome { get => _explicitNullValueHasSecondaryIncome; set { _explicitNullValueHasSecondaryIncome = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("hasSecondaryIncome"); else _explicitNullProperties?.Remove("hasSecondaryIncome"); } }
+        public bool? HasSecondaryIncome { get => _explicitNullValueHasSecondaryIncome; set { _explicitNullValueHasSecondaryIncome = value; AdditionalData?.Remove("hasSecondaryIncome"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("hasSecondaryIncome"); else _explicitNullProperties?.Remove("hasSecondaryIncome"); } }
         private bool? _explicitNullValueHasSecondaryIncome = default!;
         /// <summary>Optional. A free-text description of the secondary income source.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? SecondaryIncomeDescription { get => _explicitNullValueSecondaryIncomeDescription; set { _explicitNullValueSecondaryIncomeDescription = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("secondaryIncomeDescription"); else _explicitNullProperties?.Remove("secondaryIncomeDescription"); } }
+        public string? SecondaryIncomeDescription { get => _explicitNullValueSecondaryIncomeDescription; set { _explicitNullValueSecondaryIncomeDescription = value; AdditionalData?.Remove("secondaryIncomeDescription"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("secondaryIncomeDescription"); else _explicitNullProperties?.Remove("secondaryIncomeDescription"); } }
         private string? _explicitNullValueSecondaryIncomeDescription = default!;
 #nullable restore
 #else
-        public string SecondaryIncomeDescription { get => _explicitNullValueSecondaryIncomeDescription; set { _explicitNullValueSecondaryIncomeDescription = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("secondaryIncomeDescription"); else _explicitNullProperties?.Remove("secondaryIncomeDescription"); } }
+        public string SecondaryIncomeDescription { get => _explicitNullValueSecondaryIncomeDescription; set { _explicitNullValueSecondaryIncomeDescription = value; AdditionalData?.Remove("secondaryIncomeDescription"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("secondaryIncomeDescription"); else _explicitNullProperties?.Remove("secondaryIncomeDescription"); } }
         private string _explicitNullValueSecondaryIncomeDescription = default!;
 #endif
         /// <summary>Required when `hasSecondaryIncome` is `true`. Accepted values for personal profiles.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.SourceOfWealthInfoSubmissionDataDataSecondaryIncomeType? SecondaryIncomeType { get => _explicitNullValueSecondaryIncomeType; set { _explicitNullValueSecondaryIncomeType = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("secondaryIncomeType"); else _explicitNullProperties?.Remove("secondaryIncomeType"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.SourceOfWealthInfoSubmissionDataDataSecondaryIncomeType? SecondaryIncomeType { get => _explicitNullValueSecondaryIncomeType; set { _explicitNullValueSecondaryIncomeType = value; AdditionalData?.Remove("secondaryIncomeType"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("secondaryIncomeType"); else _explicitNullProperties?.Remove("secondaryIncomeType"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.SourceOfWealthInfoSubmissionDataDataSecondaryIncomeType? _explicitNullValueSecondaryIncomeType = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.SourceOfWealthInfoSubmissionDataData"/> and sets the default values.
@@ -84,7 +89,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "currency", n => { Currency = n.GetStringValue(); } },
                 { "hasSecondaryIncome", n => { HasSecondaryIncome = n.GetBoolValue(); } },
                 { "secondaryIncomeDescription", n => { SecondaryIncomeDescription = n.GetStringValue(); } },
-                { "secondaryIncomeType", n => { SecondaryIncomeType = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.SourceOfWealthInfoSubmissionDataDataSecondaryIncomeType>(); } },
+                { "secondaryIncomeType", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.SourceOfWealthInfoSubmissionDataDataSecondaryIncomeType>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueSecondaryIncomeType = default; _explicitNullProperties?.Remove("secondaryIncomeType"); AdditionalData["secondaryIncomeType"] = unknown; } else { SecondaryIncomeType = parsed; AdditionalData.Remove("secondaryIncomeType"); } } },
             };
         }
         /// <summary>

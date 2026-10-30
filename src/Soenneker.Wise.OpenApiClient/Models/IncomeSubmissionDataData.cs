@@ -17,39 +17,43 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("amount") is { } nullNodeAmount && nullNodeAmount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Amount = null;
-            if (parseNode.GetChildNode("currency") is { } nullNodeCurrency && nullNodeCurrency.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Currency = null;
-            if (parseNode.GetChildNode("incomeExplanation") is { } nullNodeIncomeExplanation && nullNodeIncomeExplanation.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) IncomeExplanation = null;
-            if (parseNode.GetChildNode("incomeType") is { } nullNodeIncomeType && nullNodeIncomeType.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) IncomeType = null;
+            if (parseNode.GetChildNode("amount") is null) { _explicitNullValueAmount = default!; _explicitNullProperties?.Remove("amount"); }
+            else if (parseNode.GetChildNode("amount") is { } nullNodeAmount && nullNodeAmount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Amount = null;
+            if (parseNode.GetChildNode("currency") is null) { _explicitNullValueCurrency = default!; _explicitNullProperties?.Remove("currency"); }
+            else if (parseNode.GetChildNode("currency") is { } nullNodeCurrency && nullNodeCurrency.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Currency = null;
+            if (parseNode.GetChildNode("incomeExplanation") is null) { _explicitNullValueIncomeExplanation = default!; _explicitNullProperties?.Remove("incomeExplanation"); }
+            else if (parseNode.GetChildNode("incomeExplanation") is { } nullNodeIncomeExplanation && nullNodeIncomeExplanation.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) IncomeExplanation = null;
+            if (parseNode.GetChildNode("incomeType") is null) { _explicitNullValueIncomeType = default!; _explicitNullProperties?.Remove("incomeType"); }
+            else if (parseNode.GetChildNode("incomeType") is { } nullNodeIncomeType && nullNodeIncomeType.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) IncomeType = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The gross yearly income amount. Must be greater than zero.</summary>
-        public double? Amount { get => _explicitNullValueAmount; set { _explicitNullValueAmount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("amount"); else _explicitNullProperties?.Remove("amount"); } }
+        public double? Amount { get => _explicitNullValueAmount; set { _explicitNullValueAmount = value; AdditionalData?.Remove("amount"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("amount"); else _explicitNullProperties?.Remove("amount"); } }
         private double? _explicitNullValueAmount = default!;
         /// <summary>The currency code (e.g. `USD`, `EUR`).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Currency { get => _explicitNullValueCurrency; set { _explicitNullValueCurrency = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("currency"); else _explicitNullProperties?.Remove("currency"); } }
+        public string? Currency { get => _explicitNullValueCurrency; set { _explicitNullValueCurrency = value; AdditionalData?.Remove("currency"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("currency"); else _explicitNullProperties?.Remove("currency"); } }
         private string? _explicitNullValueCurrency = default!;
 #nullable restore
 #else
-        public string Currency { get => _explicitNullValueCurrency; set { _explicitNullValueCurrency = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("currency"); else _explicitNullProperties?.Remove("currency"); } }
+        public string Currency { get => _explicitNullValueCurrency; set { _explicitNullValueCurrency = value; AdditionalData?.Remove("currency"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("currency"); else _explicitNullProperties?.Remove("currency"); } }
         private string _explicitNullValueCurrency = default!;
 #endif
         /// <summary>Optional. A free-text description of the income source.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? IncomeExplanation { get => _explicitNullValueIncomeExplanation; set { _explicitNullValueIncomeExplanation = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("incomeExplanation"); else _explicitNullProperties?.Remove("incomeExplanation"); } }
+        public string? IncomeExplanation { get => _explicitNullValueIncomeExplanation; set { _explicitNullValueIncomeExplanation = value; AdditionalData?.Remove("incomeExplanation"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("incomeExplanation"); else _explicitNullProperties?.Remove("incomeExplanation"); } }
         private string? _explicitNullValueIncomeExplanation = default!;
 #nullable restore
 #else
-        public string IncomeExplanation { get => _explicitNullValueIncomeExplanation; set { _explicitNullValueIncomeExplanation = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("incomeExplanation"); else _explicitNullProperties?.Remove("incomeExplanation"); } }
+        public string IncomeExplanation { get => _explicitNullValueIncomeExplanation; set { _explicitNullValueIncomeExplanation = value; AdditionalData?.Remove("incomeExplanation"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("incomeExplanation"); else _explicitNullProperties?.Remove("incomeExplanation"); } }
         private string _explicitNullValueIncomeExplanation = default!;
 #endif
         /// <summary>The incomeType property</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.IncomeSubmissionDataDataIncomeType? IncomeType { get => _explicitNullValueIncomeType; set { _explicitNullValueIncomeType = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("incomeType"); else _explicitNullProperties?.Remove("incomeType"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.IncomeSubmissionDataDataIncomeType? IncomeType { get => _explicitNullValueIncomeType; set { _explicitNullValueIncomeType = value; AdditionalData?.Remove("incomeType"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("incomeType"); else _explicitNullProperties?.Remove("incomeType"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.IncomeSubmissionDataDataIncomeType? _explicitNullValueIncomeType = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.IncomeSubmissionDataData"/> and sets the default values.
@@ -79,7 +83,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "amount", n => { Amount = n.GetDoubleValue(); } },
                 { "currency", n => { Currency = n.GetStringValue(); } },
                 { "incomeExplanation", n => { IncomeExplanation = n.GetStringValue(); } },
-                { "incomeType", n => { IncomeType = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.IncomeSubmissionDataDataIncomeType>(); } },
+                { "incomeType", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.IncomeSubmissionDataDataIncomeType>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueIncomeType = default; _explicitNullProperties?.Remove("incomeType"); AdditionalData["incomeType"] = unknown; } else { IncomeType = parsed; AdditionalData.Remove("incomeType"); } } },
             };
         }
         /// <summary>

@@ -17,7 +17,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("faceMap") is { } nullNodeFaceMap && nullNodeFaceMap.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) FaceMap = null;
+            if (parseNode.GetChildNode("faceMap") is null) { _explicitNullValueFaceMap = default!; _explicitNullProperties?.Remove("faceMap"); }
+            else if (parseNode.GetChildNode("faceMap") is { } nullNodeFaceMap && nullNodeFaceMap.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) FaceMap = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -25,11 +26,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>A base64 encoded string.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? FaceMap { get => _explicitNullValueFaceMap; set { _explicitNullValueFaceMap = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("faceMap"); else _explicitNullProperties?.Remove("faceMap"); } }
+        public string? FaceMap { get => _explicitNullValueFaceMap; set { _explicitNullValueFaceMap = value; AdditionalData?.Remove("faceMap"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("faceMap"); else _explicitNullProperties?.Remove("faceMap"); } }
         private string? _explicitNullValueFaceMap = default!;
 #nullable restore
 #else
-        public string FaceMap { get => _explicitNullValueFaceMap; set { _explicitNullValueFaceMap = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("faceMap"); else _explicitNullProperties?.Remove("faceMap"); } }
+        public string FaceMap { get => _explicitNullValueFaceMap; set { _explicitNullValueFaceMap = value; AdditionalData?.Remove("faceMap"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("faceMap"); else _explicitNullProperties?.Remove("faceMap"); } }
         private string _explicitNullValueFaceMap = default!;
 #endif
         /// <summary>

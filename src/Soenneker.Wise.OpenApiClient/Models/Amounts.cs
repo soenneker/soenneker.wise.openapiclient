@@ -17,9 +17,12 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("credited") is { } nullNodeCredited && nullNodeCredited.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Credited = null;
-            if (parseNode.GetChildNode("instructed") is { } nullNodeInstructed && nullNodeInstructed.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Instructed = null;
-            if (parseNode.GetChildNode("interbankSettlement") is { } nullNodeInterbankSettlement && nullNodeInterbankSettlement.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) InterbankSettlement = null;
+            if (parseNode.GetChildNode("credited") is null) { _explicitNullValueCredited = default!; _explicitNullProperties?.Remove("credited"); }
+            else if (parseNode.GetChildNode("credited") is { } nullNodeCredited && nullNodeCredited.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Credited = null;
+            if (parseNode.GetChildNode("instructed") is null) { _explicitNullValueInstructed = default!; _explicitNullProperties?.Remove("instructed"); }
+            else if (parseNode.GetChildNode("instructed") is { } nullNodeInstructed && nullNodeInstructed.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Instructed = null;
+            if (parseNode.GetChildNode("interbankSettlement") is null) { _explicitNullValueInterbankSettlement = default!; _explicitNullProperties?.Remove("interbankSettlement"); }
+            else if (parseNode.GetChildNode("interbankSettlement") is { } nullNodeInterbankSettlement && nullNodeInterbankSettlement.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) InterbankSettlement = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -27,31 +30,31 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The amount credited to the creditor&apos;s Wise balance. Computed as interbankSettlement, after any FX conversion and Wise fees.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.Money? Credited { get => _explicitNullValueCredited; set { _explicitNullValueCredited = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("credited"); else _explicitNullProperties?.Remove("credited"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.Money? Credited { get => _explicitNullValueCredited; set { _explicitNullValueCredited = value; AdditionalData?.Remove("credited"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("credited"); else _explicitNullProperties?.Remove("credited"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.Money? _explicitNullValueCredited = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.Money Credited { get => _explicitNullValueCredited; set { _explicitNullValueCredited = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("credited"); else _explicitNullProperties?.Remove("credited"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.Money Credited { get => _explicitNullValueCredited; set { _explicitNullValueCredited = value; AdditionalData?.Remove("credited"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("credited"); else _explicitNullProperties?.Remove("credited"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.Money _explicitNullValueCredited = default!;
 #endif
         /// <summary>The original amount instructed by the debtor. When not specified by scheme, it equals interbankSettlement.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.Money? Instructed { get => _explicitNullValueInstructed; set { _explicitNullValueInstructed = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("instructed"); else _explicitNullProperties?.Remove("instructed"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.Money? Instructed { get => _explicitNullValueInstructed; set { _explicitNullValueInstructed = value; AdditionalData?.Remove("instructed"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("instructed"); else _explicitNullProperties?.Remove("instructed"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.Money? _explicitNullValueInstructed = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.Money Instructed { get => _explicitNullValueInstructed; set { _explicitNullValueInstructed = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("instructed"); else _explicitNullProperties?.Remove("instructed"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.Money Instructed { get => _explicitNullValueInstructed; set { _explicitNullValueInstructed = value; AdditionalData?.Remove("instructed"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("instructed"); else _explicitNullProperties?.Remove("instructed"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.Money _explicitNullValueInstructed = default!;
 #endif
         /// <summary>The amount settled between the instructing and instructed agent on the final interbank leg.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.Money? InterbankSettlement { get => _explicitNullValueInterbankSettlement; set { _explicitNullValueInterbankSettlement = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("interbankSettlement"); else _explicitNullProperties?.Remove("interbankSettlement"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.Money? InterbankSettlement { get => _explicitNullValueInterbankSettlement; set { _explicitNullValueInterbankSettlement = value; AdditionalData?.Remove("interbankSettlement"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("interbankSettlement"); else _explicitNullProperties?.Remove("interbankSettlement"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.Money? _explicitNullValueInterbankSettlement = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.Money InterbankSettlement { get => _explicitNullValueInterbankSettlement; set { _explicitNullValueInterbankSettlement = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("interbankSettlement"); else _explicitNullProperties?.Remove("interbankSettlement"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.Money InterbankSettlement { get => _explicitNullValueInterbankSettlement; set { _explicitNullValueInterbankSettlement = value; AdditionalData?.Remove("interbankSettlement"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("interbankSettlement"); else _explicitNullProperties?.Remove("interbankSettlement"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.Money _explicitNullValueInterbankSettlement = default!;
 #endif
         /// <summary>

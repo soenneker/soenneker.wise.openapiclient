@@ -17,46 +17,52 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("current_state") is { } nullNodeCurrentState && nullNodeCurrentState.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CurrentState = null;
-            if (parseNode.GetChildNode("deactivation_reason") is { } nullNodeDeactivationReason && nullNodeDeactivationReason.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) DeactivationReason = null;
-            if (parseNode.GetChildNode("deactivation_type") is { } nullNodeDeactivationType && nullNodeDeactivationType.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) DeactivationType = null;
-            if (parseNode.GetChildNode("occurred_at") is { } nullNodeOccurredAt && nullNodeOccurredAt.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) OccurredAt = null;
-            if (parseNode.GetChildNode("previous_state") is { } nullNodePreviousState && nullNodePreviousState.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PreviousState = null;
-            if (parseNode.GetChildNode("resource") is { } nullNodeResource && nullNodeResource.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Resource = null;
+            if (parseNode.GetChildNode("current_state") is null) { _explicitNullValueCurrentState = default!; _explicitNullProperties?.Remove("current_state"); }
+            else if (parseNode.GetChildNode("current_state") is { } nullNodeCurrentState && nullNodeCurrentState.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CurrentState = null;
+            if (parseNode.GetChildNode("deactivation_reason") is null) { _explicitNullValueDeactivationReason = default!; _explicitNullProperties?.Remove("deactivation_reason"); }
+            else if (parseNode.GetChildNode("deactivation_reason") is { } nullNodeDeactivationReason && nullNodeDeactivationReason.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) DeactivationReason = null;
+            if (parseNode.GetChildNode("deactivation_type") is null) { _explicitNullValueDeactivationType = default!; _explicitNullProperties?.Remove("deactivation_type"); }
+            else if (parseNode.GetChildNode("deactivation_type") is { } nullNodeDeactivationType && nullNodeDeactivationType.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) DeactivationType = null;
+            if (parseNode.GetChildNode("occurred_at") is null) { _explicitNullValueOccurredAt = default!; _explicitNullProperties?.Remove("occurred_at"); }
+            else if (parseNode.GetChildNode("occurred_at") is { } nullNodeOccurredAt && nullNodeOccurredAt.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) OccurredAt = null;
+            if (parseNode.GetChildNode("previous_state") is null) { _explicitNullValuePreviousState = default!; _explicitNullProperties?.Remove("previous_state"); }
+            else if (parseNode.GetChildNode("previous_state") is { } nullNodePreviousState && nullNodePreviousState.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PreviousState = null;
+            if (parseNode.GetChildNode("resource") is null) { _explicitNullValueResource = default!; _explicitNullProperties?.Remove("resource"); }
+            else if (parseNode.GetChildNode("resource") is { } nullNodeResource && nullNodeResource.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Resource = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The current state of the user.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.V40019DataCurrentState? CurrentState { get => _explicitNullValueCurrentState; set { _explicitNullValueCurrentState = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("current_state"); else _explicitNullProperties?.Remove("current_state"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.V40019DataCurrentState? CurrentState { get => _explicitNullValueCurrentState; set { _explicitNullValueCurrentState = value; AdditionalData?.Remove("current_state"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("current_state"); else _explicitNullProperties?.Remove("current_state"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.V40019DataCurrentState? _explicitNullValueCurrentState = default!;
         /// <summary>The reason for deactivation.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? DeactivationReason { get => _explicitNullValueDeactivationReason; set { _explicitNullValueDeactivationReason = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("deactivation_reason"); else _explicitNullProperties?.Remove("deactivation_reason"); } }
+        public string? DeactivationReason { get => _explicitNullValueDeactivationReason; set { _explicitNullValueDeactivationReason = value; AdditionalData?.Remove("deactivation_reason"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("deactivation_reason"); else _explicitNullProperties?.Remove("deactivation_reason"); } }
         private string? _explicitNullValueDeactivationReason = default!;
 #nullable restore
 #else
-        public string DeactivationReason { get => _explicitNullValueDeactivationReason; set { _explicitNullValueDeactivationReason = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("deactivation_reason"); else _explicitNullProperties?.Remove("deactivation_reason"); } }
+        public string DeactivationReason { get => _explicitNullValueDeactivationReason; set { _explicitNullValueDeactivationReason = value; AdditionalData?.Remove("deactivation_reason"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("deactivation_reason"); else _explicitNullProperties?.Remove("deactivation_reason"); } }
         private string _explicitNullValueDeactivationReason = default!;
 #endif
         /// <summary>If the type is `ACCOUNT_SUSPENSION`, it is possible to appeal the deactivation by contacting Wise.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.V40019DataDeactivationType? DeactivationType { get => _explicitNullValueDeactivationType; set { _explicitNullValueDeactivationType = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("deactivation_type"); else _explicitNullProperties?.Remove("deactivation_type"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.V40019DataDeactivationType? DeactivationType { get => _explicitNullValueDeactivationType; set { _explicitNullValueDeactivationType = value; AdditionalData?.Remove("deactivation_type"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("deactivation_type"); else _explicitNullProperties?.Remove("deactivation_type"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.V40019DataDeactivationType? _explicitNullValueDeactivationType = default!;
         /// <summary>When the user state change occurred.</summary>
-        public DateTimeOffset? OccurredAt { get => _explicitNullValueOccurredAt; set { _explicitNullValueOccurredAt = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("occurred_at"); else _explicitNullProperties?.Remove("occurred_at"); } }
+        public DateTimeOffset? OccurredAt { get => _explicitNullValueOccurredAt; set { _explicitNullValueOccurredAt = value; AdditionalData?.Remove("occurred_at"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("occurred_at"); else _explicitNullProperties?.Remove("occurred_at"); } }
         private DateTimeOffset? _explicitNullValueOccurredAt = default!;
         /// <summary>The previous_state property</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.V40019DataPreviousState? PreviousState { get => _explicitNullValuePreviousState; set { _explicitNullValuePreviousState = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("previous_state"); else _explicitNullProperties?.Remove("previous_state"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.V40019DataPreviousState? PreviousState { get => _explicitNullValuePreviousState; set { _explicitNullValuePreviousState = value; AdditionalData?.Remove("previous_state"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("previous_state"); else _explicitNullProperties?.Remove("previous_state"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.V40019DataPreviousState? _explicitNullValuePreviousState = default!;
         /// <summary>The resource property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.V40019DataResource? Resource { get => _explicitNullValueResource; set { _explicitNullValueResource = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("resource"); else _explicitNullProperties?.Remove("resource"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.V40019DataResource? Resource { get => _explicitNullValueResource; set { _explicitNullValueResource = value; AdditionalData?.Remove("resource"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("resource"); else _explicitNullProperties?.Remove("resource"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.V40019DataResource? _explicitNullValueResource = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.V40019DataResource Resource { get => _explicitNullValueResource; set { _explicitNullValueResource = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("resource"); else _explicitNullProperties?.Remove("resource"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.V40019DataResource Resource { get => _explicitNullValueResource; set { _explicitNullValueResource = value; AdditionalData?.Remove("resource"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("resource"); else _explicitNullProperties?.Remove("resource"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.V40019DataResource _explicitNullValueResource = default!;
 #endif
         /// <summary>
@@ -84,11 +90,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "current_state", n => { CurrentState = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40019DataCurrentState>(); } },
+                { "current_state", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40019DataCurrentState>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueCurrentState = default; _explicitNullProperties?.Remove("current_state"); AdditionalData["current_state"] = unknown; } else { CurrentState = parsed; AdditionalData.Remove("current_state"); } } },
                 { "deactivation_reason", n => { DeactivationReason = n.GetStringValue(); } },
-                { "deactivation_type", n => { DeactivationType = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40019DataDeactivationType>(); } },
+                { "deactivation_type", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40019DataDeactivationType>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueDeactivationType = default; _explicitNullProperties?.Remove("deactivation_type"); AdditionalData["deactivation_type"] = unknown; } else { DeactivationType = parsed; AdditionalData.Remove("deactivation_type"); } } },
                 { "occurred_at", n => { OccurredAt = n.GetDateTimeOffsetValue(); } },
-                { "previous_state", n => { PreviousState = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40019DataPreviousState>(); } },
+                { "previous_state", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40019DataPreviousState>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValuePreviousState = default; _explicitNullProperties?.Remove("previous_state"); AdditionalData["previous_state"] = unknown; } else { PreviousState = parsed; AdditionalData.Remove("previous_state"); } } },
                 { "resource", n => { Resource = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40019DataResource>(global::Soenneker.Wise.OpenApiClient.Models.V40019DataResource.CreateFromDiscriminatorValue); } },
             };
         }

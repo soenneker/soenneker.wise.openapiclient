@@ -18,10 +18,14 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("alternatives") is { } nullNodeAlternatives && nullNodeAlternatives.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Alternatives = null;
-            if (parseNode.GetChildNode("passed") is { } nullNodePassed && nullNodePassed.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Passed = null;
-            if (parseNode.GetChildNode("primaryChallenge") is { } nullNodePrimaryChallenge && nullNodePrimaryChallenge.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PrimaryChallenge = null;
-            if (parseNode.GetChildNode("required") is { } nullNodeRequired && nullNodeRequired.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Required = null;
+            if (parseNode.GetChildNode("alternatives") is null) { _explicitNullValueAlternatives = default!; _explicitNullProperties?.Remove("alternatives"); }
+            else if (parseNode.GetChildNode("alternatives") is { } nullNodeAlternatives && nullNodeAlternatives.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Alternatives = null;
+            if (parseNode.GetChildNode("passed") is null) { _explicitNullValuePassed = default!; _explicitNullProperties?.Remove("passed"); }
+            else if (parseNode.GetChildNode("passed") is { } nullNodePassed && nullNodePassed.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Passed = null;
+            if (parseNode.GetChildNode("primaryChallenge") is null) { _explicitNullValuePrimaryChallenge = default!; _explicitNullProperties?.Remove("primaryChallenge"); }
+            else if (parseNode.GetChildNode("primaryChallenge") is { } nullNodePrimaryChallenge && nullNodePrimaryChallenge.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PrimaryChallenge = null;
+            if (parseNode.GetChildNode("required") is null) { _explicitNullValueRequired = default!; _explicitNullProperties?.Remove("required"); }
+            else if (parseNode.GetChildNode("required") is { } nullNodeRequired && nullNodeRequired.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Required = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -29,28 +33,28 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Alternative challenges that user can do instead.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenPropertiesChallengesItemAlternativesItemProperty>? Alternatives { get => _explicitNullValueAlternatives; set { _explicitNullValueAlternatives = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("alternatives"); else _explicitNullProperties?.Remove("alternatives"); } }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenPropertiesChallengesItemAlternativesItemProperty>? Alternatives { get => _explicitNullValueAlternatives; set { _explicitNullValueAlternatives = value; AdditionalData?.Remove("alternatives"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("alternatives"); else _explicitNullProperties?.Remove("alternatives"); } }
         private List<global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenPropertiesChallengesItemAlternativesItemProperty>? _explicitNullValueAlternatives = default!;
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenPropertiesChallengesItemAlternativesItemProperty> Alternatives { get => _explicitNullValueAlternatives; set { _explicitNullValueAlternatives = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("alternatives"); else _explicitNullProperties?.Remove("alternatives"); } }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenPropertiesChallengesItemAlternativesItemProperty> Alternatives { get => _explicitNullValueAlternatives; set { _explicitNullValueAlternatives = value; AdditionalData?.Remove("alternatives"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("alternatives"); else _explicitNullProperties?.Remove("alternatives"); } }
         private List<global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenPropertiesChallengesItemAlternativesItemProperty> _explicitNullValueAlternatives = default!;
 #endif
         /// <summary>Status of this challenge.</summary>
-        public bool? Passed { get => _explicitNullValuePassed; set { _explicitNullValuePassed = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("passed"); else _explicitNullProperties?.Remove("passed"); } }
+        public bool? Passed { get => _explicitNullValuePassed; set { _explicitNullValuePassed = value; AdditionalData?.Remove("passed"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("passed"); else _explicitNullProperties?.Remove("passed"); } }
         private bool? _explicitNullValuePassed = default!;
         /// <summary>Type of challenge user can do.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenPropertiesChallengesItemPrimaryChallenge? PrimaryChallenge { get => _explicitNullValuePrimaryChallenge; set { _explicitNullValuePrimaryChallenge = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("primaryChallenge"); else _explicitNullProperties?.Remove("primaryChallenge"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenPropertiesChallengesItemPrimaryChallenge? PrimaryChallenge { get => _explicitNullValuePrimaryChallenge; set { _explicitNullValuePrimaryChallenge = value; AdditionalData?.Remove("primaryChallenge"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("primaryChallenge"); else _explicitNullProperties?.Remove("primaryChallenge"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenPropertiesChallengesItemPrimaryChallenge? _explicitNullValuePrimaryChallenge = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenPropertiesChallengesItemPrimaryChallenge PrimaryChallenge { get => _explicitNullValuePrimaryChallenge; set { _explicitNullValuePrimaryChallenge = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("primaryChallenge"); else _explicitNullProperties?.Remove("primaryChallenge"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenPropertiesChallengesItemPrimaryChallenge PrimaryChallenge { get => _explicitNullValuePrimaryChallenge; set { _explicitNullValuePrimaryChallenge = value; AdditionalData?.Remove("primaryChallenge"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("primaryChallenge"); else _explicitNullProperties?.Remove("primaryChallenge"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenPropertiesChallengesItemPrimaryChallenge _explicitNullValuePrimaryChallenge = default!;
 #endif
         /// <summary>Required (or not) to pass the OTT.</summary>
-        public bool? Required { get => _explicitNullValueRequired; set { _explicitNullValueRequired = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("required"); else _explicitNullProperties?.Remove("required"); } }
+        public bool? Required { get => _explicitNullValueRequired; set { _explicitNullValueRequired = value; AdditionalData?.Remove("required"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("required"); else _explicitNullProperties?.Remove("required"); } }
         private bool? _explicitNullValueRequired = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenPropertiesChallengesItem"/> and sets the default values.

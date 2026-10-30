@@ -18,7 +18,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("freeText") is { } nullNodeFreeText && nullNodeFreeText.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) FreeText = null;
+            if (parseNode.GetChildNode("freeText") is null) { _explicitNullValueFreeText = default!; _explicitNullProperties?.Remove("freeText"); }
+            else if (parseNode.GetChildNode("freeText") is { } nullNodeFreeText && nullNodeFreeText.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) FreeText = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -26,11 +27,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The free-form text message to submit.Can include additional context, questions, or documentation references.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? FreeText { get => _explicitNullValueFreeText; set { _explicitNullValueFreeText = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("freeText"); else _explicitNullProperties?.Remove("freeText"); } }
+        public string? FreeText { get => _explicitNullValueFreeText; set { _explicitNullValueFreeText = value; AdditionalData?.Remove("freeText"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("freeText"); else _explicitNullProperties?.Remove("freeText"); } }
         private string? _explicitNullValueFreeText = default!;
 #nullable restore
 #else
-        public string FreeText { get => _explicitNullValueFreeText; set { _explicitNullValueFreeText = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("freeText"); else _explicitNullProperties?.Remove("freeText"); } }
+        public string FreeText { get => _explicitNullValueFreeText; set { _explicitNullValueFreeText = value; AdditionalData?.Remove("freeText"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("freeText"); else _explicitNullProperties?.Remove("freeText"); } }
         private string _explicitNullValueFreeText = default!;
 #endif
         /// <summary>

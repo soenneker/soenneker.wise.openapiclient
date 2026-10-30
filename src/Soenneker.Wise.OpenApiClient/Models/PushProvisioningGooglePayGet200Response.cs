@@ -17,12 +17,18 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("cardDisplayName") is { } nullNodeCardDisplayName && nullNodeCardDisplayName.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CardDisplayName = null;
-            if (parseNode.GetChildNode("cardLastDigits") is { } nullNodeCardLastDigits && nullNodeCardLastDigits.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CardLastDigits = null;
-            if (parseNode.GetChildNode("cardNetwork") is { } nullNodeCardNetwork && nullNodeCardNetwork.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CardNetwork = null;
-            if (parseNode.GetChildNode("opaquePaymentCard") is { } nullNodeOpaquePaymentCard && nullNodeOpaquePaymentCard.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) OpaquePaymentCard = null;
-            if (parseNode.GetChildNode("tokenServiceProvider") is { } nullNodeTokenServiceProvider && nullNodeTokenServiceProvider.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TokenServiceProvider = null;
-            if (parseNode.GetChildNode("userAddress") is { } nullNodeUserAddress && nullNodeUserAddress.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) UserAddress = null;
+            if (parseNode.GetChildNode("cardDisplayName") is null) { _explicitNullValueCardDisplayName = default!; _explicitNullProperties?.Remove("cardDisplayName"); }
+            else if (parseNode.GetChildNode("cardDisplayName") is { } nullNodeCardDisplayName && nullNodeCardDisplayName.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CardDisplayName = null;
+            if (parseNode.GetChildNode("cardLastDigits") is null) { _explicitNullValueCardLastDigits = default!; _explicitNullProperties?.Remove("cardLastDigits"); }
+            else if (parseNode.GetChildNode("cardLastDigits") is { } nullNodeCardLastDigits && nullNodeCardLastDigits.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CardLastDigits = null;
+            if (parseNode.GetChildNode("cardNetwork") is null) { _explicitNullValueCardNetwork = default!; _explicitNullProperties?.Remove("cardNetwork"); }
+            else if (parseNode.GetChildNode("cardNetwork") is { } nullNodeCardNetwork && nullNodeCardNetwork.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CardNetwork = null;
+            if (parseNode.GetChildNode("opaquePaymentCard") is null) { _explicitNullValueOpaquePaymentCard = default!; _explicitNullProperties?.Remove("opaquePaymentCard"); }
+            else if (parseNode.GetChildNode("opaquePaymentCard") is { } nullNodeOpaquePaymentCard && nullNodeOpaquePaymentCard.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) OpaquePaymentCard = null;
+            if (parseNode.GetChildNode("tokenServiceProvider") is null) { _explicitNullValueTokenServiceProvider = default!; _explicitNullProperties?.Remove("tokenServiceProvider"); }
+            else if (parseNode.GetChildNode("tokenServiceProvider") is { } nullNodeTokenServiceProvider && nullNodeTokenServiceProvider.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TokenServiceProvider = null;
+            if (parseNode.GetChildNode("userAddress") is null) { _explicitNullValueUserAddress = default!; _explicitNullProperties?.Remove("userAddress"); }
+            else if (parseNode.GetChildNode("userAddress") is { } nullNodeUserAddress && nullNodeUserAddress.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) UserAddress = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -30,47 +36,47 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Default card name that will be displayed in wallet.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? CardDisplayName { get => _explicitNullValueCardDisplayName; set { _explicitNullValueCardDisplayName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("cardDisplayName"); else _explicitNullProperties?.Remove("cardDisplayName"); } }
+        public string? CardDisplayName { get => _explicitNullValueCardDisplayName; set { _explicitNullValueCardDisplayName = value; AdditionalData?.Remove("cardDisplayName"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("cardDisplayName"); else _explicitNullProperties?.Remove("cardDisplayName"); } }
         private string? _explicitNullValueCardDisplayName = default!;
 #nullable restore
 #else
-        public string CardDisplayName { get => _explicitNullValueCardDisplayName; set { _explicitNullValueCardDisplayName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("cardDisplayName"); else _explicitNullProperties?.Remove("cardDisplayName"); } }
+        public string CardDisplayName { get => _explicitNullValueCardDisplayName; set { _explicitNullValueCardDisplayName = value; AdditionalData?.Remove("cardDisplayName"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("cardDisplayName"); else _explicitNullProperties?.Remove("cardDisplayName"); } }
         private string _explicitNullValueCardDisplayName = default!;
 #endif
         /// <summary>Last 4 digits of the card PAN.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? CardLastDigits { get => _explicitNullValueCardLastDigits; set { _explicitNullValueCardLastDigits = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("cardLastDigits"); else _explicitNullProperties?.Remove("cardLastDigits"); } }
+        public string? CardLastDigits { get => _explicitNullValueCardLastDigits; set { _explicitNullValueCardLastDigits = value; AdditionalData?.Remove("cardLastDigits"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("cardLastDigits"); else _explicitNullProperties?.Remove("cardLastDigits"); } }
         private string? _explicitNullValueCardLastDigits = default!;
 #nullable restore
 #else
-        public string CardLastDigits { get => _explicitNullValueCardLastDigits; set { _explicitNullValueCardLastDigits = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("cardLastDigits"); else _explicitNullProperties?.Remove("cardLastDigits"); } }
+        public string CardLastDigits { get => _explicitNullValueCardLastDigits; set { _explicitNullValueCardLastDigits = value; AdditionalData?.Remove("cardLastDigits"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("cardLastDigits"); else _explicitNullProperties?.Remove("cardLastDigits"); } }
         private string _explicitNullValueCardLastDigits = default!;
 #endif
         /// <summary>Card network.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningGooglePayGet200ResponseCardNetwork? CardNetwork { get => _explicitNullValueCardNetwork; set { _explicitNullValueCardNetwork = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("cardNetwork"); else _explicitNullProperties?.Remove("cardNetwork"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningGooglePayGet200ResponseCardNetwork? CardNetwork { get => _explicitNullValueCardNetwork; set { _explicitNullValueCardNetwork = value; AdditionalData?.Remove("cardNetwork"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("cardNetwork"); else _explicitNullProperties?.Remove("cardNetwork"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningGooglePayGet200ResponseCardNetwork? _explicitNullValueCardNetwork = default!;
         /// <summary>Encrypted authentication and activation data following card scheme and wallet provider specifications. The response is encoded in Base64.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? OpaquePaymentCard { get => _explicitNullValueOpaquePaymentCard; set { _explicitNullValueOpaquePaymentCard = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("opaquePaymentCard"); else _explicitNullProperties?.Remove("opaquePaymentCard"); } }
+        public string? OpaquePaymentCard { get => _explicitNullValueOpaquePaymentCard; set { _explicitNullValueOpaquePaymentCard = value; AdditionalData?.Remove("opaquePaymentCard"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("opaquePaymentCard"); else _explicitNullProperties?.Remove("opaquePaymentCard"); } }
         private string? _explicitNullValueOpaquePaymentCard = default!;
 #nullable restore
 #else
-        public string OpaquePaymentCard { get => _explicitNullValueOpaquePaymentCard; set { _explicitNullValueOpaquePaymentCard = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("opaquePaymentCard"); else _explicitNullProperties?.Remove("opaquePaymentCard"); } }
+        public string OpaquePaymentCard { get => _explicitNullValueOpaquePaymentCard; set { _explicitNullValueOpaquePaymentCard = value; AdditionalData?.Remove("opaquePaymentCard"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("opaquePaymentCard"); else _explicitNullProperties?.Remove("opaquePaymentCard"); } }
         private string _explicitNullValueOpaquePaymentCard = default!;
 #endif
         /// <summary>Token service provider.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningGooglePayGet200ResponseTokenServiceProvider? TokenServiceProvider { get => _explicitNullValueTokenServiceProvider; set { _explicitNullValueTokenServiceProvider = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("tokenServiceProvider"); else _explicitNullProperties?.Remove("tokenServiceProvider"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningGooglePayGet200ResponseTokenServiceProvider? TokenServiceProvider { get => _explicitNullValueTokenServiceProvider; set { _explicitNullValueTokenServiceProvider = value; AdditionalData?.Remove("tokenServiceProvider"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("tokenServiceProvider"); else _explicitNullProperties?.Remove("tokenServiceProvider"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningGooglePayGet200ResponseTokenServiceProvider? _explicitNullValueTokenServiceProvider = default!;
         /// <summary>Entire address and phone number associated with the card.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningGooglePayGet200ResponseUserAddress? UserAddress { get => _explicitNullValueUserAddress; set { _explicitNullValueUserAddress = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("userAddress"); else _explicitNullProperties?.Remove("userAddress"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningGooglePayGet200ResponseUserAddress? UserAddress { get => _explicitNullValueUserAddress; set { _explicitNullValueUserAddress = value; AdditionalData?.Remove("userAddress"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("userAddress"); else _explicitNullProperties?.Remove("userAddress"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningGooglePayGet200ResponseUserAddress? _explicitNullValueUserAddress = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningGooglePayGet200ResponseUserAddress UserAddress { get => _explicitNullValueUserAddress; set { _explicitNullValueUserAddress = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("userAddress"); else _explicitNullProperties?.Remove("userAddress"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningGooglePayGet200ResponseUserAddress UserAddress { get => _explicitNullValueUserAddress; set { _explicitNullValueUserAddress = value; AdditionalData?.Remove("userAddress"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("userAddress"); else _explicitNullProperties?.Remove("userAddress"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningGooglePayGet200ResponseUserAddress _explicitNullValueUserAddress = default!;
 #endif
         /// <summary>
@@ -100,9 +106,9 @@ namespace Soenneker.Wise.OpenApiClient.Models
             {
                 { "cardDisplayName", n => { CardDisplayName = n.GetStringValue(); } },
                 { "cardLastDigits", n => { CardLastDigits = n.GetStringValue(); } },
-                { "cardNetwork", n => { CardNetwork = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningGooglePayGet200ResponseCardNetwork>(); } },
+                { "cardNetwork", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningGooglePayGet200ResponseCardNetwork>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueCardNetwork = default; _explicitNullProperties?.Remove("cardNetwork"); AdditionalData["cardNetwork"] = unknown; } else { CardNetwork = parsed; AdditionalData.Remove("cardNetwork"); } } },
                 { "opaquePaymentCard", n => { OpaquePaymentCard = n.GetStringValue(); } },
-                { "tokenServiceProvider", n => { TokenServiceProvider = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningGooglePayGet200ResponseTokenServiceProvider>(); } },
+                { "tokenServiceProvider", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningGooglePayGet200ResponseTokenServiceProvider>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueTokenServiceProvider = default; _explicitNullProperties?.Remove("tokenServiceProvider"); AdditionalData["tokenServiceProvider"] = unknown; } else { TokenServiceProvider = parsed; AdditionalData.Remove("tokenServiceProvider"); } } },
                 { "userAddress", n => { UserAddress = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningGooglePayGet200ResponseUserAddress>(global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningGooglePayGet200ResponseUserAddress.CreateFromDiscriminatorValue); } },
             };
         }

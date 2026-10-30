@@ -17,9 +17,12 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("backSideFileName") is { } nullNodeBackSideFileName && nullNodeBackSideFileName.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) BackSideFileName = null;
-            if (parseNode.GetChildNode("documentType") is { } nullNodeDocumentType && nullNodeDocumentType.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) DocumentType = null;
-            if (parseNode.GetChildNode("frontSideFileName") is { } nullNodeFrontSideFileName && nullNodeFrontSideFileName.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) FrontSideFileName = null;
+            if (parseNode.GetChildNode("backSideFileName") is null) { _explicitNullValueBackSideFileName = default!; _explicitNullProperties?.Remove("backSideFileName"); }
+            else if (parseNode.GetChildNode("backSideFileName") is { } nullNodeBackSideFileName && nullNodeBackSideFileName.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) BackSideFileName = null;
+            if (parseNode.GetChildNode("documentType") is null) { _explicitNullValueDocumentType = default!; _explicitNullProperties?.Remove("documentType"); }
+            else if (parseNode.GetChildNode("documentType") is { } nullNodeDocumentType && nullNodeDocumentType.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) DocumentType = null;
+            if (parseNode.GetChildNode("frontSideFileName") is null) { _explicitNullValueFrontSideFileName = default!; _explicitNullProperties?.Remove("frontSideFileName"); }
+            else if (parseNode.GetChildNode("frontSideFileName") is { } nullNodeFrontSideFileName && nullNodeFrontSideFileName.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) FrontSideFileName = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -27,24 +30,24 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The file name of the back-side image. Must match the name of one of the uploaded files. Required for `MY_NUMBER_CARD` and `MY_NUMBER_NOTIFICATION_CARD`; not required for `RESIDENCE_CERTIFICATE`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? BackSideFileName { get => _explicitNullValueBackSideFileName; set { _explicitNullValueBackSideFileName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("backSideFileName"); else _explicitNullProperties?.Remove("backSideFileName"); } }
+        public string? BackSideFileName { get => _explicitNullValueBackSideFileName; set { _explicitNullValueBackSideFileName = value; AdditionalData?.Remove("backSideFileName"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("backSideFileName"); else _explicitNullProperties?.Remove("backSideFileName"); } }
         private string? _explicitNullValueBackSideFileName = default!;
 #nullable restore
 #else
-        public string BackSideFileName { get => _explicitNullValueBackSideFileName; set { _explicitNullValueBackSideFileName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("backSideFileName"); else _explicitNullProperties?.Remove("backSideFileName"); } }
+        public string BackSideFileName { get => _explicitNullValueBackSideFileName; set { _explicitNullValueBackSideFileName = value; AdditionalData?.Remove("backSideFileName"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("backSideFileName"); else _explicitNullProperties?.Remove("backSideFileName"); } }
         private string _explicitNullValueBackSideFileName = default!;
 #endif
         /// <summary>The type of My Number document being submitted.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.JpnPersonalMynumberSubmissionDataDataDocumentType? DocumentType { get => _explicitNullValueDocumentType; set { _explicitNullValueDocumentType = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("documentType"); else _explicitNullProperties?.Remove("documentType"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.JpnPersonalMynumberSubmissionDataDataDocumentType? DocumentType { get => _explicitNullValueDocumentType; set { _explicitNullValueDocumentType = value; AdditionalData?.Remove("documentType"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("documentType"); else _explicitNullProperties?.Remove("documentType"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.JpnPersonalMynumberSubmissionDataDataDocumentType? _explicitNullValueDocumentType = default!;
         /// <summary>The file name of the front-side image. Must match the name of one of the uploaded files. Required for `MY_NUMBER_CARD` and `MY_NUMBER_NOTIFICATION_CARD`; not required for `RESIDENCE_CERTIFICATE`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? FrontSideFileName { get => _explicitNullValueFrontSideFileName; set { _explicitNullValueFrontSideFileName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("frontSideFileName"); else _explicitNullProperties?.Remove("frontSideFileName"); } }
+        public string? FrontSideFileName { get => _explicitNullValueFrontSideFileName; set { _explicitNullValueFrontSideFileName = value; AdditionalData?.Remove("frontSideFileName"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("frontSideFileName"); else _explicitNullProperties?.Remove("frontSideFileName"); } }
         private string? _explicitNullValueFrontSideFileName = default!;
 #nullable restore
 #else
-        public string FrontSideFileName { get => _explicitNullValueFrontSideFileName; set { _explicitNullValueFrontSideFileName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("frontSideFileName"); else _explicitNullProperties?.Remove("frontSideFileName"); } }
+        public string FrontSideFileName { get => _explicitNullValueFrontSideFileName; set { _explicitNullValueFrontSideFileName = value; AdditionalData?.Remove("frontSideFileName"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("frontSideFileName"); else _explicitNullProperties?.Remove("frontSideFileName"); } }
         private string _explicitNullValueFrontSideFileName = default!;
 #endif
         /// <summary>
@@ -73,7 +76,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "backSideFileName", n => { BackSideFileName = n.GetStringValue(); } },
-                { "documentType", n => { DocumentType = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.JpnPersonalMynumberSubmissionDataDataDocumentType>(); } },
+                { "documentType", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.JpnPersonalMynumberSubmissionDataDataDocumentType>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueDocumentType = default; _explicitNullProperties?.Remove("documentType"); AdditionalData["documentType"] = unknown; } else { DocumentType = parsed; AdditionalData.Remove("documentType"); } } },
                 { "frontSideFileName", n => { FrontSideFileName = n.GetStringValue(); } },
             };
         }

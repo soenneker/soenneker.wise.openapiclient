@@ -17,23 +17,25 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("requestedAction") is { } nullNodeRequestedAction && nullNodeRequestedAction.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) RequestedAction = null;
-            if (parseNode.GetChildNode("requirements") is { } nullNodeRequirements && nullNodeRequirements.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Requirements = null;
+            if (parseNode.GetChildNode("requestedAction") is null) { _explicitNullValueRequestedAction = default!; _explicitNullProperties?.Remove("requestedAction"); }
+            else if (parseNode.GetChildNode("requestedAction") is { } nullNodeRequestedAction && nullNodeRequestedAction.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) RequestedAction = null;
+            if (parseNode.GetChildNode("requirements") is null) { _explicitNullValueRequirements = default!; _explicitNullProperties?.Remove("requirements"); }
+            else if (parseNode.GetChildNode("requirements") is { } nullNodeRequirements && nullNodeRequirements.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Requirements = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The action to be carried out.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.SimulationKycReviewVerifyRequestRequestedAction? RequestedAction { get => _explicitNullValueRequestedAction; set { _explicitNullValueRequestedAction = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("requestedAction"); else _explicitNullProperties?.Remove("requestedAction"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.SimulationKycReviewVerifyRequestRequestedAction? RequestedAction { get => _explicitNullValueRequestedAction; set { _explicitNullValueRequestedAction = value; AdditionalData?.Remove("requestedAction"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("requestedAction"); else _explicitNullProperties?.Remove("requestedAction"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.SimulationKycReviewVerifyRequestRequestedAction? _explicitNullValueRequestedAction = default!;
         /// <summary>Zero or more requirements to be verified. If not provided, all blocking requirements are verified.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<string>? Requirements { get => _explicitNullValueRequirements; set { _explicitNullValueRequirements = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("requirements"); else _explicitNullProperties?.Remove("requirements"); } }
+        public List<string>? Requirements { get => _explicitNullValueRequirements; set { _explicitNullValueRequirements = value; AdditionalData?.Remove("requirements"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("requirements"); else _explicitNullProperties?.Remove("requirements"); } }
         private List<string>? _explicitNullValueRequirements = default!;
 #nullable restore
 #else
-        public List<string> Requirements { get => _explicitNullValueRequirements; set { _explicitNullValueRequirements = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("requirements"); else _explicitNullProperties?.Remove("requirements"); } }
+        public List<string> Requirements { get => _explicitNullValueRequirements; set { _explicitNullValueRequirements = value; AdditionalData?.Remove("requirements"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("requirements"); else _explicitNullProperties?.Remove("requirements"); } }
         private List<string> _explicitNullValueRequirements = default!;
 #endif
         /// <summary>
@@ -61,7 +63,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "requestedAction", n => { RequestedAction = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.SimulationKycReviewVerifyRequestRequestedAction>(); } },
+                { "requestedAction", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.SimulationKycReviewVerifyRequestRequestedAction>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueRequestedAction = default; _explicitNullProperties?.Remove("requestedAction"); AdditionalData["requestedAction"] = unknown; } else { RequestedAction = parsed; AdditionalData.Remove("requestedAction"); } } },
                 { "requirements", n => { Requirements = n.GetCollectionOfPrimitiveValues<string>()?.AsList(); } },
             };
         }

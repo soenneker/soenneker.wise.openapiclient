@@ -17,34 +17,37 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("additionalRequirementId") is { } nullNodeAdditionalRequirementId && nullNodeAdditionalRequirementId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) AdditionalRequirementId = null;
-            if (parseNode.GetChildNode("newState") is { } nullNodeNewState && nullNodeNewState.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) NewState = null;
-            if (parseNode.GetChildNode("prevState") is { } nullNodePrevState && nullNodePrevState.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PrevState = null;
+            if (parseNode.GetChildNode("additionalRequirementId") is null) { _explicitNullValueAdditionalRequirementId = default!; _explicitNullProperties?.Remove("additionalRequirementId"); }
+            else if (parseNode.GetChildNode("additionalRequirementId") is { } nullNodeAdditionalRequirementId && nullNodeAdditionalRequirementId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) AdditionalRequirementId = null;
+            if (parseNode.GetChildNode("newState") is null) { _explicitNullValueNewState = default!; _explicitNullProperties?.Remove("newState"); }
+            else if (parseNode.GetChildNode("newState") is { } nullNodeNewState && nullNodeNewState.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) NewState = null;
+            if (parseNode.GetChildNode("prevState") is null) { _explicitNullValuePrevState = default!; _explicitNullProperties?.Remove("prevState"); }
+            else if (parseNode.GetChildNode("prevState") is { } nullNodePrevState && nullNodePrevState.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PrevState = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The [UUID](/api-reference/kyc-review/kyc-requirement#path=additionalRequirements/additionalRequirementId) of the additional requirement that has changed.</summary>
-        public Guid? AdditionalRequirementId { get => _explicitNullValueAdditionalRequirementId; set { _explicitNullValueAdditionalRequirementId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("additionalRequirementId"); else _explicitNullProperties?.Remove("additionalRequirementId"); } }
+        public Guid? AdditionalRequirementId { get => _explicitNullValueAdditionalRequirementId; set { _explicitNullValueAdditionalRequirementId = value; AdditionalData?.Remove("additionalRequirementId"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("additionalRequirementId"); else _explicitNullProperties?.Remove("additionalRequirementId"); } }
         private Guid? _explicitNullValueAdditionalRequirementId = default!;
         /// <summary>The new [state](/api-reference/kyc-review/kyc-requirement#path=additionalRequirements/state) of the additional requirement that has changed.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? NewState { get => _explicitNullValueNewState; set { _explicitNullValueNewState = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("newState"); else _explicitNullProperties?.Remove("newState"); } }
+        public string? NewState { get => _explicitNullValueNewState; set { _explicitNullValueNewState = value; AdditionalData?.Remove("newState"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("newState"); else _explicitNullProperties?.Remove("newState"); } }
         private string? _explicitNullValueNewState = default!;
 #nullable restore
 #else
-        public string NewState { get => _explicitNullValueNewState; set { _explicitNullValueNewState = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("newState"); else _explicitNullProperties?.Remove("newState"); } }
+        public string NewState { get => _explicitNullValueNewState; set { _explicitNullValueNewState = value; AdditionalData?.Remove("newState"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("newState"); else _explicitNullProperties?.Remove("newState"); } }
         private string _explicitNullValueNewState = default!;
 #endif
         /// <summary>*Not provided when additional requirement is new.*The previous [state](/api-reference/kyc-review/kyc-requirement#path=additionalRequirements/state) of the additional requirement that has changed.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? PrevState { get => _explicitNullValuePrevState; set { _explicitNullValuePrevState = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("prevState"); else _explicitNullProperties?.Remove("prevState"); } }
+        public string? PrevState { get => _explicitNullValuePrevState; set { _explicitNullValuePrevState = value; AdditionalData?.Remove("prevState"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("prevState"); else _explicitNullProperties?.Remove("prevState"); } }
         private string? _explicitNullValuePrevState = default!;
 #nullable restore
 #else
-        public string PrevState { get => _explicitNullValuePrevState; set { _explicitNullValuePrevState = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("prevState"); else _explicitNullProperties?.Remove("prevState"); } }
+        public string PrevState { get => _explicitNullValuePrevState; set { _explicitNullValuePrevState = value; AdditionalData?.Remove("prevState"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("prevState"); else _explicitNullProperties?.Remove("prevState"); } }
         private string _explicitNullValuePrevState = default!;
 #endif
         /// <summary>

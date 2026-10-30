@@ -17,7 +17,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("obfuscatedPhoneNo") is { } nullNodeObfuscatedPhoneNo && nullNodeObfuscatedPhoneNo.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ObfuscatedPhoneNo = null;
+            if (parseNode.GetChildNode("obfuscatedPhoneNo") is null) { _explicitNullValueObfuscatedPhoneNo = default!; _explicitNullProperties?.Remove("obfuscatedPhoneNo"); }
+            else if (parseNode.GetChildNode("obfuscatedPhoneNo") is { } nullNodeObfuscatedPhoneNo && nullNodeObfuscatedPhoneNo.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ObfuscatedPhoneNo = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -25,11 +26,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Obfuscated phone number that can be used as a hint for the end customer regarding which phone number the SMS was sent to.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? ObfuscatedPhoneNo { get => _explicitNullValueObfuscatedPhoneNo; set { _explicitNullValueObfuscatedPhoneNo = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("obfuscatedPhoneNo"); else _explicitNullProperties?.Remove("obfuscatedPhoneNo"); } }
+        public string? ObfuscatedPhoneNo { get => _explicitNullValueObfuscatedPhoneNo; set { _explicitNullValueObfuscatedPhoneNo = value; AdditionalData?.Remove("obfuscatedPhoneNo"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("obfuscatedPhoneNo"); else _explicitNullProperties?.Remove("obfuscatedPhoneNo"); } }
         private string? _explicitNullValueObfuscatedPhoneNo = default!;
 #nullable restore
 #else
-        public string ObfuscatedPhoneNo { get => _explicitNullValueObfuscatedPhoneNo; set { _explicitNullValueObfuscatedPhoneNo = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("obfuscatedPhoneNo"); else _explicitNullProperties?.Remove("obfuscatedPhoneNo"); } }
+        public string ObfuscatedPhoneNo { get => _explicitNullValueObfuscatedPhoneNo; set { _explicitNullValueObfuscatedPhoneNo = value; AdditionalData?.Remove("obfuscatedPhoneNo"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("obfuscatedPhoneNo"); else _explicitNullProperties?.Remove("obfuscatedPhoneNo"); } }
         private string _explicitNullValueObfuscatedPhoneNo = default!;
 #endif
         /// <summary>

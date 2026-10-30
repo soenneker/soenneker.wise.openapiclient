@@ -17,7 +17,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("beAccountIdentification") is { } nullNodeBeAccountIdentification && nullNodeBeAccountIdentification.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) BeAccountIdentification = null;
+            if (parseNode.GetChildNode("beAccountIdentification") is null) { _explicitNullValueBeAccountIdentification = default!; _explicitNullProperties?.Remove("beAccountIdentification"); }
+            else if (parseNode.GetChildNode("beAccountIdentification") is { } nullNodeBeAccountIdentification && nullNodeBeAccountIdentification.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) BeAccountIdentification = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -25,11 +26,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Belgian (SEPA) account details format.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.BeAccountIdentification? BeAccountIdentification { get => _explicitNullValueBeAccountIdentification; set { _explicitNullValueBeAccountIdentification = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("beAccountIdentification"); else _explicitNullProperties?.Remove("beAccountIdentification"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.BeAccountIdentification? BeAccountIdentification { get => _explicitNullValueBeAccountIdentification; set { _explicitNullValueBeAccountIdentification = value; AdditionalData?.Remove("beAccountIdentification"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("beAccountIdentification"); else _explicitNullProperties?.Remove("beAccountIdentification"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.BeAccountIdentification? _explicitNullValueBeAccountIdentification = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.BeAccountIdentification BeAccountIdentification { get => _explicitNullValueBeAccountIdentification; set { _explicitNullValueBeAccountIdentification = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("beAccountIdentification"); else _explicitNullProperties?.Remove("beAccountIdentification"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.BeAccountIdentification BeAccountIdentification { get => _explicitNullValueBeAccountIdentification; set { _explicitNullValueBeAccountIdentification = value; AdditionalData?.Remove("beAccountIdentification"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("beAccountIdentification"); else _explicitNullProperties?.Remove("beAccountIdentification"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.BeAccountIdentification _explicitNullValueBeAccountIdentification = default!;
 #endif
         /// <summary>

@@ -17,10 +17,14 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("daily") is { } nullNodeDaily && nullNodeDaily.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Daily = null;
-            if (parseNode.GetChildNode("lifetime") is { } nullNodeLifetime && nullNodeLifetime.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Lifetime = null;
-            if (parseNode.GetChildNode("monthly") is { } nullNodeMonthly && nullNodeMonthly.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Monthly = null;
-            if (parseNode.GetChildNode("transaction") is { } nullNodeTransaction && nullNodeTransaction.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Transaction = null;
+            if (parseNode.GetChildNode("daily") is null) { _explicitNullValueDaily = default!; _explicitNullProperties?.Remove("daily"); }
+            else if (parseNode.GetChildNode("daily") is { } nullNodeDaily && nullNodeDaily.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Daily = null;
+            if (parseNode.GetChildNode("lifetime") is null) { _explicitNullValueLifetime = default!; _explicitNullProperties?.Remove("lifetime"); }
+            else if (parseNode.GetChildNode("lifetime") is { } nullNodeLifetime && nullNodeLifetime.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Lifetime = null;
+            if (parseNode.GetChildNode("monthly") is null) { _explicitNullValueMonthly = default!; _explicitNullProperties?.Remove("monthly"); }
+            else if (parseNode.GetChildNode("monthly") is { } nullNodeMonthly && nullNodeMonthly.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Monthly = null;
+            if (parseNode.GetChildNode("transaction") is null) { _explicitNullValueTransaction = default!; _explicitNullProperties?.Remove("transaction"); }
+            else if (parseNode.GetChildNode("transaction") is { } nullNodeTransaction && nullNodeTransaction.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Transaction = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -28,41 +32,41 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The daily property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.CardLimitsDaily? Daily { get => _explicitNullValueDaily; set { _explicitNullValueDaily = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("daily"); else _explicitNullProperties?.Remove("daily"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardLimitsDaily? Daily { get => _explicitNullValueDaily; set { _explicitNullValueDaily = value; AdditionalData?.Remove("daily"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("daily"); else _explicitNullProperties?.Remove("daily"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.CardLimitsDaily? _explicitNullValueDaily = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.CardLimitsDaily Daily { get => _explicitNullValueDaily; set { _explicitNullValueDaily = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("daily"); else _explicitNullProperties?.Remove("daily"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardLimitsDaily Daily { get => _explicitNullValueDaily; set { _explicitNullValueDaily = value; AdditionalData?.Remove("daily"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("daily"); else _explicitNullProperties?.Remove("daily"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.CardLimitsDaily _explicitNullValueDaily = default!;
 #endif
         /// <summary>The lifetime property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.CardLimitsLifetime? Lifetime { get => _explicitNullValueLifetime; set { _explicitNullValueLifetime = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("lifetime"); else _explicitNullProperties?.Remove("lifetime"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardLimitsLifetime? Lifetime { get => _explicitNullValueLifetime; set { _explicitNullValueLifetime = value; AdditionalData?.Remove("lifetime"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("lifetime"); else _explicitNullProperties?.Remove("lifetime"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.CardLimitsLifetime? _explicitNullValueLifetime = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.CardLimitsLifetime Lifetime { get => _explicitNullValueLifetime; set { _explicitNullValueLifetime = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("lifetime"); else _explicitNullProperties?.Remove("lifetime"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardLimitsLifetime Lifetime { get => _explicitNullValueLifetime; set { _explicitNullValueLifetime = value; AdditionalData?.Remove("lifetime"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("lifetime"); else _explicitNullProperties?.Remove("lifetime"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.CardLimitsLifetime _explicitNullValueLifetime = default!;
 #endif
         /// <summary>The monthly property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.CardLimitsMonthly? Monthly { get => _explicitNullValueMonthly; set { _explicitNullValueMonthly = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("monthly"); else _explicitNullProperties?.Remove("monthly"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardLimitsMonthly? Monthly { get => _explicitNullValueMonthly; set { _explicitNullValueMonthly = value; AdditionalData?.Remove("monthly"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("monthly"); else _explicitNullProperties?.Remove("monthly"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.CardLimitsMonthly? _explicitNullValueMonthly = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.CardLimitsMonthly Monthly { get => _explicitNullValueMonthly; set { _explicitNullValueMonthly = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("monthly"); else _explicitNullProperties?.Remove("monthly"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardLimitsMonthly Monthly { get => _explicitNullValueMonthly; set { _explicitNullValueMonthly = value; AdditionalData?.Remove("monthly"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("monthly"); else _explicitNullProperties?.Remove("monthly"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.CardLimitsMonthly _explicitNullValueMonthly = default!;
 #endif
         /// <summary>The transaction property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.CardLimitsTransaction? Transaction { get => _explicitNullValueTransaction; set { _explicitNullValueTransaction = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("transaction"); else _explicitNullProperties?.Remove("transaction"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardLimitsTransaction? Transaction { get => _explicitNullValueTransaction; set { _explicitNullValueTransaction = value; AdditionalData?.Remove("transaction"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("transaction"); else _explicitNullProperties?.Remove("transaction"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.CardLimitsTransaction? _explicitNullValueTransaction = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.CardLimitsTransaction Transaction { get => _explicitNullValueTransaction; set { _explicitNullValueTransaction = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("transaction"); else _explicitNullProperties?.Remove("transaction"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardLimitsTransaction Transaction { get => _explicitNullValueTransaction; set { _explicitNullValueTransaction = value; AdditionalData?.Remove("transaction"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("transaction"); else _explicitNullProperties?.Remove("transaction"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.CardLimitsTransaction _explicitNullValueTransaction = default!;
 #endif
         /// <summary>

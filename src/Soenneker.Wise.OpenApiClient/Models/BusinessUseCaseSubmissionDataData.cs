@@ -17,7 +17,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("useCases") is { } nullNodeUseCases && nullNodeUseCases.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) UseCases = null;
+            if (parseNode.GetChildNode("useCases") is null) { _explicitNullValueUseCases = default!; _explicitNullProperties?.Remove("useCases"); }
+            else if (parseNode.GetChildNode("useCases") is { } nullNodeUseCases && nullNodeUseCases.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) UseCases = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -25,11 +26,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The useCases property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.BusinessUseCaseSubmissionDataDataUseCasesItem?>? UseCases { get => _explicitNullValueUseCases; set { _explicitNullValueUseCases = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("useCases"); else _explicitNullProperties?.Remove("useCases"); } }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.BusinessUseCaseSubmissionDataDataUseCasesItem?>? UseCases { get => _explicitNullValueUseCases; set { _explicitNullValueUseCases = value; AdditionalData?.Remove("useCases"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("useCases"); else _explicitNullProperties?.Remove("useCases"); } }
         private List<global::Soenneker.Wise.OpenApiClient.Models.BusinessUseCaseSubmissionDataDataUseCasesItem?>? _explicitNullValueUseCases = default!;
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.BusinessUseCaseSubmissionDataDataUseCasesItem?> UseCases { get => _explicitNullValueUseCases; set { _explicitNullValueUseCases = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("useCases"); else _explicitNullProperties?.Remove("useCases"); } }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.BusinessUseCaseSubmissionDataDataUseCasesItem?> UseCases { get => _explicitNullValueUseCases; set { _explicitNullValueUseCases = value; AdditionalData?.Remove("useCases"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("useCases"); else _explicitNullProperties?.Remove("useCases"); } }
         private List<global::Soenneker.Wise.OpenApiClient.Models.BusinessUseCaseSubmissionDataDataUseCasesItem?> _explicitNullValueUseCases = default!;
 #endif
         /// <summary>

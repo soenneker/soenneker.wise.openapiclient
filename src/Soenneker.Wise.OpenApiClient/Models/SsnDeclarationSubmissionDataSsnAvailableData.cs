@@ -17,7 +17,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("ssnNumber") is { } nullNodeSsnNumber && nullNodeSsnNumber.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SsnNumber = null;
+            if (parseNode.GetChildNode("ssnNumber") is null) { _explicitNullValueSsnNumber = default!; _explicitNullProperties?.Remove("ssnNumber"); }
+            else if (parseNode.GetChildNode("ssnNumber") is { } nullNodeSsnNumber && nullNodeSsnNumber.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SsnNumber = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -25,11 +26,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The customer&apos;s 9-digit Social Security Number (including or excluding dashes).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? SsnNumber { get => _explicitNullValueSsnNumber; set { _explicitNullValueSsnNumber = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("ssnNumber"); else _explicitNullProperties?.Remove("ssnNumber"); } }
+        public string? SsnNumber { get => _explicitNullValueSsnNumber; set { _explicitNullValueSsnNumber = value; AdditionalData?.Remove("ssnNumber"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("ssnNumber"); else _explicitNullProperties?.Remove("ssnNumber"); } }
         private string? _explicitNullValueSsnNumber = default!;
 #nullable restore
 #else
-        public string SsnNumber { get => _explicitNullValueSsnNumber; set { _explicitNullValueSsnNumber = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("ssnNumber"); else _explicitNullProperties?.Remove("ssnNumber"); } }
+        public string SsnNumber { get => _explicitNullValueSsnNumber; set { _explicitNullValueSsnNumber = value; AdditionalData?.Remove("ssnNumber"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("ssnNumber"); else _explicitNullProperties?.Remove("ssnNumber"); } }
         private string _explicitNullValueSsnNumber = default!;
 #endif
         /// <summary>

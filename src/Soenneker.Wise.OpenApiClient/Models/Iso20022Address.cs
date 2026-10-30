@@ -18,13 +18,20 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("addressLines") is { } nullNodeAddressLines && nullNodeAddressLines.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) AddressLines = null;
-            if (parseNode.GetChildNode("buildingNumber") is { } nullNodeBuildingNumber && nullNodeBuildingNumber.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) BuildingNumber = null;
-            if (parseNode.GetChildNode("country") is { } nullNodeCountry && nullNodeCountry.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Country = null;
-            if (parseNode.GetChildNode("countrySubDivision") is { } nullNodeCountrySubDivision && nullNodeCountrySubDivision.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CountrySubDivision = null;
-            if (parseNode.GetChildNode("postCode") is { } nullNodePostCode && nullNodePostCode.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PostCode = null;
-            if (parseNode.GetChildNode("streetName") is { } nullNodeStreetName && nullNodeStreetName.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) StreetName = null;
-            if (parseNode.GetChildNode("townName") is { } nullNodeTownName && nullNodeTownName.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TownName = null;
+            if (parseNode.GetChildNode("addressLines") is null) { _explicitNullValueAddressLines = default!; _explicitNullProperties?.Remove("addressLines"); }
+            else if (parseNode.GetChildNode("addressLines") is { } nullNodeAddressLines && nullNodeAddressLines.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) AddressLines = null;
+            if (parseNode.GetChildNode("buildingNumber") is null) { _explicitNullValueBuildingNumber = default!; _explicitNullProperties?.Remove("buildingNumber"); }
+            else if (parseNode.GetChildNode("buildingNumber") is { } nullNodeBuildingNumber && nullNodeBuildingNumber.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) BuildingNumber = null;
+            if (parseNode.GetChildNode("country") is null) { _explicitNullValueCountry = default!; _explicitNullProperties?.Remove("country"); }
+            else if (parseNode.GetChildNode("country") is { } nullNodeCountry && nullNodeCountry.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Country = null;
+            if (parseNode.GetChildNode("countrySubDivision") is null) { _explicitNullValueCountrySubDivision = default!; _explicitNullProperties?.Remove("countrySubDivision"); }
+            else if (parseNode.GetChildNode("countrySubDivision") is { } nullNodeCountrySubDivision && nullNodeCountrySubDivision.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CountrySubDivision = null;
+            if (parseNode.GetChildNode("postCode") is null) { _explicitNullValuePostCode = default!; _explicitNullProperties?.Remove("postCode"); }
+            else if (parseNode.GetChildNode("postCode") is { } nullNodePostCode && nullNodePostCode.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PostCode = null;
+            if (parseNode.GetChildNode("streetName") is null) { _explicitNullValueStreetName = default!; _explicitNullProperties?.Remove("streetName"); }
+            else if (parseNode.GetChildNode("streetName") is { } nullNodeStreetName && nullNodeStreetName.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) StreetName = null;
+            if (parseNode.GetChildNode("townName") is null) { _explicitNullValueTownName = default!; _explicitNullProperties?.Remove("townName"); }
+            else if (parseNode.GetChildNode("townName") is { } nullNodeTownName && nullNodeTownName.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TownName = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -32,71 +39,71 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Address lines. May be empty; up to two lines can be populated alongside structured fields.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<string>? AddressLines { get => _explicitNullValueAddressLines; set { _explicitNullValueAddressLines = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("addressLines"); else _explicitNullProperties?.Remove("addressLines"); } }
+        public List<string>? AddressLines { get => _explicitNullValueAddressLines; set { _explicitNullValueAddressLines = value; AdditionalData?.Remove("addressLines"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("addressLines"); else _explicitNullProperties?.Remove("addressLines"); } }
         private List<string>? _explicitNullValueAddressLines = default!;
 #nullable restore
 #else
-        public List<string> AddressLines { get => _explicitNullValueAddressLines; set { _explicitNullValueAddressLines = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("addressLines"); else _explicitNullProperties?.Remove("addressLines"); } }
+        public List<string> AddressLines { get => _explicitNullValueAddressLines; set { _explicitNullValueAddressLines = value; AdditionalData?.Remove("addressLines"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("addressLines"); else _explicitNullProperties?.Remove("addressLines"); } }
         private List<string> _explicitNullValueAddressLines = default!;
 #endif
         /// <summary>Building number</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? BuildingNumber { get => _explicitNullValueBuildingNumber; set { _explicitNullValueBuildingNumber = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("buildingNumber"); else _explicitNullProperties?.Remove("buildingNumber"); } }
+        public string? BuildingNumber { get => _explicitNullValueBuildingNumber; set { _explicitNullValueBuildingNumber = value; AdditionalData?.Remove("buildingNumber"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("buildingNumber"); else _explicitNullProperties?.Remove("buildingNumber"); } }
         private string? _explicitNullValueBuildingNumber = default!;
 #nullable restore
 #else
-        public string BuildingNumber { get => _explicitNullValueBuildingNumber; set { _explicitNullValueBuildingNumber = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("buildingNumber"); else _explicitNullProperties?.Remove("buildingNumber"); } }
+        public string BuildingNumber { get => _explicitNullValueBuildingNumber; set { _explicitNullValueBuildingNumber = value; AdditionalData?.Remove("buildingNumber"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("buildingNumber"); else _explicitNullProperties?.Remove("buildingNumber"); } }
         private string _explicitNullValueBuildingNumber = default!;
 #endif
         /// <summary>ISO 3166-1 alpha-2 country code</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Country { get => _explicitNullValueCountry; set { _explicitNullValueCountry = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("country"); else _explicitNullProperties?.Remove("country"); } }
+        public string? Country { get => _explicitNullValueCountry; set { _explicitNullValueCountry = value; AdditionalData?.Remove("country"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("country"); else _explicitNullProperties?.Remove("country"); } }
         private string? _explicitNullValueCountry = default!;
 #nullable restore
 #else
-        public string Country { get => _explicitNullValueCountry; set { _explicitNullValueCountry = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("country"); else _explicitNullProperties?.Remove("country"); } }
+        public string Country { get => _explicitNullValueCountry; set { _explicitNullValueCountry = value; AdditionalData?.Remove("country"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("country"); else _explicitNullProperties?.Remove("country"); } }
         private string _explicitNullValueCountry = default!;
 #endif
         /// <summary>State, province, or region</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? CountrySubDivision { get => _explicitNullValueCountrySubDivision; set { _explicitNullValueCountrySubDivision = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("countrySubDivision"); else _explicitNullProperties?.Remove("countrySubDivision"); } }
+        public string? CountrySubDivision { get => _explicitNullValueCountrySubDivision; set { _explicitNullValueCountrySubDivision = value; AdditionalData?.Remove("countrySubDivision"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("countrySubDivision"); else _explicitNullProperties?.Remove("countrySubDivision"); } }
         private string? _explicitNullValueCountrySubDivision = default!;
 #nullable restore
 #else
-        public string CountrySubDivision { get => _explicitNullValueCountrySubDivision; set { _explicitNullValueCountrySubDivision = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("countrySubDivision"); else _explicitNullProperties?.Remove("countrySubDivision"); } }
+        public string CountrySubDivision { get => _explicitNullValueCountrySubDivision; set { _explicitNullValueCountrySubDivision = value; AdditionalData?.Remove("countrySubDivision"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("countrySubDivision"); else _explicitNullProperties?.Remove("countrySubDivision"); } }
         private string _explicitNullValueCountrySubDivision = default!;
 #endif
         /// <summary>Postal or ZIP code</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? PostCode { get => _explicitNullValuePostCode; set { _explicitNullValuePostCode = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("postCode"); else _explicitNullProperties?.Remove("postCode"); } }
+        public string? PostCode { get => _explicitNullValuePostCode; set { _explicitNullValuePostCode = value; AdditionalData?.Remove("postCode"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("postCode"); else _explicitNullProperties?.Remove("postCode"); } }
         private string? _explicitNullValuePostCode = default!;
 #nullable restore
 #else
-        public string PostCode { get => _explicitNullValuePostCode; set { _explicitNullValuePostCode = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("postCode"); else _explicitNullProperties?.Remove("postCode"); } }
+        public string PostCode { get => _explicitNullValuePostCode; set { _explicitNullValuePostCode = value; AdditionalData?.Remove("postCode"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("postCode"); else _explicitNullProperties?.Remove("postCode"); } }
         private string _explicitNullValuePostCode = default!;
 #endif
         /// <summary>Street name</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? StreetName { get => _explicitNullValueStreetName; set { _explicitNullValueStreetName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("streetName"); else _explicitNullProperties?.Remove("streetName"); } }
+        public string? StreetName { get => _explicitNullValueStreetName; set { _explicitNullValueStreetName = value; AdditionalData?.Remove("streetName"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("streetName"); else _explicitNullProperties?.Remove("streetName"); } }
         private string? _explicitNullValueStreetName = default!;
 #nullable restore
 #else
-        public string StreetName { get => _explicitNullValueStreetName; set { _explicitNullValueStreetName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("streetName"); else _explicitNullProperties?.Remove("streetName"); } }
+        public string StreetName { get => _explicitNullValueStreetName; set { _explicitNullValueStreetName = value; AdditionalData?.Remove("streetName"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("streetName"); else _explicitNullProperties?.Remove("streetName"); } }
         private string _explicitNullValueStreetName = default!;
 #endif
         /// <summary>City or town</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? TownName { get => _explicitNullValueTownName; set { _explicitNullValueTownName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("townName"); else _explicitNullProperties?.Remove("townName"); } }
+        public string? TownName { get => _explicitNullValueTownName; set { _explicitNullValueTownName = value; AdditionalData?.Remove("townName"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("townName"); else _explicitNullProperties?.Remove("townName"); } }
         private string? _explicitNullValueTownName = default!;
 #nullable restore
 #else
-        public string TownName { get => _explicitNullValueTownName; set { _explicitNullValueTownName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("townName"); else _explicitNullProperties?.Remove("townName"); } }
+        public string TownName { get => _explicitNullValueTownName; set { _explicitNullValueTownName = value; AdditionalData?.Remove("townName"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("townName"); else _explicitNullProperties?.Remove("townName"); } }
         private string _explicitNullValueTownName = default!;
 #endif
         /// <summary>

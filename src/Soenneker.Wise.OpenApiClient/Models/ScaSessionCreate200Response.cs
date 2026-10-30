@@ -17,7 +17,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("oneTimeTokenProperties") is { } nullNodeOneTimeTokenProperties && nullNodeOneTimeTokenProperties.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) OneTimeTokenProperties = null;
+            if (parseNode.GetChildNode("oneTimeTokenProperties") is null) { _explicitNullValueOneTimeTokenProperties = default!; _explicitNullProperties?.Remove("oneTimeTokenProperties"); }
+            else if (parseNode.GetChildNode("oneTimeTokenProperties") is { } nullNodeOneTimeTokenProperties && nullNodeOneTimeTokenProperties.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) OneTimeTokenProperties = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -25,11 +26,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>A one-time token is generated when accessing an endpoint secured by SCA. This token includes a list of all available challenges to complete.You can use the [OTT status endpoint](/api-reference/sca-ott/ottstatusget) to view challenges and their statuses, or use [create SCA session](/api-reference/sca-sessions/scasessioncreate) to manually trigger SCA and return a one-time token.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.OneTimeToken? OneTimeTokenProperties { get => _explicitNullValueOneTimeTokenProperties; set { _explicitNullValueOneTimeTokenProperties = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("oneTimeTokenProperties"); else _explicitNullProperties?.Remove("oneTimeTokenProperties"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.OneTimeToken? OneTimeTokenProperties { get => _explicitNullValueOneTimeTokenProperties; set { _explicitNullValueOneTimeTokenProperties = value; AdditionalData?.Remove("oneTimeTokenProperties"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("oneTimeTokenProperties"); else _explicitNullProperties?.Remove("oneTimeTokenProperties"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.OneTimeToken? _explicitNullValueOneTimeTokenProperties = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.OneTimeToken OneTimeTokenProperties { get => _explicitNullValueOneTimeTokenProperties; set { _explicitNullValueOneTimeTokenProperties = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("oneTimeTokenProperties"); else _explicitNullProperties?.Remove("oneTimeTokenProperties"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.OneTimeToken OneTimeTokenProperties { get => _explicitNullValueOneTimeTokenProperties; set { _explicitNullValueOneTimeTokenProperties = value; AdditionalData?.Remove("oneTimeTokenProperties"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("oneTimeTokenProperties"); else _explicitNullProperties?.Remove("oneTimeTokenProperties"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.OneTimeToken _explicitNullValueOneTimeTokenProperties = default!;
 #endif
         /// <summary>

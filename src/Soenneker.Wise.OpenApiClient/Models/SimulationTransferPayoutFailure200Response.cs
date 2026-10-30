@@ -17,9 +17,12 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("failure_description") is { } nullNodeFailureDescription && nullNodeFailureDescription.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) FailureDescription = null;
-            if (parseNode.GetChildNode("failure_reason_code") is { } nullNodeFailureReasonCode && nullNodeFailureReasonCode.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) FailureReasonCode = null;
-            if (parseNode.GetChildNode("occurred_at") is { } nullNodeOccurredAt && nullNodeOccurredAt.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) OccurredAt = null;
+            if (parseNode.GetChildNode("failure_description") is null) { _explicitNullValueFailureDescription = default!; _explicitNullProperties?.Remove("failure_description"); }
+            else if (parseNode.GetChildNode("failure_description") is { } nullNodeFailureDescription && nullNodeFailureDescription.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) FailureDescription = null;
+            if (parseNode.GetChildNode("failure_reason_code") is null) { _explicitNullValueFailureReasonCode = default!; _explicitNullProperties?.Remove("failure_reason_code"); }
+            else if (parseNode.GetChildNode("failure_reason_code") is { } nullNodeFailureReasonCode && nullNodeFailureReasonCode.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) FailureReasonCode = null;
+            if (parseNode.GetChildNode("occurred_at") is null) { _explicitNullValueOccurredAt = default!; _explicitNullProperties?.Remove("occurred_at"); }
+            else if (parseNode.GetChildNode("occurred_at") is { } nullNodeOccurredAt && nullNodeOccurredAt.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) OccurredAt = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -27,31 +30,31 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The failure_description property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? FailureDescription { get => _explicitNullValueFailureDescription; set { _explicitNullValueFailureDescription = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("failure_description"); else _explicitNullProperties?.Remove("failure_description"); } }
+        public string? FailureDescription { get => _explicitNullValueFailureDescription; set { _explicitNullValueFailureDescription = value; AdditionalData?.Remove("failure_description"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("failure_description"); else _explicitNullProperties?.Remove("failure_description"); } }
         private string? _explicitNullValueFailureDescription = default!;
 #nullable restore
 #else
-        public string FailureDescription { get => _explicitNullValueFailureDescription; set { _explicitNullValueFailureDescription = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("failure_description"); else _explicitNullProperties?.Remove("failure_description"); } }
+        public string FailureDescription { get => _explicitNullValueFailureDescription; set { _explicitNullValueFailureDescription = value; AdditionalData?.Remove("failure_description"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("failure_description"); else _explicitNullProperties?.Remove("failure_description"); } }
         private string _explicitNullValueFailureDescription = default!;
 #endif
         /// <summary>The failure_reason_code property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? FailureReasonCode { get => _explicitNullValueFailureReasonCode; set { _explicitNullValueFailureReasonCode = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("failure_reason_code"); else _explicitNullProperties?.Remove("failure_reason_code"); } }
+        public string? FailureReasonCode { get => _explicitNullValueFailureReasonCode; set { _explicitNullValueFailureReasonCode = value; AdditionalData?.Remove("failure_reason_code"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("failure_reason_code"); else _explicitNullProperties?.Remove("failure_reason_code"); } }
         private string? _explicitNullValueFailureReasonCode = default!;
 #nullable restore
 #else
-        public string FailureReasonCode { get => _explicitNullValueFailureReasonCode; set { _explicitNullValueFailureReasonCode = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("failure_reason_code"); else _explicitNullProperties?.Remove("failure_reason_code"); } }
+        public string FailureReasonCode { get => _explicitNullValueFailureReasonCode; set { _explicitNullValueFailureReasonCode = value; AdditionalData?.Remove("failure_reason_code"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("failure_reason_code"); else _explicitNullProperties?.Remove("failure_reason_code"); } }
         private string _explicitNullValueFailureReasonCode = default!;
 #endif
         /// <summary>The occurred_at property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? OccurredAt { get => _explicitNullValueOccurredAt; set { _explicitNullValueOccurredAt = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("occurred_at"); else _explicitNullProperties?.Remove("occurred_at"); } }
+        public string? OccurredAt { get => _explicitNullValueOccurredAt; set { _explicitNullValueOccurredAt = value; AdditionalData?.Remove("occurred_at"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("occurred_at"); else _explicitNullProperties?.Remove("occurred_at"); } }
         private string? _explicitNullValueOccurredAt = default!;
 #nullable restore
 #else
-        public string OccurredAt { get => _explicitNullValueOccurredAt; set { _explicitNullValueOccurredAt = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("occurred_at"); else _explicitNullProperties?.Remove("occurred_at"); } }
+        public string OccurredAt { get => _explicitNullValueOccurredAt; set { _explicitNullValueOccurredAt = value; AdditionalData?.Remove("occurred_at"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("occurred_at"); else _explicitNullProperties?.Remove("occurred_at"); } }
         private string _explicitNullValueOccurredAt = default!;
 #endif
         /// <summary>

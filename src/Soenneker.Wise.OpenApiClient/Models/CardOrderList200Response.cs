@@ -17,8 +17,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("cardOrders") is { } nullNodeCardOrders && nullNodeCardOrders.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CardOrders = null;
-            if (parseNode.GetChildNode("totalCount") is { } nullNodeTotalCount && nullNodeTotalCount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TotalCount = null;
+            if (parseNode.GetChildNode("cardOrders") is null) { _explicitNullValueCardOrders = default!; _explicitNullProperties?.Remove("cardOrders"); }
+            else if (parseNode.GetChildNode("cardOrders") is { } nullNodeCardOrders && nullNodeCardOrders.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CardOrders = null;
+            if (parseNode.GetChildNode("totalCount") is null) { _explicitNullValueTotalCount = default!; _explicitNullProperties?.Remove("totalCount"); }
+            else if (parseNode.GetChildNode("totalCount") is { } nullNodeTotalCount && nullNodeTotalCount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TotalCount = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -26,15 +28,15 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The cardOrders property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.CardOrder>? CardOrders { get => _explicitNullValueCardOrders; set { _explicitNullValueCardOrders = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("cardOrders"); else _explicitNullProperties?.Remove("cardOrders"); } }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.CardOrder>? CardOrders { get => _explicitNullValueCardOrders; set { _explicitNullValueCardOrders = value; AdditionalData?.Remove("cardOrders"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("cardOrders"); else _explicitNullProperties?.Remove("cardOrders"); } }
         private List<global::Soenneker.Wise.OpenApiClient.Models.CardOrder>? _explicitNullValueCardOrders = default!;
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.CardOrder> CardOrders { get => _explicitNullValueCardOrders; set { _explicitNullValueCardOrders = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("cardOrders"); else _explicitNullProperties?.Remove("cardOrders"); } }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.CardOrder> CardOrders { get => _explicitNullValueCardOrders; set { _explicitNullValueCardOrders = value; AdditionalData?.Remove("cardOrders"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("cardOrders"); else _explicitNullProperties?.Remove("cardOrders"); } }
         private List<global::Soenneker.Wise.OpenApiClient.Models.CardOrder> _explicitNullValueCardOrders = default!;
 #endif
         /// <summary>The total number of card orders for this profile.</summary>
-        public int? TotalCount { get => _explicitNullValueTotalCount; set { _explicitNullValueTotalCount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("totalCount"); else _explicitNullProperties?.Remove("totalCount"); } }
+        public int? TotalCount { get => _explicitNullValueTotalCount; set { _explicitNullValueTotalCount = value; AdditionalData?.Remove("totalCount"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("totalCount"); else _explicitNullProperties?.Remove("totalCount"); } }
         private int? _explicitNullValueTotalCount = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.CardOrderList200Response"/> and sets the default values.

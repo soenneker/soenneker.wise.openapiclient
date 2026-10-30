@@ -17,23 +17,25 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("balance_id") is { } nullNodeBalanceId && nullNodeBalanceId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) BalanceId = null;
-            if (parseNode.GetChildNode("credited_amount") is { } nullNodeCreditedAmount && nullNodeCreditedAmount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CreditedAmount = null;
+            if (parseNode.GetChildNode("balance_id") is null) { _explicitNullValueBalanceId = default!; _explicitNullProperties?.Remove("balance_id"); }
+            else if (parseNode.GetChildNode("balance_id") is { } nullNodeBalanceId && nullNodeBalanceId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) BalanceId = null;
+            if (parseNode.GetChildNode("credited_amount") is null) { _explicitNullValueCreditedAmount = default!; _explicitNullProperties?.Remove("credited_amount"); }
+            else if (parseNode.GetChildNode("credited_amount") is { } nullNodeCreditedAmount && nullNodeCreditedAmount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CreditedAmount = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Balance ID</summary>
-        public long? BalanceId { get => _explicitNullValueBalanceId; set { _explicitNullValueBalanceId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("balance_id"); else _explicitNullProperties?.Remove("balance_id"); } }
+        public long? BalanceId { get => _explicitNullValueBalanceId; set { _explicitNullValueBalanceId = value; AdditionalData?.Remove("balance_id"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("balance_id"); else _explicitNullProperties?.Remove("balance_id"); } }
         private long? _explicitNullValueBalanceId = default!;
         /// <summary>The credited_amount property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.V20011DataCreditCreditedAmount? CreditedAmount { get => _explicitNullValueCreditedAmount; set { _explicitNullValueCreditedAmount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("credited_amount"); else _explicitNullProperties?.Remove("credited_amount"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.V20011DataCreditCreditedAmount? CreditedAmount { get => _explicitNullValueCreditedAmount; set { _explicitNullValueCreditedAmount = value; AdditionalData?.Remove("credited_amount"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("credited_amount"); else _explicitNullProperties?.Remove("credited_amount"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.V20011DataCreditCreditedAmount? _explicitNullValueCreditedAmount = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.V20011DataCreditCreditedAmount CreditedAmount { get => _explicitNullValueCreditedAmount; set { _explicitNullValueCreditedAmount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("credited_amount"); else _explicitNullProperties?.Remove("credited_amount"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.V20011DataCreditCreditedAmount CreditedAmount { get => _explicitNullValueCreditedAmount; set { _explicitNullValueCreditedAmount = value; AdditionalData?.Remove("credited_amount"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("credited_amount"); else _explicitNullProperties?.Remove("credited_amount"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.V20011DataCreditCreditedAmount _explicitNullValueCreditedAmount = default!;
 #endif
         /// <summary>

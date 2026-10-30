@@ -17,7 +17,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("businessShareholderContactDetails") is { } nullNodeBusinessShareholderContactDetails && nullNodeBusinessShareholderContactDetails.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) BusinessShareholderContactDetails = null;
+            if (parseNode.GetChildNode("businessShareholderContactDetails") is null) { _explicitNullValueBusinessShareholderContactDetails = default!; _explicitNullProperties?.Remove("businessShareholderContactDetails"); }
+            else if (parseNode.GetChildNode("businessShareholderContactDetails") is { } nullNodeBusinessShareholderContactDetails && nullNodeBusinessShareholderContactDetails.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) BusinessShareholderContactDetails = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -25,11 +26,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Provide each current shareholder exactly once.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.BusinessShareholderContactDetailsSubmissionDataDataBusinessShareholderContactDetailsItem>? BusinessShareholderContactDetails { get => _explicitNullValueBusinessShareholderContactDetails; set { _explicitNullValueBusinessShareholderContactDetails = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("businessShareholderContactDetails"); else _explicitNullProperties?.Remove("businessShareholderContactDetails"); } }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.BusinessShareholderContactDetailsSubmissionDataDataBusinessShareholderContactDetailsItem>? BusinessShareholderContactDetails { get => _explicitNullValueBusinessShareholderContactDetails; set { _explicitNullValueBusinessShareholderContactDetails = value; AdditionalData?.Remove("businessShareholderContactDetails"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("businessShareholderContactDetails"); else _explicitNullProperties?.Remove("businessShareholderContactDetails"); } }
         private List<global::Soenneker.Wise.OpenApiClient.Models.BusinessShareholderContactDetailsSubmissionDataDataBusinessShareholderContactDetailsItem>? _explicitNullValueBusinessShareholderContactDetails = default!;
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.BusinessShareholderContactDetailsSubmissionDataDataBusinessShareholderContactDetailsItem> BusinessShareholderContactDetails { get => _explicitNullValueBusinessShareholderContactDetails; set { _explicitNullValueBusinessShareholderContactDetails = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("businessShareholderContactDetails"); else _explicitNullProperties?.Remove("businessShareholderContactDetails"); } }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.BusinessShareholderContactDetailsSubmissionDataDataBusinessShareholderContactDetailsItem> BusinessShareholderContactDetails { get => _explicitNullValueBusinessShareholderContactDetails; set { _explicitNullValueBusinessShareholderContactDetails = value; AdditionalData?.Remove("businessShareholderContactDetails"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("businessShareholderContactDetails"); else _explicitNullProperties?.Remove("businessShareholderContactDetails"); } }
         private List<global::Soenneker.Wise.OpenApiClient.Models.BusinessShareholderContactDetailsSubmissionDataDataBusinessShareholderContactDetailsItem> _explicitNullValueBusinessShareholderContactDetails = default!;
 #endif
         /// <summary>

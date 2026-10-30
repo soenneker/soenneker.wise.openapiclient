@@ -17,7 +17,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("oneTimeTokenProperties") is { } nullNodeOneTimeTokenProperties && nullNodeOneTimeTokenProperties.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) OneTimeTokenProperties = null;
+            if (parseNode.GetChildNode("oneTimeTokenProperties") is null) { _explicitNullValueOneTimeTokenProperties = default!; _explicitNullProperties?.Remove("oneTimeTokenProperties"); }
+            else if (parseNode.GetChildNode("oneTimeTokenProperties") is { } nullNodeOneTimeTokenProperties && nullNodeOneTimeTokenProperties.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) OneTimeTokenProperties = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -25,11 +26,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Properties of the one time token.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenProperties? OneTimeTokenProperties { get => _explicitNullValueOneTimeTokenProperties; set { _explicitNullValueOneTimeTokenProperties = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("oneTimeTokenProperties"); else _explicitNullProperties?.Remove("oneTimeTokenProperties"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenProperties? OneTimeTokenProperties { get => _explicitNullValueOneTimeTokenProperties; set { _explicitNullValueOneTimeTokenProperties = value; AdditionalData?.Remove("oneTimeTokenProperties"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("oneTimeTokenProperties"); else _explicitNullProperties?.Remove("oneTimeTokenProperties"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenProperties? _explicitNullValueOneTimeTokenProperties = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenProperties OneTimeTokenProperties { get => _explicitNullValueOneTimeTokenProperties; set { _explicitNullValueOneTimeTokenProperties = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("oneTimeTokenProperties"); else _explicitNullProperties?.Remove("oneTimeTokenProperties"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenProperties OneTimeTokenProperties { get => _explicitNullValueOneTimeTokenProperties; set { _explicitNullValueOneTimeTokenProperties = value; AdditionalData?.Remove("oneTimeTokenProperties"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("oneTimeTokenProperties"); else _explicitNullProperties?.Remove("oneTimeTokenProperties"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenProperties _explicitNullValueOneTimeTokenProperties = default!;
 #endif
         /// <summary>

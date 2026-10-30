@@ -17,11 +17,12 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("acceptedOutcomes") is { } nullNodeAcceptedOutcomes && nullNodeAcceptedOutcomes.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) AcceptedOutcomes = null;
+            if (parseNode.GetChildNode("acceptedOutcomes") is null) { _explicitNullValueAcceptedOutcomes = default!; _explicitNullProperties?.Remove("acceptedOutcomes"); }
+            else if (parseNode.GetChildNode("acceptedOutcomes") is { } nullNodeAcceptedOutcomes && nullNodeAcceptedOutcomes.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) AcceptedOutcomes = null;
         }
 
         /// <summary>Set to `true` to indicate the customer accepted the confirmation outcome.</summary>
-        public bool? AcceptedOutcomes { get => _explicitNullValueAcceptedOutcomes; set { _explicitNullValueAcceptedOutcomes = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("acceptedOutcomes"); else _explicitNullProperties?.Remove("acceptedOutcomes"); } }
+        public bool? AcceptedOutcomes { get => _explicitNullValueAcceptedOutcomes; set { _explicitNullValueAcceptedOutcomes = value; AdditionalData?.Remove("acceptedOutcomes"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("acceptedOutcomes"); else _explicitNullProperties?.Remove("acceptedOutcomes"); } }
         private bool? _explicitNullValueAcceptedOutcomes = default!;
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }

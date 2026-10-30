@@ -17,13 +17,14 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("classificationType") is { } nullNodeClassificationType && nullNodeClassificationType.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ClassificationType = null;
+            if (parseNode.GetChildNode("classificationType") is null) { _explicitNullValueClassificationType = default!; _explicitNullProperties?.Remove("classificationType"); }
+            else if (parseNode.GetChildNode("classificationType") is { } nullNodeClassificationType && nullNodeClassificationType.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ClassificationType = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The business&apos;s CRS classification.- `ACTIVE_NFE` - Active non-financial entity: more than 50% of the business&apos;s income comes from sales, services, donations, or grants.- `PASSIVE_NFE` - Passive non-financial entity: more than 50% of the business&apos;s income comes from dividends, interest, rent, or royalties.- `FI_INVESTMENT_ENTITY` - Financial institution (FI) that manages investment, hedge, or private equity funds, or is a foundation funded by investments.- `FI_NON_INVESTMENT_ENTITY` - FI such as a bank, credit union, custodial institution, or similar.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.BusinessIncomeClassificationSubmissionDataDataClassificationType? ClassificationType { get => _explicitNullValueClassificationType; set { _explicitNullValueClassificationType = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("classificationType"); else _explicitNullProperties?.Remove("classificationType"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.BusinessIncomeClassificationSubmissionDataDataClassificationType? ClassificationType { get => _explicitNullValueClassificationType; set { _explicitNullValueClassificationType = value; AdditionalData?.Remove("classificationType"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("classificationType"); else _explicitNullProperties?.Remove("classificationType"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.BusinessIncomeClassificationSubmissionDataDataClassificationType? _explicitNullValueClassificationType = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.BusinessIncomeClassificationSubmissionDataData"/> and sets the default values.
@@ -50,7 +51,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "classificationType", n => { ClassificationType = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BusinessIncomeClassificationSubmissionDataDataClassificationType>(); } },
+                { "classificationType", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BusinessIncomeClassificationSubmissionDataDataClassificationType>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueClassificationType = default; _explicitNullProperties?.Remove("classificationType"); AdditionalData["classificationType"] = unknown; } else { ClassificationType = parsed; AdditionalData.Remove("classificationType"); } } },
             };
         }
         /// <summary>

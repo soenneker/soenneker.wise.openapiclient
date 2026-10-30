@@ -17,8 +17,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("RelayState") is { } nullNodeRelayState && nullNodeRelayState.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) RelayState = null;
-            if (parseNode.GetChildNode("SAMLResponse") is { } nullNodeSAMLResponse && nullNodeSAMLResponse.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SAMLResponse = null;
+            if (parseNode.GetChildNode("RelayState") is null) { _explicitNullValueRelayState = default!; _explicitNullProperties?.Remove("RelayState"); }
+            else if (parseNode.GetChildNode("RelayState") is { } nullNodeRelayState && nullNodeRelayState.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) RelayState = null;
+            if (parseNode.GetChildNode("SAMLResponse") is null) { _explicitNullValueSAMLResponse = default!; _explicitNullProperties?.Remove("SAMLResponse"); }
+            else if (parseNode.GetChildNode("SAMLResponse") is { } nullNodeSAMLResponse && nullNodeSAMLResponse.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SAMLResponse = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -26,21 +28,21 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Opaque state value. If the authentication request included a `RelayState`, the identity provider returns it unchanged.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? RelayState { get => _explicitNullValueRelayState; set { _explicitNullValueRelayState = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("RelayState"); else _explicitNullProperties?.Remove("RelayState"); } }
+        public string? RelayState { get => _explicitNullValueRelayState; set { _explicitNullValueRelayState = value; AdditionalData?.Remove("RelayState"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("RelayState"); else _explicitNullProperties?.Remove("RelayState"); } }
         private string? _explicitNullValueRelayState = default!;
 #nullable restore
 #else
-        public string RelayState { get => _explicitNullValueRelayState; set { _explicitNullValueRelayState = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("RelayState"); else _explicitNullProperties?.Remove("RelayState"); } }
+        public string RelayState { get => _explicitNullValueRelayState; set { _explicitNullValueRelayState = value; AdditionalData?.Remove("RelayState"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("RelayState"); else _explicitNullProperties?.Remove("RelayState"); } }
         private string _explicitNullValueRelayState = default!;
 #endif
         /// <summary>Base64-encoded SAML `&lt;samlp:Response&gt;` message issued by the identity provider.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? SAMLResponse { get => _explicitNullValueSAMLResponse; set { _explicitNullValueSAMLResponse = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("SAMLResponse"); else _explicitNullProperties?.Remove("SAMLResponse"); } }
+        public string? SAMLResponse { get => _explicitNullValueSAMLResponse; set { _explicitNullValueSAMLResponse = value; AdditionalData?.Remove("SAMLResponse"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("SAMLResponse"); else _explicitNullProperties?.Remove("SAMLResponse"); } }
         private string? _explicitNullValueSAMLResponse = default!;
 #nullable restore
 #else
-        public string SAMLResponse { get => _explicitNullValueSAMLResponse; set { _explicitNullValueSAMLResponse = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("SAMLResponse"); else _explicitNullProperties?.Remove("SAMLResponse"); } }
+        public string SAMLResponse { get => _explicitNullValueSAMLResponse; set { _explicitNullValueSAMLResponse = value; AdditionalData?.Remove("SAMLResponse"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("SAMLResponse"); else _explicitNullProperties?.Remove("SAMLResponse"); } }
         private string _explicitNullValueSAMLResponse = default!;
 #endif
         /// <summary>

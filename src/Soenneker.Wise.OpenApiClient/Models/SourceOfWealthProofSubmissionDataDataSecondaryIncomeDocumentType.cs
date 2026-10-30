@@ -91,6 +91,8 @@ return result;
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
         public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
         {
+            if (UnrecognizedValue is global::Microsoft.Kiota.Abstractions.Serialization.UntypedObject rawFields) { var fields = new global::System.Collections.Generic.Dictionary<string, global::System.Action<IParseNode>>(); foreach (var entry in rawFields.GetValue()) fields[entry.Key] = _ => { }; return fields; }
+
             if(SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeMember1 != null)
             {
                 return ParseNodeHelper.MergeDeserializersForIntersectionWrapper(SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeMember1);
@@ -105,7 +107,16 @@ return result;
         {
             if (global::System.Object.ReferenceEquals(writer, null)) throw new global::System.ArgumentNullException(nameof(writer));
             if (SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeAnyOf2 == null && SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeAnyOf3 == null && SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeAnyOf4 == null && SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeAnyOf5 == null && SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeAnyOf6 == null && SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeAnyOf7 == null && SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeAnyOf8 == null && SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeMember1 == null) { if (UnrecognizedValue is global::Microsoft.Kiota.Abstractions.Serialization.UntypedObject rawObject) writer.WriteObjectValue(null, new global::Soenneker.OpenApi.Generated.OpenApiUnionAdditionalData(AdditionalData, rawObject)); else if (UnrecognizedValue != null) writer.WriteObjectValue(null, UnrecognizedValue); else if (AdditionalData.Count > 0) writer.WriteObjectValue(null, new global::Soenneker.OpenApi.Generated.OpenApiUnionAdditionalData(AdditionalData)); else writer.WriteNullValue(null); return; }
-            if (SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeMember1 != null && SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeAnyOf2 == null && SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeAnyOf3 == null && SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeAnyOf4 == null && SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeAnyOf5 == null && SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeAnyOf6 == null && SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeAnyOf7 == null && SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeAnyOf8 == null) { if (SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeMember1 is global::Microsoft.Kiota.Abstractions.Serialization.IAdditionalDataHolder selectedData) foreach (var entry in AdditionalData) selectedData.AdditionalData[entry.Key] = entry.Value; writer.WriteObjectValue(null, SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeMember1); return; }
+            int selectedUnionBranches = 0;
+            if (SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeAnyOf2 != null) selectedUnionBranches++;
+            if (SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeAnyOf3 != null) selectedUnionBranches++;
+            if (SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeAnyOf4 != null) selectedUnionBranches++;
+            if (SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeAnyOf5 != null) selectedUnionBranches++;
+            if (SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeAnyOf6 != null) selectedUnionBranches++;
+            if (SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeAnyOf7 != null) selectedUnionBranches++;
+            if (SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeAnyOf8 != null) selectedUnionBranches++;
+            if (SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeMember1 != null) selectedUnionBranches++;
+            if (SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeMember1 != null && selectedUnionBranches == 1) { if (SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeMember1 is global::Microsoft.Kiota.Abstractions.Serialization.IAdditionalDataHolder selectedData) foreach (var entry in AdditionalData) selectedData.AdditionalData[entry.Key] = entry.Value; writer.WriteObjectValue(null, SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeMember1); return; }
 
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             if(SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeAnyOf2 != null)

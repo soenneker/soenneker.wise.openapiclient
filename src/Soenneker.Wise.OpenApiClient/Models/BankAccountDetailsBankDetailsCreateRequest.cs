@@ -17,13 +17,14 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("targetAccountId") is { } nullNodeTargetAccountId && nullNodeTargetAccountId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TargetAccountId = null;
+            if (parseNode.GetChildNode("targetAccountId") is null) { _explicitNullValueTargetAccountId = default!; _explicitNullProperties?.Remove("targetAccountId"); }
+            else if (parseNode.GetChildNode("targetAccountId") is { } nullNodeTargetAccountId && nullNodeTargetAccountId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TargetAccountId = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>ID of the currency balance to create account details on.</summary>
-        public long? TargetAccountId { get => _explicitNullValueTargetAccountId; set { _explicitNullValueTargetAccountId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("targetAccountId"); else _explicitNullProperties?.Remove("targetAccountId"); } }
+        public long? TargetAccountId { get => _explicitNullValueTargetAccountId; set { _explicitNullValueTargetAccountId = value; AdditionalData?.Remove("targetAccountId"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("targetAccountId"); else _explicitNullProperties?.Remove("targetAccountId"); } }
         private long? _explicitNullValueTargetAccountId = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsBankDetailsCreateRequest"/> and sets the default values.

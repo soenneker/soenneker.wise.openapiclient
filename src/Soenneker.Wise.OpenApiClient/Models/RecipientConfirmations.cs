@@ -18,38 +18,42 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("acceptedAt") is { } nullNodeAcceptedAt && nullNodeAcceptedAt.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) AcceptedAt = null;
-            if (parseNode.GetChildNode("acceptedOutcomes") is { } nullNodeAcceptedOutcomes && nullNodeAcceptedOutcomes.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) AcceptedOutcomes = null;
-            if (parseNode.GetChildNode("outcomes") is { } nullNodeOutcomes && nullNodeOutcomes.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Outcomes = null;
-            if (parseNode.GetChildNode("quoteId") is { } nullNodeQuoteId && nullNodeQuoteId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) QuoteId = null;
+            if (parseNode.GetChildNode("acceptedAt") is null) { _explicitNullValueAcceptedAt = default!; _explicitNullProperties?.Remove("acceptedAt"); }
+            else if (parseNode.GetChildNode("acceptedAt") is { } nullNodeAcceptedAt && nullNodeAcceptedAt.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) AcceptedAt = null;
+            if (parseNode.GetChildNode("acceptedOutcomes") is null) { _explicitNullValueAcceptedOutcomes = default!; _explicitNullProperties?.Remove("acceptedOutcomes"); }
+            else if (parseNode.GetChildNode("acceptedOutcomes") is { } nullNodeAcceptedOutcomes && nullNodeAcceptedOutcomes.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) AcceptedOutcomes = null;
+            if (parseNode.GetChildNode("outcomes") is null) { _explicitNullValueOutcomes = default!; _explicitNullProperties?.Remove("outcomes"); }
+            else if (parseNode.GetChildNode("outcomes") is { } nullNodeOutcomes && nullNodeOutcomes.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Outcomes = null;
+            if (parseNode.GetChildNode("quoteId") is null) { _explicitNullValueQuoteId = default!; _explicitNullProperties?.Remove("quoteId"); }
+            else if (parseNode.GetChildNode("quoteId") is { } nullNodeQuoteId && nullNodeQuoteId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) QuoteId = null;
         }
 
         /// <summary>Timestamp indicating date and time of outcome acceptance. Value is `null` until acceptance received.</summary>
-        public DateTimeOffset? AcceptedAt { get => _explicitNullValueAcceptedAt; set { _explicitNullValueAcceptedAt = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("acceptedAt"); else _explicitNullProperties?.Remove("acceptedAt"); } }
+        public DateTimeOffset? AcceptedAt { get => _explicitNullValueAcceptedAt; set { _explicitNullValueAcceptedAt = value; AdditionalData?.Remove("acceptedAt"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("acceptedAt"); else _explicitNullProperties?.Remove("acceptedAt"); } }
         private DateTimeOffset? _explicitNullValueAcceptedAt = default!;
         /// <summary>Indicates whether we&apos;ve received an explicit customer acceptance.</summary>
-        public bool? AcceptedOutcomes { get => _explicitNullValueAcceptedOutcomes; set { _explicitNullValueAcceptedOutcomes = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("acceptedOutcomes"); else _explicitNullProperties?.Remove("acceptedOutcomes"); } }
+        public bool? AcceptedOutcomes { get => _explicitNullValueAcceptedOutcomes; set { _explicitNullValueAcceptedOutcomes = value; AdditionalData?.Remove("acceptedOutcomes"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("acceptedOutcomes"); else _explicitNullProperties?.Remove("acceptedOutcomes"); } }
         private bool? _explicitNullValueAcceptedOutcomes = default!;
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Array of confirmation outcomes. Currently, it is safe to assume there is only one element in the outcomes array.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.RecipientConfirmationsOutcomesItem>? Outcomes { get => _explicitNullValueOutcomes; set { _explicitNullValueOutcomes = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("outcomes"); else _explicitNullProperties?.Remove("outcomes"); } }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.RecipientConfirmationsOutcomesItem>? Outcomes { get => _explicitNullValueOutcomes; set { _explicitNullValueOutcomes = value; AdditionalData?.Remove("outcomes"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("outcomes"); else _explicitNullProperties?.Remove("outcomes"); } }
         private List<global::Soenneker.Wise.OpenApiClient.Models.RecipientConfirmationsOutcomesItem>? _explicitNullValueOutcomes = default!;
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.RecipientConfirmationsOutcomesItem> Outcomes { get => _explicitNullValueOutcomes; set { _explicitNullValueOutcomes = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("outcomes"); else _explicitNullProperties?.Remove("outcomes"); } }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.RecipientConfirmationsOutcomesItem> Outcomes { get => _explicitNullValueOutcomes; set { _explicitNullValueOutcomes = value; AdditionalData?.Remove("outcomes"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("outcomes"); else _explicitNullProperties?.Remove("outcomes"); } }
         private List<global::Soenneker.Wise.OpenApiClient.Models.RecipientConfirmationsOutcomesItem> _explicitNullValueOutcomes = default!;
 #endif
         /// <summary>If the confirmation check was run as part of a quote compatibility check, then the `quoteId` is included in the result. If `quoteId` is present, the outcome acceptance needs the `quoteId` to be specified as well.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? QuoteId { get => _explicitNullValueQuoteId; set { _explicitNullValueQuoteId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("quoteId"); else _explicitNullProperties?.Remove("quoteId"); } }
+        public string? QuoteId { get => _explicitNullValueQuoteId; set { _explicitNullValueQuoteId = value; AdditionalData?.Remove("quoteId"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("quoteId"); else _explicitNullProperties?.Remove("quoteId"); } }
         private string? _explicitNullValueQuoteId = default!;
 #nullable restore
 #else
-        public string QuoteId { get => _explicitNullValueQuoteId; set { _explicitNullValueQuoteId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("quoteId"); else _explicitNullProperties?.Remove("quoteId"); } }
+        public string QuoteId { get => _explicitNullValueQuoteId; set { _explicitNullValueQuoteId = value; AdditionalData?.Remove("quoteId"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("quoteId"); else _explicitNullProperties?.Remove("quoteId"); } }
         private string _explicitNullValueQuoteId = default!;
 #endif
         /// <summary>

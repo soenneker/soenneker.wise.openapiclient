@@ -17,8 +17,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("encryptedPayload") is { } nullNodeEncryptedPayload && nullNodeEncryptedPayload.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) EncryptedPayload = null;
-            if (parseNode.GetChildNode("keyVersion") is { } nullNodeKeyVersion && nullNodeKeyVersion.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) KeyVersion = null;
+            if (parseNode.GetChildNode("encryptedPayload") is null) { _explicitNullValueEncryptedPayload = default!; _explicitNullProperties?.Remove("encryptedPayload"); }
+            else if (parseNode.GetChildNode("encryptedPayload") is { } nullNodeEncryptedPayload && nullNodeEncryptedPayload.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) EncryptedPayload = null;
+            if (parseNode.GetChildNode("keyVersion") is null) { _explicitNullValueKeyVersion = default!; _explicitNullProperties?.Remove("keyVersion"); }
+            else if (parseNode.GetChildNode("keyVersion") is { } nullNodeKeyVersion && nullNodeKeyVersion.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) KeyVersion = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -26,15 +28,15 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Your JWE encrypted payload.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? EncryptedPayload { get => _explicitNullValueEncryptedPayload; set { _explicitNullValueEncryptedPayload = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("encryptedPayload"); else _explicitNullProperties?.Remove("encryptedPayload"); } }
+        public string? EncryptedPayload { get => _explicitNullValueEncryptedPayload; set { _explicitNullValueEncryptedPayload = value; AdditionalData?.Remove("encryptedPayload"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("encryptedPayload"); else _explicitNullProperties?.Remove("encryptedPayload"); } }
         private string? _explicitNullValueEncryptedPayload = default!;
 #nullable restore
 #else
-        public string EncryptedPayload { get => _explicitNullValueEncryptedPayload; set { _explicitNullValueEncryptedPayload = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("encryptedPayload"); else _explicitNullProperties?.Remove("encryptedPayload"); } }
+        public string EncryptedPayload { get => _explicitNullValueEncryptedPayload; set { _explicitNullValueEncryptedPayload = value; AdditionalData?.Remove("encryptedPayload"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("encryptedPayload"); else _explicitNullProperties?.Remove("encryptedPayload"); } }
         private string _explicitNullValueEncryptedPayload = default!;
 #endif
         /// <summary>The version of the encryption key to use. Always set to 1.</summary>
-        public int? KeyVersion { get => _explicitNullValueKeyVersion; set { _explicitNullValueKeyVersion = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("keyVersion"); else _explicitNullProperties?.Remove("keyVersion"); } }
+        public int? KeyVersion { get => _explicitNullValueKeyVersion; set { _explicitNullValueKeyVersion = value; AdditionalData?.Remove("keyVersion"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("keyVersion"); else _explicitNullProperties?.Remove("keyVersion"); } }
         private int? _explicitNullValueKeyVersion = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.CardPinGetRequest"/> and sets the default values.

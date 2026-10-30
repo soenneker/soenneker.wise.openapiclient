@@ -17,8 +17,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("otherSourceOfWealthDescription") is { } nullNodeOtherSourceOfWealthDescription && nullNodeOtherSourceOfWealthDescription.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) OtherSourceOfWealthDescription = null;
-            if (parseNode.GetChildNode("sourceOfWealthList") is { } nullNodeSourceOfWealthList && nullNodeSourceOfWealthList.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SourceOfWealthList = null;
+            if (parseNode.GetChildNode("otherSourceOfWealthDescription") is null) { _explicitNullValueOtherSourceOfWealthDescription = default!; _explicitNullProperties?.Remove("otherSourceOfWealthDescription"); }
+            else if (parseNode.GetChildNode("otherSourceOfWealthDescription") is { } nullNodeOtherSourceOfWealthDescription && nullNodeOtherSourceOfWealthDescription.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) OtherSourceOfWealthDescription = null;
+            if (parseNode.GetChildNode("sourceOfWealthList") is null) { _explicitNullValueSourceOfWealthList = default!; _explicitNullProperties?.Remove("sourceOfWealthList"); }
+            else if (parseNode.GetChildNode("sourceOfWealthList") is { } nullNodeSourceOfWealthList && nullNodeSourceOfWealthList.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SourceOfWealthList = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -26,21 +28,21 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Required if `OTHER` is provided in `sourceOfWealthList`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? OtherSourceOfWealthDescription { get => _explicitNullValueOtherSourceOfWealthDescription; set { _explicitNullValueOtherSourceOfWealthDescription = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("otherSourceOfWealthDescription"); else _explicitNullProperties?.Remove("otherSourceOfWealthDescription"); } }
+        public string? OtherSourceOfWealthDescription { get => _explicitNullValueOtherSourceOfWealthDescription; set { _explicitNullValueOtherSourceOfWealthDescription = value; AdditionalData?.Remove("otherSourceOfWealthDescription"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("otherSourceOfWealthDescription"); else _explicitNullProperties?.Remove("otherSourceOfWealthDescription"); } }
         private string? _explicitNullValueOtherSourceOfWealthDescription = default!;
 #nullable restore
 #else
-        public string OtherSourceOfWealthDescription { get => _explicitNullValueOtherSourceOfWealthDescription; set { _explicitNullValueOtherSourceOfWealthDescription = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("otherSourceOfWealthDescription"); else _explicitNullProperties?.Remove("otherSourceOfWealthDescription"); } }
+        public string OtherSourceOfWealthDescription { get => _explicitNullValueOtherSourceOfWealthDescription; set { _explicitNullValueOtherSourceOfWealthDescription = value; AdditionalData?.Remove("otherSourceOfWealthDescription"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("otherSourceOfWealthDescription"); else _explicitNullProperties?.Remove("otherSourceOfWealthDescription"); } }
         private string _explicitNullValueOtherSourceOfWealthDescription = default!;
 #endif
         /// <summary>The sourceOfWealthList property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.BusinessSourceOfWealthSubmissionDataDataSourceOfWealthListItem?>? SourceOfWealthList { get => _explicitNullValueSourceOfWealthList; set { _explicitNullValueSourceOfWealthList = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sourceOfWealthList"); else _explicitNullProperties?.Remove("sourceOfWealthList"); } }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.BusinessSourceOfWealthSubmissionDataDataSourceOfWealthListItem?>? SourceOfWealthList { get => _explicitNullValueSourceOfWealthList; set { _explicitNullValueSourceOfWealthList = value; AdditionalData?.Remove("sourceOfWealthList"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sourceOfWealthList"); else _explicitNullProperties?.Remove("sourceOfWealthList"); } }
         private List<global::Soenneker.Wise.OpenApiClient.Models.BusinessSourceOfWealthSubmissionDataDataSourceOfWealthListItem?>? _explicitNullValueSourceOfWealthList = default!;
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.BusinessSourceOfWealthSubmissionDataDataSourceOfWealthListItem?> SourceOfWealthList { get => _explicitNullValueSourceOfWealthList; set { _explicitNullValueSourceOfWealthList = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sourceOfWealthList"); else _explicitNullProperties?.Remove("sourceOfWealthList"); } }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.BusinessSourceOfWealthSubmissionDataDataSourceOfWealthListItem?> SourceOfWealthList { get => _explicitNullValueSourceOfWealthList; set { _explicitNullValueSourceOfWealthList = value; AdditionalData?.Remove("sourceOfWealthList"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sourceOfWealthList"); else _explicitNullProperties?.Remove("sourceOfWealthList"); } }
         private List<global::Soenneker.Wise.OpenApiClient.Models.BusinessSourceOfWealthSubmissionDataDataSourceOfWealthListItem?> _explicitNullValueSourceOfWealthList = default!;
 #endif
         /// <summary>

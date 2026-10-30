@@ -17,10 +17,14 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("additionalRequirements") is { } nullNodeAdditionalRequirements && nullNodeAdditionalRequirements.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) AdditionalRequirements = null;
-            if (parseNode.GetChildNode("key") is { } nullNodeKey && nullNodeKey.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Key = null;
-            if (parseNode.GetChildNode("newState") is { } nullNodeNewState && nullNodeNewState.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) NewState = null;
-            if (parseNode.GetChildNode("prevState") is { } nullNodePrevState && nullNodePrevState.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PrevState = null;
+            if (parseNode.GetChildNode("additionalRequirements") is null) { _explicitNullValueAdditionalRequirements = default!; _explicitNullProperties?.Remove("additionalRequirements"); }
+            else if (parseNode.GetChildNode("additionalRequirements") is { } nullNodeAdditionalRequirements && nullNodeAdditionalRequirements.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) AdditionalRequirements = null;
+            if (parseNode.GetChildNode("key") is null) { _explicitNullValueKey = default!; _explicitNullProperties?.Remove("key"); }
+            else if (parseNode.GetChildNode("key") is { } nullNodeKey && nullNodeKey.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Key = null;
+            if (parseNode.GetChildNode("newState") is null) { _explicitNullValueNewState = default!; _explicitNullProperties?.Remove("newState"); }
+            else if (parseNode.GetChildNode("newState") is { } nullNodeNewState && nullNodeNewState.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) NewState = null;
+            if (parseNode.GetChildNode("prevState") is null) { _explicitNullValuePrevState = default!; _explicitNullProperties?.Remove("prevState"); }
+            else if (parseNode.GetChildNode("prevState") is { } nullNodePrevState && nullNodePrevState.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PrevState = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -28,41 +32,41 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>A list of additional requirements that have changed. Not shown if empty.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.V5002DataResourceRequirementChangesItemAdditionalRequirementsItem>? AdditionalRequirements { get => _explicitNullValueAdditionalRequirements; set { _explicitNullValueAdditionalRequirements = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("additionalRequirements"); else _explicitNullProperties?.Remove("additionalRequirements"); } }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.V5002DataResourceRequirementChangesItemAdditionalRequirementsItem>? AdditionalRequirements { get => _explicitNullValueAdditionalRequirements; set { _explicitNullValueAdditionalRequirements = value; AdditionalData?.Remove("additionalRequirements"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("additionalRequirements"); else _explicitNullProperties?.Remove("additionalRequirements"); } }
         private List<global::Soenneker.Wise.OpenApiClient.Models.V5002DataResourceRequirementChangesItemAdditionalRequirementsItem>? _explicitNullValueAdditionalRequirements = default!;
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.V5002DataResourceRequirementChangesItemAdditionalRequirementsItem> AdditionalRequirements { get => _explicitNullValueAdditionalRequirements; set { _explicitNullValueAdditionalRequirements = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("additionalRequirements"); else _explicitNullProperties?.Remove("additionalRequirements"); } }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.V5002DataResourceRequirementChangesItemAdditionalRequirementsItem> AdditionalRequirements { get => _explicitNullValueAdditionalRequirements; set { _explicitNullValueAdditionalRequirements = value; AdditionalData?.Remove("additionalRequirements"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("additionalRequirements"); else _explicitNullProperties?.Remove("additionalRequirements"); } }
         private List<global::Soenneker.Wise.OpenApiClient.Models.V5002DataResourceRequirementChangesItemAdditionalRequirementsItem> _explicitNullValueAdditionalRequirements = default!;
 #endif
         /// <summary>The [key](/api-reference/kyc-review/kyc-requirement#path=key) of the requirement that has changed.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Key { get => _explicitNullValueKey; set { _explicitNullValueKey = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("key"); else _explicitNullProperties?.Remove("key"); } }
+        public string? Key { get => _explicitNullValueKey; set { _explicitNullValueKey = value; AdditionalData?.Remove("key"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("key"); else _explicitNullProperties?.Remove("key"); } }
         private string? _explicitNullValueKey = default!;
 #nullable restore
 #else
-        public string Key { get => _explicitNullValueKey; set { _explicitNullValueKey = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("key"); else _explicitNullProperties?.Remove("key"); } }
+        public string Key { get => _explicitNullValueKey; set { _explicitNullValueKey = value; AdditionalData?.Remove("key"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("key"); else _explicitNullProperties?.Remove("key"); } }
         private string _explicitNullValueKey = default!;
 #endif
         /// <summary>The new [state](/api-reference/kyc-review/kyc-requirement#path=state) of the requirement that has changed.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? NewState { get => _explicitNullValueNewState; set { _explicitNullValueNewState = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("newState"); else _explicitNullProperties?.Remove("newState"); } }
+        public string? NewState { get => _explicitNullValueNewState; set { _explicitNullValueNewState = value; AdditionalData?.Remove("newState"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("newState"); else _explicitNullProperties?.Remove("newState"); } }
         private string? _explicitNullValueNewState = default!;
 #nullable restore
 #else
-        public string NewState { get => _explicitNullValueNewState; set { _explicitNullValueNewState = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("newState"); else _explicitNullProperties?.Remove("newState"); } }
+        public string NewState { get => _explicitNullValueNewState; set { _explicitNullValueNewState = value; AdditionalData?.Remove("newState"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("newState"); else _explicitNullProperties?.Remove("newState"); } }
         private string _explicitNullValueNewState = default!;
 #endif
         /// <summary>*Not provided when requirement is new.*The previous [state](/api-reference/kyc-review/kyc-requirement#path=state) of the requirement that has changed. In case only an [additional requirement](/api-reference/kyc-review/kyc-requirement#path=additionalRequirements) has changed, this state can be equal to `newState`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? PrevState { get => _explicitNullValuePrevState; set { _explicitNullValuePrevState = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("prevState"); else _explicitNullProperties?.Remove("prevState"); } }
+        public string? PrevState { get => _explicitNullValuePrevState; set { _explicitNullValuePrevState = value; AdditionalData?.Remove("prevState"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("prevState"); else _explicitNullProperties?.Remove("prevState"); } }
         private string? _explicitNullValuePrevState = default!;
 #nullable restore
 #else
-        public string PrevState { get => _explicitNullValuePrevState; set { _explicitNullValuePrevState = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("prevState"); else _explicitNullProperties?.Remove("prevState"); } }
+        public string PrevState { get => _explicitNullValuePrevState; set { _explicitNullValuePrevState = value; AdditionalData?.Remove("prevState"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("prevState"); else _explicitNullProperties?.Remove("prevState"); } }
         private string _explicitNullValuePrevState = default!;
 #endif
         /// <summary>

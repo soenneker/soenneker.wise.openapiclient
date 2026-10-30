@@ -17,47 +17,53 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("amount_matched") is { } nullNodeAmountMatched && nullNodeAmountMatched.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) AmountMatched = null;
-            if (parseNode.GetChildNode("received_amount") is { } nullNodeReceivedAmount && nullNodeReceivedAmount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ReceivedAmount = null;
-            if (parseNode.GetChildNode("settlement_reference") is { } nullNodeSettlementReference && nullNodeSettlementReference.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SettlementReference = null;
-            if (parseNode.GetChildNode("source_amount") is { } nullNodeSourceAmount && nullNodeSourceAmount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SourceAmount = null;
-            if (parseNode.GetChildNode("source_currency") is { } nullNodeSourceCurrency && nullNodeSourceCurrency.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SourceCurrency = null;
-            if (parseNode.GetChildNode("target_amount") is { } nullNodeTargetAmount && nullNodeTargetAmount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TargetAmount = null;
+            if (parseNode.GetChildNode("amount_matched") is null) { _explicitNullValueAmountMatched = default!; _explicitNullProperties?.Remove("amount_matched"); }
+            else if (parseNode.GetChildNode("amount_matched") is { } nullNodeAmountMatched && nullNodeAmountMatched.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) AmountMatched = null;
+            if (parseNode.GetChildNode("received_amount") is null) { _explicitNullValueReceivedAmount = default!; _explicitNullProperties?.Remove("received_amount"); }
+            else if (parseNode.GetChildNode("received_amount") is { } nullNodeReceivedAmount && nullNodeReceivedAmount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ReceivedAmount = null;
+            if (parseNode.GetChildNode("settlement_reference") is null) { _explicitNullValueSettlementReference = default!; _explicitNullProperties?.Remove("settlement_reference"); }
+            else if (parseNode.GetChildNode("settlement_reference") is { } nullNodeSettlementReference && nullNodeSettlementReference.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SettlementReference = null;
+            if (parseNode.GetChildNode("source_amount") is null) { _explicitNullValueSourceAmount = default!; _explicitNullProperties?.Remove("source_amount"); }
+            else if (parseNode.GetChildNode("source_amount") is { } nullNodeSourceAmount && nullNodeSourceAmount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SourceAmount = null;
+            if (parseNode.GetChildNode("source_currency") is null) { _explicitNullValueSourceCurrency = default!; _explicitNullProperties?.Remove("source_currency"); }
+            else if (parseNode.GetChildNode("source_currency") is { } nullNodeSourceCurrency && nullNodeSourceCurrency.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SourceCurrency = null;
+            if (parseNode.GetChildNode("target_amount") is null) { _explicitNullValueTargetAmount = default!; _explicitNullProperties?.Remove("target_amount"); }
+            else if (parseNode.GetChildNode("target_amount") is { } nullNodeTargetAmount && nullNodeTargetAmount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TargetAmount = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Whether amount received matches what is expected</summary>
-        public bool? AmountMatched { get => _explicitNullValueAmountMatched; set { _explicitNullValueAmountMatched = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("amount_matched"); else _explicitNullProperties?.Remove("amount_matched"); } }
+        public bool? AmountMatched { get => _explicitNullValueAmountMatched; set { _explicitNullValueAmountMatched = value; AdditionalData?.Remove("amount_matched"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("amount_matched"); else _explicitNullProperties?.Remove("amount_matched"); } }
         private bool? _explicitNullValueAmountMatched = default!;
         /// <summary>Please be aware that this field is unreliable. Always refer to the `target_amount` field for the total amount paid, and check the difference between `source_amount` and `target_amount` to see how much more needs to be paid.</summary>
-        public decimal? ReceivedAmount { get => _explicitNullValueReceivedAmount; set { _explicitNullValueReceivedAmount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("received_amount"); else _explicitNullProperties?.Remove("received_amount"); } }
+        public decimal? ReceivedAmount { get => _explicitNullValueReceivedAmount; set { _explicitNullValueReceivedAmount = value; AdditionalData?.Remove("received_amount"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("received_amount"); else _explicitNullProperties?.Remove("received_amount"); } }
         private decimal? _explicitNullValueReceivedAmount = default!;
         /// <summary>Reference on settlement journal</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? SettlementReference { get => _explicitNullValueSettlementReference; set { _explicitNullValueSettlementReference = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("settlement_reference"); else _explicitNullProperties?.Remove("settlement_reference"); } }
+        public string? SettlementReference { get => _explicitNullValueSettlementReference; set { _explicitNullValueSettlementReference = value; AdditionalData?.Remove("settlement_reference"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("settlement_reference"); else _explicitNullProperties?.Remove("settlement_reference"); } }
         private string? _explicitNullValueSettlementReference = default!;
 #nullable restore
 #else
-        public string SettlementReference { get => _explicitNullValueSettlementReference; set { _explicitNullValueSettlementReference = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("settlement_reference"); else _explicitNullProperties?.Remove("settlement_reference"); } }
+        public string SettlementReference { get => _explicitNullValueSettlementReference; set { _explicitNullValueSettlementReference = value; AdditionalData?.Remove("settlement_reference"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("settlement_reference"); else _explicitNullProperties?.Remove("settlement_reference"); } }
         private string _explicitNullValueSettlementReference = default!;
 #endif
         /// <summary>The amount Wise paid out on behalf of partner</summary>
-        public decimal? SourceAmount { get => _explicitNullValueSourceAmount; set { _explicitNullValueSourceAmount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("source_amount"); else _explicitNullProperties?.Remove("source_amount"); } }
+        public decimal? SourceAmount { get => _explicitNullValueSourceAmount; set { _explicitNullValueSourceAmount = value; AdditionalData?.Remove("source_amount"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("source_amount"); else _explicitNullProperties?.Remove("source_amount"); } }
         private decimal? _explicitNullValueSourceAmount = default!;
         /// <summary>Settlement currency</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? SourceCurrency { get => _explicitNullValueSourceCurrency; set { _explicitNullValueSourceCurrency = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("source_currency"); else _explicitNullProperties?.Remove("source_currency"); } }
+        public string? SourceCurrency { get => _explicitNullValueSourceCurrency; set { _explicitNullValueSourceCurrency = value; AdditionalData?.Remove("source_currency"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("source_currency"); else _explicitNullProperties?.Remove("source_currency"); } }
         private string? _explicitNullValueSourceCurrency = default!;
 #nullable restore
 #else
-        public string SourceCurrency { get => _explicitNullValueSourceCurrency; set { _explicitNullValueSourceCurrency = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("source_currency"); else _explicitNullProperties?.Remove("source_currency"); } }
+        public string SourceCurrency { get => _explicitNullValueSourceCurrency; set { _explicitNullValueSourceCurrency = value; AdditionalData?.Remove("source_currency"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("source_currency"); else _explicitNullProperties?.Remove("source_currency"); } }
         private string _explicitNullValueSourceCurrency = default!;
 #endif
         /// <summary>Total settlement fund received for this settlement journal</summary>
-        public decimal? TargetAmount { get => _explicitNullValueTargetAmount; set { _explicitNullValueTargetAmount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("target_amount"); else _explicitNullProperties?.Remove("target_amount"); } }
+        public decimal? TargetAmount { get => _explicitNullValueTargetAmount; set { _explicitNullValueTargetAmount = value; AdditionalData?.Remove("target_amount"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("target_amount"); else _explicitNullProperties?.Remove("target_amount"); } }
         private decimal? _explicitNullValueTargetAmount = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.V20023DataResource"/> and sets the default values.

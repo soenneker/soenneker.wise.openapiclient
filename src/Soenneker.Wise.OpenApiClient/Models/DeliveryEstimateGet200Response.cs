@@ -17,23 +17,25 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("estimatedDeliveryDate") is { } nullNodeEstimatedDeliveryDate && nullNodeEstimatedDeliveryDate.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) EstimatedDeliveryDate = null;
-            if (parseNode.GetChildNode("formattedEstimatedDeliveryDate") is { } nullNodeFormattedEstimatedDeliveryDate && nullNodeFormattedEstimatedDeliveryDate.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) FormattedEstimatedDeliveryDate = null;
+            if (parseNode.GetChildNode("estimatedDeliveryDate") is null) { _explicitNullValueEstimatedDeliveryDate = default!; _explicitNullProperties?.Remove("estimatedDeliveryDate"); }
+            else if (parseNode.GetChildNode("estimatedDeliveryDate") is { } nullNodeEstimatedDeliveryDate && nullNodeEstimatedDeliveryDate.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) EstimatedDeliveryDate = null;
+            if (parseNode.GetChildNode("formattedEstimatedDeliveryDate") is null) { _explicitNullValueFormattedEstimatedDeliveryDate = default!; _explicitNullProperties?.Remove("formattedEstimatedDeliveryDate"); }
+            else if (parseNode.GetChildNode("formattedEstimatedDeliveryDate") is { } nullNodeFormattedEstimatedDeliveryDate && nullNodeFormattedEstimatedDeliveryDate.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) FormattedEstimatedDeliveryDate = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Estimated time when funds will arrive in the recipient&apos;s bank account.</summary>
-        public DateTimeOffset? EstimatedDeliveryDate { get => _explicitNullValueEstimatedDeliveryDate; set { _explicitNullValueEstimatedDeliveryDate = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("estimatedDeliveryDate"); else _explicitNullProperties?.Remove("estimatedDeliveryDate"); } }
+        public DateTimeOffset? EstimatedDeliveryDate { get => _explicitNullValueEstimatedDeliveryDate; set { _explicitNullValueEstimatedDeliveryDate = value; AdditionalData?.Remove("estimatedDeliveryDate"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("estimatedDeliveryDate"); else _explicitNullProperties?.Remove("estimatedDeliveryDate"); } }
         private DateTimeOffset? _explicitNullValueEstimatedDeliveryDate = default!;
         /// <summary>A string to display to users for the estimated delivery date.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? FormattedEstimatedDeliveryDate { get => _explicitNullValueFormattedEstimatedDeliveryDate; set { _explicitNullValueFormattedEstimatedDeliveryDate = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("formattedEstimatedDeliveryDate"); else _explicitNullProperties?.Remove("formattedEstimatedDeliveryDate"); } }
+        public string? FormattedEstimatedDeliveryDate { get => _explicitNullValueFormattedEstimatedDeliveryDate; set { _explicitNullValueFormattedEstimatedDeliveryDate = value; AdditionalData?.Remove("formattedEstimatedDeliveryDate"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("formattedEstimatedDeliveryDate"); else _explicitNullProperties?.Remove("formattedEstimatedDeliveryDate"); } }
         private string? _explicitNullValueFormattedEstimatedDeliveryDate = default!;
 #nullable restore
 #else
-        public string FormattedEstimatedDeliveryDate { get => _explicitNullValueFormattedEstimatedDeliveryDate; set { _explicitNullValueFormattedEstimatedDeliveryDate = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("formattedEstimatedDeliveryDate"); else _explicitNullProperties?.Remove("formattedEstimatedDeliveryDate"); } }
+        public string FormattedEstimatedDeliveryDate { get => _explicitNullValueFormattedEstimatedDeliveryDate; set { _explicitNullValueFormattedEstimatedDeliveryDate = value; AdditionalData?.Remove("formattedEstimatedDeliveryDate"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("formattedEstimatedDeliveryDate"); else _explicitNullProperties?.Remove("formattedEstimatedDeliveryDate"); } }
         private string _explicitNullValueFormattedEstimatedDeliveryDate = default!;
 #endif
         /// <summary>

@@ -17,13 +17,20 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("current_state") is { } nullNodeCurrentState && nullNodeCurrentState.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CurrentState = null;
-            if (parseNode.GetChildNode("occurred_at") is { } nullNodeOccurredAt && nullNodeOccurredAt.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) OccurredAt = null;
-            if (parseNode.GetChildNode("required_evidences") is { } nullNodeRequiredEvidences && nullNodeRequiredEvidences.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) RequiredEvidences = null;
-            if (parseNode.GetChildNode("resource") is { } nullNodeResource && nullNodeResource.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Resource = null;
-            if (parseNode.GetChildNode("review_outcome") is { } nullNodeReviewOutcome && nullNodeReviewOutcome.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ReviewOutcome = null;
-            if (parseNode.GetChildNode("source_of_funding") is { } nullNodeSourceOfFunding && nullNodeSourceOfFunding.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SourceOfFunding = null;
-            if (parseNode.GetChildNode("source_of_income") is { } nullNodeSourceOfIncome && nullNodeSourceOfIncome.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SourceOfIncome = null;
+            if (parseNode.GetChildNode("current_state") is null) { _explicitNullValueCurrentState = default!; _explicitNullProperties?.Remove("current_state"); }
+            else if (parseNode.GetChildNode("current_state") is { } nullNodeCurrentState && nullNodeCurrentState.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CurrentState = null;
+            if (parseNode.GetChildNode("occurred_at") is null) { _explicitNullValueOccurredAt = default!; _explicitNullProperties?.Remove("occurred_at"); }
+            else if (parseNode.GetChildNode("occurred_at") is { } nullNodeOccurredAt && nullNodeOccurredAt.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) OccurredAt = null;
+            if (parseNode.GetChildNode("required_evidences") is null) { _explicitNullValueRequiredEvidences = default!; _explicitNullProperties?.Remove("required_evidences"); }
+            else if (parseNode.GetChildNode("required_evidences") is { } nullNodeRequiredEvidences && nullNodeRequiredEvidences.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) RequiredEvidences = null;
+            if (parseNode.GetChildNode("resource") is null) { _explicitNullValueResource = default!; _explicitNullProperties?.Remove("resource"); }
+            else if (parseNode.GetChildNode("resource") is { } nullNodeResource && nullNodeResource.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Resource = null;
+            if (parseNode.GetChildNode("review_outcome") is null) { _explicitNullValueReviewOutcome = default!; _explicitNullProperties?.Remove("review_outcome"); }
+            else if (parseNode.GetChildNode("review_outcome") is { } nullNodeReviewOutcome && nullNodeReviewOutcome.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ReviewOutcome = null;
+            if (parseNode.GetChildNode("source_of_funding") is null) { _explicitNullValueSourceOfFunding = default!; _explicitNullProperties?.Remove("source_of_funding"); }
+            else if (parseNode.GetChildNode("source_of_funding") is { } nullNodeSourceOfFunding && nullNodeSourceOfFunding.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SourceOfFunding = null;
+            if (parseNode.GetChildNode("source_of_income") is null) { _explicitNullValueSourceOfIncome = default!; _explicitNullProperties?.Remove("source_of_income"); }
+            else if (parseNode.GetChildNode("source_of_income") is { } nullNodeSourceOfIncome && nullNodeSourceOfIncome.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SourceOfIncome = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -31,64 +38,64 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Current verification state of the profile (see table above).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? CurrentState { get => _explicitNullValueCurrentState; set { _explicitNullValueCurrentState = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("current_state"); else _explicitNullProperties?.Remove("current_state"); } }
+        public string? CurrentState { get => _explicitNullValueCurrentState; set { _explicitNullValueCurrentState = value; AdditionalData?.Remove("current_state"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("current_state"); else _explicitNullProperties?.Remove("current_state"); } }
         private string? _explicitNullValueCurrentState = default!;
 #nullable restore
 #else
-        public string CurrentState { get => _explicitNullValueCurrentState; set { _explicitNullValueCurrentState = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("current_state"); else _explicitNullProperties?.Remove("current_state"); } }
+        public string CurrentState { get => _explicitNullValueCurrentState; set { _explicitNullValueCurrentState = value; AdditionalData?.Remove("current_state"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("current_state"); else _explicitNullProperties?.Remove("current_state"); } }
         private string _explicitNullValueCurrentState = default!;
 #endif
         /// <summary>When the CDD check state change occurred.</summary>
-        public DateTimeOffset? OccurredAt { get => _explicitNullValueOccurredAt; set { _explicitNullValueOccurredAt = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("occurred_at"); else _explicitNullProperties?.Remove("occurred_at"); } }
+        public DateTimeOffset? OccurredAt { get => _explicitNullValueOccurredAt; set { _explicitNullValueOccurredAt = value; AdditionalData?.Remove("occurred_at"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("occurred_at"); else _explicitNullProperties?.Remove("occurred_at"); } }
         private DateTimeOffset? _explicitNullValueOccurredAt = default!;
         /// <summary>List of required evidences for verification. See the [list of evidences](/guides/product/kyc/partner-kyc/supported-evidences) to find all possible values.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<string>? RequiredEvidences { get => _explicitNullValueRequiredEvidences; set { _explicitNullValueRequiredEvidences = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("required_evidences"); else _explicitNullProperties?.Remove("required_evidences"); } }
+        public List<string>? RequiredEvidences { get => _explicitNullValueRequiredEvidences; set { _explicitNullValueRequiredEvidences = value; AdditionalData?.Remove("required_evidences"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("required_evidences"); else _explicitNullProperties?.Remove("required_evidences"); } }
         private List<string>? _explicitNullValueRequiredEvidences = default!;
 #nullable restore
 #else
-        public List<string> RequiredEvidences { get => _explicitNullValueRequiredEvidences; set { _explicitNullValueRequiredEvidences = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("required_evidences"); else _explicitNullProperties?.Remove("required_evidences"); } }
+        public List<string> RequiredEvidences { get => _explicitNullValueRequiredEvidences; set { _explicitNullValueRequiredEvidences = value; AdditionalData?.Remove("required_evidences"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("required_evidences"); else _explicitNullProperties?.Remove("required_evidences"); } }
         private List<string> _explicitNullValueRequiredEvidences = default!;
 #endif
         /// <summary>The resource property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.V40014DataResource? Resource { get => _explicitNullValueResource; set { _explicitNullValueResource = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("resource"); else _explicitNullProperties?.Remove("resource"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.V40014DataResource? Resource { get => _explicitNullValueResource; set { _explicitNullValueResource = value; AdditionalData?.Remove("resource"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("resource"); else _explicitNullProperties?.Remove("resource"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.V40014DataResource? _explicitNullValueResource = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.V40014DataResource Resource { get => _explicitNullValueResource; set { _explicitNullValueResource = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("resource"); else _explicitNullProperties?.Remove("resource"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.V40014DataResource Resource { get => _explicitNullValueResource; set { _explicitNullValueResource = value; AdditionalData?.Remove("resource"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("resource"); else _explicitNullProperties?.Remove("resource"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.V40014DataResource _explicitNullValueResource = default!;
 #endif
         /// <summary>*Optional*Reason the verification review did not pass.Refer to the table above for reason descriptions.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? ReviewOutcome { get => _explicitNullValueReviewOutcome; set { _explicitNullValueReviewOutcome = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("review_outcome"); else _explicitNullProperties?.Remove("review_outcome"); } }
+        public string? ReviewOutcome { get => _explicitNullValueReviewOutcome; set { _explicitNullValueReviewOutcome = value; AdditionalData?.Remove("review_outcome"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("review_outcome"); else _explicitNullProperties?.Remove("review_outcome"); } }
         private string? _explicitNullValueReviewOutcome = default!;
 #nullable restore
 #else
-        public string ReviewOutcome { get => _explicitNullValueReviewOutcome; set { _explicitNullValueReviewOutcome = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("review_outcome"); else _explicitNullProperties?.Remove("review_outcome"); } }
+        public string ReviewOutcome { get => _explicitNullValueReviewOutcome; set { _explicitNullValueReviewOutcome = value; AdditionalData?.Remove("review_outcome"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("review_outcome"); else _explicitNullProperties?.Remove("review_outcome"); } }
         private string _explicitNullValueReviewOutcome = default!;
 #endif
         /// <summary>*Optional*Source of funding for a business profile submitted via the [/upload-evidences endpoint](/api-reference/verification/verificationuploadevidences).Use this to upload the correct Source of Wealth document.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? SourceOfFunding { get => _explicitNullValueSourceOfFunding; set { _explicitNullValueSourceOfFunding = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("source_of_funding"); else _explicitNullProperties?.Remove("source_of_funding"); } }
+        public string? SourceOfFunding { get => _explicitNullValueSourceOfFunding; set { _explicitNullValueSourceOfFunding = value; AdditionalData?.Remove("source_of_funding"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("source_of_funding"); else _explicitNullProperties?.Remove("source_of_funding"); } }
         private string? _explicitNullValueSourceOfFunding = default!;
 #nullable restore
 #else
-        public string SourceOfFunding { get => _explicitNullValueSourceOfFunding; set { _explicitNullValueSourceOfFunding = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("source_of_funding"); else _explicitNullProperties?.Remove("source_of_funding"); } }
+        public string SourceOfFunding { get => _explicitNullValueSourceOfFunding; set { _explicitNullValueSourceOfFunding = value; AdditionalData?.Remove("source_of_funding"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("source_of_funding"); else _explicitNullProperties?.Remove("source_of_funding"); } }
         private string _explicitNullValueSourceOfFunding = default!;
 #endif
         /// <summary>*Optional*Source of income for a personal profile submitted via the [/upload-evidences endpoint](/api-reference/verification/verificationuploadevidences).Use this to upload the correct Source of Wealth document.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? SourceOfIncome { get => _explicitNullValueSourceOfIncome; set { _explicitNullValueSourceOfIncome = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("source_of_income"); else _explicitNullProperties?.Remove("source_of_income"); } }
+        public string? SourceOfIncome { get => _explicitNullValueSourceOfIncome; set { _explicitNullValueSourceOfIncome = value; AdditionalData?.Remove("source_of_income"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("source_of_income"); else _explicitNullProperties?.Remove("source_of_income"); } }
         private string? _explicitNullValueSourceOfIncome = default!;
 #nullable restore
 #else
-        public string SourceOfIncome { get => _explicitNullValueSourceOfIncome; set { _explicitNullValueSourceOfIncome = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("source_of_income"); else _explicitNullProperties?.Remove("source_of_income"); } }
+        public string SourceOfIncome { get => _explicitNullValueSourceOfIncome; set { _explicitNullValueSourceOfIncome = value; AdditionalData?.Remove("source_of_income"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("source_of_income"); else _explicitNullProperties?.Remove("source_of_income"); } }
         private string _explicitNullValueSourceOfIncome = default!;
 #endif
         /// <summary>

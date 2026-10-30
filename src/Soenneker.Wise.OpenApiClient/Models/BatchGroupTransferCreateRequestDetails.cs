@@ -17,10 +17,14 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("reference") is { } nullNodeReference && nullNodeReference.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Reference = null;
-            if (parseNode.GetChildNode("sourceOfFunds") is { } nullNodeSourceOfFunds && nullNodeSourceOfFunds.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SourceOfFunds = null;
-            if (parseNode.GetChildNode("transferPurpose") is { } nullNodeTransferPurpose && nullNodeTransferPurpose.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TransferPurpose = null;
-            if (parseNode.GetChildNode("transferPurposeSubTransferPurpose") is { } nullNodeTransferPurposeSubTransferPurpose && nullNodeTransferPurposeSubTransferPurpose.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TransferPurposeSubTransferPurpose = null;
+            if (parseNode.GetChildNode("reference") is null) { _explicitNullValueReference = default!; _explicitNullProperties?.Remove("reference"); }
+            else if (parseNode.GetChildNode("reference") is { } nullNodeReference && nullNodeReference.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Reference = null;
+            if (parseNode.GetChildNode("sourceOfFunds") is null) { _explicitNullValueSourceOfFunds = default!; _explicitNullProperties?.Remove("sourceOfFunds"); }
+            else if (parseNode.GetChildNode("sourceOfFunds") is { } nullNodeSourceOfFunds && nullNodeSourceOfFunds.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SourceOfFunds = null;
+            if (parseNode.GetChildNode("transferPurpose") is null) { _explicitNullValueTransferPurpose = default!; _explicitNullProperties?.Remove("transferPurpose"); }
+            else if (parseNode.GetChildNode("transferPurpose") is { } nullNodeTransferPurpose && nullNodeTransferPurpose.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TransferPurpose = null;
+            if (parseNode.GetChildNode("transferPurposeSubTransferPurpose") is null) { _explicitNullValueTransferPurposeSubTransferPurpose = default!; _explicitNullProperties?.Remove("transferPurposeSubTransferPurpose"); }
+            else if (parseNode.GetChildNode("transferPurposeSubTransferPurpose") is { } nullNodeTransferPurposeSubTransferPurpose && nullNodeTransferPurposeSubTransferPurpose.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TransferPurposeSubTransferPurpose = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -28,41 +32,41 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Recipient-facing reference (payment narrative).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Reference { get => _explicitNullValueReference; set { _explicitNullValueReference = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("reference"); else _explicitNullProperties?.Remove("reference"); } }
+        public string? Reference { get => _explicitNullValueReference; set { _explicitNullValueReference = value; AdditionalData?.Remove("reference"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("reference"); else _explicitNullProperties?.Remove("reference"); } }
         private string? _explicitNullValueReference = default!;
 #nullable restore
 #else
-        public string Reference { get => _explicitNullValueReference; set { _explicitNullValueReference = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("reference"); else _explicitNullProperties?.Remove("reference"); } }
+        public string Reference { get => _explicitNullValueReference; set { _explicitNullValueReference = value; AdditionalData?.Remove("reference"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("reference"); else _explicitNullProperties?.Remove("reference"); } }
         private string _explicitNullValueReference = default!;
 #endif
         /// <summary>Source of funds code.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? SourceOfFunds { get => _explicitNullValueSourceOfFunds; set { _explicitNullValueSourceOfFunds = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sourceOfFunds"); else _explicitNullProperties?.Remove("sourceOfFunds"); } }
+        public string? SourceOfFunds { get => _explicitNullValueSourceOfFunds; set { _explicitNullValueSourceOfFunds = value; AdditionalData?.Remove("sourceOfFunds"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sourceOfFunds"); else _explicitNullProperties?.Remove("sourceOfFunds"); } }
         private string? _explicitNullValueSourceOfFunds = default!;
 #nullable restore
 #else
-        public string SourceOfFunds { get => _explicitNullValueSourceOfFunds; set { _explicitNullValueSourceOfFunds = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sourceOfFunds"); else _explicitNullProperties?.Remove("sourceOfFunds"); } }
+        public string SourceOfFunds { get => _explicitNullValueSourceOfFunds; set { _explicitNullValueSourceOfFunds = value; AdditionalData?.Remove("sourceOfFunds"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sourceOfFunds"); else _explicitNullProperties?.Remove("sourceOfFunds"); } }
         private string _explicitNullValueSourceOfFunds = default!;
 #endif
         /// <summary>Transfer purpose code.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? TransferPurpose { get => _explicitNullValueTransferPurpose; set { _explicitNullValueTransferPurpose = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("transferPurpose"); else _explicitNullProperties?.Remove("transferPurpose"); } }
+        public string? TransferPurpose { get => _explicitNullValueTransferPurpose; set { _explicitNullValueTransferPurpose = value; AdditionalData?.Remove("transferPurpose"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("transferPurpose"); else _explicitNullProperties?.Remove("transferPurpose"); } }
         private string? _explicitNullValueTransferPurpose = default!;
 #nullable restore
 #else
-        public string TransferPurpose { get => _explicitNullValueTransferPurpose; set { _explicitNullValueTransferPurpose = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("transferPurpose"); else _explicitNullProperties?.Remove("transferPurpose"); } }
+        public string TransferPurpose { get => _explicitNullValueTransferPurpose; set { _explicitNullValueTransferPurpose = value; AdditionalData?.Remove("transferPurpose"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("transferPurpose"); else _explicitNullProperties?.Remove("transferPurpose"); } }
         private string _explicitNullValueTransferPurpose = default!;
 #endif
         /// <summary>Sub-purpose code for the transfer.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? TransferPurposeSubTransferPurpose { get => _explicitNullValueTransferPurposeSubTransferPurpose; set { _explicitNullValueTransferPurposeSubTransferPurpose = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("transferPurposeSubTransferPurpose"); else _explicitNullProperties?.Remove("transferPurposeSubTransferPurpose"); } }
+        public string? TransferPurposeSubTransferPurpose { get => _explicitNullValueTransferPurposeSubTransferPurpose; set { _explicitNullValueTransferPurposeSubTransferPurpose = value; AdditionalData?.Remove("transferPurposeSubTransferPurpose"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("transferPurposeSubTransferPurpose"); else _explicitNullProperties?.Remove("transferPurposeSubTransferPurpose"); } }
         private string? _explicitNullValueTransferPurposeSubTransferPurpose = default!;
 #nullable restore
 #else
-        public string TransferPurposeSubTransferPurpose { get => _explicitNullValueTransferPurposeSubTransferPurpose; set { _explicitNullValueTransferPurposeSubTransferPurpose = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("transferPurposeSubTransferPurpose"); else _explicitNullProperties?.Remove("transferPurposeSubTransferPurpose"); } }
+        public string TransferPurposeSubTransferPurpose { get => _explicitNullValueTransferPurposeSubTransferPurpose; set { _explicitNullValueTransferPurposeSubTransferPurpose = value; AdditionalData?.Remove("transferPurposeSubTransferPurpose"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("transferPurposeSubTransferPurpose"); else _explicitNullProperties?.Remove("transferPurposeSubTransferPurpose"); } }
         private string _explicitNullValueTransferPurposeSubTransferPurpose = default!;
 #endif
         /// <summary>

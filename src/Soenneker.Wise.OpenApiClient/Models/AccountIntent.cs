@@ -18,7 +18,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("submissionData") is { } nullNodeSubmissionData && nullNodeSubmissionData.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SubmissionData = null;
+            if (parseNode.GetChildNode("submissionData") is null) { _explicitNullValueSubmissionData = default!; _explicitNullProperties?.Remove("submissionData"); }
+            else if (parseNode.GetChildNode("submissionData") is { } nullNodeSubmissionData && nullNodeSubmissionData.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SubmissionData = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -26,11 +27,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>```json {% title=&quot;Example&quot; %}{  &quot;data&quot;: {    &quot;accountIntent&quot;: &quot;PAYING_FOR_GOODS_OR_SERVICES_ABROAD&quot;  },  &quot;version&quot;: &quot;V1&quot;,  &quot;kycReviewId&quot;: &quot;93a903ea-636c-4c86-a25c-cf6d2bd00e81&quot;}```</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.AccountIntentSubmissionData? SubmissionData { get => _explicitNullValueSubmissionData; set { _explicitNullValueSubmissionData = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("submissionData"); else _explicitNullProperties?.Remove("submissionData"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.AccountIntentSubmissionData? SubmissionData { get => _explicitNullValueSubmissionData; set { _explicitNullValueSubmissionData = value; AdditionalData?.Remove("submissionData"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("submissionData"); else _explicitNullProperties?.Remove("submissionData"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.AccountIntentSubmissionData? _explicitNullValueSubmissionData = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.AccountIntentSubmissionData SubmissionData { get => _explicitNullValueSubmissionData; set { _explicitNullValueSubmissionData = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("submissionData"); else _explicitNullProperties?.Remove("submissionData"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.AccountIntentSubmissionData SubmissionData { get => _explicitNullValueSubmissionData; set { _explicitNullValueSubmissionData = value; AdditionalData?.Remove("submissionData"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("submissionData"); else _explicitNullProperties?.Remove("submissionData"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.AccountIntentSubmissionData _explicitNullValueSubmissionData = default!;
 #endif
         /// <summary>

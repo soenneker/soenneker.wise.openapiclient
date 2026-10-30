@@ -17,7 +17,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("vesselImoNumber") is { } nullNodeVesselImoNumber && nullNodeVesselImoNumber.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) VesselImoNumber = null;
+            if (parseNode.GetChildNode("vesselImoNumber") is null) { _explicitNullValueVesselImoNumber = default!; _explicitNullProperties?.Remove("vesselImoNumber"); }
+            else if (parseNode.GetChildNode("vesselImoNumber") is { } nullNodeVesselImoNumber && nullNodeVesselImoNumber.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) VesselImoNumber = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -25,11 +26,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The vesselImoNumber property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? VesselImoNumber { get => _explicitNullValueVesselImoNumber; set { _explicitNullValueVesselImoNumber = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("vesselImoNumber"); else _explicitNullProperties?.Remove("vesselImoNumber"); } }
+        public string? VesselImoNumber { get => _explicitNullValueVesselImoNumber; set { _explicitNullValueVesselImoNumber = value; AdditionalData?.Remove("vesselImoNumber"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("vesselImoNumber"); else _explicitNullProperties?.Remove("vesselImoNumber"); } }
         private string? _explicitNullValueVesselImoNumber = default!;
 #nullable restore
 #else
-        public string VesselImoNumber { get => _explicitNullValueVesselImoNumber; set { _explicitNullValueVesselImoNumber = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("vesselImoNumber"); else _explicitNullProperties?.Remove("vesselImoNumber"); } }
+        public string VesselImoNumber { get => _explicitNullValueVesselImoNumber; set { _explicitNullValueVesselImoNumber = value; AdditionalData?.Remove("vesselImoNumber"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("vesselImoNumber"); else _explicitNullProperties?.Remove("vesselImoNumber"); } }
         private string _explicitNullValueVesselImoNumber = default!;
 #endif
         /// <summary>

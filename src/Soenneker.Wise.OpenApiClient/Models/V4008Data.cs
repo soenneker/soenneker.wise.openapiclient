@@ -17,10 +17,14 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("card_status") is { } nullNodeCardStatus && nullNodeCardStatus.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CardStatus = null;
-            if (parseNode.GetChildNode("changed_by") is { } nullNodeChangedBy && nullNodeChangedBy.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ChangedBy = null;
-            if (parseNode.GetChildNode("occurred_at") is { } nullNodeOccurredAt && nullNodeOccurredAt.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) OccurredAt = null;
-            if (parseNode.GetChildNode("resource") is { } nullNodeResource && nullNodeResource.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Resource = null;
+            if (parseNode.GetChildNode("card_status") is null) { _explicitNullValueCardStatus = default!; _explicitNullProperties?.Remove("card_status"); }
+            else if (parseNode.GetChildNode("card_status") is { } nullNodeCardStatus && nullNodeCardStatus.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CardStatus = null;
+            if (parseNode.GetChildNode("changed_by") is null) { _explicitNullValueChangedBy = default!; _explicitNullProperties?.Remove("changed_by"); }
+            else if (parseNode.GetChildNode("changed_by") is { } nullNodeChangedBy && nullNodeChangedBy.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ChangedBy = null;
+            if (parseNode.GetChildNode("occurred_at") is null) { _explicitNullValueOccurredAt = default!; _explicitNullProperties?.Remove("occurred_at"); }
+            else if (parseNode.GetChildNode("occurred_at") is { } nullNodeOccurredAt && nullNodeOccurredAt.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) OccurredAt = null;
+            if (parseNode.GetChildNode("resource") is null) { _explicitNullValueResource = default!; _explicitNullProperties?.Remove("resource"); }
+            else if (parseNode.GetChildNode("resource") is { } nullNodeResource && nullNodeResource.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Resource = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -28,34 +32,34 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The updated card status. Possible values:- `ACTIVE` - Card is active and can be used.- `INACTIVE` - Card is inactive and all transactions will be declined.- `BLOCKED` - Card is blocked and cannot be reversed back to any state.- `FROZEN` - Card is temporarily frozen; all authorization requests will be declined.- `PARTNER_SUSPENDED` - Card is suspended by Wise temporarily due to, for example, fraud reasons.- `EXPIRED` - Card is expired.- `PURGED` - The cardhoder data (ex: PAN, PIN) have been purged after exceeds the retention period (555 days after the card&apos;s expiry date).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? CardStatus { get => _explicitNullValueCardStatus; set { _explicitNullValueCardStatus = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("card_status"); else _explicitNullProperties?.Remove("card_status"); } }
+        public string? CardStatus { get => _explicitNullValueCardStatus; set { _explicitNullValueCardStatus = value; AdditionalData?.Remove("card_status"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("card_status"); else _explicitNullProperties?.Remove("card_status"); } }
         private string? _explicitNullValueCardStatus = default!;
 #nullable restore
 #else
-        public string CardStatus { get => _explicitNullValueCardStatus; set { _explicitNullValueCardStatus = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("card_status"); else _explicitNullProperties?.Remove("card_status"); } }
+        public string CardStatus { get => _explicitNullValueCardStatus; set { _explicitNullValueCardStatus = value; AdditionalData?.Remove("card_status"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("card_status"); else _explicitNullProperties?.Remove("card_status"); } }
         private string _explicitNullValueCardStatus = default!;
 #endif
         /// <summary>The identifier of the entity that updated the card status. If changed by Wise, the value is set to `internal_system`,otherwise, it is set to your `api_client_id`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? ChangedBy { get => _explicitNullValueChangedBy; set { _explicitNullValueChangedBy = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("changed_by"); else _explicitNullProperties?.Remove("changed_by"); } }
+        public string? ChangedBy { get => _explicitNullValueChangedBy; set { _explicitNullValueChangedBy = value; AdditionalData?.Remove("changed_by"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("changed_by"); else _explicitNullProperties?.Remove("changed_by"); } }
         private string? _explicitNullValueChangedBy = default!;
 #nullable restore
 #else
-        public string ChangedBy { get => _explicitNullValueChangedBy; set { _explicitNullValueChangedBy = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("changed_by"); else _explicitNullProperties?.Remove("changed_by"); } }
+        public string ChangedBy { get => _explicitNullValueChangedBy; set { _explicitNullValueChangedBy = value; AdditionalData?.Remove("changed_by"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("changed_by"); else _explicitNullProperties?.Remove("changed_by"); } }
         private string _explicitNullValueChangedBy = default!;
 #endif
         /// <summary>When the card status change occurred.</summary>
-        public DateTimeOffset? OccurredAt { get => _explicitNullValueOccurredAt; set { _explicitNullValueOccurredAt = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("occurred_at"); else _explicitNullProperties?.Remove("occurred_at"); } }
+        public DateTimeOffset? OccurredAt { get => _explicitNullValueOccurredAt; set { _explicitNullValueOccurredAt = value; AdditionalData?.Remove("occurred_at"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("occurred_at"); else _explicitNullProperties?.Remove("occurred_at"); } }
         private DateTimeOffset? _explicitNullValueOccurredAt = default!;
         /// <summary>The resource property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.V4008DataResource? Resource { get => _explicitNullValueResource; set { _explicitNullValueResource = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("resource"); else _explicitNullProperties?.Remove("resource"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.V4008DataResource? Resource { get => _explicitNullValueResource; set { _explicitNullValueResource = value; AdditionalData?.Remove("resource"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("resource"); else _explicitNullProperties?.Remove("resource"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.V4008DataResource? _explicitNullValueResource = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.V4008DataResource Resource { get => _explicitNullValueResource; set { _explicitNullValueResource = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("resource"); else _explicitNullProperties?.Remove("resource"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.V4008DataResource Resource { get => _explicitNullValueResource; set { _explicitNullValueResource = value; AdditionalData?.Remove("resource"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("resource"); else _explicitNullProperties?.Remove("resource"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.V4008DataResource _explicitNullValueResource = default!;
 #endif
         /// <summary>

@@ -17,7 +17,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("paymentTokens") is { } nullNodePaymentTokens && nullNodePaymentTokens.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PaymentTokens = null;
+            if (parseNode.GetChildNode("paymentTokens") is null) { _explicitNullValuePaymentTokens = default!; _explicitNullProperties?.Remove("paymentTokens"); }
+            else if (parseNode.GetChildNode("paymentTokens") is { } nullNodePaymentTokens && nullNodePaymentTokens.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PaymentTokens = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -25,11 +26,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The paymentTokens property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningPaymentTokensList200ResponsePaymentTokensItem>? PaymentTokens { get => _explicitNullValuePaymentTokens; set { _explicitNullValuePaymentTokens = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("paymentTokens"); else _explicitNullProperties?.Remove("paymentTokens"); } }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningPaymentTokensList200ResponsePaymentTokensItem>? PaymentTokens { get => _explicitNullValuePaymentTokens; set { _explicitNullValuePaymentTokens = value; AdditionalData?.Remove("paymentTokens"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("paymentTokens"); else _explicitNullProperties?.Remove("paymentTokens"); } }
         private List<global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningPaymentTokensList200ResponsePaymentTokensItem>? _explicitNullValuePaymentTokens = default!;
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningPaymentTokensList200ResponsePaymentTokensItem> PaymentTokens { get => _explicitNullValuePaymentTokens; set { _explicitNullValuePaymentTokens = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("paymentTokens"); else _explicitNullProperties?.Remove("paymentTokens"); } }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningPaymentTokensList200ResponsePaymentTokensItem> PaymentTokens { get => _explicitNullValuePaymentTokens; set { _explicitNullValuePaymentTokens = value; AdditionalData?.Remove("paymentTokens"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("paymentTokens"); else _explicitNullProperties?.Remove("paymentTokens"); } }
         private List<global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningPaymentTokensList200ResponsePaymentTokensItem> _explicitNullValuePaymentTokens = default!;
 #endif
         /// <summary>

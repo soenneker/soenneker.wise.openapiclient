@@ -17,11 +17,12 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("accountIntent") is { } nullNodeAccountIntent && nullNodeAccountIntent.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) AccountIntent = null;
+            if (parseNode.GetChildNode("accountIntent") is null) { _explicitNullValueAccountIntent = default!; _explicitNullProperties?.Remove("accountIntent"); }
+            else if (parseNode.GetChildNode("accountIntent") is { } nullNodeAccountIntent && nullNodeAccountIntent.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) AccountIntent = null;
         }
 
         /// <summary>How the customer intends to use their Wise account. The accepted values depend on whether the profile is personal or business.Depending on what triggered the KYC review, only some of these values may be accepted. Other values are rejected with a `400` error.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.AccountIntentSubmissionDataDataAccountIntent? AccountIntent { get => _explicitNullValueAccountIntent; set { _explicitNullValueAccountIntent = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("accountIntent"); else _explicitNullProperties?.Remove("accountIntent"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.AccountIntentSubmissionDataDataAccountIntent? AccountIntent { get => _explicitNullValueAccountIntent; set { _explicitNullValueAccountIntent = value; AdditionalData?.Remove("accountIntent"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("accountIntent"); else _explicitNullProperties?.Remove("accountIntent"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.AccountIntentSubmissionDataDataAccountIntent? _explicitNullValueAccountIntent = default!;
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
@@ -50,7 +51,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "accountIntent", n => { AccountIntent = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.AccountIntentSubmissionDataDataAccountIntent>(); } },
+                { "accountIntent", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.AccountIntentSubmissionDataDataAccountIntent>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueAccountIntent = default; _explicitNullProperties?.Remove("accountIntent"); AdditionalData["accountIntent"] = unknown; } else { AccountIntent = parsed; AdditionalData.Remove("accountIntent"); } } },
             };
         }
         /// <summary>

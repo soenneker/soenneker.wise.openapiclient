@@ -17,17 +17,19 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("businessSourceOfWealthInfo") is { } nullNodeBusinessSourceOfWealthInfo && nullNodeBusinessSourceOfWealthInfo.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) BusinessSourceOfWealthInfo = null;
-            if (parseNode.GetChildNode("isSourceOfFund") is { } nullNodeIsSourceOfFund && nullNodeIsSourceOfFund.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) IsSourceOfFund = null;
+            if (parseNode.GetChildNode("businessSourceOfWealthInfo") is null) { _explicitNullValueBusinessSourceOfWealthInfo = default!; _explicitNullProperties?.Remove("businessSourceOfWealthInfo"); }
+            else if (parseNode.GetChildNode("businessSourceOfWealthInfo") is { } nullNodeBusinessSourceOfWealthInfo && nullNodeBusinessSourceOfWealthInfo.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) BusinessSourceOfWealthInfo = null;
+            if (parseNode.GetChildNode("isSourceOfFund") is null) { _explicitNullValueIsSourceOfFund = default!; _explicitNullProperties?.Remove("isSourceOfFund"); }
+            else if (parseNode.GetChildNode("isSourceOfFund") is { } nullNodeIsSourceOfFund && nullNodeIsSourceOfFund.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) IsSourceOfFund = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The businessSourceOfWealthInfo property</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.BusinessSourceOfWealthInfoSubmissionDataDataSourceOfWealthListItemBusinessSourceOfWealthInfo? BusinessSourceOfWealthInfo { get => _explicitNullValueBusinessSourceOfWealthInfo; set { _explicitNullValueBusinessSourceOfWealthInfo = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("businessSourceOfWealthInfo"); else _explicitNullProperties?.Remove("businessSourceOfWealthInfo"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.BusinessSourceOfWealthInfoSubmissionDataDataSourceOfWealthListItemBusinessSourceOfWealthInfo? BusinessSourceOfWealthInfo { get => _explicitNullValueBusinessSourceOfWealthInfo; set { _explicitNullValueBusinessSourceOfWealthInfo = value; AdditionalData?.Remove("businessSourceOfWealthInfo"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("businessSourceOfWealthInfo"); else _explicitNullProperties?.Remove("businessSourceOfWealthInfo"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.BusinessSourceOfWealthInfoSubmissionDataDataSourceOfWealthListItemBusinessSourceOfWealthInfo? _explicitNullValueBusinessSourceOfWealthInfo = default!;
         /// <summary>Whether this source of wealth is used to fund the action.</summary>
-        public bool? IsSourceOfFund { get => _explicitNullValueIsSourceOfFund; set { _explicitNullValueIsSourceOfFund = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("isSourceOfFund"); else _explicitNullProperties?.Remove("isSourceOfFund"); } }
+        public bool? IsSourceOfFund { get => _explicitNullValueIsSourceOfFund; set { _explicitNullValueIsSourceOfFund = value; AdditionalData?.Remove("isSourceOfFund"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("isSourceOfFund"); else _explicitNullProperties?.Remove("isSourceOfFund"); } }
         private bool? _explicitNullValueIsSourceOfFund = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.BusinessSourceOfWealthInfoSubmissionDataDataSourceOfWealthListItem"/> and sets the default values.
@@ -54,7 +56,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "businessSourceOfWealthInfo", n => { BusinessSourceOfWealthInfo = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BusinessSourceOfWealthInfoSubmissionDataDataSourceOfWealthListItemBusinessSourceOfWealthInfo>(); } },
+                { "businessSourceOfWealthInfo", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BusinessSourceOfWealthInfoSubmissionDataDataSourceOfWealthListItemBusinessSourceOfWealthInfo>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueBusinessSourceOfWealthInfo = default; _explicitNullProperties?.Remove("businessSourceOfWealthInfo"); AdditionalData["businessSourceOfWealthInfo"] = unknown; } else { BusinessSourceOfWealthInfo = parsed; AdditionalData.Remove("businessSourceOfWealthInfo"); } } },
                 { "isSourceOfFund", n => { IsSourceOfFund = n.GetBoolValue(); } },
             };
         }

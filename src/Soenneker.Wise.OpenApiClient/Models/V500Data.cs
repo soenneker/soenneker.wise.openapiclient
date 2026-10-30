@@ -17,11 +17,16 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("failure_description") is { } nullNodeFailureDescription && nullNodeFailureDescription.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) FailureDescription = null;
-            if (parseNode.GetChildNode("failure_reason_code") is { } nullNodeFailureReasonCode && nullNodeFailureReasonCode.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) FailureReasonCode = null;
-            if (parseNode.GetChildNode("occurred_at") is { } nullNodeOccurredAt && nullNodeOccurredAt.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) OccurredAt = null;
-            if (parseNode.GetChildNode("profile_id") is { } nullNodeProfileId && nullNodeProfileId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ProfileId = null;
-            if (parseNode.GetChildNode("transfer_id") is { } nullNodeTransferId && nullNodeTransferId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TransferId = null;
+            if (parseNode.GetChildNode("failure_description") is null) { _explicitNullValueFailureDescription = default!; _explicitNullProperties?.Remove("failure_description"); }
+            else if (parseNode.GetChildNode("failure_description") is { } nullNodeFailureDescription && nullNodeFailureDescription.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) FailureDescription = null;
+            if (parseNode.GetChildNode("failure_reason_code") is null) { _explicitNullValueFailureReasonCode = default!; _explicitNullProperties?.Remove("failure_reason_code"); }
+            else if (parseNode.GetChildNode("failure_reason_code") is { } nullNodeFailureReasonCode && nullNodeFailureReasonCode.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) FailureReasonCode = null;
+            if (parseNode.GetChildNode("occurred_at") is null) { _explicitNullValueOccurredAt = default!; _explicitNullProperties?.Remove("occurred_at"); }
+            else if (parseNode.GetChildNode("occurred_at") is { } nullNodeOccurredAt && nullNodeOccurredAt.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) OccurredAt = null;
+            if (parseNode.GetChildNode("profile_id") is null) { _explicitNullValueProfileId = default!; _explicitNullProperties?.Remove("profile_id"); }
+            else if (parseNode.GetChildNode("profile_id") is { } nullNodeProfileId && nullNodeProfileId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ProfileId = null;
+            if (parseNode.GetChildNode("transfer_id") is null) { _explicitNullValueTransferId = default!; _explicitNullProperties?.Remove("transfer_id"); }
+            else if (parseNode.GetChildNode("transfer_id") is { } nullNodeTransferId && nullNodeTransferId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TransferId = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -29,24 +34,24 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Description of the failure code. See [Payout failures](/guides/product/send-money/tracking/payout-failures) for available descriptions.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? FailureDescription { get => _explicitNullValueFailureDescription; set { _explicitNullValueFailureDescription = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("failure_description"); else _explicitNullProperties?.Remove("failure_description"); } }
+        public string? FailureDescription { get => _explicitNullValueFailureDescription; set { _explicitNullValueFailureDescription = value; AdditionalData?.Remove("failure_description"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("failure_description"); else _explicitNullProperties?.Remove("failure_description"); } }
         private string? _explicitNullValueFailureDescription = default!;
 #nullable restore
 #else
-        public string FailureDescription { get => _explicitNullValueFailureDescription; set { _explicitNullValueFailureDescription = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("failure_description"); else _explicitNullProperties?.Remove("failure_description"); } }
+        public string FailureDescription { get => _explicitNullValueFailureDescription; set { _explicitNullValueFailureDescription = value; AdditionalData?.Remove("failure_description"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("failure_description"); else _explicitNullProperties?.Remove("failure_description"); } }
         private string _explicitNullValueFailureDescription = default!;
 #endif
         /// <summary>Code of the failure error. See [Payout failures](/guides/product/send-money/tracking/payout-failures) for available codes.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.V500DataFailureReasonCode? FailureReasonCode { get => _explicitNullValueFailureReasonCode; set { _explicitNullValueFailureReasonCode = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("failure_reason_code"); else _explicitNullProperties?.Remove("failure_reason_code"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.V500DataFailureReasonCode? FailureReasonCode { get => _explicitNullValueFailureReasonCode; set { _explicitNullValueFailureReasonCode = value; AdditionalData?.Remove("failure_reason_code"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("failure_reason_code"); else _explicitNullProperties?.Remove("failure_reason_code"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.V500DataFailureReasonCode? _explicitNullValueFailureReasonCode = default!;
         /// <summary>When the state change occurred.</summary>
-        public DateTimeOffset? OccurredAt { get => _explicitNullValueOccurredAt; set { _explicitNullValueOccurredAt = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("occurred_at"); else _explicitNullProperties?.Remove("occurred_at"); } }
+        public DateTimeOffset? OccurredAt { get => _explicitNullValueOccurredAt; set { _explicitNullValueOccurredAt = value; AdditionalData?.Remove("occurred_at"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("occurred_at"); else _explicitNullProperties?.Remove("occurred_at"); } }
         private DateTimeOffset? _explicitNullValueOccurredAt = default!;
         /// <summary>ID of the profile that initiated the transfer.</summary>
-        public long? ProfileId { get => _explicitNullValueProfileId; set { _explicitNullValueProfileId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("profile_id"); else _explicitNullProperties?.Remove("profile_id"); } }
+        public long? ProfileId { get => _explicitNullValueProfileId; set { _explicitNullValueProfileId = value; AdditionalData?.Remove("profile_id"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("profile_id"); else _explicitNullProperties?.Remove("profile_id"); } }
         private long? _explicitNullValueProfileId = default!;
         /// <summary>ID of the transfer.</summary>
-        public long? TransferId { get => _explicitNullValueTransferId; set { _explicitNullValueTransferId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("transfer_id"); else _explicitNullProperties?.Remove("transfer_id"); } }
+        public long? TransferId { get => _explicitNullValueTransferId; set { _explicitNullValueTransferId = value; AdditionalData?.Remove("transfer_id"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("transfer_id"); else _explicitNullProperties?.Remove("transfer_id"); } }
         private long? _explicitNullValueTransferId = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.V500Data"/> and sets the default values.
@@ -74,7 +79,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "failure_description", n => { FailureDescription = n.GetStringValue(); } },
-                { "failure_reason_code", n => { FailureReasonCode = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V500DataFailureReasonCode>(); } },
+                { "failure_reason_code", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V500DataFailureReasonCode>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueFailureReasonCode = default; _explicitNullProperties?.Remove("failure_reason_code"); AdditionalData["failure_reason_code"] = unknown; } else { FailureReasonCode = parsed; AdditionalData.Remove("failure_reason_code"); } } },
                 { "occurred_at", n => { OccurredAt = n.GetDateTimeOffsetValue(); } },
                 { "profile_id", n => { ProfileId = n.GetLongValue(); } },
                 { "transfer_id", n => { TransferId = n.GetLongValue(); } },

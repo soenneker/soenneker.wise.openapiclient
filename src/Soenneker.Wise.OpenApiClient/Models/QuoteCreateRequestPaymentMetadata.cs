@@ -18,7 +18,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("transferNature") is { } nullNodeTransferNature && nullNodeTransferNature.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TransferNature = null;
+            if (parseNode.GetChildNode("transferNature") is null) { _explicitNullValueTransferNature = default!; _explicitNullProperties?.Remove("transferNature"); }
+            else if (parseNode.GetChildNode("transferNature") is { } nullNodeTransferNature && nullNodeTransferNature.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TransferNature = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -26,11 +27,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>_Optional_. Used to pass transfer nature for calculating proper tax amounts (IOF) for transfers to and from BRL. Accepted values are shown dynamically in transfer requirements.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? TransferNature { get => _explicitNullValueTransferNature; set { _explicitNullValueTransferNature = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("transferNature"); else _explicitNullProperties?.Remove("transferNature"); } }
+        public string? TransferNature { get => _explicitNullValueTransferNature; set { _explicitNullValueTransferNature = value; AdditionalData?.Remove("transferNature"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("transferNature"); else _explicitNullProperties?.Remove("transferNature"); } }
         private string? _explicitNullValueTransferNature = default!;
 #nullable restore
 #else
-        public string TransferNature { get => _explicitNullValueTransferNature; set { _explicitNullValueTransferNature = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("transferNature"); else _explicitNullProperties?.Remove("transferNature"); } }
+        public string TransferNature { get => _explicitNullValueTransferNature; set { _explicitNullValueTransferNature = value; AdditionalData?.Remove("transferNature"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("transferNature"); else _explicitNullProperties?.Remove("transferNature"); } }
         private string _explicitNullValueTransferNature = default!;
 #endif
         /// <summary>

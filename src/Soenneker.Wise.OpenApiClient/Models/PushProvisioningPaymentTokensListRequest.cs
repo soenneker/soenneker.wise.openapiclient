@@ -17,7 +17,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("walletNames") is { } nullNodeWalletNames && nullNodeWalletNames.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) WalletNames = null;
+            if (parseNode.GetChildNode("walletNames") is null) { _explicitNullValueWalletNames = default!; _explicitNullProperties?.Remove("walletNames"); }
+            else if (parseNode.GetChildNode("walletNames") is { } nullNodeWalletNames && nullNodeWalletNames.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) WalletNames = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -25,11 +26,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>List of supported wallet types.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningPaymentTokensListRequestWalletNamesItem?>? WalletNames { get => _explicitNullValueWalletNames; set { _explicitNullValueWalletNames = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("walletNames"); else _explicitNullProperties?.Remove("walletNames"); } }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningPaymentTokensListRequestWalletNamesItem?>? WalletNames { get => _explicitNullValueWalletNames; set { _explicitNullValueWalletNames = value; AdditionalData?.Remove("walletNames"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("walletNames"); else _explicitNullProperties?.Remove("walletNames"); } }
         private List<global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningPaymentTokensListRequestWalletNamesItem?>? _explicitNullValueWalletNames = default!;
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningPaymentTokensListRequestWalletNamesItem?> WalletNames { get => _explicitNullValueWalletNames; set { _explicitNullValueWalletNames = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("walletNames"); else _explicitNullProperties?.Remove("walletNames"); } }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningPaymentTokensListRequestWalletNamesItem?> WalletNames { get => _explicitNullValueWalletNames; set { _explicitNullValueWalletNames = value; AdditionalData?.Remove("walletNames"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("walletNames"); else _explicitNullProperties?.Remove("walletNames"); } }
         private List<global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningPaymentTokensListRequestWalletNamesItem?> _explicitNullValueWalletNames = default!;
 #endif
         /// <summary>

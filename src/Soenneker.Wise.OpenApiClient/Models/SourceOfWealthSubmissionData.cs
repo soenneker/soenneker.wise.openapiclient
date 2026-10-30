@@ -18,17 +18,19 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("kycReviewId") is { } nullNodeKycReviewId && nullNodeKycReviewId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) KycReviewId = null;
-            if (parseNode.GetChildNode("version") is { } nullNodeVersion && nullNodeVersion.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Version = null;
+            if (parseNode.GetChildNode("kycReviewId") is null) { _explicitNullValueKycReviewId = default!; _explicitNullProperties?.Remove("kycReviewId"); }
+            else if (parseNode.GetChildNode("kycReviewId") is { } nullNodeKycReviewId && nullNodeKycReviewId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) KycReviewId = null;
+            if (parseNode.GetChildNode("version") is null) { _explicitNullValueVersion = default!; _explicitNullProperties?.Remove("version"); }
+            else if (parseNode.GetChildNode("version") is { } nullNodeVersion && nullNodeVersion.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Version = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The ID of the KYC Review this submission belongs to.</summary>
-        public Guid? KycReviewId { get => _explicitNullValueKycReviewId; set { _explicitNullValueKycReviewId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("kycReviewId"); else _explicitNullProperties?.Remove("kycReviewId"); } }
+        public Guid? KycReviewId { get => _explicitNullValueKycReviewId; set { _explicitNullValueKycReviewId = value; AdditionalData?.Remove("kycReviewId"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("kycReviewId"); else _explicitNullProperties?.Remove("kycReviewId"); } }
         private Guid? _explicitNullValueKycReviewId = default!;
         /// <summary>The submission version.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.VersionObject? Version { get => _explicitNullValueVersion; set { _explicitNullValueVersion = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("version"); else _explicitNullProperties?.Remove("version"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.VersionObject? Version { get => _explicitNullValueVersion; set { _explicitNullValueVersion = value; AdditionalData?.Remove("version"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("version"); else _explicitNullProperties?.Remove("version"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.VersionObject? _explicitNullValueVersion = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.SourceOfWealthSubmissionData"/> and sets the default values.
@@ -56,7 +58,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "kycReviewId", n => { KycReviewId = n.GetGuidValue(); } },
-                { "version", n => { Version = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.VersionObject>(); } },
+                { "version", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.VersionObject>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueVersion = default; _explicitNullProperties?.Remove("version"); AdditionalData["version"] = unknown; } else { Version = parsed; AdditionalData.Remove("version"); } } },
             };
         }
         /// <summary>

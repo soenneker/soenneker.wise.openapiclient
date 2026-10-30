@@ -17,11 +17,12 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("accountPurpose") is { } nullNodeAccountPurpose && nullNodeAccountPurpose.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) AccountPurpose = null;
+            if (parseNode.GetChildNode("accountPurpose") is null) { _explicitNullValueAccountPurpose = default!; _explicitNullProperties?.Remove("accountPurpose"); }
+            else if (parseNode.GetChildNode("accountPurpose") is { } nullNodeAccountPurpose && nullNodeAccountPurpose.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) AccountPurpose = null;
         }
 
         /// <summary>The accountPurpose property</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.AccountPurposeSubmissionDataDataAccountPurpose? AccountPurpose { get => _explicitNullValueAccountPurpose; set { _explicitNullValueAccountPurpose = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("accountPurpose"); else _explicitNullProperties?.Remove("accountPurpose"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.AccountPurposeSubmissionDataDataAccountPurpose? AccountPurpose { get => _explicitNullValueAccountPurpose; set { _explicitNullValueAccountPurpose = value; AdditionalData?.Remove("accountPurpose"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("accountPurpose"); else _explicitNullProperties?.Remove("accountPurpose"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.AccountPurposeSubmissionDataDataAccountPurpose? _explicitNullValueAccountPurpose = default!;
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
@@ -50,7 +51,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "accountPurpose", n => { AccountPurpose = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.AccountPurposeSubmissionDataDataAccountPurpose>(); } },
+                { "accountPurpose", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.AccountPurposeSubmissionDataDataAccountPurpose>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueAccountPurpose = default; _explicitNullProperties?.Remove("accountPurpose"); AdditionalData["accountPurpose"] = unknown; } else { AccountPurpose = parsed; AdditionalData.Remove("accountPurpose"); } } },
             };
         }
         /// <summary>

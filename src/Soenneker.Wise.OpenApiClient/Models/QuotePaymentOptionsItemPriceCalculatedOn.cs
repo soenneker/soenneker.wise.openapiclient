@@ -17,7 +17,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("unroundedAmountToConvert") is { } nullNodeUnroundedAmountToConvert && nullNodeUnroundedAmountToConvert.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) UnroundedAmountToConvert = null;
+            if (parseNode.GetChildNode("unroundedAmountToConvert") is null) { _explicitNullValueUnroundedAmountToConvert = default!; _explicitNullProperties?.Remove("unroundedAmountToConvert"); }
+            else if (parseNode.GetChildNode("unroundedAmountToConvert") is { } nullNodeUnroundedAmountToConvert && nullNodeUnroundedAmountToConvert.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) UnroundedAmountToConvert = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -25,11 +26,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The amount, unrounded, that fees were calculated on and built up from.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemPriceCalculatedOnUnroundedAmountToConvert? UnroundedAmountToConvert { get => _explicitNullValueUnroundedAmountToConvert; set { _explicitNullValueUnroundedAmountToConvert = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("unroundedAmountToConvert"); else _explicitNullProperties?.Remove("unroundedAmountToConvert"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemPriceCalculatedOnUnroundedAmountToConvert? UnroundedAmountToConvert { get => _explicitNullValueUnroundedAmountToConvert; set { _explicitNullValueUnroundedAmountToConvert = value; AdditionalData?.Remove("unroundedAmountToConvert"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("unroundedAmountToConvert"); else _explicitNullProperties?.Remove("unroundedAmountToConvert"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemPriceCalculatedOnUnroundedAmountToConvert? _explicitNullValueUnroundedAmountToConvert = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemPriceCalculatedOnUnroundedAmountToConvert UnroundedAmountToConvert { get => _explicitNullValueUnroundedAmountToConvert; set { _explicitNullValueUnroundedAmountToConvert = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("unroundedAmountToConvert"); else _explicitNullProperties?.Remove("unroundedAmountToConvert"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemPriceCalculatedOnUnroundedAmountToConvert UnroundedAmountToConvert { get => _explicitNullValueUnroundedAmountToConvert; set { _explicitNullValueUnroundedAmountToConvert = value; AdditionalData?.Remove("unroundedAmountToConvert"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("unroundedAmountToConvert"); else _explicitNullProperties?.Remove("unroundedAmountToConvert"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemPriceCalculatedOnUnroundedAmountToConvert _explicitNullValueUnroundedAmountToConvert = default!;
 #endif
         /// <summary>

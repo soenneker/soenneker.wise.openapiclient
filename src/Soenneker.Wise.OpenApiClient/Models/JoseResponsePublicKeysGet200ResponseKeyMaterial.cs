@@ -17,23 +17,25 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("algorithm") is { } nullNodeAlgorithm && nullNodeAlgorithm.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Algorithm = null;
-            if (parseNode.GetChildNode("keyMaterial") is { } nullNodeKeyMaterial && nullNodeKeyMaterial.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) KeyMaterial = null;
+            if (parseNode.GetChildNode("algorithm") is null) { _explicitNullValueAlgorithm = default!; _explicitNullProperties?.Remove("algorithm"); }
+            else if (parseNode.GetChildNode("algorithm") is { } nullNodeAlgorithm && nullNodeAlgorithm.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Algorithm = null;
+            if (parseNode.GetChildNode("keyMaterial") is null) { _explicitNullValueKeyMaterial = default!; _explicitNullProperties?.Remove("keyMaterial"); }
+            else if (parseNode.GetChildNode("keyMaterial") is { } nullNodeKeyMaterial && nullNodeKeyMaterial.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) KeyMaterial = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Algorithm to be used with the key.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.JoseResponsePublicKeysGet200ResponseKeyMaterialAlgorithm? Algorithm { get => _explicitNullValueAlgorithm; set { _explicitNullValueAlgorithm = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("algorithm"); else _explicitNullProperties?.Remove("algorithm"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.JoseResponsePublicKeysGet200ResponseKeyMaterialAlgorithm? Algorithm { get => _explicitNullValueAlgorithm; set { _explicitNullValueAlgorithm = value; AdditionalData?.Remove("algorithm"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("algorithm"); else _explicitNullProperties?.Remove("algorithm"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.JoseResponsePublicKeysGet200ResponseKeyMaterialAlgorithm? _explicitNullValueAlgorithm = default!;
         /// <summary>Public key material.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? KeyMaterial { get => _explicitNullValueKeyMaterial; set { _explicitNullValueKeyMaterial = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("keyMaterial"); else _explicitNullProperties?.Remove("keyMaterial"); } }
+        public string? KeyMaterial { get => _explicitNullValueKeyMaterial; set { _explicitNullValueKeyMaterial = value; AdditionalData?.Remove("keyMaterial"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("keyMaterial"); else _explicitNullProperties?.Remove("keyMaterial"); } }
         private string? _explicitNullValueKeyMaterial = default!;
 #nullable restore
 #else
-        public string KeyMaterial { get => _explicitNullValueKeyMaterial; set { _explicitNullValueKeyMaterial = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("keyMaterial"); else _explicitNullProperties?.Remove("keyMaterial"); } }
+        public string KeyMaterial { get => _explicitNullValueKeyMaterial; set { _explicitNullValueKeyMaterial = value; AdditionalData?.Remove("keyMaterial"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("keyMaterial"); else _explicitNullProperties?.Remove("keyMaterial"); } }
         private string _explicitNullValueKeyMaterial = default!;
 #endif
         /// <summary>
@@ -61,7 +63,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "algorithm", n => { Algorithm = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.JoseResponsePublicKeysGet200ResponseKeyMaterialAlgorithm>(); } },
+                { "algorithm", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.JoseResponsePublicKeysGet200ResponseKeyMaterialAlgorithm>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueAlgorithm = default; _explicitNullProperties?.Remove("algorithm"); AdditionalData["algorithm"] = unknown; } else { Algorithm = parsed; AdditionalData.Remove("algorithm"); } } },
                 { "keyMaterial", n => { KeyMaterial = n.GetStringValue(); } },
             };
         }

@@ -17,7 +17,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("failure_reason_code") is { } nullNodeFailureReasonCode && nullNodeFailureReasonCode.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) FailureReasonCode = null;
+            if (parseNode.GetChildNode("failure_reason_code") is null) { _explicitNullValueFailureReasonCode = default!; _explicitNullProperties?.Remove("failure_reason_code"); }
+            else if (parseNode.GetChildNode("failure_reason_code") is { } nullNodeFailureReasonCode && nullNodeFailureReasonCode.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) FailureReasonCode = null;
         }
 
         /// <summary>Failure reason code to trigger for payout failure. When not provided, a failure code is selected at random and returned.</summary>

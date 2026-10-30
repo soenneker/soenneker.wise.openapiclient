@@ -17,7 +17,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("taxInfoList") is { } nullNodeTaxInfoList && nullNodeTaxInfoList.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TaxInfoList = null;
+            if (parseNode.GetChildNode("taxInfoList") is null) { _explicitNullValueTaxInfoList = default!; _explicitNullProperties?.Remove("taxInfoList"); }
+            else if (parseNode.GetChildNode("taxInfoList") is { } nullNodeTaxInfoList && nullNodeTaxInfoList.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TaxInfoList = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -25,11 +26,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>A list of tax residency objects for every country where the user is a tax resident.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.TaxResidencySubmissionDataLocalEntityTinExemptionsDataTaxInfoListItem>? TaxInfoList { get => _explicitNullValueTaxInfoList; set { _explicitNullValueTaxInfoList = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("taxInfoList"); else _explicitNullProperties?.Remove("taxInfoList"); } }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.TaxResidencySubmissionDataLocalEntityTinExemptionsDataTaxInfoListItem>? TaxInfoList { get => _explicitNullValueTaxInfoList; set { _explicitNullValueTaxInfoList = value; AdditionalData?.Remove("taxInfoList"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("taxInfoList"); else _explicitNullProperties?.Remove("taxInfoList"); } }
         private List<global::Soenneker.Wise.OpenApiClient.Models.TaxResidencySubmissionDataLocalEntityTinExemptionsDataTaxInfoListItem>? _explicitNullValueTaxInfoList = default!;
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.TaxResidencySubmissionDataLocalEntityTinExemptionsDataTaxInfoListItem> TaxInfoList { get => _explicitNullValueTaxInfoList; set { _explicitNullValueTaxInfoList = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("taxInfoList"); else _explicitNullProperties?.Remove("taxInfoList"); } }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.TaxResidencySubmissionDataLocalEntityTinExemptionsDataTaxInfoListItem> TaxInfoList { get => _explicitNullValueTaxInfoList; set { _explicitNullValueTaxInfoList = value; AdditionalData?.Remove("taxInfoList"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("taxInfoList"); else _explicitNullProperties?.Remove("taxInfoList"); } }
         private List<global::Soenneker.Wise.OpenApiClient.Models.TaxResidencySubmissionDataLocalEntityTinExemptionsDataTaxInfoListItem> _explicitNullValueTaxInfoList = default!;
 #endif
         /// <summary>

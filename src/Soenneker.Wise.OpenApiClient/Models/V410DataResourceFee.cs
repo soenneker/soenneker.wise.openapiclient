@@ -17,8 +17,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("correspondent") is { } nullNodeCorrespondent && nullNodeCorrespondent.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Correspondent = null;
-            if (parseNode.GetChildNode("wise") is { } nullNodeWise && nullNodeWise.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Wise = null;
+            if (parseNode.GetChildNode("correspondent") is null) { _explicitNullValueCorrespondent = default!; _explicitNullProperties?.Remove("correspondent"); }
+            else if (parseNode.GetChildNode("correspondent") is { } nullNodeCorrespondent && nullNodeCorrespondent.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Correspondent = null;
+            if (parseNode.GetChildNode("wise") is null) { _explicitNullValueWise = default!; _explicitNullProperties?.Remove("wise"); }
+            else if (parseNode.GetChildNode("wise") is { } nullNodeWise && nullNodeWise.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Wise = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -26,21 +28,21 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>List of fees declared by correspondents (for example, handling fees). If this list is empty, no fees were declared by correspondents.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.V410DataResourceFeeCorrespondentItem>? Correspondent { get => _explicitNullValueCorrespondent; set { _explicitNullValueCorrespondent = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("correspondent"); else _explicitNullProperties?.Remove("correspondent"); } }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.V410DataResourceFeeCorrespondentItem>? Correspondent { get => _explicitNullValueCorrespondent; set { _explicitNullValueCorrespondent = value; AdditionalData?.Remove("correspondent"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("correspondent"); else _explicitNullProperties?.Remove("correspondent"); } }
         private List<global::Soenneker.Wise.OpenApiClient.Models.V410DataResourceFeeCorrespondentItem>? _explicitNullValueCorrespondent = default!;
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.V410DataResourceFeeCorrespondentItem> Correspondent { get => _explicitNullValueCorrespondent; set { _explicitNullValueCorrespondent = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("correspondent"); else _explicitNullProperties?.Remove("correspondent"); } }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.V410DataResourceFeeCorrespondentItem> Correspondent { get => _explicitNullValueCorrespondent; set { _explicitNullValueCorrespondent = value; AdditionalData?.Remove("correspondent"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("correspondent"); else _explicitNullProperties?.Remove("correspondent"); } }
         private List<global::Soenneker.Wise.OpenApiClient.Models.V410DataResourceFeeCorrespondentItem> _explicitNullValueCorrespondent = default!;
 #endif
         /// <summary>List of fees applied by Wise (for example, conversion fees). If this list is empty, no fees were applied by Wise.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.V410DataResourceFeeWiseItem>? Wise { get => _explicitNullValueWise; set { _explicitNullValueWise = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("wise"); else _explicitNullProperties?.Remove("wise"); } }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.V410DataResourceFeeWiseItem>? Wise { get => _explicitNullValueWise; set { _explicitNullValueWise = value; AdditionalData?.Remove("wise"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("wise"); else _explicitNullProperties?.Remove("wise"); } }
         private List<global::Soenneker.Wise.OpenApiClient.Models.V410DataResourceFeeWiseItem>? _explicitNullValueWise = default!;
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.V410DataResourceFeeWiseItem> Wise { get => _explicitNullValueWise; set { _explicitNullValueWise = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("wise"); else _explicitNullProperties?.Remove("wise"); } }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.V410DataResourceFeeWiseItem> Wise { get => _explicitNullValueWise; set { _explicitNullValueWise = value; AdditionalData?.Remove("wise"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("wise"); else _explicitNullProperties?.Remove("wise"); } }
         private List<global::Soenneker.Wise.OpenApiClient.Models.V410DataResourceFeeWiseItem> _explicitNullValueWise = default!;
 #endif
         /// <summary>

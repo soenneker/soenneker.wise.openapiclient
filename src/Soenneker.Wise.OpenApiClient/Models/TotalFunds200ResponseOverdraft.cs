@@ -18,10 +18,14 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("available") is { } nullNodeAvailable && nullNodeAvailable.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Available = null;
-            if (parseNode.GetChildNode("availableByCurrency") is { } nullNodeAvailableByCurrency && nullNodeAvailableByCurrency.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) AvailableByCurrency = null;
-            if (parseNode.GetChildNode("limit") is { } nullNodeLimit && nullNodeLimit.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Limit = null;
-            if (parseNode.GetChildNode("used") is { } nullNodeUsed && nullNodeUsed.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Used = null;
+            if (parseNode.GetChildNode("available") is null) { _explicitNullValueAvailable = default!; _explicitNullProperties?.Remove("available"); }
+            else if (parseNode.GetChildNode("available") is { } nullNodeAvailable && nullNodeAvailable.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Available = null;
+            if (parseNode.GetChildNode("availableByCurrency") is null) { _explicitNullValueAvailableByCurrency = default!; _explicitNullProperties?.Remove("availableByCurrency"); }
+            else if (parseNode.GetChildNode("availableByCurrency") is { } nullNodeAvailableByCurrency && nullNodeAvailableByCurrency.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) AvailableByCurrency = null;
+            if (parseNode.GetChildNode("limit") is null) { _explicitNullValueLimit = default!; _explicitNullProperties?.Remove("limit"); }
+            else if (parseNode.GetChildNode("limit") is { } nullNodeLimit && nullNodeLimit.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Limit = null;
+            if (parseNode.GetChildNode("used") is null) { _explicitNullValueUsed = default!; _explicitNullProperties?.Remove("used"); }
+            else if (parseNode.GetChildNode("used") is { } nullNodeUsed && nullNodeUsed.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Used = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -29,41 +33,41 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Amount of overdraft currently available (limit minus used).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseOverdraftAvailable? Available { get => _explicitNullValueAvailable; set { _explicitNullValueAvailable = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("available"); else _explicitNullProperties?.Remove("available"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseOverdraftAvailable? Available { get => _explicitNullValueAvailable; set { _explicitNullValueAvailable = value; AdditionalData?.Remove("available"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("available"); else _explicitNullProperties?.Remove("available"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseOverdraftAvailable? _explicitNullValueAvailable = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseOverdraftAvailable Available { get => _explicitNullValueAvailable; set { _explicitNullValueAvailable = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("available"); else _explicitNullProperties?.Remove("available"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseOverdraftAvailable Available { get => _explicitNullValueAvailable; set { _explicitNullValueAvailable = value; AdditionalData?.Remove("available"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("available"); else _explicitNullProperties?.Remove("available"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseOverdraftAvailable _explicitNullValueAvailable = default!;
 #endif
         /// <summary>Available overdraft amounts converted to each currency the customer has a balance in.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseOverdraftAvailableByCurrencyItem>? AvailableByCurrency { get => _explicitNullValueAvailableByCurrency; set { _explicitNullValueAvailableByCurrency = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("availableByCurrency"); else _explicitNullProperties?.Remove("availableByCurrency"); } }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseOverdraftAvailableByCurrencyItem>? AvailableByCurrency { get => _explicitNullValueAvailableByCurrency; set { _explicitNullValueAvailableByCurrency = value; AdditionalData?.Remove("availableByCurrency"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("availableByCurrency"); else _explicitNullProperties?.Remove("availableByCurrency"); } }
         private List<global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseOverdraftAvailableByCurrencyItem>? _explicitNullValueAvailableByCurrency = default!;
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseOverdraftAvailableByCurrencyItem> AvailableByCurrency { get => _explicitNullValueAvailableByCurrency; set { _explicitNullValueAvailableByCurrency = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("availableByCurrency"); else _explicitNullProperties?.Remove("availableByCurrency"); } }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseOverdraftAvailableByCurrencyItem> AvailableByCurrency { get => _explicitNullValueAvailableByCurrency; set { _explicitNullValueAvailableByCurrency = value; AdditionalData?.Remove("availableByCurrency"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("availableByCurrency"); else _explicitNullProperties?.Remove("availableByCurrency"); } }
         private List<global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseOverdraftAvailableByCurrencyItem> _explicitNullValueAvailableByCurrency = default!;
 #endif
         /// <summary>Maximum overdraft available through an overdraft program. Zero if no approved overdraft.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseOverdraftLimit? Limit { get => _explicitNullValueLimit; set { _explicitNullValueLimit = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("limit"); else _explicitNullProperties?.Remove("limit"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseOverdraftLimit? Limit { get => _explicitNullValueLimit; set { _explicitNullValueLimit = value; AdditionalData?.Remove("limit"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("limit"); else _explicitNullProperties?.Remove("limit"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseOverdraftLimit? _explicitNullValueLimit = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseOverdraftLimit Limit { get => _explicitNullValueLimit; set { _explicitNullValueLimit = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("limit"); else _explicitNullProperties?.Remove("limit"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseOverdraftLimit Limit { get => _explicitNullValueLimit; set { _explicitNullValueLimit = value; AdditionalData?.Remove("limit"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("limit"); else _explicitNullProperties?.Remove("limit"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseOverdraftLimit _explicitNullValueLimit = default!;
 #endif
         /// <summary>Portion of the approved overdraft limit currently being utilized.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseOverdraftUsed? Used { get => _explicitNullValueUsed; set { _explicitNullValueUsed = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("used"); else _explicitNullProperties?.Remove("used"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseOverdraftUsed? Used { get => _explicitNullValueUsed; set { _explicitNullValueUsed = value; AdditionalData?.Remove("used"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("used"); else _explicitNullProperties?.Remove("used"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseOverdraftUsed? _explicitNullValueUsed = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseOverdraftUsed Used { get => _explicitNullValueUsed; set { _explicitNullValueUsed = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("used"); else _explicitNullProperties?.Remove("used"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseOverdraftUsed Used { get => _explicitNullValueUsed; set { _explicitNullValueUsed = value; AdditionalData?.Remove("used"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("used"); else _explicitNullProperties?.Remove("used"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseOverdraftUsed _explicitNullValueUsed = default!;
 #endif
         /// <summary>

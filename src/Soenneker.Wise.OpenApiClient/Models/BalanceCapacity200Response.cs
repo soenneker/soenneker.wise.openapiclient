@@ -18,8 +18,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("depositLimit") is { } nullNodeDepositLimit && nullNodeDepositLimit.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) DepositLimit = null;
-            if (parseNode.GetChildNode("hasLimit") is { } nullNodeHasLimit && nullNodeHasLimit.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) HasLimit = null;
+            if (parseNode.GetChildNode("depositLimit") is null) { _explicitNullValueDepositLimit = default!; _explicitNullProperties?.Remove("depositLimit"); }
+            else if (parseNode.GetChildNode("depositLimit") is { } nullNodeDepositLimit && nullNodeDepositLimit.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) DepositLimit = null;
+            if (parseNode.GetChildNode("hasLimit") is null) { _explicitNullValueHasLimit = default!; _explicitNullProperties?.Remove("hasLimit"); }
+            else if (parseNode.GetChildNode("hasLimit") is { } nullNodeHasLimit && nullNodeHasLimit.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) HasLimit = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -27,15 +29,15 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Amount of money that can be added to the account.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.BalanceCapacity200ResponseDepositLimit? DepositLimit { get => _explicitNullValueDepositLimit; set { _explicitNullValueDepositLimit = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("depositLimit"); else _explicitNullProperties?.Remove("depositLimit"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.BalanceCapacity200ResponseDepositLimit? DepositLimit { get => _explicitNullValueDepositLimit; set { _explicitNullValueDepositLimit = value; AdditionalData?.Remove("depositLimit"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("depositLimit"); else _explicitNullProperties?.Remove("depositLimit"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.BalanceCapacity200ResponseDepositLimit? _explicitNullValueDepositLimit = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.BalanceCapacity200ResponseDepositLimit DepositLimit { get => _explicitNullValueDepositLimit; set { _explicitNullValueDepositLimit = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("depositLimit"); else _explicitNullProperties?.Remove("depositLimit"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.BalanceCapacity200ResponseDepositLimit DepositLimit { get => _explicitNullValueDepositLimit; set { _explicitNullValueDepositLimit = value; AdditionalData?.Remove("depositLimit"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("depositLimit"); else _explicitNullProperties?.Remove("depositLimit"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.BalanceCapacity200ResponseDepositLimit _explicitNullValueDepositLimit = default!;
 #endif
         /// <summary>True if there is a regulatory hold limit for the profile&apos;s country.</summary>
-        public bool? HasLimit { get => _explicitNullValueHasLimit; set { _explicitNullValueHasLimit = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("hasLimit"); else _explicitNullProperties?.Remove("hasLimit"); } }
+        public bool? HasLimit { get => _explicitNullValueHasLimit; set { _explicitNullValueHasLimit = value; AdditionalData?.Remove("hasLimit"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("hasLimit"); else _explicitNullProperties?.Remove("hasLimit"); } }
         private bool? _explicitNullValueHasLimit = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.BalanceCapacity200Response"/> and sets the default values.

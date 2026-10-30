@@ -17,8 +17,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("pngUrl") is { } nullNodePngUrl && nullNodePngUrl.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PngUrl = null;
-            if (parseNode.GetChildNode("svgUrl") is { } nullNodeSvgUrl && nullNodeSvgUrl.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SvgUrl = null;
+            if (parseNode.GetChildNode("pngUrl") is null) { _explicitNullValuePngUrl = default!; _explicitNullProperties?.Remove("pngUrl"); }
+            else if (parseNode.GetChildNode("pngUrl") is { } nullNodePngUrl && nullNodePngUrl.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PngUrl = null;
+            if (parseNode.GetChildNode("svgUrl") is null) { _explicitNullValueSvgUrl = default!; _explicitNullProperties?.Remove("svgUrl"); }
+            else if (parseNode.GetChildNode("svgUrl") is { } nullNodeSvgUrl && nullNodeSvgUrl.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SvgUrl = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -26,21 +28,21 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The pngUrl property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? PngUrl { get => _explicitNullValuePngUrl; set { _explicitNullValuePngUrl = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("pngUrl"); else _explicitNullProperties?.Remove("pngUrl"); } }
+        public string? PngUrl { get => _explicitNullValuePngUrl; set { _explicitNullValuePngUrl = value; AdditionalData?.Remove("pngUrl"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("pngUrl"); else _explicitNullProperties?.Remove("pngUrl"); } }
         private string? _explicitNullValuePngUrl = default!;
 #nullable restore
 #else
-        public string PngUrl { get => _explicitNullValuePngUrl; set { _explicitNullValuePngUrl = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("pngUrl"); else _explicitNullProperties?.Remove("pngUrl"); } }
+        public string PngUrl { get => _explicitNullValuePngUrl; set { _explicitNullValuePngUrl = value; AdditionalData?.Remove("pngUrl"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("pngUrl"); else _explicitNullProperties?.Remove("pngUrl"); } }
         private string _explicitNullValuePngUrl = default!;
 #endif
         /// <summary>The svgUrl property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? SvgUrl { get => _explicitNullValueSvgUrl; set { _explicitNullValueSvgUrl = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("svgUrl"); else _explicitNullProperties?.Remove("svgUrl"); } }
+        public string? SvgUrl { get => _explicitNullValueSvgUrl; set { _explicitNullValueSvgUrl = value; AdditionalData?.Remove("svgUrl"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("svgUrl"); else _explicitNullProperties?.Remove("svgUrl"); } }
         private string? _explicitNullValueSvgUrl = default!;
 #nullable restore
 #else
-        public string SvgUrl { get => _explicitNullValueSvgUrl; set { _explicitNullValueSvgUrl = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("svgUrl"); else _explicitNullProperties?.Remove("svgUrl"); } }
+        public string SvgUrl { get => _explicitNullValueSvgUrl; set { _explicitNullValueSvgUrl = value; AdditionalData?.Remove("svgUrl"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("svgUrl"); else _explicitNullProperties?.Remove("svgUrl"); } }
         private string _explicitNullValueSvgUrl = default!;
 #endif
         /// <summary>

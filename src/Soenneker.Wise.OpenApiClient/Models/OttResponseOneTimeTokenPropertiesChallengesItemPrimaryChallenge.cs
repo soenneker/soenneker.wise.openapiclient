@@ -18,8 +18,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("type") is { } nullNodeType && nullNodeType.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Type = null;
-            if (parseNode.GetChildNode("viewData") is { } nullNodeViewData && nullNodeViewData.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ViewData = null;
+            if (parseNode.GetChildNode("type") is null) { _explicitNullValueType = default!; _explicitNullProperties?.Remove("type"); }
+            else if (parseNode.GetChildNode("type") is { } nullNodeType && nullNodeType.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Type = null;
+            if (parseNode.GetChildNode("viewData") is null) { _explicitNullValueViewData = default!; _explicitNullProperties?.Remove("viewData"); }
+            else if (parseNode.GetChildNode("viewData") is { } nullNodeViewData && nullNodeViewData.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ViewData = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -27,21 +29,21 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Type of the challenge (PIN, FACE_MAP, SMS, WHATSAPP, VOICE, PARTNER_DEVICE_FINGERPRINT).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Type { get => _explicitNullValueType; set { _explicitNullValueType = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("type"); else _explicitNullProperties?.Remove("type"); } }
+        public string? Type { get => _explicitNullValueType; set { _explicitNullValueType = value; AdditionalData?.Remove("type"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("type"); else _explicitNullProperties?.Remove("type"); } }
         private string? _explicitNullValueType = default!;
 #nullable restore
 #else
-        public string Type { get => _explicitNullValueType; set { _explicitNullValueType = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("type"); else _explicitNullProperties?.Remove("type"); } }
+        public string Type { get => _explicitNullValueType; set { _explicitNullValueType = value; AdditionalData?.Remove("type"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("type"); else _explicitNullProperties?.Remove("type"); } }
         private string _explicitNullValueType = default!;
 #endif
         /// <summary>An object that provides data required to present a challenge window. It can be messages, IDs, or other attributes.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenPropertiesChallengesItemPrimaryChallengeViewDataProperty? ViewData { get => _explicitNullValueViewData; set { _explicitNullValueViewData = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("viewData"); else _explicitNullProperties?.Remove("viewData"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenPropertiesChallengesItemPrimaryChallengeViewDataProperty? ViewData { get => _explicitNullValueViewData; set { _explicitNullValueViewData = value; AdditionalData?.Remove("viewData"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("viewData"); else _explicitNullProperties?.Remove("viewData"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenPropertiesChallengesItemPrimaryChallengeViewDataProperty? _explicitNullValueViewData = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenPropertiesChallengesItemPrimaryChallengeViewDataProperty ViewData { get => _explicitNullValueViewData; set { _explicitNullValueViewData = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("viewData"); else _explicitNullProperties?.Remove("viewData"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenPropertiesChallengesItemPrimaryChallengeViewDataProperty ViewData { get => _explicitNullValueViewData; set { _explicitNullValueViewData = value; AdditionalData?.Remove("viewData"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("viewData"); else _explicitNullProperties?.Remove("viewData"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenPropertiesChallengesItemPrimaryChallengeViewDataProperty _explicitNullValueViewData = default!;
 #endif
         /// <summary>

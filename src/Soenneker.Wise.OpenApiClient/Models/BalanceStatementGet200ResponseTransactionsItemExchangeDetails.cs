@@ -18,8 +18,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("forAmount") is { } nullNodeForAmount && nullNodeForAmount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ForAmount = null;
-            if (parseNode.GetChildNode("rate") is { } nullNodeRate && nullNodeRate.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Rate = null;
+            if (parseNode.GetChildNode("forAmount") is null) { _explicitNullValueForAmount = default!; _explicitNullProperties?.Remove("forAmount"); }
+            else if (parseNode.GetChildNode("forAmount") is { } nullNodeForAmount && nullNodeForAmount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ForAmount = null;
+            if (parseNode.GetChildNode("rate") is null) { _explicitNullValueRate = default!; _explicitNullProperties?.Remove("rate"); }
+            else if (parseNode.GetChildNode("rate") is { } nullNodeRate && nullNodeRate.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Rate = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -27,15 +29,15 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The forAmount property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemExchangeDetailsForAmount? ForAmount { get => _explicitNullValueForAmount; set { _explicitNullValueForAmount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("forAmount"); else _explicitNullProperties?.Remove("forAmount"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemExchangeDetailsForAmount? ForAmount { get => _explicitNullValueForAmount; set { _explicitNullValueForAmount = value; AdditionalData?.Remove("forAmount"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("forAmount"); else _explicitNullProperties?.Remove("forAmount"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemExchangeDetailsForAmount? _explicitNullValueForAmount = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemExchangeDetailsForAmount ForAmount { get => _explicitNullValueForAmount; set { _explicitNullValueForAmount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("forAmount"); else _explicitNullProperties?.Remove("forAmount"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemExchangeDetailsForAmount ForAmount { get => _explicitNullValueForAmount; set { _explicitNullValueForAmount = value; AdditionalData?.Remove("forAmount"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("forAmount"); else _explicitNullProperties?.Remove("forAmount"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemExchangeDetailsForAmount _explicitNullValueForAmount = default!;
 #endif
         /// <summary>Exchange rate applied.</summary>
-        public double? Rate { get => _explicitNullValueRate; set { _explicitNullValueRate = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("rate"); else _explicitNullProperties?.Remove("rate"); } }
+        public double? Rate { get => _explicitNullValueRate; set { _explicitNullValueRate = value; AdditionalData?.Remove("rate"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("rate"); else _explicitNullProperties?.Remove("rate"); } }
         private double? _explicitNullValueRate = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemExchangeDetails"/> and sets the default values.

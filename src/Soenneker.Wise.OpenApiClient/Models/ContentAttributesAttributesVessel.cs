@@ -18,7 +18,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("imoNumber") is { } nullNodeImoNumber && nullNodeImoNumber.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ImoNumber = null;
+            if (parseNode.GetChildNode("imoNumber") is null) { _explicitNullValueImoNumber = default!; _explicitNullProperties?.Remove("imoNumber"); }
+            else if (parseNode.GetChildNode("imoNumber") is { } nullNodeImoNumber && nullNodeImoNumber.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ImoNumber = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -26,11 +27,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The imoNumber property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.ContentAttributesAttributesVesselImoNumber? ImoNumber { get => _explicitNullValueImoNumber; set { _explicitNullValueImoNumber = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("imoNumber"); else _explicitNullProperties?.Remove("imoNumber"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.ContentAttributesAttributesVesselImoNumber? ImoNumber { get => _explicitNullValueImoNumber; set { _explicitNullValueImoNumber = value; AdditionalData?.Remove("imoNumber"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("imoNumber"); else _explicitNullProperties?.Remove("imoNumber"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.ContentAttributesAttributesVesselImoNumber? _explicitNullValueImoNumber = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.ContentAttributesAttributesVesselImoNumber ImoNumber { get => _explicitNullValueImoNumber; set { _explicitNullValueImoNumber = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("imoNumber"); else _explicitNullProperties?.Remove("imoNumber"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.ContentAttributesAttributesVesselImoNumber ImoNumber { get => _explicitNullValueImoNumber; set { _explicitNullValueImoNumber = value; AdditionalData?.Remove("imoNumber"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("imoNumber"); else _explicitNullProperties?.Remove("imoNumber"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.ContentAttributesAttributesVesselImoNumber _explicitNullValueImoNumber = default!;
 #endif
         /// <summary>

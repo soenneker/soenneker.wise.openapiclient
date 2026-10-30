@@ -17,7 +17,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("useCaseCountries") is { } nullNodeUseCaseCountries && nullNodeUseCaseCountries.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) UseCaseCountries = null;
+            if (parseNode.GetChildNode("useCaseCountries") is null) { _explicitNullValueUseCaseCountries = default!; _explicitNullProperties?.Remove("useCaseCountries"); }
+            else if (parseNode.GetChildNode("useCaseCountries") is { } nullNodeUseCaseCountries && nullNodeUseCaseCountries.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) UseCaseCountries = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -25,11 +26,11 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Country codes in ISO 3166-1 alpha-3 standard.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<string>? UseCaseCountries { get => _explicitNullValueUseCaseCountries; set { _explicitNullValueUseCaseCountries = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("useCaseCountries"); else _explicitNullProperties?.Remove("useCaseCountries"); } }
+        public List<string>? UseCaseCountries { get => _explicitNullValueUseCaseCountries; set { _explicitNullValueUseCaseCountries = value; AdditionalData?.Remove("useCaseCountries"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("useCaseCountries"); else _explicitNullProperties?.Remove("useCaseCountries"); } }
         private List<string>? _explicitNullValueUseCaseCountries = default!;
 #nullable restore
 #else
-        public List<string> UseCaseCountries { get => _explicitNullValueUseCaseCountries; set { _explicitNullValueUseCaseCountries = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("useCaseCountries"); else _explicitNullProperties?.Remove("useCaseCountries"); } }
+        public List<string> UseCaseCountries { get => _explicitNullValueUseCaseCountries; set { _explicitNullValueUseCaseCountries = value; AdditionalData?.Remove("useCaseCountries"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("useCaseCountries"); else _explicitNullProperties?.Remove("useCaseCountries"); } }
         private List<string> _explicitNullValueUseCaseCountries = default!;
 #endif
         /// <summary>

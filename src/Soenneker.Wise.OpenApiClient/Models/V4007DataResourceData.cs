@@ -18,11 +18,16 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("clientKey") is { } nullNodeClientKey && nullNodeClientKey.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ClientKey = null;
-            if (parseNode.GetChildNode("id") is { } nullNodeId && nullNodeId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Id = null;
-            if (parseNode.GetChildNode("newState") is { } nullNodeNewState && nullNodeNewState.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) NewState = null;
-            if (parseNode.GetChildNode("paymentReference") is { } nullNodePaymentReference && nullNodePaymentReference.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PaymentReference = null;
-            if (parseNode.GetChildNode("previousState") is { } nullNodePreviousState && nullNodePreviousState.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PreviousState = null;
+            if (parseNode.GetChildNode("clientKey") is null) { _explicitNullValueClientKey = default!; _explicitNullProperties?.Remove("clientKey"); }
+            else if (parseNode.GetChildNode("clientKey") is { } nullNodeClientKey && nullNodeClientKey.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ClientKey = null;
+            if (parseNode.GetChildNode("id") is null) { _explicitNullValueId = default!; _explicitNullProperties?.Remove("id"); }
+            else if (parseNode.GetChildNode("id") is { } nullNodeId && nullNodeId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Id = null;
+            if (parseNode.GetChildNode("newState") is null) { _explicitNullValueNewState = default!; _explicitNullProperties?.Remove("newState"); }
+            else if (parseNode.GetChildNode("newState") is { } nullNodeNewState && nullNodeNewState.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) NewState = null;
+            if (parseNode.GetChildNode("paymentReference") is null) { _explicitNullValuePaymentReference = default!; _explicitNullProperties?.Remove("paymentReference"); }
+            else if (parseNode.GetChildNode("paymentReference") is { } nullNodePaymentReference && nullNodePaymentReference.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PaymentReference = null;
+            if (parseNode.GetChildNode("previousState") is null) { _explicitNullValuePreviousState = default!; _explicitNullProperties?.Remove("previousState"); }
+            else if (parseNode.GetChildNode("previousState") is { } nullNodePreviousState && nullNodePreviousState.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PreviousState = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -30,31 +35,31 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Client key identifying the partner application.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? ClientKey { get => _explicitNullValueClientKey; set { _explicitNullValueClientKey = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("clientKey"); else _explicitNullProperties?.Remove("clientKey"); } }
+        public string? ClientKey { get => _explicitNullValueClientKey; set { _explicitNullValueClientKey = value; AdditionalData?.Remove("clientKey"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("clientKey"); else _explicitNullProperties?.Remove("clientKey"); } }
         private string? _explicitNullValueClientKey = default!;
 #nullable restore
 #else
-        public string ClientKey { get => _explicitNullValueClientKey; set { _explicitNullValueClientKey = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("clientKey"); else _explicitNullProperties?.Remove("clientKey"); } }
+        public string ClientKey { get => _explicitNullValueClientKey; set { _explicitNullValueClientKey = value; AdditionalData?.Remove("clientKey"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("clientKey"); else _explicitNullProperties?.Remove("clientKey"); } }
         private string _explicitNullValueClientKey = default!;
 #endif
         /// <summary>Unique identifier of the settlement allocation request</summary>
-        public Guid? Id { get => _explicitNullValueId; set { _explicitNullValueId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("id"); else _explicitNullProperties?.Remove("id"); } }
+        public Guid? Id { get => _explicitNullValueId; set { _explicitNullValueId = value; AdditionalData?.Remove("id"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("id"); else _explicitNullProperties?.Remove("id"); } }
         private Guid? _explicitNullValueId = default!;
         /// <summary>New state of the allocation request.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.SettlementAllocationState? NewState { get => _explicitNullValueNewState; set { _explicitNullValueNewState = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("newState"); else _explicitNullProperties?.Remove("newState"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.SettlementAllocationState? NewState { get => _explicitNullValueNewState; set { _explicitNullValueNewState = value; AdditionalData?.Remove("newState"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("newState"); else _explicitNullProperties?.Remove("newState"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.SettlementAllocationState? _explicitNullValueNewState = default!;
         /// <summary>Reference identifier for the payment.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? PaymentReference { get => _explicitNullValuePaymentReference; set { _explicitNullValuePaymentReference = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("paymentReference"); else _explicitNullProperties?.Remove("paymentReference"); } }
+        public string? PaymentReference { get => _explicitNullValuePaymentReference; set { _explicitNullValuePaymentReference = value; AdditionalData?.Remove("paymentReference"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("paymentReference"); else _explicitNullProperties?.Remove("paymentReference"); } }
         private string? _explicitNullValuePaymentReference = default!;
 #nullable restore
 #else
-        public string PaymentReference { get => _explicitNullValuePaymentReference; set { _explicitNullValuePaymentReference = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("paymentReference"); else _explicitNullProperties?.Remove("paymentReference"); } }
+        public string PaymentReference { get => _explicitNullValuePaymentReference; set { _explicitNullValuePaymentReference = value; AdditionalData?.Remove("paymentReference"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("paymentReference"); else _explicitNullProperties?.Remove("paymentReference"); } }
         private string _explicitNullValuePaymentReference = default!;
 #endif
         /// <summary>Previous state of the allocation request.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.SettlementAllocationState? PreviousState { get => _explicitNullValuePreviousState; set { _explicitNullValuePreviousState = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("previousState"); else _explicitNullProperties?.Remove("previousState"); } }
+        public global::Soenneker.Wise.OpenApiClient.Models.SettlementAllocationState? PreviousState { get => _explicitNullValuePreviousState; set { _explicitNullValuePreviousState = value; AdditionalData?.Remove("previousState"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("previousState"); else _explicitNullProperties?.Remove("previousState"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.SettlementAllocationState? _explicitNullValuePreviousState = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.V4007DataResourceData"/> and sets the default values.
@@ -83,9 +88,9 @@ namespace Soenneker.Wise.OpenApiClient.Models
             {
                 { "clientKey", n => { ClientKey = n.GetStringValue(); } },
                 { "id", n => { Id = n.GetGuidValue(); } },
-                { "newState", n => { NewState = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.SettlementAllocationState>(); } },
+                { "newState", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.SettlementAllocationState>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueNewState = default; _explicitNullProperties?.Remove("newState"); AdditionalData["newState"] = unknown; } else { NewState = parsed; AdditionalData.Remove("newState"); } } },
                 { "paymentReference", n => { PaymentReference = n.GetStringValue(); } },
-                { "previousState", n => { PreviousState = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.SettlementAllocationState>(); } },
+                { "previousState", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.SettlementAllocationState>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValuePreviousState = default; _explicitNullProperties?.Remove("previousState"); AdditionalData["previousState"] = unknown; } else { PreviousState = parsed; AdditionalData.Remove("previousState"); } } },
             };
         }
         /// <summary>

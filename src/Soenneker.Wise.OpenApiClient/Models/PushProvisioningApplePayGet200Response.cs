@@ -17,19 +17,22 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
-            if (parseNode.GetChildNode("activationData") is { } nullNodeActivationData && nullNodeActivationData.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ActivationData = null;
-            if (parseNode.GetChildNode("encryptedPassData") is { } nullNodeEncryptedPassData && nullNodeEncryptedPassData.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) EncryptedPassData = null;
-            if (parseNode.GetChildNode("ephemeralKey") is { } nullNodeEphemeralKey && nullNodeEphemeralKey.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) EphemeralKey = null;
+            if (parseNode.GetChildNode("activationData") is null) { _explicitNullValueActivationData = default!; _explicitNullProperties?.Remove("activationData"); }
+            else if (parseNode.GetChildNode("activationData") is { } nullNodeActivationData && nullNodeActivationData.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ActivationData = null;
+            if (parseNode.GetChildNode("encryptedPassData") is null) { _explicitNullValueEncryptedPassData = default!; _explicitNullProperties?.Remove("encryptedPassData"); }
+            else if (parseNode.GetChildNode("encryptedPassData") is { } nullNodeEncryptedPassData && nullNodeEncryptedPassData.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) EncryptedPassData = null;
+            if (parseNode.GetChildNode("ephemeralKey") is null) { _explicitNullValueEphemeralKey = default!; _explicitNullProperties?.Remove("ephemeralKey"); }
+            else if (parseNode.GetChildNode("ephemeralKey") is { } nullNodeEphemeralKey && nullNodeEphemeralKey.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) EphemeralKey = null;
         }
 
         /// <summary>Encrypted activation data following card scheme and wallet provider specifications. The response is encoded in Base64.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? ActivationData { get => _explicitNullValueActivationData; set { _explicitNullValueActivationData = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("activationData"); else _explicitNullProperties?.Remove("activationData"); } }
+        public string? ActivationData { get => _explicitNullValueActivationData; set { _explicitNullValueActivationData = value; AdditionalData?.Remove("activationData"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("activationData"); else _explicitNullProperties?.Remove("activationData"); } }
         private string? _explicitNullValueActivationData = default!;
 #nullable restore
 #else
-        public string ActivationData { get => _explicitNullValueActivationData; set { _explicitNullValueActivationData = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("activationData"); else _explicitNullProperties?.Remove("activationData"); } }
+        public string ActivationData { get => _explicitNullValueActivationData; set { _explicitNullValueActivationData = value; AdditionalData?.Remove("activationData"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("activationData"); else _explicitNullProperties?.Remove("activationData"); } }
         private string _explicitNullValueActivationData = default!;
 #endif
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -37,21 +40,21 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Encrypted authentication data following card scheme and wallet provider specifications. The response is encoded in Base64.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? EncryptedPassData { get => _explicitNullValueEncryptedPassData; set { _explicitNullValueEncryptedPassData = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("encryptedPassData"); else _explicitNullProperties?.Remove("encryptedPassData"); } }
+        public string? EncryptedPassData { get => _explicitNullValueEncryptedPassData; set { _explicitNullValueEncryptedPassData = value; AdditionalData?.Remove("encryptedPassData"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("encryptedPassData"); else _explicitNullProperties?.Remove("encryptedPassData"); } }
         private string? _explicitNullValueEncryptedPassData = default!;
 #nullable restore
 #else
-        public string EncryptedPassData { get => _explicitNullValueEncryptedPassData; set { _explicitNullValueEncryptedPassData = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("encryptedPassData"); else _explicitNullProperties?.Remove("encryptedPassData"); } }
+        public string EncryptedPassData { get => _explicitNullValueEncryptedPassData; set { _explicitNullValueEncryptedPassData = value; AdditionalData?.Remove("encryptedPassData"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("encryptedPassData"); else _explicitNullProperties?.Remove("encryptedPassData"); } }
         private string _explicitNullValueEncryptedPassData = default!;
 #endif
         /// <summary>Ephemeral key used to encrypt authentication data. The response is encoded in Base64.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? EphemeralKey { get => _explicitNullValueEphemeralKey; set { _explicitNullValueEphemeralKey = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("ephemeralKey"); else _explicitNullProperties?.Remove("ephemeralKey"); } }
+        public string? EphemeralKey { get => _explicitNullValueEphemeralKey; set { _explicitNullValueEphemeralKey = value; AdditionalData?.Remove("ephemeralKey"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("ephemeralKey"); else _explicitNullProperties?.Remove("ephemeralKey"); } }
         private string? _explicitNullValueEphemeralKey = default!;
 #nullable restore
 #else
-        public string EphemeralKey { get => _explicitNullValueEphemeralKey; set { _explicitNullValueEphemeralKey = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("ephemeralKey"); else _explicitNullProperties?.Remove("ephemeralKey"); } }
+        public string EphemeralKey { get => _explicitNullValueEphemeralKey; set { _explicitNullValueEphemeralKey = value; AdditionalData?.Remove("ephemeralKey"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("ephemeralKey"); else _explicitNullProperties?.Remove("ephemeralKey"); } }
         private string _explicitNullValueEphemeralKey = default!;
 #endif
         /// <summary>
