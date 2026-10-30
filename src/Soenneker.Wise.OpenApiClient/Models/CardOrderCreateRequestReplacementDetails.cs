@@ -12,19 +12,31 @@ namespace Soenneker.Wise.OpenApiClient.Models
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class CardOrderCreateRequestReplacementDetails : IAdditionalDataHolder, IParsable
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("cardToken") is { } nullNodeCardToken && nullNodeCardToken.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CardToken = null;
+            if (parseNode.GetChildNode("reason") is { } nullNodeReason && nullNodeReason.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Reason = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Token of the card to replace.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? CardToken { get; set; }
+        public string? CardToken { get => _explicitNullValueCardToken; set { _explicitNullValueCardToken = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("cardToken"); else _explicitNullProperties?.Remove("cardToken"); } }
+        private string? _explicitNullValueCardToken = default!;
 #nullable restore
 #else
-        public string CardToken { get; set; }
+        public string CardToken { get => _explicitNullValueCardToken; set { _explicitNullValueCardToken = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("cardToken"); else _explicitNullProperties?.Remove("cardToken"); } }
+        private string _explicitNullValueCardToken = default!;
 #endif
         /// <summary>Reason for replacing the card:- `CARD_DAMAGED`- `CARD_EXPIRING`</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.CardOrderCreateRequestReplacementDetailsReason? Reason { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardOrderCreateRequestReplacementDetailsReason? Reason { get => _explicitNullValueReason; set { _explicitNullValueReason = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("reason"); else _explicitNullProperties?.Remove("reason"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.CardOrderCreateRequestReplacementDetailsReason? _explicitNullValueReason = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.CardOrderCreateRequestReplacementDetails"/> and sets the default values.
         /// </summary>
@@ -40,7 +52,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.CardOrderCreateRequestReplacementDetails CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.CardOrderCreateRequestReplacementDetails();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.CardOrderCreateRequestReplacementDetails(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -63,6 +75,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("cardToken", CardToken);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CardOrderCreateRequestReplacementDetailsReason>("reason", Reason);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

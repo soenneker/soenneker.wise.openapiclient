@@ -11,48 +11,75 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class BulkSettlementJournalCreateRequestTransfersItem : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("comment") is { } nullNodeComment && nullNodeComment.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Comment = null;
+            if (parseNode.GetChildNode("customerName") is { } nullNodeCustomerName && nullNodeCustomerName.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CustomerName = null;
+            if (parseNode.GetChildNode("date") is { } nullNodeDate && nullNodeDate.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Date = null;
+            if (parseNode.GetChildNode("exchangeRate") is { } nullNodeExchangeRate && nullNodeExchangeRate.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ExchangeRate = null;
+            if (parseNode.GetChildNode("id") is { } nullNodeId && nullNodeId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Id = null;
+            if (parseNode.GetChildNode("partnerReference") is { } nullNodePartnerReference && nullNodePartnerReference.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PartnerReference = null;
+            if (parseNode.GetChildNode("sourceAmount") is { } nullNodeSourceAmount && nullNodeSourceAmount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SourceAmount = null;
+            if (parseNode.GetChildNode("sourceCurrency") is { } nullNodeSourceCurrency && nullNodeSourceCurrency.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SourceCurrency = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Other data about the transfer or sender.For USA, you should send the account refund information for the sending customer (account number, routing number, street address, etc.)</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Comment { get; set; }
+        public string? Comment { get => _explicitNullValueComment; set { _explicitNullValueComment = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("comment"); else _explicitNullProperties?.Remove("comment"); } }
+        private string? _explicitNullValueComment = default!;
 #nullable restore
 #else
-        public string Comment { get; set; }
+        public string Comment { get => _explicitNullValueComment; set { _explicitNullValueComment = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("comment"); else _explicitNullProperties?.Remove("comment"); } }
+        private string _explicitNullValueComment = default!;
 #endif
         /// <summary>Name of the customer. Helps identify customer when manual operation is required.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? CustomerName { get; set; }
+        public string? CustomerName { get => _explicitNullValueCustomerName; set { _explicitNullValueCustomerName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("customerName"); else _explicitNullProperties?.Remove("customerName"); } }
+        private string? _explicitNullValueCustomerName = default!;
 #nullable restore
 #else
-        public string CustomerName { get; set; }
+        public string CustomerName { get => _explicitNullValueCustomerName; set { _explicitNullValueCustomerName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("customerName"); else _explicitNullProperties?.Remove("customerName"); } }
+        private string _explicitNullValueCustomerName = default!;
 #endif
         /// <summary>The date the transfer was created, ISO 8601 format.</summary>
-        public DateTimeOffset? Date { get; set; }
+        public DateTimeOffset? Date { get => _explicitNullValueDate; set { _explicitNullValueDate = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("date"); else _explicitNullProperties?.Remove("date"); } }
+        private DateTimeOffset? _explicitNullValueDate = default!;
         /// <summary>The exchange rate you used to calculate the settlement amount for this transfer.**Required if `settlementCurrency` is set on the journal.** You can set this value to be unique per transfer or the same for every transfer, depending on your settlement approach and agreements with Wise.</summary>
-        public decimal? ExchangeRate { get; set; }
+        public decimal? ExchangeRate { get => _explicitNullValueExchangeRate; set { _explicitNullValueExchangeRate = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("exchangeRate"); else _explicitNullProperties?.Remove("exchangeRate"); } }
+        private decimal? _explicitNullValueExchangeRate = default!;
         /// <summary>ID of the transfer to be settled.</summary>
-        public long? Id { get; set; }
+        public long? Id { get => _explicitNullValueId; set { _explicitNullValueId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("id"); else _explicitNullProperties?.Remove("id"); } }
+        private long? _explicitNullValueId = default!;
         /// <summary>The transaction/payment identifier in your system, uniquely identifies the transfer in your platform.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? PartnerReference { get; set; }
+        public string? PartnerReference { get => _explicitNullValuePartnerReference; set { _explicitNullValuePartnerReference = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("partnerReference"); else _explicitNullProperties?.Remove("partnerReference"); } }
+        private string? _explicitNullValuePartnerReference = default!;
 #nullable restore
 #else
-        public string PartnerReference { get; set; }
+        public string PartnerReference { get => _explicitNullValuePartnerReference; set { _explicitNullValuePartnerReference = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("partnerReference"); else _explicitNullProperties?.Remove("partnerReference"); } }
+        private string _explicitNullValuePartnerReference = default!;
 #endif
         /// <summary>Transfer source amount with fee, always positive.</summary>
-        public decimal? SourceAmount { get; set; }
+        public decimal? SourceAmount { get => _explicitNullValueSourceAmount; set { _explicitNullValueSourceAmount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sourceAmount"); else _explicitNullProperties?.Remove("sourceAmount"); } }
+        private decimal? _explicitNullValueSourceAmount = default!;
         /// <summary>Transfer source currency (ISO 4217).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? SourceCurrency { get; set; }
+        public string? SourceCurrency { get => _explicitNullValueSourceCurrency; set { _explicitNullValueSourceCurrency = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sourceCurrency"); else _explicitNullProperties?.Remove("sourceCurrency"); } }
+        private string? _explicitNullValueSourceCurrency = default!;
 #nullable restore
 #else
-        public string SourceCurrency { get; set; }
+        public string SourceCurrency { get => _explicitNullValueSourceCurrency; set { _explicitNullValueSourceCurrency = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sourceCurrency"); else _explicitNullProperties?.Remove("sourceCurrency"); } }
+        private string _explicitNullValueSourceCurrency = default!;
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.BulkSettlementJournalCreateRequestTransfersItem"/> and sets the default values.
@@ -69,7 +96,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.BulkSettlementJournalCreateRequestTransfersItem CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.BulkSettlementJournalCreateRequestTransfersItem();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.BulkSettlementJournalCreateRequestTransfersItem(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -104,6 +131,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteStringValue("partnerReference", PartnerReference);
             writer.WriteDecimalValue("sourceAmount", SourceAmount);
             writer.WriteStringValue("sourceCurrency", SourceCurrency);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

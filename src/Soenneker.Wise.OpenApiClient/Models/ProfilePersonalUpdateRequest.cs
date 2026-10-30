@@ -11,96 +11,136 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class ProfilePersonalUpdateRequest : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("address") is { } nullNodeAddress && nullNodeAddress.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Address = null;
+            if (parseNode.GetChildNode("contactDetails") is { } nullNodeContactDetails && nullNodeContactDetails.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ContactDetails = null;
+            if (parseNode.GetChildNode("dateOfBirth") is { } nullNodeDateOfBirth && nullNodeDateOfBirth.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) DateOfBirth = null;
+            if (parseNode.GetChildNode("externalCustomerId") is { } nullNodeExternalCustomerId && nullNodeExternalCustomerId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ExternalCustomerId = null;
+            if (parseNode.GetChildNode("firstName") is { } nullNodeFirstName && nullNodeFirstName.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) FirstName = null;
+            if (parseNode.GetChildNode("firstNameInKana") is { } nullNodeFirstNameInKana && nullNodeFirstNameInKana.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) FirstNameInKana = null;
+            if (parseNode.GetChildNode("lastName") is { } nullNodeLastName && nullNodeLastName.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) LastName = null;
+            if (parseNode.GetChildNode("lastNameInKana") is { } nullNodeLastNameInKana && nullNodeLastNameInKana.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) LastNameInKana = null;
+            if (parseNode.GetChildNode("nationality") is { } nullNodeNationality && nullNodeNationality.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Nationality = null;
+            if (parseNode.GetChildNode("occupations") is { } nullNodeOccupations && nullNodeOccupations.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Occupations = null;
+            if (parseNode.GetChildNode("preferredName") is { } nullNodePreferredName && nullNodePreferredName.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PreferredName = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The address property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.ProfilePersonalUpdateRequestAddress? Address { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.ProfilePersonalUpdateRequestAddress? Address { get => _explicitNullValueAddress; set { _explicitNullValueAddress = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("address"); else _explicitNullProperties?.Remove("address"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.ProfilePersonalUpdateRequestAddress? _explicitNullValueAddress = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.ProfilePersonalUpdateRequestAddress Address { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.ProfilePersonalUpdateRequestAddress Address { get => _explicitNullValueAddress; set { _explicitNullValueAddress = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("address"); else _explicitNullProperties?.Remove("address"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.ProfilePersonalUpdateRequestAddress _explicitNullValueAddress = default!;
 #endif
         /// <summary>The contactDetails property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.ProfilePersonalUpdateRequestContactDetails? ContactDetails { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.ProfilePersonalUpdateRequestContactDetails? ContactDetails { get => _explicitNullValueContactDetails; set { _explicitNullValueContactDetails = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("contactDetails"); else _explicitNullProperties?.Remove("contactDetails"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.ProfilePersonalUpdateRequestContactDetails? _explicitNullValueContactDetails = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.ProfilePersonalUpdateRequestContactDetails ContactDetails { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.ProfilePersonalUpdateRequestContactDetails ContactDetails { get => _explicitNullValueContactDetails; set { _explicitNullValueContactDetails = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("contactDetails"); else _explicitNullProperties?.Remove("contactDetails"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.ProfilePersonalUpdateRequestContactDetails _explicitNullValueContactDetails = default!;
 #endif
         /// <summary>Date of birth.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? DateOfBirth { get; set; }
+        public string? DateOfBirth { get => _explicitNullValueDateOfBirth; set { _explicitNullValueDateOfBirth = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("dateOfBirth"); else _explicitNullProperties?.Remove("dateOfBirth"); } }
+        private string? _explicitNullValueDateOfBirth = default!;
 #nullable restore
 #else
-        public string DateOfBirth { get; set; }
+        public string DateOfBirth { get => _explicitNullValueDateOfBirth; set { _explicitNullValueDateOfBirth = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("dateOfBirth"); else _explicitNullProperties?.Remove("dateOfBirth"); } }
+        private string _explicitNullValueDateOfBirth = default!;
 #endif
         /// <summary>An external reference identifier mapping the customer of this profile to your system.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? ExternalCustomerId { get; set; }
+        public string? ExternalCustomerId { get => _explicitNullValueExternalCustomerId; set { _explicitNullValueExternalCustomerId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("externalCustomerId"); else _explicitNullProperties?.Remove("externalCustomerId"); } }
+        private string? _explicitNullValueExternalCustomerId = default!;
 #nullable restore
 #else
-        public string ExternalCustomerId { get; set; }
+        public string ExternalCustomerId { get => _explicitNullValueExternalCustomerId; set { _explicitNullValueExternalCustomerId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("externalCustomerId"); else _explicitNullProperties?.Remove("externalCustomerId"); } }
+        private string _explicitNullValueExternalCustomerId = default!;
 #endif
         /// <summary>First name (including middle names).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? FirstName { get; set; }
+        public string? FirstName { get => _explicitNullValueFirstName; set { _explicitNullValueFirstName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("firstName"); else _explicitNullProperties?.Remove("firstName"); } }
+        private string? _explicitNullValueFirstName = default!;
 #nullable restore
 #else
-        public string FirstName { get; set; }
+        public string FirstName { get => _explicitNullValueFirstName; set { _explicitNullValueFirstName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("firstName"); else _explicitNullProperties?.Remove("firstName"); } }
+        private string _explicitNullValueFirstName = default!;
 #endif
         /// <summary>First name in Katakana. Required for from-JPY personal transfers.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? FirstNameInKana { get; set; }
+        public string? FirstNameInKana { get => _explicitNullValueFirstNameInKana; set { _explicitNullValueFirstNameInKana = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("firstNameInKana"); else _explicitNullProperties?.Remove("firstNameInKana"); } }
+        private string? _explicitNullValueFirstNameInKana = default!;
 #nullable restore
 #else
-        public string FirstNameInKana { get; set; }
+        public string FirstNameInKana { get => _explicitNullValueFirstNameInKana; set { _explicitNullValueFirstNameInKana = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("firstNameInKana"); else _explicitNullProperties?.Remove("firstNameInKana"); } }
+        private string _explicitNullValueFirstNameInKana = default!;
 #endif
         /// <summary>Last name.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? LastName { get; set; }
+        public string? LastName { get => _explicitNullValueLastName; set { _explicitNullValueLastName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("lastName"); else _explicitNullProperties?.Remove("lastName"); } }
+        private string? _explicitNullValueLastName = default!;
 #nullable restore
 #else
-        public string LastName { get; set; }
+        public string LastName { get => _explicitNullValueLastName; set { _explicitNullValueLastName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("lastName"); else _explicitNullProperties?.Remove("lastName"); } }
+        private string _explicitNullValueLastName = default!;
 #endif
         /// <summary>Last name in Katakana. Required for from-JPY personal transfers.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? LastNameInKana { get; set; }
+        public string? LastNameInKana { get => _explicitNullValueLastNameInKana; set { _explicitNullValueLastNameInKana = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("lastNameInKana"); else _explicitNullProperties?.Remove("lastNameInKana"); } }
+        private string? _explicitNullValueLastNameInKana = default!;
 #nullable restore
 #else
-        public string LastNameInKana { get; set; }
+        public string LastNameInKana { get => _explicitNullValueLastNameInKana; set { _explicitNullValueLastNameInKana = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("lastNameInKana"); else _explicitNullProperties?.Remove("lastNameInKana"); } }
+        private string _explicitNullValueLastNameInKana = default!;
 #endif
         /// <summary>3 letter country code (ISO3, lower case).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Nationality { get; set; }
+        public string? Nationality { get => _explicitNullValueNationality; set { _explicitNullValueNationality = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("nationality"); else _explicitNullProperties?.Remove("nationality"); } }
+        private string? _explicitNullValueNationality = default!;
 #nullable restore
 #else
-        public string Nationality { get; set; }
+        public string Nationality { get => _explicitNullValueNationality; set { _explicitNullValueNationality = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("nationality"); else _explicitNullProperties?.Remove("nationality"); } }
+        private string _explicitNullValueNationality = default!;
 #endif
         /// <summary>The occupations property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.ProfilePersonalUpdateRequestOccupationsItem>? Occupations { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.ProfilePersonalUpdateRequestOccupationsItem>? Occupations { get => _explicitNullValueOccupations; set { _explicitNullValueOccupations = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("occupations"); else _explicitNullProperties?.Remove("occupations"); } }
+        private List<global::Soenneker.Wise.OpenApiClient.Models.ProfilePersonalUpdateRequestOccupationsItem>? _explicitNullValueOccupations = default!;
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.ProfilePersonalUpdateRequestOccupationsItem> Occupations { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.ProfilePersonalUpdateRequestOccupationsItem> Occupations { get => _explicitNullValueOccupations; set { _explicitNullValueOccupations = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("occupations"); else _explicitNullProperties?.Remove("occupations"); } }
+        private List<global::Soenneker.Wise.OpenApiClient.Models.ProfilePersonalUpdateRequestOccupationsItem> _explicitNullValueOccupations = default!;
 #endif
         /// <summary>Preferred first name, if different to the legal first name.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? PreferredName { get; set; }
+        public string? PreferredName { get => _explicitNullValuePreferredName; set { _explicitNullValuePreferredName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("preferredName"); else _explicitNullProperties?.Remove("preferredName"); } }
+        private string? _explicitNullValuePreferredName = default!;
 #nullable restore
 #else
-        public string PreferredName { get; set; }
+        public string PreferredName { get => _explicitNullValuePreferredName; set { _explicitNullValuePreferredName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("preferredName"); else _explicitNullProperties?.Remove("preferredName"); } }
+        private string _explicitNullValuePreferredName = default!;
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.ProfilePersonalUpdateRequest"/> and sets the default values.
@@ -117,7 +157,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.ProfilePersonalUpdateRequest CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.ProfilePersonalUpdateRequest();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.ProfilePersonalUpdateRequest(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -158,6 +198,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteStringValue("nationality", Nationality);
             writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.ProfilePersonalUpdateRequestOccupationsItem>("occupations", Occupations);
             writer.WriteStringValue("preferredName", PreferredName);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

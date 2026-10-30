@@ -11,36 +11,56 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class JoseRequestPublicKeysCreateRequest : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("keyId") is { } nullNodeKeyId && nullNodeKeyId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) KeyId = null;
+            if (parseNode.GetChildNode("publicKeyMaterial") is { } nullNodePublicKeyMaterial && nullNodePublicKeyMaterial.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PublicKeyMaterial = null;
+            if (parseNode.GetChildNode("scope") is { } nullNodeScope && nullNodeScope.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Scope = null;
+            if (parseNode.GetChildNode("validFrom") is { } nullNodeValidFrom && nullNodeValidFrom.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ValidFrom = null;
+            if (parseNode.GetChildNode("validTill") is { } nullNodeValidTill && nullNodeValidTill.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ValidTill = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Unique public key identifier in UUID format.</summary>
-        public Guid? KeyId { get; set; }
+        public Guid? KeyId { get => _explicitNullValueKeyId; set { _explicitNullValueKeyId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("keyId"); else _explicitNullProperties?.Remove("keyId"); } }
+        private Guid? _explicitNullValueKeyId = default!;
         /// <summary>The publicKeyMaterial property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.JoseRequestPublicKeysCreateRequestPublicKeyMaterial? PublicKeyMaterial { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.JoseRequestPublicKeysCreateRequestPublicKeyMaterial? PublicKeyMaterial { get => _explicitNullValuePublicKeyMaterial; set { _explicitNullValuePublicKeyMaterial = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("publicKeyMaterial"); else _explicitNullProperties?.Remove("publicKeyMaterial"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.JoseRequestPublicKeysCreateRequestPublicKeyMaterial? _explicitNullValuePublicKeyMaterial = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.JoseRequestPublicKeysCreateRequestPublicKeyMaterial PublicKeyMaterial { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.JoseRequestPublicKeysCreateRequestPublicKeyMaterial PublicKeyMaterial { get => _explicitNullValuePublicKeyMaterial; set { _explicitNullValuePublicKeyMaterial = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("publicKeyMaterial"); else _explicitNullProperties?.Remove("publicKeyMaterial"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.JoseRequestPublicKeysCreateRequestPublicKeyMaterial _explicitNullValuePublicKeyMaterial = default!;
 #endif
         /// <summary>Scope of the payload operation.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.JoseRequestPublicKeysCreateRequestScope? Scope { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.JoseRequestPublicKeysCreateRequestScope? Scope { get => _explicitNullValueScope; set { _explicitNullValueScope = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("scope"); else _explicitNullProperties?.Remove("scope"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.JoseRequestPublicKeysCreateRequestScope? _explicitNullValueScope = default!;
         /// <summary>The key is valid from this date. Format: `yyyy-MM-dd HH:mm:ss` (UTC).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? ValidFrom { get; set; }
+        public string? ValidFrom { get => _explicitNullValueValidFrom; set { _explicitNullValueValidFrom = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("validFrom"); else _explicitNullProperties?.Remove("validFrom"); } }
+        private string? _explicitNullValueValidFrom = default!;
 #nullable restore
 #else
-        public string ValidFrom { get; set; }
+        public string ValidFrom { get => _explicitNullValueValidFrom; set { _explicitNullValueValidFrom = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("validFrom"); else _explicitNullProperties?.Remove("validFrom"); } }
+        private string _explicitNullValueValidFrom = default!;
 #endif
         /// <summary>The key is valid until this date. Format: `yyyy-MM-dd HH:mm:ss` (UTC).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? ValidTill { get; set; }
+        public string? ValidTill { get => _explicitNullValueValidTill; set { _explicitNullValueValidTill = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("validTill"); else _explicitNullProperties?.Remove("validTill"); } }
+        private string? _explicitNullValueValidTill = default!;
 #nullable restore
 #else
-        public string ValidTill { get; set; }
+        public string ValidTill { get => _explicitNullValueValidTill; set { _explicitNullValueValidTill = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("validTill"); else _explicitNullProperties?.Remove("validTill"); } }
+        private string _explicitNullValueValidTill = default!;
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.JoseRequestPublicKeysCreateRequest"/> and sets the default values.
@@ -57,7 +77,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.JoseRequestPublicKeysCreateRequest CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.JoseRequestPublicKeysCreateRequest();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.JoseRequestPublicKeysCreateRequest(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -86,6 +106,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.JoseRequestPublicKeysCreateRequestScope>("scope", Scope);
             writer.WriteStringValue("validFrom", ValidFrom);
             writer.WriteStringValue("validTill", ValidTill);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

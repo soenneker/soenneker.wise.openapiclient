@@ -12,29 +12,46 @@ namespace Soenneker.Wise.OpenApiClient.Models
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class VerificationUploadEvidencesRequestBusinessProfile : IAdditionalDataHolder, IParsable
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("businessUseCase") is { } nullNodeBusinessUseCase && nullNodeBusinessUseCase.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) BusinessUseCase = null;
+            if (parseNode.GetChildNode("intendedCountries") is { } nullNodeIntendedCountries && nullNodeIntendedCountries.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) IntendedCountries = null;
+            if (parseNode.GetChildNode("mainSourceOfFunding") is { } nullNodeMainSourceOfFunding && nullNodeMainSourceOfFunding.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) MainSourceOfFunding = null;
+            if (parseNode.GetChildNode("monthlyAnticipatedVolume") is { } nullNodeMonthlyAnticipatedVolume && nullNodeMonthlyAnticipatedVolume.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) MonthlyAnticipatedVolume = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>How the business intends to use the platform.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestBusinessProfileBusinessUseCaseItem?>? BusinessUseCase { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestBusinessProfileBusinessUseCaseItem?>? BusinessUseCase { get => _explicitNullValueBusinessUseCase; set { _explicitNullValueBusinessUseCase = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("businessUseCase"); else _explicitNullProperties?.Remove("businessUseCase"); } }
+        private List<global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestBusinessProfileBusinessUseCaseItem?>? _explicitNullValueBusinessUseCase = default!;
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestBusinessProfileBusinessUseCaseItem?> BusinessUseCase { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestBusinessProfileBusinessUseCaseItem?> BusinessUseCase { get => _explicitNullValueBusinessUseCase; set { _explicitNullValueBusinessUseCase = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("businessUseCase"); else _explicitNullProperties?.Remove("businessUseCase"); } }
+        private List<global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestBusinessProfileBusinessUseCaseItem?> _explicitNullValueBusinessUseCase = default!;
 #endif
         /// <summary>List of ISO 3166-1 alpha-3 country codes.&lt;br&gt;Check the [lists of countries you can send money to with Wise](https://wise.com/help/articles/2571942/what-countries-can-i-send-to).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<string>? IntendedCountries { get; set; }
+        public List<string>? IntendedCountries { get => _explicitNullValueIntendedCountries; set { _explicitNullValueIntendedCountries = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("intendedCountries"); else _explicitNullProperties?.Remove("intendedCountries"); } }
+        private List<string>? _explicitNullValueIntendedCountries = default!;
 #nullable restore
 #else
-        public List<string> IntendedCountries { get; set; }
+        public List<string> IntendedCountries { get => _explicitNullValueIntendedCountries; set { _explicitNullValueIntendedCountries = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("intendedCountries"); else _explicitNullProperties?.Remove("intendedCountries"); } }
+        private List<string> _explicitNullValueIntendedCountries = default!;
 #endif
         /// <summary>Primary source of business funding.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestBusinessProfileMainSourceOfFunding? MainSourceOfFunding { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestBusinessProfileMainSourceOfFunding? MainSourceOfFunding { get => _explicitNullValueMainSourceOfFunding; set { _explicitNullValueMainSourceOfFunding = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("mainSourceOfFunding"); else _explicitNullProperties?.Remove("mainSourceOfFunding"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestBusinessProfileMainSourceOfFunding? _explicitNullValueMainSourceOfFunding = default!;
         /// <summary>Expected monthly transaction volume in Euros.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestBusinessProfileMonthlyAnticipatedVolume? MonthlyAnticipatedVolume { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestBusinessProfileMonthlyAnticipatedVolume? MonthlyAnticipatedVolume { get => _explicitNullValueMonthlyAnticipatedVolume; set { _explicitNullValueMonthlyAnticipatedVolume = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("monthlyAnticipatedVolume"); else _explicitNullProperties?.Remove("monthlyAnticipatedVolume"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestBusinessProfileMonthlyAnticipatedVolume? _explicitNullValueMonthlyAnticipatedVolume = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestBusinessProfile"/> and sets the default values.
         /// </summary>
@@ -50,7 +67,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestBusinessProfile CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestBusinessProfile();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestBusinessProfile(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -77,6 +94,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteCollectionOfPrimitiveValues<string>("intendedCountries", IntendedCountries);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestBusinessProfileMainSourceOfFunding>("mainSourceOfFunding", MainSourceOfFunding);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestBusinessProfileMonthlyAnticipatedVolume>("monthlyAnticipatedVolume", MonthlyAnticipatedVolume);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

@@ -11,68 +11,100 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class RecipientConfirmationsOutcomesItem : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("fieldsChecked") is { } nullNodeFieldsChecked && nullNodeFieldsChecked.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) FieldsChecked = null;
+            if (parseNode.GetChildNode("message") is { } nullNodeMessage && nullNodeMessage.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Message = null;
+            if (parseNode.GetChildNode("outcome") is { } nullNodeOutcome && nullNodeOutcome.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Outcome = null;
+            if (parseNode.GetChildNode("providedName") is { } nullNodeProvidedName && nullNodeProvidedName.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ProvidedName = null;
+            if (parseNode.GetChildNode("recommendedUpdates") is { } nullNodeRecommendedUpdates && nullNodeRecommendedUpdates.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) RecommendedUpdates = null;
+            if (parseNode.GetChildNode("requiresCustomerAcceptance") is { } nullNodeRequiresCustomerAcceptance && nullNodeRequiresCustomerAcceptance.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) RequiresCustomerAcceptance = null;
+            if (parseNode.GetChildNode("resolvedName") is { } nullNodeResolvedName && nullNodeResolvedName.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ResolvedName = null;
+            if (parseNode.GetChildNode("timestamp") is { } nullNodeTimestamp && nullNodeTimestamp.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Timestamp = null;
+            if (parseNode.GetChildNode("type") is { } nullNodeType && nullNodeType.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Type = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Fields used to confirm the account.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<string>? FieldsChecked { get; set; }
+        public List<string>? FieldsChecked { get => _explicitNullValueFieldsChecked; set { _explicitNullValueFieldsChecked = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("fieldsChecked"); else _explicitNullProperties?.Remove("fieldsChecked"); } }
+        private List<string>? _explicitNullValueFieldsChecked = default!;
 #nullable restore
 #else
-        public List<string> FieldsChecked { get; set; }
+        public List<string> FieldsChecked { get => _explicitNullValueFieldsChecked; set { _explicitNullValueFieldsChecked = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("fieldsChecked"); else _explicitNullProperties?.Remove("fieldsChecked"); } }
+        private List<string> _explicitNullValueFieldsChecked = default!;
 #endif
         /// <summary>Customer-facing message about the outcome of the check.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Message { get; set; }
+        public string? Message { get => _explicitNullValueMessage; set { _explicitNullValueMessage = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("message"); else _explicitNullProperties?.Remove("message"); } }
+        private string? _explicitNullValueMessage = default!;
 #nullable restore
 #else
-        public string Message { get; set; }
+        public string Message { get => _explicitNullValueMessage; set { _explicitNullValueMessage = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("message"); else _explicitNullProperties?.Remove("message"); } }
+        private string _explicitNullValueMessage = default!;
 #endif
         /// <summary>The actual outcome of the confirmation check. Possible values: `SUCCESS`, `PARTIAL_FAILURE`, `FAILURE`, `COULD_NOT_CHECK`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Outcome { get; set; }
+        public string? Outcome { get => _explicitNullValueOutcome; set { _explicitNullValueOutcome = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("outcome"); else _explicitNullProperties?.Remove("outcome"); } }
+        private string? _explicitNullValueOutcome = default!;
 #nullable restore
 #else
-        public string Outcome { get; set; }
+        public string Outcome { get => _explicitNullValueOutcome; set { _explicitNullValueOutcome = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("outcome"); else _explicitNullProperties?.Remove("outcome"); } }
+        private string _explicitNullValueOutcome = default!;
 #endif
         /// <summary>The name the customer provided when creating the recipient account. Only populated for `NAME_MATCHING` and `NAME_RESOLUTION` types for certain outcomes.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? ProvidedName { get; set; }
+        public string? ProvidedName { get => _explicitNullValueProvidedName; set { _explicitNullValueProvidedName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("providedName"); else _explicitNullProperties?.Remove("providedName"); } }
+        private string? _explicitNullValueProvidedName = default!;
 #nullable restore
 #else
-        public string ProvidedName { get; set; }
+        public string ProvidedName { get => _explicitNullValueProvidedName; set { _explicitNullValueProvidedName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("providedName"); else _explicitNullProperties?.Remove("providedName"); } }
+        private string _explicitNullValueProvidedName = default!;
 #endif
         /// <summary>Shows the correct values for some of the fields checked.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.RecipientConfirmationsOutcomesItemRecommendedUpdatesItem>? RecommendedUpdates { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.RecipientConfirmationsOutcomesItemRecommendedUpdatesItem>? RecommendedUpdates { get => _explicitNullValueRecommendedUpdates; set { _explicitNullValueRecommendedUpdates = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("recommendedUpdates"); else _explicitNullProperties?.Remove("recommendedUpdates"); } }
+        private List<global::Soenneker.Wise.OpenApiClient.Models.RecipientConfirmationsOutcomesItemRecommendedUpdatesItem>? _explicitNullValueRecommendedUpdates = default!;
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.RecipientConfirmationsOutcomesItemRecommendedUpdatesItem> RecommendedUpdates { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.RecipientConfirmationsOutcomesItemRecommendedUpdatesItem> RecommendedUpdates { get => _explicitNullValueRecommendedUpdates; set { _explicitNullValueRecommendedUpdates = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("recommendedUpdates"); else _explicitNullProperties?.Remove("recommendedUpdates"); } }
+        private List<global::Soenneker.Wise.OpenApiClient.Models.RecipientConfirmationsOutcomesItemRecommendedUpdatesItem> _explicitNullValueRecommendedUpdates = default!;
 #endif
         /// <summary>Indicates whether we require customer acceptance. The value for this field (`true` or `false`) depends on the currency and the nature of the confirmation.If `true`, you must present your customer with the ability to accept or decline the confirmation result.</summary>
-        public bool? RequiresCustomerAcceptance { get; set; }
+        public bool? RequiresCustomerAcceptance { get => _explicitNullValueRequiresCustomerAcceptance; set { _explicitNullValueRequiresCustomerAcceptance = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("requiresCustomerAcceptance"); else _explicitNullProperties?.Remove("requiresCustomerAcceptance"); } }
+        private bool? _explicitNullValueRequiresCustomerAcceptance = default!;
         /// <summary>The name that we resolved during name matching or name resolution.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? ResolvedName { get; set; }
+        public string? ResolvedName { get => _explicitNullValueResolvedName; set { _explicitNullValueResolvedName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("resolvedName"); else _explicitNullProperties?.Remove("resolvedName"); } }
+        private string? _explicitNullValueResolvedName = default!;
 #nullable restore
 #else
-        public string ResolvedName { get; set; }
+        public string ResolvedName { get => _explicitNullValueResolvedName; set { _explicitNullValueResolvedName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("resolvedName"); else _explicitNullProperties?.Remove("resolvedName"); } }
+        private string _explicitNullValueResolvedName = default!;
 #endif
         /// <summary>Timestamp of when the confirmation check was performed.</summary>
-        public DateTimeOffset? Timestamp { get; set; }
+        public DateTimeOffset? Timestamp { get => _explicitNullValueTimestamp; set { _explicitNullValueTimestamp = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("timestamp"); else _explicitNullProperties?.Remove("timestamp"); } }
+        private DateTimeOffset? _explicitNullValueTimestamp = default!;
         /// <summary>The type of confirmation. Possible values: `ACCOUNT_EXISTENCE`, `NAME_MATCHING`, `NAME_RESOLUTION`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Type { get; set; }
+        public string? Type { get => _explicitNullValueType; set { _explicitNullValueType = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("type"); else _explicitNullProperties?.Remove("type"); } }
+        private string? _explicitNullValueType = default!;
 #nullable restore
 #else
-        public string Type { get; set; }
+        public string Type { get => _explicitNullValueType; set { _explicitNullValueType = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("type"); else _explicitNullProperties?.Remove("type"); } }
+        private string _explicitNullValueType = default!;
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.RecipientConfirmationsOutcomesItem"/> and sets the default values.
@@ -89,7 +121,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.RecipientConfirmationsOutcomesItem CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.RecipientConfirmationsOutcomesItem();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.RecipientConfirmationsOutcomesItem(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -126,6 +158,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteStringValue("resolvedName", ResolvedName);
             writer.WriteDateTimeOffsetValue("timestamp", Timestamp);
             writer.WriteStringValue("type", Type);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

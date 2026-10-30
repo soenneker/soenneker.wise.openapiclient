@@ -11,32 +11,48 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class SimulationTransferPayoutFailure200Response : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("failure_description") is { } nullNodeFailureDescription && nullNodeFailureDescription.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) FailureDescription = null;
+            if (parseNode.GetChildNode("failure_reason_code") is { } nullNodeFailureReasonCode && nullNodeFailureReasonCode.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) FailureReasonCode = null;
+            if (parseNode.GetChildNode("occurred_at") is { } nullNodeOccurredAt && nullNodeOccurredAt.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) OccurredAt = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The failure_description property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? FailureDescription { get; set; }
+        public string? FailureDescription { get => _explicitNullValueFailureDescription; set { _explicitNullValueFailureDescription = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("failure_description"); else _explicitNullProperties?.Remove("failure_description"); } }
+        private string? _explicitNullValueFailureDescription = default!;
 #nullable restore
 #else
-        public string FailureDescription { get; set; }
+        public string FailureDescription { get => _explicitNullValueFailureDescription; set { _explicitNullValueFailureDescription = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("failure_description"); else _explicitNullProperties?.Remove("failure_description"); } }
+        private string _explicitNullValueFailureDescription = default!;
 #endif
         /// <summary>The failure_reason_code property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? FailureReasonCode { get; set; }
+        public string? FailureReasonCode { get => _explicitNullValueFailureReasonCode; set { _explicitNullValueFailureReasonCode = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("failure_reason_code"); else _explicitNullProperties?.Remove("failure_reason_code"); } }
+        private string? _explicitNullValueFailureReasonCode = default!;
 #nullable restore
 #else
-        public string FailureReasonCode { get; set; }
+        public string FailureReasonCode { get => _explicitNullValueFailureReasonCode; set { _explicitNullValueFailureReasonCode = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("failure_reason_code"); else _explicitNullProperties?.Remove("failure_reason_code"); } }
+        private string _explicitNullValueFailureReasonCode = default!;
 #endif
         /// <summary>The occurred_at property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? OccurredAt { get; set; }
+        public string? OccurredAt { get => _explicitNullValueOccurredAt; set { _explicitNullValueOccurredAt = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("occurred_at"); else _explicitNullProperties?.Remove("occurred_at"); } }
+        private string? _explicitNullValueOccurredAt = default!;
 #nullable restore
 #else
-        public string OccurredAt { get; set; }
+        public string OccurredAt { get => _explicitNullValueOccurredAt; set { _explicitNullValueOccurredAt = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("occurred_at"); else _explicitNullProperties?.Remove("occurred_at"); } }
+        private string _explicitNullValueOccurredAt = default!;
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.SimulationTransferPayoutFailure200Response"/> and sets the default values.
@@ -53,7 +69,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.SimulationTransferPayoutFailure200Response CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.SimulationTransferPayoutFailure200Response();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.SimulationTransferPayoutFailure200Response(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -78,6 +94,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteStringValue("failure_description", FailureDescription);
             writer.WriteStringValue("failure_reason_code", FailureReasonCode);
             writer.WriteStringValue("occurred_at", OccurredAt);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

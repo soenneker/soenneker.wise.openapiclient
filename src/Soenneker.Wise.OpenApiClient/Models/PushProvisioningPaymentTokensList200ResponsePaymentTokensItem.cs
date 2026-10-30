@@ -11,41 +11,65 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class PushProvisioningPaymentTokensList200ResponsePaymentTokensItem : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("cardToken") is { } nullNodeCardToken && nullNodeCardToken.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CardToken = null;
+            if (parseNode.GetChildNode("creationTime") is { } nullNodeCreationTime && nullNodeCreationTime.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CreationTime = null;
+            if (parseNode.GetChildNode("modificationTime") is { } nullNodeModificationTime && nullNodeModificationTime.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ModificationTime = null;
+            if (parseNode.GetChildNode("panUniqueReference") is { } nullNodePanUniqueReference && nullNodePanUniqueReference.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PanUniqueReference = null;
+            if (parseNode.GetChildNode("paymentTokenUniqueReference") is { } nullNodePaymentTokenUniqueReference && nullNodePaymentTokenUniqueReference.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PaymentTokenUniqueReference = null;
+            if (parseNode.GetChildNode("provisioningStatus") is { } nullNodeProvisioningStatus && nullNodeProvisioningStatus.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ProvisioningStatus = null;
+            if (parseNode.GetChildNode("walletName") is { } nullNodeWalletName && nullNodeWalletName.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) WalletName = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Card token.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? CardToken { get; set; }
+        public string? CardToken { get => _explicitNullValueCardToken; set { _explicitNullValueCardToken = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("cardToken"); else _explicitNullProperties?.Remove("cardToken"); } }
+        private string? _explicitNullValueCardToken = default!;
 #nullable restore
 #else
-        public string CardToken { get; set; }
+        public string CardToken { get => _explicitNullValueCardToken; set { _explicitNullValueCardToken = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("cardToken"); else _explicitNullProperties?.Remove("cardToken"); } }
+        private string _explicitNullValueCardToken = default!;
 #endif
         /// <summary>Time when the payment token was created.</summary>
-        public DateTimeOffset? CreationTime { get; set; }
+        public DateTimeOffset? CreationTime { get => _explicitNullValueCreationTime; set { _explicitNullValueCreationTime = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("creationTime"); else _explicitNullProperties?.Remove("creationTime"); } }
+        private DateTimeOffset? _explicitNullValueCreationTime = default!;
         /// <summary>Time when the payment token was last modified.</summary>
-        public DateTimeOffset? ModificationTime { get; set; }
+        public DateTimeOffset? ModificationTime { get => _explicitNullValueModificationTime; set { _explicitNullValueModificationTime = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("modificationTime"); else _explicitNullProperties?.Remove("modificationTime"); } }
+        private DateTimeOffset? _explicitNullValueModificationTime = default!;
         /// <summary>Unique reference of the PAN.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? PanUniqueReference { get; set; }
+        public string? PanUniqueReference { get => _explicitNullValuePanUniqueReference; set { _explicitNullValuePanUniqueReference = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("panUniqueReference"); else _explicitNullProperties?.Remove("panUniqueReference"); } }
+        private string? _explicitNullValuePanUniqueReference = default!;
 #nullable restore
 #else
-        public string PanUniqueReference { get; set; }
+        public string PanUniqueReference { get => _explicitNullValuePanUniqueReference; set { _explicitNullValuePanUniqueReference = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("panUniqueReference"); else _explicitNullProperties?.Remove("panUniqueReference"); } }
+        private string _explicitNullValuePanUniqueReference = default!;
 #endif
         /// <summary>Unique reference of the payment token.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? PaymentTokenUniqueReference { get; set; }
+        public string? PaymentTokenUniqueReference { get => _explicitNullValuePaymentTokenUniqueReference; set { _explicitNullValuePaymentTokenUniqueReference = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("paymentTokenUniqueReference"); else _explicitNullProperties?.Remove("paymentTokenUniqueReference"); } }
+        private string? _explicitNullValuePaymentTokenUniqueReference = default!;
 #nullable restore
 #else
-        public string PaymentTokenUniqueReference { get; set; }
+        public string PaymentTokenUniqueReference { get => _explicitNullValuePaymentTokenUniqueReference; set { _explicitNullValuePaymentTokenUniqueReference = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("paymentTokenUniqueReference"); else _explicitNullProperties?.Remove("paymentTokenUniqueReference"); } }
+        private string _explicitNullValuePaymentTokenUniqueReference = default!;
 #endif
         /// <summary>Payment token status.- `ACTIVE` — The token is active and available for payments- `SUSPENDED` — The token has been temporarily suspended- `INACTIVE` — The token is in the active wallet, but requires additional user authentication for use- `DEACTIVATED` — The status will not be visible, you can safely ignore it</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningPaymentTokensList200ResponsePaymentTokensItemProvisioningStatus? ProvisioningStatus { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningPaymentTokensList200ResponsePaymentTokensItemProvisioningStatus? ProvisioningStatus { get => _explicitNullValueProvisioningStatus; set { _explicitNullValueProvisioningStatus = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("provisioningStatus"); else _explicitNullProperties?.Remove("provisioningStatus"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningPaymentTokensList200ResponsePaymentTokensItemProvisioningStatus? _explicitNullValueProvisioningStatus = default!;
         /// <summary>Wallet name.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningPaymentTokensList200ResponsePaymentTokensItemWalletName? WalletName { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningPaymentTokensList200ResponsePaymentTokensItemWalletName? WalletName { get => _explicitNullValueWalletName; set { _explicitNullValueWalletName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("walletName"); else _explicitNullProperties?.Remove("walletName"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningPaymentTokensList200ResponsePaymentTokensItemWalletName? _explicitNullValueWalletName = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningPaymentTokensList200ResponsePaymentTokensItem"/> and sets the default values.
         /// </summary>
@@ -61,7 +85,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningPaymentTokensList200ResponsePaymentTokensItem CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningPaymentTokensList200ResponsePaymentTokensItem();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningPaymentTokensList200ResponsePaymentTokensItem(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -94,6 +118,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteStringValue("paymentTokenUniqueReference", PaymentTokenUniqueReference);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningPaymentTokensList200ResponsePaymentTokensItemProvisioningStatus>("provisioningStatus", ProvisioningStatus);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningPaymentTokensList200ResponsePaymentTokensItemWalletName>("walletName", WalletName);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

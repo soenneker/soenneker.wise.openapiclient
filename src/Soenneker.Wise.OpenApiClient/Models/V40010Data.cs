@@ -11,36 +11,56 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class V40010Data : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("challenge_expires_after") is { } nullNodeChallengeExpiresAfter && nullNodeChallengeExpiresAfter.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ChallengeExpiresAfter = null;
+            if (parseNode.GetChildNode("challenge_method") is { } nullNodeChallengeMethod && nullNodeChallengeMethod.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ChallengeMethod = null;
+            if (parseNode.GetChildNode("occurred_at") is { } nullNodeOccurredAt && nullNodeOccurredAt.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) OccurredAt = null;
+            if (parseNode.GetChildNode("resource") is { } nullNodeResource && nullNodeResource.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Resource = null;
+            if (parseNode.GetChildNode("transaction") is { } nullNodeTransaction && nullNodeTransaction.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Transaction = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The number of seconds before the challenge expires.</summary>
-        public long? ChallengeExpiresAfter { get; set; }
+        public long? ChallengeExpiresAfter { get => _explicitNullValueChallengeExpiresAfter; set { _explicitNullValueChallengeExpiresAfter = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("challenge_expires_after"); else _explicitNullProperties?.Remove("challenge_expires_after"); } }
+        private long? _explicitNullValueChallengeExpiresAfter = default!;
         /// <summary>The challenge method chosen by customer (always `PUSH`).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? ChallengeMethod { get; set; }
+        public string? ChallengeMethod { get => _explicitNullValueChallengeMethod; set { _explicitNullValueChallengeMethod = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("challenge_method"); else _explicitNullProperties?.Remove("challenge_method"); } }
+        private string? _explicitNullValueChallengeMethod = default!;
 #nullable restore
 #else
-        public string ChallengeMethod { get; set; }
+        public string ChallengeMethod { get => _explicitNullValueChallengeMethod; set { _explicitNullValueChallengeMethod = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("challenge_method"); else _explicitNullProperties?.Remove("challenge_method"); } }
+        private string _explicitNullValueChallengeMethod = default!;
 #endif
         /// <summary>When the challenge is triggered.</summary>
-        public DateTimeOffset? OccurredAt { get; set; }
+        public DateTimeOffset? OccurredAt { get => _explicitNullValueOccurredAt; set { _explicitNullValueOccurredAt = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("occurred_at"); else _explicitNullProperties?.Remove("occurred_at"); } }
+        private DateTimeOffset? _explicitNullValueOccurredAt = default!;
         /// <summary>The resource property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.V40010DataResource? Resource { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.V40010DataResource? Resource { get => _explicitNullValueResource; set { _explicitNullValueResource = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("resource"); else _explicitNullProperties?.Remove("resource"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.V40010DataResource? _explicitNullValueResource = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.V40010DataResource Resource { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.V40010DataResource Resource { get => _explicitNullValueResource; set { _explicitNullValueResource = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("resource"); else _explicitNullProperties?.Remove("resource"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.V40010DataResource _explicitNullValueResource = default!;
 #endif
         /// <summary>The transaction property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.V40010DataTransaction? Transaction { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.V40010DataTransaction? Transaction { get => _explicitNullValueTransaction; set { _explicitNullValueTransaction = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("transaction"); else _explicitNullProperties?.Remove("transaction"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.V40010DataTransaction? _explicitNullValueTransaction = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.V40010DataTransaction Transaction { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.V40010DataTransaction Transaction { get => _explicitNullValueTransaction; set { _explicitNullValueTransaction = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("transaction"); else _explicitNullProperties?.Remove("transaction"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.V40010DataTransaction _explicitNullValueTransaction = default!;
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.V40010Data"/> and sets the default values.
@@ -57,7 +77,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.V40010Data CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.V40010Data();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.V40010Data(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -86,6 +106,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteDateTimeOffsetValue("occurred_at", OccurredAt);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40010DataResource>("resource", Resource);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40010DataTransaction>("transaction", Transaction);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

@@ -11,26 +11,41 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class V5002DataResourceRequirementChangesItemAdditionalRequirementsItem : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("additionalRequirementId") is { } nullNodeAdditionalRequirementId && nullNodeAdditionalRequirementId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) AdditionalRequirementId = null;
+            if (parseNode.GetChildNode("newState") is { } nullNodeNewState && nullNodeNewState.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) NewState = null;
+            if (parseNode.GetChildNode("prevState") is { } nullNodePrevState && nullNodePrevState.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PrevState = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The [UUID](/api-reference/kyc-review/kyc-requirement#path=additionalRequirements/additionalRequirementId) of the additional requirement that has changed.</summary>
-        public Guid? AdditionalRequirementId { get; set; }
+        public Guid? AdditionalRequirementId { get => _explicitNullValueAdditionalRequirementId; set { _explicitNullValueAdditionalRequirementId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("additionalRequirementId"); else _explicitNullProperties?.Remove("additionalRequirementId"); } }
+        private Guid? _explicitNullValueAdditionalRequirementId = default!;
         /// <summary>The new [state](/api-reference/kyc-review/kyc-requirement#path=additionalRequirements/state) of the additional requirement that has changed.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? NewState { get; set; }
+        public string? NewState { get => _explicitNullValueNewState; set { _explicitNullValueNewState = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("newState"); else _explicitNullProperties?.Remove("newState"); } }
+        private string? _explicitNullValueNewState = default!;
 #nullable restore
 #else
-        public string NewState { get; set; }
+        public string NewState { get => _explicitNullValueNewState; set { _explicitNullValueNewState = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("newState"); else _explicitNullProperties?.Remove("newState"); } }
+        private string _explicitNullValueNewState = default!;
 #endif
         /// <summary>*Not provided when additional requirement is new.*The previous [state](/api-reference/kyc-review/kyc-requirement#path=additionalRequirements/state) of the additional requirement that has changed.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? PrevState { get; set; }
+        public string? PrevState { get => _explicitNullValuePrevState; set { _explicitNullValuePrevState = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("prevState"); else _explicitNullProperties?.Remove("prevState"); } }
+        private string? _explicitNullValuePrevState = default!;
 #nullable restore
 #else
-        public string PrevState { get; set; }
+        public string PrevState { get => _explicitNullValuePrevState; set { _explicitNullValuePrevState = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("prevState"); else _explicitNullProperties?.Remove("prevState"); } }
+        private string _explicitNullValuePrevState = default!;
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.V5002DataResourceRequirementChangesItemAdditionalRequirementsItem"/> and sets the default values.
@@ -47,7 +62,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.V5002DataResourceRequirementChangesItemAdditionalRequirementsItem CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.V5002DataResourceRequirementChangesItemAdditionalRequirementsItem();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.V5002DataResourceRequirementChangesItemAdditionalRequirementsItem(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -72,6 +87,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteGuidValue("additionalRequirementId", AdditionalRequirementId);
             writer.WriteStringValue("newState", NewState);
             writer.WriteStringValue("prevState", PrevState);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

@@ -11,25 +11,43 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class BatchGroupTransferCreateRequest : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("customerTransactionId") is { } nullNodeCustomerTransactionId && nullNodeCustomerTransactionId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CustomerTransactionId = null;
+            if (parseNode.GetChildNode("details") is { } nullNodeDetails && nullNodeDetails.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Details = null;
+            if (parseNode.GetChildNode("quoteUuid") is { } nullNodeQuoteUuid && nullNodeQuoteUuid.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) QuoteUuid = null;
+            if (parseNode.GetChildNode("sourceAccount") is { } nullNodeSourceAccount && nullNodeSourceAccount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SourceAccount = null;
+            if (parseNode.GetChildNode("targetAccount") is { } nullNodeTargetAccount && nullNodeTargetAccount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TargetAccount = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Unique identifier you generate for this transfer attempt.</summary>
-        public Guid? CustomerTransactionId { get; set; }
+        public Guid? CustomerTransactionId { get => _explicitNullValueCustomerTransactionId; set { _explicitNullValueCustomerTransactionId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("customerTransactionId"); else _explicitNullProperties?.Remove("customerTransactionId"); } }
+        private Guid? _explicitNullValueCustomerTransactionId = default!;
         /// <summary>The details property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.BatchGroupTransferCreateRequestDetails? Details { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.BatchGroupTransferCreateRequestDetails? Details { get => _explicitNullValueDetails; set { _explicitNullValueDetails = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("details"); else _explicitNullProperties?.Remove("details"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.BatchGroupTransferCreateRequestDetails? _explicitNullValueDetails = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.BatchGroupTransferCreateRequestDetails Details { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.BatchGroupTransferCreateRequestDetails Details { get => _explicitNullValueDetails; set { _explicitNullValueDetails = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("details"); else _explicitNullProperties?.Remove("details"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.BatchGroupTransferCreateRequestDetails _explicitNullValueDetails = default!;
 #endif
         /// <summary>Quote ID.</summary>
-        public Guid? QuoteUuid { get; set; }
+        public Guid? QuoteUuid { get => _explicitNullValueQuoteUuid; set { _explicitNullValueQuoteUuid = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("quoteUuid"); else _explicitNullProperties?.Remove("quoteUuid"); } }
+        private Guid? _explicitNullValueQuoteUuid = default!;
         /// <summary>Refund recipient account ID.</summary>
-        public long? SourceAccount { get; set; }
+        public long? SourceAccount { get => _explicitNullValueSourceAccount; set { _explicitNullValueSourceAccount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sourceAccount"); else _explicitNullProperties?.Remove("sourceAccount"); } }
+        private long? _explicitNullValueSourceAccount = default!;
         /// <summary>Recipient account ID.</summary>
-        public long? TargetAccount { get; set; }
+        public long? TargetAccount { get => _explicitNullValueTargetAccount; set { _explicitNullValueTargetAccount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("targetAccount"); else _explicitNullProperties?.Remove("targetAccount"); } }
+        private long? _explicitNullValueTargetAccount = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.BatchGroupTransferCreateRequest"/> and sets the default values.
         /// </summary>
@@ -45,7 +63,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.BatchGroupTransferCreateRequest CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.BatchGroupTransferCreateRequest();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.BatchGroupTransferCreateRequest(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -74,6 +92,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteGuidValue("quoteUuid", QuoteUuid);
             writer.WriteLongValue("sourceAccount", SourceAccount);
             writer.WriteLongValue("targetAccount", TargetAccount);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

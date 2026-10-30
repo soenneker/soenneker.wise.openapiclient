@@ -34,6 +34,31 @@ namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.Cards.Item.SpendingPe
         {
         }
         /// <summary>
+        /// Retrieves the current spending permissions configured for a card.
+        /// </summary>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.CardPermissionsGet200Response"/></returns>
+        /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
+        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent">When receiving a 429 status code</exception>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.CardPermissionsGet200Response?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
+#nullable restore
+#else
+        public async Task<global::Soenneker.Wise.OpenApiClient.Models.CardPermissionsGet200Response> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
+#endif
+            var requestInfo = ToGetRequestInformation(requestConfiguration);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
+                { "4XX", global::Soenneker.OpenApi.Generated.OpenApiRawError.CreateFromDiscriminatorValue },
+                { "5XX", global::Soenneker.OpenApi.Generated.OpenApiRawError.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.CardPermissionsGet200Response>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.CardPermissionsGet200Response.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
+        }
+        /// <summary>
         /// Enable or disable multiple spending permissions on a card in a single request.This is the recommended endpoint for updating card permissions as it allows updating multiple permissions atomically.
         /// </summary>
         /// <returns>A <see cref="Stream"/></returns>
@@ -59,8 +84,29 @@ namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.Cards.Item.SpendingPe
                 { "400", global::Soenneker.Wise.OpenApiClient.Models.CardPermissionsBulkUpdate400Response.CreateFromDiscriminatorValue },
                 { "422", global::Soenneker.Wise.OpenApiClient.Models.CardPermissionsBulkUpdate422Response.CreateFromDiscriminatorValue },
                 { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
+                { "4XX", global::Soenneker.OpenApi.Generated.OpenApiRawError.CreateFromDiscriminatorValue },
+                { "5XX", global::Soenneker.OpenApi.Generated.OpenApiRawError.CreateFromDiscriminatorValue },
             };
             return await RequestAdapter.SendPrimitiveAsync<Stream>(requestInfo, errorMapping, cancellationToken).ConfigureAwait(false);
+        }
+        /// <summary>
+        /// Retrieves the current spending permissions configured for a card.
+        /// </summary>
+        /// <returns>A <see cref="RequestInformation"/></returns>
+        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        {
+#nullable restore
+#else
+        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        {
+#endif
+            var requestInfo = new RequestInformation(Method.GET, UrlTemplate, PathParameters);
+            requestInfo.Configure(requestConfiguration);
+            requestInfo.Headers.TryAdd("Accept", "application/json");
+            return requestInfo;
         }
         /// <summary>
         /// Enable or disable multiple spending permissions on a card in a single request.This is the recommended endpoint for updating card permissions as it allows updating multiple permissions atomically.

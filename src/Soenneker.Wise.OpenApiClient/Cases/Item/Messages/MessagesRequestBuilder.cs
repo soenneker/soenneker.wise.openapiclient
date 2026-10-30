@@ -65,6 +65,8 @@ namespace Soenneker.Wise.OpenApiClient.Cases.Item.Messages
                 { "404", global::Soenneker.Wise.OpenApiClient.Models.Error404NotFound.CreateFromDiscriminatorValue },
                 { "409", global::Soenneker.Wise.OpenApiClient.Models.Error409Conflict.CreateFromDiscriminatorValue },
                 { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
+                { "4XX", global::Soenneker.OpenApi.Generated.OpenApiRawError.CreateFromDiscriminatorValue },
+                { "5XX", global::Soenneker.OpenApi.Generated.OpenApiRawError.CreateFromDiscriminatorValue },
             };
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.MessageSubmissionResponse>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.MessageSubmissionResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }

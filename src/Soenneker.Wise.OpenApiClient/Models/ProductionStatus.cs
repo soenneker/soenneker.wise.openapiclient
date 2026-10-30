@@ -13,39 +13,59 @@ namespace Soenneker.Wise.OpenApiClient.Models
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class ProductionStatus : ApiException, IAdditionalDataHolder, IParsable
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("description") is { } nullNodeDescription && nullNodeDescription.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Description = null;
+            if (parseNode.GetChildNode("errorCode") is { } nullNodeErrorCode && nullNodeErrorCode.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ErrorCode = null;
+            if (parseNode.GetChildNode("kioskId") is { } nullNodeKioskId && nullNodeKioskId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) KioskId = null;
+            if (parseNode.GetChildNode("occurredAt") is { } nullNodeOccurredAt && nullNodeOccurredAt.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) OccurredAt = null;
+            if (parseNode.GetChildNode("status") is { } nullNodeStatus && nullNodeStatus.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Status = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Detailed description of the error code.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Description { get; set; }
+        public string? Description { get => _explicitNullValueDescription; set { _explicitNullValueDescription = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("description"); else _explicitNullProperties?.Remove("description"); } }
+        private string? _explicitNullValueDescription = default!;
 #nullable restore
 #else
-        public string Description { get; set; }
+        public string Description { get => _explicitNullValueDescription; set { _explicitNullValueDescription = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("description"); else _explicitNullProperties?.Remove("description"); } }
+        private string _explicitNullValueDescription = default!;
 #endif
         /// <summary>Code returned when card production is not successful. Nullable.**Request errors** - Returned when `status` is `REQUEST_ERROR`:- `UNKNOWN_ERROR` - An error occurred on the server- `REQUEST_ALREADY_EXISTS` - The request has already been submitted- `KIOSK_ID_NOT_FOUND` - The kiosk ID does not exist- `CARD_TYPE_NOT_FOUND` - The card type does not exist- `INVALID_FIELD_VALUE` - Some field values are unexpected- `INVALID_PIN_FORMAT` - The PIN does not follow ISO0 or ISO2 standard- `EMPTY_OR_NULL_FIELD_VALUE` - Some required fields are empty or null- `EMPTY_OR_NULL_OR_WRONG_SIZE_FIELD_VALUE` - Some required fields are empty, null, or have incorrect lengths- `CHARSET_NOT_SUPPORTED` - The character set for some fields is not supported- `INVALID_FIELD_FORMAT` - Some field formats are invalid- `INVALID_FIELD_ENCODING` - The encoding for some fields is not expected- `CDATA_ENCODING_OR_FORMATING_ERROR` - The encoding or formatting for XML text field values is incorrect- `PIN_LENGTH_ERROR` - The PIN length is incorrect- `PIN_VERIFICATION_FAILED` - The PIN cannot be verified because the server is unreachable- `DATA_PREPARATION_FAILED` - The server failed to parse the request- `PARTIAL_DATA_RECEIVED` - Only part of the expected data has been received- `NO_BRANCH_LINKED_TO_KIOSK` - The kiosk has not been linked to any branch- `IMAGE_SERVER_ERROR` - The image server is unreachable or failed to process the data- `PAN_ALREADY_EXISTS` - The PAN already exists- `PRINTER_OR_SATELLITE_NOT_READY` - The printer or satellite is not ready to start the production- `REQUEST_CREATED_BUT_NOT_STARTED` - The request has been created, but production is pending until the printer or satellite is ready- `UNABLE_TO_ACCEPT_REQUEST` - The system is currently busy and cannot accept new requests at this time**Production errors** - Returned when `status` is `PRODUCTION_ERROR`:- `CB_NOT_AVAILABLE` - Main server error: central base not available- `CB_DB_NOT_AVAILABLE` - Main server error: database not available- `CB_NETWORK_NOT_AVAILABLE` - Main server error: network not available- `CB_AUTHENTICATION_FAILED` - Main server error: user authentication verification failed- `CB_SERVICE_NOT_ALLOWED` - Main server error: the accessed service requires a higher security level- `CB_TIME` - Main server error: timeout occurred on the Central Base side- `DP_NOT_AVAILABLE` - Data processing error: the Data preparation module is not available- `DP_IO_ERROR` - Data processing error: Input/Output error when communicating with the DP- `DP_TIMEOUT` - Data processing error: timeout error- `SAT_SERVER_NOT_REACHABLE` - Satellite agent error: the server is not reachable- `SAT_AUTHENTICATION_FAILED` - Satellite agent error: user authentication failed on satellite- `SAT_NETWORK_NOT_AVAILABLE` - Satellite agent error: the network is not available- `PRT_NOT_REACHABLE` - Printer error: printer is not reachable- `PRT_SETUP_ERROR` - Printer error: printer setup is incorrect- `PRT_TIMEOUT` - Printer error: printer timeout- `PRT_RIBBON` - Printer error: ribbon error- `PRT_LOCK_ERROR` - Printer error: printer physically unlocked- `PRT_RIBBON_MISSING` - Printer error: ribbon is missing- `PRT_RIBBON_ENDED` - Printer error: ribbon has ended- `PRT_COVER_OPEN` - Printer error: printer cover is open- `PRT_PAUSED` - Printer error: printer paused- `PRD_UNEXPECTED_DATA` - Production error: production data is incorrect- `PRD_FEEDER_EMPTY` - Production error: feeder is empty- `PRD_FEEDER_JAM` - Production error: feeder card jam- `PRD_HOPPER_FULL` - Production error: hopper is full- `PRD_HOPPER_DOOR` - Production error: hopper door is open- `PRD_HOPPER_JAM` - Production error: hopper card jam- `PRD_MAGSTRIPE` - Production error: error occurred during magstripe encoding- `PRD_SMARTCARD` - Production error: error occurred during chip personalization- `PRD_EMBOSSER` - Production error: error occurred during embossing- `PRD_TIMEOUT` - Production error: production timeout has been reached- `PRD_REJECT_FULL` - Production error: reject box is full- `PRD_SMARTCARD_CARD_NOT_IN_READER` - Production error: card is not in reader- `PRD_FINAL_VALIDATION_NOK` - Production error: user has rejected card production- `INV_NOT_INITIALIZED` - Production error: inventory not initialized- `UNKNOWN_ERROR` - Unknown error</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? ErrorCode { get; set; }
+        public string? ErrorCode { get => _explicitNullValueErrorCode; set { _explicitNullValueErrorCode = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("errorCode"); else _explicitNullProperties?.Remove("errorCode"); } }
+        private string? _explicitNullValueErrorCode = default!;
 #nullable restore
 #else
-        public string ErrorCode { get; set; }
+        public string ErrorCode { get => _explicitNullValueErrorCode; set { _explicitNullValueErrorCode = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("errorCode"); else _explicitNullProperties?.Remove("errorCode"); } }
+        private string _explicitNullValueErrorCode = default!;
 #endif
         /// <summary>Identifier that specifies which kiosk machine is producing the card. When the status is `READY`, this value is null.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? KioskId { get; set; }
+        public string? KioskId { get => _explicitNullValueKioskId; set { _explicitNullValueKioskId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("kioskId"); else _explicitNullProperties?.Remove("kioskId"); } }
+        private string? _explicitNullValueKioskId = default!;
 #nullable restore
 #else
-        public string KioskId { get; set; }
+        public string KioskId { get => _explicitNullValueKioskId; set { _explicitNullValueKioskId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("kioskId"); else _explicitNullProperties?.Remove("kioskId"); } }
+        private string _explicitNullValueKioskId = default!;
 #endif
         /// <summary>The primary error message.</summary>
         public override string Message { get => base.Message; }
         /// <summary>Time when the card production request has been sent to the kiosk machine (ISO 8601 format).</summary>
-        public DateTimeOffset? OccurredAt { get; set; }
+        public DateTimeOffset? OccurredAt { get => _explicitNullValueOccurredAt; set { _explicitNullValueOccurredAt = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("occurredAt"); else _explicitNullProperties?.Remove("occurredAt"); } }
+        private DateTimeOffset? _explicitNullValueOccurredAt = default!;
         /// <summary>Current production status:- `READY` - Card is ready for production- `IN_PROGRESS` - Card is in production at the kiosk machine- `PRODUCED` - Card is produced and collected. This is a final state- `PRODUCTION_ERROR` - Card production failed- `REQUEST_ERROR` - Card production request failed</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.ProductionStatusStatus? Status { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.ProductionStatusStatus? Status { get => _explicitNullValueStatus; set { _explicitNullValueStatus = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("status"); else _explicitNullProperties?.Remove("status"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.ProductionStatusStatus? _explicitNullValueStatus = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.ProductionStatus"/> and sets the default values.
         /// </summary>
@@ -61,7 +81,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.ProductionStatus CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.ProductionStatus();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.ProductionStatus(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -90,6 +110,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteStringValue("kioskId", KioskId);
             writer.WriteDateTimeOffsetValue("occurredAt", OccurredAt);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ProductionStatusStatus>("status", Status);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

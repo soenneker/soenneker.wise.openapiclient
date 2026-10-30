@@ -56,6 +56,8 @@ namespace Soenneker.Wise.OpenApiClient.Simulation.Profiles.Item.BankTransactions
             {
                 { "400", global::Soenneker.Wise.OpenApiClient.Models.SimulationBankTransactionImport400Response.CreateFromDiscriminatorValue },
                 { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
+                { "4XX", global::Soenneker.OpenApi.Generated.OpenApiRawError.CreateFromDiscriminatorValue },
+                { "5XX", global::Soenneker.OpenApi.Generated.OpenApiRawError.CreateFromDiscriminatorValue },
             };
             await RequestAdapter.SendNoContentAsync(requestInfo, errorMapping, cancellationToken).ConfigureAwait(false);
         }

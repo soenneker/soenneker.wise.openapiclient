@@ -11,40 +11,59 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class V5002DataResourceRequirementChangesItem : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("additionalRequirements") is { } nullNodeAdditionalRequirements && nullNodeAdditionalRequirements.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) AdditionalRequirements = null;
+            if (parseNode.GetChildNode("key") is { } nullNodeKey && nullNodeKey.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Key = null;
+            if (parseNode.GetChildNode("newState") is { } nullNodeNewState && nullNodeNewState.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) NewState = null;
+            if (parseNode.GetChildNode("prevState") is { } nullNodePrevState && nullNodePrevState.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PrevState = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>A list of additional requirements that have changed. Not shown if empty.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.V5002DataResourceRequirementChangesItemAdditionalRequirementsItem>? AdditionalRequirements { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.V5002DataResourceRequirementChangesItemAdditionalRequirementsItem>? AdditionalRequirements { get => _explicitNullValueAdditionalRequirements; set { _explicitNullValueAdditionalRequirements = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("additionalRequirements"); else _explicitNullProperties?.Remove("additionalRequirements"); } }
+        private List<global::Soenneker.Wise.OpenApiClient.Models.V5002DataResourceRequirementChangesItemAdditionalRequirementsItem>? _explicitNullValueAdditionalRequirements = default!;
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.V5002DataResourceRequirementChangesItemAdditionalRequirementsItem> AdditionalRequirements { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.V5002DataResourceRequirementChangesItemAdditionalRequirementsItem> AdditionalRequirements { get => _explicitNullValueAdditionalRequirements; set { _explicitNullValueAdditionalRequirements = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("additionalRequirements"); else _explicitNullProperties?.Remove("additionalRequirements"); } }
+        private List<global::Soenneker.Wise.OpenApiClient.Models.V5002DataResourceRequirementChangesItemAdditionalRequirementsItem> _explicitNullValueAdditionalRequirements = default!;
 #endif
         /// <summary>The [key](/api-reference/kyc-review/kyc-requirement#path=key) of the requirement that has changed.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Key { get; set; }
+        public string? Key { get => _explicitNullValueKey; set { _explicitNullValueKey = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("key"); else _explicitNullProperties?.Remove("key"); } }
+        private string? _explicitNullValueKey = default!;
 #nullable restore
 #else
-        public string Key { get; set; }
+        public string Key { get => _explicitNullValueKey; set { _explicitNullValueKey = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("key"); else _explicitNullProperties?.Remove("key"); } }
+        private string _explicitNullValueKey = default!;
 #endif
         /// <summary>The new [state](/api-reference/kyc-review/kyc-requirement#path=state) of the requirement that has changed.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? NewState { get; set; }
+        public string? NewState { get => _explicitNullValueNewState; set { _explicitNullValueNewState = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("newState"); else _explicitNullProperties?.Remove("newState"); } }
+        private string? _explicitNullValueNewState = default!;
 #nullable restore
 #else
-        public string NewState { get; set; }
+        public string NewState { get => _explicitNullValueNewState; set { _explicitNullValueNewState = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("newState"); else _explicitNullProperties?.Remove("newState"); } }
+        private string _explicitNullValueNewState = default!;
 #endif
         /// <summary>*Not provided when requirement is new.*The previous [state](/api-reference/kyc-review/kyc-requirement#path=state) of the requirement that has changed. In case only an [additional requirement](/api-reference/kyc-review/kyc-requirement#path=additionalRequirements) has changed, this state can be equal to `newState`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? PrevState { get; set; }
+        public string? PrevState { get => _explicitNullValuePrevState; set { _explicitNullValuePrevState = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("prevState"); else _explicitNullProperties?.Remove("prevState"); } }
+        private string? _explicitNullValuePrevState = default!;
 #nullable restore
 #else
-        public string PrevState { get; set; }
+        public string PrevState { get => _explicitNullValuePrevState; set { _explicitNullValuePrevState = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("prevState"); else _explicitNullProperties?.Remove("prevState"); } }
+        private string _explicitNullValuePrevState = default!;
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.V5002DataResourceRequirementChangesItem"/> and sets the default values.
@@ -61,7 +80,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.V5002DataResourceRequirementChangesItem CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.V5002DataResourceRequirementChangesItem();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.V5002DataResourceRequirementChangesItem(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -88,6 +107,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteStringValue("key", Key);
             writer.WriteStringValue("newState", NewState);
             writer.WriteStringValue("prevState", PrevState);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

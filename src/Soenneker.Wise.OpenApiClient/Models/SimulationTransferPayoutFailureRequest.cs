@@ -11,14 +11,24 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class SimulationTransferPayoutFailureRequest : IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("failure_reason_code") is { } nullNodeFailureReasonCode && nullNodeFailureReasonCode.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) FailureReasonCode = null;
+        }
+
         /// <summary>Failure reason code to trigger for payout failure. When not provided, a failure code is selected at random and returned.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? FailureReasonCode { get; set; }
+        public string? FailureReasonCode { get => _explicitNullValueFailureReasonCode; set { _explicitNullValueFailureReasonCode = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("failure_reason_code"); else _explicitNullProperties?.Remove("failure_reason_code"); } }
+        private string? _explicitNullValueFailureReasonCode = default!;
 #nullable restore
 #else
-        public string FailureReasonCode { get; set; }
+        public string FailureReasonCode { get => _explicitNullValueFailureReasonCode; set { _explicitNullValueFailureReasonCode = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("failure_reason_code"); else _explicitNullProperties?.Remove("failure_reason_code"); } }
+        private string _explicitNullValueFailureReasonCode = default!;
 #endif
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
@@ -28,7 +38,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.SimulationTransferPayoutFailureRequest CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.SimulationTransferPayoutFailureRequest();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.SimulationTransferPayoutFailureRequest(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -48,7 +58,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteStringValue("failure_reason_code", FailureReasonCode);
+            writer.WriteStringValue("failure_reason_code", FailureReasonCode);if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
+            
         }
     }
 }

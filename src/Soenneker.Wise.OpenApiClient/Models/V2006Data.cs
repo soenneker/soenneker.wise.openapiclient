@@ -11,54 +11,82 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class V2006Data : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("account_details_id") is { } nullNodeAccountDetailsId && nullNodeAccountDetailsId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) AccountDetailsId = null;
+            if (parseNode.GetChildNode("current_state") is { } nullNodeCurrentState && nullNodeCurrentState.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CurrentState = null;
+            if (parseNode.GetChildNode("occurred_at") is { } nullNodeOccurredAt && nullNodeOccurredAt.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) OccurredAt = null;
+            if (parseNode.GetChildNode("previous_state") is { } nullNodePreviousState && nullNodePreviousState.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PreviousState = null;
+            if (parseNode.GetChildNode("resource") is { } nullNodeResource && nullNodeResource.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Resource = null;
+            if (parseNode.GetChildNode("sender") is { } nullNodeSender && nullNodeSender.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Sender = null;
+            if (parseNode.GetChildNode("target_account_id") is { } nullNodeTargetAccountId && nullNodeTargetAccountId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TargetAccountId = null;
+            if (parseNode.GetChildNode("transfer") is { } nullNodeTransfer && nullNodeTransfer.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Transfer = null;
+        }
+
         /// <summary>Account detail ID where the pay-in was received.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? AccountDetailsId { get; set; }
+        public string? AccountDetailsId { get => _explicitNullValueAccountDetailsId; set { _explicitNullValueAccountDetailsId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("account_details_id"); else _explicitNullProperties?.Remove("account_details_id"); } }
+        private string? _explicitNullValueAccountDetailsId = default!;
 #nullable restore
 #else
-        public string AccountDetailsId { get; set; }
+        public string AccountDetailsId { get => _explicitNullValueAccountDetailsId; set { _explicitNullValueAccountDetailsId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("account_details_id"); else _explicitNullProperties?.Remove("account_details_id"); } }
+        private string _explicitNullValueAccountDetailsId = default!;
 #endif
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Current state of the payment</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.V2006DataCurrentState? CurrentState { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.V2006DataCurrentState? CurrentState { get => _explicitNullValueCurrentState; set { _explicitNullValueCurrentState = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("current_state"); else _explicitNullProperties?.Remove("current_state"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.V2006DataCurrentState? _explicitNullValueCurrentState = default!;
         /// <summary>Timestamp when the event occurred.</summary>
-        public DateTimeOffset? OccurredAt { get; set; }
+        public DateTimeOffset? OccurredAt { get => _explicitNullValueOccurredAt; set { _explicitNullValueOccurredAt = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("occurred_at"); else _explicitNullProperties?.Remove("occurred_at"); } }
+        private DateTimeOffset? _explicitNullValueOccurredAt = default!;
         /// <summary>Previous state of the payment</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.V2006DataPreviousState? PreviousState { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.V2006DataPreviousState? PreviousState { get => _explicitNullValuePreviousState; set { _explicitNullValuePreviousState = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("previous_state"); else _explicitNullProperties?.Remove("previous_state"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.V2006DataPreviousState? _explicitNullValuePreviousState = default!;
         /// <summary>The resource property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.V2006DataResource? Resource { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.V2006DataResource? Resource { get => _explicitNullValueResource; set { _explicitNullValueResource = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("resource"); else _explicitNullProperties?.Remove("resource"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.V2006DataResource? _explicitNullValueResource = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.V2006DataResource Resource { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.V2006DataResource Resource { get => _explicitNullValueResource; set { _explicitNullValueResource = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("resource"); else _explicitNullProperties?.Remove("resource"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.V2006DataResource _explicitNullValueResource = default!;
 #endif
         /// <summary>The sender property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.V2006DataSender? Sender { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.V2006DataSender? Sender { get => _explicitNullValueSender; set { _explicitNullValueSender = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sender"); else _explicitNullProperties?.Remove("sender"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.V2006DataSender? _explicitNullValueSender = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.V2006DataSender Sender { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.V2006DataSender Sender { get => _explicitNullValueSender; set { _explicitNullValueSender = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sender"); else _explicitNullProperties?.Remove("sender"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.V2006DataSender _explicitNullValueSender = default!;
 #endif
         /// <summary>Balance ID which is linked to the account detail.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? TargetAccountId { get; set; }
+        public string? TargetAccountId { get => _explicitNullValueTargetAccountId; set { _explicitNullValueTargetAccountId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("target_account_id"); else _explicitNullProperties?.Remove("target_account_id"); } }
+        private string? _explicitNullValueTargetAccountId = default!;
 #nullable restore
 #else
-        public string TargetAccountId { get; set; }
+        public string TargetAccountId { get => _explicitNullValueTargetAccountId; set { _explicitNullValueTargetAccountId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("target_account_id"); else _explicitNullProperties?.Remove("target_account_id"); } }
+        private string _explicitNullValueTargetAccountId = default!;
 #endif
         /// <summary>The transfer property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.V2006DataTransfer? Transfer { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.V2006DataTransfer? Transfer { get => _explicitNullValueTransfer; set { _explicitNullValueTransfer = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("transfer"); else _explicitNullProperties?.Remove("transfer"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.V2006DataTransfer? _explicitNullValueTransfer = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.V2006DataTransfer Transfer { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.V2006DataTransfer Transfer { get => _explicitNullValueTransfer; set { _explicitNullValueTransfer = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("transfer"); else _explicitNullProperties?.Remove("transfer"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.V2006DataTransfer _explicitNullValueTransfer = default!;
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.V2006Data"/> and sets the default values.
@@ -75,7 +103,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.V2006Data CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.V2006Data();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.V2006Data(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -110,6 +138,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V2006DataSender>("sender", Sender);
             writer.WriteStringValue("target_account_id", TargetAccountId);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V2006DataTransfer>("transfer", Transfer);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

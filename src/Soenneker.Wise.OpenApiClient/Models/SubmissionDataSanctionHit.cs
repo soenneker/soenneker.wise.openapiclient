@@ -12,48 +12,70 @@ namespace Soenneker.Wise.OpenApiClient.Models
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class SubmissionDataSanctionHit : IAdditionalDataHolder, IParsable
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("individual") is { } nullNodeIndividual && nullNodeIndividual.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Individual = null;
+            if (parseNode.GetChildNode("multiple") is { } nullNodeMultiple && nullNodeMultiple.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Multiple = null;
+            if (parseNode.GetChildNode("organisation") is { } nullNodeOrganisation && nullNodeOrganisation.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Organisation = null;
+            if (parseNode.GetChildNode("other") is { } nullNodeOther && nullNodeOther.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Other = null;
+            if (parseNode.GetChildNode("vessel") is { } nullNodeVessel && nullNodeVessel.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Vessel = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The individual property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.SubmissionIndividualIndividual? Individual { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.SubmissionIndividualIndividual? Individual { get => _explicitNullValueIndividual; set { _explicitNullValueIndividual = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("individual"); else _explicitNullProperties?.Remove("individual"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.SubmissionIndividualIndividual? _explicitNullValueIndividual = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.SubmissionIndividualIndividual Individual { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.SubmissionIndividualIndividual Individual { get => _explicitNullValueIndividual; set { _explicitNullValueIndividual = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("individual"); else _explicitNullProperties?.Remove("individual"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.SubmissionIndividualIndividual _explicitNullValueIndividual = default!;
 #endif
         /// <summary>The multiple property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.SubmissionMultipleMultiple? Multiple { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.SubmissionMultipleMultiple? Multiple { get => _explicitNullValueMultiple; set { _explicitNullValueMultiple = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("multiple"); else _explicitNullProperties?.Remove("multiple"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.SubmissionMultipleMultiple? _explicitNullValueMultiple = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.SubmissionMultipleMultiple Multiple { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.SubmissionMultipleMultiple Multiple { get => _explicitNullValueMultiple; set { _explicitNullValueMultiple = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("multiple"); else _explicitNullProperties?.Remove("multiple"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.SubmissionMultipleMultiple _explicitNullValueMultiple = default!;
 #endif
         /// <summary>The organisation property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.SubmissionOrganisationOrganisation? Organisation { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.SubmissionOrganisationOrganisation? Organisation { get => _explicitNullValueOrganisation; set { _explicitNullValueOrganisation = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("organisation"); else _explicitNullProperties?.Remove("organisation"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.SubmissionOrganisationOrganisation? _explicitNullValueOrganisation = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.SubmissionOrganisationOrganisation Organisation { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.SubmissionOrganisationOrganisation Organisation { get => _explicitNullValueOrganisation; set { _explicitNullValueOrganisation = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("organisation"); else _explicitNullProperties?.Remove("organisation"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.SubmissionOrganisationOrganisation _explicitNullValueOrganisation = default!;
 #endif
         /// <summary>The other property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.SubmissionOtherOther? Other { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.SubmissionOtherOther? Other { get => _explicitNullValueOther; set { _explicitNullValueOther = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("other"); else _explicitNullProperties?.Remove("other"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.SubmissionOtherOther? _explicitNullValueOther = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.SubmissionOtherOther Other { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.SubmissionOtherOther Other { get => _explicitNullValueOther; set { _explicitNullValueOther = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("other"); else _explicitNullProperties?.Remove("other"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.SubmissionOtherOther _explicitNullValueOther = default!;
 #endif
         /// <summary>The vessel property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.SubmissionVesselVessel? Vessel { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.SubmissionVesselVessel? Vessel { get => _explicitNullValueVessel; set { _explicitNullValueVessel = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("vessel"); else _explicitNullProperties?.Remove("vessel"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.SubmissionVesselVessel? _explicitNullValueVessel = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.SubmissionVesselVessel Vessel { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.SubmissionVesselVessel Vessel { get => _explicitNullValueVessel; set { _explicitNullValueVessel = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("vessel"); else _explicitNullProperties?.Remove("vessel"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.SubmissionVesselVessel _explicitNullValueVessel = default!;
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.SubmissionDataSanctionHit"/> and sets the default values.
@@ -70,7 +92,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.SubmissionDataSanctionHit CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.SubmissionDataSanctionHit();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.SubmissionDataSanctionHit(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -99,6 +121,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.SubmissionOrganisationOrganisation>("organisation", Organisation);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.SubmissionOtherOther>("other", Other);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.SubmissionVesselVessel>("vessel", Vessel);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

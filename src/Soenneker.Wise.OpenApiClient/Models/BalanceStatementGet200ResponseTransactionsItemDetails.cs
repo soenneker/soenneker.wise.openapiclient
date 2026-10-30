@@ -12,93 +12,134 @@ namespace Soenneker.Wise.OpenApiClient.Models
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class BalanceStatementGet200ResponseTransactionsItemDetails : IAdditionalDataHolder, IParsable
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("amount") is { } nullNodeAmount && nullNodeAmount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Amount = null;
+            if (parseNode.GetChildNode("category") is { } nullNodeCategory && nullNodeCategory.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Category = null;
+            if (parseNode.GetChildNode("description") is { } nullNodeDescription && nullNodeDescription.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Description = null;
+            if (parseNode.GetChildNode("fee") is { } nullNodeFee && nullNodeFee.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Fee = null;
+            if (parseNode.GetChildNode("merchant") is { } nullNodeMerchant && nullNodeMerchant.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Merchant = null;
+            if (parseNode.GetChildNode("paymentReference") is { } nullNodePaymentReference && nullNodePaymentReference.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PaymentReference = null;
+            if (parseNode.GetChildNode("rate") is { } nullNodeRate && nullNodeRate.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Rate = null;
+            if (parseNode.GetChildNode("senderAccount") is { } nullNodeSenderAccount && nullNodeSenderAccount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SenderAccount = null;
+            if (parseNode.GetChildNode("senderName") is { } nullNodeSenderName && nullNodeSenderName.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SenderName = null;
+            if (parseNode.GetChildNode("sourceAmount") is { } nullNodeSourceAmount && nullNodeSourceAmount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SourceAmount = null;
+            if (parseNode.GetChildNode("targetAmount") is { } nullNodeTargetAmount && nullNodeTargetAmount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TargetAmount = null;
+            if (parseNode.GetChildNode("type") is { } nullNodeType && nullNodeType.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Type = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Amount in original currency (for card transactions abroad).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemDetailsAmount? Amount { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemDetailsAmount? Amount { get => _explicitNullValueAmount; set { _explicitNullValueAmount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("amount"); else _explicitNullProperties?.Remove("amount"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemDetailsAmount? _explicitNullValueAmount = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemDetailsAmount Amount { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemDetailsAmount Amount { get => _explicitNullValueAmount; set { _explicitNullValueAmount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("amount"); else _explicitNullProperties?.Remove("amount"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemDetailsAmount _explicitNullValueAmount = default!;
 #endif
         /// <summary>Card transaction category.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Category { get; set; }
+        public string? Category { get => _explicitNullValueCategory; set { _explicitNullValueCategory = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("category"); else _explicitNullProperties?.Remove("category"); } }
+        private string? _explicitNullValueCategory = default!;
 #nullable restore
 #else
-        public string Category { get; set; }
+        public string Category { get => _explicitNullValueCategory; set { _explicitNullValueCategory = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("category"); else _explicitNullProperties?.Remove("category"); } }
+        private string _explicitNullValueCategory = default!;
 #endif
         /// <summary>Human readable explanation about the transaction.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Description { get; set; }
+        public string? Description { get => _explicitNullValueDescription; set { _explicitNullValueDescription = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("description"); else _explicitNullProperties?.Remove("description"); } }
+        private string? _explicitNullValueDescription = default!;
 #nullable restore
 #else
-        public string Description { get; set; }
+        public string Description { get => _explicitNullValueDescription; set { _explicitNullValueDescription = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("description"); else _explicitNullProperties?.Remove("description"); } }
+        private string _explicitNullValueDescription = default!;
 #endif
         /// <summary>Conversion fee.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemDetailsFee? Fee { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemDetailsFee? Fee { get => _explicitNullValueFee; set { _explicitNullValueFee = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("fee"); else _explicitNullProperties?.Remove("fee"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemDetailsFee? _explicitNullValueFee = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemDetailsFee Fee { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemDetailsFee Fee { get => _explicitNullValueFee; set { _explicitNullValueFee = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("fee"); else _explicitNullProperties?.Remove("fee"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemDetailsFee _explicitNullValueFee = default!;
 #endif
         /// <summary>Card transaction merchant details.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemDetailsMerchant? Merchant { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemDetailsMerchant? Merchant { get => _explicitNullValueMerchant; set { _explicitNullValueMerchant = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("merchant"); else _explicitNullProperties?.Remove("merchant"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemDetailsMerchant? _explicitNullValueMerchant = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemDetailsMerchant Merchant { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemDetailsMerchant Merchant { get => _explicitNullValueMerchant; set { _explicitNullValueMerchant = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("merchant"); else _explicitNullProperties?.Remove("merchant"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemDetailsMerchant _explicitNullValueMerchant = default!;
 #endif
         /// <summary>Deposit payment reference text.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? PaymentReference { get; set; }
+        public string? PaymentReference { get => _explicitNullValuePaymentReference; set { _explicitNullValuePaymentReference = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("paymentReference"); else _explicitNullProperties?.Remove("paymentReference"); } }
+        private string? _explicitNullValuePaymentReference = default!;
 #nullable restore
 #else
-        public string PaymentReference { get; set; }
+        public string PaymentReference { get => _explicitNullValuePaymentReference; set { _explicitNullValuePaymentReference = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("paymentReference"); else _explicitNullProperties?.Remove("paymentReference"); } }
+        private string _explicitNullValuePaymentReference = default!;
 #endif
         /// <summary>Conversion exchange rate.</summary>
-        public double? Rate { get; set; }
+        public double? Rate { get => _explicitNullValueRate; set { _explicitNullValueRate = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("rate"); else _explicitNullProperties?.Remove("rate"); } }
+        private double? _explicitNullValueRate = default!;
         /// <summary>Deposit sender bank account details.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? SenderAccount { get; set; }
+        public string? SenderAccount { get => _explicitNullValueSenderAccount; set { _explicitNullValueSenderAccount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("senderAccount"); else _explicitNullProperties?.Remove("senderAccount"); } }
+        private string? _explicitNullValueSenderAccount = default!;
 #nullable restore
 #else
-        public string SenderAccount { get; set; }
+        public string SenderAccount { get => _explicitNullValueSenderAccount; set { _explicitNullValueSenderAccount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("senderAccount"); else _explicitNullProperties?.Remove("senderAccount"); } }
+        private string _explicitNullValueSenderAccount = default!;
 #endif
         /// <summary>Deposit sender name.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? SenderName { get; set; }
+        public string? SenderName { get => _explicitNullValueSenderName; set { _explicitNullValueSenderName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("senderName"); else _explicitNullProperties?.Remove("senderName"); } }
+        private string? _explicitNullValueSenderName = default!;
 #nullable restore
 #else
-        public string SenderName { get; set; }
+        public string SenderName { get => _explicitNullValueSenderName; set { _explicitNullValueSenderName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("senderName"); else _explicitNullProperties?.Remove("senderName"); } }
+        private string _explicitNullValueSenderName = default!;
 #endif
         /// <summary>Source amount for conversions.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemDetailsSourceAmount? SourceAmount { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemDetailsSourceAmount? SourceAmount { get => _explicitNullValueSourceAmount; set { _explicitNullValueSourceAmount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sourceAmount"); else _explicitNullProperties?.Remove("sourceAmount"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemDetailsSourceAmount? _explicitNullValueSourceAmount = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemDetailsSourceAmount SourceAmount { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemDetailsSourceAmount SourceAmount { get => _explicitNullValueSourceAmount; set { _explicitNullValueSourceAmount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sourceAmount"); else _explicitNullProperties?.Remove("sourceAmount"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemDetailsSourceAmount _explicitNullValueSourceAmount = default!;
 #endif
         /// <summary>Target amount for conversions.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemDetailsTargetAmount? TargetAmount { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemDetailsTargetAmount? TargetAmount { get => _explicitNullValueTargetAmount; set { _explicitNullValueTargetAmount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("targetAmount"); else _explicitNullProperties?.Remove("targetAmount"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemDetailsTargetAmount? _explicitNullValueTargetAmount = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemDetailsTargetAmount TargetAmount { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemDetailsTargetAmount TargetAmount { get => _explicitNullValueTargetAmount; set { _explicitNullValueTargetAmount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("targetAmount"); else _explicitNullProperties?.Remove("targetAmount"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemDetailsTargetAmount _explicitNullValueTargetAmount = default!;
 #endif
         /// <summary>Transaction type.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemDetailsType? Type { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemDetailsType? Type { get => _explicitNullValueType; set { _explicitNullValueType = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("type"); else _explicitNullProperties?.Remove("type"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemDetailsType? _explicitNullValueType = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemDetails"/> and sets the default values.
         /// </summary>
@@ -114,7 +155,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemDetails CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemDetails();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemDetails(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -157,6 +198,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemDetailsSourceAmount>("sourceAmount", SourceAmount);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemDetailsTargetAmount>("targetAmount", TargetAmount);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemDetailsType>("type", Type);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

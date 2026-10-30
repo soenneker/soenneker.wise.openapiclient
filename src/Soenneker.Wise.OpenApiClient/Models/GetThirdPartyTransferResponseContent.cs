@@ -12,83 +12,129 @@ namespace Soenneker.Wise.OpenApiClient.Models
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class GetThirdPartyTransferResponseContent : IAdditionalDataHolder, IParsable
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("created") is { } nullNodeCreated && nullNodeCreated.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Created = null;
+            if (parseNode.GetChildNode("details") is { } nullNodeDetails && nullNodeDetails.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Details = null;
+            if (parseNode.GetChildNode("hasActiveIssues") is { } nullNodeHasActiveIssues && nullNodeHasActiveIssues.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) HasActiveIssues = null;
+            if (parseNode.GetChildNode("id") is { } nullNodeId && nullNodeId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Id = null;
+            if (parseNode.GetChildNode("originalTransferId") is { } nullNodeOriginalTransferId && nullNodeOriginalTransferId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) OriginalTransferId = null;
+            if (parseNode.GetChildNode("originator") is { } nullNodeOriginator && nullNodeOriginator.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Originator = null;
+            if (parseNode.GetChildNode("quote") is { } nullNodeQuote && nullNodeQuote.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Quote = null;
+            if (parseNode.GetChildNode("rate") is { } nullNodeRate && nullNodeRate.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Rate = null;
+            if (parseNode.GetChildNode("sourceAccount") is { } nullNodeSourceAccount && nullNodeSourceAccount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SourceAccount = null;
+            if (parseNode.GetChildNode("sourceCurrency") is { } nullNodeSourceCurrency && nullNodeSourceCurrency.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SourceCurrency = null;
+            if (parseNode.GetChildNode("sourceValue") is { } nullNodeSourceValue && nullNodeSourceValue.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SourceValue = null;
+            if (parseNode.GetChildNode("status") is { } nullNodeStatus && nullNodeStatus.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Status = null;
+            if (parseNode.GetChildNode("targetAccount") is { } nullNodeTargetAccount && nullNodeTargetAccount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TargetAccount = null;
+            if (parseNode.GetChildNode("targetCurrency") is { } nullNodeTargetCurrency && nullNodeTargetCurrency.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TargetCurrency = null;
+            if (parseNode.GetChildNode("targetValue") is { } nullNodeTargetValue && nullNodeTargetValue.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TargetValue = null;
+            if (parseNode.GetChildNode("user") is { } nullNodeUser && nullNodeUser.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) User = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Timestamp when transfer was created.</summary>
-        public DateTimeOffset? Created { get; set; }
+        public DateTimeOffset? Created { get => _explicitNullValueCreated; set { _explicitNullValueCreated = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("created"); else _explicitNullProperties?.Remove("created"); } }
+        private DateTimeOffset? _explicitNullValueCreated = default!;
         /// <summary>Payment Details</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.DetailsResponse? Details { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.DetailsResponse? Details { get => _explicitNullValueDetails; set { _explicitNullValueDetails = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("details"); else _explicitNullProperties?.Remove("details"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.DetailsResponse? _explicitNullValueDetails = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.DetailsResponse Details { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.DetailsResponse Details { get => _explicitNullValueDetails; set { _explicitNullValueDetails = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("details"); else _explicitNullProperties?.Remove("details"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.DetailsResponse _explicitNullValueDetails = default!;
 #endif
         /// <summary>Are there any pending issues which stop executing the transfer?</summary>
-        public bool? HasActiveIssues { get; set; }
+        public bool? HasActiveIssues { get => _explicitNullValueHasActiveIssues; set { _explicitNullValueHasActiveIssues = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("hasActiveIssues"); else _explicitNullProperties?.Remove("hasActiveIssues"); } }
+        private bool? _explicitNullValueHasActiveIssues = default!;
         /// <summary>Transfer ID</summary>
-        public long? Id { get; set; }
+        public long? Id { get => _explicitNullValueId; set { _explicitNullValueId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("id"); else _explicitNullProperties?.Remove("id"); } }
+        private long? _explicitNullValueId = default!;
         /// <summary>Unique identifier randomly generated per transfer request by the calling client</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? OriginalTransferId { get; set; }
+        public string? OriginalTransferId { get => _explicitNullValueOriginalTransferId; set { _explicitNullValueOriginalTransferId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("originalTransferId"); else _explicitNullProperties?.Remove("originalTransferId"); } }
+        private string? _explicitNullValueOriginalTransferId = default!;
 #nullable restore
 #else
-        public string OriginalTransferId { get; set; }
+        public string OriginalTransferId { get => _explicitNullValueOriginalTransferId; set { _explicitNullValueOriginalTransferId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("originalTransferId"); else _explicitNullProperties?.Remove("originalTransferId"); } }
+        private string _explicitNullValueOriginalTransferId = default!;
 #endif
         /// <summary>Data block to capture payment originator details</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.OriginatorResponse? Originator { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.OriginatorResponse? Originator { get => _explicitNullValueOriginator; set { _explicitNullValueOriginator = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("originator"); else _explicitNullProperties?.Remove("originator"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.OriginatorResponse? _explicitNullValueOriginator = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.OriginatorResponse Originator { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.OriginatorResponse Originator { get => _explicitNullValueOriginator; set { _explicitNullValueOriginator = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("originator"); else _explicitNullProperties?.Remove("originator"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.OriginatorResponse _explicitNullValueOriginator = default!;
 #endif
         /// <summary>Quote ID</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Quote { get; set; }
+        public string? Quote { get => _explicitNullValueQuote; set { _explicitNullValueQuote = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("quote"); else _explicitNullProperties?.Remove("quote"); } }
+        private string? _explicitNullValueQuote = default!;
 #nullable restore
 #else
-        public string Quote { get; set; }
+        public string Quote { get => _explicitNullValueQuote; set { _explicitNullValueQuote = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("quote"); else _explicitNullProperties?.Remove("quote"); } }
+        private string _explicitNullValueQuote = default!;
 #endif
         /// <summary>Exchange rate value</summary>
-        public decimal? Rate { get; set; }
+        public decimal? Rate { get => _explicitNullValueRate; set { _explicitNullValueRate = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("rate"); else _explicitNullProperties?.Remove("rate"); } }
+        private decimal? _explicitNullValueRate = default!;
         /// <summary>Refund recipient account ID</summary>
-        public long? SourceAccount { get; set; }
+        public long? SourceAccount { get => _explicitNullValueSourceAccount; set { _explicitNullValueSourceAccount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sourceAccount"); else _explicitNullProperties?.Remove("sourceAccount"); } }
+        private long? _explicitNullValueSourceAccount = default!;
         /// <summary>Source currency code</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? SourceCurrency { get; set; }
+        public string? SourceCurrency { get => _explicitNullValueSourceCurrency; set { _explicitNullValueSourceCurrency = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sourceCurrency"); else _explicitNullProperties?.Remove("sourceCurrency"); } }
+        private string? _explicitNullValueSourceCurrency = default!;
 #nullable restore
 #else
-        public string SourceCurrency { get; set; }
+        public string SourceCurrency { get => _explicitNullValueSourceCurrency; set { _explicitNullValueSourceCurrency = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sourceCurrency"); else _explicitNullProperties?.Remove("sourceCurrency"); } }
+        private string _explicitNullValueSourceCurrency = default!;
 #endif
         /// <summary>Transfer amount in source currency</summary>
-        public decimal? SourceValue { get; set; }
+        public decimal? SourceValue { get => _explicitNullValueSourceValue; set { _explicitNullValueSourceValue = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sourceValue"); else _explicitNullProperties?.Remove("sourceValue"); } }
+        private decimal? _explicitNullValueSourceValue = default!;
         /// <summary>Transfer current status. See [Tracking Transfers](https://docs.wise.com/guides/product/send-money/tracking-transfers) for all possible statuses.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Status { get; set; }
+        public string? Status { get => _explicitNullValueStatus; set { _explicitNullValueStatus = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("status"); else _explicitNullProperties?.Remove("status"); } }
+        private string? _explicitNullValueStatus = default!;
 #nullable restore
 #else
-        public string Status { get; set; }
+        public string Status { get => _explicitNullValueStatus; set { _explicitNullValueStatus = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("status"); else _explicitNullProperties?.Remove("status"); } }
+        private string _explicitNullValueStatus = default!;
 #endif
         /// <summary>Recipient account ID</summary>
-        public long? TargetAccount { get; set; }
+        public long? TargetAccount { get => _explicitNullValueTargetAccount; set { _explicitNullValueTargetAccount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("targetAccount"); else _explicitNullProperties?.Remove("targetAccount"); } }
+        private long? _explicitNullValueTargetAccount = default!;
         /// <summary>Target currency code</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? TargetCurrency { get; set; }
+        public string? TargetCurrency { get => _explicitNullValueTargetCurrency; set { _explicitNullValueTargetCurrency = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("targetCurrency"); else _explicitNullProperties?.Remove("targetCurrency"); } }
+        private string? _explicitNullValueTargetCurrency = default!;
 #nullable restore
 #else
-        public string TargetCurrency { get; set; }
+        public string TargetCurrency { get => _explicitNullValueTargetCurrency; set { _explicitNullValueTargetCurrency = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("targetCurrency"); else _explicitNullProperties?.Remove("targetCurrency"); } }
+        private string _explicitNullValueTargetCurrency = default!;
 #endif
         /// <summary>Transfer amount in target currency</summary>
-        public decimal? TargetValue { get; set; }
+        public decimal? TargetValue { get => _explicitNullValueTargetValue; set { _explicitNullValueTargetValue = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("targetValue"); else _explicitNullProperties?.Remove("targetValue"); } }
+        private decimal? _explicitNullValueTargetValue = default!;
         /// <summary>Your user ID</summary>
-        public long? User { get; set; }
+        public long? User { get => _explicitNullValueUser; set { _explicitNullValueUser = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("user"); else _explicitNullProperties?.Remove("user"); } }
+        private long? _explicitNullValueUser = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.GetThirdPartyTransferResponseContent"/> and sets the default values.
         /// </summary>
@@ -104,7 +150,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.GetThirdPartyTransferResponseContent CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.GetThirdPartyTransferResponseContent();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.GetThirdPartyTransferResponseContent(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -155,6 +201,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteStringValue("targetCurrency", TargetCurrency);
             writer.WriteDecimalValue("targetValue", TargetValue);
             writer.WriteLongValue("user", User);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

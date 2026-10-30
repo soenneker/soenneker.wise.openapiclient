@@ -11,18 +11,30 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class BusinessControllingPersonSubmissionDataData : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("businessTitle") is { } nullNodeBusinessTitle && nullNodeBusinessTitle.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) BusinessTitle = null;
+            if (parseNode.GetChildNode("shareholderId") is { } nullNodeShareholderId && nullNodeShareholderId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ShareholderId = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The controlling person&apos;s title or role in the business.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.BusinessControllingPersonSubmissionDataDataBusinessTitle? BusinessTitle { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.BusinessControllingPersonSubmissionDataDataBusinessTitle? BusinessTitle { get => _explicitNullValueBusinessTitle; set { _explicitNullValueBusinessTitle = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("businessTitle"); else _explicitNullProperties?.Remove("businessTitle"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.BusinessControllingPersonSubmissionDataDataBusinessTitle? _explicitNullValueBusinessTitle = default!;
         /// <summary>The ID of the shareholder declared as the controlling person. Use the `id` returned by the [List UBOs](/api-reference/profile/profileubolist) endpoint.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? ShareholderId { get; set; }
+        public string? ShareholderId { get => _explicitNullValueShareholderId; set { _explicitNullValueShareholderId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("shareholderId"); else _explicitNullProperties?.Remove("shareholderId"); } }
+        private string? _explicitNullValueShareholderId = default!;
 #nullable restore
 #else
-        public string ShareholderId { get; set; }
+        public string ShareholderId { get => _explicitNullValueShareholderId; set { _explicitNullValueShareholderId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("shareholderId"); else _explicitNullProperties?.Remove("shareholderId"); } }
+        private string _explicitNullValueShareholderId = default!;
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.BusinessControllingPersonSubmissionDataData"/> and sets the default values.
@@ -39,7 +51,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.BusinessControllingPersonSubmissionDataData CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.BusinessControllingPersonSubmissionDataData();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.BusinessControllingPersonSubmissionDataData(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -62,6 +74,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BusinessControllingPersonSubmissionDataDataBusinessTitle>("businessTitle", BusinessTitle);
             writer.WriteStringValue("shareholderId", ShareholderId);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

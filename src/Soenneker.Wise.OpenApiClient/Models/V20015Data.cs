@@ -11,28 +11,45 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class V20015Data : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("current_state") is { } nullNodeCurrentState && nullNodeCurrentState.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CurrentState = null;
+            if (parseNode.GetChildNode("occurred_at") is { } nullNodeOccurredAt && nullNodeOccurredAt.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) OccurredAt = null;
+            if (parseNode.GetChildNode("requested_by_customer") is { } nullNodeRequestedByCustomer && nullNodeRequestedByCustomer.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) RequestedByCustomer = null;
+            if (parseNode.GetChildNode("resource") is { } nullNodeResource && nullNodeResource.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Resource = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The current state of the profile. Possible values:- `ACTIVE` - The profile is active.- `WITHDRAW_ONLY` - The profile has 90 calendar days to remove their money from their balance before Wise fully deactivates their account. This can be done through sending from their balance to themselves and others or spending with their card. They will not be able to receive money to their balances and fund transfers from external bank accounts. They will still be able to order new cards, convert between balances, open and close balances, and download balance statements. After 90 calendar days, the profile will move into a `DEACTIVATED` state.- `VIEW_ONLY` - The profile is able to access and view balances and account activities such as transfer history and balance statements. However, they can no longer perform actions such as moving money with Wise in any way. All transfers sent to the account after it is set to `VIEW_ONLY` mode will also bounce back to the sender. Cards will also be suspended.- `DEACTIVATED` - The profile&apos;s account is deactivated and no actions can be performed on the account. The end-user tokens will be revoked and you will receive a `401 Unauthorized` response for API calls.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? CurrentState { get; set; }
+        public string? CurrentState { get => _explicitNullValueCurrentState; set { _explicitNullValueCurrentState = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("current_state"); else _explicitNullProperties?.Remove("current_state"); } }
+        private string? _explicitNullValueCurrentState = default!;
 #nullable restore
 #else
-        public string CurrentState { get; set; }
+        public string CurrentState { get => _explicitNullValueCurrentState; set { _explicitNullValueCurrentState = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("current_state"); else _explicitNullProperties?.Remove("current_state"); } }
+        private string _explicitNullValueCurrentState = default!;
 #endif
         /// <summary>When the profile state change occurred</summary>
-        public DateTimeOffset? OccurredAt { get; set; }
+        public DateTimeOffset? OccurredAt { get => _explicitNullValueOccurredAt; set { _explicitNullValueOccurredAt = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("occurred_at"); else _explicitNullProperties?.Remove("occurred_at"); } }
+        private DateTimeOffset? _explicitNullValueOccurredAt = default!;
         /// <summary>Whether the state change was requested by the customer. Not applicable for `current_state` in `ACTIVE`.</summary>
-        public bool? RequestedByCustomer { get; set; }
+        public bool? RequestedByCustomer { get => _explicitNullValueRequestedByCustomer; set { _explicitNullValueRequestedByCustomer = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("requested_by_customer"); else _explicitNullProperties?.Remove("requested_by_customer"); } }
+        private bool? _explicitNullValueRequestedByCustomer = default!;
         /// <summary>The resource property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.V20015DataResource? Resource { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.V20015DataResource? Resource { get => _explicitNullValueResource; set { _explicitNullValueResource = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("resource"); else _explicitNullProperties?.Remove("resource"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.V20015DataResource? _explicitNullValueResource = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.V20015DataResource Resource { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.V20015DataResource Resource { get => _explicitNullValueResource; set { _explicitNullValueResource = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("resource"); else _explicitNullProperties?.Remove("resource"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.V20015DataResource _explicitNullValueResource = default!;
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.V20015Data"/> and sets the default values.
@@ -49,7 +66,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.V20015Data CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.V20015Data();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.V20015Data(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -76,6 +93,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteDateTimeOffsetValue("occurred_at", OccurredAt);
             writer.WriteBoolValue("requested_by_customer", RequestedByCustomer);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V20015DataResource>("resource", Resource);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

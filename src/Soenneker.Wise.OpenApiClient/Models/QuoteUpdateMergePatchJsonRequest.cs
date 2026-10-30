@@ -11,35 +11,53 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class QuoteUpdateMergePatchJsonRequest : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("paymentMetadata") is { } nullNodePaymentMetadata && nullNodePaymentMetadata.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PaymentMetadata = null;
+            if (parseNode.GetChildNode("payOut") is { } nullNodePayOut && nullNodePayOut.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PayOut = null;
+            if (parseNode.GetChildNode("pricingConfiguration") is { } nullNodePricingConfiguration && nullNodePricingConfiguration.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PricingConfiguration = null;
+            if (parseNode.GetChildNode("targetAccount") is { } nullNodeTargetAccount && nullNodeTargetAccount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TargetAccount = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>_Optional_. Used to pass additional metadata about the intended transfer.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.QuoteUpdateMergePatchJsonRequestPaymentMetadata? PaymentMetadata { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.QuoteUpdateMergePatchJsonRequestPaymentMetadata? PaymentMetadata { get => _explicitNullValuePaymentMetadata; set { _explicitNullValuePaymentMetadata = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("paymentMetadata"); else _explicitNullProperties?.Remove("paymentMetadata"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.QuoteUpdateMergePatchJsonRequestPaymentMetadata? _explicitNullValuePaymentMetadata = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.QuoteUpdateMergePatchJsonRequestPaymentMetadata PaymentMetadata { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.QuoteUpdateMergePatchJsonRequestPaymentMetadata PaymentMetadata { get => _explicitNullValuePaymentMetadata; set { _explicitNullValuePaymentMetadata = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("paymentMetadata"); else _explicitNullProperties?.Remove("paymentMetadata"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.QuoteUpdateMergePatchJsonRequestPaymentMetadata _explicitNullValuePaymentMetadata = default!;
 #endif
         /// <summary>_Optional_. Preferred payout method. Default value is `BANK_TRANSFER`. Examples of other accepted values include `BALANCE`, `SWIFT`, `SWIFT_OUR`, `ALIPAY`, and `INTERAC`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? PayOut { get; set; }
+        public string? PayOut { get => _explicitNullValuePayOut; set { _explicitNullValuePayOut = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("payOut"); else _explicitNullProperties?.Remove("payOut"); } }
+        private string? _explicitNullValuePayOut = default!;
 #nullable restore
 #else
-        public string PayOut { get; set; }
+        public string PayOut { get => _explicitNullValuePayOut; set { _explicitNullValuePayOut = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("payOut"); else _explicitNullProperties?.Remove("payOut"); } }
+        private string _explicitNullValuePayOut = default!;
 #endif
         /// <summary>Required when configured for your client ID. Includes `pricingConfiguration` to be used for pricing calculations with the quote. If previously passed, the existing `pricingConfiguration` will remain and not be updated.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.QuoteUpdateMergePatchJsonRequestPricingConfiguration? PricingConfiguration { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.QuoteUpdateMergePatchJsonRequestPricingConfiguration? PricingConfiguration { get => _explicitNullValuePricingConfiguration; set { _explicitNullValuePricingConfiguration = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("pricingConfiguration"); else _explicitNullProperties?.Remove("pricingConfiguration"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.QuoteUpdateMergePatchJsonRequestPricingConfiguration? _explicitNullValuePricingConfiguration = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.QuoteUpdateMergePatchJsonRequestPricingConfiguration PricingConfiguration { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.QuoteUpdateMergePatchJsonRequestPricingConfiguration PricingConfiguration { get => _explicitNullValuePricingConfiguration; set { _explicitNullValuePricingConfiguration = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("pricingConfiguration"); else _explicitNullProperties?.Remove("pricingConfiguration"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.QuoteUpdateMergePatchJsonRequestPricingConfiguration _explicitNullValuePricingConfiguration = default!;
 #endif
         /// <summary>ID of transfer recipient, found in the create recipient response.</summary>
-        public long? TargetAccount { get; set; }
+        public long? TargetAccount { get => _explicitNullValueTargetAccount; set { _explicitNullValueTargetAccount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("targetAccount"); else _explicitNullProperties?.Remove("targetAccount"); } }
+        private long? _explicitNullValueTargetAccount = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.QuoteUpdateMergePatchJsonRequest"/> and sets the default values.
         /// </summary>
@@ -55,7 +73,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.QuoteUpdateMergePatchJsonRequest CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.QuoteUpdateMergePatchJsonRequest();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.QuoteUpdateMergePatchJsonRequest(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -82,6 +100,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteStringValue("payOut", PayOut);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.QuoteUpdateMergePatchJsonRequestPricingConfiguration>("pricingConfiguration", PricingConfiguration);
             writer.WriteLongValue("targetAccount", TargetAccount);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

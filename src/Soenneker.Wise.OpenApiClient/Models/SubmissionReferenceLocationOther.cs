@@ -11,40 +11,59 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class SubmissionReferenceLocationOther : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("location") is { } nullNodeLocation && nullNodeLocation.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Location = null;
+            if (parseNode.GetChildNode("paymentExplanation") is { } nullNodePaymentExplanation && nullNodePaymentExplanation.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PaymentExplanation = null;
+            if (parseNode.GetChildNode("referenceDescription") is { } nullNodeReferenceDescription && nullNodeReferenceDescription.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ReferenceDescription = null;
+            if (parseNode.GetChildNode("relatedToLocation") is { } nullNodeRelatedToLocation && nullNodeRelatedToLocation.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) RelatedToLocation = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The specific location being addressed.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Location { get; set; }
+        public string? Location { get => _explicitNullValueLocation; set { _explicitNullValueLocation = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("location"); else _explicitNullProperties?.Remove("location"); } }
+        private string? _explicitNullValueLocation = default!;
 #nullable restore
 #else
-        public string Location { get; set; }
+        public string Location { get => _explicitNullValueLocation; set { _explicitNullValueLocation = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("location"); else _explicitNullProperties?.Remove("location"); } }
+        private string _explicitNullValueLocation = default!;
 #endif
         /// <summary>Explanation of the purpose of the payment.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? PaymentExplanation { get; set; }
+        public string? PaymentExplanation { get => _explicitNullValuePaymentExplanation; set { _explicitNullValuePaymentExplanation = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("paymentExplanation"); else _explicitNullProperties?.Remove("paymentExplanation"); } }
+        private string? _explicitNullValuePaymentExplanation = default!;
 #nullable restore
 #else
-        public string PaymentExplanation { get; set; }
+        public string PaymentExplanation { get => _explicitNullValuePaymentExplanation; set { _explicitNullValuePaymentExplanation = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("paymentExplanation"); else _explicitNullProperties?.Remove("paymentExplanation"); } }
+        private string _explicitNullValuePaymentExplanation = default!;
 #endif
         /// <summary>Description of the payment reference that triggered the location hit.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? ReferenceDescription { get; set; }
+        public string? ReferenceDescription { get => _explicitNullValueReferenceDescription; set { _explicitNullValueReferenceDescription = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("referenceDescription"); else _explicitNullProperties?.Remove("referenceDescription"); } }
+        private string? _explicitNullValueReferenceDescription = default!;
 #nullable restore
 #else
-        public string ReferenceDescription { get; set; }
+        public string ReferenceDescription { get => _explicitNullValueReferenceDescription; set { _explicitNullValueReferenceDescription = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("referenceDescription"); else _explicitNullProperties?.Remove("referenceDescription"); } }
+        private string _explicitNullValueReferenceDescription = default!;
 #endif
         /// <summary>Explanation of how the reference is related to the flagged location.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? RelatedToLocation { get; set; }
+        public string? RelatedToLocation { get => _explicitNullValueRelatedToLocation; set { _explicitNullValueRelatedToLocation = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("relatedToLocation"); else _explicitNullProperties?.Remove("relatedToLocation"); } }
+        private string? _explicitNullValueRelatedToLocation = default!;
 #nullable restore
 #else
-        public string RelatedToLocation { get; set; }
+        public string RelatedToLocation { get => _explicitNullValueRelatedToLocation; set { _explicitNullValueRelatedToLocation = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("relatedToLocation"); else _explicitNullProperties?.Remove("relatedToLocation"); } }
+        private string _explicitNullValueRelatedToLocation = default!;
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.SubmissionReferenceLocationOther"/> and sets the default values.
@@ -61,7 +80,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.SubmissionReferenceLocationOther CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.SubmissionReferenceLocationOther();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.SubmissionReferenceLocationOther(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -88,6 +107,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteStringValue("paymentExplanation", PaymentExplanation);
             writer.WriteStringValue("referenceDescription", ReferenceDescription);
             writer.WriteStringValue("relatedToLocation", RelatedToLocation);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

@@ -12,19 +12,31 @@ namespace Soenneker.Wise.OpenApiClient.Models
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class BalanceStatementGet200ResponseTransactionsItemExchangeDetails : IAdditionalDataHolder, IParsable
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("forAmount") is { } nullNodeForAmount && nullNodeForAmount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ForAmount = null;
+            if (parseNode.GetChildNode("rate") is { } nullNodeRate && nullNodeRate.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Rate = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The forAmount property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemExchangeDetailsForAmount? ForAmount { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemExchangeDetailsForAmount? ForAmount { get => _explicitNullValueForAmount; set { _explicitNullValueForAmount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("forAmount"); else _explicitNullProperties?.Remove("forAmount"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemExchangeDetailsForAmount? _explicitNullValueForAmount = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemExchangeDetailsForAmount ForAmount { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemExchangeDetailsForAmount ForAmount { get => _explicitNullValueForAmount; set { _explicitNullValueForAmount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("forAmount"); else _explicitNullProperties?.Remove("forAmount"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemExchangeDetailsForAmount _explicitNullValueForAmount = default!;
 #endif
         /// <summary>Exchange rate applied.</summary>
-        public double? Rate { get; set; }
+        public double? Rate { get => _explicitNullValueRate; set { _explicitNullValueRate = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("rate"); else _explicitNullProperties?.Remove("rate"); } }
+        private double? _explicitNullValueRate = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemExchangeDetails"/> and sets the default values.
         /// </summary>
@@ -40,7 +52,9 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemExchangeDetails CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemExchangeDetails();
+            // Preserve a nullable root response.
+            if (parseNode.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) return null!;
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemExchangeDetails(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -63,6 +77,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseTransactionsItemExchangeDetailsForAmount>("forAmount", ForAmount);
             writer.WriteDoubleValue("rate", Rate);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

@@ -12,7 +12,12 @@ namespace Soenneker.Wise.OpenApiClient.Models
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class ContentSubmissionDataSubmissionData : IComposedTypeWrapper, IParsable
-    {
+    , global::Microsoft.Kiota.Abstractions.Serialization.IAdditionalDataHolder {
+        // Preserve ambiguous union payloads without inventing a discriminator.
+        /// <summary>The complete payload when no unique typed union branch can be selected.</summary>
+        public global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode UnrecognizedValue { get; set; } = null!;
+        public global::System.Collections.Generic.IDictionary<string, object> AdditionalData { get; set; } = new global::System.Collections.Generic.Dictionary<string, object>();
+
         /// <summary>Composed type representation for type <see cref="global::Soenneker.Wise.OpenApiClient.Models.ContentSubmissionDataSubmissionDataIndividualSubmission"/></summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -65,25 +70,28 @@ namespace Soenneker.Wise.OpenApiClient.Models
             var result = new global::Soenneker.Wise.OpenApiClient.Models.ContentSubmissionDataSubmissionData();
             if("ContentSubmissionDataSubmissionDataIndividualSubmission".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
             {
-                result.ContentSubmissionDataSubmissionDataIndividualSubmission = new global::Soenneker.Wise.OpenApiClient.Models.ContentSubmissionDataSubmissionDataIndividualSubmission();
+                
             }
             else if("ContentSubmissionDataSubmissionDataMultipleSubmission".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
             {
-                result.ContentSubmissionDataSubmissionDataMultipleSubmission = new global::Soenneker.Wise.OpenApiClient.Models.ContentSubmissionDataSubmissionDataMultipleSubmission();
+                
             }
             else if("ContentSubmissionDataSubmissionDataOrganisationSubmission".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
             {
-                result.ContentSubmissionDataSubmissionDataOrganisationSubmission = new global::Soenneker.Wise.OpenApiClient.Models.ContentSubmissionDataSubmissionDataOrganisationSubmission();
+                
             }
             else if("ContentSubmissionDataSubmissionDataOtherLocationSubmission".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
             {
-                result.ContentSubmissionDataSubmissionDataOtherLocationSubmission = new global::Soenneker.Wise.OpenApiClient.Models.ContentSubmissionDataSubmissionDataOtherLocationSubmission();
+                
             }
             else if("ContentSubmissionDataSubmissionDataVesselSubmission".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
             {
-                result.ContentSubmissionDataSubmissionDataVesselSubmission = new global::Soenneker.Wise.OpenApiClient.Models.ContentSubmissionDataSubmissionDataVesselSubmission();
+                
             }
-            return result;
+            
+            var unionPayload = parseNode.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue);
+            if (result.ContentSubmissionDataSubmissionDataIndividualSubmission == null && result.ContentSubmissionDataSubmissionDataMultipleSubmission == null && result.ContentSubmissionDataSubmissionDataOrganisationSubmission == null && result.ContentSubmissionDataSubmissionDataOtherLocationSubmission == null && result.ContentSubmissionDataSubmissionDataVesselSubmission == null) result.UnrecognizedValue = unionPayload;
+return result;
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -119,25 +127,38 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <param name="writer">Serialization writer to use to serialize this model</param>
         public virtual void Serialize(ISerializationWriter writer)
         {
+            if (global::System.Object.ReferenceEquals(writer, null)) throw new global::System.ArgumentNullException(nameof(writer));
+            if (ContentSubmissionDataSubmissionDataIndividualSubmission == null && ContentSubmissionDataSubmissionDataMultipleSubmission == null && ContentSubmissionDataSubmissionDataOrganisationSubmission == null && ContentSubmissionDataSubmissionDataOtherLocationSubmission == null && ContentSubmissionDataSubmissionDataVesselSubmission == null) { if (UnrecognizedValue is global::Microsoft.Kiota.Abstractions.Serialization.UntypedObject rawObject) writer.WriteObjectValue(null, new global::Soenneker.OpenApi.Generated.OpenApiUnionAdditionalData(AdditionalData, rawObject)); else if (UnrecognizedValue != null) writer.WriteObjectValue(null, UnrecognizedValue); else if (AdditionalData.Count > 0) writer.WriteObjectValue(null, new global::Soenneker.OpenApi.Generated.OpenApiUnionAdditionalData(AdditionalData)); else writer.WriteNullValue(null); return; }
+            if (ContentSubmissionDataSubmissionDataIndividualSubmission != null && ContentSubmissionDataSubmissionDataMultipleSubmission == null && ContentSubmissionDataSubmissionDataOrganisationSubmission == null && ContentSubmissionDataSubmissionDataOtherLocationSubmission == null && ContentSubmissionDataSubmissionDataVesselSubmission == null) { if (ContentSubmissionDataSubmissionDataIndividualSubmission is global::Microsoft.Kiota.Abstractions.Serialization.IAdditionalDataHolder selectedData) foreach (var entry in AdditionalData) selectedData.AdditionalData[entry.Key] = entry.Value; writer.WriteObjectValue(null, ContentSubmissionDataSubmissionDataIndividualSubmission); return; }
+            if (ContentSubmissionDataSubmissionDataMultipleSubmission != null && ContentSubmissionDataSubmissionDataIndividualSubmission == null && ContentSubmissionDataSubmissionDataOrganisationSubmission == null && ContentSubmissionDataSubmissionDataOtherLocationSubmission == null && ContentSubmissionDataSubmissionDataVesselSubmission == null) { if (ContentSubmissionDataSubmissionDataMultipleSubmission is global::Microsoft.Kiota.Abstractions.Serialization.IAdditionalDataHolder selectedData) foreach (var entry in AdditionalData) selectedData.AdditionalData[entry.Key] = entry.Value; writer.WriteObjectValue(null, ContentSubmissionDataSubmissionDataMultipleSubmission); return; }
+            if (ContentSubmissionDataSubmissionDataOrganisationSubmission != null && ContentSubmissionDataSubmissionDataIndividualSubmission == null && ContentSubmissionDataSubmissionDataMultipleSubmission == null && ContentSubmissionDataSubmissionDataOtherLocationSubmission == null && ContentSubmissionDataSubmissionDataVesselSubmission == null) { if (ContentSubmissionDataSubmissionDataOrganisationSubmission is global::Microsoft.Kiota.Abstractions.Serialization.IAdditionalDataHolder selectedData) foreach (var entry in AdditionalData) selectedData.AdditionalData[entry.Key] = entry.Value; writer.WriteObjectValue(null, ContentSubmissionDataSubmissionDataOrganisationSubmission); return; }
+            if (ContentSubmissionDataSubmissionDataOtherLocationSubmission != null && ContentSubmissionDataSubmissionDataIndividualSubmission == null && ContentSubmissionDataSubmissionDataMultipleSubmission == null && ContentSubmissionDataSubmissionDataOrganisationSubmission == null && ContentSubmissionDataSubmissionDataVesselSubmission == null) { if (ContentSubmissionDataSubmissionDataOtherLocationSubmission is global::Microsoft.Kiota.Abstractions.Serialization.IAdditionalDataHolder selectedData) foreach (var entry in AdditionalData) selectedData.AdditionalData[entry.Key] = entry.Value; writer.WriteObjectValue(null, ContentSubmissionDataSubmissionDataOtherLocationSubmission); return; }
+            if (ContentSubmissionDataSubmissionDataVesselSubmission != null && ContentSubmissionDataSubmissionDataIndividualSubmission == null && ContentSubmissionDataSubmissionDataMultipleSubmission == null && ContentSubmissionDataSubmissionDataOrganisationSubmission == null && ContentSubmissionDataSubmissionDataOtherLocationSubmission == null) { if (ContentSubmissionDataSubmissionDataVesselSubmission is global::Microsoft.Kiota.Abstractions.Serialization.IAdditionalDataHolder selectedData) foreach (var entry in AdditionalData) selectedData.AdditionalData[entry.Key] = entry.Value; writer.WriteObjectValue(null, ContentSubmissionDataSubmissionDataVesselSubmission); return; }
+
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             if(ContentSubmissionDataSubmissionDataIndividualSubmission != null)
             {
+                if (ContentSubmissionDataSubmissionDataIndividualSubmission is global::Microsoft.Kiota.Abstractions.Serialization.IAdditionalDataHolder unionData) foreach (var entry in AdditionalData) unionData.AdditionalData[entry.Key] = entry.Value;
                 writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.ContentSubmissionDataSubmissionDataIndividualSubmission>(null, ContentSubmissionDataSubmissionDataIndividualSubmission);
             }
             else if(ContentSubmissionDataSubmissionDataMultipleSubmission != null)
             {
+                if (ContentSubmissionDataSubmissionDataMultipleSubmission is global::Microsoft.Kiota.Abstractions.Serialization.IAdditionalDataHolder unionData) foreach (var entry in AdditionalData) unionData.AdditionalData[entry.Key] = entry.Value;
                 writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.ContentSubmissionDataSubmissionDataMultipleSubmission>(null, ContentSubmissionDataSubmissionDataMultipleSubmission);
             }
             else if(ContentSubmissionDataSubmissionDataOrganisationSubmission != null)
             {
+                if (ContentSubmissionDataSubmissionDataOrganisationSubmission is global::Microsoft.Kiota.Abstractions.Serialization.IAdditionalDataHolder unionData) foreach (var entry in AdditionalData) unionData.AdditionalData[entry.Key] = entry.Value;
                 writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.ContentSubmissionDataSubmissionDataOrganisationSubmission>(null, ContentSubmissionDataSubmissionDataOrganisationSubmission);
             }
             else if(ContentSubmissionDataSubmissionDataOtherLocationSubmission != null)
             {
+                if (ContentSubmissionDataSubmissionDataOtherLocationSubmission is global::Microsoft.Kiota.Abstractions.Serialization.IAdditionalDataHolder unionData) foreach (var entry in AdditionalData) unionData.AdditionalData[entry.Key] = entry.Value;
                 writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.ContentSubmissionDataSubmissionDataOtherLocationSubmission>(null, ContentSubmissionDataSubmissionDataOtherLocationSubmission);
             }
             else if(ContentSubmissionDataSubmissionDataVesselSubmission != null)
             {
+                if (ContentSubmissionDataSubmissionDataVesselSubmission is global::Microsoft.Kiota.Abstractions.Serialization.IAdditionalDataHolder unionData) foreach (var entry in AdditionalData) unionData.AdditionalData[entry.Key] = entry.Value;
                 writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.ContentSubmissionDataSubmissionDataVesselSubmission>(null, ContentSubmissionDataSubmissionDataVesselSubmission);
             }
         }

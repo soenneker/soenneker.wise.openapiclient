@@ -11,9 +11,18 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class AccountIntentSubmissionDataData : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("accountIntent") is { } nullNodeAccountIntent && nullNodeAccountIntent.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) AccountIntent = null;
+        }
+
         /// <summary>How the customer intends to use their Wise account. The accepted values depend on whether the profile is personal or business.Depending on what triggered the KYC review, only some of these values may be accepted. Other values are rejected with a `400` error.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.AccountIntentSubmissionDataDataAccountIntent? AccountIntent { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.AccountIntentSubmissionDataDataAccountIntent? AccountIntent { get => _explicitNullValueAccountIntent; set { _explicitNullValueAccountIntent = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("accountIntent"); else _explicitNullProperties?.Remove("accountIntent"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.AccountIntentSubmissionDataDataAccountIntent? _explicitNullValueAccountIntent = default!;
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>
@@ -31,7 +40,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.AccountIntentSubmissionDataData CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.AccountIntentSubmissionDataData();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.AccountIntentSubmissionDataData(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -52,6 +61,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.AccountIntentSubmissionDataDataAccountIntent>("accountIntent", AccountIntent);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

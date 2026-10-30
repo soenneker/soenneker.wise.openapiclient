@@ -11,26 +11,41 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class CardLimitsTransaction : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("resetAt") is { } nullNodeResetAt && nullNodeResetAt.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ResetAt = null;
+            if (parseNode.GetChildNode("usage") is { } nullNodeUsage && nullNodeUsage.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Usage = null;
+            if (parseNode.GetChildNode("value") is { } nullNodeValue && nullNodeValue.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Value = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The time when the limit gets reset. Null for transaction limit.</summary>
-        public DateTimeOffset? ResetAt { get; set; }
+        public DateTimeOffset? ResetAt { get => _explicitNullValueResetAt; set { _explicitNullValueResetAt = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("resetAt"); else _explicitNullProperties?.Remove("resetAt"); } }
+        private DateTimeOffset? _explicitNullValueResetAt = default!;
         /// <summary>The total authorised amount. Always 0 for transaction limit.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.CardLimitsTransactionUsage? Usage { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardLimitsTransactionUsage? Usage { get => _explicitNullValueUsage; set { _explicitNullValueUsage = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("usage"); else _explicitNullProperties?.Remove("usage"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.CardLimitsTransactionUsage? _explicitNullValueUsage = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.CardLimitsTransactionUsage Usage { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardLimitsTransactionUsage Usage { get => _explicitNullValueUsage; set { _explicitNullValueUsage = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("usage"); else _explicitNullProperties?.Remove("usage"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.CardLimitsTransactionUsage _explicitNullValueUsage = default!;
 #endif
         /// <summary>Transaction limit.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.CardLimitsTransactionValue? Value { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardLimitsTransactionValue? Value { get => _explicitNullValueValue; set { _explicitNullValueValue = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("value"); else _explicitNullProperties?.Remove("value"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.CardLimitsTransactionValue? _explicitNullValueValue = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.CardLimitsTransactionValue Value { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardLimitsTransactionValue Value { get => _explicitNullValueValue; set { _explicitNullValueValue = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("value"); else _explicitNullProperties?.Remove("value"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.CardLimitsTransactionValue _explicitNullValueValue = default!;
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.CardLimitsTransaction"/> and sets the default values.
@@ -47,7 +62,9 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.CardLimitsTransaction CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.CardLimitsTransaction();
+            // Preserve a nullable root response.
+            if (parseNode.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) return null!;
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.CardLimitsTransaction(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -72,6 +89,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteDateTimeOffsetValue("resetAt", ResetAt);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardLimitsTransactionUsage>("usage", Usage);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardLimitsTransactionValue>("value", Value);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

@@ -12,48 +12,70 @@ namespace Soenneker.Wise.OpenApiClient.Models
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class ComparisonProvidersItemLogos : IAdditionalDataHolder, IParsable
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("altText") is { } nullNodeAltText && nullNodeAltText.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) AltText = null;
+            if (parseNode.GetChildNode("circle") is { } nullNodeCircle && nullNodeCircle.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Circle = null;
+            if (parseNode.GetChildNode("inverse") is { } nullNodeInverse && nullNodeInverse.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Inverse = null;
+            if (parseNode.GetChildNode("normal") is { } nullNodeNormal && nullNodeNormal.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Normal = null;
+            if (parseNode.GetChildNode("white") is { } nullNodeWhite && nullNodeWhite.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) White = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Alt text for the provider logo</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? AltText { get; set; }
+        public string? AltText { get => _explicitNullValueAltText; set { _explicitNullValueAltText = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("altText"); else _explicitNullProperties?.Remove("altText"); } }
+        private string? _explicitNullValueAltText = default!;
 #nullable restore
 #else
-        public string AltText { get; set; }
+        public string AltText { get => _explicitNullValueAltText; set { _explicitNullValueAltText = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("altText"); else _explicitNullProperties?.Remove("altText"); } }
+        private string _explicitNullValueAltText = default!;
 #endif
         /// <summary>The circle property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosCircle? Circle { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosCircle? Circle { get => _explicitNullValueCircle; set { _explicitNullValueCircle = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("circle"); else _explicitNullProperties?.Remove("circle"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosCircle? _explicitNullValueCircle = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosCircle Circle { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosCircle Circle { get => _explicitNullValueCircle; set { _explicitNullValueCircle = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("circle"); else _explicitNullProperties?.Remove("circle"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosCircle _explicitNullValueCircle = default!;
 #endif
         /// <summary>The inverse property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosInverse? Inverse { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosInverse? Inverse { get => _explicitNullValueInverse; set { _explicitNullValueInverse = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("inverse"); else _explicitNullProperties?.Remove("inverse"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosInverse? _explicitNullValueInverse = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosInverse Inverse { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosInverse Inverse { get => _explicitNullValueInverse; set { _explicitNullValueInverse = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("inverse"); else _explicitNullProperties?.Remove("inverse"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosInverse _explicitNullValueInverse = default!;
 #endif
         /// <summary>The normal property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosNormal? Normal { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosNormal? Normal { get => _explicitNullValueNormal; set { _explicitNullValueNormal = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("normal"); else _explicitNullProperties?.Remove("normal"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosNormal? _explicitNullValueNormal = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosNormal Normal { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosNormal Normal { get => _explicitNullValueNormal; set { _explicitNullValueNormal = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("normal"); else _explicitNullProperties?.Remove("normal"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosNormal _explicitNullValueNormal = default!;
 #endif
         /// <summary>The white property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosWhite? White { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosWhite? White { get => _explicitNullValueWhite; set { _explicitNullValueWhite = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("white"); else _explicitNullProperties?.Remove("white"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosWhite? _explicitNullValueWhite = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosWhite White { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosWhite White { get => _explicitNullValueWhite; set { _explicitNullValueWhite = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("white"); else _explicitNullProperties?.Remove("white"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosWhite _explicitNullValueWhite = default!;
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogos"/> and sets the default values.
@@ -70,7 +92,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogos CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogos();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogos(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -99,6 +121,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosInverse>("inverse", Inverse);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosNormal>("normal", Normal);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemLogosWhite>("white", White);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

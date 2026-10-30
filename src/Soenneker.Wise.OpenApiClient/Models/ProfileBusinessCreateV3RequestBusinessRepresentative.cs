@@ -12,66 +12,96 @@ namespace Soenneker.Wise.OpenApiClient.Models
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class ProfileBusinessCreateV3RequestBusinessRepresentative : IAdditionalDataHolder, IParsable
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("address") is { } nullNodeAddress && nullNodeAddress.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Address = null;
+            if (parseNode.GetChildNode("businessRepresentativeId") is { } nullNodeBusinessRepresentativeId && nullNodeBusinessRepresentativeId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) BusinessRepresentativeId = null;
+            if (parseNode.GetChildNode("contactDetails") is { } nullNodeContactDetails && nullNodeContactDetails.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ContactDetails = null;
+            if (parseNode.GetChildNode("dateOfBirth") is { } nullNodeDateOfBirth && nullNodeDateOfBirth.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) DateOfBirth = null;
+            if (parseNode.GetChildNode("firstName") is { } nullNodeFirstName && nullNodeFirstName.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) FirstName = null;
+            if (parseNode.GetChildNode("lastName") is { } nullNodeLastName && nullNodeLastName.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) LastName = null;
+            if (parseNode.GetChildNode("localizedInformation") is { } nullNodeLocalizedInformation && nullNodeLocalizedInformation.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) LocalizedInformation = null;
+            if (parseNode.GetChildNode("preferredName") is { } nullNodePreferredName && nullNodePreferredName.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PreferredName = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The address property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentativeAddress? Address { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentativeAddress? Address { get => _explicitNullValueAddress; set { _explicitNullValueAddress = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("address"); else _explicitNullProperties?.Remove("address"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentativeAddress? _explicitNullValueAddress = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentativeAddress Address { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentativeAddress Address { get => _explicitNullValueAddress; set { _explicitNullValueAddress = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("address"); else _explicitNullProperties?.Remove("address"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentativeAddress _explicitNullValueAddress = default!;
 #endif
         /// <summary>ID of a Business Representative. This can be obtained from a previous call to create a business profile, in which case the same Business Representative is linked to the current business effectively sharing it across multiple businesses. When the Business Representative ID is provided, it is the only field required and none of the other fields should be provided.</summary>
-        public int? BusinessRepresentativeId { get; set; }
+        public int? BusinessRepresentativeId { get => _explicitNullValueBusinessRepresentativeId; set { _explicitNullValueBusinessRepresentativeId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("businessRepresentativeId"); else _explicitNullProperties?.Remove("businessRepresentativeId"); } }
+        private int? _explicitNullValueBusinessRepresentativeId = default!;
         /// <summary>The contactDetails property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentativeContactDetails? ContactDetails { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentativeContactDetails? ContactDetails { get => _explicitNullValueContactDetails; set { _explicitNullValueContactDetails = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("contactDetails"); else _explicitNullProperties?.Remove("contactDetails"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentativeContactDetails? _explicitNullValueContactDetails = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentativeContactDetails ContactDetails { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentativeContactDetails ContactDetails { get => _explicitNullValueContactDetails; set { _explicitNullValueContactDetails = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("contactDetails"); else _explicitNullProperties?.Remove("contactDetails"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentativeContactDetails _explicitNullValueContactDetails = default!;
 #endif
         /// <summary>Date of birth. Required unless Business Representative ID is provided.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? DateOfBirth { get; set; }
+        public string? DateOfBirth { get => _explicitNullValueDateOfBirth; set { _explicitNullValueDateOfBirth = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("dateOfBirth"); else _explicitNullProperties?.Remove("dateOfBirth"); } }
+        private string? _explicitNullValueDateOfBirth = default!;
 #nullable restore
 #else
-        public string DateOfBirth { get; set; }
+        public string DateOfBirth { get => _explicitNullValueDateOfBirth; set { _explicitNullValueDateOfBirth = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("dateOfBirth"); else _explicitNullProperties?.Remove("dateOfBirth"); } }
+        private string _explicitNullValueDateOfBirth = default!;
 #endif
         /// <summary>First name of the person representing the business (including middle names). Required unless Business Representative ID is provided.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? FirstName { get; set; }
+        public string? FirstName { get => _explicitNullValueFirstName; set { _explicitNullValueFirstName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("firstName"); else _explicitNullProperties?.Remove("firstName"); } }
+        private string? _explicitNullValueFirstName = default!;
 #nullable restore
 #else
-        public string FirstName { get; set; }
+        public string FirstName { get => _explicitNullValueFirstName; set { _explicitNullValueFirstName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("firstName"); else _explicitNullProperties?.Remove("firstName"); } }
+        private string _explicitNullValueFirstName = default!;
 #endif
         /// <summary>Last name of the person representing the business. Required unless Business Representative ID is provided.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? LastName { get; set; }
+        public string? LastName { get => _explicitNullValueLastName; set { _explicitNullValueLastName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("lastName"); else _explicitNullProperties?.Remove("lastName"); } }
+        private string? _explicitNullValueLastName = default!;
 #nullable restore
 #else
-        public string LastName { get; set; }
+        public string LastName { get => _explicitNullValueLastName; set { _explicitNullValueLastName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("lastName"); else _explicitNullProperties?.Remove("lastName"); } }
+        private string _explicitNullValueLastName = default!;
 #endif
         /// <summary>Optional localized information for the business representative.For Kana names, provide both firstName and lastName entrieswith localeScriptCode set to Kana.Each combination of key and localeScriptCode must be unique.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentativeLocalizedInformationItem>? LocalizedInformation { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentativeLocalizedInformationItem>? LocalizedInformation { get => _explicitNullValueLocalizedInformation; set { _explicitNullValueLocalizedInformation = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("localizedInformation"); else _explicitNullProperties?.Remove("localizedInformation"); } }
+        private List<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentativeLocalizedInformationItem>? _explicitNullValueLocalizedInformation = default!;
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentativeLocalizedInformationItem> LocalizedInformation { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentativeLocalizedInformationItem> LocalizedInformation { get => _explicitNullValueLocalizedInformation; set { _explicitNullValueLocalizedInformation = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("localizedInformation"); else _explicitNullProperties?.Remove("localizedInformation"); } }
+        private List<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentativeLocalizedInformationItem> _explicitNullValueLocalizedInformation = default!;
 #endif
         /// <summary>Preferred first name, if different to the legal first name.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? PreferredName { get; set; }
+        public string? PreferredName { get => _explicitNullValuePreferredName; set { _explicitNullValuePreferredName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("preferredName"); else _explicitNullProperties?.Remove("preferredName"); } }
+        private string? _explicitNullValuePreferredName = default!;
 #nullable restore
 #else
-        public string PreferredName { get; set; }
+        public string PreferredName { get => _explicitNullValuePreferredName; set { _explicitNullValuePreferredName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("preferredName"); else _explicitNullProperties?.Remove("preferredName"); } }
+        private string _explicitNullValuePreferredName = default!;
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentative"/> and sets the default values.
@@ -88,7 +118,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentative CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentative();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentative(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -123,6 +153,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteStringValue("lastName", LastName);
             writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.ProfileBusinessCreateV3RequestBusinessRepresentativeLocalizedInformationItem>("localizedInformation", LocalizedInformation);
             writer.WriteStringValue("preferredName", PreferredName);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

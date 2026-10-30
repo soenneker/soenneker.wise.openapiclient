@@ -12,58 +12,85 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class OriginatorBusiness : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("accountDetails") is { } nullNodeAccountDetails && nullNodeAccountDetails.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) AccountDetails = null;
+            if (parseNode.GetChildNode("address") is { } nullNodeAddress && nullNodeAddress.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Address = null;
+            if (parseNode.GetChildNode("businessRegistrationCode") is { } nullNodeBusinessRegistrationCode && nullNodeBusinessRegistrationCode.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) BusinessRegistrationCode = null;
+            if (parseNode.GetChildNode("businessRegistrationDate") is { } nullNodeBusinessRegistrationDate && nullNodeBusinessRegistrationDate.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) BusinessRegistrationDate = null;
+            if (parseNode.GetChildNode("legalEntityType") is { } nullNodeLegalEntityType && nullNodeLegalEntityType.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) LegalEntityType = null;
+            if (parseNode.GetChildNode("name") is { } nullNodeName && nullNodeName.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Name = null;
+            if (parseNode.GetChildNode("reference") is { } nullNodeReference && nullNodeReference.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Reference = null;
+        }
+
         /// <summary>Payment originator account number</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? AccountDetails { get; set; }
+        public string? AccountDetails { get => _explicitNullValueAccountDetails; set { _explicitNullValueAccountDetails = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("accountDetails"); else _explicitNullProperties?.Remove("accountDetails"); } }
+        private string? _explicitNullValueAccountDetails = default!;
 #nullable restore
 #else
-        public string AccountDetails { get; set; }
+        public string AccountDetails { get => _explicitNullValueAccountDetails; set { _explicitNullValueAccountDetails = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("accountDetails"); else _explicitNullProperties?.Remove("accountDetails"); } }
+        private string _explicitNullValueAccountDetails = default!;
 #endif
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The address property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.Address5? Address { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.Address5? Address { get => _explicitNullValueAddress; set { _explicitNullValueAddress = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("address"); else _explicitNullProperties?.Remove("address"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.Address5? _explicitNullValueAddress = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.Address5 Address { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.Address5 Address { get => _explicitNullValueAddress; set { _explicitNullValueAddress = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("address"); else _explicitNullProperties?.Remove("address"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.Address5 _explicitNullValueAddress = default!;
 #endif
         /// <summary>Payment originator business registry number / incorporation number</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? BusinessRegistrationCode { get; set; }
+        public string? BusinessRegistrationCode { get => _explicitNullValueBusinessRegistrationCode; set { _explicitNullValueBusinessRegistrationCode = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("businessRegistrationCode"); else _explicitNullProperties?.Remove("businessRegistrationCode"); } }
+        private string? _explicitNullValueBusinessRegistrationCode = default!;
 #nullable restore
 #else
-        public string BusinessRegistrationCode { get; set; }
+        public string BusinessRegistrationCode { get => _explicitNullValueBusinessRegistrationCode; set { _explicitNullValueBusinessRegistrationCode = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("businessRegistrationCode"); else _explicitNullProperties?.Remove("businessRegistrationCode"); } }
+        private string _explicitNullValueBusinessRegistrationCode = default!;
 #endif
         /// <summary>Payment originator business registration date. Required for certain routes (e.g. to UGX)</summary>
-        public Date? BusinessRegistrationDate { get; set; }
+        public Date? BusinessRegistrationDate { get => _explicitNullValueBusinessRegistrationDate; set { _explicitNullValueBusinessRegistrationDate = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("businessRegistrationDate"); else _explicitNullProperties?.Remove("businessRegistrationDate"); } }
+        private Date? _explicitNullValueBusinessRegistrationDate = default!;
         /// <summary>The legalEntityType property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? LegalEntityType { get; set; }
+        public string? LegalEntityType { get => _explicitNullValueLegalEntityType; set { _explicitNullValueLegalEntityType = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("legalEntityType"); else _explicitNullProperties?.Remove("legalEntityType"); } }
+        private string? _explicitNullValueLegalEntityType = default!;
 #nullable restore
 #else
-        public string LegalEntityType { get; set; }
+        public string LegalEntityType { get => _explicitNullValueLegalEntityType; set { _explicitNullValueLegalEntityType = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("legalEntityType"); else _explicitNullProperties?.Remove("legalEntityType"); } }
+        private string _explicitNullValueLegalEntityType = default!;
 #endif
         /// <summary>Data block to capture the originator name details</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.Name? Name { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.Name? Name { get => _explicitNullValueName; set { _explicitNullValueName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("name"); else _explicitNullProperties?.Remove("name"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.Name? _explicitNullValueName = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.Name Name { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.Name Name { get => _explicitNullValueName; set { _explicitNullValueName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("name"); else _explicitNullProperties?.Remove("name"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.Name _explicitNullValueName = default!;
 #endif
         /// <summary>Unique customer ID in your system. This allows Wise to identify each originator for compliance purposes. All transfers sent by the same originator must use the same `originator.reference` value.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Reference { get; set; }
+        public string? Reference { get => _explicitNullValueReference; set { _explicitNullValueReference = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("reference"); else _explicitNullProperties?.Remove("reference"); } }
+        private string? _explicitNullValueReference = default!;
 #nullable restore
 #else
-        public string Reference { get; set; }
+        public string Reference { get => _explicitNullValueReference; set { _explicitNullValueReference = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("reference"); else _explicitNullProperties?.Remove("reference"); } }
+        private string _explicitNullValueReference = default!;
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.OriginatorBusiness"/> and sets the default values.
@@ -80,7 +107,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.OriginatorBusiness CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.OriginatorBusiness();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.OriginatorBusiness(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -113,6 +140,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteStringValue("legalEntityType", LegalEntityType);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Name>("name", Name);
             writer.WriteStringValue("reference", Reference);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

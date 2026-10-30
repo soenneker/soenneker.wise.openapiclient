@@ -11,62 +11,104 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class QuoteCreateRequest : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("creationContext") is { } nullNodeCreationContext && nullNodeCreationContext.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CreationContext = null;
+            if (parseNode.GetChildNode("paymentMetadata") is { } nullNodePaymentMetadata && nullNodePaymentMetadata.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PaymentMetadata = null;
+            if (parseNode.GetChildNode("payOut") is { } nullNodePayOut && nullNodePayOut.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PayOut = null;
+            if (parseNode.GetChildNode("preferredPayIn") is { } nullNodePreferredPayIn && nullNodePreferredPayIn.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PreferredPayIn = null;
+            if (parseNode.GetChildNode("pricingConfiguration") is { } nullNodePricingConfiguration && nullNodePricingConfiguration.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PricingConfiguration = null;
+            if (parseNode.GetChildNode("sourceAmount") is { } nullNodeSourceAmount && nullNodeSourceAmount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SourceAmount = null;
+            if (parseNode.GetChildNode("sourceCurrency") is { } nullNodeSourceCurrency && nullNodeSourceCurrency.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SourceCurrency = null;
+            if (parseNode.GetChildNode("targetAccount") is { } nullNodeTargetAccount && nullNodeTargetAccount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TargetAccount = null;
+            if (parseNode.GetChildNode("targetAmount") is { } nullNodeTargetAmount && nullNodeTargetAmount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TargetAmount = null;
+            if (parseNode.GetChildNode("targetCurrency") is { } nullNodeTargetCurrency && nullNodeTargetCurrency.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TargetCurrency = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
+        /// <summary>Used to pass additional metadata about the intended transfer.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public global::Soenneker.Wise.OpenApiClient.Models.QuoteCreateRequestCreationContext? CreationContext { get => _explicitNullValueCreationContext; set { _explicitNullValueCreationContext = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("creationContext"); else _explicitNullProperties?.Remove("creationContext"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.QuoteCreateRequestCreationContext? _explicitNullValueCreationContext = default!;
+#nullable restore
+#else
+        public global::Soenneker.Wise.OpenApiClient.Models.QuoteCreateRequestCreationContext CreationContext { get => _explicitNullValueCreationContext; set { _explicitNullValueCreationContext = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("creationContext"); else _explicitNullProperties?.Remove("creationContext"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.QuoteCreateRequestCreationContext _explicitNullValueCreationContext = default!;
+#endif
         /// <summary>_Optional_. Used to pass additional metadata about the intended transfer.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.QuoteCreateRequestPaymentMetadata? PaymentMetadata { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.QuoteCreateRequestPaymentMetadata? PaymentMetadata { get => _explicitNullValuePaymentMetadata; set { _explicitNullValuePaymentMetadata = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("paymentMetadata"); else _explicitNullProperties?.Remove("paymentMetadata"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.QuoteCreateRequestPaymentMetadata? _explicitNullValuePaymentMetadata = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.QuoteCreateRequestPaymentMetadata PaymentMetadata { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.QuoteCreateRequestPaymentMetadata PaymentMetadata { get => _explicitNullValuePaymentMetadata; set { _explicitNullValuePaymentMetadata = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("paymentMetadata"); else _explicitNullProperties?.Remove("paymentMetadata"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.QuoteCreateRequestPaymentMetadata _explicitNullValuePaymentMetadata = default!;
 #endif
         /// <summary>_Optional_. Preferred payout method. Default value is `BANK_TRANSFER`. Examples of other accepted values include `BALANCE`, `SWIFT`, `SWIFT_OUR`, `ALIPAY`, and `INTERAC`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? PayOut { get; set; }
+        public string? PayOut { get => _explicitNullValuePayOut; set { _explicitNullValuePayOut = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("payOut"); else _explicitNullProperties?.Remove("payOut"); } }
+        private string? _explicitNullValuePayOut = default!;
 #nullable restore
 #else
-        public string PayOut { get; set; }
+        public string PayOut { get => _explicitNullValuePayOut; set { _explicitNullValuePayOut = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("payOut"); else _explicitNullProperties?.Remove("payOut"); } }
+        private string _explicitNullValuePayOut = default!;
 #endif
         /// <summary>_Optional_. Preferred payin method. Use `BANK_TRANSFER` to return this method at the top of the response&apos;s results.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? PreferredPayIn { get; set; }
+        public string? PreferredPayIn { get => _explicitNullValuePreferredPayIn; set { _explicitNullValuePreferredPayIn = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("preferredPayIn"); else _explicitNullProperties?.Remove("preferredPayIn"); } }
+        private string? _explicitNullValuePreferredPayIn = default!;
 #nullable restore
 #else
-        public string PreferredPayIn { get; set; }
+        public string PreferredPayIn { get => _explicitNullValuePreferredPayIn; set { _explicitNullValuePreferredPayIn = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("preferredPayIn"); else _explicitNullProperties?.Remove("preferredPayIn"); } }
+        private string _explicitNullValuePreferredPayIn = default!;
 #endif
         /// <summary>Required when configured for your client ID. Includes a `pricingConfiguration` to be used for pricing calculations with the quote.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.QuoteCreateRequestPricingConfiguration? PricingConfiguration { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.QuoteCreateRequestPricingConfiguration? PricingConfiguration { get => _explicitNullValuePricingConfiguration; set { _explicitNullValuePricingConfiguration = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("pricingConfiguration"); else _explicitNullProperties?.Remove("pricingConfiguration"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.QuoteCreateRequestPricingConfiguration? _explicitNullValuePricingConfiguration = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.QuoteCreateRequestPricingConfiguration PricingConfiguration { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.QuoteCreateRequestPricingConfiguration PricingConfiguration { get => _explicitNullValuePricingConfiguration; set { _explicitNullValuePricingConfiguration = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("pricingConfiguration"); else _explicitNullProperties?.Remove("pricingConfiguration"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.QuoteCreateRequestPricingConfiguration _explicitNullValuePricingConfiguration = default!;
 #endif
         /// <summary>Amount in source currency. Either `sourceAmount` or `targetAmount` is required, never both.</summary>
-        public double? SourceAmount { get; set; }
+        public double? SourceAmount { get => _explicitNullValueSourceAmount; set { _explicitNullValueSourceAmount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sourceAmount"); else _explicitNullProperties?.Remove("sourceAmount"); } }
+        private double? _explicitNullValueSourceAmount = default!;
         /// <summary>Source (sending) currency code.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? SourceCurrency { get; set; }
+        public string? SourceCurrency { get => _explicitNullValueSourceCurrency; set { _explicitNullValueSourceCurrency = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sourceCurrency"); else _explicitNullProperties?.Remove("sourceCurrency"); } }
+        private string? _explicitNullValueSourceCurrency = default!;
 #nullable restore
 #else
-        public string SourceCurrency { get; set; }
+        public string SourceCurrency { get => _explicitNullValueSourceCurrency; set { _explicitNullValueSourceCurrency = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sourceCurrency"); else _explicitNullProperties?.Remove("sourceCurrency"); } }
+        private string _explicitNullValueSourceCurrency = default!;
 #endif
         /// <summary>_Optional_. This is the ID of transfer recipient, found in the create recipient response. If provided, can be used as an alternative to [updating the quote](/api-reference/quote/quoteupdate).</summary>
-        public long? TargetAccount { get; set; }
+        public long? TargetAccount { get => _explicitNullValueTargetAccount; set { _explicitNullValueTargetAccount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("targetAccount"); else _explicitNullProperties?.Remove("targetAccount"); } }
+        private long? _explicitNullValueTargetAccount = default!;
         /// <summary>Amount in target currency.</summary>
-        public double? TargetAmount { get; set; }
+        public double? TargetAmount { get => _explicitNullValueTargetAmount; set { _explicitNullValueTargetAmount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("targetAmount"); else _explicitNullProperties?.Remove("targetAmount"); } }
+        private double? _explicitNullValueTargetAmount = default!;
         /// <summary>Target (receiving) currency code.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? TargetCurrency { get; set; }
+        public string? TargetCurrency { get => _explicitNullValueTargetCurrency; set { _explicitNullValueTargetCurrency = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("targetCurrency"); else _explicitNullProperties?.Remove("targetCurrency"); } }
+        private string? _explicitNullValueTargetCurrency = default!;
 #nullable restore
 #else
-        public string TargetCurrency { get; set; }
+        public string TargetCurrency { get => _explicitNullValueTargetCurrency; set { _explicitNullValueTargetCurrency = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("targetCurrency"); else _explicitNullProperties?.Remove("targetCurrency"); } }
+        private string _explicitNullValueTargetCurrency = default!;
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.QuoteCreateRequest"/> and sets the default values.
@@ -83,7 +125,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.QuoteCreateRequest CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.QuoteCreateRequest();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.QuoteCreateRequest(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -93,6 +135,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
+                { "creationContext", n => { CreationContext = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.QuoteCreateRequestCreationContext>(global::Soenneker.Wise.OpenApiClient.Models.QuoteCreateRequestCreationContext.CreateFromDiscriminatorValue); } },
                 { "payOut", n => { PayOut = n.GetStringValue(); } },
                 { "paymentMetadata", n => { PaymentMetadata = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.QuoteCreateRequestPaymentMetadata>(global::Soenneker.Wise.OpenApiClient.Models.QuoteCreateRequestPaymentMetadata.CreateFromDiscriminatorValue); } },
                 { "preferredPayIn", n => { PreferredPayIn = n.GetStringValue(); } },
@@ -111,6 +154,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.QuoteCreateRequestCreationContext>("creationContext", CreationContext);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.QuoteCreateRequestPaymentMetadata>("paymentMetadata", PaymentMetadata);
             writer.WriteStringValue("payOut", PayOut);
             writer.WriteStringValue("preferredPayIn", PreferredPayIn);
@@ -120,6 +164,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteLongValue("targetAccount", TargetAccount);
             writer.WriteDoubleValue("targetAmount", TargetAmount);
             writer.WriteStringValue("targetCurrency", TargetCurrency);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

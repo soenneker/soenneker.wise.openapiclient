@@ -60,6 +60,8 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.Item.Balances.HoldLimitBreach.It
                 { "403", global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreachClose403Response.CreateFromDiscriminatorValue },
                 { "404", global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreachClose404Response.CreateFromDiscriminatorValue },
                 { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
+                { "4XX", global::Soenneker.OpenApi.Generated.OpenApiRawError.CreateFromDiscriminatorValue },
+                { "5XX", global::Soenneker.OpenApi.Generated.OpenApiRawError.CreateFromDiscriminatorValue },
             };
             await RequestAdapter.SendNoContentAsync(requestInfo, errorMapping, cancellationToken).ConfigureAwait(false);
         }

@@ -12,149 +12,211 @@ namespace Soenneker.Wise.OpenApiClient.Models
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class PayInDetails : IAdditionalDataHolder, IParsable
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("accountNumber") is { } nullNodeAccountNumber && nullNodeAccountNumber.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) AccountNumber = null;
+            if (parseNode.GetChildNode("accountType") is { } nullNodeAccountType && nullNodeAccountType.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) AccountType = null;
+            if (parseNode.GetChildNode("amount") is { } nullNodeAmount && nullNodeAmount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Amount = null;
+            if (parseNode.GetChildNode("bankAddress") is { } nullNodeBankAddress && nullNodeBankAddress.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) BankAddress = null;
+            if (parseNode.GetChildNode("bankCode") is { } nullNodeBankCode && nullNodeBankCode.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) BankCode = null;
+            if (parseNode.GetChildNode("bban") is { } nullNodeBban && nullNodeBban.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Bban = null;
+            if (parseNode.GetChildNode("beneficiaryBankBIC") is { } nullNodeBeneficiaryBankBIC && nullNodeBeneficiaryBankBIC.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) BeneficiaryBankBIC = null;
+            if (parseNode.GetChildNode("branchName") is { } nullNodeBranchName && nullNodeBranchName.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) BranchName = null;
+            if (parseNode.GetChildNode("clearingNumber") is { } nullNodeClearingNumber && nullNodeClearingNumber.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ClearingNumber = null;
+            if (parseNode.GetChildNode("currency") is { } nullNodeCurrency && nullNodeCurrency.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Currency = null;
+            if (parseNode.GetChildNode("fpsIdentifier") is { } nullNodeFpsIdentifier && nullNodeFpsIdentifier.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) FpsIdentifier = null;
+            if (parseNode.GetChildNode("iban") is { } nullNodeIban && nullNodeIban.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Iban = null;
+            if (parseNode.GetChildNode("institutionNumber") is { } nullNodeInstitutionNumber && nullNodeInstitutionNumber.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) InstitutionNumber = null;
+            if (parseNode.GetChildNode("intermediaryBankBIC") is { } nullNodeIntermediaryBankBIC && nullNodeIntermediaryBankBIC.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) IntermediaryBankBIC = null;
+            if (parseNode.GetChildNode("name") is { } nullNodeName && nullNodeName.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Name = null;
+            if (parseNode.GetChildNode("reference") is { } nullNodeReference && nullNodeReference.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Reference = null;
+            if (parseNode.GetChildNode("transferWiseAddress") is { } nullNodeTransferWiseAddress && nullNodeTransferWiseAddress.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TransferWiseAddress = null;
+            if (parseNode.GetChildNode("transitNumber") is { } nullNodeTransitNumber && nullNodeTransitNumber.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TransitNumber = null;
+            if (parseNode.GetChildNode("type") is { } nullNodeType && nullNodeType.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Type = null;
+        }
+
         /// <summary>Bank account number.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? AccountNumber { get; set; }
+        public string? AccountNumber { get => _explicitNullValueAccountNumber; set { _explicitNullValueAccountNumber = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("accountNumber"); else _explicitNullProperties?.Remove("accountNumber"); } }
+        private string? _explicitNullValueAccountNumber = default!;
 #nullable restore
 #else
-        public string AccountNumber { get; set; }
+        public string AccountNumber { get => _explicitNullValueAccountNumber; set { _explicitNullValueAccountNumber = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("accountNumber"); else _explicitNullProperties?.Remove("accountNumber"); } }
+        private string _explicitNullValueAccountNumber = default!;
 #endif
         /// <summary>Bank account type. Provided only when the currency route requires it.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? AccountType { get; set; }
+        public string? AccountType { get => _explicitNullValueAccountType; set { _explicitNullValueAccountType = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("accountType"); else _explicitNullProperties?.Remove("accountType"); } }
+        private string? _explicitNullValueAccountType = default!;
 #nullable restore
 #else
-        public string AccountType { get; set; }
+        public string AccountType { get => _explicitNullValueAccountType; set { _explicitNullValueAccountType = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("accountType"); else _explicitNullProperties?.Remove("accountType"); } }
+        private string _explicitNullValueAccountType = default!;
 #endif
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The total pay-in amount for all transactions in the batch when paying in with this reference and method.</summary>
-        public decimal? Amount { get; set; }
+        public decimal? Amount { get => _explicitNullValueAmount; set { _explicitNullValueAmount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("amount"); else _explicitNullProperties?.Remove("amount"); } }
+        private decimal? _explicitNullValueAmount = default!;
         /// <summary>Address for the receiving bank. Provided only when the currency route requires it.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.PayInDetailsBankAddress? BankAddress { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.PayInDetailsBankAddress? BankAddress { get => _explicitNullValueBankAddress; set { _explicitNullValueBankAddress = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("bankAddress"); else _explicitNullProperties?.Remove("bankAddress"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.PayInDetailsBankAddress? _explicitNullValueBankAddress = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.PayInDetailsBankAddress BankAddress { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.PayInDetailsBankAddress BankAddress { get => _explicitNullValueBankAddress; set { _explicitNullValueBankAddress = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("bankAddress"); else _explicitNullProperties?.Remove("bankAddress"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.PayInDetailsBankAddress _explicitNullValueBankAddress = default!;
 #endif
         /// <summary>Bank identifier or routing number, depending on pay-in type and currency.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? BankCode { get; set; }
+        public string? BankCode { get => _explicitNullValueBankCode; set { _explicitNullValueBankCode = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("bankCode"); else _explicitNullProperties?.Remove("bankCode"); } }
+        private string? _explicitNullValueBankCode = default!;
 #nullable restore
 #else
-        public string BankCode { get; set; }
+        public string BankCode { get => _explicitNullValueBankCode; set { _explicitNullValueBankCode = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("bankCode"); else _explicitNullProperties?.Remove("bankCode"); } }
+        private string _explicitNullValueBankCode = default!;
 #endif
         /// <summary>Basic Bank Account Number (BBAN). Provided only when the currency route requires it (such as NOK).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Bban { get; set; }
+        public string? Bban { get => _explicitNullValueBban; set { _explicitNullValueBban = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("bban"); else _explicitNullProperties?.Remove("bban"); } }
+        private string? _explicitNullValueBban = default!;
 #nullable restore
 #else
-        public string Bban { get; set; }
+        public string Bban { get => _explicitNullValueBban; set { _explicitNullValueBban = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("bban"); else _explicitNullProperties?.Remove("bban"); } }
+        private string _explicitNullValueBban = default!;
 #endif
         /// <summary>Beneficiary Bank Business Identifier Code (BIC). Provided only when the currency route requires it (such as CAD).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? BeneficiaryBankBIC { get; set; }
+        public string? BeneficiaryBankBIC { get => _explicitNullValueBeneficiaryBankBIC; set { _explicitNullValueBeneficiaryBankBIC = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("beneficiaryBankBIC"); else _explicitNullProperties?.Remove("beneficiaryBankBIC"); } }
+        private string? _explicitNullValueBeneficiaryBankBIC = default!;
 #nullable restore
 #else
-        public string BeneficiaryBankBIC { get; set; }
+        public string BeneficiaryBankBIC { get => _explicitNullValueBeneficiaryBankBIC; set { _explicitNullValueBeneficiaryBankBIC = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("beneficiaryBankBIC"); else _explicitNullProperties?.Remove("beneficiaryBankBIC"); } }
+        private string _explicitNullValueBeneficiaryBankBIC = default!;
 #endif
         /// <summary>Name of the bank branch. Provided only when the currency route requires it (such as JPY).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? BranchName { get; set; }
+        public string? BranchName { get => _explicitNullValueBranchName; set { _explicitNullValueBranchName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("branchName"); else _explicitNullProperties?.Remove("branchName"); } }
+        private string? _explicitNullValueBranchName = default!;
 #nullable restore
 #else
-        public string BranchName { get; set; }
+        public string BranchName { get => _explicitNullValueBranchName; set { _explicitNullValueBranchName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("branchName"); else _explicitNullProperties?.Remove("branchName"); } }
+        private string _explicitNullValueBranchName = default!;
 #endif
         /// <summary>Clearing number. Provided only when the currency route requires it (such as SEK).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? ClearingNumber { get; set; }
+        public string? ClearingNumber { get => _explicitNullValueClearingNumber; set { _explicitNullValueClearingNumber = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("clearingNumber"); else _explicitNullProperties?.Remove("clearingNumber"); } }
+        private string? _explicitNullValueClearingNumber = default!;
 #nullable restore
 #else
-        public string ClearingNumber { get; set; }
+        public string ClearingNumber { get => _explicitNullValueClearingNumber; set { _explicitNullValueClearingNumber = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("clearingNumber"); else _explicitNullProperties?.Remove("clearingNumber"); } }
+        private string _explicitNullValueClearingNumber = default!;
 #endif
         /// <summary>Three-character ISO 4217 currency code.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Currency { get; set; }
+        public string? Currency { get => _explicitNullValueCurrency; set { _explicitNullValueCurrency = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("currency"); else _explicitNullProperties?.Remove("currency"); } }
+        private string? _explicitNullValueCurrency = default!;
 #nullable restore
 #else
-        public string Currency { get; set; }
+        public string Currency { get => _explicitNullValueCurrency; set { _explicitNullValueCurrency = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("currency"); else _explicitNullProperties?.Remove("currency"); } }
+        private string _explicitNullValueCurrency = default!;
 #endif
         /// <summary>Faster Payment System identifier. Provided only when the currency route requires it (such as HKD).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? FpsIdentifier { get; set; }
+        public string? FpsIdentifier { get => _explicitNullValueFpsIdentifier; set { _explicitNullValueFpsIdentifier = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("fpsIdentifier"); else _explicitNullProperties?.Remove("fpsIdentifier"); } }
+        private string? _explicitNullValueFpsIdentifier = default!;
 #nullable restore
 #else
-        public string FpsIdentifier { get; set; }
+        public string FpsIdentifier { get => _explicitNullValueFpsIdentifier; set { _explicitNullValueFpsIdentifier = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("fpsIdentifier"); else _explicitNullProperties?.Remove("fpsIdentifier"); } }
+        private string _explicitNullValueFpsIdentifier = default!;
 #endif
         /// <summary>ISO 13616 International Bank Account Number (when available).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Iban { get; set; }
+        public string? Iban { get => _explicitNullValueIban; set { _explicitNullValueIban = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("iban"); else _explicitNullProperties?.Remove("iban"); } }
+        private string? _explicitNullValueIban = default!;
 #nullable restore
 #else
-        public string Iban { get; set; }
+        public string Iban { get => _explicitNullValueIban; set { _explicitNullValueIban = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("iban"); else _explicitNullProperties?.Remove("iban"); } }
+        private string _explicitNullValueIban = default!;
 #endif
         /// <summary>Financial Institution number (3 digits). Provided only when the currency route requires it (such as CAD).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? InstitutionNumber { get; set; }
+        public string? InstitutionNumber { get => _explicitNullValueInstitutionNumber; set { _explicitNullValueInstitutionNumber = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("institutionNumber"); else _explicitNullProperties?.Remove("institutionNumber"); } }
+        private string? _explicitNullValueInstitutionNumber = default!;
 #nullable restore
 #else
-        public string InstitutionNumber { get; set; }
+        public string InstitutionNumber { get => _explicitNullValueInstitutionNumber; set { _explicitNullValueInstitutionNumber = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("institutionNumber"); else _explicitNullProperties?.Remove("institutionNumber"); } }
+        private string _explicitNullValueInstitutionNumber = default!;
 #endif
         /// <summary>Intermediary Bank Business Identifier Code (BIC). Provided only when the currency route requires it (such as CAD).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? IntermediaryBankBIC { get; set; }
+        public string? IntermediaryBankBIC { get => _explicitNullValueIntermediaryBankBIC; set { _explicitNullValueIntermediaryBankBIC = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("intermediaryBankBIC"); else _explicitNullProperties?.Remove("intermediaryBankBIC"); } }
+        private string? _explicitNullValueIntermediaryBankBIC = default!;
 #nullable restore
 #else
-        public string IntermediaryBankBIC { get; set; }
+        public string IntermediaryBankBIC { get => _explicitNullValueIntermediaryBankBIC; set { _explicitNullValueIntermediaryBankBIC = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("intermediaryBankBIC"); else _explicitNullProperties?.Remove("intermediaryBankBIC"); } }
+        private string _explicitNullValueIntermediaryBankBIC = default!;
 #endif
         /// <summary>Name of the bank account holder.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Name { get; set; }
+        public string? Name { get => _explicitNullValueName; set { _explicitNullValueName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("name"); else _explicitNullProperties?.Remove("name"); } }
+        private string? _explicitNullValueName = default!;
 #nullable restore
 #else
-        public string Name { get; set; }
+        public string Name { get => _explicitNullValueName; set { _explicitNullValueName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("name"); else _explicitNullProperties?.Remove("name"); } }
+        private string _explicitNullValueName = default!;
 #endif
         /// <summary>The reference that should be used when funding the transfers in the batch group. This reference should be treated as an opaque value and there should be no attempt to decode or decompose it.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Reference { get; set; }
+        public string? Reference { get => _explicitNullValueReference; set { _explicitNullValueReference = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("reference"); else _explicitNullProperties?.Remove("reference"); } }
+        private string? _explicitNullValueReference = default!;
 #nullable restore
 #else
-        public string Reference { get; set; }
+        public string Reference { get => _explicitNullValueReference; set { _explicitNullValueReference = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("reference"); else _explicitNullProperties?.Remove("reference"); } }
+        private string _explicitNullValueReference = default!;
 #endif
         /// <summary>Wise&apos;s address. Provided only when the currency route requires it.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.PayInDetailsTransferWiseAddress? TransferWiseAddress { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.PayInDetailsTransferWiseAddress? TransferWiseAddress { get => _explicitNullValueTransferWiseAddress; set { _explicitNullValueTransferWiseAddress = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("transferWiseAddress"); else _explicitNullProperties?.Remove("transferWiseAddress"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.PayInDetailsTransferWiseAddress? _explicitNullValueTransferWiseAddress = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.PayInDetailsTransferWiseAddress TransferWiseAddress { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.PayInDetailsTransferWiseAddress TransferWiseAddress { get => _explicitNullValueTransferWiseAddress; set { _explicitNullValueTransferWiseAddress = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("transferWiseAddress"); else _explicitNullProperties?.Remove("transferWiseAddress"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.PayInDetailsTransferWiseAddress _explicitNullValueTransferWiseAddress = default!;
 #endif
         /// <summary>Branch Transit Number (5 digits). Provided only when the currency route requires it (such as CAD).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? TransitNumber { get; set; }
+        public string? TransitNumber { get => _explicitNullValueTransitNumber; set { _explicitNullValueTransitNumber = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("transitNumber"); else _explicitNullProperties?.Remove("transitNumber"); } }
+        private string? _explicitNullValueTransitNumber = default!;
 #nullable restore
 #else
-        public string TransitNumber { get; set; }
+        public string TransitNumber { get => _explicitNullValueTransitNumber; set { _explicitNullValueTransitNumber = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("transitNumber"); else _explicitNullProperties?.Remove("transitNumber"); } }
+        private string _explicitNullValueTransitNumber = default!;
 #endif
         /// <summary>Method of payment.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.BankTransferType? Type { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.BankTransferType? Type { get => _explicitNullValueType; set { _explicitNullValueType = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("type"); else _explicitNullProperties?.Remove("type"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.BankTransferType? _explicitNullValueType = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.PayInDetails"/> and sets the default values.
         /// </summary>
@@ -170,7 +232,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.PayInDetails CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.PayInDetails();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.PayInDetails(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -227,6 +289,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.PayInDetailsTransferWiseAddress>("transferWiseAddress", TransferWiseAddress);
             writer.WriteStringValue("transitNumber", TransitNumber);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BankTransferType>("type", Type);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

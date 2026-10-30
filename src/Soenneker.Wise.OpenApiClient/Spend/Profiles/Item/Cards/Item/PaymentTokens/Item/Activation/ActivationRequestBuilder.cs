@@ -62,6 +62,8 @@ namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.Cards.Item.PaymentTok
                 { "404", global::Soenneker.Wise.OpenApiClient.Models.DigitalWalletActivatePaymentToken404ProblemJsonResponse.CreateFromDiscriminatorValue },
                 { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
                 { "500", global::Soenneker.Wise.OpenApiClient.Models.DigitalWalletActivatePaymentToken500ProblemJsonResponse.CreateFromDiscriminatorValue },
+                { "4XX", global::Soenneker.OpenApi.Generated.OpenApiRawError.CreateFromDiscriminatorValue },
+                { "5XX", global::Soenneker.OpenApi.Generated.OpenApiRawError.CreateFromDiscriminatorValue },
             };
             await RequestAdapter.SendNoContentAsync(requestInfo, errorMapping, cancellationToken).ConfigureAwait(false);
         }

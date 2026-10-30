@@ -12,52 +12,78 @@ namespace Soenneker.Wise.OpenApiClient.Models
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class RecipientCreateRequest : IAdditionalDataHolder, IParsable
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("accountHolderName") is { } nullNodeAccountHolderName && nullNodeAccountHolderName.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) AccountHolderName = null;
+            if (parseNode.GetChildNode("currency") is { } nullNodeCurrency && nullNodeCurrency.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Currency = null;
+            if (parseNode.GetChildNode("details") is { } nullNodeDetails && nullNodeDetails.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Details = null;
+            if (parseNode.GetChildNode("ownedByCustomer") is { } nullNodeOwnedByCustomer && nullNodeOwnedByCustomer.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) OwnedByCustomer = null;
+            if (parseNode.GetChildNode("profile") is { } nullNodeProfile && nullNodeProfile.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Profile = null;
+            if (parseNode.GetChildNode("type") is { } nullNodeType && nullNodeType.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Type = null;
+            if (parseNode.GetChildNode("ultimateBeneficiary") is { } nullNodeUltimateBeneficiary && nullNodeUltimateBeneficiary.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) UltimateBeneficiary = null;
+        }
+
         /// <summary>Recipient full name.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? AccountHolderName { get; set; }
+        public string? AccountHolderName { get => _explicitNullValueAccountHolderName; set { _explicitNullValueAccountHolderName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("accountHolderName"); else _explicitNullProperties?.Remove("accountHolderName"); } }
+        private string? _explicitNullValueAccountHolderName = default!;
 #nullable restore
 #else
-        public string AccountHolderName { get; set; }
+        public string AccountHolderName { get => _explicitNullValueAccountHolderName; set { _explicitNullValueAccountHolderName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("accountHolderName"); else _explicitNullProperties?.Remove("accountHolderName"); } }
+        private string _explicitNullValueAccountHolderName = default!;
 #endif
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>3-character currency code.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Currency { get; set; }
+        public string? Currency { get => _explicitNullValueCurrency; set { _explicitNullValueCurrency = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("currency"); else _explicitNullProperties?.Remove("currency"); } }
+        private string? _explicitNullValueCurrency = default!;
 #nullable restore
 #else
-        public string Currency { get; set; }
+        public string Currency { get => _explicitNullValueCurrency; set { _explicitNullValueCurrency = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("currency"); else _explicitNullProperties?.Remove("currency"); } }
+        private string _explicitNullValueCurrency = default!;
 #endif
         /// <summary>Contains the details of the recipient account specific to its currency and type. Common examples include `legalType`, `sortCode`, `accountNumber`, `email`, `dateOfBirth`, etc. Use the **retrieve recipient account requirements** endpoint to determine what is required for a specific recipient.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.RecipientCreateRequestDetails? Details { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.RecipientCreateRequestDetails? Details { get => _explicitNullValueDetails; set { _explicitNullValueDetails = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("details"); else _explicitNullProperties?.Remove("details"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.RecipientCreateRequestDetails? _explicitNullValueDetails = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.RecipientCreateRequestDetails Details { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.RecipientCreateRequestDetails Details { get => _explicitNullValueDetails; set { _explicitNullValueDetails = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("details"); else _explicitNullProperties?.Remove("details"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.RecipientCreateRequestDetails _explicitNullValueDetails = default!;
 #endif
         /// <summary>Indicates whether the recipient account is owned by the profile owner.While optional, we recommend setting to `true` for self-transfers (such as a user sending money to their own account in another country or currency).Distinguishing self-transfers from third-party transfers improves routing and processing efficiency.</summary>
-        public bool? OwnedByCustomer { get; set; }
+        public bool? OwnedByCustomer { get => _explicitNullValueOwnedByCustomer; set { _explicitNullValueOwnedByCustomer = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("ownedByCustomer"); else _explicitNullProperties?.Remove("ownedByCustomer"); } }
+        private bool? _explicitNullValueOwnedByCustomer = default!;
         /// <summary>Personal or business profile ID of the sender. We recommend passing the business profile ID if multiple users manage your business account so all users authorized on the business account can access the recipient.</summary>
-        public long? Profile { get; set; }
+        public long? Profile { get => _explicitNullValueProfile; set { _explicitNullValueProfile = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("profile"); else _explicitNullProperties?.Remove("profile"); } }
+        private long? _explicitNullValueProfile = default!;
         /// <summary>Recipient account type. These are currency/route-specific, for example, `sort_code`, `iban`, `email`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Type { get; set; }
+        public string? Type { get => _explicitNullValueType; set { _explicitNullValueType = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("type"); else _explicitNullProperties?.Remove("type"); } }
+        private string? _explicitNullValueType = default!;
 #nullable restore
 #else
-        public string Type { get; set; }
+        public string Type { get => _explicitNullValueType; set { _explicitNullValueType = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("type"); else _explicitNullProperties?.Remove("type"); } }
+        private string _explicitNullValueType = default!;
 #endif
         /// <summary>The details about the ultimate beneficiary for this recipient, if present. If absent, the ultimate beneficiary _is_ the recipient.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.RecipientCreateRequestUltimateBeneficiary? UltimateBeneficiary { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.RecipientCreateRequestUltimateBeneficiary? UltimateBeneficiary { get => _explicitNullValueUltimateBeneficiary; set { _explicitNullValueUltimateBeneficiary = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("ultimateBeneficiary"); else _explicitNullProperties?.Remove("ultimateBeneficiary"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.RecipientCreateRequestUltimateBeneficiary? _explicitNullValueUltimateBeneficiary = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.RecipientCreateRequestUltimateBeneficiary UltimateBeneficiary { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.RecipientCreateRequestUltimateBeneficiary UltimateBeneficiary { get => _explicitNullValueUltimateBeneficiary; set { _explicitNullValueUltimateBeneficiary = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("ultimateBeneficiary"); else _explicitNullProperties?.Remove("ultimateBeneficiary"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.RecipientCreateRequestUltimateBeneficiary _explicitNullValueUltimateBeneficiary = default!;
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.RecipientCreateRequest"/> and sets the default values.
@@ -74,7 +100,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.RecipientCreateRequest CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.RecipientCreateRequest();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.RecipientCreateRequest(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -107,6 +133,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteLongValue("profile", Profile);
             writer.WriteStringValue("type", Type);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.RecipientCreateRequestUltimateBeneficiary>("ultimateBeneficiary", UltimateBeneficiary);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

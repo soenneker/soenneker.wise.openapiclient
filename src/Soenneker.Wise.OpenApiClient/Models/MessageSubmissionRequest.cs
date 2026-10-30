@@ -12,19 +12,31 @@ namespace Soenneker.Wise.OpenApiClient.Models
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class MessageSubmissionRequest : IAdditionalDataHolder, IParsable
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("submissionData") is { } nullNodeSubmissionData && nullNodeSubmissionData.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SubmissionData = null;
+            if (parseNode.GetChildNode("type") is { } nullNodeType && nullNodeType.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Type = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The data for the message submission. Structure varies based on submission type.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.MessageSubmissionRequestSubmissionData? SubmissionData { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.MessageSubmissionRequestSubmissionData? SubmissionData { get => _explicitNullValueSubmissionData; set { _explicitNullValueSubmissionData = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("submissionData"); else _explicitNullProperties?.Remove("submissionData"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.MessageSubmissionRequestSubmissionData? _explicitNullValueSubmissionData = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.MessageSubmissionRequestSubmissionData SubmissionData { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.MessageSubmissionRequestSubmissionData SubmissionData { get => _explicitNullValueSubmissionData; set { _explicitNullValueSubmissionData = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("submissionData"); else _explicitNullProperties?.Remove("submissionData"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.MessageSubmissionRequestSubmissionData _explicitNullValueSubmissionData = default!;
 #endif
         /// <summary>The type of message submission.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.MessageSubmissionType? Type { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.MessageSubmissionType? Type { get => _explicitNullValueType; set { _explicitNullValueType = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("type"); else _explicitNullProperties?.Remove("type"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.MessageSubmissionType? _explicitNullValueType = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.MessageSubmissionRequest"/> and sets the default values.
         /// </summary>
@@ -40,7 +52,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.MessageSubmissionRequest CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.MessageSubmissionRequest();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.MessageSubmissionRequest(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -63,6 +75,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.MessageSubmissionRequestSubmissionData>("submissionData", SubmissionData);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.MessageSubmissionType>("type", Type);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

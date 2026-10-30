@@ -11,40 +11,59 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class DisputeSubmitRequest : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("disclaimer") is { } nullNodeDisclaimer && nullNodeDisclaimer.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Disclaimer = null;
+            if (parseNode.GetChildNode("files") is { } nullNodeFiles && nullNodeFiles.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Files = null;
+            if (parseNode.GetChildNode("form") is { } nullNodeForm && nullNodeForm.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Form = null;
+            if (parseNode.GetChildNode("transaction") is { } nullNodeTransaction && nullNodeTransaction.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Transaction = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Acknowledgement fields.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.DisputeSubmitRequestDisclaimer? Disclaimer { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.DisputeSubmitRequestDisclaimer? Disclaimer { get => _explicitNullValueDisclaimer; set { _explicitNullValueDisclaimer = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("disclaimer"); else _explicitNullProperties?.Remove("disclaimer"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.DisputeSubmitRequestDisclaimer? _explicitNullValueDisclaimer = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.DisputeSubmitRequestDisclaimer Disclaimer { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.DisputeSubmitRequestDisclaimer Disclaimer { get => _explicitNullValueDisclaimer; set { _explicitNullValueDisclaimer = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("disclaimer"); else _explicitNullProperties?.Remove("disclaimer"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.DisputeSubmitRequestDisclaimer _explicitNullValueDisclaimer = default!;
 #endif
         /// <summary>Key-value pairs mapping file field names to file IDs obtained from the [file upload endpoint](/api-reference/disputes/disputefileupload). Available file fields vary per reason code.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.DisputeSubmitRequestFiles? Files { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.DisputeSubmitRequestFiles? Files { get => _explicitNullValueFiles; set { _explicitNullValueFiles = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("files"); else _explicitNullProperties?.Remove("files"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.DisputeSubmitRequestFiles? _explicitNullValueFiles = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.DisputeSubmitRequestFiles Files { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.DisputeSubmitRequestFiles Files { get => _explicitNullValueFiles; set { _explicitNullValueFiles = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("files"); else _explicitNullProperties?.Remove("files"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.DisputeSubmitRequestFiles _explicitNullValueFiles = default!;
 #endif
         /// <summary>Form fields required to submit this dispute. The specific fields vary per reason code.See the [disputes via API guide](/guides/product/issue-cards/card-disputes-api#reason-examples) for per-reason field details.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.DisputeSubmitRequestForm? Form { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.DisputeSubmitRequestForm? Form { get => _explicitNullValueForm; set { _explicitNullValueForm = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("form"); else _explicitNullProperties?.Remove("form"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.DisputeSubmitRequestForm? _explicitNullValueForm = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.DisputeSubmitRequestForm Form { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.DisputeSubmitRequestForm Form { get => _explicitNullValueForm; set { _explicitNullValueForm = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("form"); else _explicitNullProperties?.Remove("form"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.DisputeSubmitRequestForm _explicitNullValueForm = default!;
 #endif
         /// <summary>Transaction details for the dispute.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.DisputeSubmitRequestTransaction? Transaction { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.DisputeSubmitRequestTransaction? Transaction { get => _explicitNullValueTransaction; set { _explicitNullValueTransaction = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("transaction"); else _explicitNullProperties?.Remove("transaction"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.DisputeSubmitRequestTransaction? _explicitNullValueTransaction = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.DisputeSubmitRequestTransaction Transaction { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.DisputeSubmitRequestTransaction Transaction { get => _explicitNullValueTransaction; set { _explicitNullValueTransaction = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("transaction"); else _explicitNullProperties?.Remove("transaction"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.DisputeSubmitRequestTransaction _explicitNullValueTransaction = default!;
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.DisputeSubmitRequest"/> and sets the default values.
@@ -61,7 +80,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.DisputeSubmitRequest CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.DisputeSubmitRequest();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.DisputeSubmitRequest(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -88,6 +107,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.DisputeSubmitRequestFiles>("files", Files);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.DisputeSubmitRequestForm>("form", Form);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.DisputeSubmitRequestTransaction>("transaction", Transaction);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

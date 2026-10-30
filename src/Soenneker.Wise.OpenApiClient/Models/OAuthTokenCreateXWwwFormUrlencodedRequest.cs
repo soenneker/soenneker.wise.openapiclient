@@ -12,7 +12,12 @@ namespace Soenneker.Wise.OpenApiClient.Models
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class OAuthTokenCreateXWwwFormUrlencodedRequest : IComposedTypeWrapper, IParsable
-    {
+    , global::Microsoft.Kiota.Abstractions.Serialization.IAdditionalDataHolder {
+        // Preserve ambiguous union payloads without inventing a discriminator.
+        /// <summary>The complete payload when no unique typed union branch can be selected.</summary>
+        public global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode UnrecognizedValue { get; set; } = null!;
+        public global::System.Collections.Generic.IDictionary<string, object> AdditionalData { get; set; } = new global::System.Collections.Generic.Dictionary<string, object>();
+
         /// <summary>Composed type representation for type <see cref="global::Soenneker.Wise.OpenApiClient.Models.AuthorizationCodeGrant"/></summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -53,25 +58,36 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.OAuthTokenCreateXWwwFormUrlencodedRequest CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            var mappingValue = parseNode.GetChildNode("grant_type")?.GetStringValue();
+            var mappingValue = parseNode.GetChildNode("")?.GetStringValue();
             var result = new global::Soenneker.Wise.OpenApiClient.Models.OAuthTokenCreateXWwwFormUrlencodedRequest();
-            if("authorization_code".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+            if("AuthorizationCodeGrant".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
             {
-                result.AuthorizationCodeGrant = new global::Soenneker.Wise.OpenApiClient.Models.AuthorizationCodeGrant();
+                
             }
-            else if("client_credentials".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+            else if("ClientCredentialsGrant".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
             {
-                result.ClientCredentialsGrant = new global::Soenneker.Wise.OpenApiClient.Models.ClientCredentialsGrant();
+                
             }
-            else if("refresh_token".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+            else if("RefreshTokenGrant".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
             {
-                result.RefreshTokenGrant = new global::Soenneker.Wise.OpenApiClient.Models.RefreshTokenGrant();
+                
             }
-            else if("registration_code".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+            else if("RegistrationCodeGrant".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
             {
-                result.RegistrationCodeGrant = new global::Soenneker.Wise.OpenApiClient.Models.RegistrationCodeGrant();
+                
             }
-            return result;
+            
+            var unionPayload = parseNode.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue);
+            bool matchesUnionBranch0 = unionPayload is global::Microsoft.Kiota.Abstractions.Serialization.UntypedObject && ((global::System.Func<bool>)(() => parseNode.GetChildNode("grant_type") != null && (parseNode.GetChildNode("grant_type")?.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is global::Microsoft.Kiota.Abstractions.Serialization.UntypedString tag1 && ("client_credentials".Equals(tag1.GetValue(), global::System.StringComparison.Ordinal)))))();
+            bool matchesUnionBranch1 = unionPayload is global::Microsoft.Kiota.Abstractions.Serialization.UntypedObject && ((global::System.Func<bool>)(() => parseNode.GetChildNode("grant_type") != null && (parseNode.GetChildNode("grant_type")?.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is global::Microsoft.Kiota.Abstractions.Serialization.UntypedString tag1 && ("registration_code".Equals(tag1.GetValue(), global::System.StringComparison.Ordinal))) && parseNode.GetChildNode("client_id") != null && parseNode.GetChildNode("email") != null && parseNode.GetChildNode("registration_code") != null))();
+            bool matchesUnionBranch2 = unionPayload is global::Microsoft.Kiota.Abstractions.Serialization.UntypedObject && ((global::System.Func<bool>)(() => parseNode.GetChildNode("grant_type") != null && (parseNode.GetChildNode("grant_type")?.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is global::Microsoft.Kiota.Abstractions.Serialization.UntypedString tag1 && ("authorization_code".Equals(tag1.GetValue(), global::System.StringComparison.Ordinal))) && parseNode.GetChildNode("client_id") != null && parseNode.GetChildNode("code") != null && parseNode.GetChildNode("redirect_uri") != null))();
+            bool matchesUnionBranch3 = unionPayload is global::Microsoft.Kiota.Abstractions.Serialization.UntypedObject && ((global::System.Func<bool>)(() => parseNode.GetChildNode("grant_type") != null && (parseNode.GetChildNode("grant_type")?.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is global::Microsoft.Kiota.Abstractions.Serialization.UntypedString tag1 && ("refresh_token".Equals(tag1.GetValue(), global::System.StringComparison.Ordinal))) && parseNode.GetChildNode("refresh_token") != null))();
+            if (result.AuthorizationCodeGrant == null && result.ClientCredentialsGrant == null && result.RefreshTokenGrant == null && result.RegistrationCodeGrant == null && matchesUnionBranch0 && !matchesUnionBranch1 && !matchesUnionBranch2 && !matchesUnionBranch3) result.ClientCredentialsGrant = global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.ClientCredentialsGrant(), parseNode);
+            if (result.AuthorizationCodeGrant == null && result.ClientCredentialsGrant == null && result.RefreshTokenGrant == null && result.RegistrationCodeGrant == null && matchesUnionBranch1 && !matchesUnionBranch0 && !matchesUnionBranch2 && !matchesUnionBranch3) result.RegistrationCodeGrant = global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.RegistrationCodeGrant(), parseNode);
+            if (result.AuthorizationCodeGrant == null && result.ClientCredentialsGrant == null && result.RefreshTokenGrant == null && result.RegistrationCodeGrant == null && matchesUnionBranch2 && !matchesUnionBranch0 && !matchesUnionBranch1 && !matchesUnionBranch3) result.AuthorizationCodeGrant = global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.AuthorizationCodeGrant(), parseNode);
+            if (result.AuthorizationCodeGrant == null && result.ClientCredentialsGrant == null && result.RefreshTokenGrant == null && result.RegistrationCodeGrant == null && matchesUnionBranch3 && !matchesUnionBranch0 && !matchesUnionBranch1 && !matchesUnionBranch2) result.RefreshTokenGrant = global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.RefreshTokenGrant(), parseNode);
+            if (result.AuthorizationCodeGrant == null && result.ClientCredentialsGrant == null && result.RefreshTokenGrant == null && result.RegistrationCodeGrant == null) result.UnrecognizedValue = unionPayload;
+return result;
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -103,21 +119,32 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <param name="writer">Serialization writer to use to serialize this model</param>
         public virtual void Serialize(ISerializationWriter writer)
         {
+            if (global::System.Object.ReferenceEquals(writer, null)) throw new global::System.ArgumentNullException(nameof(writer));
+            if (AuthorizationCodeGrant == null && ClientCredentialsGrant == null && RefreshTokenGrant == null && RegistrationCodeGrant == null) { if (UnrecognizedValue is global::Microsoft.Kiota.Abstractions.Serialization.UntypedObject rawObject) writer.WriteObjectValue(null, new global::Soenneker.OpenApi.Generated.OpenApiUnionAdditionalData(AdditionalData, rawObject)); else if (UnrecognizedValue != null) writer.WriteObjectValue(null, UnrecognizedValue); else if (AdditionalData.Count > 0) writer.WriteObjectValue(null, new global::Soenneker.OpenApi.Generated.OpenApiUnionAdditionalData(AdditionalData)); else writer.WriteNullValue(null); return; }
+            if (AuthorizationCodeGrant != null && ClientCredentialsGrant == null && RefreshTokenGrant == null && RegistrationCodeGrant == null) { if (AuthorizationCodeGrant is global::Microsoft.Kiota.Abstractions.Serialization.IAdditionalDataHolder selectedData) foreach (var entry in AdditionalData) selectedData.AdditionalData[entry.Key] = entry.Value; writer.WriteObjectValue(null, AuthorizationCodeGrant); return; }
+            if (ClientCredentialsGrant != null && AuthorizationCodeGrant == null && RefreshTokenGrant == null && RegistrationCodeGrant == null) { if (ClientCredentialsGrant is global::Microsoft.Kiota.Abstractions.Serialization.IAdditionalDataHolder selectedData) foreach (var entry in AdditionalData) selectedData.AdditionalData[entry.Key] = entry.Value; writer.WriteObjectValue(null, ClientCredentialsGrant); return; }
+            if (RefreshTokenGrant != null && AuthorizationCodeGrant == null && ClientCredentialsGrant == null && RegistrationCodeGrant == null) { if (RefreshTokenGrant is global::Microsoft.Kiota.Abstractions.Serialization.IAdditionalDataHolder selectedData) foreach (var entry in AdditionalData) selectedData.AdditionalData[entry.Key] = entry.Value; writer.WriteObjectValue(null, RefreshTokenGrant); return; }
+            if (RegistrationCodeGrant != null && AuthorizationCodeGrant == null && ClientCredentialsGrant == null && RefreshTokenGrant == null) { if (RegistrationCodeGrant is global::Microsoft.Kiota.Abstractions.Serialization.IAdditionalDataHolder selectedData) foreach (var entry in AdditionalData) selectedData.AdditionalData[entry.Key] = entry.Value; writer.WriteObjectValue(null, RegistrationCodeGrant); return; }
+
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             if(AuthorizationCodeGrant != null)
             {
+                if (AuthorizationCodeGrant is global::Microsoft.Kiota.Abstractions.Serialization.IAdditionalDataHolder unionData) foreach (var entry in AdditionalData) unionData.AdditionalData[entry.Key] = entry.Value;
                 writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.AuthorizationCodeGrant>(null, AuthorizationCodeGrant);
             }
             else if(ClientCredentialsGrant != null)
             {
+                if (ClientCredentialsGrant is global::Microsoft.Kiota.Abstractions.Serialization.IAdditionalDataHolder unionData) foreach (var entry in AdditionalData) unionData.AdditionalData[entry.Key] = entry.Value;
                 writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.ClientCredentialsGrant>(null, ClientCredentialsGrant);
             }
             else if(RefreshTokenGrant != null)
             {
+                if (RefreshTokenGrant is global::Microsoft.Kiota.Abstractions.Serialization.IAdditionalDataHolder unionData) foreach (var entry in AdditionalData) unionData.AdditionalData[entry.Key] = entry.Value;
                 writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.RefreshTokenGrant>(null, RefreshTokenGrant);
             }
             else if(RegistrationCodeGrant != null)
             {
+                if (RegistrationCodeGrant is global::Microsoft.Kiota.Abstractions.Serialization.IAdditionalDataHolder unionData) foreach (var entry in AdditionalData) unionData.AdditionalData[entry.Key] = entry.Value;
                 writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.RegistrationCodeGrant>(null, RegistrationCodeGrant);
             }
         }

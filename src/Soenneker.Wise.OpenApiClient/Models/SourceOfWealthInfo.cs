@@ -12,16 +12,26 @@ namespace Soenneker.Wise.OpenApiClient.Models
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class SourceOfWealthInfo : IAdditionalDataHolder, IParsable
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("submissionData") is { } nullNodeSubmissionData && nullNodeSubmissionData.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SubmissionData = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>```json {% title=&quot;Example&quot; %}{  &quot;data&quot;: {    &quot;hasSecondaryIncome&quot;: true,    &quot;secondaryIncomeType&quot;: &quot;SALARY&quot;,    &quot;amount&quot;: 20000.00,    &quot;currency&quot;: &quot;USD&quot;  },  &quot;version&quot;: &quot;V1&quot;,  &quot;kycReviewId&quot;: &quot;93a903ea-636c-4c86-a25c-cf6d2bd00e81&quot;}```</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.SourceOfWealthInfoSubmissionData? SubmissionData { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.SourceOfWealthInfoSubmissionData? SubmissionData { get => _explicitNullValueSubmissionData; set { _explicitNullValueSubmissionData = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("submissionData"); else _explicitNullProperties?.Remove("submissionData"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.SourceOfWealthInfoSubmissionData? _explicitNullValueSubmissionData = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.SourceOfWealthInfoSubmissionData SubmissionData { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.SourceOfWealthInfoSubmissionData SubmissionData { get => _explicitNullValueSubmissionData; set { _explicitNullValueSubmissionData = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("submissionData"); else _explicitNullProperties?.Remove("submissionData"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.SourceOfWealthInfoSubmissionData _explicitNullValueSubmissionData = default!;
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.SourceOfWealthInfo"/> and sets the default values.
@@ -38,7 +48,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.SourceOfWealthInfo CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.SourceOfWealthInfo();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.SourceOfWealthInfo(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -59,6 +69,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.SourceOfWealthInfoSubmissionData>("submissionData", SubmissionData);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

@@ -11,87 +11,132 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class CardOrder : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("address") is { } nullNodeAddress && nullNodeAddress.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Address = null;
+            if (parseNode.GetChildNode("cardHolderName") is { } nullNodeCardHolderName && nullNodeCardHolderName.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CardHolderName = null;
+            if (parseNode.GetChildNode("cardProgram") is { } nullNodeCardProgram && nullNodeCardProgram.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CardProgram = null;
+            if (parseNode.GetChildNode("cardToken") is { } nullNodeCardToken && nullNodeCardToken.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CardToken = null;
+            if (parseNode.GetChildNode("clientId") is { } nullNodeClientId && nullNodeClientId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ClientId = null;
+            if (parseNode.GetChildNode("creationTime") is { } nullNodeCreationTime && nullNodeCreationTime.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CreationTime = null;
+            if (parseNode.GetChildNode("deliveryDetails") is { } nullNodeDeliveryDetails && nullNodeDeliveryDetails.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) DeliveryDetails = null;
+            if (parseNode.GetChildNode("deliveryEstimate") is { } nullNodeDeliveryEstimate && nullNodeDeliveryEstimate.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) DeliveryEstimate = null;
+            if (parseNode.GetChildNode("id") is { } nullNodeId && nullNodeId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Id = null;
+            if (parseNode.GetChildNode("lifetimeLimit") is { } nullNodeLifetimeLimit && nullNodeLifetimeLimit.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) LifetimeLimit = null;
+            if (parseNode.GetChildNode("modificationTime") is { } nullNodeModificationTime && nullNodeModificationTime.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ModificationTime = null;
+            if (parseNode.GetChildNode("phoneNumber") is { } nullNodePhoneNumber && nullNodePhoneNumber.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PhoneNumber = null;
+            if (parseNode.GetChildNode("profileId") is { } nullNodeProfileId && nullNodeProfileId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ProfileId = null;
+            if (parseNode.GetChildNode("replacesCard") is { } nullNodeReplacesCard && nullNodeReplacesCard.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ReplacesCard = null;
+            if (parseNode.GetChildNode("status") is { } nullNodeStatus && nullNodeStatus.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Status = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Address set during card order. **Required** for physical cards. **Optional** for virtual cards (defaults to the profile address, if omitted). Fields vary by country. See the [card address validation guide](/guides/developer/api-guides/card-address-validation) for country-specific fields and validation rules.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.CardOrderAddress? Address { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardOrderAddress? Address { get => _explicitNullValueAddress; set { _explicitNullValueAddress = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("address"); else _explicitNullProperties?.Remove("address"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.CardOrderAddress? _explicitNullValueAddress = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.CardOrderAddress Address { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardOrderAddress Address { get => _explicitNullValueAddress; set { _explicitNullValueAddress = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("address"); else _explicitNullProperties?.Remove("address"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.CardOrderAddress _explicitNullValueAddress = default!;
 #endif
         /// <summary>Name of the card holder.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? CardHolderName { get; set; }
+        public string? CardHolderName { get => _explicitNullValueCardHolderName; set { _explicitNullValueCardHolderName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("cardHolderName"); else _explicitNullProperties?.Remove("cardHolderName"); } }
+        private string? _explicitNullValueCardHolderName = default!;
 #nullable restore
 #else
-        public string CardHolderName { get; set; }
+        public string CardHolderName { get => _explicitNullValueCardHolderName; set { _explicitNullValueCardHolderName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("cardHolderName"); else _explicitNullProperties?.Remove("cardHolderName"); } }
+        private string _explicitNullValueCardHolderName = default!;
 #endif
         /// <summary>The card program associated with this card order. A Card Program is what Wise refers to all the cards that you will be issuing with us, grouped by product type and by issuing country.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.CardOrderCardProgram? CardProgram { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardOrderCardProgram? CardProgram { get => _explicitNullValueCardProgram; set { _explicitNullValueCardProgram = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("cardProgram"); else _explicitNullProperties?.Remove("cardProgram"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.CardOrderCardProgram? _explicitNullValueCardProgram = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.CardOrderCardProgram CardProgram { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardOrderCardProgram CardProgram { get => _explicitNullValueCardProgram; set { _explicitNullValueCardProgram = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("cardProgram"); else _explicitNullProperties?.Remove("cardProgram"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.CardOrderCardProgram _explicitNullValueCardProgram = default!;
 #endif
         /// <summary>Token of the card associated with card order. Nullable.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? CardToken { get; set; }
+        public string? CardToken { get => _explicitNullValueCardToken; set { _explicitNullValueCardToken = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("cardToken"); else _explicitNullProperties?.Remove("cardToken"); } }
+        private string? _explicitNullValueCardToken = default!;
 #nullable restore
 #else
-        public string CardToken { get; set; }
+        public string CardToken { get => _explicitNullValueCardToken; set { _explicitNullValueCardToken = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("cardToken"); else _explicitNullProperties?.Remove("cardToken"); } }
+        private string _explicitNullValueCardToken = default!;
 #endif
         /// <summary>Client ID.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? ClientId { get; set; }
+        public string? ClientId { get => _explicitNullValueClientId; set { _explicitNullValueClientId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("clientId"); else _explicitNullProperties?.Remove("clientId"); } }
+        private string? _explicitNullValueClientId = default!;
 #nullable restore
 #else
-        public string ClientId { get; set; }
+        public string ClientId { get => _explicitNullValueClientId; set { _explicitNullValueClientId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("clientId"); else _explicitNullProperties?.Remove("clientId"); } }
+        private string _explicitNullValueClientId = default!;
 #endif
         /// <summary>Time when the card order is created.</summary>
-        public DateTimeOffset? CreationTime { get; set; }
+        public DateTimeOffset? CreationTime { get => _explicitNullValueCreationTime; set { _explicitNullValueCreationTime = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("creationTime"); else _explicitNullProperties?.Remove("creationTime"); } }
+        private DateTimeOffset? _explicitNullValueCreationTime = default!;
         /// <summary>Delivery details of a physical card order. For virtual cards, this value is null.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.CardOrderDeliveryDetails? DeliveryDetails { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardOrderDeliveryDetails? DeliveryDetails { get => _explicitNullValueDeliveryDetails; set { _explicitNullValueDeliveryDetails = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("deliveryDetails"); else _explicitNullProperties?.Remove("deliveryDetails"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.CardOrderDeliveryDetails? _explicitNullValueDeliveryDetails = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.CardOrderDeliveryDetails DeliveryDetails { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardOrderDeliveryDetails DeliveryDetails { get => _explicitNullValueDeliveryDetails; set { _explicitNullValueDeliveryDetails = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("deliveryDetails"); else _explicitNullProperties?.Remove("deliveryDetails"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.CardOrderDeliveryDetails _explicitNullValueDeliveryDetails = default!;
 #endif
         /// <summary>The estimated time when the card will be delivered. There are few scenarios to be mindful of:1. For virtual card the delivery estimate will be close to the creationTime, as it does not require delivery.2. For physical card in `PLACED` status, the delivery estimate is calculated assuming that the order requirements will be fulfilled today (refreshed daily).3. For physical card after `PLACED` status, we provide a best effort estimation, and it should not be used as delivery timing as we will have separate delivery tracking (subject to region availability) for physical card that is coming soon.</summary>
-        public DateTimeOffset? DeliveryEstimate { get; set; }
+        public DateTimeOffset? DeliveryEstimate { get => _explicitNullValueDeliveryEstimate; set { _explicitNullValueDeliveryEstimate = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("deliveryEstimate"); else _explicitNullProperties?.Remove("deliveryEstimate"); } }
+        private DateTimeOffset? _explicitNullValueDeliveryEstimate = default!;
         /// <summary>ID of the card order.</summary>
-        public long? Id { get; set; }
+        public long? Id { get => _explicitNullValueId; set { _explicitNullValueId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("id"); else _explicitNullProperties?.Remove("id"); } }
+        private long? _explicitNullValueId = default!;
         /// <summary>Maximum amount of spending on the card once issued. Nullable.</summary>
-        public double? LifetimeLimit { get; set; }
+        public double? LifetimeLimit { get => _explicitNullValueLifetimeLimit; set { _explicitNullValueLifetimeLimit = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("lifetimeLimit"); else _explicitNullProperties?.Remove("lifetimeLimit"); } }
+        private double? _explicitNullValueLifetimeLimit = default!;
         /// <summary>Time when the card order was last modified.</summary>
-        public DateTimeOffset? ModificationTime { get; set; }
+        public DateTimeOffset? ModificationTime { get => _explicitNullValueModificationTime; set { _explicitNullValueModificationTime = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("modificationTime"); else _explicitNullProperties?.Remove("modificationTime"); } }
+        private DateTimeOffset? _explicitNullValueModificationTime = default!;
         /// <summary>Phone number associated with the card order.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? PhoneNumber { get; set; }
+        public string? PhoneNumber { get => _explicitNullValuePhoneNumber; set { _explicitNullValuePhoneNumber = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("phoneNumber"); else _explicitNullProperties?.Remove("phoneNumber"); } }
+        private string? _explicitNullValuePhoneNumber = default!;
 #nullable restore
 #else
-        public string PhoneNumber { get; set; }
+        public string PhoneNumber { get => _explicitNullValuePhoneNumber; set { _explicitNullValuePhoneNumber = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("phoneNumber"); else _explicitNullProperties?.Remove("phoneNumber"); } }
+        private string _explicitNullValuePhoneNumber = default!;
 #endif
         /// <summary>Profile ID.</summary>
-        public long? ProfileId { get; set; }
+        public long? ProfileId { get => _explicitNullValueProfileId; set { _explicitNullValueProfileId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("profileId"); else _explicitNullProperties?.Remove("profileId"); } }
+        private long? _explicitNullValueProfileId = default!;
         /// <summary>Token of the card being replaced by this replacement card order. Nullable.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? ReplacesCard { get; set; }
+        public string? ReplacesCard { get => _explicitNullValueReplacesCard; set { _explicitNullValueReplacesCard = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("replacesCard"); else _explicitNullProperties?.Remove("replacesCard"); } }
+        private string? _explicitNullValueReplacesCard = default!;
 #nullable restore
 #else
-        public string ReplacesCard { get; set; }
+        public string ReplacesCard { get => _explicitNullValueReplacesCard; set { _explicitNullValueReplacesCard = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("replacesCard"); else _explicitNullProperties?.Remove("replacesCard"); } }
+        private string _explicitNullValueReplacesCard = default!;
 #endif
         /// <summary>Status of the card order. See [card order status flow](/api-reference/card-order#card-order-status-flow) for details.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.CardOrderStatus? Status { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardOrderStatus? Status { get => _explicitNullValueStatus; set { _explicitNullValueStatus = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("status"); else _explicitNullProperties?.Remove("status"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.CardOrderStatus? _explicitNullValueStatus = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.CardOrder"/> and sets the default values.
         /// </summary>
@@ -107,7 +152,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.CardOrder CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.CardOrder();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.CardOrder(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -156,6 +201,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteLongValue("profileId", ProfileId);
             writer.WriteStringValue("replacesCard", ReplacesCard);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CardOrderStatus>("status", Status);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

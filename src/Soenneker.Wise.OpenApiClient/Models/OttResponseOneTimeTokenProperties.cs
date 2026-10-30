@@ -12,37 +12,57 @@ namespace Soenneker.Wise.OpenApiClient.Models
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class OttResponseOneTimeTokenProperties : IAdditionalDataHolder, IParsable
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("actionType") is { } nullNodeActionType && nullNodeActionType.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ActionType = null;
+            if (parseNode.GetChildNode("challenges") is { } nullNodeChallenges && nullNodeChallenges.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Challenges = null;
+            if (parseNode.GetChildNode("oneTimeToken") is { } nullNodeOneTimeToken && nullNodeOneTimeToken.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) OneTimeToken = null;
+            if (parseNode.GetChildNode("userId") is { } nullNodeUserId && nullNodeUserId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) UserId = null;
+            if (parseNode.GetChildNode("validity") is { } nullNodeValidity && nullNodeValidity.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Validity = null;
+        }
+
         /// <summary>The action bound to the one time token. For example, `BALANCE__GET_STATEMENT` when we want to [retrieve a balance account statement](/api-reference/balance-statement/balancestatementget).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? ActionType { get; set; }
+        public string? ActionType { get => _explicitNullValueActionType; set { _explicitNullValueActionType = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("actionType"); else _explicitNullProperties?.Remove("actionType"); } }
+        private string? _explicitNullValueActionType = default!;
 #nullable restore
 #else
-        public string ActionType { get; set; }
+        public string ActionType { get => _explicitNullValueActionType; set { _explicitNullValueActionType = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("actionType"); else _explicitNullProperties?.Remove("actionType"); } }
+        private string _explicitNullValueActionType = default!;
 #endif
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Array of challenge objects.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenPropertiesChallengesItem>? Challenges { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenPropertiesChallengesItem>? Challenges { get => _explicitNullValueChallenges; set { _explicitNullValueChallenges = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("challenges"); else _explicitNullProperties?.Remove("challenges"); } }
+        private List<global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenPropertiesChallengesItem>? _explicitNullValueChallenges = default!;
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenPropertiesChallengesItem> Challenges { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenPropertiesChallengesItem> Challenges { get => _explicitNullValueChallenges; set { _explicitNullValueChallenges = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("challenges"); else _explicitNullProperties?.Remove("challenges"); } }
+        private List<global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenPropertiesChallengesItem> _explicitNullValueChallenges = default!;
 #endif
         /// <summary>Unique identifier of a one time token.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? OneTimeToken { get; set; }
+        public string? OneTimeToken { get => _explicitNullValueOneTimeToken; set { _explicitNullValueOneTimeToken = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("oneTimeToken"); else _explicitNullProperties?.Remove("oneTimeToken"); } }
+        private string? _explicitNullValueOneTimeToken = default!;
 #nullable restore
 #else
-        public string OneTimeToken { get; set; }
+        public string OneTimeToken { get => _explicitNullValueOneTimeToken; set { _explicitNullValueOneTimeToken = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("oneTimeToken"); else _explicitNullProperties?.Remove("oneTimeToken"); } }
+        private string _explicitNullValueOneTimeToken = default!;
 #endif
         /// <summary>Creator of this one time token.</summary>
-        public long? UserId { get; set; }
+        public long? UserId { get => _explicitNullValueUserId; set { _explicitNullValueUserId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("userId"); else _explicitNullProperties?.Remove("userId"); } }
+        private long? _explicitNullValueUserId = default!;
         /// <summary>Seconds until the one time token becomes expired.</summary>
-        public long? Validity { get; set; }
+        public long? Validity { get => _explicitNullValueValidity; set { _explicitNullValueValidity = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("validity"); else _explicitNullProperties?.Remove("validity"); } }
+        private long? _explicitNullValueValidity = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenProperties"/> and sets the default values.
         /// </summary>
@@ -58,7 +78,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenProperties CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenProperties();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.OttResponseOneTimeTokenProperties(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -87,6 +107,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteStringValue("oneTimeToken", OneTimeToken);
             writer.WriteLongValue("userId", UserId);
             writer.WriteLongValue("validity", Validity);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

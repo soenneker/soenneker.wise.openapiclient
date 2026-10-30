@@ -11,24 +11,37 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class BusinessSourceOfWealthSubmissionDataData : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("otherSourceOfWealthDescription") is { } nullNodeOtherSourceOfWealthDescription && nullNodeOtherSourceOfWealthDescription.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) OtherSourceOfWealthDescription = null;
+            if (parseNode.GetChildNode("sourceOfWealthList") is { } nullNodeSourceOfWealthList && nullNodeSourceOfWealthList.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SourceOfWealthList = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Required if `OTHER` is provided in `sourceOfWealthList`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? OtherSourceOfWealthDescription { get; set; }
+        public string? OtherSourceOfWealthDescription { get => _explicitNullValueOtherSourceOfWealthDescription; set { _explicitNullValueOtherSourceOfWealthDescription = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("otherSourceOfWealthDescription"); else _explicitNullProperties?.Remove("otherSourceOfWealthDescription"); } }
+        private string? _explicitNullValueOtherSourceOfWealthDescription = default!;
 #nullable restore
 #else
-        public string OtherSourceOfWealthDescription { get; set; }
+        public string OtherSourceOfWealthDescription { get => _explicitNullValueOtherSourceOfWealthDescription; set { _explicitNullValueOtherSourceOfWealthDescription = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("otherSourceOfWealthDescription"); else _explicitNullProperties?.Remove("otherSourceOfWealthDescription"); } }
+        private string _explicitNullValueOtherSourceOfWealthDescription = default!;
 #endif
         /// <summary>The sourceOfWealthList property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.BusinessSourceOfWealthSubmissionDataDataSourceOfWealthListItem?>? SourceOfWealthList { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.BusinessSourceOfWealthSubmissionDataDataSourceOfWealthListItem?>? SourceOfWealthList { get => _explicitNullValueSourceOfWealthList; set { _explicitNullValueSourceOfWealthList = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sourceOfWealthList"); else _explicitNullProperties?.Remove("sourceOfWealthList"); } }
+        private List<global::Soenneker.Wise.OpenApiClient.Models.BusinessSourceOfWealthSubmissionDataDataSourceOfWealthListItem?>? _explicitNullValueSourceOfWealthList = default!;
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.BusinessSourceOfWealthSubmissionDataDataSourceOfWealthListItem?> SourceOfWealthList { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.BusinessSourceOfWealthSubmissionDataDataSourceOfWealthListItem?> SourceOfWealthList { get => _explicitNullValueSourceOfWealthList; set { _explicitNullValueSourceOfWealthList = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sourceOfWealthList"); else _explicitNullProperties?.Remove("sourceOfWealthList"); } }
+        private List<global::Soenneker.Wise.OpenApiClient.Models.BusinessSourceOfWealthSubmissionDataDataSourceOfWealthListItem?> _explicitNullValueSourceOfWealthList = default!;
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.BusinessSourceOfWealthSubmissionDataData"/> and sets the default values.
@@ -45,7 +58,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.BusinessSourceOfWealthSubmissionDataData CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.BusinessSourceOfWealthSubmissionDataData();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.BusinessSourceOfWealthSubmissionDataData(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -68,6 +81,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("otherSourceOfWealthDescription", OtherSourceOfWealthDescription);
             writer.WriteCollectionOfEnumValues<global::Soenneker.Wise.OpenApiClient.Models.BusinessSourceOfWealthSubmissionDataDataSourceOfWealthListItem>("sourceOfWealthList", SourceOfWealthList);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

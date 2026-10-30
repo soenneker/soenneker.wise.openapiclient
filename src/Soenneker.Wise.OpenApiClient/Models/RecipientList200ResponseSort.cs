@@ -12,15 +12,28 @@ namespace Soenneker.Wise.OpenApiClient.Models
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class RecipientList200ResponseSort : IAdditionalDataHolder, IParsable
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("empty") is { } nullNodeEmpty && nullNodeEmpty.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Empty = null;
+            if (parseNode.GetChildNode("sorted") is { } nullNodeSorted && nullNodeSorted.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Sorted = null;
+            if (parseNode.GetChildNode("unsorted") is { } nullNodeUnsorted && nullNodeUnsorted.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Unsorted = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The empty property</summary>
-        public bool? Empty { get; set; }
+        public bool? Empty { get => _explicitNullValueEmpty; set { _explicitNullValueEmpty = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("empty"); else _explicitNullProperties?.Remove("empty"); } }
+        private bool? _explicitNullValueEmpty = default!;
         /// <summary>The sorted property</summary>
-        public bool? Sorted { get; set; }
+        public bool? Sorted { get => _explicitNullValueSorted; set { _explicitNullValueSorted = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sorted"); else _explicitNullProperties?.Remove("sorted"); } }
+        private bool? _explicitNullValueSorted = default!;
         /// <summary>The unsorted property</summary>
-        public bool? Unsorted { get; set; }
+        public bool? Unsorted { get => _explicitNullValueUnsorted; set { _explicitNullValueUnsorted = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("unsorted"); else _explicitNullProperties?.Remove("unsorted"); } }
+        private bool? _explicitNullValueUnsorted = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.RecipientList200ResponseSort"/> and sets the default values.
         /// </summary>
@@ -36,7 +49,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.RecipientList200ResponseSort CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.RecipientList200ResponseSort();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.RecipientList200ResponseSort(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -61,6 +74,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteBoolValue("empty", Empty);
             writer.WriteBoolValue("sorted", Sorted);
             writer.WriteBoolValue("unsorted", Unsorted);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

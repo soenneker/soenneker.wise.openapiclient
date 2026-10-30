@@ -12,41 +12,65 @@ namespace Soenneker.Wise.OpenApiClient.Models
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class VerificationUploadEvidencesRequestPersonalProfile : IAdditionalDataHolder, IParsable
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("accountPurpose") is { } nullNodeAccountPurpose && nullNodeAccountPurpose.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) AccountPurpose = null;
+            if (parseNode.GetChildNode("accountPurposeExplanation") is { } nullNodeAccountPurposeExplanation && nullNodeAccountPurposeExplanation.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) AccountPurposeExplanation = null;
+            if (parseNode.GetChildNode("annualIncome") is { } nullNodeAnnualIncome && nullNodeAnnualIncome.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) AnnualIncome = null;
+            if (parseNode.GetChildNode("incomeExplanation") is { } nullNodeIncomeExplanation && nullNodeIncomeExplanation.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) IncomeExplanation = null;
+            if (parseNode.GetChildNode("intendedCountries") is { } nullNodeIntendedCountries && nullNodeIntendedCountries.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) IntendedCountries = null;
+            if (parseNode.GetChildNode("mainSourceOfIncome") is { } nullNodeMainSourceOfIncome && nullNodeMainSourceOfIncome.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) MainSourceOfIncome = null;
+            if (parseNode.GetChildNode("yearlyAnticipatedVolume") is { } nullNodeYearlyAnticipatedVolume && nullNodeYearlyAnticipatedVolume.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) YearlyAnticipatedVolume = null;
+        }
+
         /// <summary>The primary reason for using the account.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestPersonalProfileAccountPurpose? AccountPurpose { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestPersonalProfileAccountPurpose? AccountPurpose { get => _explicitNullValueAccountPurpose; set { _explicitNullValueAccountPurpose = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("accountPurpose"); else _explicitNullProperties?.Remove("accountPurpose"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestPersonalProfileAccountPurpose? _explicitNullValueAccountPurpose = default!;
         /// <summary>Additional reasons and specific examples for using Wise account. This is a free-text field.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? AccountPurposeExplanation { get; set; }
+        public string? AccountPurposeExplanation { get => _explicitNullValueAccountPurposeExplanation; set { _explicitNullValueAccountPurposeExplanation = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("accountPurposeExplanation"); else _explicitNullProperties?.Remove("accountPurposeExplanation"); } }
+        private string? _explicitNullValueAccountPurposeExplanation = default!;
 #nullable restore
 #else
-        public string AccountPurposeExplanation { get; set; }
+        public string AccountPurposeExplanation { get => _explicitNullValueAccountPurposeExplanation; set { _explicitNullValueAccountPurposeExplanation = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("accountPurposeExplanation"); else _explicitNullProperties?.Remove("accountPurposeExplanation"); } }
+        private string _explicitNullValueAccountPurposeExplanation = default!;
 #endif
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Expected annual income in Euros. Must be submitted with mainSourceOfIncome.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestPersonalProfileAnnualIncome? AnnualIncome { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestPersonalProfileAnnualIncome? AnnualIncome { get => _explicitNullValueAnnualIncome; set { _explicitNullValueAnnualIncome = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("annualIncome"); else _explicitNullProperties?.Remove("annualIncome"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestPersonalProfileAnnualIncome? _explicitNullValueAnnualIncome = default!;
         /// <summary>Additional ways you earn money that were not identified in the provided documents. This is a free-text field.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? IncomeExplanation { get; set; }
+        public string? IncomeExplanation { get => _explicitNullValueIncomeExplanation; set { _explicitNullValueIncomeExplanation = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("incomeExplanation"); else _explicitNullProperties?.Remove("incomeExplanation"); } }
+        private string? _explicitNullValueIncomeExplanation = default!;
 #nullable restore
 #else
-        public string IncomeExplanation { get; set; }
+        public string IncomeExplanation { get => _explicitNullValueIncomeExplanation; set { _explicitNullValueIncomeExplanation = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("incomeExplanation"); else _explicitNullProperties?.Remove("incomeExplanation"); } }
+        private string _explicitNullValueIncomeExplanation = default!;
 #endif
         /// <summary>List of ISO 3166-1 alpha-3 country codes.&lt;br&gt;Check the [lists of countries you can send money to with Wise](https://wise.com/help/articles/2571942/what-countries-can-i-send-to).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<string>? IntendedCountries { get; set; }
+        public List<string>? IntendedCountries { get => _explicitNullValueIntendedCountries; set { _explicitNullValueIntendedCountries = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("intendedCountries"); else _explicitNullProperties?.Remove("intendedCountries"); } }
+        private List<string>? _explicitNullValueIntendedCountries = default!;
 #nullable restore
 #else
-        public List<string> IntendedCountries { get; set; }
+        public List<string> IntendedCountries { get => _explicitNullValueIntendedCountries; set { _explicitNullValueIntendedCountries = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("intendedCountries"); else _explicitNullProperties?.Remove("intendedCountries"); } }
+        private List<string> _explicitNullValueIntendedCountries = default!;
 #endif
         /// <summary>Primary source of income. Must be submitted with annualIncome.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestPersonalProfileMainSourceOfIncome? MainSourceOfIncome { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestPersonalProfileMainSourceOfIncome? MainSourceOfIncome { get => _explicitNullValueMainSourceOfIncome; set { _explicitNullValueMainSourceOfIncome = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("mainSourceOfIncome"); else _explicitNullProperties?.Remove("mainSourceOfIncome"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestPersonalProfileMainSourceOfIncome? _explicitNullValueMainSourceOfIncome = default!;
         /// <summary>Expected yearly transaction volume in Euros.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestPersonalProfileYearlyAnticipatedVolume? YearlyAnticipatedVolume { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestPersonalProfileYearlyAnticipatedVolume? YearlyAnticipatedVolume { get => _explicitNullValueYearlyAnticipatedVolume; set { _explicitNullValueYearlyAnticipatedVolume = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("yearlyAnticipatedVolume"); else _explicitNullProperties?.Remove("yearlyAnticipatedVolume"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestPersonalProfileYearlyAnticipatedVolume? _explicitNullValueYearlyAnticipatedVolume = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestPersonalProfile"/> and sets the default values.
         /// </summary>
@@ -62,7 +86,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestPersonalProfile CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestPersonalProfile();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestPersonalProfile(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -95,6 +119,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteCollectionOfPrimitiveValues<string>("intendedCountries", IntendedCountries);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestPersonalProfileMainSourceOfIncome>("mainSourceOfIncome", MainSourceOfIncome);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.VerificationUploadEvidencesRequestPersonalProfileYearlyAnticipatedVolume>("yearlyAnticipatedVolume", YearlyAnticipatedVolume);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

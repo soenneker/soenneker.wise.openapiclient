@@ -11,18 +11,30 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class DeliveryEstimateGet200Response : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("estimatedDeliveryDate") is { } nullNodeEstimatedDeliveryDate && nullNodeEstimatedDeliveryDate.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) EstimatedDeliveryDate = null;
+            if (parseNode.GetChildNode("formattedEstimatedDeliveryDate") is { } nullNodeFormattedEstimatedDeliveryDate && nullNodeFormattedEstimatedDeliveryDate.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) FormattedEstimatedDeliveryDate = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Estimated time when funds will arrive in the recipient&apos;s bank account.</summary>
-        public DateTimeOffset? EstimatedDeliveryDate { get; set; }
+        public DateTimeOffset? EstimatedDeliveryDate { get => _explicitNullValueEstimatedDeliveryDate; set { _explicitNullValueEstimatedDeliveryDate = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("estimatedDeliveryDate"); else _explicitNullProperties?.Remove("estimatedDeliveryDate"); } }
+        private DateTimeOffset? _explicitNullValueEstimatedDeliveryDate = default!;
         /// <summary>A string to display to users for the estimated delivery date.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? FormattedEstimatedDeliveryDate { get; set; }
+        public string? FormattedEstimatedDeliveryDate { get => _explicitNullValueFormattedEstimatedDeliveryDate; set { _explicitNullValueFormattedEstimatedDeliveryDate = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("formattedEstimatedDeliveryDate"); else _explicitNullProperties?.Remove("formattedEstimatedDeliveryDate"); } }
+        private string? _explicitNullValueFormattedEstimatedDeliveryDate = default!;
 #nullable restore
 #else
-        public string FormattedEstimatedDeliveryDate { get; set; }
+        public string FormattedEstimatedDeliveryDate { get => _explicitNullValueFormattedEstimatedDeliveryDate; set { _explicitNullValueFormattedEstimatedDeliveryDate = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("formattedEstimatedDeliveryDate"); else _explicitNullProperties?.Remove("formattedEstimatedDeliveryDate"); } }
+        private string _explicitNullValueFormattedEstimatedDeliveryDate = default!;
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.DeliveryEstimateGet200Response"/> and sets the default values.
@@ -39,7 +51,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.DeliveryEstimateGet200Response CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.DeliveryEstimateGet200Response();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.DeliveryEstimateGet200Response(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -62,6 +74,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteDateTimeOffsetValue("estimatedDeliveryDate", EstimatedDeliveryDate);
             writer.WriteStringValue("formattedEstimatedDeliveryDate", FormattedEstimatedDeliveryDate);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

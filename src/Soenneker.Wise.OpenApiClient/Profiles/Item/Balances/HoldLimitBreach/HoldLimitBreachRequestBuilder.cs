@@ -70,6 +70,8 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.Item.Balances.HoldLimitBreach
                 { "400", global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreachList400Response.CreateFromDiscriminatorValue },
                 { "403", global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreachList403Response.CreateFromDiscriminatorValue },
                 { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
+                { "4XX", global::Soenneker.OpenApi.Generated.OpenApiRawError.CreateFromDiscriminatorValue },
+                { "5XX", global::Soenneker.OpenApi.Generated.OpenApiRawError.CreateFromDiscriminatorValue },
             };
             var collectionResult = await RequestAdapter.SendCollectionAsync<global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreach>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreach.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
             return collectionResult?.AsList();

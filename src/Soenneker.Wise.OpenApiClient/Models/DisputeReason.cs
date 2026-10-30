@@ -11,44 +11,67 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class DisputeReason : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("code") is { } nullNodeCode && nullNodeCode.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Code = null;
+            if (parseNode.GetChildNode("description") is { } nullNodeDescription && nullNodeDescription.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Description = null;
+            if (parseNode.GetChildNode("isFraud") is { } nullNodeIsFraud && nullNodeIsFraud.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) IsFraud = null;
+            if (parseNode.GetChildNode("subOptions") is { } nullNodeSubOptions && nullNodeSubOptions.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SubOptions = null;
+            if (parseNode.GetChildNode("supportsMultipleTransactions") is { } nullNodeSupportsMultipleTransactions && nullNodeSupportsMultipleTransactions.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SupportsMultipleTransactions = null;
+            if (parseNode.GetChildNode("tooltip") is { } nullNodeTooltip && nullNodeTooltip.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Tooltip = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The type of reasons available for the dispute. Top-level codes include `ATM_DISPENSED_NO_FUNDS`, `WRONG_AMOUNT`, `TROUBLE_WITH_GOODS_SERVICES`, `MERCHANT_CHARGED_AGAIN`, `NO_REFUND`, `UNAUTHORIZED`.If a reason has `subOptions`, use the sub-option reason code when submitting a dispute.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Code { get; set; }
+        public string? Code { get => _explicitNullValueCode; set { _explicitNullValueCode = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("code"); else _explicitNullProperties?.Remove("code"); } }
+        private string? _explicitNullValueCode = default!;
 #nullable restore
 #else
-        public string Code { get; set; }
+        public string Code { get => _explicitNullValueCode; set { _explicitNullValueCode = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("code"); else _explicitNullProperties?.Remove("code"); } }
+        private string _explicitNullValueCode = default!;
 #endif
         /// <summary>The description of the dispute reason.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Description { get; set; }
+        public string? Description { get => _explicitNullValueDescription; set { _explicitNullValueDescription = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("description"); else _explicitNullProperties?.Remove("description"); } }
+        private string? _explicitNullValueDescription = default!;
 #nullable restore
 #else
-        public string Description { get; set; }
+        public string Description { get => _explicitNullValueDescription; set { _explicitNullValueDescription = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("description"); else _explicitNullProperties?.Remove("description"); } }
+        private string _explicitNullValueDescription = default!;
 #endif
         /// <summary>Flag indicating that the dispute reason is fraud-related.</summary>
-        public bool? IsFraud { get; set; }
+        public bool? IsFraud { get => _explicitNullValueIsFraud; set { _explicitNullValueIsFraud = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("isFraud"); else _explicitNullProperties?.Remove("isFraud"); } }
+        private bool? _explicitNullValueIsFraud = default!;
         /// <summary>Optional list of sub-reasons that should be used as the dispute reason.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.DisputeReason>? SubOptions { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.DisputeReason>? SubOptions { get => _explicitNullValueSubOptions; set { _explicitNullValueSubOptions = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("subOptions"); else _explicitNullProperties?.Remove("subOptions"); } }
+        private List<global::Soenneker.Wise.OpenApiClient.Models.DisputeReason>? _explicitNullValueSubOptions = default!;
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.DisputeReason> SubOptions { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.DisputeReason> SubOptions { get => _explicitNullValueSubOptions; set { _explicitNullValueSubOptions = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("subOptions"); else _explicitNullProperties?.Remove("subOptions"); } }
+        private List<global::Soenneker.Wise.OpenApiClient.Models.DisputeReason> _explicitNullValueSubOptions = default!;
 #endif
         /// <summary>Whether the dispute supports multiple transactions.</summary>
-        public bool? SupportsMultipleTransactions { get; set; }
+        public bool? SupportsMultipleTransactions { get => _explicitNullValueSupportsMultipleTransactions; set { _explicitNullValueSupportsMultipleTransactions = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("supportsMultipleTransactions"); else _explicitNullProperties?.Remove("supportsMultipleTransactions"); } }
+        private bool? _explicitNullValueSupportsMultipleTransactions = default!;
         /// <summary>Text to display when showing the dispute form to your users.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Tooltip { get; set; }
+        public string? Tooltip { get => _explicitNullValueTooltip; set { _explicitNullValueTooltip = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("tooltip"); else _explicitNullProperties?.Remove("tooltip"); } }
+        private string? _explicitNullValueTooltip = default!;
 #nullable restore
 #else
-        public string Tooltip { get; set; }
+        public string Tooltip { get => _explicitNullValueTooltip; set { _explicitNullValueTooltip = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("tooltip"); else _explicitNullProperties?.Remove("tooltip"); } }
+        private string _explicitNullValueTooltip = default!;
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.DisputeReason"/> and sets the default values.
@@ -65,7 +88,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.DisputeReason CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.DisputeReason();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.DisputeReason(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -96,6 +119,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.DisputeReason>("subOptions", SubOptions);
             writer.WriteBoolValue("supportsMultipleTransactions", SupportsMultipleTransactions);
             writer.WriteStringValue("tooltip", Tooltip);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

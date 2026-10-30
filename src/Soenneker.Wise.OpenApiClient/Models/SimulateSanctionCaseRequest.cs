@@ -11,23 +11,44 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class SimulateSanctionCaseRequest : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("caseId") is { } nullNodeCaseId && nullNodeCaseId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CaseId = null;
+            if (parseNode.GetChildNode("closingReason") is { } nullNodeClosingReason && nullNodeClosingReason.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ClosingReason = null;
+            if (parseNode.GetChildNode("profileId") is { } nullNodeProfileId && nullNodeProfileId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ProfileId = null;
+            if (parseNode.GetChildNode("sanctionType") is { } nullNodeSanctionType && nullNodeSanctionType.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SanctionType = null;
+            if (parseNode.GetChildNode("simulationSanctionSubType") is { } nullNodeSimulationSanctionSubType && nullNodeSimulationSanctionSubType.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SimulationSanctionSubType = null;
+            if (parseNode.GetChildNode("status") is { } nullNodeStatus && nullNodeStatus.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Status = null;
+            if (parseNode.GetChildNode("transferId") is { } nullNodeTransferId && nullNodeTransferId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TransferId = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The self-service case ID to close. Required when `status` is `CLOSE`.When `status` is `OPEN`, this can optionally be provided to specify the case ID;otherwise, one will be auto-generated.</summary>
-        public long? CaseId { get; set; }
+        public long? CaseId { get => _explicitNullValueCaseId; set { _explicitNullValueCaseId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("caseId"); else _explicitNullProperties?.Remove("caseId"); } }
+        private long? _explicitNullValueCaseId = default!;
         /// <summary>The reason for closing the case. Required when `status` is `CLOSE`.- `EXPIRED`: The case expired without resolution- `INVALIDATED`: The case was determined to be invalid- `ABORTED`: The case was aborted/cancelled- `COMPLETED`: The case was successfully resolved</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.SimulateSanctionCaseRequestClosingReason? ClosingReason { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.SimulateSanctionCaseRequestClosingReason? ClosingReason { get => _explicitNullValueClosingReason; set { _explicitNullValueClosingReason = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("closingReason"); else _explicitNullProperties?.Remove("closingReason"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.SimulateSanctionCaseRequestClosingReason? _explicitNullValueClosingReason = default!;
         /// <summary>The profile ID linked to the transfer.</summary>
-        public long? ProfileId { get; set; }
+        public long? ProfileId { get => _explicitNullValueProfileId; set { _explicitNullValueProfileId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("profileId"); else _explicitNullProperties?.Remove("profileId"); } }
+        private long? _explicitNullValueProfileId = default!;
         /// <summary>The type of sanction. Currently only `SANCTION` is supported.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.SanctionSanctionType? SanctionType { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.SanctionSanctionType? SanctionType { get => _explicitNullValueSanctionType; set { _explicitNullValueSanctionType = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sanctionType"); else _explicitNullProperties?.Remove("sanctionType"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.SanctionSanctionType? _explicitNullValueSanctionType = default!;
         /// <summary>The specific subtype of sanction case to simulate. Required when `sanctionType` is `SANCTION`.- `REFERENCE_SANCTION_HIT`: Sanction hit on the transfer reference/sender- `RECIPIENT_SANCTION_HIT`: Sanction hit on the recipient- `REFERENCE_LOCATION_HIT`: Location-based hit on the reference/sender- `RECIPIENT_LOCATION_HIT`: Location-based hit on the recipient- `DEPOSIT_SANCTION_HIT`: Sanction hit on an incoming deposit</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.SimulateSanctionCaseRequestSimulationSanctionSubType? SimulationSanctionSubType { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.SimulateSanctionCaseRequestSimulationSanctionSubType? SimulationSanctionSubType { get => _explicitNullValueSimulationSanctionSubType; set { _explicitNullValueSimulationSanctionSubType = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("simulationSanctionSubType"); else _explicitNullProperties?.Remove("simulationSanctionSubType"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.SimulateSanctionCaseRequestSimulationSanctionSubType? _explicitNullValueSimulationSanctionSubType = default!;
         /// <summary>The action to perform.- `OPEN`: Create a new sanction case- `CLOSE`: Close an existing sanction case</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.SimulateSanctionCaseRequestStatus? Status { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.SimulateSanctionCaseRequestStatus? Status { get => _explicitNullValueStatus; set { _explicitNullValueStatus = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("status"); else _explicitNullProperties?.Remove("status"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.SimulateSanctionCaseRequestStatus? _explicitNullValueStatus = default!;
         /// <summary>The ID of the transfer associated with the sanction case.</summary>
-        public long? TransferId { get; set; }
+        public long? TransferId { get => _explicitNullValueTransferId; set { _explicitNullValueTransferId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("transferId"); else _explicitNullProperties?.Remove("transferId"); } }
+        private long? _explicitNullValueTransferId = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.SimulateSanctionCaseRequest"/> and sets the default values.
         /// </summary>
@@ -43,7 +64,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.SimulateSanctionCaseRequest CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.SimulateSanctionCaseRequest();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.SimulateSanctionCaseRequest(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -76,6 +97,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.SimulateSanctionCaseRequestSimulationSanctionSubType>("simulationSanctionSubType", SimulationSanctionSubType);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.SimulateSanctionCaseRequestStatus>("status", Status);
             writer.WriteLongValue("transferId", TransferId);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

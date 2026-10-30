@@ -12,7 +12,12 @@ namespace Soenneker.Wise.OpenApiClient.Models
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class AccountIdentification : IComposedTypeWrapper, IParsable
-    {
+    , global::Microsoft.Kiota.Abstractions.Serialization.IAdditionalDataHolder {
+        // Preserve ambiguous union payloads without inventing a discriminator.
+        /// <summary>The complete payload when no unique typed union branch can be selected.</summary>
+        public global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode UnrecognizedValue { get; set; } = null!;
+        public global::System.Collections.Generic.IDictionary<string, object> AdditionalData { get; set; } = new global::System.Collections.Generic.Dictionary<string, object>();
+
         /// <summary>Composed type representation for type <see cref="global::Soenneker.Wise.OpenApiClient.Models.AccountIdentificationBeAccountIdentification"/></summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -49,17 +54,26 @@ namespace Soenneker.Wise.OpenApiClient.Models
             var result = new global::Soenneker.Wise.OpenApiClient.Models.AccountIdentification();
             if("AccountIdentificationBeAccountIdentification".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
             {
-                result.AccountIdentificationBeAccountIdentification = new global::Soenneker.Wise.OpenApiClient.Models.AccountIdentificationBeAccountIdentification();
+                
             }
             else if("AccountIdentificationGbAccountIdentification".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
             {
-                result.AccountIdentificationGbAccountIdentification = new global::Soenneker.Wise.OpenApiClient.Models.AccountIdentificationGbAccountIdentification();
+                
             }
             else if("AccountIdentificationUsAccountIdentification".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
             {
-                result.AccountIdentificationUsAccountIdentification = new global::Soenneker.Wise.OpenApiClient.Models.AccountIdentificationUsAccountIdentification();
+                
             }
-            return result;
+            
+            var unionPayload = parseNode.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue);
+            bool matchesUnionBranch0 = unionPayload is global::Microsoft.Kiota.Abstractions.Serialization.UntypedObject && ((global::System.Func<bool>)(() => parseNode.GetChildNode("beAccountIdentification") != null))();
+            bool matchesUnionBranch1 = unionPayload is global::Microsoft.Kiota.Abstractions.Serialization.UntypedObject && ((global::System.Func<bool>)(() => parseNode.GetChildNode("gbAccountIdentification") != null))();
+            bool matchesUnionBranch2 = unionPayload is global::Microsoft.Kiota.Abstractions.Serialization.UntypedObject && ((global::System.Func<bool>)(() => parseNode.GetChildNode("usAccountIdentification") != null))();
+            if (result.AccountIdentificationBeAccountIdentification == null && result.AccountIdentificationGbAccountIdentification == null && result.AccountIdentificationUsAccountIdentification == null && matchesUnionBranch0 && !matchesUnionBranch1 && !matchesUnionBranch2) result.AccountIdentificationBeAccountIdentification = global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.AccountIdentificationBeAccountIdentification(), parseNode);
+            if (result.AccountIdentificationBeAccountIdentification == null && result.AccountIdentificationGbAccountIdentification == null && result.AccountIdentificationUsAccountIdentification == null && matchesUnionBranch1 && !matchesUnionBranch0 && !matchesUnionBranch2) result.AccountIdentificationGbAccountIdentification = global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.AccountIdentificationGbAccountIdentification(), parseNode);
+            if (result.AccountIdentificationBeAccountIdentification == null && result.AccountIdentificationGbAccountIdentification == null && result.AccountIdentificationUsAccountIdentification == null && matchesUnionBranch2 && !matchesUnionBranch0 && !matchesUnionBranch1) result.AccountIdentificationUsAccountIdentification = global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.AccountIdentificationUsAccountIdentification(), parseNode);
+            if (result.AccountIdentificationBeAccountIdentification == null && result.AccountIdentificationGbAccountIdentification == null && result.AccountIdentificationUsAccountIdentification == null) result.UnrecognizedValue = unionPayload;
+return result;
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -87,17 +101,26 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <param name="writer">Serialization writer to use to serialize this model</param>
         public virtual void Serialize(ISerializationWriter writer)
         {
+            if (global::System.Object.ReferenceEquals(writer, null)) throw new global::System.ArgumentNullException(nameof(writer));
+            if (AccountIdentificationBeAccountIdentification == null && AccountIdentificationGbAccountIdentification == null && AccountIdentificationUsAccountIdentification == null) { if (UnrecognizedValue is global::Microsoft.Kiota.Abstractions.Serialization.UntypedObject rawObject) writer.WriteObjectValue(null, new global::Soenneker.OpenApi.Generated.OpenApiUnionAdditionalData(AdditionalData, rawObject)); else if (UnrecognizedValue != null) writer.WriteObjectValue(null, UnrecognizedValue); else if (AdditionalData.Count > 0) writer.WriteObjectValue(null, new global::Soenneker.OpenApi.Generated.OpenApiUnionAdditionalData(AdditionalData)); else writer.WriteNullValue(null); return; }
+            if (AccountIdentificationBeAccountIdentification != null && AccountIdentificationGbAccountIdentification == null && AccountIdentificationUsAccountIdentification == null) { if (AccountIdentificationBeAccountIdentification is global::Microsoft.Kiota.Abstractions.Serialization.IAdditionalDataHolder selectedData) foreach (var entry in AdditionalData) selectedData.AdditionalData[entry.Key] = entry.Value; writer.WriteObjectValue(null, AccountIdentificationBeAccountIdentification); return; }
+            if (AccountIdentificationGbAccountIdentification != null && AccountIdentificationBeAccountIdentification == null && AccountIdentificationUsAccountIdentification == null) { if (AccountIdentificationGbAccountIdentification is global::Microsoft.Kiota.Abstractions.Serialization.IAdditionalDataHolder selectedData) foreach (var entry in AdditionalData) selectedData.AdditionalData[entry.Key] = entry.Value; writer.WriteObjectValue(null, AccountIdentificationGbAccountIdentification); return; }
+            if (AccountIdentificationUsAccountIdentification != null && AccountIdentificationBeAccountIdentification == null && AccountIdentificationGbAccountIdentification == null) { if (AccountIdentificationUsAccountIdentification is global::Microsoft.Kiota.Abstractions.Serialization.IAdditionalDataHolder selectedData) foreach (var entry in AdditionalData) selectedData.AdditionalData[entry.Key] = entry.Value; writer.WriteObjectValue(null, AccountIdentificationUsAccountIdentification); return; }
+
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             if(AccountIdentificationBeAccountIdentification != null)
             {
+                if (AccountIdentificationBeAccountIdentification is global::Microsoft.Kiota.Abstractions.Serialization.IAdditionalDataHolder unionData) foreach (var entry in AdditionalData) unionData.AdditionalData[entry.Key] = entry.Value;
                 writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.AccountIdentificationBeAccountIdentification>(null, AccountIdentificationBeAccountIdentification);
             }
             else if(AccountIdentificationGbAccountIdentification != null)
             {
+                if (AccountIdentificationGbAccountIdentification is global::Microsoft.Kiota.Abstractions.Serialization.IAdditionalDataHolder unionData) foreach (var entry in AdditionalData) unionData.AdditionalData[entry.Key] = entry.Value;
                 writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.AccountIdentificationGbAccountIdentification>(null, AccountIdentificationGbAccountIdentification);
             }
             else if(AccountIdentificationUsAccountIdentification != null)
             {
+                if (AccountIdentificationUsAccountIdentification is global::Microsoft.Kiota.Abstractions.Serialization.IAdditionalDataHolder unionData) foreach (var entry in AdditionalData) unionData.AdditionalData[entry.Key] = entry.Value;
                 writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.AccountIdentificationUsAccountIdentification>(null, AccountIdentificationUsAccountIdentification);
             }
         }

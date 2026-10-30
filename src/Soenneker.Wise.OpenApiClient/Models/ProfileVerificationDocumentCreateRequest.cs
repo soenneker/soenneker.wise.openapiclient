@@ -11,114 +11,162 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class ProfileVerificationDocumentCreateRequest : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("birthCity") is { } nullNodeBirthCity && nullNodeBirthCity.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) BirthCity = null;
+            if (parseNode.GetChildNode("birthCountry") is { } nullNodeBirthCountry && nullNodeBirthCountry.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) BirthCountry = null;
+            if (parseNode.GetChildNode("employerCity") is { } nullNodeEmployerCity && nullNodeEmployerCity.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) EmployerCity = null;
+            if (parseNode.GetChildNode("employerCountry") is { } nullNodeEmployerCountry && nullNodeEmployerCountry.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) EmployerCountry = null;
+            if (parseNode.GetChildNode("employerName") is { } nullNodeEmployerName && nullNodeEmployerName.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) EmployerName = null;
+            if (parseNode.GetChildNode("expiryDate") is { } nullNodeExpiryDate && nullNodeExpiryDate.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ExpiryDate = null;
+            if (parseNode.GetChildNode("firstName") is { } nullNodeFirstName && nullNodeFirstName.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) FirstName = null;
+            if (parseNode.GetChildNode("issueDate") is { } nullNodeIssueDate && nullNodeIssueDate.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) IssueDate = null;
+            if (parseNode.GetChildNode("issuerCountry") is { } nullNodeIssuerCountry && nullNodeIssuerCountry.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) IssuerCountry = null;
+            if (parseNode.GetChildNode("issuerState") is { } nullNodeIssuerState && nullNodeIssuerState.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) IssuerState = null;
+            if (parseNode.GetChildNode("lastName") is { } nullNodeLastName && nullNodeLastName.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) LastName = null;
+            if (parseNode.GetChildNode("nationality") is { } nullNodeNationality && nullNodeNationality.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Nationality = null;
+            if (parseNode.GetChildNode("type") is { } nullNodeType && nullNodeType.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Type = null;
+            if (parseNode.GetChildNode("uniqueIdentifier") is { } nullNodeUniqueIdentifier && nullNodeUniqueIdentifier.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) UniqueIdentifier = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The city of birth of the customer.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? BirthCity { get; set; }
+        public string? BirthCity { get => _explicitNullValueBirthCity; set { _explicitNullValueBirthCity = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("birthCity"); else _explicitNullProperties?.Remove("birthCity"); } }
+        private string? _explicitNullValueBirthCity = default!;
 #nullable restore
 #else
-        public string BirthCity { get; set; }
+        public string BirthCity { get => _explicitNullValueBirthCity; set { _explicitNullValueBirthCity = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("birthCity"); else _explicitNullProperties?.Remove("birthCity"); } }
+        private string _explicitNullValueBirthCity = default!;
 #endif
         /// <summary>2 characters ISO country code.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? BirthCountry { get; set; }
+        public string? BirthCountry { get => _explicitNullValueBirthCountry; set { _explicitNullValueBirthCountry = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("birthCountry"); else _explicitNullProperties?.Remove("birthCountry"); } }
+        private string? _explicitNullValueBirthCountry = default!;
 #nullable restore
 #else
-        public string BirthCountry { get; set; }
+        public string BirthCountry { get => _explicitNullValueBirthCountry; set { _explicitNullValueBirthCountry = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("birthCountry"); else _explicitNullProperties?.Remove("birthCountry"); } }
+        private string _explicitNullValueBirthCountry = default!;
 #endif
         /// <summary>The city of the employer. Type must be `EMIRATES_EMPLOYER`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? EmployerCity { get; set; }
+        public string? EmployerCity { get => _explicitNullValueEmployerCity; set { _explicitNullValueEmployerCity = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("employerCity"); else _explicitNullProperties?.Remove("employerCity"); } }
+        private string? _explicitNullValueEmployerCity = default!;
 #nullable restore
 #else
-        public string EmployerCity { get; set; }
+        public string EmployerCity { get => _explicitNullValueEmployerCity; set { _explicitNullValueEmployerCity = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("employerCity"); else _explicitNullProperties?.Remove("employerCity"); } }
+        private string _explicitNullValueEmployerCity = default!;
 #endif
         /// <summary>2 characters ISO country code. Type must be `EMIRATES_EMPLOYER`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? EmployerCountry { get; set; }
+        public string? EmployerCountry { get => _explicitNullValueEmployerCountry; set { _explicitNullValueEmployerCountry = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("employerCountry"); else _explicitNullProperties?.Remove("employerCountry"); } }
+        private string? _explicitNullValueEmployerCountry = default!;
 #nullable restore
 #else
-        public string EmployerCountry { get; set; }
+        public string EmployerCountry { get => _explicitNullValueEmployerCountry; set { _explicitNullValueEmployerCountry = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("employerCountry"); else _explicitNullProperties?.Remove("employerCountry"); } }
+        private string _explicitNullValueEmployerCountry = default!;
 #endif
         /// <summary>The name of the employer. Type must be `EMIRATES_EMPLOYER`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? EmployerName { get; set; }
+        public string? EmployerName { get => _explicitNullValueEmployerName; set { _explicitNullValueEmployerName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("employerName"); else _explicitNullProperties?.Remove("employerName"); } }
+        private string? _explicitNullValueEmployerName = default!;
 #nullable restore
 #else
-        public string EmployerName { get; set; }
+        public string EmployerName { get => _explicitNullValueEmployerName; set { _explicitNullValueEmployerName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("employerName"); else _explicitNullProperties?.Remove("employerName"); } }
+        private string _explicitNullValueEmployerName = default!;
 #endif
         /// <summary>Document expiry date.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? ExpiryDate { get; set; }
+        public string? ExpiryDate { get => _explicitNullValueExpiryDate; set { _explicitNullValueExpiryDate = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("expiryDate"); else _explicitNullProperties?.Remove("expiryDate"); } }
+        private string? _explicitNullValueExpiryDate = default!;
 #nullable restore
 #else
-        public string ExpiryDate { get; set; }
+        public string ExpiryDate { get => _explicitNullValueExpiryDate; set { _explicitNullValueExpiryDate = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("expiryDate"); else _explicitNullProperties?.Remove("expiryDate"); } }
+        private string _explicitNullValueExpiryDate = default!;
 #endif
         /// <summary>Person first name in document.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? FirstName { get; set; }
+        public string? FirstName { get => _explicitNullValueFirstName; set { _explicitNullValueFirstName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("firstName"); else _explicitNullProperties?.Remove("firstName"); } }
+        private string? _explicitNullValueFirstName = default!;
 #nullable restore
 #else
-        public string FirstName { get; set; }
+        public string FirstName { get => _explicitNullValueFirstName; set { _explicitNullValueFirstName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("firstName"); else _explicitNullProperties?.Remove("firstName"); } }
+        private string _explicitNullValueFirstName = default!;
 #endif
         /// <summary>Document issue date.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? IssueDate { get; set; }
+        public string? IssueDate { get => _explicitNullValueIssueDate; set { _explicitNullValueIssueDate = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("issueDate"); else _explicitNullProperties?.Remove("issueDate"); } }
+        private string? _explicitNullValueIssueDate = default!;
 #nullable restore
 #else
-        public string IssueDate { get; set; }
+        public string IssueDate { get => _explicitNullValueIssueDate; set { _explicitNullValueIssueDate = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("issueDate"); else _explicitNullProperties?.Remove("issueDate"); } }
+        private string _explicitNullValueIssueDate = default!;
 #endif
         /// <summary>Issued by country code. For example &quot;US&quot;.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? IssuerCountry { get; set; }
+        public string? IssuerCountry { get => _explicitNullValueIssuerCountry; set { _explicitNullValueIssuerCountry = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("issuerCountry"); else _explicitNullProperties?.Remove("issuerCountry"); } }
+        private string? _explicitNullValueIssuerCountry = default!;
 #nullable restore
 #else
-        public string IssuerCountry { get; set; }
+        public string IssuerCountry { get => _explicitNullValueIssuerCountry; set { _explicitNullValueIssuerCountry = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("issuerCountry"); else _explicitNullProperties?.Remove("issuerCountry"); } }
+        private string _explicitNullValueIssuerCountry = default!;
 #endif
         /// <summary>Issued by state code. For example &quot;NY&quot;.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? IssuerState { get; set; }
+        public string? IssuerState { get => _explicitNullValueIssuerState; set { _explicitNullValueIssuerState = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("issuerState"); else _explicitNullProperties?.Remove("issuerState"); } }
+        private string? _explicitNullValueIssuerState = default!;
 #nullable restore
 #else
-        public string IssuerState { get; set; }
+        public string IssuerState { get => _explicitNullValueIssuerState; set { _explicitNullValueIssuerState = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("issuerState"); else _explicitNullProperties?.Remove("issuerState"); } }
+        private string _explicitNullValueIssuerState = default!;
 #endif
         /// <summary>Person last name in document.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? LastName { get; set; }
+        public string? LastName { get => _explicitNullValueLastName; set { _explicitNullValueLastName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("lastName"); else _explicitNullProperties?.Remove("lastName"); } }
+        private string? _explicitNullValueLastName = default!;
 #nullable restore
 #else
-        public string LastName { get; set; }
+        public string LastName { get => _explicitNullValueLastName; set { _explicitNullValueLastName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("lastName"); else _explicitNullProperties?.Remove("lastName"); } }
+        private string _explicitNullValueLastName = default!;
 #endif
         /// <summary>2 characters ISO country code.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Nationality { get; set; }
+        public string? Nationality { get => _explicitNullValueNationality; set { _explicitNullValueNationality = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("nationality"); else _explicitNullProperties?.Remove("nationality"); } }
+        private string? _explicitNullValueNationality = default!;
 #nullable restore
 #else
-        public string Nationality { get; set; }
+        public string Nationality { get => _explicitNullValueNationality; set { _explicitNullValueNationality = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("nationality"); else _explicitNullProperties?.Remove("nationality"); } }
+        private string _explicitNullValueNationality = default!;
 #endif
         /// <summary>Document type.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.ProfileVerificationDocumentCreateRequestType? Type { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.ProfileVerificationDocumentCreateRequestType? Type { get => _explicitNullValueType; set { _explicitNullValueType = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("type"); else _explicitNullProperties?.Remove("type"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.ProfileVerificationDocumentCreateRequestType? _explicitNullValueType = default!;
         /// <summary>Document number or value. Must be digits only for `SSN` or `FINANCIAL_CAPACITY_BR`. When using `FINANCIAL_CAPACITY_BR`, the value must contain the financial capacity amount in BRL (Brazilian Real).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? UniqueIdentifier { get; set; }
+        public string? UniqueIdentifier { get => _explicitNullValueUniqueIdentifier; set { _explicitNullValueUniqueIdentifier = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("uniqueIdentifier"); else _explicitNullProperties?.Remove("uniqueIdentifier"); } }
+        private string? _explicitNullValueUniqueIdentifier = default!;
 #nullable restore
 #else
-        public string UniqueIdentifier { get; set; }
+        public string UniqueIdentifier { get => _explicitNullValueUniqueIdentifier; set { _explicitNullValueUniqueIdentifier = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("uniqueIdentifier"); else _explicitNullProperties?.Remove("uniqueIdentifier"); } }
+        private string _explicitNullValueUniqueIdentifier = default!;
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.ProfileVerificationDocumentCreateRequest"/> and sets the default values.
@@ -135,7 +183,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.ProfileVerificationDocumentCreateRequest CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.ProfileVerificationDocumentCreateRequest();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.ProfileVerificationDocumentCreateRequest(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -182,6 +230,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteStringValue("nationality", Nationality);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileVerificationDocumentCreateRequestType>("type", Type);
             writer.WriteStringValue("uniqueIdentifier", UniqueIdentifier);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

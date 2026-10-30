@@ -11,39 +11,61 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class IndiaTransferPurposeSubmissionDataData : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("additionalDocumentFileName") is { } nullNodeAdditionalDocumentFileName && nullNodeAdditionalDocumentFileName.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) AdditionalDocumentFileName = null;
+            if (parseNode.GetChildNode("code") is { } nullNodeCode && nullNodeCode.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Code = null;
+            if (parseNode.GetChildNode("educationPaidWithLoan") is { } nullNodeEducationPaidWithLoan && nullNodeEducationPaidWithLoan.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) EducationPaidWithLoan = null;
+            if (parseNode.GetChildNode("loanDocumentFileName") is { } nullNodeLoanDocumentFileName && nullNodeLoanDocumentFileName.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) LoanDocumentFileName = null;
+            if (parseNode.GetChildNode("passportFileName") is { } nullNodePassportFileName && nullNodePassportFileName.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PassportFileName = null;
+            if (parseNode.GetChildNode("tcsTaxApplies") is { } nullNodeTcsTaxApplies && nullNodeTcsTaxApplies.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TcsTaxApplies = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Filename for the additional document provided. The type of file supplied as additional document must be based on the `code`, and must be in the profile&apos;s name.- For `OVERSEAS_EDUCATION` or `EDUCATION_EXPENSES` this can be a visa or university admission letter.- For `BUSINESS_TRAVEL` or `VACATION` this can be a visa or travel ticket.- For `MEDICAL_TREATMENT` this can be a hospital invoice, doctor&apos;s confirmation, or appointment letter.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? AdditionalDocumentFileName { get; set; }
+        public string? AdditionalDocumentFileName { get => _explicitNullValueAdditionalDocumentFileName; set { _explicitNullValueAdditionalDocumentFileName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("additionalDocumentFileName"); else _explicitNullProperties?.Remove("additionalDocumentFileName"); } }
+        private string? _explicitNullValueAdditionalDocumentFileName = default!;
 #nullable restore
 #else
-        public string AdditionalDocumentFileName { get; set; }
+        public string AdditionalDocumentFileName { get => _explicitNullValueAdditionalDocumentFileName; set { _explicitNullValueAdditionalDocumentFileName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("additionalDocumentFileName"); else _explicitNullProperties?.Remove("additionalDocumentFileName"); } }
+        private string _explicitNullValueAdditionalDocumentFileName = default!;
 #endif
         /// <summary>Represents the purpose of the profile&apos;s transfer.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.IndiaTransferPurposeSubmissionDataDataCode? Code { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.IndiaTransferPurposeSubmissionDataDataCode? Code { get => _explicitNullValueCode; set { _explicitNullValueCode = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("code"); else _explicitNullProperties?.Remove("code"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.IndiaTransferPurposeSubmissionDataDataCode? _explicitNullValueCode = default!;
         /// <summary>If `code` is `OVERSEAS_EDUCATION` or `EDUCATION_EXPENSES`, set to `true` if the profile is paying for this transfer with a loan from a financial institution. For other codes set to `false`.</summary>
-        public bool? EducationPaidWithLoan { get; set; }
+        public bool? EducationPaidWithLoan { get => _explicitNullValueEducationPaidWithLoan; set { _explicitNullValueEducationPaidWithLoan = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("educationPaidWithLoan"); else _explicitNullProperties?.Remove("educationPaidWithLoan"); } }
+        private bool? _explicitNullValueEducationPaidWithLoan = default!;
         /// <summary>Required when `educationPaidWithLoan` is `true`. Filename for the loan sanction letter including sanctioned amount and borrower details.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? LoanDocumentFileName { get; set; }
+        public string? LoanDocumentFileName { get => _explicitNullValueLoanDocumentFileName; set { _explicitNullValueLoanDocumentFileName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("loanDocumentFileName"); else _explicitNullProperties?.Remove("loanDocumentFileName"); } }
+        private string? _explicitNullValueLoanDocumentFileName = default!;
 #nullable restore
 #else
-        public string LoanDocumentFileName { get; set; }
+        public string LoanDocumentFileName { get => _explicitNullValueLoanDocumentFileName; set { _explicitNullValueLoanDocumentFileName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("loanDocumentFileName"); else _explicitNullProperties?.Remove("loanDocumentFileName"); } }
+        private string _explicitNullValueLoanDocumentFileName = default!;
 #endif
         /// <summary>Filename for the profile&apos;s passport image.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? PassportFileName { get; set; }
+        public string? PassportFileName { get => _explicitNullValuePassportFileName; set { _explicitNullValuePassportFileName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("passportFileName"); else _explicitNullProperties?.Remove("passportFileName"); } }
+        private string? _explicitNullValuePassportFileName = default!;
 #nullable restore
 #else
-        public string PassportFileName { get; set; }
+        public string PassportFileName { get => _explicitNullValuePassportFileName; set { _explicitNullValuePassportFileName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("passportFileName"); else _explicitNullProperties?.Remove("passportFileName"); } }
+        private string _explicitNullValuePassportFileName = default!;
 #endif
         /// <summary>Must be set to `true` if the profile has remitted more than INR 10 lakhs (including the current transaction) in the current financial year.</summary>
-        public bool? TcsTaxApplies { get; set; }
+        public bool? TcsTaxApplies { get => _explicitNullValueTcsTaxApplies; set { _explicitNullValueTcsTaxApplies = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("tcsTaxApplies"); else _explicitNullProperties?.Remove("tcsTaxApplies"); } }
+        private bool? _explicitNullValueTcsTaxApplies = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.IndiaTransferPurposeSubmissionDataData"/> and sets the default values.
         /// </summary>
@@ -59,7 +81,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.IndiaTransferPurposeSubmissionDataData CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.IndiaTransferPurposeSubmissionDataData();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.IndiaTransferPurposeSubmissionDataData(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -90,6 +112,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteStringValue("loanDocumentFileName", LoanDocumentFileName);
             writer.WriteStringValue("passportFileName", PassportFileName);
             writer.WriteBoolValue("tcsTaxApplies", TcsTaxApplies);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

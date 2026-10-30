@@ -12,42 +12,63 @@ namespace Soenneker.Wise.OpenApiClient.Models
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class QuotePaymentOptionsItemPrice : IAdditionalDataHolder, IParsable
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("calculatedOn") is { } nullNodeCalculatedOn && nullNodeCalculatedOn.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CalculatedOn = null;
+            if (parseNode.GetChildNode("deferredFee") is { } nullNodeDeferredFee && nullNodeDeferredFee.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) DeferredFee = null;
+            if (parseNode.GetChildNode("items") is { } nullNodeItems && nullNodeItems.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Items = null;
+            if (parseNode.GetChildNode("priceSetId") is { } nullNodePriceSetId && nullNodePriceSetId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PriceSetId = null;
+            if (parseNode.GetChildNode("total") is { } nullNodeTotal && nullNodeTotal.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Total = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The calculatedOn property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemPriceCalculatedOn? CalculatedOn { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemPriceCalculatedOn? CalculatedOn { get => _explicitNullValueCalculatedOn; set { _explicitNullValueCalculatedOn = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("calculatedOn"); else _explicitNullProperties?.Remove("calculatedOn"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemPriceCalculatedOn? _explicitNullValueCalculatedOn = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemPriceCalculatedOn CalculatedOn { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemPriceCalculatedOn CalculatedOn { get => _explicitNullValueCalculatedOn; set { _explicitNullValueCalculatedOn = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("calculatedOn"); else _explicitNullProperties?.Remove("calculatedOn"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemPriceCalculatedOn _explicitNullValueCalculatedOn = default!;
 #endif
         /// <summary>Deferred fee information from a `pricingConfiguration` override.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemPriceDeferredFee? DeferredFee { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemPriceDeferredFee? DeferredFee { get => _explicitNullValueDeferredFee; set { _explicitNullValueDeferredFee = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("deferredFee"); else _explicitNullProperties?.Remove("deferredFee"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemPriceDeferredFee? _explicitNullValueDeferredFee = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemPriceDeferredFee DeferredFee { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemPriceDeferredFee DeferredFee { get => _explicitNullValueDeferredFee; set { _explicitNullValueDeferredFee = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("deferredFee"); else _explicitNullProperties?.Remove("deferredFee"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemPriceDeferredFee _explicitNullValueDeferredFee = default!;
 #endif
         /// <summary>Details the different elements contained in the total price.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemPriceItemsItem>? Items { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemPriceItemsItem>? Items { get => _explicitNullValueItems; set { _explicitNullValueItems = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("items"); else _explicitNullProperties?.Remove("items"); } }
+        private List<global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemPriceItemsItem>? _explicitNullValueItems = default!;
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemPriceItemsItem> Items { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemPriceItemsItem> Items { get => _explicitNullValueItems; set { _explicitNullValueItems = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("items"); else _explicitNullProperties?.Remove("items"); } }
+        private List<global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemPriceItemsItem> _explicitNullValueItems = default!;
 #endif
         /// <summary>ID of the price structure.</summary>
-        public long? PriceSetId { get; set; }
+        public long? PriceSetId { get => _explicitNullValuePriceSetId; set { _explicitNullValuePriceSetId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("priceSetId"); else _explicitNullProperties?.Remove("priceSetId"); } }
+        private long? _explicitNullValuePriceSetId = default!;
         /// <summary>The total fees to be paid. Use this value when displaying fees in your app.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemPriceTotal? Total { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemPriceTotal? Total { get => _explicitNullValueTotal; set { _explicitNullValueTotal = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("total"); else _explicitNullProperties?.Remove("total"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemPriceTotal? _explicitNullValueTotal = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemPriceTotal Total { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemPriceTotal Total { get => _explicitNullValueTotal; set { _explicitNullValueTotal = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("total"); else _explicitNullProperties?.Remove("total"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemPriceTotal _explicitNullValueTotal = default!;
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemPrice"/> and sets the default values.
@@ -64,7 +85,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemPrice CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemPrice();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemPrice(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -93,6 +114,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemPriceItemsItem>("items", Items);
             writer.WriteLongValue("priceSetId", PriceSetId);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.QuotePaymentOptionsItemPriceTotal>("total", Total);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

@@ -11,34 +11,52 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class IdDocumentSubmissionDataData : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("backSideFileName") is { } nullNodeBackSideFileName && nullNodeBackSideFileName.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) BackSideFileName = null;
+            if (parseNode.GetChildNode("documentType") is { } nullNodeDocumentType && nullNodeDocumentType.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) DocumentType = null;
+            if (parseNode.GetChildNode("frontSideFileName") is { } nullNodeFrontSideFileName && nullNodeFrontSideFileName.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) FrontSideFileName = null;
+            if (parseNode.GetChildNode("issuingCountry") is { } nullNodeIssuingCountry && nullNodeIssuingCountry.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) IssuingCountry = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Filename of the back side image. Required for `ID_CARD`, `DRIVERS_LICENSE`, `TAX_ID`, `RESIDENCE_PERMIT`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? BackSideFileName { get; set; }
+        public string? BackSideFileName { get => _explicitNullValueBackSideFileName; set { _explicitNullValueBackSideFileName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("backSideFileName"); else _explicitNullProperties?.Remove("backSideFileName"); } }
+        private string? _explicitNullValueBackSideFileName = default!;
 #nullable restore
 #else
-        public string BackSideFileName { get; set; }
+        public string BackSideFileName { get => _explicitNullValueBackSideFileName; set { _explicitNullValueBackSideFileName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("backSideFileName"); else _explicitNullProperties?.Remove("backSideFileName"); } }
+        private string _explicitNullValueBackSideFileName = default!;
 #endif
         /// <summary>The documentType property</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.IdDocumentSubmissionDataDataDocumentType? DocumentType { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.IdDocumentSubmissionDataDataDocumentType? DocumentType { get => _explicitNullValueDocumentType; set { _explicitNullValueDocumentType = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("documentType"); else _explicitNullProperties?.Remove("documentType"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.IdDocumentSubmissionDataDataDocumentType? _explicitNullValueDocumentType = default!;
         /// <summary>Filename of the front side image. Required for `ID_CARD`, `DRIVERS_LICENSE`, `TAX_ID`, `RESIDENCE_PERMIT`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? FrontSideFileName { get; set; }
+        public string? FrontSideFileName { get => _explicitNullValueFrontSideFileName; set { _explicitNullValueFrontSideFileName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("frontSideFileName"); else _explicitNullProperties?.Remove("frontSideFileName"); } }
+        private string? _explicitNullValueFrontSideFileName = default!;
 #nullable restore
 #else
-        public string FrontSideFileName { get; set; }
+        public string FrontSideFileName { get => _explicitNullValueFrontSideFileName; set { _explicitNullValueFrontSideFileName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("frontSideFileName"); else _explicitNullProperties?.Remove("frontSideFileName"); } }
+        private string _explicitNullValueFrontSideFileName = default!;
 #endif
         /// <summary>ISO 3166-1 alpha-2 country code.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? IssuingCountry { get; set; }
+        public string? IssuingCountry { get => _explicitNullValueIssuingCountry; set { _explicitNullValueIssuingCountry = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("issuingCountry"); else _explicitNullProperties?.Remove("issuingCountry"); } }
+        private string? _explicitNullValueIssuingCountry = default!;
 #nullable restore
 #else
-        public string IssuingCountry { get; set; }
+        public string IssuingCountry { get => _explicitNullValueIssuingCountry; set { _explicitNullValueIssuingCountry = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("issuingCountry"); else _explicitNullProperties?.Remove("issuingCountry"); } }
+        private string _explicitNullValueIssuingCountry = default!;
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.IdDocumentSubmissionDataData"/> and sets the default values.
@@ -55,7 +73,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.IdDocumentSubmissionDataData CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.IdDocumentSubmissionDataData();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.IdDocumentSubmissionDataData(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -82,6 +100,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.IdDocumentSubmissionDataDataDocumentType>("documentType", DocumentType);
             writer.WriteStringValue("frontSideFileName", FrontSideFileName);
             writer.WriteStringValue("issuingCountry", IssuingCountry);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

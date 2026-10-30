@@ -11,34 +11,52 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class ProfileLimitsAggregateWindowMonthly : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("max") is { } nullNodeMax && nullNodeMax.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Max = null;
+            if (parseNode.GetChildNode("resetAt") is { } nullNodeResetAt && nullNodeResetAt.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ResetAt = null;
+            if (parseNode.GetChildNode("usage") is { } nullNodeUsage && nullNodeUsage.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Usage = null;
+            if (parseNode.GetChildNode("value") is { } nullNodeValue && nullNodeValue.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Value = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The max allowed limit for [monthly](https://wise.com/help/articles/2899986/what-are-my-spending-limits).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.ProfileLimitsAggregateWindowMonthlyMax? Max { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.ProfileLimitsAggregateWindowMonthlyMax? Max { get => _explicitNullValueMax; set { _explicitNullValueMax = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("max"); else _explicitNullProperties?.Remove("max"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.ProfileLimitsAggregateWindowMonthlyMax? _explicitNullValueMax = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.ProfileLimitsAggregateWindowMonthlyMax Max { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.ProfileLimitsAggregateWindowMonthlyMax Max { get => _explicitNullValueMax; set { _explicitNullValueMax = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("max"); else _explicitNullProperties?.Remove("max"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.ProfileLimitsAggregateWindowMonthlyMax _explicitNullValueMax = default!;
 #endif
         /// <summary>The time when the limit gets reset. ISO-8601 timestamp with timezone.</summary>
-        public DateTimeOffset? ResetAt { get; set; }
+        public DateTimeOffset? ResetAt { get => _explicitNullValueResetAt; set { _explicitNullValueResetAt = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("resetAt"); else _explicitNullProperties?.Remove("resetAt"); } }
+        private DateTimeOffset? _explicitNullValueResetAt = default!;
         /// <summary>The total authorised amount to date.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.ProfileLimitsAggregateWindowMonthlyUsage? Usage { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.ProfileLimitsAggregateWindowMonthlyUsage? Usage { get => _explicitNullValueUsage; set { _explicitNullValueUsage = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("usage"); else _explicitNullProperties?.Remove("usage"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.ProfileLimitsAggregateWindowMonthlyUsage? _explicitNullValueUsage = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.ProfileLimitsAggregateWindowMonthlyUsage Usage { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.ProfileLimitsAggregateWindowMonthlyUsage Usage { get => _explicitNullValueUsage; set { _explicitNullValueUsage = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("usage"); else _explicitNullProperties?.Remove("usage"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.ProfileLimitsAggregateWindowMonthlyUsage _explicitNullValueUsage = default!;
 #endif
         /// <summary>Monthly limit. The value should be between 0 and the max allowed.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.ProfileLimitsAggregateWindowMonthlyValue? Value { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.ProfileLimitsAggregateWindowMonthlyValue? Value { get => _explicitNullValueValue; set { _explicitNullValueValue = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("value"); else _explicitNullProperties?.Remove("value"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.ProfileLimitsAggregateWindowMonthlyValue? _explicitNullValueValue = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.ProfileLimitsAggregateWindowMonthlyValue Value { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.ProfileLimitsAggregateWindowMonthlyValue Value { get => _explicitNullValueValue; set { _explicitNullValueValue = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("value"); else _explicitNullProperties?.Remove("value"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.ProfileLimitsAggregateWindowMonthlyValue _explicitNullValueValue = default!;
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.ProfileLimitsAggregateWindowMonthly"/> and sets the default values.
@@ -55,7 +73,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.ProfileLimitsAggregateWindowMonthly CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.ProfileLimitsAggregateWindowMonthly();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.ProfileLimitsAggregateWindowMonthly(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -82,6 +100,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteDateTimeOffsetValue("resetAt", ResetAt);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileLimitsAggregateWindowMonthlyUsage>("usage", Usage);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileLimitsAggregateWindowMonthlyValue>("value", Value);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

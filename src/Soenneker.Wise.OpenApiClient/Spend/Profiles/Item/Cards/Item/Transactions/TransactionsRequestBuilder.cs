@@ -57,6 +57,8 @@ namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.Cards.Item.Transactio
                 { "400", global::Soenneker.Wise.OpenApiClient.Models.CardTransactionList400ProblemJsonResponse.CreateFromDiscriminatorValue },
                 { "422", global::Soenneker.Wise.OpenApiClient.Models.CardTransactionList422ProblemJsonResponse.CreateFromDiscriminatorValue },
                 { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
+                { "4XX", global::Soenneker.OpenApi.Generated.OpenApiRawError.CreateFromDiscriminatorValue },
+                { "5XX", global::Soenneker.OpenApi.Generated.OpenApiRawError.CreateFromDiscriminatorValue },
             };
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.CardTransactionList200Response>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.CardTransactionList200Response.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }

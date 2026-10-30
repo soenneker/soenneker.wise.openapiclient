@@ -11,34 +11,52 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class V4008Data : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("card_status") is { } nullNodeCardStatus && nullNodeCardStatus.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CardStatus = null;
+            if (parseNode.GetChildNode("changed_by") is { } nullNodeChangedBy && nullNodeChangedBy.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ChangedBy = null;
+            if (parseNode.GetChildNode("occurred_at") is { } nullNodeOccurredAt && nullNodeOccurredAt.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) OccurredAt = null;
+            if (parseNode.GetChildNode("resource") is { } nullNodeResource && nullNodeResource.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Resource = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The updated card status. Possible values:- `ACTIVE` - Card is active and can be used.- `INACTIVE` - Card is inactive and all transactions will be declined.- `BLOCKED` - Card is blocked and cannot be reversed back to any state.- `FROZEN` - Card is temporarily frozen; all authorization requests will be declined.- `PARTNER_SUSPENDED` - Card is suspended by Wise temporarily due to, for example, fraud reasons.- `EXPIRED` - Card is expired.- `PURGED` - The cardhoder data (ex: PAN, PIN) have been purged after exceeds the retention period (555 days after the card&apos;s expiry date).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? CardStatus { get; set; }
+        public string? CardStatus { get => _explicitNullValueCardStatus; set { _explicitNullValueCardStatus = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("card_status"); else _explicitNullProperties?.Remove("card_status"); } }
+        private string? _explicitNullValueCardStatus = default!;
 #nullable restore
 #else
-        public string CardStatus { get; set; }
+        public string CardStatus { get => _explicitNullValueCardStatus; set { _explicitNullValueCardStatus = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("card_status"); else _explicitNullProperties?.Remove("card_status"); } }
+        private string _explicitNullValueCardStatus = default!;
 #endif
         /// <summary>The identifier of the entity that updated the card status. If changed by Wise, the value is set to `internal_system`,otherwise, it is set to your `api_client_id`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? ChangedBy { get; set; }
+        public string? ChangedBy { get => _explicitNullValueChangedBy; set { _explicitNullValueChangedBy = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("changed_by"); else _explicitNullProperties?.Remove("changed_by"); } }
+        private string? _explicitNullValueChangedBy = default!;
 #nullable restore
 #else
-        public string ChangedBy { get; set; }
+        public string ChangedBy { get => _explicitNullValueChangedBy; set { _explicitNullValueChangedBy = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("changed_by"); else _explicitNullProperties?.Remove("changed_by"); } }
+        private string _explicitNullValueChangedBy = default!;
 #endif
         /// <summary>When the card status change occurred.</summary>
-        public DateTimeOffset? OccurredAt { get; set; }
+        public DateTimeOffset? OccurredAt { get => _explicitNullValueOccurredAt; set { _explicitNullValueOccurredAt = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("occurred_at"); else _explicitNullProperties?.Remove("occurred_at"); } }
+        private DateTimeOffset? _explicitNullValueOccurredAt = default!;
         /// <summary>The resource property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.V4008DataResource? Resource { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.V4008DataResource? Resource { get => _explicitNullValueResource; set { _explicitNullValueResource = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("resource"); else _explicitNullProperties?.Remove("resource"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.V4008DataResource? _explicitNullValueResource = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.V4008DataResource Resource { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.V4008DataResource Resource { get => _explicitNullValueResource; set { _explicitNullValueResource = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("resource"); else _explicitNullProperties?.Remove("resource"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.V4008DataResource _explicitNullValueResource = default!;
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.V4008Data"/> and sets the default values.
@@ -55,7 +73,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.V4008Data CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.V4008Data();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.V4008Data(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -82,6 +100,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteStringValue("changed_by", ChangedBy);
             writer.WriteDateTimeOffsetValue("occurred_at", OccurredAt);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V4008DataResource>("resource", Resource);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

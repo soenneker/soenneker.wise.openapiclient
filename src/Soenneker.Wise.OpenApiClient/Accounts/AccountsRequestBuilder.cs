@@ -66,6 +66,8 @@ namespace Soenneker.Wise.OpenApiClient.Accounts
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
                 { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
+                { "4XX", global::Soenneker.OpenApi.Generated.OpenApiRawError.CreateFromDiscriminatorValue },
+                { "5XX", global::Soenneker.OpenApi.Generated.OpenApiRawError.CreateFromDiscriminatorValue },
             };
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.RecipientList200Response>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.RecipientList200Response.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
@@ -95,6 +97,8 @@ namespace Soenneker.Wise.OpenApiClient.Accounts
                 { "400", global::Soenneker.Wise.OpenApiClient.Models.RecipientCreate400Response.CreateFromDiscriminatorValue },
                 { "401", global::Soenneker.Wise.OpenApiClient.Models.RecipientCreate401Response.CreateFromDiscriminatorValue },
                 { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
+                { "4XX", global::Soenneker.OpenApi.Generated.OpenApiRawError.CreateFromDiscriminatorValue },
+                { "5XX", global::Soenneker.OpenApi.Generated.OpenApiRawError.CreateFromDiscriminatorValue },
             };
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.Recipient>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.Recipient.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }

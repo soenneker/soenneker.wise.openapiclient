@@ -11,145 +11,211 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class BusinessProfile : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("address") is { } nullNodeAddress && nullNodeAddress.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Address = null;
+            if (parseNode.GetChildNode("businessFreeFormDescription") is { } nullNodeBusinessFreeFormDescription && nullNodeBusinessFreeFormDescription.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) BusinessFreeFormDescription = null;
+            if (parseNode.GetChildNode("businessName") is { } nullNodeBusinessName && nullNodeBusinessName.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) BusinessName = null;
+            if (parseNode.GetChildNode("companyRole") is { } nullNodeCompanyRole && nullNodeCompanyRole.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CompanyRole = null;
+            if (parseNode.GetChildNode("companyType") is { } nullNodeCompanyType && nullNodeCompanyType.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CompanyType = null;
+            if (parseNode.GetChildNode("contactDetails") is { } nullNodeContactDetails && nullNodeContactDetails.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ContactDetails = null;
+            if (parseNode.GetChildNode("createdAt") is { } nullNodeCreatedAt && nullNodeCreatedAt.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CreatedAt = null;
+            if (parseNode.GetChildNode("currentState") is { } nullNodeCurrentState && nullNodeCurrentState.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CurrentState = null;
+            if (parseNode.GetChildNode("descriptionOfBusiness") is { } nullNodeDescriptionOfBusiness && nullNodeDescriptionOfBusiness.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) DescriptionOfBusiness = null;
+            if (parseNode.GetChildNode("email") is { } nullNodeEmail && nullNodeEmail.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Email = null;
+            if (parseNode.GetChildNode("firstLevelCategory") is { } nullNodeFirstLevelCategory && nullNodeFirstLevelCategory.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) FirstLevelCategory = null;
+            if (parseNode.GetChildNode("fullName") is { } nullNodeFullName && nullNodeFullName.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) FullName = null;
+            if (parseNode.GetChildNode("id") is { } nullNodeId && nullNodeId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Id = null;
+            if (parseNode.GetChildNode("industryCategories") is { } nullNodeIndustryCategories && nullNodeIndustryCategories.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) IndustryCategories = null;
+            if (parseNode.GetChildNode("operationalAddresses") is { } nullNodeOperationalAddresses && nullNodeOperationalAddresses.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) OperationalAddresses = null;
+            if (parseNode.GetChildNode("publicId") is { } nullNodePublicId && nullNodePublicId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PublicId = null;
+            if (parseNode.GetChildNode("registrationNumber") is { } nullNodeRegistrationNumber && nullNodeRegistrationNumber.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) RegistrationNumber = null;
+            if (parseNode.GetChildNode("secondLevelCategory") is { } nullNodeSecondLevelCategory && nullNodeSecondLevelCategory.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SecondLevelCategory = null;
+            if (parseNode.GetChildNode("type") is { } nullNodeType && nullNodeType.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Type = null;
+            if (parseNode.GetChildNode("updatedAt") is { } nullNodeUpdatedAt && nullNodeUpdatedAt.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) UpdatedAt = null;
+            if (parseNode.GetChildNode("userId") is { } nullNodeUserId && nullNodeUserId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) UserId = null;
+            if (parseNode.GetChildNode("webpage") is { } nullNodeWebpage && nullNodeWebpage.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Webpage = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Address associated with a profile.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.Address3? Address { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.Address3? Address { get => _explicitNullValueAddress; set { _explicitNullValueAddress = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("address"); else _explicitNullProperties?.Remove("address"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.Address3? _explicitNullValueAddress = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.Address3 Address { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.Address3 Address { get => _explicitNullValueAddress; set { _explicitNullValueAddress = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("address"); else _explicitNullProperties?.Remove("address"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.Address3 _explicitNullValueAddress = default!;
 #endif
         /// <summary>Free-form description of the business activities.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? BusinessFreeFormDescription { get; set; }
+        public string? BusinessFreeFormDescription { get => _explicitNullValueBusinessFreeFormDescription; set { _explicitNullValueBusinessFreeFormDescription = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("businessFreeFormDescription"); else _explicitNullProperties?.Remove("businessFreeFormDescription"); } }
+        private string? _explicitNullValueBusinessFreeFormDescription = default!;
 #nullable restore
 #else
-        public string BusinessFreeFormDescription { get; set; }
+        public string BusinessFreeFormDescription { get => _explicitNullValueBusinessFreeFormDescription; set { _explicitNullValueBusinessFreeFormDescription = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("businessFreeFormDescription"); else _explicitNullProperties?.Remove("businessFreeFormDescription"); } }
+        private string _explicitNullValueBusinessFreeFormDescription = default!;
 #endif
         /// <summary>Registered business name.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? BusinessName { get; set; }
+        public string? BusinessName { get => _explicitNullValueBusinessName; set { _explicitNullValueBusinessName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("businessName"); else _explicitNullProperties?.Remove("businessName"); } }
+        private string? _explicitNullValueBusinessName = default!;
 #nullable restore
 #else
-        public string BusinessName { get; set; }
+        public string BusinessName { get => _explicitNullValueBusinessName; set { _explicitNullValueBusinessName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("businessName"); else _explicitNullProperties?.Remove("businessName"); } }
+        private string _explicitNullValueBusinessName = default!;
 #endif
         /// <summary>Role of the person managing the business profile.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.BusinessProfileCompanyRole? CompanyRole { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.BusinessProfileCompanyRole? CompanyRole { get => _explicitNullValueCompanyRole; set { _explicitNullValueCompanyRole = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("companyRole"); else _explicitNullProperties?.Remove("companyRole"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.BusinessProfileCompanyRole? _explicitNullValueCompanyRole = default!;
         /// <summary>Type of company.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? CompanyType { get; set; }
+        public string? CompanyType { get => _explicitNullValueCompanyType; set { _explicitNullValueCompanyType = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("companyType"); else _explicitNullProperties?.Remove("companyType"); } }
+        private string? _explicitNullValueCompanyType = default!;
 #nullable restore
 #else
-        public string CompanyType { get; set; }
+        public string CompanyType { get => _explicitNullValueCompanyType; set { _explicitNullValueCompanyType = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("companyType"); else _explicitNullProperties?.Remove("companyType"); } }
+        private string _explicitNullValueCompanyType = default!;
 #endif
         /// <summary>Contact information for the business.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.BusinessProfileContactDetails? ContactDetails { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.BusinessProfileContactDetails? ContactDetails { get => _explicitNullValueContactDetails; set { _explicitNullValueContactDetails = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("contactDetails"); else _explicitNullProperties?.Remove("contactDetails"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.BusinessProfileContactDetails? _explicitNullValueContactDetails = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.BusinessProfileContactDetails ContactDetails { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.BusinessProfileContactDetails ContactDetails { get => _explicitNullValueContactDetails; set { _explicitNullValueContactDetails = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("contactDetails"); else _explicitNullProperties?.Remove("contactDetails"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.BusinessProfileContactDetails _explicitNullValueContactDetails = default!;
 #endif
         /// <summary>Timestamp when the profile was created (ISO 8601 format).</summary>
-        public DateTimeOffset? CreatedAt { get; set; }
+        public DateTimeOffset? CreatedAt { get => _explicitNullValueCreatedAt; set { _explicitNullValueCreatedAt = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("createdAt"); else _explicitNullProperties?.Remove("createdAt"); } }
+        private DateTimeOffset? _explicitNullValueCreatedAt = default!;
         /// <summary>Current status of this profile.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.BusinessProfileCurrentState? CurrentState { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.BusinessProfileCurrentState? CurrentState { get => _explicitNullValueCurrentState; set { _explicitNullValueCurrentState = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("currentState"); else _explicitNullProperties?.Remove("currentState"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.BusinessProfileCurrentState? _explicitNullValueCurrentState = default!;
         /// <summary>Deprecated. New integrations should use `industryCategories`. See [Migrating to industry categories](/guides/product/kyc/migrate-business-profile-industry-categories).</summary>
         [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? DescriptionOfBusiness { get; set; }
+        public string? DescriptionOfBusiness { get => _explicitNullValueDescriptionOfBusiness; set { _explicitNullValueDescriptionOfBusiness = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("descriptionOfBusiness"); else _explicitNullProperties?.Remove("descriptionOfBusiness"); } }
+        private string? _explicitNullValueDescriptionOfBusiness = default!;
 #nullable restore
 #else
-        public string DescriptionOfBusiness { get; set; }
+        public string DescriptionOfBusiness { get => _explicitNullValueDescriptionOfBusiness; set { _explicitNullValueDescriptionOfBusiness = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("descriptionOfBusiness"); else _explicitNullProperties?.Remove("descriptionOfBusiness"); } }
+        private string _explicitNullValueDescriptionOfBusiness = default!;
 #endif
         /// <summary>Primary email address for the business.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Email { get; set; }
+        public string? Email { get => _explicitNullValueEmail; set { _explicitNullValueEmail = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("email"); else _explicitNullProperties?.Remove("email"); } }
+        private string? _explicitNullValueEmail = default!;
 #nullable restore
 #else
-        public string Email { get; set; }
+        public string Email { get => _explicitNullValueEmail; set { _explicitNullValueEmail = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("email"); else _explicitNullProperties?.Remove("email"); } }
+        private string _explicitNullValueEmail = default!;
 #endif
         /// <summary>Deprecated. New integrations should use `industryCategories`. See [Migrating to industry categories](/guides/product/kyc/migrate-business-profile-industry-categories).Populated only when the profile was classified with the legacy fields, otherwise `null`. Create and update responses return the format you did not send as `null`, only [retrieve a profile](/api-reference/profile/profileget) derives both formats.</summary>
         [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? FirstLevelCategory { get; set; }
+        public string? FirstLevelCategory { get => _explicitNullValueFirstLevelCategory; set { _explicitNullValueFirstLevelCategory = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("firstLevelCategory"); else _explicitNullProperties?.Remove("firstLevelCategory"); } }
+        private string? _explicitNullValueFirstLevelCategory = default!;
 #nullable restore
 #else
-        public string FirstLevelCategory { get; set; }
+        public string FirstLevelCategory { get => _explicitNullValueFirstLevelCategory; set { _explicitNullValueFirstLevelCategory = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("firstLevelCategory"); else _explicitNullProperties?.Remove("firstLevelCategory"); } }
+        private string _explicitNullValueFirstLevelCategory = default!;
 #endif
         /// <summary>Full legal name of the business.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? FullName { get; set; }
+        public string? FullName { get => _explicitNullValueFullName; set { _explicitNullValueFullName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("fullName"); else _explicitNullProperties?.Remove("fullName"); } }
+        private string? _explicitNullValueFullName = default!;
 #nullable restore
 #else
-        public string FullName { get; set; }
+        public string FullName { get => _explicitNullValueFullName; set { _explicitNullValueFullName = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("fullName"); else _explicitNullProperties?.Remove("fullName"); } }
+        private string _explicitNullValueFullName = default!;
 #endif
         /// <summary>Unique identifier for the profile.</summary>
-        public long? Id { get; set; }
+        public long? Id { get => _explicitNullValueId; set { _explicitNullValueId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("id"); else _explicitNullProperties?.Remove("id"); } }
+        private long? _explicitNullValueId = default!;
         /// <summary>One or more industry categories classifying the business. See [Business Categories](/guides/product/kyc/business-categories) for the full list of valid values.Populated only when the profile was classified with `industryCategories`, otherwise `null`. Create and update responses return the format you did not send as `null`, only [retrieve a profile](/api-reference/profile/profileget) derives both formats.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<string>? IndustryCategories { get; set; }
+        public List<string>? IndustryCategories { get => _explicitNullValueIndustryCategories; set { _explicitNullValueIndustryCategories = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("industryCategories"); else _explicitNullProperties?.Remove("industryCategories"); } }
+        private List<string>? _explicitNullValueIndustryCategories = default!;
 #nullable restore
 #else
-        public List<string> IndustryCategories { get; set; }
+        public List<string> IndustryCategories { get => _explicitNullValueIndustryCategories; set { _explicitNullValueIndustryCategories = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("industryCategories"); else _explicitNullProperties?.Remove("industryCategories"); } }
+        private List<string> _explicitNullValueIndustryCategories = default!;
 #endif
         /// <summary>An array of operational addresses for the business.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.Address3>? OperationalAddresses { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.Address3>? OperationalAddresses { get => _explicitNullValueOperationalAddresses; set { _explicitNullValueOperationalAddresses = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("operationalAddresses"); else _explicitNullProperties?.Remove("operationalAddresses"); } }
+        private List<global::Soenneker.Wise.OpenApiClient.Models.Address3>? _explicitNullValueOperationalAddresses = default!;
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.Address3> OperationalAddresses { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.Address3> OperationalAddresses { get => _explicitNullValueOperationalAddresses; set { _explicitNullValueOperationalAddresses = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("operationalAddresses"); else _explicitNullProperties?.Remove("operationalAddresses"); } }
+        private List<global::Soenneker.Wise.OpenApiClient.Models.Address3> _explicitNullValueOperationalAddresses = default!;
 #endif
         /// <summary>Publicly accessible identifier for the profile.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? PublicId { get; set; }
+        public string? PublicId { get => _explicitNullValuePublicId; set { _explicitNullValuePublicId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("publicId"); else _explicitNullProperties?.Remove("publicId"); } }
+        private string? _explicitNullValuePublicId = default!;
 #nullable restore
 #else
-        public string PublicId { get; set; }
+        public string PublicId { get => _explicitNullValuePublicId; set { _explicitNullValuePublicId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("publicId"); else _explicitNullProperties?.Remove("publicId"); } }
+        private string _explicitNullValuePublicId = default!;
 #endif
         /// <summary>Business registration number.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? RegistrationNumber { get; set; }
+        public string? RegistrationNumber { get => _explicitNullValueRegistrationNumber; set { _explicitNullValueRegistrationNumber = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("registrationNumber"); else _explicitNullProperties?.Remove("registrationNumber"); } }
+        private string? _explicitNullValueRegistrationNumber = default!;
 #nullable restore
 #else
-        public string RegistrationNumber { get; set; }
+        public string RegistrationNumber { get => _explicitNullValueRegistrationNumber; set { _explicitNullValueRegistrationNumber = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("registrationNumber"); else _explicitNullProperties?.Remove("registrationNumber"); } }
+        private string _explicitNullValueRegistrationNumber = default!;
 #endif
         /// <summary>Deprecated. New integrations should use `industryCategories`. See [Migrating to industry categories](/guides/product/kyc/migrate-business-profile-industry-categories).Populated only when the profile was classified with the legacy fields, otherwise `null`. Create and update responses return the format you did not send as `null`, only [retrieve a profile](/api-reference/profile/profileget) derives both formats, where it may return `UNMAPPED` if the `industryCategories` combination has no legacy equivalent.</summary>
         [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? SecondLevelCategory { get; set; }
+        public string? SecondLevelCategory { get => _explicitNullValueSecondLevelCategory; set { _explicitNullValueSecondLevelCategory = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("secondLevelCategory"); else _explicitNullProperties?.Remove("secondLevelCategory"); } }
+        private string? _explicitNullValueSecondLevelCategory = default!;
 #nullable restore
 #else
-        public string SecondLevelCategory { get; set; }
+        public string SecondLevelCategory { get => _explicitNullValueSecondLevelCategory; set { _explicitNullValueSecondLevelCategory = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("secondLevelCategory"); else _explicitNullProperties?.Remove("secondLevelCategory"); } }
+        private string _explicitNullValueSecondLevelCategory = default!;
 #endif
         /// <summary>Type of profile.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.BusinessType? Type { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.BusinessType? Type { get => _explicitNullValueType; set { _explicitNullValueType = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("type"); else _explicitNullProperties?.Remove("type"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.BusinessType? _explicitNullValueType = default!;
         /// <summary>Timestamp when the profile was last updated (ISO 8601 format).</summary>
-        public DateTimeOffset? UpdatedAt { get; set; }
+        public DateTimeOffset? UpdatedAt { get => _explicitNullValueUpdatedAt; set { _explicitNullValueUpdatedAt = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("updatedAt"); else _explicitNullProperties?.Remove("updatedAt"); } }
+        private DateTimeOffset? _explicitNullValueUpdatedAt = default!;
         /// <summary>The ID of the user associated with this profile.</summary>
-        public long? UserId { get; set; }
+        public long? UserId { get => _explicitNullValueUserId; set { _explicitNullValueUserId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("userId"); else _explicitNullProperties?.Remove("userId"); } }
+        private long? _explicitNullValueUserId = default!;
         /// <summary>Business website URL.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Webpage { get; set; }
+        public string? Webpage { get => _explicitNullValueWebpage; set { _explicitNullValueWebpage = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("webpage"); else _explicitNullProperties?.Remove("webpage"); } }
+        private string? _explicitNullValueWebpage = default!;
 #nullable restore
 #else
-        public string Webpage { get; set; }
+        public string Webpage { get => _explicitNullValueWebpage; set { _explicitNullValueWebpage = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("webpage"); else _explicitNullProperties?.Remove("webpage"); } }
+        private string _explicitNullValueWebpage = default!;
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.BusinessProfile"/> and sets the default values.
@@ -166,7 +232,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.BusinessProfile CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.BusinessProfile();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.BusinessProfile(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -229,6 +295,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteDateTimeOffsetValue("updatedAt", UpdatedAt);
             writer.WriteLongValue("userId", UserId);
             writer.WriteStringValue("webpage", Webpage);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

@@ -11,26 +11,41 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class RecipientCompatibilityCheck200Response : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("accountId") is { } nullNodeAccountId && nullNodeAccountId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) AccountId = null;
+            if (parseNode.GetChildNode("confirmations") is { } nullNodeConfirmations && nullNodeConfirmations.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Confirmations = null;
+            if (parseNode.GetChildNode("quoteId") is { } nullNodeQuoteId && nullNodeQuoteId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) QuoteId = null;
+        }
+
         /// <summary>Recipient account ID.</summary>
-        public long? AccountId { get; set; }
+        public long? AccountId { get => _explicitNullValueAccountId; set { _explicitNullValueAccountId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("accountId"); else _explicitNullProperties?.Remove("accountId"); } }
+        private long? _explicitNullValueAccountId = default!;
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Contains verification results for the recipient&apos;s details. Only populated for currencies with recipient verification enabled (CNY, KRW, INR, IDR, EUR). See the [Recipient verification guides](/guides/product/send-money/recipients/recipient-verification) for details about how to handle this verification data by currency.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.Confirmations? Confirmations { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.Confirmations? Confirmations { get => _explicitNullValueConfirmations; set { _explicitNullValueConfirmations = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("confirmations"); else _explicitNullProperties?.Remove("confirmations"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.Confirmations? _explicitNullValueConfirmations = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.Confirmations Confirmations { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.Confirmations Confirmations { get => _explicitNullValueConfirmations; set { _explicitNullValueConfirmations = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("confirmations"); else _explicitNullProperties?.Remove("confirmations"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.Confirmations _explicitNullValueConfirmations = default!;
 #endif
         /// <summary>Quote ID.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? QuoteId { get; set; }
+        public string? QuoteId { get => _explicitNullValueQuoteId; set { _explicitNullValueQuoteId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("quoteId"); else _explicitNullProperties?.Remove("quoteId"); } }
+        private string? _explicitNullValueQuoteId = default!;
 #nullable restore
 #else
-        public string QuoteId { get; set; }
+        public string QuoteId { get => _explicitNullValueQuoteId; set { _explicitNullValueQuoteId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("quoteId"); else _explicitNullProperties?.Remove("quoteId"); } }
+        private string _explicitNullValueQuoteId = default!;
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.RecipientCompatibilityCheck200Response"/> and sets the default values.
@@ -47,7 +62,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.RecipientCompatibilityCheck200Response CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.RecipientCompatibilityCheck200Response();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.RecipientCompatibilityCheck200Response(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -72,6 +87,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteLongValue("accountId", AccountId);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Confirmations>("confirmations", Confirmations);
             writer.WriteStringValue("quoteId", QuoteId);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

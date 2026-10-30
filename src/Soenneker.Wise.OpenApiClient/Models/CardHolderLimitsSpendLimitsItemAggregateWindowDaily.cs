@@ -11,26 +11,41 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class CardHolderLimitsSpendLimitsItemAggregateWindowDaily : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("resetAt") is { } nullNodeResetAt && nullNodeResetAt.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ResetAt = null;
+            if (parseNode.GetChildNode("usage") is { } nullNodeUsage && nullNodeUsage.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Usage = null;
+            if (parseNode.GetChildNode("value") is { } nullNodeValue && nullNodeValue.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Value = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>When the usage resets. This is the end of the current day in the business profile&apos;s timezone, expressed as a UTC timestamp. A profile with no timezone configured defaults to UTC. For example, a Singapore profile&apos;s daily window ends at 23:59:59.999+08:00, serialised as `2023-07-31T15:59:59.999Z`.</summary>
-        public DateTimeOffset? ResetAt { get; set; }
+        public DateTimeOffset? ResetAt { get => _explicitNullValueResetAt; set { _explicitNullValueResetAt = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("resetAt"); else _explicitNullProperties?.Remove("resetAt"); } }
+        private DateTimeOffset? _explicitNullValueResetAt = default!;
         /// <summary>The total authorised amount during the daily window, across all cards belonging to the cardholder.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.CardHolderLimitsSpendLimitsItemAggregateWindowDailyUsage? Usage { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardHolderLimitsSpendLimitsItemAggregateWindowDailyUsage? Usage { get => _explicitNullValueUsage; set { _explicitNullValueUsage = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("usage"); else _explicitNullProperties?.Remove("usage"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.CardHolderLimitsSpendLimitsItemAggregateWindowDailyUsage? _explicitNullValueUsage = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.CardHolderLimitsSpendLimitsItemAggregateWindowDailyUsage Usage { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardHolderLimitsSpendLimitsItemAggregateWindowDailyUsage Usage { get => _explicitNullValueUsage; set { _explicitNullValueUsage = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("usage"); else _explicitNullProperties?.Remove("usage"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.CardHolderLimitsSpendLimitsItemAggregateWindowDailyUsage _explicitNullValueUsage = default!;
 #endif
         /// <summary>Daily limit.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.CardHolderLimitsSpendLimitsItemAggregateWindowDailyValue? Value { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardHolderLimitsSpendLimitsItemAggregateWindowDailyValue? Value { get => _explicitNullValueValue; set { _explicitNullValueValue = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("value"); else _explicitNullProperties?.Remove("value"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.CardHolderLimitsSpendLimitsItemAggregateWindowDailyValue? _explicitNullValueValue = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.CardHolderLimitsSpendLimitsItemAggregateWindowDailyValue Value { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardHolderLimitsSpendLimitsItemAggregateWindowDailyValue Value { get => _explicitNullValueValue; set { _explicitNullValueValue = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("value"); else _explicitNullProperties?.Remove("value"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.CardHolderLimitsSpendLimitsItemAggregateWindowDailyValue _explicitNullValueValue = default!;
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.CardHolderLimitsSpendLimitsItemAggregateWindowDaily"/> and sets the default values.
@@ -47,7 +62,9 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.CardHolderLimitsSpendLimitsItemAggregateWindowDaily CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.CardHolderLimitsSpendLimitsItemAggregateWindowDaily();
+            // Preserve a nullable root response.
+            if (parseNode.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) return null!;
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.CardHolderLimitsSpendLimitsItemAggregateWindowDaily(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -72,6 +89,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteDateTimeOffsetValue("resetAt", ResetAt);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardHolderLimitsSpendLimitsItemAggregateWindowDailyUsage>("usage", Usage);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardHolderLimitsSpendLimitsItemAggregateWindowDailyValue>("value", Value);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

@@ -12,40 +12,59 @@ namespace Soenneker.Wise.OpenApiClient.Models
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class TotalFunds200Response : IAdditionalDataHolder, IParsable
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("overdraft") is { } nullNodeOverdraft && nullNodeOverdraft.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Overdraft = null;
+            if (parseNode.GetChildNode("totalAvailable") is { } nullNodeTotalAvailable && nullNodeTotalAvailable.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TotalAvailable = null;
+            if (parseNode.GetChildNode("totalCash") is { } nullNodeTotalCash && nullNodeTotalCash.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TotalCash = null;
+            if (parseNode.GetChildNode("totalWorth") is { } nullNodeTotalWorth && nullNodeTotalWorth.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TotalWorth = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Overdraft details for the account.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseOverdraft? Overdraft { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseOverdraft? Overdraft { get => _explicitNullValueOverdraft; set { _explicitNullValueOverdraft = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("overdraft"); else _explicitNullProperties?.Remove("overdraft"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseOverdraft? _explicitNullValueOverdraft = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseOverdraft Overdraft { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseOverdraft Overdraft { get => _explicitNullValueOverdraft; set { _explicitNullValueOverdraft = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("overdraft"); else _explicitNullProperties?.Remove("overdraft"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseOverdraft _explicitNullValueOverdraft = default!;
 #endif
         /// <summary>Total available balance, which is the sum of cash ledger balance and any approved overdraft limit.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseTotalAvailable? TotalAvailable { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseTotalAvailable? TotalAvailable { get => _explicitNullValueTotalAvailable; set { _explicitNullValueTotalAvailable = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("totalAvailable"); else _explicitNullProperties?.Remove("totalAvailable"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseTotalAvailable? _explicitNullValueTotalAvailable = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseTotalAvailable TotalAvailable { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseTotalAvailable TotalAvailable { get => _explicitNullValueTotalAvailable; set { _explicitNullValueTotalAvailable = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("totalAvailable"); else _explicitNullProperties?.Remove("totalAvailable"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseTotalAvailable _explicitNullValueTotalAvailable = default!;
 #endif
         /// <summary>Total cash balance across all balances, including group balances but excluding asset portfolios.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseTotalCash? TotalCash { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseTotalCash? TotalCash { get => _explicitNullValueTotalCash; set { _explicitNullValueTotalCash = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("totalCash"); else _explicitNullProperties?.Remove("totalCash"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseTotalCash? _explicitNullValueTotalCash = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseTotalCash TotalCash { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseTotalCash TotalCash { get => _explicitNullValueTotalCash; set { _explicitNullValueTotalCash = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("totalCash"); else _explicitNullProperties?.Remove("totalCash"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseTotalCash _explicitNullValueTotalCash = default!;
 #endif
         /// <summary>Total worth of the account, including cash ledger balance and valuation of any asset portfolio if invested.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseTotalWorth? TotalWorth { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseTotalWorth? TotalWorth { get => _explicitNullValueTotalWorth; set { _explicitNullValueTotalWorth = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("totalWorth"); else _explicitNullProperties?.Remove("totalWorth"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseTotalWorth? _explicitNullValueTotalWorth = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseTotalWorth TotalWorth { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseTotalWorth TotalWorth { get => _explicitNullValueTotalWorth; set { _explicitNullValueTotalWorth = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("totalWorth"); else _explicitNullProperties?.Remove("totalWorth"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseTotalWorth _explicitNullValueTotalWorth = default!;
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200Response"/> and sets the default values.
@@ -62,7 +81,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200Response CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200Response();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200Response(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -89,6 +108,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseTotalAvailable>("totalAvailable", TotalAvailable);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseTotalCash>("totalCash", TotalCash);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseTotalWorth>("totalWorth", TotalWorth);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

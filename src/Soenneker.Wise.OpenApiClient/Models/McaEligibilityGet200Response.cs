@@ -11,22 +11,38 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class McaEligibilityGet200Response : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("accountType") is { } nullNodeAccountType && nullNodeAccountType.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) AccountType = null;
+            if (parseNode.GetChildNode("eligibilityCode") is { } nullNodeEligibilityCode && nullNodeEligibilityCode.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) EligibilityCode = null;
+            if (parseNode.GetChildNode("eligible") is { } nullNodeEligible && nullNodeEligible.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Eligible = null;
+            if (parseNode.GetChildNode("ineligibilityReason") is { } nullNodeIneligibilityReason && nullNodeIneligibilityReason.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) IneligibilityReason = null;
+        }
+
         /// <summary>Account type available.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.McaEligibilityGet200ResponseAccountType? AccountType { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.McaEligibilityGet200ResponseAccountType? AccountType { get => _explicitNullValueAccountType; set { _explicitNullValueAccountType = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("accountType"); else _explicitNullProperties?.Remove("accountType"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.McaEligibilityGet200ResponseAccountType? _explicitNullValueAccountType = default!;
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Eligibility status code.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.McaEligibilityGet200ResponseEligibilityCode? EligibilityCode { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.McaEligibilityGet200ResponseEligibilityCode? EligibilityCode { get => _explicitNullValueEligibilityCode; set { _explicitNullValueEligibilityCode = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("eligibilityCode"); else _explicitNullProperties?.Remove("eligibilityCode"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.McaEligibilityGet200ResponseEligibilityCode? _explicitNullValueEligibilityCode = default!;
         /// <summary>Whether the profile is eligible for a multi currency account.</summary>
-        public bool? Eligible { get; set; }
+        public bool? Eligible { get => _explicitNullValueEligible; set { _explicitNullValueEligible = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("eligible"); else _explicitNullProperties?.Remove("eligible"); } }
+        private bool? _explicitNullValueEligible = default!;
         /// <summary>Reason the profile is not eligible.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? IneligibilityReason { get; set; }
+        public string? IneligibilityReason { get => _explicitNullValueIneligibilityReason; set { _explicitNullValueIneligibilityReason = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("ineligibilityReason"); else _explicitNullProperties?.Remove("ineligibilityReason"); } }
+        private string? _explicitNullValueIneligibilityReason = default!;
 #nullable restore
 #else
-        public string IneligibilityReason { get; set; }
+        public string IneligibilityReason { get => _explicitNullValueIneligibilityReason; set { _explicitNullValueIneligibilityReason = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("ineligibilityReason"); else _explicitNullProperties?.Remove("ineligibilityReason"); } }
+        private string _explicitNullValueIneligibilityReason = default!;
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.McaEligibilityGet200Response"/> and sets the default values.
@@ -43,7 +59,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.McaEligibilityGet200Response CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.McaEligibilityGet200Response();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.McaEligibilityGet200Response(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -70,6 +86,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.McaEligibilityGet200ResponseEligibilityCode>("eligibilityCode", EligibilityCode);
             writer.WriteBoolValue("eligible", Eligible);
             writer.WriteStringValue("ineligibilityReason", IneligibilityReason);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

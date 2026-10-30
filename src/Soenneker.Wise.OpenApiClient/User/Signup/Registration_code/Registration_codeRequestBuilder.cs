@@ -57,6 +57,8 @@ namespace Soenneker.Wise.OpenApiClient.User.Signup.Registration_code
             {
                 { "409", global::Soenneker.Wise.OpenApiClient.Models.UserCreate409Response.CreateFromDiscriminatorValue },
                 { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
+                { "4XX", global::Soenneker.OpenApi.Generated.OpenApiRawError.CreateFromDiscriminatorValue },
+                { "5XX", global::Soenneker.OpenApi.Generated.OpenApiRawError.CreateFromDiscriminatorValue },
             };
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.User>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.User.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }

@@ -11,16 +11,26 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class PushProvisioningPaymentTokensListRequest : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("walletNames") is { } nullNodeWalletNames && nullNodeWalletNames.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) WalletNames = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>List of supported wallet types.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningPaymentTokensListRequestWalletNamesItem?>? WalletNames { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningPaymentTokensListRequestWalletNamesItem?>? WalletNames { get => _explicitNullValueWalletNames; set { _explicitNullValueWalletNames = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("walletNames"); else _explicitNullProperties?.Remove("walletNames"); } }
+        private List<global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningPaymentTokensListRequestWalletNamesItem?>? _explicitNullValueWalletNames = default!;
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningPaymentTokensListRequestWalletNamesItem?> WalletNames { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningPaymentTokensListRequestWalletNamesItem?> WalletNames { get => _explicitNullValueWalletNames; set { _explicitNullValueWalletNames = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("walletNames"); else _explicitNullProperties?.Remove("walletNames"); } }
+        private List<global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningPaymentTokensListRequestWalletNamesItem?> _explicitNullValueWalletNames = default!;
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningPaymentTokensListRequest"/> and sets the default values.
@@ -37,7 +47,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningPaymentTokensListRequest CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningPaymentTokensListRequest();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningPaymentTokensListRequest(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -58,6 +68,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteCollectionOfEnumValues<global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningPaymentTokensListRequestWalletNamesItem>("walletNames", WalletNames);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

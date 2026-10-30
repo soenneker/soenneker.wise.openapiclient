@@ -11,20 +11,34 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class ProfileVerificationStatusCheck200ResponseRoutesItem : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("current_status") is { } nullNodeCurrentStatus && nullNodeCurrentStatus.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CurrentStatus = null;
+            if (parseNode.GetChildNode("maximum_entitled_amount") is { } nullNodeMaximumEntitledAmount && nullNodeMaximumEntitledAmount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) MaximumEntitledAmount = null;
+            if (parseNode.GetChildNode("source_currency") is { } nullNodeSourceCurrency && nullNodeSourceCurrency.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SourceCurrency = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Current verification status.- `verified` — Profile is verified. `maximum_entitled_amount` can be ignored (note that some regional limits may still apply).- `not_verified` with `maximum_entitled_amount: 0` — Profile is not verified. Any payments from the user will be delayed by verification.- `not_verified` with `maximum_entitled_amount &gt; 0` — Profile is not yet verified but the user can make payments up to a cumulative limit. Once reached, further payments may be delayed by additional verification requirements.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.ProfileVerificationStatusCheck200ResponseRoutesItemCurrentStatus? CurrentStatus { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.ProfileVerificationStatusCheck200ResponseRoutesItemCurrentStatus? CurrentStatus { get => _explicitNullValueCurrentStatus; set { _explicitNullValueCurrentStatus = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("current_status"); else _explicitNullProperties?.Remove("current_status"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.ProfileVerificationStatusCheck200ResponseRoutesItemCurrentStatus? _explicitNullValueCurrentStatus = default!;
         /// <summary>Maximum entitled amount that can be transferred with the user&apos;s given verification state.</summary>
-        public double? MaximumEntitledAmount { get; set; }
+        public double? MaximumEntitledAmount { get => _explicitNullValueMaximumEntitledAmount; set { _explicitNullValueMaximumEntitledAmount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("maximum_entitled_amount"); else _explicitNullProperties?.Remove("maximum_entitled_amount"); } }
+        private double? _explicitNullValueMaximumEntitledAmount = default!;
         /// <summary>ISO 4217 currency code.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? SourceCurrency { get; set; }
+        public string? SourceCurrency { get => _explicitNullValueSourceCurrency; set { _explicitNullValueSourceCurrency = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("source_currency"); else _explicitNullProperties?.Remove("source_currency"); } }
+        private string? _explicitNullValueSourceCurrency = default!;
 #nullable restore
 #else
-        public string SourceCurrency { get; set; }
+        public string SourceCurrency { get => _explicitNullValueSourceCurrency; set { _explicitNullValueSourceCurrency = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("source_currency"); else _explicitNullProperties?.Remove("source_currency"); } }
+        private string _explicitNullValueSourceCurrency = default!;
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.ProfileVerificationStatusCheck200ResponseRoutesItem"/> and sets the default values.
@@ -41,7 +55,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.ProfileVerificationStatusCheck200ResponseRoutesItem CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.ProfileVerificationStatusCheck200ResponseRoutesItem();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.ProfileVerificationStatusCheck200ResponseRoutesItem(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -66,6 +80,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.ProfileVerificationStatusCheck200ResponseRoutesItemCurrentStatus>("current_status", CurrentStatus);
             writer.WriteDoubleValue("maximum_entitled_amount", MaximumEntitledAmount);
             writer.WriteStringValue("source_currency", SourceCurrency);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

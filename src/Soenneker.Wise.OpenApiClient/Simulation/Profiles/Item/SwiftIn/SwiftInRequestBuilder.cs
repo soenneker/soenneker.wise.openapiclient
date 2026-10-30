@@ -59,6 +59,8 @@ namespace Soenneker.Wise.OpenApiClient.Simulation.Profiles.Item.SwiftIn
                 { "400", global::Soenneker.Wise.OpenApiClient.Models.SimulationSwiftIn400Response.CreateFromDiscriminatorValue },
                 { "422", global::Soenneker.Wise.OpenApiClient.Models.SimulationSwiftIn422Response.CreateFromDiscriminatorValue },
                 { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
+                { "4XX", global::Soenneker.OpenApi.Generated.OpenApiRawError.CreateFromDiscriminatorValue },
+                { "5XX", global::Soenneker.OpenApi.Generated.OpenApiRawError.CreateFromDiscriminatorValue },
             };
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.SimulationSwiftIn200Response>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.SimulationSwiftIn200Response.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }

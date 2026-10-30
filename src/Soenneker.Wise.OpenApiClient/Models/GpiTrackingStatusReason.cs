@@ -12,40 +12,59 @@ namespace Soenneker.Wise.OpenApiClient.Models
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class GpiTrackingStatusReason : IAdditionalDataHolder, IParsable
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("chargeBearer") is { } nullNodeChargeBearer && nullNodeChargeBearer.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ChargeBearer = null;
+            if (parseNode.GetChildNode("code") is { } nullNodeCode && nullNodeCode.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Code = null;
+            if (parseNode.GetChildNode("instructedAgent") is { } nullNodeInstructedAgent && nullNodeInstructedAgent.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) InstructedAgent = null;
+            if (parseNode.GetChildNode("settlementMethod") is { } nullNodeSettlementMethod && nullNodeSettlementMethod.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SettlementMethod = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Charge bearer code. Present for `G000`, `G001`, `G005`, `G006`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? ChargeBearer { get; set; }
+        public string? ChargeBearer { get => _explicitNullValueChargeBearer; set { _explicitNullValueChargeBearer = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("chargeBearer"); else _explicitNullProperties?.Remove("chargeBearer"); } }
+        private string? _explicitNullValueChargeBearer = default!;
 #nullable restore
 #else
-        public string ChargeBearer { get; set; }
+        public string ChargeBearer { get => _explicitNullValueChargeBearer; set { _explicitNullValueChargeBearer = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("chargeBearer"); else _explicitNullProperties?.Remove("chargeBearer"); } }
+        private string _explicitNullValueChargeBearer = default!;
 #endif
         /// <summary>Sub-status code, passed through as a SWIFT gpi transaction status reason code. Known values: `G000`, `G001`, `G002`, `G003`, `G004`, `G005`, `G006`. Additional values may be introduced by SWIFT gpi; see the SWIFT gpi code lists.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Code { get; set; }
+        public string? Code { get => _explicitNullValueCode; set { _explicitNullValueCode = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("code"); else _explicitNullProperties?.Remove("code"); } }
+        private string? _explicitNullValueCode = default!;
 #nullable restore
 #else
-        public string Code { get; set; }
+        public string Code { get => _explicitNullValueCode; set { _explicitNullValueCode = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("code"); else _explicitNullProperties?.Remove("code"); } }
+        private string _explicitNullValueCode = default!;
 #endif
         /// <summary>BIC the transaction was forwarded to. Present for `G000`, `G001`, `G005`, `G006`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? InstructedAgent { get; set; }
+        public string? InstructedAgent { get => _explicitNullValueInstructedAgent; set { _explicitNullValueInstructedAgent = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("instructedAgent"); else _explicitNullProperties?.Remove("instructedAgent"); } }
+        private string? _explicitNullValueInstructedAgent = default!;
 #nullable restore
 #else
-        public string InstructedAgent { get; set; }
+        public string InstructedAgent { get => _explicitNullValueInstructedAgent; set { _explicitNullValueInstructedAgent = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("instructedAgent"); else _explicitNullProperties?.Remove("instructedAgent"); } }
+        private string _explicitNullValueInstructedAgent = default!;
 #endif
         /// <summary>Settlement method. Present for `G000`, `G001`, `G005`, `G006`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.GpiTrackingSettlementMethod? SettlementMethod { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.GpiTrackingSettlementMethod? SettlementMethod { get => _explicitNullValueSettlementMethod; set { _explicitNullValueSettlementMethod = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("settlementMethod"); else _explicitNullProperties?.Remove("settlementMethod"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.GpiTrackingSettlementMethod? _explicitNullValueSettlementMethod = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.GpiTrackingSettlementMethod SettlementMethod { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.GpiTrackingSettlementMethod SettlementMethod { get => _explicitNullValueSettlementMethod; set { _explicitNullValueSettlementMethod = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("settlementMethod"); else _explicitNullProperties?.Remove("settlementMethod"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.GpiTrackingSettlementMethod _explicitNullValueSettlementMethod = default!;
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.GpiTrackingStatusReason"/> and sets the default values.
@@ -62,7 +81,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.GpiTrackingStatusReason CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.GpiTrackingStatusReason();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.GpiTrackingStatusReason(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -89,6 +108,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteStringValue("code", Code);
             writer.WriteStringValue("instructedAgent", InstructedAgent);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.GpiTrackingSettlementMethod>("settlementMethod", SettlementMethod);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

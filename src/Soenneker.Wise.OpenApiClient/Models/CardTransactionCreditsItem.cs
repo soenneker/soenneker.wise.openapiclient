@@ -11,20 +11,34 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class CardTransactionCreditsItem : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("balanceId") is { } nullNodeBalanceId && nullNodeBalanceId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) BalanceId = null;
+            if (parseNode.GetChildNode("creationTime") is { } nullNodeCreationTime && nullNodeCreationTime.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CreationTime = null;
+            if (parseNode.GetChildNode("creditedAmount") is { } nullNodeCreditedAmount && nullNodeCreditedAmount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CreditedAmount = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Balance ID</summary>
-        public long? BalanceId { get; set; }
+        public long? BalanceId { get => _explicitNullValueBalanceId; set { _explicitNullValueBalanceId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("balanceId"); else _explicitNullProperties?.Remove("balanceId"); } }
+        private long? _explicitNullValueBalanceId = default!;
         /// <summary>Creation time of credit</summary>
-        public DateTimeOffset? CreationTime { get; set; }
+        public DateTimeOffset? CreationTime { get => _explicitNullValueCreationTime; set { _explicitNullValueCreationTime = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("creationTime"); else _explicitNullProperties?.Remove("creationTime"); } }
+        private DateTimeOffset? _explicitNullValueCreationTime = default!;
         /// <summary>Amount credited to the balance</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.CardTransactionCreditsItemCreditedAmount? CreditedAmount { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardTransactionCreditsItemCreditedAmount? CreditedAmount { get => _explicitNullValueCreditedAmount; set { _explicitNullValueCreditedAmount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("creditedAmount"); else _explicitNullProperties?.Remove("creditedAmount"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.CardTransactionCreditsItemCreditedAmount? _explicitNullValueCreditedAmount = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.CardTransactionCreditsItemCreditedAmount CreditedAmount { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.CardTransactionCreditsItemCreditedAmount CreditedAmount { get => _explicitNullValueCreditedAmount; set { _explicitNullValueCreditedAmount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("creditedAmount"); else _explicitNullProperties?.Remove("creditedAmount"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.CardTransactionCreditsItemCreditedAmount _explicitNullValueCreditedAmount = default!;
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.CardTransactionCreditsItem"/> and sets the default values.
@@ -41,7 +55,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.CardTransactionCreditsItem CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.CardTransactionCreditsItem();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.CardTransactionCreditsItem(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -66,6 +80,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteLongValue("balanceId", BalanceId);
             writer.WriteDateTimeOffsetValue("creationTime", CreationTime);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.CardTransactionCreditsItemCreditedAmount>("creditedAmount", CreditedAmount);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

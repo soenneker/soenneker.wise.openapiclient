@@ -11,64 +11,92 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class TransferRequirementsValidateRequestDetails : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("reference") is { } nullNodeReference && nullNodeReference.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Reference = null;
+            if (parseNode.GetChildNode("sourceOfFunds") is { } nullNodeSourceOfFunds && nullNodeSourceOfFunds.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SourceOfFunds = null;
+            if (parseNode.GetChildNode("sourceOfFundsOther") is { } nullNodeSourceOfFundsOther && nullNodeSourceOfFundsOther.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SourceOfFundsOther = null;
+            if (parseNode.GetChildNode("transferNature") is { } nullNodeTransferNature && nullNodeTransferNature.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TransferNature = null;
+            if (parseNode.GetChildNode("transferPurpose") is { } nullNodeTransferPurpose && nullNodeTransferPurpose.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TransferPurpose = null;
+            if (parseNode.GetChildNode("transferPurposeInvoiceNumber") is { } nullNodeTransferPurposeInvoiceNumber && nullNodeTransferPurposeInvoiceNumber.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TransferPurposeInvoiceNumber = null;
+            if (parseNode.GetChildNode("transferPurposeSubTransferPurpose") is { } nullNodeTransferPurposeSubTransferPurpose && nullNodeTransferPurposeSubTransferPurpose.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TransferPurposeSubTransferPurpose = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The reference property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Reference { get; set; }
+        public string? Reference { get => _explicitNullValueReference; set { _explicitNullValueReference = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("reference"); else _explicitNullProperties?.Remove("reference"); } }
+        private string? _explicitNullValueReference = default!;
 #nullable restore
 #else
-        public string Reference { get; set; }
+        public string Reference { get => _explicitNullValueReference; set { _explicitNullValueReference = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("reference"); else _explicitNullProperties?.Remove("reference"); } }
+        private string _explicitNullValueReference = default!;
 #endif
         /// <summary>The sourceOfFunds property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? SourceOfFunds { get; set; }
+        public string? SourceOfFunds { get => _explicitNullValueSourceOfFunds; set { _explicitNullValueSourceOfFunds = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sourceOfFunds"); else _explicitNullProperties?.Remove("sourceOfFunds"); } }
+        private string? _explicitNullValueSourceOfFunds = default!;
 #nullable restore
 #else
-        public string SourceOfFunds { get; set; }
+        public string SourceOfFunds { get => _explicitNullValueSourceOfFunds; set { _explicitNullValueSourceOfFunds = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sourceOfFunds"); else _explicitNullProperties?.Remove("sourceOfFunds"); } }
+        private string _explicitNullValueSourceOfFunds = default!;
 #endif
         /// <summary>The sourceOfFundsOther property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? SourceOfFundsOther { get; set; }
+        public string? SourceOfFundsOther { get => _explicitNullValueSourceOfFundsOther; set { _explicitNullValueSourceOfFundsOther = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sourceOfFundsOther"); else _explicitNullProperties?.Remove("sourceOfFundsOther"); } }
+        private string? _explicitNullValueSourceOfFundsOther = default!;
 #nullable restore
 #else
-        public string SourceOfFundsOther { get; set; }
+        public string SourceOfFundsOther { get => _explicitNullValueSourceOfFundsOther; set { _explicitNullValueSourceOfFundsOther = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sourceOfFundsOther"); else _explicitNullProperties?.Remove("sourceOfFundsOther"); } }
+        private string _explicitNullValueSourceOfFundsOther = default!;
 #endif
         /// <summary>The transferNature property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? TransferNature { get; set; }
+        public string? TransferNature { get => _explicitNullValueTransferNature; set { _explicitNullValueTransferNature = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("transferNature"); else _explicitNullProperties?.Remove("transferNature"); } }
+        private string? _explicitNullValueTransferNature = default!;
 #nullable restore
 #else
-        public string TransferNature { get; set; }
+        public string TransferNature { get => _explicitNullValueTransferNature; set { _explicitNullValueTransferNature = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("transferNature"); else _explicitNullProperties?.Remove("transferNature"); } }
+        private string _explicitNullValueTransferNature = default!;
 #endif
         /// <summary>The transferPurpose property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? TransferPurpose { get; set; }
+        public string? TransferPurpose { get => _explicitNullValueTransferPurpose; set { _explicitNullValueTransferPurpose = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("transferPurpose"); else _explicitNullProperties?.Remove("transferPurpose"); } }
+        private string? _explicitNullValueTransferPurpose = default!;
 #nullable restore
 #else
-        public string TransferPurpose { get; set; }
+        public string TransferPurpose { get => _explicitNullValueTransferPurpose; set { _explicitNullValueTransferPurpose = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("transferPurpose"); else _explicitNullProperties?.Remove("transferPurpose"); } }
+        private string _explicitNullValueTransferPurpose = default!;
 #endif
         /// <summary>The transferPurposeInvoiceNumber property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? TransferPurposeInvoiceNumber { get; set; }
+        public string? TransferPurposeInvoiceNumber { get => _explicitNullValueTransferPurposeInvoiceNumber; set { _explicitNullValueTransferPurposeInvoiceNumber = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("transferPurposeInvoiceNumber"); else _explicitNullProperties?.Remove("transferPurposeInvoiceNumber"); } }
+        private string? _explicitNullValueTransferPurposeInvoiceNumber = default!;
 #nullable restore
 #else
-        public string TransferPurposeInvoiceNumber { get; set; }
+        public string TransferPurposeInvoiceNumber { get => _explicitNullValueTransferPurposeInvoiceNumber; set { _explicitNullValueTransferPurposeInvoiceNumber = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("transferPurposeInvoiceNumber"); else _explicitNullProperties?.Remove("transferPurposeInvoiceNumber"); } }
+        private string _explicitNullValueTransferPurposeInvoiceNumber = default!;
 #endif
         /// <summary>The transferPurposeSubTransferPurpose property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? TransferPurposeSubTransferPurpose { get; set; }
+        public string? TransferPurposeSubTransferPurpose { get => _explicitNullValueTransferPurposeSubTransferPurpose; set { _explicitNullValueTransferPurposeSubTransferPurpose = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("transferPurposeSubTransferPurpose"); else _explicitNullProperties?.Remove("transferPurposeSubTransferPurpose"); } }
+        private string? _explicitNullValueTransferPurposeSubTransferPurpose = default!;
 #nullable restore
 #else
-        public string TransferPurposeSubTransferPurpose { get; set; }
+        public string TransferPurposeSubTransferPurpose { get => _explicitNullValueTransferPurposeSubTransferPurpose; set { _explicitNullValueTransferPurposeSubTransferPurpose = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("transferPurposeSubTransferPurpose"); else _explicitNullProperties?.Remove("transferPurposeSubTransferPurpose"); } }
+        private string _explicitNullValueTransferPurposeSubTransferPurpose = default!;
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.TransferRequirementsValidateRequestDetails"/> and sets the default values.
@@ -85,7 +113,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.TransferRequirementsValidateRequestDetails CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.TransferRequirementsValidateRequestDetails();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.TransferRequirementsValidateRequestDetails(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -118,6 +146,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteStringValue("transferPurpose", TransferPurpose);
             writer.WriteStringValue("transferPurposeInvoiceNumber", TransferPurposeInvoiceNumber);
             writer.WriteStringValue("transferPurposeSubTransferPurpose", TransferPurposeSubTransferPurpose);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

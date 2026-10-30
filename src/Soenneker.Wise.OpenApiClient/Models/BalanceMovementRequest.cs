@@ -12,23 +12,39 @@ namespace Soenneker.Wise.OpenApiClient.Models
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class BalanceMovementRequest : IAdditionalDataHolder, IParsable
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("amount") is { } nullNodeAmount && nullNodeAmount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Amount = null;
+            if (parseNode.GetChildNode("quoteId") is { } nullNodeQuoteId && nullNodeQuoteId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) QuoteId = null;
+            if (parseNode.GetChildNode("sourceBalanceId") is { } nullNodeSourceBalanceId && nullNodeSourceBalanceId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SourceBalanceId = null;
+            if (parseNode.GetChildNode("targetBalanceId") is { } nullNodeTargetBalanceId && nullNodeTargetBalanceId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TargetBalanceId = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Amount to move. Required for same-currency movements. Either `amount` or `quoteId` must be provided.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.BalanceMovementRequestAmount? Amount { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.BalanceMovementRequestAmount? Amount { get => _explicitNullValueAmount; set { _explicitNullValueAmount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("amount"); else _explicitNullProperties?.Remove("amount"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.BalanceMovementRequestAmount? _explicitNullValueAmount = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.BalanceMovementRequestAmount Amount { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.BalanceMovementRequestAmount Amount { get => _explicitNullValueAmount; set { _explicitNullValueAmount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("amount"); else _explicitNullProperties?.Remove("amount"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.BalanceMovementRequestAmount _explicitNullValueAmount = default!;
 #endif
         /// <summary>Quote ID. Required for cross-currency movements. Quote must be created with `payOut: BALANCE`.</summary>
-        public Guid? QuoteId { get; set; }
+        public Guid? QuoteId { get => _explicitNullValueQuoteId; set { _explicitNullValueQuoteId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("quoteId"); else _explicitNullProperties?.Remove("quoteId"); } }
+        private Guid? _explicitNullValueQuoteId = default!;
         /// <summary>Source balance ID. Required when moving between balances (with targetBalanceId).</summary>
-        public long? SourceBalanceId { get; set; }
+        public long? SourceBalanceId { get => _explicitNullValueSourceBalanceId; set { _explicitNullValueSourceBalanceId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sourceBalanceId"); else _explicitNullProperties?.Remove("sourceBalanceId"); } }
+        private long? _explicitNullValueSourceBalanceId = default!;
         /// <summary>Target balance ID. Required when moving between balances (with sourceBalanceId).</summary>
-        public long? TargetBalanceId { get; set; }
+        public long? TargetBalanceId { get => _explicitNullValueTargetBalanceId; set { _explicitNullValueTargetBalanceId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("targetBalanceId"); else _explicitNullProperties?.Remove("targetBalanceId"); } }
+        private long? _explicitNullValueTargetBalanceId = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.BalanceMovementRequest"/> and sets the default values.
         /// </summary>
@@ -44,7 +60,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.BalanceMovementRequest CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.BalanceMovementRequest();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.BalanceMovementRequest(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -71,6 +87,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteGuidValue("quoteId", QuoteId);
             writer.WriteLongValue("sourceBalanceId", SourceBalanceId);
             writer.WriteLongValue("targetBalanceId", TargetBalanceId);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

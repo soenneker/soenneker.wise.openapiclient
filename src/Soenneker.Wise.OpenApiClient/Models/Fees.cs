@@ -11,24 +11,37 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class Fees : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("correspondent") is { } nullNodeCorrespondent && nullNodeCorrespondent.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Correspondent = null;
+            if (parseNode.GetChildNode("wise") is { } nullNodeWise && nullNodeWise.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Wise = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Fees deducted by correspondent or intermediary banks before the funds reached Wise. Eachentry includes the charging agent when available in the pacs message. Array is empty wherethere are no charges.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.CorrespondentFee>? Correspondent { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.CorrespondentFee>? Correspondent { get => _explicitNullValueCorrespondent; set { _explicitNullValueCorrespondent = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("correspondent"); else _explicitNullProperties?.Remove("correspondent"); } }
+        private List<global::Soenneker.Wise.OpenApiClient.Models.CorrespondentFee>? _explicitNullValueCorrespondent = default!;
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.CorrespondentFee> Correspondent { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.CorrespondentFee> Correspondent { get => _explicitNullValueCorrespondent; set { _explicitNullValueCorrespondent = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("correspondent"); else _explicitNullProperties?.Remove("correspondent"); } }
+        private List<global::Soenneker.Wise.OpenApiClient.Models.CorrespondentFee> _explicitNullValueCorrespondent = default!;
 #endif
         /// <summary>Fees charged by Wise (e.g. conversion fee, handling fee). Empty array when no Wise fees apply.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.WiseFee>? Wise { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.WiseFee>? Wise { get => _explicitNullValueWise; set { _explicitNullValueWise = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("wise"); else _explicitNullProperties?.Remove("wise"); } }
+        private List<global::Soenneker.Wise.OpenApiClient.Models.WiseFee>? _explicitNullValueWise = default!;
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.WiseFee> Wise { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.WiseFee> Wise { get => _explicitNullValueWise; set { _explicitNullValueWise = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("wise"); else _explicitNullProperties?.Remove("wise"); } }
+        private List<global::Soenneker.Wise.OpenApiClient.Models.WiseFee> _explicitNullValueWise = default!;
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.Fees"/> and sets the default values.
@@ -45,7 +58,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.Fees CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.Fees();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.Fees(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -68,6 +81,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.CorrespondentFee>("correspondent", Correspondent);
             writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.WiseFee>("wise", Wise);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

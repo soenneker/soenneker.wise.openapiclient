@@ -11,52 +11,83 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class ComparisonProvidersItemQuotesItem : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("dateCollected") is { } nullNodeDateCollected && nullNodeDateCollected.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) DateCollected = null;
+            if (parseNode.GetChildNode("deliveryEstimation") is { } nullNodeDeliveryEstimation && nullNodeDeliveryEstimation.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) DeliveryEstimation = null;
+            if (parseNode.GetChildNode("fee") is { } nullNodeFee && nullNodeFee.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Fee = null;
+            if (parseNode.GetChildNode("isConsideredMidMarketRate") is { } nullNodeIsConsideredMidMarketRate && nullNodeIsConsideredMidMarketRate.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) IsConsideredMidMarketRate = null;
+            if (parseNode.GetChildNode("markup") is { } nullNodeMarkup && nullNodeMarkup.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Markup = null;
+            if (parseNode.GetChildNode("rate") is { } nullNodeRate && nullNodeRate.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Rate = null;
+            if (parseNode.GetChildNode("receivedAmount") is { } nullNodeReceivedAmount && nullNodeReceivedAmount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ReceivedAmount = null;
+            if (parseNode.GetChildNode("sendAmount") is { } nullNodeSendAmount && nullNodeSendAmount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SendAmount = null;
+            if (parseNode.GetChildNode("sourceCountry") is { } nullNodeSourceCountry && nullNodeSourceCountry.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SourceCountry = null;
+            if (parseNode.GetChildNode("targetCountry") is { } nullNodeTargetCountry && nullNodeTargetCountry.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TargetCountry = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The date of collection for the original quote</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? DateCollected { get; set; }
+        public string? DateCollected { get => _explicitNullValueDateCollected; set { _explicitNullValueDateCollected = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("dateCollected"); else _explicitNullProperties?.Remove("dateCollected"); } }
+        private string? _explicitNullValueDateCollected = default!;
 #nullable restore
 #else
-        public string DateCollected { get; set; }
+        public string DateCollected { get => _explicitNullValueDateCollected; set { _explicitNullValueDateCollected = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("dateCollected"); else _explicitNullProperties?.Remove("dateCollected"); } }
+        private string _explicitNullValueDateCollected = default!;
 #endif
         /// <summary>Delivery estimation details - i.e. a speed estimate</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemQuotesItemDeliveryEstimation? DeliveryEstimation { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemQuotesItemDeliveryEstimation? DeliveryEstimation { get => _explicitNullValueDeliveryEstimation; set { _explicitNullValueDeliveryEstimation = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("deliveryEstimation"); else _explicitNullProperties?.Remove("deliveryEstimation"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemQuotesItemDeliveryEstimation? _explicitNullValueDeliveryEstimation = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemQuotesItemDeliveryEstimation DeliveryEstimation { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemQuotesItemDeliveryEstimation DeliveryEstimation { get => _explicitNullValueDeliveryEstimation; set { _explicitNullValueDeliveryEstimation = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("deliveryEstimation"); else _explicitNullProperties?.Remove("deliveryEstimation"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemQuotesItemDeliveryEstimation _explicitNullValueDeliveryEstimation = default!;
 #endif
         /// <summary>The estimated fee for the provider for this quote</summary>
-        public double? Fee { get; set; }
+        public double? Fee { get => _explicitNullValueFee; set { _explicitNullValueFee = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("fee"); else _explicitNullProperties?.Remove("fee"); } }
+        private double? _explicitNullValueFee = default!;
         /// <summary>Whether the provider&apos;s rate is close enough to the true mid-market rate to be classified as a mid-market rate</summary>
-        public bool? IsConsideredMidMarketRate { get; set; }
+        public bool? IsConsideredMidMarketRate { get => _explicitNullValueIsConsideredMidMarketRate; set { _explicitNullValueIsConsideredMidMarketRate = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("isConsideredMidMarketRate"); else _explicitNullProperties?.Remove("isConsideredMidMarketRate"); } }
+        private bool? _explicitNullValueIsConsideredMidMarketRate = default!;
         /// <summary>Percentage markup on the quoted rate compared to the mid-market rate</summary>
-        public double? Markup { get; set; }
+        public double? Markup { get => _explicitNullValueMarkup; set { _explicitNullValueMarkup = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("markup"); else _explicitNullProperties?.Remove("markup"); } }
+        private double? _explicitNullValueMarkup = default!;
         /// <summary>The live estimated exchange rate for the provider for this quote</summary>
-        public double? Rate { get; set; }
+        public double? Rate { get => _explicitNullValueRate; set { _explicitNullValueRate = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("rate"); else _explicitNullProperties?.Remove("rate"); } }
+        private double? _explicitNullValueRate = default!;
         /// <summary>The total estimated received amount for the provider for this quote (non-null only if a send amount request was made)</summary>
-        public double? ReceivedAmount { get; set; }
+        public double? ReceivedAmount { get => _explicitNullValueReceivedAmount; set { _explicitNullValueReceivedAmount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("receivedAmount"); else _explicitNullProperties?.Remove("receivedAmount"); } }
+        private double? _explicitNullValueReceivedAmount = default!;
         /// <summary>The total estimated send amount for the provider for this quote (non-null only if a recipient gets amount request was made)</summary>
-        public double? SendAmount { get; set; }
+        public double? SendAmount { get => _explicitNullValueSendAmount; set { _explicitNullValueSendAmount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sendAmount"); else _explicitNullProperties?.Remove("sendAmount"); } }
+        private double? _explicitNullValueSendAmount = default!;
         /// <summary>Source country (ISO 3166-1 Alpha-2 code)</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? SourceCountry { get; set; }
+        public string? SourceCountry { get => _explicitNullValueSourceCountry; set { _explicitNullValueSourceCountry = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sourceCountry"); else _explicitNullProperties?.Remove("sourceCountry"); } }
+        private string? _explicitNullValueSourceCountry = default!;
 #nullable restore
 #else
-        public string SourceCountry { get; set; }
+        public string SourceCountry { get => _explicitNullValueSourceCountry; set { _explicitNullValueSourceCountry = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sourceCountry"); else _explicitNullProperties?.Remove("sourceCountry"); } }
+        private string _explicitNullValueSourceCountry = default!;
 #endif
         /// <summary>Target country (ISO 3166-1 Alpha-2 code)</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? TargetCountry { get; set; }
+        public string? TargetCountry { get => _explicitNullValueTargetCountry; set { _explicitNullValueTargetCountry = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("targetCountry"); else _explicitNullProperties?.Remove("targetCountry"); } }
+        private string? _explicitNullValueTargetCountry = default!;
 #nullable restore
 #else
-        public string TargetCountry { get; set; }
+        public string TargetCountry { get => _explicitNullValueTargetCountry; set { _explicitNullValueTargetCountry = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("targetCountry"); else _explicitNullProperties?.Remove("targetCountry"); } }
+        private string _explicitNullValueTargetCountry = default!;
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemQuotesItem"/> and sets the default values.
@@ -73,7 +104,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemQuotesItem CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemQuotesItem();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemQuotesItem(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -112,6 +143,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteDoubleValue("sendAmount", SendAmount);
             writer.WriteStringValue("sourceCountry", SourceCountry);
             writer.WriteStringValue("targetCountry", TargetCountry);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

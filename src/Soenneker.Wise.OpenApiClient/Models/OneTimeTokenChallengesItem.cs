@@ -11,18 +11,30 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class OneTimeTokenChallengesItem : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("passed") is { } nullNodePassed && nullNodePassed.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Passed = null;
+            if (parseNode.GetChildNode("primaryChallenge") is { } nullNodePrimaryChallenge && nullNodePrimaryChallenge.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PrimaryChallenge = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The status of a challenge.</summary>
-        public bool? Passed { get; set; }
+        public bool? Passed { get => _explicitNullValuePassed; set { _explicitNullValuePassed = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("passed"); else _explicitNullProperties?.Remove("passed"); } }
+        private bool? _explicitNullValuePassed = default!;
         /// <summary>The primaryChallenge property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.OneTimeTokenChallengesItemPrimaryChallenge? PrimaryChallenge { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.OneTimeTokenChallengesItemPrimaryChallenge? PrimaryChallenge { get => _explicitNullValuePrimaryChallenge; set { _explicitNullValuePrimaryChallenge = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("primaryChallenge"); else _explicitNullProperties?.Remove("primaryChallenge"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.OneTimeTokenChallengesItemPrimaryChallenge? _explicitNullValuePrimaryChallenge = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.OneTimeTokenChallengesItemPrimaryChallenge PrimaryChallenge { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.OneTimeTokenChallengesItemPrimaryChallenge PrimaryChallenge { get => _explicitNullValuePrimaryChallenge; set { _explicitNullValuePrimaryChallenge = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("primaryChallenge"); else _explicitNullProperties?.Remove("primaryChallenge"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.OneTimeTokenChallengesItemPrimaryChallenge _explicitNullValuePrimaryChallenge = default!;
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.OneTimeTokenChallengesItem"/> and sets the default values.
@@ -39,7 +51,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.OneTimeTokenChallengesItem CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.OneTimeTokenChallengesItem();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.OneTimeTokenChallengesItem(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -62,6 +74,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteBoolValue("passed", Passed);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.OneTimeTokenChallengesItemPrimaryChallenge>("primaryChallenge", PrimaryChallenge);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

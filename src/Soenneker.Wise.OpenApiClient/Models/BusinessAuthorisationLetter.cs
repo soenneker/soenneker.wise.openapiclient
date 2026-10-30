@@ -12,24 +12,37 @@ namespace Soenneker.Wise.OpenApiClient.Models
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class BusinessAuthorisationLetter : IAdditionalDataHolder, IParsable
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("files") is { } nullNodeFiles && nullNodeFiles.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Files = null;
+            if (parseNode.GetChildNode("submissionData") is { } nullNodeSubmissionData && nullNodeSubmissionData.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SubmissionData = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Upload the authorisation letter.Accepted file types: `image/png` (`.png`), `image/jpeg` (`.jpg` or `.jpeg`) and `application/pdf` (`.pdf`). The content type must match the file extension.```json {% title=&quot;Example&quot; %}[&quot;document.pdf&quot;]```</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<byte[]>? Files { get; set; }
+        public List<byte[]>? Files { get => _explicitNullValueFiles; set { _explicitNullValueFiles = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("files"); else _explicitNullProperties?.Remove("files"); } }
+        private List<byte[]>? _explicitNullValueFiles = default!;
 #nullable restore
 #else
-        public List<byte[]> Files { get; set; }
+        public List<byte[]> Files { get => _explicitNullValueFiles; set { _explicitNullValueFiles = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("files"); else _explicitNullProperties?.Remove("files"); } }
+        private List<byte[]> _explicitNullValueFiles = default!;
 #endif
         /// <summary>```json {% title=&quot;Example&quot; %}{  &quot;version&quot;: &quot;V1&quot;,  &quot;kycReviewId&quot;: &quot;93a903ea-636c-4c86-a25c-cf6d2bd00e81&quot;}```</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.BusinessAuthorisationLetterSubmissionData? SubmissionData { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.BusinessAuthorisationLetterSubmissionData? SubmissionData { get => _explicitNullValueSubmissionData; set { _explicitNullValueSubmissionData = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("submissionData"); else _explicitNullProperties?.Remove("submissionData"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.BusinessAuthorisationLetterSubmissionData? _explicitNullValueSubmissionData = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.BusinessAuthorisationLetterSubmissionData SubmissionData { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.BusinessAuthorisationLetterSubmissionData SubmissionData { get => _explicitNullValueSubmissionData; set { _explicitNullValueSubmissionData = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("submissionData"); else _explicitNullProperties?.Remove("submissionData"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.BusinessAuthorisationLetterSubmissionData _explicitNullValueSubmissionData = default!;
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.BusinessAuthorisationLetter"/> and sets the default values.
@@ -46,7 +59,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.BusinessAuthorisationLetter CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.BusinessAuthorisationLetter();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.BusinessAuthorisationLetter(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -69,6 +82,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteCollectionOfPrimitiveValues<byte[]>("files", Files);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.BusinessAuthorisationLetterSubmissionData>("submissionData", SubmissionData);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

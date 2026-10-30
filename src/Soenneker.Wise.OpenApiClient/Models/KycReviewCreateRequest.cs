@@ -11,19 +11,31 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class KycReviewCreateRequest : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("triggerData") is { } nullNodeTriggerData && nullNodeTriggerData.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TriggerData = null;
+            if (parseNode.GetChildNode("type") is { } nullNodeType && nullNodeType.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Type = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Object containing data of the underlying product object that triggered the KYC Review.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.KycReviewCreateRequestTriggerData? TriggerData { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.KycReviewCreateRequestTriggerData? TriggerData { get => _explicitNullValueTriggerData; set { _explicitNullValueTriggerData = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("triggerData"); else _explicitNullProperties?.Remove("triggerData"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.KycReviewCreateRequestTriggerData? _explicitNullValueTriggerData = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.KycReviewCreateRequestTriggerData TriggerData { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.KycReviewCreateRequestTriggerData TriggerData { get => _explicitNullValueTriggerData; set { _explicitNullValueTriggerData = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("triggerData"); else _explicitNullProperties?.Remove("triggerData"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.KycReviewCreateRequestTriggerData _explicitNullValueTriggerData = default!;
 #endif
         /// <summary>Type of the underlying action or process this KYC Review is for. Usually a reference to which product this KYC Review is for (like `QUOTE` or `TRANSFER`) or a reference to a KYC process on the profile that isn&apos;t related to a specific product (like `REFRESH_CYCLE` or `REPAPERING`).Following types are available when creating a KYC Review using this endpoint:- `QUOTE`- `PROACTIVE_SEND_MONEY`- `CARD`</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.KycReviewCreateRequestType? Type { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.KycReviewCreateRequestType? Type { get => _explicitNullValueType; set { _explicitNullValueType = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("type"); else _explicitNullProperties?.Remove("type"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.KycReviewCreateRequestType? _explicitNullValueType = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.KycReviewCreateRequest"/> and sets the default values.
         /// </summary>
@@ -39,7 +51,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.KycReviewCreateRequest CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.KycReviewCreateRequest();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.KycReviewCreateRequest(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -62,6 +74,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.KycReviewCreateRequestTriggerData>("triggerData", TriggerData);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.KycReviewCreateRequestType>("type", Type);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

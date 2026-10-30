@@ -11,23 +11,39 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class V40015DataOverdraft : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("limit") is { } nullNodeLimit && nullNodeLimit.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Limit = null;
+            if (parseNode.GetChildNode("limit_usage_percentage") is { } nullNodeLimitUsagePercentage && nullNodeLimitUsagePercentage.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) LimitUsagePercentage = null;
+            if (parseNode.GetChildNode("profile_limit_currency") is { } nullNodeProfileLimitCurrency && nullNodeProfileLimitCurrency.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ProfileLimitCurrency = null;
+            if (parseNode.GetChildNode("used") is { } nullNodeUsed && nullNodeUsed.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Used = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Overdraft limit approved</summary>
-        public decimal? Limit { get; set; }
+        public decimal? Limit { get => _explicitNullValueLimit; set { _explicitNullValueLimit = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("limit"); else _explicitNullProperties?.Remove("limit"); } }
+        private decimal? _explicitNullValueLimit = default!;
         /// <summary>Percentage of overdraft limit used</summary>
-        public decimal? LimitUsagePercentage { get; set; }
+        public decimal? LimitUsagePercentage { get => _explicitNullValueLimitUsagePercentage; set { _explicitNullValueLimitUsagePercentage = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("limit_usage_percentage"); else _explicitNullProperties?.Remove("limit_usage_percentage"); } }
+        private decimal? _explicitNullValueLimitUsagePercentage = default!;
         /// <summary>Currency in which the amounts are expressed in</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? ProfileLimitCurrency { get; set; }
+        public string? ProfileLimitCurrency { get => _explicitNullValueProfileLimitCurrency; set { _explicitNullValueProfileLimitCurrency = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("profile_limit_currency"); else _explicitNullProperties?.Remove("profile_limit_currency"); } }
+        private string? _explicitNullValueProfileLimitCurrency = default!;
 #nullable restore
 #else
-        public string ProfileLimitCurrency { get; set; }
+        public string ProfileLimitCurrency { get => _explicitNullValueProfileLimitCurrency; set { _explicitNullValueProfileLimitCurrency = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("profile_limit_currency"); else _explicitNullProperties?.Remove("profile_limit_currency"); } }
+        private string _explicitNullValueProfileLimitCurrency = default!;
 #endif
         /// <summary>Overdraft limit used</summary>
-        public decimal? Used { get; set; }
+        public decimal? Used { get => _explicitNullValueUsed; set { _explicitNullValueUsed = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("used"); else _explicitNullProperties?.Remove("used"); } }
+        private decimal? _explicitNullValueUsed = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.V40015DataOverdraft"/> and sets the default values.
         /// </summary>
@@ -43,7 +59,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.V40015DataOverdraft CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.V40015DataOverdraft();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.V40015DataOverdraft(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -70,6 +86,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteDecimalValue("limit_usage_percentage", LimitUsagePercentage);
             writer.WriteStringValue("profile_limit_currency", ProfileLimitCurrency);
             writer.WriteDecimalValue("used", Used);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

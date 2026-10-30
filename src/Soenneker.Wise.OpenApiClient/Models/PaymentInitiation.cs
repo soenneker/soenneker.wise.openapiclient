@@ -8,26 +8,31 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Composed type wrapper for classes <see cref="global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationDirectDebit"/>, <see cref="global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationPayinSession"/>
+    /// Composed type wrapper for classes <see cref="global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationOneOf1"/>, <see cref="global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationOneOf2"/>
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class PaymentInitiation : IComposedTypeWrapper, IParsable
-    {
-        /// <summary>Composed type representation for type <see cref="global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationDirectDebit"/></summary>
+    , global::Microsoft.Kiota.Abstractions.Serialization.IAdditionalDataHolder {
+        // Preserve ambiguous union payloads without inventing a discriminator.
+        /// <summary>The complete payload when no unique typed union branch can be selected.</summary>
+        public global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode UnrecognizedValue { get; set; } = null!;
+        public global::System.Collections.Generic.IDictionary<string, object> AdditionalData { get; set; } = new global::System.Collections.Generic.Dictionary<string, object>();
+
+        /// <summary>Composed type representation for type <see cref="global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationOneOf1"/></summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationDirectDebit? PaymentInitiationDirectDebit { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationOneOf1? PaymentInitiationOneOf1 { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationDirectDebit PaymentInitiationDirectDebit { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationOneOf1 PaymentInitiationOneOf1 { get; set; }
 #endif
-        /// <summary>Composed type representation for type <see cref="global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationPayinSession"/></summary>
+        /// <summary>Composed type representation for type <see cref="global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationOneOf2"/></summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationPayinSession? PaymentInitiationPayinSession { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationOneOf2? PaymentInitiationOneOf2 { get; set; }
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationPayinSession PaymentInitiationPayinSession { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationOneOf2 PaymentInitiationOneOf2 { get; set; }
 #endif
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
@@ -37,17 +42,24 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiation CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            var mappingValue = parseNode.GetChildNode("type")?.GetStringValue();
+            var mappingValue = parseNode.GetChildNode("")?.GetStringValue();
             var result = new global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiation();
-            if("DIRECT_DEBIT".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+            if("PaymentInitiationOneOf1".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
             {
-                result.PaymentInitiationDirectDebit = new global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationDirectDebit();
+                
             }
-            else if("PAYIN_SESSION".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+            else if("PaymentInitiationOneOf2".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
             {
-                result.PaymentInitiationPayinSession = new global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationPayinSession();
+                
             }
-            return result;
+            
+            var unionPayload = parseNode.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue);
+            bool matchesUnionBranch0 = unionPayload is global::Microsoft.Kiota.Abstractions.Serialization.UntypedObject && ((global::System.Func<bool>)(() => parseNode.GetChildNode("type") != null && (parseNode.GetChildNode("type")?.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is global::Microsoft.Kiota.Abstractions.Serialization.UntypedString tag1 && ("DIRECT_DEBIT".Equals(tag1.GetValue(), global::System.StringComparison.Ordinal))) && (parseNode.GetChildNode("status") == null || (parseNode.GetChildNode("status")?.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is global::Microsoft.Kiota.Abstractions.Serialization.UntypedString optionalTag2 && ("NEW".Equals(optionalTag2.GetValue(), global::System.StringComparison.Ordinal) || "PROCESSING".Equals(optionalTag2.GetValue(), global::System.StringComparison.Ordinal) || "COMPLETED".Equals(optionalTag2.GetValue(), global::System.StringComparison.Ordinal) || "FAILED".Equals(optionalTag2.GetValue(), global::System.StringComparison.Ordinal) || "CHARGED_BACK".Equals(optionalTag2.GetValue(), global::System.StringComparison.Ordinal))))))();
+            bool matchesUnionBranch1 = unionPayload is global::Microsoft.Kiota.Abstractions.Serialization.UntypedObject && ((global::System.Func<bool>)(() => parseNode.GetChildNode("type") != null && (parseNode.GetChildNode("type")?.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is global::Microsoft.Kiota.Abstractions.Serialization.UntypedString tag1 && ("PAYIN_SESSION".Equals(tag1.GetValue(), global::System.StringComparison.Ordinal))) && (parseNode.GetChildNode("status") == null || (parseNode.GetChildNode("status")?.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is global::Microsoft.Kiota.Abstractions.Serialization.UntypedString optionalTag2 && ("NEW".Equals(optionalTag2.GetValue(), global::System.StringComparison.Ordinal) || "PROCESSING".Equals(optionalTag2.GetValue(), global::System.StringComparison.Ordinal) || "COMPLETED".Equals(optionalTag2.GetValue(), global::System.StringComparison.Ordinal) || "FAILED".Equals(optionalTag2.GetValue(), global::System.StringComparison.Ordinal) || "CHARGED_BACK".Equals(optionalTag2.GetValue(), global::System.StringComparison.Ordinal))))))();
+            if (result.PaymentInitiationOneOf1 == null && result.PaymentInitiationOneOf2 == null && matchesUnionBranch0 && !matchesUnionBranch1) result.PaymentInitiationOneOf1 = global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationOneOf1(), parseNode);
+            if (result.PaymentInitiationOneOf1 == null && result.PaymentInitiationOneOf2 == null && matchesUnionBranch1 && !matchesUnionBranch0) result.PaymentInitiationOneOf2 = global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationOneOf2(), parseNode);
+            if (result.PaymentInitiationOneOf1 == null && result.PaymentInitiationOneOf2 == null) result.UnrecognizedValue = unionPayload;
+return result;
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -55,13 +67,13 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
         public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
         {
-            if(PaymentInitiationDirectDebit != null)
+            if(PaymentInitiationOneOf1 != null)
             {
-                return PaymentInitiationDirectDebit.GetFieldDeserializers();
+                return PaymentInitiationOneOf1.GetFieldDeserializers();
             }
-            else if(PaymentInitiationPayinSession != null)
+            else if(PaymentInitiationOneOf2 != null)
             {
-                return PaymentInitiationPayinSession.GetFieldDeserializers();
+                return PaymentInitiationOneOf2.GetFieldDeserializers();
             }
             return new Dictionary<string, Action<IParseNode>>();
         }
@@ -71,14 +83,21 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <param name="writer">Serialization writer to use to serialize this model</param>
         public virtual void Serialize(ISerializationWriter writer)
         {
+            if (global::System.Object.ReferenceEquals(writer, null)) throw new global::System.ArgumentNullException(nameof(writer));
+            if (PaymentInitiationOneOf1 == null && PaymentInitiationOneOf2 == null) { if (UnrecognizedValue is global::Microsoft.Kiota.Abstractions.Serialization.UntypedObject rawObject) writer.WriteObjectValue(null, new global::Soenneker.OpenApi.Generated.OpenApiUnionAdditionalData(AdditionalData, rawObject)); else if (UnrecognizedValue != null) writer.WriteObjectValue(null, UnrecognizedValue); else if (AdditionalData.Count > 0) writer.WriteObjectValue(null, new global::Soenneker.OpenApi.Generated.OpenApiUnionAdditionalData(AdditionalData)); else writer.WriteNullValue(null); return; }
+            if (PaymentInitiationOneOf1 != null && PaymentInitiationOneOf2 == null) { if (PaymentInitiationOneOf1 is global::Microsoft.Kiota.Abstractions.Serialization.IAdditionalDataHolder selectedData) foreach (var entry in AdditionalData) selectedData.AdditionalData[entry.Key] = entry.Value; writer.WriteObjectValue(null, PaymentInitiationOneOf1); return; }
+            if (PaymentInitiationOneOf2 != null && PaymentInitiationOneOf1 == null) { if (PaymentInitiationOneOf2 is global::Microsoft.Kiota.Abstractions.Serialization.IAdditionalDataHolder selectedData) foreach (var entry in AdditionalData) selectedData.AdditionalData[entry.Key] = entry.Value; writer.WriteObjectValue(null, PaymentInitiationOneOf2); return; }
+
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            if(PaymentInitiationDirectDebit != null)
+            if(PaymentInitiationOneOf1 != null)
             {
-                writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationDirectDebit>(null, PaymentInitiationDirectDebit);
+                if (PaymentInitiationOneOf1 is global::Microsoft.Kiota.Abstractions.Serialization.IAdditionalDataHolder unionData) foreach (var entry in AdditionalData) unionData.AdditionalData[entry.Key] = entry.Value;
+                writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationOneOf1>(null, PaymentInitiationOneOf1);
             }
-            else if(PaymentInitiationPayinSession != null)
+            else if(PaymentInitiationOneOf2 != null)
             {
-                writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationPayinSession>(null, PaymentInitiationPayinSession);
+                if (PaymentInitiationOneOf2 is global::Microsoft.Kiota.Abstractions.Serialization.IAdditionalDataHolder unionData) foreach (var entry in AdditionalData) unionData.AdditionalData[entry.Key] = entry.Value;
+                writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationOneOf2>(null, PaymentInitiationOneOf2);
             }
         }
     }

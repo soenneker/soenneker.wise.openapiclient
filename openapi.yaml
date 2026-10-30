@@ -5755,6 +5755,73 @@ paths:
         '429':
           $ref: '#/components/responses/429'
   /spend/profiles/{profileId}/cards/{cardToken}/spending-permissions:
+    get:
+      operationId: cardPermissionsGet
+      summary: Get card spending permissions
+      description: |
+        Retrieves the current spending permissions configured for a card.
+      tags:
+        - card
+      parameters:
+        - name: profileId
+          in: path
+          required: true
+          description: The ID of the profile that owns the card.
+          schema:
+            type: integer
+            format: int64
+          example: 123456
+        - name: cardToken
+          in: path
+          required: true
+          description: The unique token identifying the card.
+          schema:
+            type: string
+            format: uuid
+          example: ca0c8154-1e14-4464-a1ce-dcea7dc3de52
+        - $ref: '#/components/parameters/X-External-Correlation-Id'
+      security:
+        - UserToken: []
+      responses:
+        '200':
+          description: Card permissions retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  permissions:
+                    type: array
+                    description: List of spending permissions for this card.
+                    items:
+                      $ref: '#/components/schemas/Permission'
+              example:
+                permissions:
+                  - type: ECOM
+                    isEnabled: false
+                    isLocked: false
+                  - type: POS_CHIP
+                    isEnabled: true
+                    isLocked: false
+                  - type: ATM_WITHDRAWAL
+                    isEnabled: false
+                    isLocked: false
+                  - type: MOBILE_WALLETS
+                    isEnabled: true
+                    isLocked: false
+                  - type: POS_CONTACTLESS
+                    isEnabled: false
+                    isLocked: true
+                  - type: POS_MAGSTRIPE
+                    isEnabled: false
+                    isLocked: true
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '429':
+          $ref: '#/components/responses/429'
     patch:
       operationId: cardPermissionsBulkUpdate
       summary: Bulk update card permissions
@@ -18273,6 +18340,15 @@ paths:
         {% /admonition %}
 
 
+        #### Creating quote for batch payment transfers
+
+
+        For batch transfers that will be funded by payin session, you must
+        include the `creationContext` field in the request body, or the payin
+        session feature cannot be used to fund the transfer. The transfer will
+        ultimately be blocked and money refunded to the sender.
+
+
         #### Pricing configuration
 
 
@@ -18356,6 +18432,19 @@ paths:
                     _Optional_. Preferred payin method. Use `BANK_TRANSFER` to
                     return this method at the top of the response's results.
                   example: null
+                creationContext:
+                  type: object
+                  description: >-
+                    Used to pass additional metadata about the intended
+                    transfer.
+                  properties:
+                    flow:
+                      type: string
+                      description: >-
+                        _Optional_. Used to pass flow type for the creation flow
+                        on the quote. It should always be `MASS_PAY` for batch
+                        transfers funded via payin sessions.
+                      example: MASS_PAY
                 paymentMetadata:
                   type: object
                   description: >-
@@ -28076,14 +28165,12 @@ webhooks:
       operationId: eventSwiftInCredit
       summary: Swift receive credit
       description: >
-        Triggered every time a SWIFT message is received and a credit is
+        Triggered every time a Swift message is received and a credit is
         deposited into a balance account.
 
-
-        If you also subscribe to `balances#credit` or `transfers#state-change`
-        on the same profile or application, you may experience some duplication
-        of webhook events. You should make allowances for this to handle it in
-        your implementation.
+        If you also subscribe to the `balances#credit` event type on the same
+        profile or application, you may experience some duplication of webhook
+        events.
 
 
         * Event type: `swift-in#credit`
@@ -28093,8 +28180,22 @@ webhooks:
         * Application level subscriptions: Supported
 
 
-        Events may not be delivered in the order they occurred. Use
-        `data.occurred_at` to reconcile the order.
+        {% admonition type="warning" %}
+
+        The `swift-in#credit` event type only covers transfers received via a
+        connected BIC. It is not triggered by local scheme payments (SEPA,
+        Faster Payments, ACH).
+
+        Integrations relying solely on this event will not be notified of
+        pay-ins to Local Account Details. We recommend subscribing to the
+        `incoming-transfer#credited` event type to receive a unified signal
+        across all payment rails.
+
+        {% /admonition %}
+
+
+        Events may not be delivered in the order they occurred. Use the
+        `data.occurred_at` field to reconcile the order.
 
         See the [Event ordering
         guide](/guides/developer/webhooks/event-ordering) for details.
@@ -28327,10 +28428,9 @@ webhooks:
         Triggered when an incoming transfer is credited to a Wise balance.
 
 
-        This is a thin event, containing just the `incoming_transfer_id`. Fetch
-        the full resource via the 
-
-        [incoming transfer endpoint](/api-reference/incoming-transfer).
+        This is a thin event that provides the `incoming_transfer_id`. Use this
+        ID to [fetch the full incoming transfer
+        resource](/api-reference/incoming-transfer).
 
 
         * Event type: `incoming-transfer#credited`
@@ -28340,8 +28440,8 @@ webhooks:
         * Application level subscriptions: Supported
 
 
-        Events may not be delivered in the order they occurred. Use
-        `data.occurred_at` to reconcile the order.
+        Events may not be delivered in the order they occurred. Use the
+        `data.occurred_at` field to reconcile the order.
 
         See the [Event ordering
         guide](/guides/developer/webhooks/event-ordering) for details.
@@ -34466,12 +34566,16 @@ components:
                                 type: string
                                 description: >-
                                   The specific TIN identifier type for that
-                                  country. See the [TIN types
+                                  country. Must be one of the types listed for
+                                  the `taxCountry` in the [TIN types
                                   reference](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#tin-types-reference).
+                                  Any other value is rejected.
                                 example: SG_NRIC
                               number:
                                 type: string
-                                description: The actual tax identification number.
+                                description: >-
+                                  The actual tax identification number. Must
+                                  match the format of the selected `type`.
                                 example: S1234567A
                           skipReason:
                             type: string

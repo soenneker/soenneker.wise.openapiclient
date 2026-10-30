@@ -12,19 +12,31 @@ namespace Soenneker.Wise.OpenApiClient.Models
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class ComparisonProvidersItemQuotesItemDeliveryEstimation : IAdditionalDataHolder, IParsable
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("duration") is { } nullNodeDuration && nullNodeDuration.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Duration = null;
+            if (parseNode.GetChildNode("providerGivesEstimate") is { } nullNodeProviderGivesEstimate && nullNodeProviderGivesEstimate.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ProviderGivesEstimate = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Duration range</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemQuotesItemDeliveryEstimationDuration? Duration { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemQuotesItemDeliveryEstimationDuration? Duration { get => _explicitNullValueDuration; set { _explicitNullValueDuration = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("duration"); else _explicitNullProperties?.Remove("duration"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemQuotesItemDeliveryEstimationDuration? _explicitNullValueDuration = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemQuotesItemDeliveryEstimationDuration Duration { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemQuotesItemDeliveryEstimationDuration Duration { get => _explicitNullValueDuration; set { _explicitNullValueDuration = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("duration"); else _explicitNullProperties?.Remove("duration"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemQuotesItemDeliveryEstimationDuration _explicitNullValueDuration = default!;
 #endif
         /// <summary>Whether a provider publicly surfaces a speed estimate or not</summary>
-        public bool? ProviderGivesEstimate { get; set; }
+        public bool? ProviderGivesEstimate { get => _explicitNullValueProviderGivesEstimate; set { _explicitNullValueProviderGivesEstimate = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("providerGivesEstimate"); else _explicitNullProperties?.Remove("providerGivesEstimate"); } }
+        private bool? _explicitNullValueProviderGivesEstimate = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemQuotesItemDeliveryEstimation"/> and sets the default values.
         /// </summary>
@@ -40,7 +52,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemQuotesItemDeliveryEstimation CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemQuotesItemDeliveryEstimation();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemQuotesItemDeliveryEstimation(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -63,6 +75,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.ComparisonProvidersItemQuotesItemDeliveryEstimationDuration>("duration", Duration);
             writer.WriteBoolValue("providerGivesEstimate", ProviderGivesEstimate);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

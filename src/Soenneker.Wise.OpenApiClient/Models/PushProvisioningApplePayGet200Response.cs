@@ -11,32 +11,48 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class PushProvisioningApplePayGet200Response : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("activationData") is { } nullNodeActivationData && nullNodeActivationData.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ActivationData = null;
+            if (parseNode.GetChildNode("encryptedPassData") is { } nullNodeEncryptedPassData && nullNodeEncryptedPassData.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) EncryptedPassData = null;
+            if (parseNode.GetChildNode("ephemeralKey") is { } nullNodeEphemeralKey && nullNodeEphemeralKey.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) EphemeralKey = null;
+        }
+
         /// <summary>Encrypted activation data following card scheme and wallet provider specifications. The response is encoded in Base64.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? ActivationData { get; set; }
+        public string? ActivationData { get => _explicitNullValueActivationData; set { _explicitNullValueActivationData = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("activationData"); else _explicitNullProperties?.Remove("activationData"); } }
+        private string? _explicitNullValueActivationData = default!;
 #nullable restore
 #else
-        public string ActivationData { get; set; }
+        public string ActivationData { get => _explicitNullValueActivationData; set { _explicitNullValueActivationData = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("activationData"); else _explicitNullProperties?.Remove("activationData"); } }
+        private string _explicitNullValueActivationData = default!;
 #endif
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Encrypted authentication data following card scheme and wallet provider specifications. The response is encoded in Base64.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? EncryptedPassData { get; set; }
+        public string? EncryptedPassData { get => _explicitNullValueEncryptedPassData; set { _explicitNullValueEncryptedPassData = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("encryptedPassData"); else _explicitNullProperties?.Remove("encryptedPassData"); } }
+        private string? _explicitNullValueEncryptedPassData = default!;
 #nullable restore
 #else
-        public string EncryptedPassData { get; set; }
+        public string EncryptedPassData { get => _explicitNullValueEncryptedPassData; set { _explicitNullValueEncryptedPassData = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("encryptedPassData"); else _explicitNullProperties?.Remove("encryptedPassData"); } }
+        private string _explicitNullValueEncryptedPassData = default!;
 #endif
         /// <summary>Ephemeral key used to encrypt authentication data. The response is encoded in Base64.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? EphemeralKey { get; set; }
+        public string? EphemeralKey { get => _explicitNullValueEphemeralKey; set { _explicitNullValueEphemeralKey = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("ephemeralKey"); else _explicitNullProperties?.Remove("ephemeralKey"); } }
+        private string? _explicitNullValueEphemeralKey = default!;
 #nullable restore
 #else
-        public string EphemeralKey { get; set; }
+        public string EphemeralKey { get => _explicitNullValueEphemeralKey; set { _explicitNullValueEphemeralKey = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("ephemeralKey"); else _explicitNullProperties?.Remove("ephemeralKey"); } }
+        private string _explicitNullValueEphemeralKey = default!;
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningApplePayGet200Response"/> and sets the default values.
@@ -53,7 +69,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningApplePayGet200Response CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningApplePayGet200Response();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningApplePayGet200Response(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -78,6 +94,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteStringValue("activationData", ActivationData);
             writer.WriteStringValue("encryptedPassData", EncryptedPassData);
             writer.WriteStringValue("ephemeralKey", EphemeralKey);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

@@ -12,15 +12,28 @@ namespace Soenneker.Wise.OpenApiClient.Models
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class TaxResidencySubmissionDataGoldenVisaDeclarationsDataGoldenVisaDeclaration : IAdditionalDataHolder, IParsable
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("DID_NOT_FILE_INCOME") is { } nullNodeDIDNOTFILEINCOME && nullNodeDIDNOTFILEINCOME.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) DIDNOTFILEINCOME = null;
+            if (parseNode.GetChildNode("NO_OTHER_RESIDENCE") is { } nullNodeNOOTHERRESIDENCE && nullNodeNOOTHERRESIDENCE.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) NOOTHERRESIDENCE = null;
+            if (parseNode.GetChildNode("WITHIN_TIME_FRAME") is { } nullNodeWITHINTIMEFRAME && nullNodeWITHINTIMEFRAME.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) WITHINTIMEFRAME = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Customer did not file a tax return in any other jurisdiction during the previous year.</summary>
-        public bool? DIDNOTFILEINCOME { get; set; }
+        public bool? DIDNOTFILEINCOME { get => _explicitNullValueDIDNOTFILEINCOME; set { _explicitNullValueDIDNOTFILEINCOME = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("DID_NOT_FILE_INCOME"); else _explicitNullProperties?.Remove("DID_NOT_FILE_INCOME"); } }
+        private bool? _explicitNullValueDIDNOTFILEINCOME = default!;
         /// <summary>Customer does not hold residency rights in any other jurisdiction.</summary>
-        public bool? NOOTHERRESIDENCE { get; set; }
+        public bool? NOOTHERRESIDENCE { get => _explicitNullValueNOOTHERRESIDENCE; set { _explicitNullValueNOOTHERRESIDENCE = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("NO_OTHER_RESIDENCE"); else _explicitNullProperties?.Remove("NO_OTHER_RESIDENCE"); } }
+        private bool? _explicitNullValueNOOTHERRESIDENCE = default!;
         /// <summary>Customer did not spend more than 90 days in any other jurisdiction in the previous year.</summary>
-        public bool? WITHINTIMEFRAME { get; set; }
+        public bool? WITHINTIMEFRAME { get => _explicitNullValueWITHINTIMEFRAME; set { _explicitNullValueWITHINTIMEFRAME = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("WITHIN_TIME_FRAME"); else _explicitNullProperties?.Remove("WITHIN_TIME_FRAME"); } }
+        private bool? _explicitNullValueWITHINTIMEFRAME = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.TaxResidencySubmissionDataGoldenVisaDeclarationsDataGoldenVisaDeclaration"/> and sets the default values.
         /// </summary>
@@ -36,7 +49,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.TaxResidencySubmissionDataGoldenVisaDeclarationsDataGoldenVisaDeclaration CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.TaxResidencySubmissionDataGoldenVisaDeclarationsDataGoldenVisaDeclaration();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.TaxResidencySubmissionDataGoldenVisaDeclarationsDataGoldenVisaDeclaration(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -61,6 +74,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteBoolValue("DID_NOT_FILE_INCOME", DIDNOTFILEINCOME);
             writer.WriteBoolValue("NO_OTHER_RESIDENCE", NOOTHERRESIDENCE);
             writer.WriteBoolValue("WITHIN_TIME_FRAME", WITHINTIMEFRAME);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

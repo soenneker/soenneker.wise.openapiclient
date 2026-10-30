@@ -11,76 +11,111 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class V3002DataResource : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("exchange_rate") is { } nullNodeExchangeRate && nullNodeExchangeRate.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ExchangeRate = null;
+            if (parseNode.GetChildNode("fee") is { } nullNodeFee && nullNodeFee.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Fee = null;
+            if (parseNode.GetChildNode("id") is { } nullNodeId && nullNodeId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Id = null;
+            if (parseNode.GetChildNode("instructed_amount") is { } nullNodeInstructedAmount && nullNodeInstructedAmount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) InstructedAmount = null;
+            if (parseNode.GetChildNode("recipient") is { } nullNodeRecipient && nullNodeRecipient.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Recipient = null;
+            if (parseNode.GetChildNode("reference") is { } nullNodeReference && nullNodeReference.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Reference = null;
+            if (parseNode.GetChildNode("sender") is { } nullNodeSender && nullNodeSender.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Sender = null;
+            if (parseNode.GetChildNode("settled_amount") is { } nullNodeSettledAmount && nullNodeSettledAmount.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SettledAmount = null;
+            if (parseNode.GetChildNode("transaction_time") is { } nullNodeTransactionTime && nullNodeTransactionTime.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TransactionTime = null;
+            if (parseNode.GetChildNode("uetr") is { } nullNodeUetr && nullNodeUetr.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Uetr = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>In case the originally instructed amount was converted by Wise or any other intermediary agent, this field contains the exchange rate used. If no conversion took place, the exchange rate will be `1.0`.</summary>
-        public double? ExchangeRate { get; set; }
+        public double? ExchangeRate { get => _explicitNullValueExchangeRate; set { _explicitNullValueExchangeRate = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("exchange_rate"); else _explicitNullProperties?.Remove("exchange_rate"); } }
+        private double? _explicitNullValueExchangeRate = default!;
         /// <summary>The fee property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.V3002DataResourceFee? Fee { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.V3002DataResourceFee? Fee { get => _explicitNullValueFee; set { _explicitNullValueFee = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("fee"); else _explicitNullProperties?.Remove("fee"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.V3002DataResourceFee? _explicitNullValueFee = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.V3002DataResourceFee Fee { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.V3002DataResourceFee Fee { get => _explicitNullValueFee; set { _explicitNullValueFee = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("fee"); else _explicitNullProperties?.Remove("fee"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.V3002DataResourceFee _explicitNullValueFee = default!;
 #endif
         /// <summary>ID of the webhook.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Id { get; set; }
+        public string? Id { get => _explicitNullValueId; set { _explicitNullValueId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("id"); else _explicitNullProperties?.Remove("id"); } }
+        private string? _explicitNullValueId = default!;
 #nullable restore
 #else
-        public string Id { get; set; }
+        public string Id { get => _explicitNullValueId; set { _explicitNullValueId = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("id"); else _explicitNullProperties?.Remove("id"); } }
+        private string _explicitNullValueId = default!;
 #endif
         /// <summary>Amount originally instructed by the ultimate sender.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.V3002DataResourceInstructedAmount? InstructedAmount { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.V3002DataResourceInstructedAmount? InstructedAmount { get => _explicitNullValueInstructedAmount; set { _explicitNullValueInstructedAmount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("instructed_amount"); else _explicitNullProperties?.Remove("instructed_amount"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.V3002DataResourceInstructedAmount? _explicitNullValueInstructedAmount = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.V3002DataResourceInstructedAmount InstructedAmount { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.V3002DataResourceInstructedAmount InstructedAmount { get => _explicitNullValueInstructedAmount; set { _explicitNullValueInstructedAmount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("instructed_amount"); else _explicitNullProperties?.Remove("instructed_amount"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.V3002DataResourceInstructedAmount _explicitNullValueInstructedAmount = default!;
 #endif
         /// <summary>The recipient property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.V3002DataResourceRecipient? Recipient { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.V3002DataResourceRecipient? Recipient { get => _explicitNullValueRecipient; set { _explicitNullValueRecipient = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("recipient"); else _explicitNullProperties?.Remove("recipient"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.V3002DataResourceRecipient? _explicitNullValueRecipient = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.V3002DataResourceRecipient Recipient { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.V3002DataResourceRecipient Recipient { get => _explicitNullValueRecipient; set { _explicitNullValueRecipient = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("recipient"); else _explicitNullProperties?.Remove("recipient"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.V3002DataResourceRecipient _explicitNullValueRecipient = default!;
 #endif
         /// <summary>Reference provided by the ultimate sender for the payment.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Reference { get; set; }
+        public string? Reference { get => _explicitNullValueReference; set { _explicitNullValueReference = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("reference"); else _explicitNullProperties?.Remove("reference"); } }
+        private string? _explicitNullValueReference = default!;
 #nullable restore
 #else
-        public string Reference { get; set; }
+        public string Reference { get => _explicitNullValueReference; set { _explicitNullValueReference = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("reference"); else _explicitNullProperties?.Remove("reference"); } }
+        private string _explicitNullValueReference = default!;
 #endif
         /// <summary>The sender property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.V3002DataResourceSender? Sender { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.V3002DataResourceSender? Sender { get => _explicitNullValueSender; set { _explicitNullValueSender = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sender"); else _explicitNullProperties?.Remove("sender"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.V3002DataResourceSender? _explicitNullValueSender = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.V3002DataResourceSender Sender { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.V3002DataResourceSender Sender { get => _explicitNullValueSender; set { _explicitNullValueSender = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sender"); else _explicitNullProperties?.Remove("sender"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.V3002DataResourceSender _explicitNullValueSender = default!;
 #endif
         /// <summary>The settled_amount property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.V3002DataResourceSettledAmount? SettledAmount { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.V3002DataResourceSettledAmount? SettledAmount { get => _explicitNullValueSettledAmount; set { _explicitNullValueSettledAmount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("settled_amount"); else _explicitNullProperties?.Remove("settled_amount"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.V3002DataResourceSettledAmount? _explicitNullValueSettledAmount = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.V3002DataResourceSettledAmount SettledAmount { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.V3002DataResourceSettledAmount SettledAmount { get => _explicitNullValueSettledAmount; set { _explicitNullValueSettledAmount = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("settled_amount"); else _explicitNullProperties?.Remove("settled_amount"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.V3002DataResourceSettledAmount _explicitNullValueSettledAmount = default!;
 #endif
         /// <summary>Date and time at which the associated transaction was created. Time in UTC.Format: `YYYY`-`MM`-`DD`T`HH`:`MM`:`SS`Z</summary>
-        public DateTimeOffset? TransactionTime { get; set; }
+        public DateTimeOffset? TransactionTime { get => _explicitNullValueTransactionTime; set { _explicitNullValueTransactionTime = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("transaction_time"); else _explicitNullProperties?.Remove("transaction_time"); } }
+        private DateTimeOffset? _explicitNullValueTransactionTime = default!;
         /// <summary>Unique identifier created by the scheme for each payment and passed through the scheme to Wise.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Uetr { get; set; }
+        public string? Uetr { get => _explicitNullValueUetr; set { _explicitNullValueUetr = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("uetr"); else _explicitNullProperties?.Remove("uetr"); } }
+        private string? _explicitNullValueUetr = default!;
 #nullable restore
 #else
-        public string Uetr { get; set; }
+        public string Uetr { get => _explicitNullValueUetr; set { _explicitNullValueUetr = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("uetr"); else _explicitNullProperties?.Remove("uetr"); } }
+        private string _explicitNullValueUetr = default!;
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.V3002DataResource"/> and sets the default values.
@@ -97,7 +132,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.V3002DataResource CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.V3002DataResource();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.V3002DataResource(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -136,6 +171,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V3002DataResourceSettledAmount>("settled_amount", SettledAmount);
             writer.WriteDateTimeOffsetValue("transaction_time", TransactionTime);
             writer.WriteStringValue("uetr", Uetr);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

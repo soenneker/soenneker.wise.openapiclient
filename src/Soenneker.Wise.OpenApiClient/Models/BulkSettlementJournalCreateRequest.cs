@@ -11,47 +11,72 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class BulkSettlementJournalCreateRequest : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("balanceTransfer") is { } nullNodeBalanceTransfer && nullNodeBalanceTransfer.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) BalanceTransfer = null;
+            if (parseNode.GetChildNode("refundedTransfers") is { } nullNodeRefundedTransfers && nullNodeRefundedTransfers.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) RefundedTransfers = null;
+            if (parseNode.GetChildNode("settlementCurrency") is { } nullNodeSettlementCurrency && nullNodeSettlementCurrency.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SettlementCurrency = null;
+            if (parseNode.GetChildNode("settlementDate") is { } nullNodeSettlementDate && nullNodeSettlementDate.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SettlementDate = null;
+            if (parseNode.GetChildNode("settlementReference") is { } nullNodeSettlementReference && nullNodeSettlementReference.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SettlementReference = null;
+            if (parseNode.GetChildNode("transfers") is { } nullNodeTransfers && nullNodeTransfers.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Transfers = null;
+            if (parseNode.GetChildNode("type") is { } nullNodeType && nullNodeType.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Type = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The amount of money to be deducted from the expected settlement amount based on what is owed to you for previous days where the total settlement from you to Wise was negative.This value must be 0 or negative.</summary>
-        public decimal? BalanceTransfer { get; set; }
+        public decimal? BalanceTransfer { get => _explicitNullValueBalanceTransfer; set { _explicitNullValueBalanceTransfer = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("balanceTransfer"); else _explicitNullProperties?.Remove("balanceTransfer"); } }
+        private decimal? _explicitNullValueBalanceTransfer = default!;
         /// <summary>Array of transfers for which refunds have been processed. Only for Net Settlement.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.BulkSettlementJournalCreateRequestRefundedTransfersItem>? RefundedTransfers { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.BulkSettlementJournalCreateRequestRefundedTransfersItem>? RefundedTransfers { get => _explicitNullValueRefundedTransfers; set { _explicitNullValueRefundedTransfers = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("refundedTransfers"); else _explicitNullProperties?.Remove("refundedTransfers"); } }
+        private List<global::Soenneker.Wise.OpenApiClient.Models.BulkSettlementJournalCreateRequestRefundedTransfersItem>? _explicitNullValueRefundedTransfers = default!;
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.BulkSettlementJournalCreateRequestRefundedTransfersItem> RefundedTransfers { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.BulkSettlementJournalCreateRequestRefundedTransfersItem> RefundedTransfers { get => _explicitNullValueRefundedTransfers; set { _explicitNullValueRefundedTransfers = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("refundedTransfers"); else _explicitNullProperties?.Remove("refundedTransfers"); } }
+        private List<global::Soenneker.Wise.OpenApiClient.Models.BulkSettlementJournalCreateRequestRefundedTransfersItem> _explicitNullValueRefundedTransfers = default!;
 #endif
         /// <summary>The currency in which the transfers in this journal will be settled. If included, the `exchangeRate` must be set on every transfer in the transfers array.**Only include if you will settle in a currency different to the source currency of transfers.**</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? SettlementCurrency { get; set; }
+        public string? SettlementCurrency { get => _explicitNullValueSettlementCurrency; set { _explicitNullValueSettlementCurrency = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("settlementCurrency"); else _explicitNullProperties?.Remove("settlementCurrency"); } }
+        private string? _explicitNullValueSettlementCurrency = default!;
 #nullable restore
 #else
-        public string SettlementCurrency { get; set; }
+        public string SettlementCurrency { get => _explicitNullValueSettlementCurrency; set { _explicitNullValueSettlementCurrency = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("settlementCurrency"); else _explicitNullProperties?.Remove("settlementCurrency"); } }
+        private string _explicitNullValueSettlementCurrency = default!;
 #endif
         /// <summary>The date you send the settlement funds, ISO 8601 format.</summary>
-        public DateTimeOffset? SettlementDate { get; set; }
+        public DateTimeOffset? SettlementDate { get => _explicitNullValueSettlementDate; set { _explicitNullValueSettlementDate = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("settlementDate"); else _explicitNullProperties?.Remove("settlementDate"); } }
+        private DateTimeOffset? _explicitNullValueSettlementDate = default!;
         /// <summary>Reference used when paying the end of day settlement monies to Wise. This should match so that Wise can link the payment.Maximum 10 characters, must start with `TPFB` prefix.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? SettlementReference { get; set; }
+        public string? SettlementReference { get => _explicitNullValueSettlementReference; set { _explicitNullValueSettlementReference = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("settlementReference"); else _explicitNullProperties?.Remove("settlementReference"); } }
+        private string? _explicitNullValueSettlementReference = default!;
 #nullable restore
 #else
-        public string SettlementReference { get; set; }
+        public string SettlementReference { get => _explicitNullValueSettlementReference; set { _explicitNullValueSettlementReference = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("settlementReference"); else _explicitNullProperties?.Remove("settlementReference"); } }
+        private string _explicitNullValueSettlementReference = default!;
 #endif
         /// <summary>Array of transfers to be settled.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Soenneker.Wise.OpenApiClient.Models.BulkSettlementJournalCreateRequestTransfersItem>? Transfers { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.BulkSettlementJournalCreateRequestTransfersItem>? Transfers { get => _explicitNullValueTransfers; set { _explicitNullValueTransfers = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("transfers"); else _explicitNullProperties?.Remove("transfers"); } }
+        private List<global::Soenneker.Wise.OpenApiClient.Models.BulkSettlementJournalCreateRequestTransfersItem>? _explicitNullValueTransfers = default!;
 #nullable restore
 #else
-        public List<global::Soenneker.Wise.OpenApiClient.Models.BulkSettlementJournalCreateRequestTransfersItem> Transfers { get; set; }
+        public List<global::Soenneker.Wise.OpenApiClient.Models.BulkSettlementJournalCreateRequestTransfersItem> Transfers { get => _explicitNullValueTransfers; set { _explicitNullValueTransfers = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("transfers"); else _explicitNullProperties?.Remove("transfers"); } }
+        private List<global::Soenneker.Wise.OpenApiClient.Models.BulkSettlementJournalCreateRequestTransfersItem> _explicitNullValueTransfers = default!;
 #endif
         /// <summary>Type of settlement.</summary>
-        public global::Soenneker.Wise.OpenApiClient.Models.TrustedBulkSettlementType? Type { get; set; }
+        public global::Soenneker.Wise.OpenApiClient.Models.TrustedBulkSettlementType? Type { get => _explicitNullValueType; set { _explicitNullValueType = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("type"); else _explicitNullProperties?.Remove("type"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.TrustedBulkSettlementType? _explicitNullValueType = default!;
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.BulkSettlementJournalCreateRequest"/> and sets the default values.
         /// </summary>
@@ -67,7 +92,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.BulkSettlementJournalCreateRequest CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.BulkSettlementJournalCreateRequest();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.BulkSettlementJournalCreateRequest(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -100,6 +125,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteStringValue("settlementReference", SettlementReference);
             writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.BulkSettlementJournalCreateRequestTransfersItem>("transfers", Transfers);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.TrustedBulkSettlementType>("type", Type);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

@@ -59,6 +59,8 @@ namespace Soenneker.Wise.OpenApiClient.Simulation.Transfers.Item.PayoutFailure
                 { "400", global::Soenneker.Wise.OpenApiClient.Models.SimulationTransferPayoutFailure400ResponseSchema.CreateFromDiscriminatorValue },
                 { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
                 { "500", global::Soenneker.Wise.OpenApiClient.Models.SimulationTransferPayoutFailure500ResponseSchema.CreateFromDiscriminatorValue },
+                { "4XX", global::Soenneker.OpenApi.Generated.OpenApiRawError.CreateFromDiscriminatorValue },
+                { "5XX", global::Soenneker.OpenApi.Generated.OpenApiRawError.CreateFromDiscriminatorValue },
             };
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.SimulationTransferPayoutFailure200Response>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.SimulationTransferPayoutFailure200Response.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }

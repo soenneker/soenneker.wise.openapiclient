@@ -55,6 +55,8 @@ namespace Soenneker.Wise.OpenApiClient.Rates
             {
                 { "400", global::Soenneker.Wise.OpenApiClient.Models.RateGet400Response.CreateFromDiscriminatorValue },
                 { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
+                { "4XX", global::Soenneker.OpenApi.Generated.OpenApiRawError.CreateFromDiscriminatorValue },
+                { "5XX", global::Soenneker.OpenApi.Generated.OpenApiRawError.CreateFromDiscriminatorValue },
             };
             var collectionResult = await RequestAdapter.SendCollectionAsync<global::Soenneker.Wise.OpenApiClient.Models.RateGet200ResponseSchemaItem>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.RateGet200ResponseSchemaItem.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
             return collectionResult?.AsList();

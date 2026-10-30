@@ -11,24 +11,37 @@ namespace Soenneker.Wise.OpenApiClient.Models
     #pragma warning disable CS1591
     public partial class SamlAssertionConsumerServiceXWwwFormUrlencodedRequest : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
-    {
+    , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
+        // Track explicitly assigned nulls separately from absent properties.
+        private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
+
+        public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
+        {
+            if (parseNode.GetChildNode("RelayState") is { } nullNodeRelayState && nullNodeRelayState.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) RelayState = null;
+            if (parseNode.GetChildNode("SAMLResponse") is { } nullNodeSAMLResponse && nullNodeSAMLResponse.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) SAMLResponse = null;
+        }
+
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Opaque state value. If the authentication request included a `RelayState`, the identity provider returns it unchanged.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? RelayState { get; set; }
+        public string? RelayState { get => _explicitNullValueRelayState; set { _explicitNullValueRelayState = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("RelayState"); else _explicitNullProperties?.Remove("RelayState"); } }
+        private string? _explicitNullValueRelayState = default!;
 #nullable restore
 #else
-        public string RelayState { get; set; }
+        public string RelayState { get => _explicitNullValueRelayState; set { _explicitNullValueRelayState = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("RelayState"); else _explicitNullProperties?.Remove("RelayState"); } }
+        private string _explicitNullValueRelayState = default!;
 #endif
         /// <summary>Base64-encoded SAML `&lt;samlp:Response&gt;` message issued by the identity provider.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? SAMLResponse { get; set; }
+        public string? SAMLResponse { get => _explicitNullValueSAMLResponse; set { _explicitNullValueSAMLResponse = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("SAMLResponse"); else _explicitNullProperties?.Remove("SAMLResponse"); } }
+        private string? _explicitNullValueSAMLResponse = default!;
 #nullable restore
 #else
-        public string SAMLResponse { get; set; }
+        public string SAMLResponse { get => _explicitNullValueSAMLResponse; set { _explicitNullValueSAMLResponse = value; if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("SAMLResponse"); else _explicitNullProperties?.Remove("SAMLResponse"); } }
+        private string _explicitNullValueSAMLResponse = default!;
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.SamlAssertionConsumerServiceXWwwFormUrlencodedRequest"/> and sets the default values.
@@ -45,7 +58,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.SamlAssertionConsumerServiceXWwwFormUrlencodedRequest CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::Soenneker.Wise.OpenApiClient.Models.SamlAssertionConsumerServiceXWwwFormUrlencodedRequest();
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.SamlAssertionConsumerServiceXWwwFormUrlencodedRequest(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -68,6 +81,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("RelayState", RelayState);
             writer.WriteStringValue("SAMLResponse", SAMLResponse);
+            if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }
     }
