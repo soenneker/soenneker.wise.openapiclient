@@ -76,7 +76,7 @@ namespace Soenneker.Wise.OpenApiClient.Auth.Jose.Playground.Jws
         {
 #endif
             if(string.IsNullOrEmpty(body)) throw new ArgumentNullException(nameof(body));
-            var requestInfo = new RequestInformation(Method.POST, global::Soenneker.OpenApi.Generated.OpenApiServiceRoutes.Resolve(UrlTemplate, RequestAdapter.BaseUrl, "https://api.wise.com/2026Q4", "/auth/jose/playground/jws", PathParameters.ContainsKey("request-raw-url")), PathParameters);
+            var requestInfo = new RequestInformation(Method.POST, UrlTemplate, PathParameters);
             requestInfo.Configure(requestConfiguration);
             requestInfo.Headers.TryAdd("Accept", "application/jose+json");
             requestInfo.SetContentFromScalar(RequestAdapter, "application/jose+json", body);
