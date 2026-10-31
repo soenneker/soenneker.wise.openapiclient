@@ -354,6 +354,93 @@
           "429": {
             "description": "Rate limit exceeded. Retry after the number of seconds specified in the \u0060Retry-After\u0060 header.",
             "$ref": "#/components/responses/429"
+          },
+          "200": {
+            "description": "Multi-Status - Evidence(s) successfully uploaded, fully or partially.",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VerificationUploadEvidences207Response"
+                },
+                "examples": {
+                  "success": {
+                    "summary": "Full success",
+                    "value": {
+                      "overallStatus": "SUCCESS",
+                      "results": [
+                        {
+                          "evidenceRequirementKey": "accountPurpose",
+                          "result": "SUCCESS",
+                          "message": "SUCCESS"
+                        },
+                        {
+                          "evidenceRequirementKey": "annualIncome",
+                          "result": "SUCCESS",
+                          "message": "SUCCESS"
+                        },
+                        {
+                          "evidenceRequirementKey": "intendedCountries",
+                          "result": "SUCCESS",
+                          "message": "SUCCESS"
+                        },
+                        {
+                          "evidenceRequirementKey": "mainSourceOfIncome",
+                          "result": "SUCCESS",
+                          "message": "SUCCESS"
+                        },
+                        {
+                          "evidenceRequirementKey": "yearlyAnticipatedVolume",
+                          "result": "SUCCESS",
+                          "message": "SUCCESS"
+                        }
+                      ]
+                    }
+                  },
+                  "partialSuccess": {
+                    "summary": "Partial success",
+                    "value": {
+                      "overallStatus": "PARTIAL_SUCCESS",
+                      "results": [
+                        {
+                          "evidenceRequirementKey": "accountPurpose",
+                          "result": "SUCCESS",
+                          "message": "SUCCESS"
+                        },
+                        {
+                          "evidenceRequirementKey": "annualIncome",
+                          "result": "SUCCESS",
+                          "message": "SUCCESS"
+                        },
+                        {
+                          "evidenceRequirementKey": "intendedCountries",
+                          "result": "FAIL",
+                          "message": "Could not update verification requirement at the moment"
+                        },
+                        {
+                          "evidenceRequirementKey": "mainSourceOfIncome",
+                          "result": "SUCCESS",
+                          "message": "SUCCESS"
+                        },
+                        {
+                          "evidenceRequirementKey": "yearlyAnticipatedVolume",
+                          "result": "SUCCESS",
+                          "message": "SUCCESS"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            "x-client-success-response-status": "207"
           }
         },
         "security": [
@@ -952,6 +1039,25 @@
           "429": {
             "description": "Rate limit exceeded. Retry after the number of seconds specified in the \u0060Retry-After\u0060 header.",
             "$ref": "#/components/responses/429"
+          },
+          "200": {
+            "description": "Created - Balance successfully created.",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Balance"
+                }
+              }
+            },
+            "x-client-success-response-status": "201"
           }
         },
         "security": [
@@ -1242,6 +1348,25 @@
           "429": {
             "description": "Rate limit exceeded. Retry after the number of seconds specified in the \u0060Retry-After\u0060 header.",
             "$ref": "#/components/responses/429"
+          },
+          "200": {
+            "description": "Created - Movement completed successfully.",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BalanceMovement201Response"
+                }
+              }
+            },
+            "x-client-success-response-status": "201"
           }
         },
         "security": [
@@ -2272,6 +2397,25 @@
           "429": {
             "description": "Rate limit exceeded. Retry after the number of seconds specified in the \u0060Retry-After\u0060 header.",
             "$ref": "#/components/responses/429"
+          },
+          "200": {
+            "description": "Payment return created.",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BankAccountDetailsReturnsCreate201Response"
+                }
+              }
+            },
+            "x-client-success-response-status": "201"
           }
         },
         "security": [
@@ -2348,6 +2492,35 @@
           "429": {
             "description": "Rate limit exceeded. Retry after the number of seconds specified in the \u0060Retry-After\u0060 header.",
             "$ref": "#/components/responses/429"
+          },
+          "200": {
+            "description": "Batch group created successfully.\n\nNote that \u0060payInDetails\u0060 is empty for newly created batch groups.\n",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BatchGroup"
+                },
+                "example": {
+                  "id": "54a6bc09-cef9-49a8-9041-f1f0c654cd88",
+                  "version": 0,
+                  "name": "My batch group",
+                  "sourceCurrency": "GBP",
+                  "status": "NEW",
+                  "transferIds": [],
+                  "payInDetails": [],
+                  "payinSessionId": null
+                }
+              }
+            },
+            "x-client-success-response-status": "201"
           }
         },
         "security": [
@@ -6449,6 +6622,37 @@
           "429": {
             "description": "Rate limit exceeded. Retry after the number of seconds specified in the \u0060Retry-After\u0060 header.",
             "$ref": "#/components/responses/429"
+          },
+          "200": {
+            "description": "Public key created successfully.",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JoseRequestPublicKeysCreate201Response"
+                },
+                "example": {
+                  "clientId": null,
+                  "keyId": "e87da464-8e5e-4380-8f2d-4e4e04052672",
+                  "scope": "PAYLOAD_SIGNING",
+                  "validFrom": "2023-04-27 00:00:00",
+                  "validTill": "2024-04-01 00:00:00",
+                  "publicKeyMaterial": {
+                    "algorithm": "ES512",
+                    "keyMaterial": "MIGbMBAGByqGSM49AgEGBSuBBAAjA4GGAAQBYAwVICxD0Paq7MOuO34omujHxSrQXZtiTQ/VMteqAeUfM4wE\u002BvTSpbYCqb1pNhhcQpF\u002BFJd2H8jB1H1zil7qLLcBw\u002Byl4PrnLza1pmNLr\u002BkqQVoVXVyVx/xxMK2WObLn8tHxXtW4k\u002Bbm1/ySF\u002B0RQ265IZcw2i8YYX2FY59JkwE2Fac="
+                  },
+                  "deactivationTimestamp": null
+                }
+              }
+            },
+            "x-client-success-response-status": "201"
           }
         },
         "security": [
@@ -7102,6 +7306,25 @@
           "429": {
             "description": "Rate limit exceeded. Retry after the number of seconds specified in the \u0060Retry-After\u0060 header.",
             "$ref": "#/components/responses/429"
+          },
+          "200": {
+            "description": "KYC Review successfully created.",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KycReview"
+                }
+              }
+            },
+            "x-client-success-response-status": "202"
           }
         },
         "security": [
@@ -8292,6 +8515,29 @@
           "429": {
             "description": "Rate limit exceeded. Retry after the number of seconds specified in the \u0060Retry-After\u0060 header.",
             "$ref": "#/components/responses/429"
+          },
+          "200": {
+            "description": "Embedded link request created.",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecipientEmbeddedLinkRequestCreate201Response"
+                },
+                "example": {
+                  "url": "https://wise-sandbox.com/embedded-flows?embeddedLinkRequestId=9f5f5812-2609-4e48-8418-b64437c0c7cd#token=0d0bdc88-bcf4-43dd-85be-7ca65441db20",
+                  "expiresAt": "2026-06-15T13:23:20.265Z"
+                }
+              }
+            },
+            "x-client-success-response-status": "201"
           }
         },
         "security": [
@@ -8398,6 +8644,29 @@
           "429": {
             "description": "Rate limit exceeded. Retry after the number of seconds specified in the \u0060Retry-After\u0060 header.",
             "$ref": "#/components/responses/429"
+          },
+          "200": {
+            "description": "Embedded link request created.",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentInstrumentEmbeddedLinkRequestCreate201Response"
+                },
+                "example": {
+                  "url": "https://wise-sandbox.com/embedded-flows?embeddedLinkRequestId=9f5f5812-2609-4e48-8418-b64437c0c7cd#token=0d0bdc88-bcf4-43dd-85be-7ca65441db20",
+                  "expiresAt": "2026-06-15T13:23:20.265Z"
+                }
+              }
+            },
+            "x-client-success-response-status": "201"
           }
         },
         "security": [
@@ -8504,6 +8773,29 @@
           "429": {
             "description": "Rate limit exceeded. Retry after the number of seconds specified in the \u0060Retry-After\u0060 header.",
             "$ref": "#/components/responses/429"
+          },
+          "200": {
+            "description": "Embedded link request created.",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KycReviewsEmbeddedLinkRequestCreate201Response"
+                },
+                "example": {
+                  "url": "https://wise-sandbox.com/embedded-flows?embeddedLinkRequestId=9f5f5812-2609-4e48-8418-b64437c0c7cd#token=0d0bdc88-bcf4-43dd-85be-7ca65441db20",
+                  "expiresAt": "2026-06-15T13:23:20.265Z"
+                }
+              }
+            },
+            "x-client-success-response-status": "201"
           }
         },
         "security": [
@@ -11191,6 +11483,80 @@
           "429": {
             "description": "Rate limit exceeded. Retry after the number of seconds specified in the \u0060Retry-After\u0060 header.",
             "$ref": "#/components/responses/429"
+          },
+          "200": {
+            "description": "Message submitted successfully",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageSubmissionResponse"
+                },
+                "examples": {
+                  "freeformResponse": {
+                    "summary": "FREEFORM message created",
+                    "value": {
+                      "id": "660e8400-e29b-41d4-a716-446655440001",
+                      "caseId": 12345678,
+                      "createdAt": "2026-07-27T15:00:00.000",
+                      "content": {
+                        "text": {
+                          "freeText": "The transfer has been verified and approved by our compliance team."
+                        }
+                      },
+                      "type": "FREEFORM",
+                      "author": "PARTNER"
+                    }
+                  },
+                  "sanctionHitResponse": {
+                    "summary": "Sanction hit submission created",
+                    "value": {
+                      "id": "770e8400-e29b-41d4-a716-446655440002",
+                      "caseId": 12345678,
+                      "createdAt": "2026-07-27T15:05:00.000",
+                      "content": {
+                        "submissionData": {
+                          "individual": {
+                            "name": "John Doe",
+                            "dob": "15/03/1985",
+                            "nationality": "British"
+                          }
+                        }
+                      },
+                      "type": "DEPOSIT_SANCTION_HIT_SUBMISSION",
+                      "author": "PARTNER"
+                    }
+                  },
+                  "fileSubmissionResponse": {
+                    "summary": "FILE_SUBMISSION message created",
+                    "value": {
+                      "id": "880e8400-e29b-41d4-a716-446655440003",
+                      "caseId": 12345678,
+                      "createdAt": "2026-07-27T15:10:00.000",
+                      "content": {
+                        "submissionData": {
+                          "profileId": 14556049,
+                          "fileIds": [
+                            "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+                            "b2c3d4e5-f6a7-8901-bcde-f12345678901"
+                          ]
+                        }
+                      },
+                      "type": "FILE_SUBMISSION",
+                      "author": "PARTNER"
+                    }
+                  }
+                }
+              }
+            },
+            "x-client-success-response-status": "201"
           }
         },
         "security": [
@@ -11610,6 +11976,57 @@
                 }
               }
             }
+          },
+          "200": {
+            "description": "File uploaded successfully",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileUploadResponse"
+                },
+                "examples": {
+                  "pdfUpload": {
+                    "summary": "PDF file uploaded",
+                    "value": {
+                      "profileId": 14556049,
+                      "fileId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+                      "fileName": "company-registration.pdf",
+                      "createdAt": "2026-09-28T10:00:00.123",
+                      "purpose": "GENERAL"
+                    }
+                  },
+                  "pngUpload": {
+                    "summary": "PNG image uploaded",
+                    "value": {
+                      "profileId": 14556049,
+                      "fileId": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+                      "fileName": "identity-document.png",
+                      "createdAt": "2026-09-29T10:00:00.123",
+                      "purpose": "GENERAL"
+                    }
+                  },
+                  "jpegUpload": {
+                    "summary": "JPEG image uploaded",
+                    "value": {
+                      "profileId": 14556049,
+                      "fileId": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+                      "fileName": "identity-document.jpg",
+                      "createdAt": "2026-09-30T10:00:00.123",
+                      "purpose": "GENERAL"
+                    }
+                  }
+                }
+              }
+            },
+            "x-client-success-response-status": "201"
           }
         },
         "security": [
@@ -13729,6 +14146,49 @@
           "429": {
             "description": "Rate limit exceeded. Retry after the number of seconds specified in the \u0060Retry-After\u0060 header.",
             "$ref": "#/components/responses/429"
+          },
+          "200": {
+            "description": "List of all ultimate beneficial owners associated with the business profile.",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileUboCreate201ResponseSchema"
+                },
+                "example": [
+                  {
+                    "id": "013ab1c2688d0185b582ee7e0bcb28b2",
+                    "name": "John Doe",
+                    "dateOfBirth": "1982-05-20",
+                    "countryOfResidenceIso3Code": "usa",
+                    "addressFirstLine": "123 Fake St",
+                    "postCode": "FK 12345",
+                    "city": "Phoenix",
+                    "state": "AZ",
+                    "ownershipPercentage": 30
+                  },
+                  {
+                    "id": "912ce3f31c8b3a10572137e78417caa3",
+                    "name": "Jane Doe",
+                    "dateOfBirth": "1981-12-07",
+                    "countryOfResidenceIso3Code": "usa",
+                    "addressFirstLine": "125 Fake St",
+                    "postCode": "FK 12545",
+                    "city": "Phoenix",
+                    "state": "AZ",
+                    "ownershipPercentage": 70
+                  }
+                ]
+              }
+            },
+            "x-client-success-response-status": "201"
           }
         },
         "security": [
@@ -15900,6 +16360,25 @@
           "429": {
             "description": "Rate limit exceeded. Retry after the number of seconds specified in the \u0060Retry-After\u0060 header.",
             "$ref": "#/components/responses/429"
+          },
+          "200": {
+            "description": "Settlement allocation request accepted",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SettlementAllocationResponse"
+                }
+              }
+            },
+            "x-client-success-response-status": "202"
           }
         },
         "security": [
@@ -21523,6 +22002,118 @@
           "429": {
             "description": "Rate limit exceeded. Retry after the number of seconds specified in the \u0060Retry-After\u0060 header.",
             "$ref": "#/components/responses/429"
+          },
+          "200": {
+            "description": "Third party transfer successfully created.",
+            "headers": {
+              "Location": {
+                "description": "Path to the created transfer",
+                "schema": {
+                  "type": "string",
+                  "description": "Path to the created transfer",
+                  "example": "/public/v2/profiles/123/third-party-transfers/16521632"
+                }
+              },
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateThirdPartyTransferResponseContent"
+                },
+                "examples": {
+                  "response-business-legalentity": {
+                    "summary": "BUSINESS Originator Response",
+                    "value": {
+                      "id": 16521632,
+                      "originalTransferId": "54a6bc09-cef9-49a8-9041-f1f0c654cd88",
+                      "user": 4342275,
+                      "targetAccount": 8692237,
+                      "sourceAccount": 1527389,
+                      "quote": "8fa9be20-ba43-4b15-abbb-9424e1481050",
+                      "status": "cancelled",
+                      "rate": 0.89,
+                      "details": {
+                        "reference": "T475890"
+                      },
+                      "hasActiveIssues": false,
+                      "sourceCurrency": "EUR",
+                      "sourceValue": 0,
+                      "targetCurrency": "GBP",
+                      "targetValue": 150,
+                      "originator": {
+                        "legalEntityType": "BUSINESS",
+                        "name": {
+                          "fullName": "Hot Air Balloon Services Ltd"
+                        },
+                        "reference": "CST-2991992",
+                        "businessRegistrationCode": "83920-546",
+                        "businessRegistrationDate": "2020-01-15",
+                        "address": {
+                          "firstLine": "Salu tee 14",
+                          "city": "Tallinn",
+                          "stateCode": "",
+                          "countryCode": "EE",
+                          "postCode": "12112"
+                        },
+                        "accountDetails": "23456789"
+                      },
+                      "created": "2025-10-29T12:28:16.000Z"
+                    }
+                  },
+                  "response-private-legalentity": {
+                    "summary": "PRIVATE Originator Response",
+                    "value": {
+                      "id": 16521632,
+                      "originalTransferId": "54a6bc09-cef9-49a8-9041-f1f0c654cd88",
+                      "user": 4342275,
+                      "targetAccount": 8692237,
+                      "sourceAccount": 1527389,
+                      "quote": "8fa9be20-ba43-4b15-abbb-9424e1481050",
+                      "status": "cancelled",
+                      "rate": 0.89,
+                      "details": {
+                        "reference": "Testing"
+                      },
+                      "hasActiveIssues": false,
+                      "sourceCurrency": "EUR",
+                      "sourceValue": 0,
+                      "targetCurrency": "GBP",
+                      "targetValue": 150,
+                      "originator": {
+                        "legalEntityType": "PRIVATE",
+                        "name": {
+                          "givenName": "John",
+                          "middleNames": [
+                            "Ryan"
+                          ],
+                          "familyName": "Godspeed",
+                          "patronymicName": "Fitz"
+                        },
+                        "dateOfBirth": "1977-07-01",
+                        "nationality": "EE",
+                        "reference": "CST-2991992",
+                        "address": {
+                          "firstLine": "Salu tee 14",
+                          "city": "Tallinn",
+                          "stateCode": "",
+                          "countryCode": "EE",
+                          "postCode": "12112"
+                        },
+                        "accountDetails": "23456789"
+                      },
+                      "created": "2025-10-29T12:28:16.000Z"
+                    }
+                  }
+                }
+              }
+            },
+            "x-client-success-response-status": "201"
           }
         },
         "security": [
@@ -21923,6 +22514,51 @@
                 }
               }
             }
+          },
+          "200": {
+            "description": "FundTransfer 201 response",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FundingResponse"
+                },
+                "examples": {
+                  "fund-transfer-balance-completed": {
+                    "summary": "BALANCE - completed",
+                    "value": {
+                      "type": "BALANCE",
+                      "status": "COMPLETED",
+                      "balanceTransactionId": 987654321
+                    }
+                  },
+                  "fund-transfer-balance-rejected-insufficient-funds": {
+                    "summary": "BALANCE - rejected (insufficient funds)",
+                    "value": {
+                      "type": "BALANCE",
+                      "status": "REJECTED",
+                      "errorCode": "balance.insufficient-funds"
+                    }
+                  },
+                  "fund-transfer-trusted-pre-fund-bulk-completed": {
+                    "summary": "TRUSTED_PRE_FUND_BULK - completed",
+                    "value": {
+                      "type": "TRUSTED_PRE_FUND_BULK",
+                      "status": "COMPLETED",
+                      "partnerReference": "PARTNER-REF-4711"
+                    }
+                  }
+                }
+              }
+            },
+            "x-client-success-response-status": "201"
           }
         },
         "security": [
