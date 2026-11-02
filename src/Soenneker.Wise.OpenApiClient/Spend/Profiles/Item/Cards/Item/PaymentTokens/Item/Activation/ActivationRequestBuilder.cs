@@ -42,7 +42,7 @@ namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.Cards.Item.PaymentTok
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.DigitalWalletActivatePaymentToken400Response">When receiving a 400 status code</exception>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.DigitalWalletActivatePaymentToken403ProblemJsonResponse">When receiving a 403 status code</exception>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.DigitalWalletActivatePaymentToken404ProblemJsonResponse">When receiving a 404 status code</exception>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent">When receiving a 429 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContentError">When receiving a 429 status code</exception>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.DigitalWalletActivatePaymentToken500ProblemJsonResponse">When receiving a 500 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -60,7 +60,7 @@ namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.Cards.Item.PaymentTok
                 { "400", global::Soenneker.Wise.OpenApiClient.Models.DigitalWalletActivatePaymentToken400Response.CreateFromDiscriminatorValue },
                 { "403", global::Soenneker.Wise.OpenApiClient.Models.DigitalWalletActivatePaymentToken403ProblemJsonResponse.CreateFromDiscriminatorValue },
                 { "404", global::Soenneker.Wise.OpenApiClient.Models.DigitalWalletActivatePaymentToken404ProblemJsonResponse.CreateFromDiscriminatorValue },
-                { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContentError.CreateFromDiscriminatorValue },
                 { "500", global::Soenneker.Wise.OpenApiClient.Models.DigitalWalletActivatePaymentToken500ProblemJsonResponse.CreateFromDiscriminatorValue },
                 { "4XX", global::Soenneker.OpenApi.Generated.OpenApiRawError.CreateFromDiscriminatorValue },
                 { "5XX", global::Soenneker.OpenApi.Generated.OpenApiRawError.CreateFromDiscriminatorValue },

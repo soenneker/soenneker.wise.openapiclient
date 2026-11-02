@@ -51,7 +51,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>First line of address.</summary>
+        /// <summary>First line of residential address. Required if the business profile&apos;s registered address is in the EU, EEA or US.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? AddressFirstLine { get => _explicitNullValueAddressFirstLine; set { _explicitNullValueAddressFirstLine = value; AdditionalData?.Remove("addressFirstLine"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("addressFirstLine"); else _explicitNullProperties?.Remove("addressFirstLine"); } }
@@ -61,7 +61,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public string AddressFirstLine { get => _explicitNullValueAddressFirstLine; set { _explicitNullValueAddressFirstLine = value; AdditionalData?.Remove("addressFirstLine"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("addressFirstLine"); else _explicitNullProperties?.Remove("addressFirstLine"); } }
         private string _explicitNullValueAddressFirstLine = default!;
 #endif
-        /// <summary>City of residential address. Required if `countryOfResidenceIso3Code` is `usa`. Maximum 255 characters.</summary>
+        /// <summary>City of residential address. Required if `countryOfResidenceIso3Code` is `usa`, or if the business profile&apos;s registered address is in the EU, EEA or US. Maximum 255 characters.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? City { get => _explicitNullValueCity; set { _explicitNullValueCity = value; AdditionalData?.Remove("city"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("city"); else _explicitNullProperties?.Remove("city"); } }
@@ -167,7 +167,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public string PlaceOfBirthCountryIso3Code { get => _explicitNullValuePlaceOfBirthCountryIso3Code; set { _explicitNullValuePlaceOfBirthCountryIso3Code = value; AdditionalData?.Remove("placeOfBirthCountryIso3Code"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("placeOfBirthCountryIso3Code"); else _explicitNullProperties?.Remove("placeOfBirthCountryIso3Code"); } }
         private string _explicitNullValuePlaceOfBirthCountryIso3Code = default!;
 #endif
-        /// <summary>Address post code.</summary>
+        /// <summary>Residential address post code. Required if the business profile&apos;s registered address is in the EU, EEA or US and the country in `countryOfResidenceIso3Code` uses post codes.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? PostCode { get => _explicitNullValuePostCode; set { _explicitNullValuePostCode = value; AdditionalData?.Remove("postCode"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("postCode"); else _explicitNullProperties?.Remove("postCode"); } }
@@ -177,7 +177,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public string PostCode { get => _explicitNullValuePostCode; set { _explicitNullValuePostCode = value; AdditionalData?.Remove("postCode"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("postCode"); else _explicitNullProperties?.Remove("postCode"); } }
         private string _explicitNullValuePostCode = default!;
 #endif
-        /// <summary>State or region of residential address. Required if `countryOfResidenceIso3Code` is `usa`. Maximum 32 characters.</summary>
+        /// <summary>State or region of residential address. Required if `countryOfResidenceIso3Code` is `usa`, or if the business profile&apos;s registered address is in the EU, EEA or US and the country in `countryOfResidenceIso3Code` has states. Maximum 32 characters.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? State { get => _explicitNullValueState; set { _explicitNullValueState = value; AdditionalData?.Remove("state"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("state"); else _explicitNullProperties?.Remove("state"); } }

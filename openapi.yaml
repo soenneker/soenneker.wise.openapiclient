@@ -16858,11 +16858,18 @@ paths:
                     example: usa
                   addressFirstLine:
                     type: string
-                    description: First line of address.
+                    description: >-
+                      First line of residential address. Required if the
+                      business profile's registered address is in the EU, EEA or
+                      US.
                     example: 123 Fake St
                   postCode:
                     type: string
-                    description: Address post code.
+                    description: >-
+                      Residential address post code. Required if the business
+                      profile's registered address is in the EU, EEA or US and
+                      the country in `countryOfResidenceIso3Code` uses post
+                      codes.
                     example: FK 12345
                   documentType:
                     type: string
@@ -16914,15 +16921,18 @@ paths:
                     type: string
                     description: >-
                       City of residential address. Required if
-                      `countryOfResidenceIso3Code` is `usa`. Maximum 255
-                      characters.
+                      `countryOfResidenceIso3Code` is `usa`, or if the business
+                      profile's registered address is in the EU, EEA or US.
+                      Maximum 255 characters.
                     example: Phoenix
                   state:
                     type: string
                     description: >-
                       State or region of residential address. Required if
-                      `countryOfResidenceIso3Code` is `usa`. Maximum 32
-                      characters.
+                      `countryOfResidenceIso3Code` is `usa`, or if the business
+                      profile's registered address is in the EU, EEA or US and
+                      the country in `countryOfResidenceIso3Code` has states.
+                      Maximum 32 characters.
                     example: AZ
                   ownershipPercentage:
                     type:
@@ -17007,13 +17017,28 @@ paths:
             `errors` list carries one error code in `message`.
 
 
+            Rules are checked one at a time, so a response carries the errors of
+            one rule only. Fix them and resubmit to see any errors from the next
+            rule.
+
+
             Residential address error codes:
 
+            - `AddressLineRequired` — `addressFirstLine` is missing and the
+            business profile's registered address is in the EU, EEA or US
+
             - `CityRequired` — `city` is missing for an owner whose
-            `countryOfResidenceIso3Code` is `usa`
+            `countryOfResidenceIso3Code` is `usa`, or the business profile's
+            registered address is in the EU, EEA or US
+
+            - `PostCodeRequired` — `postCode` is missing, the business profile's
+            registered address is in the EU, EEA or US, and the owner's country
+            of residence uses post codes
 
             - `StateRequired` — `state` is missing for an owner whose
-            `countryOfResidenceIso3Code` is `usa`
+            `countryOfResidenceIso3Code` is `usa`, or the business profile's
+            registered address is in the EU, EEA or US and the owner's country
+            of residence has states
 
             - `CityTooLong` — `city` is longer than 255 characters
 
@@ -17105,6 +17130,14 @@ paths:
 
         Returns the list of all ultimate beneficial owners associated with the
         business profile.
+
+
+        If the business profile's registered address is in the EU, EEA or US,
+        each owner's residential address is required: `addressFirstLine` and
+        `city`, plus `postCode` and `state` where the owner's country of
+        residence (`countryOfResidenceIso3Code`) uses them. Because this request
+        replaces the whole collection, owners that were created earlier without
+        an address must be resent with one.
       tags:
         - profile
       security:
@@ -17145,11 +17178,18 @@ paths:
                     example: usa
                   addressFirstLine:
                     type: string
-                    description: First line of address.
+                    description: >-
+                      First line of residential address. Required if the
+                      business profile's registered address is in the EU, EEA or
+                      US.
                     example: 123 Fake St
                   postCode:
                     type: string
-                    description: Address post code.
+                    description: >-
+                      Residential address post code. Required if the business
+                      profile's registered address is in the EU, EEA or US and
+                      the country in `countryOfResidenceIso3Code` uses post
+                      codes.
                     example: FK 12345
                   documentType:
                     type: string
@@ -17201,15 +17241,18 @@ paths:
                     type: string
                     description: >-
                       City of residential address. Required if
-                      `countryOfResidenceIso3Code` is `usa`. Maximum 255
-                      characters.
+                      `countryOfResidenceIso3Code` is `usa`, or if the business
+                      profile's registered address is in the EU, EEA or US.
+                      Maximum 255 characters.
                     example: Phoenix
                   state:
                     type: string
                     description: >-
                       State or region of residential address. Required if
-                      `countryOfResidenceIso3Code` is `usa`. Maximum 32
-                      characters.
+                      `countryOfResidenceIso3Code` is `usa`, or if the business
+                      profile's registered address is in the EU, EEA or US and
+                      the country in `countryOfResidenceIso3Code` has states.
+                      Maximum 32 characters.
                     example: AZ
                   ownershipPercentage:
                     type:
@@ -17294,13 +17337,28 @@ paths:
             `errors` list carries one error code in `message`.
 
 
+            Rules are checked one at a time, so a response carries the errors of
+            one rule only. Fix them and resubmit to see any errors from the next
+            rule.
+
+
             Residential address error codes:
 
+            - `AddressLineRequired` — `addressFirstLine` is missing and the
+            business profile's registered address is in the EU, EEA or US
+
             - `CityRequired` — `city` is missing for an owner whose
-            `countryOfResidenceIso3Code` is `usa`
+            `countryOfResidenceIso3Code` is `usa`, or the business profile's
+            registered address is in the EU, EEA or US
+
+            - `PostCodeRequired` — `postCode` is missing, the business profile's
+            registered address is in the EU, EEA or US, and the owner's country
+            of residence uses post codes
 
             - `StateRequired` — `state` is missing for an owner whose
-            `countryOfResidenceIso3Code` is `usa`
+            `countryOfResidenceIso3Code` is `usa`, or the business profile's
+            registered address is in the EU, EEA or US and the owner's country
+            of residence has states
 
             - `CityTooLong` — `city` is longer than 255 characters
 

@@ -42,7 +42,7 @@ namespace Soenneker.Wise.OpenApiClient.Cases.Files
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.FileListValidationError">When receiving a 400 status code</exception>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Error401Unauthorized2">When receiving a 401 status code</exception>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Error403Forbidden2">When receiving a 403 status code</exception>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent">When receiving a 429 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContentError">When receiving a 429 status code</exception>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.ErrorResponse2">When receiving a 500 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -59,7 +59,7 @@ namespace Soenneker.Wise.OpenApiClient.Cases.Files
                 { "400", global::Soenneker.Wise.OpenApiClient.Models.FileListValidationError.CreateFromDiscriminatorValue },
                 { "401", global::Soenneker.Wise.OpenApiClient.Models.Error401Unauthorized2.CreateFromDiscriminatorValue },
                 { "403", global::Soenneker.Wise.OpenApiClient.Models.Error403Forbidden2.CreateFromDiscriminatorValue },
-                { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContentError.CreateFromDiscriminatorValue },
                 { "500", global::Soenneker.Wise.OpenApiClient.Models.ErrorResponse2.CreateFromDiscriminatorValue },
                 { "4XX", global::Soenneker.OpenApi.Generated.OpenApiRawError.CreateFromDiscriminatorValue },
                 { "5XX", global::Soenneker.OpenApi.Generated.OpenApiRawError.CreateFromDiscriminatorValue },

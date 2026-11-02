@@ -40,7 +40,7 @@ namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.CardHolderProfiles.It
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.AccessError">When receiving a 403 status code</exception>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.ValidationError3">When receiving a 422 status code</exception>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent">When receiving a 429 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContentError">When receiving a 429 status code</exception>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.ServerError">When receiving a 500 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -56,7 +56,7 @@ namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.CardHolderProfiles.It
             {
                 { "403", global::Soenneker.Wise.OpenApiClient.Models.AccessError.CreateFromDiscriminatorValue },
                 { "422", global::Soenneker.Wise.OpenApiClient.Models.ValidationError3.CreateFromDiscriminatorValue },
-                { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContentError.CreateFromDiscriminatorValue },
                 { "500", global::Soenneker.Wise.OpenApiClient.Models.ServerError.CreateFromDiscriminatorValue },
                 { "4XX", global::Soenneker.OpenApi.Generated.OpenApiRawError.CreateFromDiscriminatorValue },
                 { "5XX", global::Soenneker.OpenApi.Generated.OpenApiRawError.CreateFromDiscriminatorValue },
@@ -71,7 +71,7 @@ namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.CardHolderProfiles.It
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.AccessError">When receiving a 403 status code</exception>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.ValidationError3">When receiving a 422 status code</exception>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent">When receiving a 429 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContentError">When receiving a 429 status code</exception>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.ServerError">When receiving a 500 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -87,7 +87,7 @@ namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.CardHolderProfiles.It
             {
                 { "403", global::Soenneker.Wise.OpenApiClient.Models.AccessError.CreateFromDiscriminatorValue },
                 { "422", global::Soenneker.Wise.OpenApiClient.Models.ValidationError3.CreateFromDiscriminatorValue },
-                { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContentError.CreateFromDiscriminatorValue },
                 { "500", global::Soenneker.Wise.OpenApiClient.Models.ServerError.CreateFromDiscriminatorValue },
                 { "4XX", global::Soenneker.OpenApi.Generated.OpenApiRawError.CreateFromDiscriminatorValue },
                 { "5XX", global::Soenneker.OpenApi.Generated.OpenApiRawError.CreateFromDiscriminatorValue },
@@ -104,7 +104,7 @@ namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.CardHolderProfiles.It
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.ValidationError3">When receiving a 400 status code</exception>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.AccessError">When receiving a 403 status code</exception>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.ValidationError3">When receiving a 422 status code</exception>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent">When receiving a 429 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContentError">When receiving a 429 status code</exception>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.ServerError">When receiving a 500 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -122,7 +122,7 @@ namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.CardHolderProfiles.It
                 { "400", global::Soenneker.Wise.OpenApiClient.Models.ValidationError3.CreateFromDiscriminatorValue },
                 { "403", global::Soenneker.Wise.OpenApiClient.Models.AccessError.CreateFromDiscriminatorValue },
                 { "422", global::Soenneker.Wise.OpenApiClient.Models.ValidationError3.CreateFromDiscriminatorValue },
-                { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContentError.CreateFromDiscriminatorValue },
                 { "500", global::Soenneker.Wise.OpenApiClient.Models.ServerError.CreateFromDiscriminatorValue },
                 { "4XX", global::Soenneker.OpenApi.Generated.OpenApiRawError.CreateFromDiscriminatorValue },
                 { "5XX", global::Soenneker.OpenApi.Generated.OpenApiRawError.CreateFromDiscriminatorValue },

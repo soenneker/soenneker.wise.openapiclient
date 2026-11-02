@@ -46,8 +46,15 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public DateTimeOffset? EstimatedDeliveryAt { get => _explicitNullValueEstimatedDeliveryAt; set { _explicitNullValueEstimatedDeliveryAt = value; AdditionalData?.Remove("estimated_delivery_at"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("estimated_delivery_at"); else _explicitNullProperties?.Remove("estimated_delivery_at"); } }
         private DateTimeOffset? _explicitNullValueEstimatedDeliveryAt = default!;
         /// <summary>Payment scheme to include in the observation. May be omitted or null.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
         public global::Soenneker.Wise.OpenApiClient.Models.DeliveryUpdateRequestScheme? Scheme { get => _explicitNullValueScheme; set { _explicitNullValueScheme = value; AdditionalData?.Remove("scheme"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("scheme"); else _explicitNullProperties?.Remove("scheme"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.DeliveryUpdateRequestScheme? _explicitNullValueScheme = default!;
+#nullable restore
+#else
+        public global::Soenneker.Wise.OpenApiClient.Models.DeliveryUpdateRequestScheme Scheme { get => _explicitNullValueScheme; set { _explicitNullValueScheme = value; AdditionalData?.Remove("scheme"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("scheme"); else _explicitNullProperties?.Remove("scheme"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.DeliveryUpdateRequestScheme _explicitNullValueScheme = default!;
+#endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.DeliveryUpdateRequest"/> and sets the default values.
         /// </summary>
@@ -76,7 +83,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "delivery_update", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.DeliveryUpdateRequestDeliveryUpdate>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueDeliveryUpdate = default; _explicitNullProperties?.Remove("delivery_update"); AdditionalData["delivery_update"] = unknown; } else { DeliveryUpdate = parsed; AdditionalData.Remove("delivery_update"); } } },
                 { "delivery_update_path", n => { DeliveryUpdatePath = n.GetCollectionOfEnumValues<global::Soenneker.Wise.OpenApiClient.Models.DeliveryUpdate>()?.AsList(); } },
                 { "estimated_delivery_at", n => { EstimatedDeliveryAt = n.GetDateTimeOffsetValue(); } },
-                { "scheme", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.DeliveryUpdateRequestScheme>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueScheme = default; _explicitNullProperties?.Remove("scheme"); AdditionalData["scheme"] = unknown; } else { Scheme = parsed; AdditionalData.Remove("scheme"); } } },
+                { "scheme", n => { Scheme = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.DeliveryUpdateRequestScheme>(global::Soenneker.Wise.OpenApiClient.Models.DeliveryUpdateRequestScheme.CreateFromDiscriminatorValue); } },
             };
         }
         /// <summary>
@@ -89,7 +96,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.DeliveryUpdateRequestDeliveryUpdate>("delivery_update", DeliveryUpdate);
             writer.WriteCollectionOfEnumValues<global::Soenneker.Wise.OpenApiClient.Models.DeliveryUpdate>("delivery_update_path", DeliveryUpdatePath);
             writer.WriteDateTimeOffsetValue("estimated_delivery_at", EstimatedDeliveryAt);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.DeliveryUpdateRequestScheme>("scheme", Scheme);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.DeliveryUpdateRequestScheme>("scheme", Scheme);
             if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }

@@ -42,7 +42,7 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.Item.Balances.HoldLimitBreach.It
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreachClose400Response">When receiving a 400 status code</exception>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreachClose403Response">When receiving a 403 status code</exception>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreachClose404Response">When receiving a 404 status code</exception>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent">When receiving a 429 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContentError">When receiving a 429 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task PostAsync(global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreachCloseRequest body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -59,7 +59,7 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.Item.Balances.HoldLimitBreach.It
                 { "400", global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreachClose400Response.CreateFromDiscriminatorValue },
                 { "403", global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreachClose403Response.CreateFromDiscriminatorValue },
                 { "404", global::Soenneker.Wise.OpenApiClient.Models.HoldLimitBreachClose404Response.CreateFromDiscriminatorValue },
-                { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContentError.CreateFromDiscriminatorValue },
                 { "4XX", global::Soenneker.OpenApi.Generated.OpenApiRawError.CreateFromDiscriminatorValue },
                 { "5XX", global::Soenneker.OpenApi.Generated.OpenApiRawError.CreateFromDiscriminatorValue },
             };

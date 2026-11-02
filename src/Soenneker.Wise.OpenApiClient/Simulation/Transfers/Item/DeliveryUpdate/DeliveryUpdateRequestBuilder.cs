@@ -42,7 +42,7 @@ namespace Soenneker.Wise.OpenApiClient.Simulation.Transfers.Item.DeliveryUpdate
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.SimulationTransferDeliveryUpdate400ResponseError">When receiving a 400 status code</exception>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.SimulationErrors">When receiving a 404 status code</exception>
-        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent">When receiving a 429 status code</exception>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContentError">When receiving a 429 status code</exception>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.SimulationTransferDeliveryUpdate500ResponseError">When receiving a 500 status code</exception>
         /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.SimulationErrors">When receiving a 503 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -60,7 +60,7 @@ namespace Soenneker.Wise.OpenApiClient.Simulation.Transfers.Item.DeliveryUpdate
             {
                 { "400", global::Soenneker.Wise.OpenApiClient.Models.SimulationTransferDeliveryUpdate400ResponseError.CreateFromDiscriminatorValue },
                 { "404", global::Soenneker.Wise.OpenApiClient.Models.SimulationErrors.CreateFromDiscriminatorValue },
-                { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContent.CreateFromDiscriminatorValue },
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContentError.CreateFromDiscriminatorValue },
                 { "500", global::Soenneker.Wise.OpenApiClient.Models.SimulationTransferDeliveryUpdate500ResponseError.CreateFromDiscriminatorValue },
                 { "503", global::Soenneker.Wise.OpenApiClient.Models.SimulationErrors.CreateFromDiscriminatorValue },
                 { "4XX", global::Soenneker.OpenApi.Generated.OpenApiRawError.CreateFromDiscriminatorValue },

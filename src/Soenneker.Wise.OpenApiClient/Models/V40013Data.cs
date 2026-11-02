@@ -41,8 +41,15 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public decimal? Amount { get => _explicitNullValueAmount; set { _explicitNullValueAmount = value; AdditionalData?.Remove("amount"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("amount"); else _explicitNullProperties?.Remove("amount"); } }
         private decimal? _explicitNullValueAmount = default!;
         /// <summary>Reason the breach was closed. Null if state is `OPEN`.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
         public global::Soenneker.Wise.OpenApiClient.Models.V40013DataClosingReason? ClosingReason { get => _explicitNullValueClosingReason; set { _explicitNullValueClosingReason = value; AdditionalData?.Remove("closing_reason"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("closing_reason"); else _explicitNullProperties?.Remove("closing_reason"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.V40013DataClosingReason? _explicitNullValueClosingReason = default!;
+#nullable restore
+#else
+        public global::Soenneker.Wise.OpenApiClient.Models.V40013DataClosingReason ClosingReason { get => _explicitNullValueClosingReason; set { _explicitNullValueClosingReason = value; AdditionalData?.Remove("closing_reason"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("closing_reason"); else _explicitNullProperties?.Remove("closing_reason"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.V40013DataClosingReason _explicitNullValueClosingReason = default!;
+#endif
         /// <summary>Timestamp when the breach was created (ISO 8601).</summary>
         public DateTimeOffset? CreatedAt { get => _explicitNullValueCreatedAt; set { _explicitNullValueCreatedAt = value; AdditionalData?.Remove("created_at"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("created_at"); else _explicitNullProperties?.Remove("created_at"); } }
         private DateTimeOffset? _explicitNullValueCreatedAt = default!;
@@ -101,7 +108,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "amount", n => { Amount = n.GetDecimalValue(); } },
-                { "closing_reason", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40013DataClosingReason>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueClosingReason = default; _explicitNullProperties?.Remove("closing_reason"); AdditionalData["closing_reason"] = unknown; } else { ClosingReason = parsed; AdditionalData.Remove("closing_reason"); } } },
+                { "closing_reason", n => { ClosingReason = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40013DataClosingReason>(global::Soenneker.Wise.OpenApiClient.Models.V40013DataClosingReason.CreateFromDiscriminatorValue); } },
                 { "created_at", n => { CreatedAt = n.GetDateTimeOffsetValue(); } },
                 { "currency", n => { Currency = n.GetStringValue(); } },
                 { "occurred_at", n => { OccurredAt = n.GetDateTimeOffsetValue(); } },
@@ -118,7 +125,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteDecimalValue("amount", Amount);
-            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40013DataClosingReason>("closing_reason", ClosingReason);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V40013DataClosingReason>("closing_reason", ClosingReason);
             writer.WriteDateTimeOffsetValue("created_at", CreatedAt);
             writer.WriteStringValue("currency", Currency);
             writer.WriteDateTimeOffsetValue("occurred_at", OccurredAt);
