@@ -52,8 +52,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
             var mappingValue = parseNode.GetChildNode("type")?.GetStringValue();
             return mappingValue switch
             {
-                "DIRECT_DEBIT" => new global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationPaymentInitiationOneOf1(),
-                "PAYIN_SESSION" => new global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationPaymentInitiationOneOf2(),
+                "DIRECT_DEBIT" => new global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationOneOf1Variant(),
+                "PAYIN_SESSION" => new global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiationOneOf2Variant(),
                 _ => new global::Soenneker.Wise.OpenApiClient.Models.PaymentInitiation(),
             };
         }

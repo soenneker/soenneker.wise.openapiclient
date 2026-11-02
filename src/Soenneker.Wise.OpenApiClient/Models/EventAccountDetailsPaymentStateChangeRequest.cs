@@ -51,8 +51,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
             var mappingValue = parseNode.GetChildNode("schema_version")?.GetStringValue();
             return mappingValue switch
             {
-                "2.0.0" => new global::Soenneker.Wise.OpenApiClient.Models.EventAccountDetailsPaymentStateChangeRequestEventAccountDetailsPaymentStateChangeRequestOneOf2(),
-                "4.0.0" => new global::Soenneker.Wise.OpenApiClient.Models.EventAccountDetailsPaymentStateChangeRequestEventAccountDetailsPaymentStateChangeRequestOneOf1(),
+                "2.0.0" => new global::Soenneker.Wise.OpenApiClient.Models.EventAccountDetailsPaymentStateChangeRequestOneOf2Variant(),
+                "4.0.0" => new global::Soenneker.Wise.OpenApiClient.Models.EventAccountDetailsPaymentStateChangeRequestOneOf1Variant(),
                 _ => new global::Soenneker.Wise.OpenApiClient.Models.EventAccountDetailsPaymentStateChangeRequest(),
             };
         }

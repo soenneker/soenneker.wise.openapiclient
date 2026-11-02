@@ -31719,8 +31719,8 @@
         "discriminator": {
           "propertyName": "type",
           "mapping": {
-            "DIRECT_DEBIT": "#/components/schemas/PaymentInitiationPaymentInitiationOneOf1",
-            "PAYIN_SESSION": "#/components/schemas/PaymentInitiationPaymentInitiationOneOf2"
+            "DIRECT_DEBIT": "#/components/schemas/PaymentInitiationOneOf1Variant",
+            "PAYIN_SESSION": "#/components/schemas/PaymentInitiationOneOf2Variant"
           }
         },
         "x-client-original-tagged-union": {
@@ -56773,8 +56773,8 @@
         "discriminator": {
           "propertyName": "schema_version",
           "mapping": {
-            "4.0.0": "#/components/schemas/EventTransfersActiveCasesRequestEventTransfersActiveCasesRequestOneOf1",
-            "2.0.0": "#/components/schemas/EventTransfersActiveCasesRequestEventTransfersActiveCasesRequestOneOf2"
+            "4.0.0": "#/components/schemas/EventTransfersActiveCasesRequestOneOf1Variant",
+            "2.0.0": "#/components/schemas/EventTransfersActiveCasesRequestOneOf2Variant"
           }
         },
         "x-client-original-tagged-union": {
@@ -56833,8 +56833,8 @@
         "discriminator": {
           "propertyName": "schema_version",
           "mapping": {
-            "4.0.0": "#/components/schemas/EventTransfersRefundRequestEventTransfersRefundRequestOneOf1",
-            "2.0.0": "#/components/schemas/EventTransfersRefundRequestEventTransfersRefundRequestOneOf2"
+            "4.0.0": "#/components/schemas/EventTransfersRefundRequestOneOf1Variant",
+            "2.0.0": "#/components/schemas/EventTransfersRefundRequestOneOf2Variant"
           }
         },
         "x-client-original-tagged-union": {
@@ -56894,9 +56894,9 @@
         "discriminator": {
           "propertyName": "schema_version",
           "mapping": {
-            "5.0.0": "#/components/schemas/EventTransfersPayoutFailureRequestEventTransfersPayoutFailureRequestOneOf1",
-            "4.0.0": "#/components/schemas/EventTransfersPayoutFailureRequestEventTransfersPayoutFailureRequestOneOf2",
-            "2.0.0": "#/components/schemas/EventTransfersPayoutFailureRequestEventTransfersPayoutFailureRequestOneOf3"
+            "5.0.0": "#/components/schemas/EventTransfersPayoutFailureRequestOneOf1Variant",
+            "4.0.0": "#/components/schemas/EventTransfersPayoutFailureRequestOneOf2Variant",
+            "2.0.0": "#/components/schemas/EventTransfersPayoutFailureRequestOneOf3Variant"
           }
         },
         "x-client-original-tagged-union": {
@@ -56960,8 +56960,8 @@
         "discriminator": {
           "propertyName": "schema_version",
           "mapping": {
-            "4.0.0": "#/components/schemas/EventTransfersStateChangeRequestEventTransfersStateChangeRequestOneOf1",
-            "2.0.0": "#/components/schemas/EventTransfersStateChangeRequestEventTransfersStateChangeRequestOneOf2"
+            "4.0.0": "#/components/schemas/EventTransfersStateChangeRequestOneOf1Variant",
+            "2.0.0": "#/components/schemas/EventTransfersStateChangeRequestOneOf2Variant"
           }
         },
         "x-client-original-tagged-union": {
@@ -57020,8 +57020,8 @@
         "discriminator": {
           "propertyName": "schema_version",
           "mapping": {
-            "4.0.0": "#/components/schemas/EventAccountDetailsOrderStateChangeRequestEventAccountDetailsOrderStateChangeRequestOneOf1",
-            "2.0.0": "#/components/schemas/EventAccountDetailsOrderStateChangeRequestEventAccountDetailsOrderStateChangeRequestOneOf2"
+            "4.0.0": "#/components/schemas/EventAccountDetailsOrderStateChangeRequestOneOf1Variant",
+            "2.0.0": "#/components/schemas/EventAccountDetailsOrderStateChangeRequestOneOf2Variant"
           }
         },
         "x-client-original-tagged-union": {
@@ -57080,8 +57080,8 @@
         "discriminator": {
           "propertyName": "schema_version",
           "mapping": {
-            "4.0.0": "#/components/schemas/EventAccountDetailsPaymentStateChangeRequestEventAccountDetailsPaymentStateChangeRequestOneOf1",
-            "2.0.0": "#/components/schemas/EventAccountDetailsPaymentStateChangeRequestEventAccountDetailsPaymentStateChangeRequestOneOf2"
+            "4.0.0": "#/components/schemas/EventAccountDetailsPaymentStateChangeRequestOneOf1Variant",
+            "2.0.0": "#/components/schemas/EventAccountDetailsPaymentStateChangeRequestOneOf2Variant"
           }
         },
         "x-client-original-tagged-union": {
@@ -57190,8 +57190,8 @@
         "discriminator": {
           "propertyName": "schema_version",
           "mapping": {
-            "4.0.0": "#/components/schemas/EventCardsCardStatusChangeRequestEventCardsCardStatusChangeRequestOneOf1",
-            "2.0.0": "#/components/schemas/EventCardsCardStatusChangeRequestEventCardsCardStatusChangeRequestOneOf2"
+            "4.0.0": "#/components/schemas/EventCardsCardStatusChangeRequestOneOf1Variant",
+            "2.0.0": "#/components/schemas/EventCardsCardStatusChangeRequestOneOf2Variant"
           }
         },
         "x-client-original-tagged-union": {
@@ -57250,8 +57250,8 @@
         "discriminator": {
           "propertyName": "schema_version",
           "mapping": {
-            "4.0.0": "#/components/schemas/EventCardsCardProductionStatusChangeRequestEventCardsCardProductionStatusChangeRequestOneOf1",
-            "2.0.0": "#/components/schemas/EventCardsCardProductionStatusChangeRequestEventCardsCardProductionStatusChangeRequestOneOf2"
+            "4.0.0": "#/components/schemas/EventCardsCardProductionStatusChangeRequestOneOf1Variant",
+            "2.0.0": "#/components/schemas/EventCardsCardProductionStatusChangeRequestOneOf2Variant"
           }
         },
         "x-client-original-tagged-union": {
@@ -57310,8 +57310,8 @@
         "discriminator": {
           "propertyName": "schema_version",
           "mapping": {
-            "4.0.0": "#/components/schemas/EventCards3DsChallengeRequestEventCards3DsChallengeRequestOneOf1",
-            "2.0.0": "#/components/schemas/EventCards3DsChallengeRequestEventCards3DsChallengeRequestOneOf2"
+            "4.0.0": "#/components/schemas/EventCards3DsChallengeRequestOneOf1Variant",
+            "2.0.0": "#/components/schemas/EventCards3DsChallengeRequestOneOf2Variant"
           }
         },
         "x-client-original-tagged-union": {
@@ -57370,8 +57370,8 @@
         "discriminator": {
           "propertyName": "schema_version",
           "mapping": {
-            "4.0.0": "#/components/schemas/EventCardsCardOrderStatusChangeRequestEventCardsCardOrderStatusChangeRequestOneOf1",
-            "2.0.0": "#/components/schemas/EventCardsCardOrderStatusChangeRequestEventCardsCardOrderStatusChangeRequestOneOf2"
+            "4.0.0": "#/components/schemas/EventCardsCardOrderStatusChangeRequestOneOf1Variant",
+            "2.0.0": "#/components/schemas/EventCardsCardOrderStatusChangeRequestOneOf2Variant"
           }
         },
         "x-client-original-tagged-union": {
@@ -57431,9 +57431,9 @@
         "discriminator": {
           "propertyName": "schema_version",
           "mapping": {
-            "4.0.0": "#/components/schemas/EventCardsTransactionStateChangeRequestEventCardsTransactionStateChangeRequestOneOf1",
-            "2.1.0": "#/components/schemas/EventCardsTransactionStateChangeRequestEventCardsTransactionStateChangeRequestOneOf2",
-            "2.0.0": "#/components/schemas/EventCardsTransactionStateChangeRequestEventCardsTransactionStateChangeRequestOneOf3"
+            "4.0.0": "#/components/schemas/EventCardsTransactionStateChangeRequestOneOf1Variant",
+            "2.1.0": "#/components/schemas/EventCardsTransactionStateChangeRequestOneOf2Variant",
+            "2.0.0": "#/components/schemas/EventCardsTransactionStateChangeRequestOneOf3Variant"
           }
         },
         "x-client-original-tagged-union": {
@@ -57515,8 +57515,8 @@
         "discriminator": {
           "propertyName": "schema_version",
           "mapping": {
-            "4.0.0": "#/components/schemas/EventProfilesCddCheckStateChangeRequestEventProfilesCddCheckStateChangeRequestOneOf1",
-            "2.0.0": "#/components/schemas/EventProfilesCddCheckStateChangeRequestEventProfilesCddCheckStateChangeRequestOneOf2"
+            "4.0.0": "#/components/schemas/EventProfilesCddCheckStateChangeRequestOneOf1Variant",
+            "2.0.0": "#/components/schemas/EventProfilesCddCheckStateChangeRequestOneOf2Variant"
           }
         },
         "x-client-original-tagged-union": {
@@ -57575,8 +57575,8 @@
         "discriminator": {
           "propertyName": "schema_version",
           "mapping": {
-            "4.0.0": "#/components/schemas/EventProfilesOverdraftLimitThresholdRequestEventProfilesOverdraftLimitThresholdRequestOneOf1",
-            "2.0.0": "#/components/schemas/EventProfilesOverdraftLimitThresholdRequestEventProfilesOverdraftLimitThresholdRequestOneOf2"
+            "4.0.0": "#/components/schemas/EventProfilesOverdraftLimitThresholdRequestOneOf1Variant",
+            "2.0.0": "#/components/schemas/EventProfilesOverdraftLimitThresholdRequestOneOf2Variant"
           }
         },
         "x-client-original-tagged-union": {
@@ -57635,8 +57635,8 @@
         "discriminator": {
           "propertyName": "schema_version",
           "mapping": {
-            "4.0.0": "#/components/schemas/EventProfilesStateChangeRequestEventProfilesStateChangeRequestOneOf1",
-            "2.0.0": "#/components/schemas/EventProfilesStateChangeRequestEventProfilesStateChangeRequestOneOf2"
+            "4.0.0": "#/components/schemas/EventProfilesStateChangeRequestOneOf1Variant",
+            "2.0.0": "#/components/schemas/EventProfilesStateChangeRequestOneOf2Variant"
           }
         },
         "x-client-original-tagged-union": {
@@ -57695,8 +57695,8 @@
         "discriminator": {
           "propertyName": "schema_version",
           "mapping": {
-            "4.0.0": "#/components/schemas/EventProfilesVerificationStateChangeRequestEventProfilesVerificationStateChangeRequestOneOf1",
-            "2.0.0": "#/components/schemas/EventProfilesVerificationStateChangeRequestEventProfilesVerificationStateChangeRequestOneOf2"
+            "4.0.0": "#/components/schemas/EventProfilesVerificationStateChangeRequestOneOf1Variant",
+            "2.0.0": "#/components/schemas/EventProfilesVerificationStateChangeRequestOneOf2Variant"
           }
         },
         "x-client-original-tagged-union": {
@@ -57756,9 +57756,9 @@
         "discriminator": {
           "propertyName": "schema_version",
           "mapping": {
-            "5.0.0": "#/components/schemas/EventKycReviewsStateChangeRequestEventKycReviewsStateChangeRequestOneOf1",
-            "4.0.0": "#/components/schemas/EventKycReviewsStateChangeRequestEventKycReviewsStateChangeRequestOneOf2",
-            "2.0.0": "#/components/schemas/EventKycReviewsStateChangeRequestEventKycReviewsStateChangeRequestOneOf3"
+            "5.0.0": "#/components/schemas/EventKycReviewsStateChangeRequestOneOf1Variant",
+            "4.0.0": "#/components/schemas/EventKycReviewsStateChangeRequestOneOf2Variant",
+            "2.0.0": "#/components/schemas/EventKycReviewsStateChangeRequestOneOf3Variant"
           }
         },
         "x-client-original-tagged-union": {
@@ -57822,8 +57822,8 @@
         "discriminator": {
           "propertyName": "schema_version",
           "mapping": {
-            "4.0.0": "#/components/schemas/EventUsersStateChangeRequestEventUsersStateChangeRequestOneOf1",
-            "2.0.0": "#/components/schemas/EventUsersStateChangeRequestEventUsersStateChangeRequestOneOf2"
+            "4.0.0": "#/components/schemas/EventUsersStateChangeRequestOneOf1Variant",
+            "2.0.0": "#/components/schemas/EventUsersStateChangeRequestOneOf2Variant"
           }
         },
         "x-client-original-tagged-union": {
@@ -57884,10 +57884,10 @@
         "discriminator": {
           "propertyName": "schema_version",
           "mapping": {
-            "4.0.0": "#/components/schemas/EventBalancesUpdateRequestEventBalancesUpdateRequestOneOf1",
-            "3.0.0": "#/components/schemas/EventBalancesUpdateRequestEventBalancesUpdateRequestOneOf2",
-            "2.2.0": "#/components/schemas/EventBalancesUpdateRequestEventBalancesUpdateRequestOneOf3",
-            "2.1.0": "#/components/schemas/EventBalancesUpdateRequestEventBalancesUpdateRequestOneOf4"
+            "4.0.0": "#/components/schemas/EventBalancesUpdateRequestOneOf1Variant",
+            "3.0.0": "#/components/schemas/EventBalancesUpdateRequestOneOf2Variant",
+            "2.2.0": "#/components/schemas/EventBalancesUpdateRequestOneOf3Variant",
+            "2.1.0": "#/components/schemas/EventBalancesUpdateRequestOneOf4Variant"
           }
         },
         "x-client-original-tagged-union": {
@@ -57956,8 +57956,8 @@
         "discriminator": {
           "propertyName": "schema_version",
           "mapping": {
-            "4.0.0": "#/components/schemas/EventBalancesAccountStateChangeRequestEventBalancesAccountStateChangeRequestOneOf1",
-            "2.0.0": "#/components/schemas/EventBalancesAccountStateChangeRequestEventBalancesAccountStateChangeRequestOneOf2"
+            "4.0.0": "#/components/schemas/EventBalancesAccountStateChangeRequestOneOf1Variant",
+            "2.0.0": "#/components/schemas/EventBalancesAccountStateChangeRequestOneOf2Variant"
           }
         },
         "x-client-original-tagged-union": {
@@ -58016,8 +58016,8 @@
         "discriminator": {
           "propertyName": "schema_version",
           "mapping": {
-            "4.0.0": "#/components/schemas/EventBatchPaymentInitiationsStateChangeRequestEventBatchPaymentInitiationsStateChangeRequestOneOf1",
-            "2.0.0": "#/components/schemas/EventBatchPaymentInitiationsStateChangeRequestEventBatchPaymentInitiationsStateChangeRequestOneOf2"
+            "4.0.0": "#/components/schemas/EventBatchPaymentInitiationsStateChangeRequestOneOf1Variant",
+            "2.0.0": "#/components/schemas/EventBatchPaymentInitiationsStateChangeRequestOneOf2Variant"
           }
         },
         "x-client-original-tagged-union": {
@@ -58077,9 +58077,9 @@
         "discriminator": {
           "propertyName": "schema_version",
           "mapping": {
-            "5.0.0": "#/components/schemas/EventPartnerSupportCaseChangedRequestEventPartnerSupportCaseChangedRequestOneOf1",
-            "4.0.0": "#/components/schemas/EventPartnerSupportCaseChangedRequestEventPartnerSupportCaseChangedRequestOneOf2",
-            "2.0.0": "#/components/schemas/EventPartnerSupportCaseChangedRequestEventPartnerSupportCaseChangedRequestOneOf3"
+            "5.0.0": "#/components/schemas/EventPartnerSupportCaseChangedRequestOneOf1Variant",
+            "4.0.0": "#/components/schemas/EventPartnerSupportCaseChangedRequestOneOf2Variant",
+            "2.0.0": "#/components/schemas/EventPartnerSupportCaseChangedRequestOneOf3Variant"
           }
         },
         "x-client-original-tagged-union": {
@@ -58294,8 +58294,8 @@
         "discriminator": {
           "propertyName": "schema_version",
           "mapping": {
-            "4.0.0": "#/components/schemas/EventTransactionDisputesUpdateRequestEventTransactionDisputesUpdateRequestOneOf1",
-            "2.0.0": "#/components/schemas/EventTransactionDisputesUpdateRequestEventTransactionDisputesUpdateRequestOneOf2"
+            "4.0.0": "#/components/schemas/EventTransactionDisputesUpdateRequestOneOf1Variant",
+            "2.0.0": "#/components/schemas/EventTransactionDisputesUpdateRequestOneOf2Variant"
           }
         },
         "x-client-original-tagged-union": {
@@ -58355,9 +58355,9 @@
         "discriminator": {
           "propertyName": "schema_version",
           "mapping": {
-            "4.0.0": "#/components/schemas/EventBulkSettlementPaymentReceivedRequestEventBulkSettlementPaymentReceivedRequestOneOf1",
-            "3.0.0": "#/components/schemas/EventBulkSettlementPaymentReceivedRequestEventBulkSettlementPaymentReceivedRequestOneOf2",
-            "2.0.0": "#/components/schemas/EventBulkSettlementPaymentReceivedRequestEventBulkSettlementPaymentReceivedRequestOneOf3"
+            "4.0.0": "#/components/schemas/EventBulkSettlementPaymentReceivedRequestOneOf1Variant",
+            "3.0.0": "#/components/schemas/EventBulkSettlementPaymentReceivedRequestOneOf2Variant",
+            "2.0.0": "#/components/schemas/EventBulkSettlementPaymentReceivedRequestOneOf3Variant"
           }
         },
         "x-client-original-tagged-union": {
@@ -71409,7 +71409,7 @@
           }
         ]
       },
-      "PaymentInitiationPaymentInitiationOneOf1": {
+      "PaymentInitiationOneOf1Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/PaymentInitiation"
@@ -71495,7 +71495,7 @@
           }
         ]
       },
-      "PaymentInitiationPaymentInitiationOneOf2": {
+      "PaymentInitiationOneOf2Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/PaymentInitiation"
@@ -71971,7 +71971,7 @@
           }
         ]
       },
-      "EventTransfersActiveCasesRequestEventTransfersActiveCasesRequestOneOf1": {
+      "EventTransfersActiveCasesRequestOneOf1Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventTransfersActiveCasesRequest"
@@ -72024,7 +72024,7 @@
           }
         ]
       },
-      "EventTransfersActiveCasesRequestEventTransfersActiveCasesRequestOneOf2": {
+      "EventTransfersActiveCasesRequestOneOf2Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventTransfersActiveCasesRequest"
@@ -72077,7 +72077,7 @@
           }
         ]
       },
-      "EventTransfersRefundRequestEventTransfersRefundRequestOneOf1": {
+      "EventTransfersRefundRequestOneOf1Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventTransfersRefundRequest"
@@ -72130,7 +72130,7 @@
           }
         ]
       },
-      "EventTransfersRefundRequestEventTransfersRefundRequestOneOf2": {
+      "EventTransfersRefundRequestOneOf2Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventTransfersRefundRequest"
@@ -72183,7 +72183,7 @@
           }
         ]
       },
-      "EventTransfersPayoutFailureRequestEventTransfersPayoutFailureRequestOneOf1": {
+      "EventTransfersPayoutFailureRequestOneOf1Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventTransfersPayoutFailureRequest"
@@ -72236,7 +72236,7 @@
           }
         ]
       },
-      "EventTransfersPayoutFailureRequestEventTransfersPayoutFailureRequestOneOf2": {
+      "EventTransfersPayoutFailureRequestOneOf2Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventTransfersPayoutFailureRequest"
@@ -72289,7 +72289,7 @@
           }
         ]
       },
-      "EventTransfersPayoutFailureRequestEventTransfersPayoutFailureRequestOneOf3": {
+      "EventTransfersPayoutFailureRequestOneOf3Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventTransfersPayoutFailureRequest"
@@ -72342,7 +72342,7 @@
           }
         ]
       },
-      "EventTransfersStateChangeRequestEventTransfersStateChangeRequestOneOf1": {
+      "EventTransfersStateChangeRequestOneOf1Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventTransfersStateChangeRequest"
@@ -72395,7 +72395,7 @@
           }
         ]
       },
-      "EventTransfersStateChangeRequestEventTransfersStateChangeRequestOneOf2": {
+      "EventTransfersStateChangeRequestOneOf2Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventTransfersStateChangeRequest"
@@ -72448,7 +72448,7 @@
           }
         ]
       },
-      "EventAccountDetailsOrderStateChangeRequestEventAccountDetailsOrderStateChangeRequestOneOf1": {
+      "EventAccountDetailsOrderStateChangeRequestOneOf1Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventAccountDetailsOrderStateChangeRequest"
@@ -72501,7 +72501,7 @@
           }
         ]
       },
-      "EventAccountDetailsOrderStateChangeRequestEventAccountDetailsOrderStateChangeRequestOneOf2": {
+      "EventAccountDetailsOrderStateChangeRequestOneOf2Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventAccountDetailsOrderStateChangeRequest"
@@ -72554,7 +72554,7 @@
           }
         ]
       },
-      "EventAccountDetailsPaymentStateChangeRequestEventAccountDetailsPaymentStateChangeRequestOneOf1": {
+      "EventAccountDetailsPaymentStateChangeRequestOneOf1Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventAccountDetailsPaymentStateChangeRequest"
@@ -72607,7 +72607,7 @@
           }
         ]
       },
-      "EventAccountDetailsPaymentStateChangeRequestEventAccountDetailsPaymentStateChangeRequestOneOf2": {
+      "EventAccountDetailsPaymentStateChangeRequestOneOf2Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventAccountDetailsPaymentStateChangeRequest"
@@ -72660,7 +72660,7 @@
           }
         ]
       },
-      "EventCardsCardStatusChangeRequestEventCardsCardStatusChangeRequestOneOf1": {
+      "EventCardsCardStatusChangeRequestOneOf1Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventCardsCardStatusChangeRequest"
@@ -72713,7 +72713,7 @@
           }
         ]
       },
-      "EventCardsCardStatusChangeRequestEventCardsCardStatusChangeRequestOneOf2": {
+      "EventCardsCardStatusChangeRequestOneOf2Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventCardsCardStatusChangeRequest"
@@ -72766,7 +72766,7 @@
           }
         ]
       },
-      "EventCardsCardProductionStatusChangeRequestEventCardsCardProductionStatusChangeRequestOneOf1": {
+      "EventCardsCardProductionStatusChangeRequestOneOf1Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventCardsCardProductionStatusChangeRequest"
@@ -72819,7 +72819,7 @@
           }
         ]
       },
-      "EventCardsCardProductionStatusChangeRequestEventCardsCardProductionStatusChangeRequestOneOf2": {
+      "EventCardsCardProductionStatusChangeRequestOneOf2Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventCardsCardProductionStatusChangeRequest"
@@ -72872,7 +72872,7 @@
           }
         ]
       },
-      "EventCards3DsChallengeRequestEventCards3DsChallengeRequestOneOf1": {
+      "EventCards3DsChallengeRequestOneOf1Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventCards3DsChallengeRequest"
@@ -72925,7 +72925,7 @@
           }
         ]
       },
-      "EventCards3DsChallengeRequestEventCards3DsChallengeRequestOneOf2": {
+      "EventCards3DsChallengeRequestOneOf2Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventCards3DsChallengeRequest"
@@ -72978,7 +72978,7 @@
           }
         ]
       },
-      "EventCardsCardOrderStatusChangeRequestEventCardsCardOrderStatusChangeRequestOneOf1": {
+      "EventCardsCardOrderStatusChangeRequestOneOf1Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventCardsCardOrderStatusChangeRequest"
@@ -73031,7 +73031,7 @@
           }
         ]
       },
-      "EventCardsCardOrderStatusChangeRequestEventCardsCardOrderStatusChangeRequestOneOf2": {
+      "EventCardsCardOrderStatusChangeRequestOneOf2Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventCardsCardOrderStatusChangeRequest"
@@ -73084,7 +73084,7 @@
           }
         ]
       },
-      "EventCardsTransactionStateChangeRequestEventCardsTransactionStateChangeRequestOneOf1": {
+      "EventCardsTransactionStateChangeRequestOneOf1Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventCardsTransactionStateChangeRequest"
@@ -73137,7 +73137,7 @@
           }
         ]
       },
-      "EventCardsTransactionStateChangeRequestEventCardsTransactionStateChangeRequestOneOf2": {
+      "EventCardsTransactionStateChangeRequestOneOf2Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventCardsTransactionStateChangeRequest"
@@ -73190,7 +73190,7 @@
           }
         ]
       },
-      "EventCardsTransactionStateChangeRequestEventCardsTransactionStateChangeRequestOneOf3": {
+      "EventCardsTransactionStateChangeRequestOneOf3Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventCardsTransactionStateChangeRequest"
@@ -73243,7 +73243,7 @@
           }
         ]
       },
-      "EventProfilesCddCheckStateChangeRequestEventProfilesCddCheckStateChangeRequestOneOf1": {
+      "EventProfilesCddCheckStateChangeRequestOneOf1Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventProfilesCddCheckStateChangeRequest"
@@ -73296,7 +73296,7 @@
           }
         ]
       },
-      "EventProfilesCddCheckStateChangeRequestEventProfilesCddCheckStateChangeRequestOneOf2": {
+      "EventProfilesCddCheckStateChangeRequestOneOf2Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventProfilesCddCheckStateChangeRequest"
@@ -73349,7 +73349,7 @@
           }
         ]
       },
-      "EventProfilesOverdraftLimitThresholdRequestEventProfilesOverdraftLimitThresholdRequestOneOf1": {
+      "EventProfilesOverdraftLimitThresholdRequestOneOf1Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventProfilesOverdraftLimitThresholdRequest"
@@ -73402,7 +73402,7 @@
           }
         ]
       },
-      "EventProfilesOverdraftLimitThresholdRequestEventProfilesOverdraftLimitThresholdRequestOneOf2": {
+      "EventProfilesOverdraftLimitThresholdRequestOneOf2Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventProfilesOverdraftLimitThresholdRequest"
@@ -73455,7 +73455,7 @@
           }
         ]
       },
-      "EventProfilesStateChangeRequestEventProfilesStateChangeRequestOneOf1": {
+      "EventProfilesStateChangeRequestOneOf1Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventProfilesStateChangeRequest"
@@ -73508,7 +73508,7 @@
           }
         ]
       },
-      "EventProfilesStateChangeRequestEventProfilesStateChangeRequestOneOf2": {
+      "EventProfilesStateChangeRequestOneOf2Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventProfilesStateChangeRequest"
@@ -73561,7 +73561,7 @@
           }
         ]
       },
-      "EventProfilesVerificationStateChangeRequestEventProfilesVerificationStateChangeRequestOneOf1": {
+      "EventProfilesVerificationStateChangeRequestOneOf1Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventProfilesVerificationStateChangeRequest"
@@ -73614,7 +73614,7 @@
           }
         ]
       },
-      "EventProfilesVerificationStateChangeRequestEventProfilesVerificationStateChangeRequestOneOf2": {
+      "EventProfilesVerificationStateChangeRequestOneOf2Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventProfilesVerificationStateChangeRequest"
@@ -73667,7 +73667,7 @@
           }
         ]
       },
-      "EventKycReviewsStateChangeRequestEventKycReviewsStateChangeRequestOneOf1": {
+      "EventKycReviewsStateChangeRequestOneOf1Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventKycReviewsStateChangeRequest"
@@ -73720,7 +73720,7 @@
           }
         ]
       },
-      "EventKycReviewsStateChangeRequestEventKycReviewsStateChangeRequestOneOf2": {
+      "EventKycReviewsStateChangeRequestOneOf2Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventKycReviewsStateChangeRequest"
@@ -73773,7 +73773,7 @@
           }
         ]
       },
-      "EventKycReviewsStateChangeRequestEventKycReviewsStateChangeRequestOneOf3": {
+      "EventKycReviewsStateChangeRequestOneOf3Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventKycReviewsStateChangeRequest"
@@ -73826,7 +73826,7 @@
           }
         ]
       },
-      "EventUsersStateChangeRequestEventUsersStateChangeRequestOneOf1": {
+      "EventUsersStateChangeRequestOneOf1Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventUsersStateChangeRequest"
@@ -73879,7 +73879,7 @@
           }
         ]
       },
-      "EventUsersStateChangeRequestEventUsersStateChangeRequestOneOf2": {
+      "EventUsersStateChangeRequestOneOf2Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventUsersStateChangeRequest"
@@ -73932,7 +73932,7 @@
           }
         ]
       },
-      "EventBalancesUpdateRequestEventBalancesUpdateRequestOneOf1": {
+      "EventBalancesUpdateRequestOneOf1Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventBalancesUpdateRequest"
@@ -73985,7 +73985,7 @@
           }
         ]
       },
-      "EventBalancesUpdateRequestEventBalancesUpdateRequestOneOf2": {
+      "EventBalancesUpdateRequestOneOf2Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventBalancesUpdateRequest"
@@ -74038,7 +74038,7 @@
           }
         ]
       },
-      "EventBalancesUpdateRequestEventBalancesUpdateRequestOneOf3": {
+      "EventBalancesUpdateRequestOneOf3Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventBalancesUpdateRequest"
@@ -74091,7 +74091,7 @@
           }
         ]
       },
-      "EventBalancesUpdateRequestEventBalancesUpdateRequestOneOf4": {
+      "EventBalancesUpdateRequestOneOf4Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventBalancesUpdateRequest"
@@ -74144,7 +74144,7 @@
           }
         ]
       },
-      "EventBalancesAccountStateChangeRequestEventBalancesAccountStateChangeRequestOneOf1": {
+      "EventBalancesAccountStateChangeRequestOneOf1Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventBalancesAccountStateChangeRequest"
@@ -74197,7 +74197,7 @@
           }
         ]
       },
-      "EventBalancesAccountStateChangeRequestEventBalancesAccountStateChangeRequestOneOf2": {
+      "EventBalancesAccountStateChangeRequestOneOf2Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventBalancesAccountStateChangeRequest"
@@ -74250,7 +74250,7 @@
           }
         ]
       },
-      "EventBatchPaymentInitiationsStateChangeRequestEventBatchPaymentInitiationsStateChangeRequestOneOf1": {
+      "EventBatchPaymentInitiationsStateChangeRequestOneOf1Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventBatchPaymentInitiationsStateChangeRequest"
@@ -74303,7 +74303,7 @@
           }
         ]
       },
-      "EventBatchPaymentInitiationsStateChangeRequestEventBatchPaymentInitiationsStateChangeRequestOneOf2": {
+      "EventBatchPaymentInitiationsStateChangeRequestOneOf2Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventBatchPaymentInitiationsStateChangeRequest"
@@ -74356,7 +74356,7 @@
           }
         ]
       },
-      "EventPartnerSupportCaseChangedRequestEventPartnerSupportCaseChangedRequestOneOf1": {
+      "EventPartnerSupportCaseChangedRequestOneOf1Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventPartnerSupportCaseChangedRequest"
@@ -74409,7 +74409,7 @@
           }
         ]
       },
-      "EventPartnerSupportCaseChangedRequestEventPartnerSupportCaseChangedRequestOneOf2": {
+      "EventPartnerSupportCaseChangedRequestOneOf2Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventPartnerSupportCaseChangedRequest"
@@ -74462,7 +74462,7 @@
           }
         ]
       },
-      "EventPartnerSupportCaseChangedRequestEventPartnerSupportCaseChangedRequestOneOf3": {
+      "EventPartnerSupportCaseChangedRequestOneOf3Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventPartnerSupportCaseChangedRequest"
@@ -74515,7 +74515,7 @@
           }
         ]
       },
-      "EventTransactionDisputesUpdateRequestEventTransactionDisputesUpdateRequestOneOf1": {
+      "EventTransactionDisputesUpdateRequestOneOf1Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventTransactionDisputesUpdateRequest"
@@ -74568,7 +74568,7 @@
           }
         ]
       },
-      "EventTransactionDisputesUpdateRequestEventTransactionDisputesUpdateRequestOneOf2": {
+      "EventTransactionDisputesUpdateRequestOneOf2Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventTransactionDisputesUpdateRequest"
@@ -74621,7 +74621,7 @@
           }
         ]
       },
-      "EventBulkSettlementPaymentReceivedRequestEventBulkSettlementPaymentReceivedRequestOneOf1": {
+      "EventBulkSettlementPaymentReceivedRequestOneOf1Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventBulkSettlementPaymentReceivedRequest"
@@ -74674,7 +74674,7 @@
           }
         ]
       },
-      "EventBulkSettlementPaymentReceivedRequestEventBulkSettlementPaymentReceivedRequestOneOf2": {
+      "EventBulkSettlementPaymentReceivedRequestOneOf2Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventBulkSettlementPaymentReceivedRequest"
@@ -74727,7 +74727,7 @@
           }
         ]
       },
-      "EventBulkSettlementPaymentReceivedRequestEventBulkSettlementPaymentReceivedRequestOneOf3": {
+      "EventBulkSettlementPaymentReceivedRequestOneOf3Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventBulkSettlementPaymentReceivedRequest"
