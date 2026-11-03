@@ -2,7 +2,7 @@
   "descriptionHash": "B3FAAFF4AD2FB0D1D7EEBBC453F97623F1F89453D72296FF4677F04006D18717166EAA816E0E9CB6952E0C7D8B9690720B85437E83269B0D85FE738BE6F8E742",
   "descriptionLocation": "../../fixed.json",
   "lockFileVersion": "1.0.0",
-  "kiotaVersion": "1.37.0",
+  "kiotaVersion": "1.38.0",
   "clientClassName": "WiseOpenApiClient",
   "typeAccessModifier": "Public",
   "clientNamespaceName": "Soenneker.Wise.OpenApiClient",
