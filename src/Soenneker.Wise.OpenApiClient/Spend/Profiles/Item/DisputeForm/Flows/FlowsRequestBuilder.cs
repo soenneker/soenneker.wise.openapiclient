@@ -3,7 +3,6 @@
 using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions;
 using Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.DisputeForm.Flows.Item;
-using Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.DisputeForm.Flows.Step;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -16,11 +15,6 @@ namespace Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.DisputeForm.Flows
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class FlowsRequestBuilder : BaseRequestBuilder
     {
-        /// <summary>The step property</summary>
-        public global::Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.DisputeForm.Flows.Step.StepRequestBuilder Step
-        {
-            get => new global::Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.DisputeForm.Flows.Step.StepRequestBuilder(PathParameters, RequestAdapter);
-        }
         /// <summary>Gets an item from the Soenneker.Wise.OpenApiClient.spend.profiles.item.disputeForm.flows.item collection</summary>
         /// <param name="position">The network of the card that was used to make this transaction.</param>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Spend.Profiles.Item.DisputeForm.Flows.Item.WithSchemeItemRequestBuilder"/></returns>

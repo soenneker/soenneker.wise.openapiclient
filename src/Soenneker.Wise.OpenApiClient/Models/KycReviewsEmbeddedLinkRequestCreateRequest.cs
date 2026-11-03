@@ -28,7 +28,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The UUID for the KYC review to be completed.</summary>
         public Guid? KycReviewId { get => _explicitNullValueKycReviewId; set { _explicitNullValueKycReviewId = value; AdditionalData?.Remove("kycReviewId"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("kycReviewId"); else _explicitNullProperties?.Remove("kycReviewId"); } }
         private Guid? _explicitNullValueKycReviewId = default!;
-        /// <summary>URL where the user will be redirected when the flow resolves.This will also include query parameters based on flow completion state and completed KYC review ID.View [Embedded Flows - KYC Review](/guides/product/embedded-flows/flows/kyc-reviews) for more information.</summary>
+        /// <summary>URL where the user is redirected when the flow resolves.This also includes query parameters based on flow completion state and completed KYC review ID.For more information, see our [Embedded Flows - KYC Review guide](/guides/product/embedded-flows/flows/kyc-reviews).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? RedirectUrl { get => _explicitNullValueRedirectUrl; set { _explicitNullValueRedirectUrl = value; AdditionalData?.Remove("redirectUrl"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("redirectUrl"); else _explicitNullProperties?.Remove("redirectUrl"); } }

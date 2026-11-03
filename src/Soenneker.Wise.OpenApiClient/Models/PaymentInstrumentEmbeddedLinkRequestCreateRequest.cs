@@ -28,7 +28,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The method the payment instrument is created for.</summary>
         public global::Soenneker.Wise.OpenApiClient.Models.PaymentInstrumentEmbeddedLinkRequestCreateRequestMethod? Method { get => _explicitNullValueMethod; set { _explicitNullValueMethod = value; AdditionalData?.Remove("method"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("method"); else _explicitNullProperties?.Remove("method"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.PaymentInstrumentEmbeddedLinkRequestCreateRequestMethod? _explicitNullValueMethod = default!;
-        /// <summary>URL where the user will be redirected when the flow resolves.This will also include query parameters based on flow completion state and created payment instrument ID.View [Embedded Flows - Payment Instruments](/guides/product/embedded-flows/flows/payment-instrument) for more information.</summary>
+        /// <summary>URL where the user is redirected when the flow resolves.This also includes query parameters based on flow completion state and created payment instrument ID.For more information, see our [Embedded Flows - Payment Instruments guide](/guides/product/embedded-flows/flows/payment-instrument).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? RedirectUrl { get => _explicitNullValueRedirectUrl; set { _explicitNullValueRedirectUrl = value; AdditionalData?.Remove("redirectUrl"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("redirectUrl"); else _explicitNullProperties?.Remove("redirectUrl"); } }

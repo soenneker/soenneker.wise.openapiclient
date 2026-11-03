@@ -5,6 +5,7 @@ using Microsoft.Kiota.Abstractions;
 using Soenneker.Wise.OpenApiClient.Profiles.Item.EmbeddedFlows.LinkRequests.KycReviews;
 using Soenneker.Wise.OpenApiClient.Profiles.Item.EmbeddedFlows.LinkRequests.PaymentInstrument;
 using Soenneker.Wise.OpenApiClient.Profiles.Item.EmbeddedFlows.LinkRequests.Recipients;
+using Soenneker.Wise.OpenApiClient.Profiles.Item.EmbeddedFlows.LinkRequests.Spend;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -31,6 +32,11 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.Item.EmbeddedFlows.LinkRequests
         public global::Soenneker.Wise.OpenApiClient.Profiles.Item.EmbeddedFlows.LinkRequests.Recipients.RecipientsRequestBuilder Recipients
         {
             get => new global::Soenneker.Wise.OpenApiClient.Profiles.Item.EmbeddedFlows.LinkRequests.Recipients.RecipientsRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The spend property</summary>
+        public global::Soenneker.Wise.OpenApiClient.Profiles.Item.EmbeddedFlows.LinkRequests.Spend.SpendRequestBuilder Spend
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.Profiles.Item.EmbeddedFlows.LinkRequests.Spend.SpendRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Profiles.Item.EmbeddedFlows.LinkRequests.LinkRequestsRequestBuilder"/> and sets the default values.

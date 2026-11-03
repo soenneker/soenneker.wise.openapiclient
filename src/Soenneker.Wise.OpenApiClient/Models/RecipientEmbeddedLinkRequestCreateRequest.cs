@@ -25,7 +25,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>URL where the user will be redirected when the flow resolves.This will also include query parameters based on flow completion state and created recipient ID.View [Embedded Flows - Recipient Creation](/guides/product/embedded-flows/flows/recipient-creation) for more information.</summary>
+        /// <summary>URL where the user is redirected when the flow resolves.This also includes query parameters based on flow completion state and created recipient ID.For more information, see our [Embedded Flows - Recipient Creation guide](/guides/product/embedded-flows/flows/recipient-creation).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? RedirectUrl { get => _explicitNullValueRedirectUrl; set { _explicitNullValueRedirectUrl = value; AdditionalData?.Remove("redirectUrl"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("redirectUrl"); else _explicitNullProperties?.Remove("redirectUrl"); } }

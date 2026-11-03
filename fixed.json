@@ -7448,174 +7448,6 @@
         ]
       }
     },
-    "/spend/profiles/{profileId}/dispute-form/flows/step/{scheme}/{reason}": {
-      "post": {
-        "tags": [
-          "disputes"
-        ],
-        "summary": "Dispute dynamic flow entry point",
-        "description": "Retrieves the JSON for initiating the dispute flow. Use this endpoint with Wise\u0027s\n[Dynamic Flow framework](https://www.npmjs.com/package/@transferwise/dynamic-flows).\n\nThe JSON response must be passed into the Dynamic Flow framework, which handles the multi-step dispute submission including the generation of subsequent pages and the creation of the dispute.\n\n**Setting up the API**\n\nYou will need to implement a GET API with the following format:\n\u0060GET https://{{yourApiUrl}}/v3/spend/profiles/{{profileId}}/dispute-form/flows/step/{{scheme}}/{{reason}}?transactionId={{transactionId}}\u0060\n\nThis API should forward the call to:\n\u0060POST https://{{wiseUrl}}/v3/spend/profiles/{{profileId}}/dispute-form/flows/step/{{scheme}}/{{reason}}?transactionId={{transactionId}}\u0060\n\nThis is required as the dynamic flow returned by Wise will automatically be configured to call your GET API. Use \u0060baseUrl\u0060 or \u0060fetcher\u0060 as part of the dynamic flow setup to redirect the Dynamic Flow JavaScript library to your domain.\n\nFor a full integration guide, including example backend implementation and styling, see [Disputes via Dynamic Flow](/guides/product/issue-cards/card-disputes-dynamic-flow).\n",
-        "operationId": "DisputeDynamicFlowStep",
-        "parameters": [
-          {
-            "name": "profileId",
-            "in": "path",
-            "description": "Your profile ID.",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            },
-            "example": 14547572
-          },
-          {
-            "name": "scheme",
-            "in": "path",
-            "description": "The network of the card that was used to make this transaction.",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/DisputeDynamicFlowStepSchemeParameter"
-            },
-            "example": "VISA"
-          },
-          {
-            "name": "reason",
-            "in": "path",
-            "description": "Dispute reason code supplied by the [dispute reasons endpoint](/api-reference/disputes/disputereasonsget).",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "example": "TROUBLE_WITH_GOODS_SERVICES"
-          },
-          {
-            "name": "transactionId",
-            "in": "query",
-            "description": "The ID of the transaction being disputed. Can be a comma-separated list of IDs if the reason code has the \u0060supportsMultipleTransactions\u0060 flag.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "example": "6789"
-          },
-          {
-            "description": "Optional UUID for correlating requests across systems. If provided, Wise echoes it back in the response. Maximum 36 characters. [Learn more](/guides/developer/headers/correlation-id).\n",
-            "$ref": "#/components/parameters/X-External-Correlation-Id"
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DisputeDynamicFlowStepRequest"
-              },
-              "example": {
-                "email": "support@partner.com"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Returns information required to populate the form with the correct information. Note how the \u0060action\u0060 field contains the URL and method to the next step.",
-            "headers": {
-              "X-External-Correlation-Id": {
-                "$ref": "#/components/headers/X-External-Correlation-Id"
-              },
-              "x-trace-id": {
-                "$ref": "#/components/headers/x-trace-id"
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DisputeDynamicFlowStep200ResponseSchema"
-                },
-                "example": {
-                  "key": "TROUBLE_WITH_GOODS_SERVICES",
-                  "type": "form",
-                  "title": "There\u0027s a problem with the goods or service I ordered",
-                  "actions": [],
-                  "schemas": [],
-                  "layout": [
-                    {
-                      "type": "decision",
-                      "options": [
-                        {
-                          "title": "I never got the goods or service I ordered",
-                          "action": {
-                            "url": "/v3/spend/profiles/12345/dispute-form/flows/visa/no-goods-or-services?transactionId=6789",
-                            "method": "GET"
-                          },
-                          "disabled": false,
-                          "description": "Choose this if the order was cancelled or never arrived"
-                        },
-                        {
-                          "title": "Something is wrong with the goods or service I ordered",
-                          "action": {
-                            "url": "/v3/spend/profiles/12345/dispute-form/flows/visa/something-wrong-what-was-received?transactionId=6789",
-                            "method": "GET"
-                          },
-                          "disabled": false
-                        },
-                        {
-                          "title": "I think there might be an issue with the merchant",
-                          "action": {
-                            "url": "/v3/spend/profiles/12345/dispute-form/flows/visa/scam?transactionId=6789",
-                            "method": "GET"
-                          },
-                          "disabled": false,
-                          "description": "Choose this if you haven\u0027t heard from the merchant, or have found scam reviews"
-                        }
-                      ]
-                    }
-                  ]
-                }
-              }
-            }
-          },
-          "429": {
-            "description": "Rate limit exceeded. Retry after the number of seconds specified in the \u0060Retry-After\u0060 header.",
-            "headers": {
-              "Retry-After": {
-                "description": "Number of seconds to wait before retrying the request.",
-                "schema": {
-                  "type": "integer"
-                },
-                "example": 5
-              },
-              "X-Rate-Limited-By": {
-                "description": "Identifies the rate limiter that triggered the 429 response.",
-                "schema": {
-                  "type": "string"
-                },
-                "example": "wise-public-api"
-              },
-              "X-External-Correlation-Id": {
-                "$ref": "#/components/headers/X-External-Correlation-Id"
-              },
-              "x-trace-id": {
-                "$ref": "#/components/headers/x-trace-id"
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Value429ResponseContentError"
-                }
-              }
-            },
-            "x-global": true
-          }
-        },
-        "security": [
-          {
-            "UserToken": []
-          }
-        ]
-      }
-    },
     "/spend/profiles/{profileId}/dispute-form/reasons": {
       "get": {
         "tags": [
@@ -10821,13 +10653,175 @@
         ]
       }
     },
+    "/profiles/{profileId}/embedded-flows/link-requests/spend/disputes": {
+      "post": {
+        "tags": [
+          "link-requests"
+        ],
+        "summary": "Dispute creation",
+        "description": "Returns a link that allows a user to complete a dispute creation flow via either a redirect or embedded iframe/webview.\n\nTo see what data is returned to the frontend upon flow completion, see our [Embedded Flows - Dispute Creation guide](/guides/product/embedded-flows/flows/dispute-creation).\n",
+        "operationId": "DisputeEmbeddedLinkRequestCreate",
+        "parameters": [
+          {
+            "name": "profileId",
+            "in": "path",
+            "description": "The profile ID.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "description": "Optional UUID for correlating requests across systems. If provided, Wise echoes it back in the response. Maximum 36 characters. [Learn more](/guides/developer/headers/correlation-id).\n",
+            "$ref": "#/components/parameters/X-External-Correlation-Id"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DisputeEmbeddedLinkRequestCreateRequest"
+              },
+              "example": {
+                "redirectUrl": "https://example.com/return",
+                "transactionId": 625327,
+                "email": "user@example.com"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Embedded link request created.",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DisputeEmbeddedLinkRequestCreate201Response"
+                },
+                "example": {
+                  "url": "https://wise-sandbox.com/embedded-flows?embeddedLinkRequestId=9f5f5812-2609-4e48-8418-b64437c0c7cd#token=0d0bdc88-bcf4-43dd-85be-7ca65441db20",
+                  "expiresAt": "2026-06-15T13:23:20.265Z"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request, such as an invalid redirect URL or a transaction that doesn\u0027t exist.",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            }
+          },
+          "401": {
+            "description": "User is not authorised to access the resource.",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            }
+          },
+          "403": {
+            "description": "The dispute creation flow is not enabled for the profile.",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit exceeded. Retry after the number of seconds specified in the \u0060Retry-After\u0060 header.",
+            "headers": {
+              "Retry-After": {
+                "description": "Number of seconds to wait before retrying the request.",
+                "schema": {
+                  "type": "integer"
+                },
+                "example": 5
+              },
+              "X-Rate-Limited-By": {
+                "description": "Identifies the rate limiter that triggered the 429 response.",
+                "schema": {
+                  "type": "string"
+                },
+                "example": "wise-public-api"
+              },
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Value429ResponseContentError"
+                }
+              }
+            },
+            "x-global": true
+          },
+          "200": {
+            "description": "Embedded link request created.",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DisputeEmbeddedLinkRequestCreate201Response"
+                },
+                "example": {
+                  "url": "https://wise-sandbox.com/embedded-flows?embeddedLinkRequestId=9f5f5812-2609-4e48-8418-b64437c0c7cd#token=0d0bdc88-bcf4-43dd-85be-7ca65441db20",
+                  "expiresAt": "2026-06-15T13:23:20.265Z"
+                }
+              }
+            },
+            "x-client-success-response-status": "201"
+          }
+        },
+        "security": [
+          {
+            "UserToken": []
+          },
+          {
+            "ClientCredentialsToken": []
+          }
+        ]
+      }
+    },
     "/profiles/{profileId}/embedded-flows/link-requests/recipients": {
       "post": {
         "tags": [
           "link-requests"
         ],
         "summary": "Recipient creation",
-        "description": "Returns a link that allows a user to complete a recipient creation flow via either a redirect or embedded iframe/webview.\n\nView [Embedded Flows - Recipient Creation](/guides/product/embedded-flows/flows/recipient-creation) to see what data the frontend is returned upon flow completion.\n",
+        "description": "Returns a link that allows a user to complete a recipient creation flow via either a redirect or embedded iframe/webview.\n\nTo see what data is returned to the frontend upon flow completion, see our [Embedded Flows - Recipient Creation guide](/guides/product/embedded-flows/flows/recipient-creation).\n",
         "operationId": "RecipientEmbeddedLinkRequestCreate",
         "parameters": [
           {
@@ -10985,7 +10979,7 @@
           "link-requests"
         ],
         "summary": "Payment instrument creation",
-        "description": "Returns a link that allows a user to complete a payment instrument flow via either a redirect or embedded iframe/webview.\n\nView [Embedded Flows - Payment Instruments](/guides/product/embedded-flows/flows/payment-instrument) to see what data the frontend is returned upon flow completion.\n",
+        "description": "Returns a link that allows a user to complete a payment instrument flow via either a redirect or embedded iframe/webview.\n\nTo see what data is returned to the frontend upon flow completion, see our [Embedded Flows - Payment Instruments guide](/guides/product/embedded-flows/flows/payment-instrument).\n",
         "operationId": "PaymentInstrumentEmbeddedLinkRequestCreate",
         "parameters": [
           {
@@ -11143,7 +11137,7 @@
           "link-requests"
         ],
         "summary": "KYC review completion",
-        "description": "Returns a link that allows a user to complete a KYC review flow via either a redirect or embedded iframe/webview.\n\nView [Embedded Flows - KYC Review](/guides/product/embedded-flows/flows/kyc-reviews) to see what data the frontend is returned upon flow completion.\n",
+        "description": "Returns a link that allows a user to complete a KYC review flow via either a redirect or embedded iframe/webview.\n\nTo see what data is returned to the frontend upon flow completion, see our [Embedded Flows - KYC Review guide](/guides/product/embedded-flows/flows/kyc-reviews).\n",
         "operationId": "KycReviewsEmbeddedLinkRequestCreate",
         "parameters": [
           {
@@ -53863,16 +53857,6 @@
           }
         }
       },
-      "DisputeDynamicFlowStepRequest": {
-        "type": "object",
-        "properties": {
-          "email": {
-            "type": "string",
-            "description": "Email used to receive communications regarding the dispute from Wise (e.g. your support team\u0027s email).",
-            "example": "support@partner.com"
-          }
-        }
-      },
       "DisputeSubmitRequest": {
         "type": "object",
         "properties": {
@@ -54072,6 +54056,55 @@
           }
         }
       },
+      "DisputeEmbeddedLinkRequestCreateRequest": {
+        "required": [
+          "redirectUrl",
+          "transactionId",
+          "email"
+        ],
+        "type": "object",
+        "properties": {
+          "redirectUrl": {
+            "type": "string",
+            "description": "URL where the user is redirected when the flow resolves.\nThis also includes query parameters based on flow completion state and disputed transaction IDs.\n\nFor more information, see our [Embedded Flows - Dispute Creation guide](/guides/product/embedded-flows/flows/dispute-creation).\n",
+            "example": "https://example.com/return",
+            "x-client-original-format": "uri"
+          },
+          "transactionId": {
+            "type": "integer",
+            "description": "The ID of the card transaction to dispute. It must belong to the given profile.",
+            "format": "int64",
+            "example": 625327
+          },
+          "email": {
+            "type": "string",
+            "description": "The end user\u0027s email address, to receive dispute updates.",
+            "example": "user@example.com",
+            "x-client-original-format": "email"
+          }
+        }
+      },
+      "DisputeEmbeddedLinkRequestCreate201Response": {
+        "required": [
+          "url",
+          "expiresAt"
+        ],
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "Short-lived URL to start the embedded dispute flow.",
+            "example": "https://wise-sandbox.com/embedded-flows?embeddedLinkRequestId=9f5f5812-2609-4e48-8418-b64437c0c7cd#token=0d0bdc88-bcf4-43dd-85be-7ca65441db20",
+            "x-client-original-format": "uri"
+          },
+          "expiresAt": {
+            "type": "string",
+            "description": "Timestamp when the returned flow URL expires.",
+            "format": "date-time",
+            "example": "2026-06-15T13:23:20.265Z"
+          }
+        }
+      },
       "RecipientEmbeddedLinkRequestCreateRequest": {
         "required": [
           "redirectUrl"
@@ -54080,7 +54113,7 @@
         "properties": {
           "redirectUrl": {
             "type": "string",
-            "description": "URL where the user will be redirected when the flow resolves.\nThis will also include query parameters based on flow completion state and created recipient ID.\n\nView [Embedded Flows - Recipient Creation](/guides/product/embedded-flows/flows/recipient-creation) for more information.\n",
+            "description": "URL where the user is redirected when the flow resolves.\nThis also includes query parameters based on flow completion state and created recipient ID.\n\nFor more information, see our [Embedded Flows - Recipient Creation guide](/guides/product/embedded-flows/flows/recipient-creation).\n",
             "example": "https://example.com/return",
             "x-client-original-format": "uri"
           },
@@ -54121,7 +54154,7 @@
         "properties": {
           "redirectUrl": {
             "type": "string",
-            "description": "URL where the user will be redirected when the flow resolves.\nThis will also include query parameters based on flow completion state and created payment instrument ID.\n\nView [Embedded Flows - Payment Instruments](/guides/product/embedded-flows/flows/payment-instrument) for more information.\n",
+            "description": "URL where the user is redirected when the flow resolves.\nThis also includes query parameters based on flow completion state and created payment instrument ID.\n\nFor more information, see our [Embedded Flows - Payment Instruments guide](/guides/product/embedded-flows/flows/payment-instrument).\n",
             "example": "https://example.com/return",
             "x-client-original-format": "uri"
           },
@@ -54160,7 +54193,7 @@
         "properties": {
           "redirectUrl": {
             "type": "string",
-            "description": "URL where the user will be redirected when the flow resolves.\nThis will also include query parameters based on flow completion state and completed KYC review ID.\n\nView [Embedded Flows - KYC Review](/guides/product/embedded-flows/flows/kyc-reviews) for more information.\n",
+            "description": "URL where the user is redirected when the flow resolves.\nThis also includes query parameters based on flow completion state and completed KYC review ID.\n\nFor more information, see our [Embedded Flows - KYC Review guide](/guides/product/embedded-flows/flows/kyc-reviews).\n",
             "example": "https://example.com/return",
             "x-client-original-format": "uri"
           },
@@ -58701,10 +58734,6 @@
         "items": {
           "$ref": "#/components/schemas/DirectDebitAccount"
         }
-      },
-      "DisputeDynamicFlowStep200ResponseSchema": {
-        "type": "object",
-        "description": "Dynamic Flow JSON object. Pass this to the Dynamic Flow framework to render the dispute form."
       },
       "DisputeReasonsGet200ResponseSchema": {
         "type": "array",
@@ -70311,27 +70340,6 @@
           ]
         }
       },
-      "DisputeDynamicFlowStepSchemeParameter": {
-        "enum": [
-          "MASTERCARD",
-          "VISA"
-        ],
-        "type": "string",
-        "x-ms-enum": {
-          "name": "DisputeDynamicFlowStepSchemeParameter",
-          "modelAsString": false,
-          "values": [
-            {
-              "value": "MASTERCARD",
-              "name": "Mastercard"
-            },
-            {
-              "value": "VISA",
-              "name": "Visa"
-            }
-          ]
-        }
-      },
       "DisputeSubmitSchemeParameter": {
         "enum": [
           "MASTERCARD",
@@ -74981,7 +74989,7 @@
     },
     {
       "name": "card-order",
-      "description": "With this set of APIs, you will be able to create cards for your customers. You can also retrieve and view the status of your current card orders, as well as the list of available card programs for the user.\n\n{% admonition type=\u0022info\u0022 %}\nOn production, each personal profile can order at most 1 physical card and 3 virtual cards. On sandbox, we allow up to 10 physical cards and 30 virtual cards for testing purpose. However, no more than 3 virtual cards can be ordered per day. This limit includes cards and card orders.\n{% /admonition %}\n\nCard order status flow {% #card-order-status-flow .title-3 .m-t-5 %}\n\nThe card order response will contain the \u0060status\u0060 field. The initial status is \u0060PLACED\u0060 or \u0060REQUIREMENTS_FULFILLED\u0060 depending on the requirement fulfillment state:\n\n- \u0060PLACED\u0060 - The card order is created. The card will be generated once it has fulfilled all the requirements\n- \u0060REQUIREMENTS_FULFILLED\u0060 - The card order has fulfilled all the requirements and the card should be generated in a short while\n- \u0060CARD_DETAILS_CREATED\u0060 - The card has been generated\n- \u0060PRODUCED\u0060 - The physical card has been produced and waiting to be picked up by delivery vendor (physical card only)\n- \u0060COMPLETED\u0060 - The card has been activated and is ready to use. The card order is completed\n- \u0060CANCELLED\u0060 - The card order has been cancelled. This can happen if you reach out to Wise Support to cancel a card order\n- \u0060RETURNED\u0060 - Delivery failed, the physical card has been returned and will be blocked (physical card only)\n\n![Card order status state machine](/images/diagrams/card-order-status-flow.png)\n",
+      "description": "With this set of APIs, you will be able to create cards for your customers. You can also retrieve and view the status of your current card orders, as well as the list of available card programs for the user.\n\n{% admonition type=\u0022info\u0022 %}\nOn production, each personal profile can order at most 1 physical card and 3 virtual cards, with no more than 3 virtual cards ordered per day. On sandbox, we allow up to 10 physical cards and 30 virtual cards for testing purpose, with no more than 30 virtual cards ordered per day. These limits include cards and card orders.\n{% /admonition %}\n\nCard order status flow {% #card-order-status-flow .title-3 .m-t-5 %}\n\nThe card order response will contain the \u0060status\u0060 field. The initial status is \u0060PLACED\u0060 or \u0060REQUIREMENTS_FULFILLED\u0060 depending on the requirement fulfillment state:\n\n- \u0060PLACED\u0060 - The card order is created. The card will be generated once it has fulfilled all the requirements\n- \u0060REQUIREMENTS_FULFILLED\u0060 - The card order has fulfilled all the requirements and the card should be generated in a short while\n- \u0060CARD_DETAILS_CREATED\u0060 - The card has been generated\n- \u0060PRODUCED\u0060 - The physical card has been produced and waiting to be picked up by delivery vendor (physical card only)\n- \u0060COMPLETED\u0060 - The card has been activated and is ready to use. The card order is completed\n- \u0060CANCELLED\u0060 - The card order has been cancelled. This can happen if you reach out to Wise Support to cancel a card order\n- \u0060RETURNED\u0060 - Delivery failed, the physical card has been returned and will be blocked (physical card only)\n\n![Card order status state machine](/images/diagrams/card-order-status-flow.png)\n",
       "x-displayName": "Card Orders"
     },
     {
@@ -75026,7 +75034,7 @@
     },
     {
       "name": "disputes",
-      "description": "Raise and manage card transaction disputes, including submission via Dynamic Flow or direct API, file uploads, and dispute lifecycle tracking.\n\nFor implementation details, see:\n- [Disputes via Dynamic Flow](/guides/product/issue-cards/card-disputes-dynamic-flow) \u2014 build a dispute UI using the Dynamic Flow framework\n- [Disputes via API](/guides/product/issue-cards/card-disputes-api) \u2014 submit disputes directly, with per-reason request body details\n- [Dispute management](/guides/product/issue-cards/card-disputes-management) \u2014 track and withdraw disputes\n\nDispute sub-statuses {% #dispute-sub-status .title-3 .m-t-5 %}\n\nThe possible \u0060subStatus\u0060 values are:\n- \u0060SUBMITTED\u0060 \u2014 Initial status\n- \u0060IN_REVIEW\u0060 \u2014 The dispute is under review or requires additional information\n- \u0060REFUNDED\u0060 \u2014 The refund has been processed\n- \u0060REJECTED\u0060 \u2014 The dispute is invalid\n- \u0060WITHDRAWN\u0060 \u2014 The customer has withdrawn the dispute\n- \u0060CONFIRMED\u0060 \u2014 The dispute has been reviewed but a refund is not applicable\n- \u0060REFUND_IN_PROGRESS\u0060 \u2014 A refund is being processed\n- \u0060ATTEMPTING_RECOVERY\u0060 \u2014 A chargeback request has been submitted\n- \u0060RECOVERY_UNSUCCESSFUL\u0060 \u2014 The chargeback attempt was unsuccessful\n\n{% admonition type=\u0022warning\u0022 %}\nThe status transition diagram may undergo modifications in the future and only covers regular pathways.\n{% /admonition %}\n\n{% img\n  src=\u0022/images/diagrams/dispute-status-flow.png\u0022\n  alt=\u0022Dispute statuses transition diagram\u0022\n/%}\n",
+      "description": "Raise and manage card transaction disputes, including submission through an embedded flow or direct API, file uploads, and dispute lifecycle tracking.\n\nFor implementation details, see:\n- [Raise dispute with embedded flow](/guides/product/issue-cards/card-disputes-embedded-flow) \u2014 collect dispute details and supporting documents on a Wise-hosted page\n- [Raise dispute via API](/guides/product/issue-cards/card-disputes-api) \u2014 submit disputes directly, with per-reason request body details\n- [Manage disputes](/guides/product/issue-cards/card-disputes-management) \u2014 track and withdraw disputes\n\nDispute sub-statuses {% #dispute-sub-status .title-3 .m-t-5 %}\n\nThe possible \u0060subStatus\u0060 values are:\n- \u0060SUBMITTED\u0060 \u2014 Initial status\n- \u0060IN_REVIEW\u0060 \u2014 The dispute is under review or requires additional information\n- \u0060REFUNDED\u0060 \u2014 The refund has been processed\n- \u0060REJECTED\u0060 \u2014 The dispute is invalid\n- \u0060WITHDRAWN\u0060 \u2014 The customer has withdrawn the dispute\n- \u0060CONFIRMED\u0060 \u2014 The dispute has been reviewed but a refund is not applicable\n- \u0060REFUND_IN_PROGRESS\u0060 \u2014 A refund is being processed\n- \u0060ATTEMPTING_RECOVERY\u0060 \u2014 A chargeback request has been submitted\n- \u0060RECOVERY_UNSUCCESSFUL\u0060 \u2014 The chargeback attempt was unsuccessful\n\n{% admonition type=\u0022warning\u0022 %}\nThe status transition diagram may undergo modifications in the future and only covers regular pathways.\n{% /admonition %}\n\n{% img\n  src=\u0022/images/diagrams/dispute-status-flow.png\u0022\n  alt=\u0022Dispute statuses transition diagram\u0022\n/%}\n",
       "x-displayName": "Disputes"
     },
     {
@@ -80043,10 +80051,6 @@
       "items": {
         "$ref": "#/components/schemas/DirectDebitAccount"
       }
-    },
-    "DisputeDynamicFlowStep200Response": {
-      "type": "object",
-      "description": "Dynamic Flow JSON object. Pass this to the Dynamic Flow framework to render the dispute form."
     },
     "DisputeReasonsGet200Response": {
       "type": "array",

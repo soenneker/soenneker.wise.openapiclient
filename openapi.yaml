@@ -311,9 +311,10 @@ tags:
       {% admonition type="info" %}
 
       On production, each personal profile can order at most 1 physical card and
-      3 virtual cards. On sandbox, we allow up to 10 physical cards and 30
-      virtual cards for testing purpose. However, no more than 3 virtual cards
-      can be ordered per day. This limit includes cards and card orders.
+      3 virtual cards, with no more than 3 virtual cards ordered per day. On
+      sandbox, we allow up to 10 physical cards and 30 virtual cards for testing
+      purpose, with no more than 30 virtual cards ordered per day. These limits
+      include cards and card orders.
 
       {% /admonition %}
 
@@ -946,22 +947,22 @@ tags:
   - name: disputes
     x-displayName: Disputes
     description: >
-      Raise and manage card transaction disputes, including submission via
-      Dynamic Flow or direct API, file uploads, and dispute lifecycle tracking.
+      Raise and manage card transaction disputes, including submission through
+      an embedded flow or direct API, file uploads, and dispute lifecycle
+      tracking.
 
 
       For implementation details, see:
 
-      - [Disputes via Dynamic
-      Flow](/guides/product/issue-cards/card-disputes-dynamic-flow) — build a
-      dispute UI using the Dynamic Flow framework
+      - [Raise dispute with embedded
+      flow](/guides/product/issue-cards/card-disputes-embedded-flow) — collect
+      dispute details and supporting documents on a Wise-hosted page
 
-      - [Disputes via API](/guides/product/issue-cards/card-disputes-api) —
+      - [Raise dispute via API](/guides/product/issue-cards/card-disputes-api) —
       submit disputes directly, with per-reason request body details
 
-      - [Dispute
-      management](/guides/product/issue-cards/card-disputes-management) — track
-      and withdraw disputes
+      - [Manage disputes](/guides/product/issue-cards/card-disputes-management)
+      — track and withdraw disputes
 
 
       Dispute sub-statuses {% #dispute-sub-status .title-3 .m-t-5 %}
@@ -8177,158 +8178,6 @@ paths:
               $ref: '#/components/headers/x-trace-id'
         '429':
           $ref: '#/components/responses/429'
-  /spend/profiles/{profileId}/dispute-form/flows/step/{scheme}/{reason}:
-    post:
-      operationId: disputeDynamicFlowStep
-      summary: Dispute dynamic flow entry point
-      description: >
-        Retrieves the JSON for initiating the dispute flow. Use this endpoint
-        with Wise's
-
-        [Dynamic Flow
-        framework](https://www.npmjs.com/package/@transferwise/dynamic-flows).
-
-
-        The JSON response must be passed into the Dynamic Flow framework, which
-        handles the multi-step dispute submission including the generation of
-        subsequent pages and the creation of the dispute.
-
-
-        **Setting up the API**
-
-
-        You will need to implement a GET API with the following format:
-
-        `GET
-        https://{{yourApiUrl}}/v3/spend/profiles/{{profileId}}/dispute-form/flows/step/{{scheme}}/{{reason}}?transactionId={{transactionId}}`
-
-
-        This API should forward the call to:
-
-        `POST
-        https://{{wiseUrl}}/v3/spend/profiles/{{profileId}}/dispute-form/flows/step/{{scheme}}/{{reason}}?transactionId={{transactionId}}`
-
-
-        This is required as the dynamic flow returned by Wise will automatically
-        be configured to call your GET API. Use `baseUrl` or `fetcher` as part
-        of the dynamic flow setup to redirect the Dynamic Flow JavaScript
-        library to your domain.
-
-
-        For a full integration guide, including example backend implementation
-        and styling, see [Disputes via Dynamic
-        Flow](/guides/product/issue-cards/card-disputes-dynamic-flow).
-      tags:
-        - disputes
-      security:
-        - UserToken: []
-      parameters:
-        - name: profileId
-          in: path
-          required: true
-          description: Your profile ID.
-          schema:
-            type: integer
-            format: int64
-          example: 14547572
-        - name: scheme
-          in: path
-          required: true
-          description: The network of the card that was used to make this transaction.
-          schema:
-            type: string
-            enum:
-              - MASTERCARD
-              - VISA
-          example: VISA
-        - name: reason
-          in: path
-          required: true
-          description: >-
-            Dispute reason code supplied by the [dispute reasons
-            endpoint](/api-reference/disputes/disputereasonsget).
-          schema:
-            type: string
-          example: TROUBLE_WITH_GOODS_SERVICES
-        - name: transactionId
-          in: query
-          required: true
-          description: >-
-            The ID of the transaction being disputed. Can be a comma-separated
-            list of IDs if the reason code has the
-            `supportsMultipleTransactions` flag.
-          schema:
-            type: string
-          example: '6789'
-        - $ref: '#/components/parameters/X-External-Correlation-Id'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                  description: >-
-                    Email used to receive communications regarding the dispute
-                    from Wise (e.g. your support team's email).
-                  example: support@partner.com
-            example:
-              email: support@partner.com
-      responses:
-        '200':
-          description: >-
-            Returns information required to populate the form with the correct
-            information. Note how the `action` field contains the URL and method
-            to the next step.
-          content:
-            application/json:
-              schema:
-                type: object
-                description: >-
-                  Dynamic Flow JSON object. Pass this to the Dynamic Flow
-                  framework to render the dispute form.
-              example:
-                key: TROUBLE_WITH_GOODS_SERVICES
-                type: form
-                title: There's a problem with the goods or service I ordered
-                actions: []
-                schemas: []
-                layout:
-                  - type: decision
-                    options:
-                      - title: I never got the goods or service I ordered
-                        action:
-                          url: >-
-                            /v3/spend/profiles/12345/dispute-form/flows/visa/no-goods-or-services?transactionId=6789
-                          method: GET
-                        disabled: false
-                        description: >-
-                          Choose this if the order was cancelled or never
-                          arrived
-                      - title: Something is wrong with the goods or service I ordered
-                        action:
-                          url: >-
-                            /v3/spend/profiles/12345/dispute-form/flows/visa/something-wrong-what-was-received?transactionId=6789
-                          method: GET
-                        disabled: false
-                      - title: I think there might be an issue with the merchant
-                        action:
-                          url: >-
-                            /v3/spend/profiles/12345/dispute-form/flows/visa/scam?transactionId=6789
-                          method: GET
-                        disabled: false
-                        description: >-
-                          Choose this if you haven't heard from the merchant, or
-                          have found scam reviews
-          headers:
-            X-External-Correlation-Id:
-              $ref: '#/components/headers/X-External-Correlation-Id'
-            x-trace-id:
-              $ref: '#/components/headers/x-trace-id'
-        '429':
-          $ref: '#/components/responses/429'
   /spend/profiles/{profileId}/dispute-form/reasons:
     get:
       operationId: disputeReasonsGet
@@ -10915,6 +10764,129 @@ paths:
               $ref: '#/components/headers/x-trace-id'
         '429':
           $ref: '#/components/responses/429'
+  /profiles/{profileId}/embedded-flows/link-requests/spend/disputes:
+    post:
+      operationId: disputeEmbeddedLinkRequestCreate
+      summary: Dispute creation
+      description: >
+        Returns a link that allows a user to complete a dispute creation flow
+        via either a redirect or embedded iframe/webview.
+
+
+        To see what data is returned to the frontend upon flow completion, see
+        our [Embedded Flows - Dispute Creation
+        guide](/guides/product/embedded-flows/flows/dispute-creation).
+      tags:
+        - link-requests
+      security:
+        - UserToken: []
+        - ClientCredentialsToken: []
+      parameters:
+        - name: profileId
+          in: path
+          required: true
+          description: The profile ID.
+          schema:
+            type: integer
+            format: int64
+        - $ref: '#/components/parameters/X-External-Correlation-Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - redirectUrl
+                - transactionId
+                - email
+              properties:
+                redirectUrl:
+                  type: string
+                  format: uri
+                  description: >
+                    URL where the user is redirected when the flow resolves.
+
+                    This also includes query parameters based on flow completion
+                    state and disputed transaction IDs.
+
+
+                    For more information, see our [Embedded Flows - Dispute
+                    Creation
+                    guide](/guides/product/embedded-flows/flows/dispute-creation).
+                  example: https://example.com/return
+                transactionId:
+                  type: integer
+                  format: int64
+                  description: >-
+                    The ID of the card transaction to dispute. It must belong to
+                    the given profile.
+                  example: 625327
+                email:
+                  type: string
+                  format: email
+                  description: The end user's email address, to receive dispute updates.
+                  example: user@example.com
+            example:
+              redirectUrl: https://example.com/return
+              transactionId: 625327
+              email: user@example.com
+      responses:
+        '201':
+          description: Embedded link request created.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - url
+                  - expiresAt
+                properties:
+                  url:
+                    type: string
+                    format: uri
+                    description: Short-lived URL to start the embedded dispute flow.
+                    example: >-
+                      https://wise-sandbox.com/embedded-flows?embeddedLinkRequestId=9f5f5812-2609-4e48-8418-b64437c0c7cd#token=0d0bdc88-bcf4-43dd-85be-7ca65441db20
+                  expiresAt:
+                    type: string
+                    format: date-time
+                    description: Timestamp when the returned flow URL expires.
+                    example: '2026-06-15T13:23:20.265Z'
+              example:
+                url: >-
+                  https://wise-sandbox.com/embedded-flows?embeddedLinkRequestId=9f5f5812-2609-4e48-8418-b64437c0c7cd#token=0d0bdc88-bcf4-43dd-85be-7ca65441db20
+                expiresAt: '2026-06-15T13:23:20.265Z'
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '400':
+          description: >-
+            Invalid request, such as an invalid redirect URL or a transaction
+            that doesn't exist.
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '401':
+          description: User is not authorised to access the resource.
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '403':
+          description: The dispute creation flow is not enabled for the profile.
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '429':
+          $ref: '#/components/responses/429'
   /profiles/{profileId}/embedded-flows/link-requests/recipients:
     post:
       operationId: recipientEmbeddedLinkRequestCreate
@@ -10924,9 +10896,9 @@ paths:
         via either a redirect or embedded iframe/webview.
 
 
-        View [Embedded Flows - Recipient
-        Creation](/guides/product/embedded-flows/flows/recipient-creation) to
-        see what data the frontend is returned upon flow completion.
+        To see what data is returned to the frontend upon flow completion, see
+        our [Embedded Flows - Recipient Creation
+        guide](/guides/product/embedded-flows/flows/recipient-creation).
       tags:
         - link-requests
       security:
@@ -10953,16 +10925,15 @@ paths:
                   type: string
                   format: uri
                   description: >
-                    URL where the user will be redirected when the flow
-                    resolves.
+                    URL where the user is redirected when the flow resolves.
 
-                    This will also include query parameters based on flow
-                    completion state and created recipient ID.
+                    This also includes query parameters based on flow completion
+                    state and created recipient ID.
 
 
-                    View [Embedded Flows - Recipient
-                    Creation](/guides/product/embedded-flows/flows/recipient-creation)
-                    for more information.
+                    For more information, see our [Embedded Flows - Recipient
+                    Creation
+                    guide](/guides/product/embedded-flows/flows/recipient-creation).
                   example: https://example.com/return
                 targetCurrency:
                   type: string
@@ -11036,9 +11007,9 @@ paths:
         via either a redirect or embedded iframe/webview.
 
 
-        View [Embedded Flows - Payment
-        Instruments](/guides/product/embedded-flows/flows/payment-instrument) to
-        see what data the frontend is returned upon flow completion.
+        To see what data is returned to the frontend upon flow completion, see
+        our [Embedded Flows - Payment Instruments
+        guide](/guides/product/embedded-flows/flows/payment-instrument).
       tags:
         - link-requests
       security:
@@ -11066,16 +11037,15 @@ paths:
                   type: string
                   format: uri
                   description: >
-                    URL where the user will be redirected when the flow
-                    resolves.
+                    URL where the user is redirected when the flow resolves.
 
-                    This will also include query parameters based on flow
-                    completion state and created payment instrument ID.
+                    This also includes query parameters based on flow completion
+                    state and created payment instrument ID.
 
 
-                    View [Embedded Flows - Payment
-                    Instruments](/guides/product/embedded-flows/flows/payment-instrument)
-                    for more information.
+                    For more information, see our [Embedded Flows - Payment
+                    Instruments
+                    guide](/guides/product/embedded-flows/flows/payment-instrument).
                   example: https://example.com/return
                 method:
                   type: string
@@ -11152,9 +11122,9 @@ paths:
         either a redirect or embedded iframe/webview.
 
 
-        View [Embedded Flows - KYC
-        Review](/guides/product/embedded-flows/flows/kyc-reviews) to see what
-        data the frontend is returned upon flow completion.
+        To see what data is returned to the frontend upon flow completion, see
+        our [Embedded Flows - KYC Review
+        guide](/guides/product/embedded-flows/flows/kyc-reviews).
       tags:
         - link-requests
       security:
@@ -11182,16 +11152,14 @@ paths:
                   type: string
                   format: uri
                   description: >
-                    URL where the user will be redirected when the flow
-                    resolves.
+                    URL where the user is redirected when the flow resolves.
 
-                    This will also include query parameters based on flow
-                    completion state and completed KYC review ID.
+                    This also includes query parameters based on flow completion
+                    state and completed KYC review ID.
 
 
-                    View [Embedded Flows - KYC
-                    Review](/guides/product/embedded-flows/flows/kyc-reviews)
-                    for more information.
+                    For more information, see our [Embedded Flows - KYC Review
+                    guide](/guides/product/embedded-flows/flows/kyc-reviews).
                   example: https://example.com/return
                 kycReviewId:
                   type: string
