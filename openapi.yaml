@@ -19190,8 +19190,11 @@ paths:
         #### Address details
 
 
-        Recipient address data is required only if target currency is **USD,
-        PHP, THB or TRY**, or if the source currency is **USD or AUD**.
+        Recipient address data is required if target currency is **USD, PHP, THB
+        or TRY**, or if the source currency is **USD or AUD**. If target
+        currency is **CHF**, city and country are always required, and the other
+        address fields are optional unless the source currency is **USD or
+        AUD**.
 
 
         Address fields can include:
