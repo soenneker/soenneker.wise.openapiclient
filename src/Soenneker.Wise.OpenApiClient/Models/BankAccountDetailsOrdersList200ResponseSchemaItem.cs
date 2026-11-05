@@ -17,17 +17,36 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         public virtual void CaptureExplicitNulls(global::Microsoft.Kiota.Abstractions.Serialization.IParseNode parseNode)
         {
+            if (parseNode.GetChildNode("accountDetailsId") is null) { _explicitNullValueAccountDetailsId = default!; _explicitNullProperties?.Remove("accountDetailsId"); }
+            else if (parseNode.GetChildNode("accountDetailsId") is { } nullNodeAccountDetailsId && nullNodeAccountDetailsId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) AccountDetailsId = null;
+            if (parseNode.GetChildNode("balanceId") is null) { _explicitNullValueBalanceId = default!; _explicitNullProperties?.Remove("balanceId"); }
+            else if (parseNode.GetChildNode("balanceId") is { } nullNodeBalanceId && nullNodeBalanceId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) BalanceId = null;
+            if (parseNode.GetChildNode("creationTime") is null) { _explicitNullValueCreationTime = default!; _explicitNullProperties?.Remove("creationTime"); }
+            else if (parseNode.GetChildNode("creationTime") is { } nullNodeCreationTime && nullNodeCreationTime.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CreationTime = null;
             if (parseNode.GetChildNode("currency") is null) { _explicitNullValueCurrency = default!; _explicitNullProperties?.Remove("currency"); }
             else if (parseNode.GetChildNode("currency") is { } nullNodeCurrency && nullNodeCurrency.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Currency = null;
+            if (parseNode.GetChildNode("id") is null) { _explicitNullValueId = default!; _explicitNullProperties?.Remove("id"); }
+            else if (parseNode.GetChildNode("id") is { } nullNodeId && nullNodeId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Id = null;
+            if (parseNode.GetChildNode("modificationTime") is null) { _explicitNullValueModificationTime = default!; _explicitNullProperties?.Remove("modificationTime"); }
+            else if (parseNode.GetChildNode("modificationTime") is { } nullNodeModificationTime && nullNodeModificationTime.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ModificationTime = null;
             if (parseNode.GetChildNode("requirements") is null) { _explicitNullValueRequirements = default!; _explicitNullProperties?.Remove("requirements"); }
             else if (parseNode.GetChildNode("requirements") is { } nullNodeRequirements && nullNodeRequirements.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Requirements = null;
             if (parseNode.GetChildNode("status") is null) { _explicitNullValueStatus = default!; _explicitNullProperties?.Remove("status"); }
             else if (parseNode.GetChildNode("status") is { } nullNodeStatus && nullNodeStatus.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Status = null;
         }
 
+        /// <summary>Unique ID of the issued account details. Populated only for completed orders.</summary>
+        public int? AccountDetailsId { get => _explicitNullValueAccountDetailsId; set { _explicitNullValueAccountDetailsId = value; AdditionalData?.Remove("accountDetailsId"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("accountDetailsId"); else _explicitNullProperties?.Remove("accountDetailsId"); } }
+        private int? _explicitNullValueAccountDetailsId = default!;
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Currency code (ISO 4217 Alphabetic Code).</summary>
+        /// <summary>ID of the balance the order is for. If null, primary balance can be assumed.</summary>
+        public int? BalanceId { get => _explicitNullValueBalanceId; set { _explicitNullValueBalanceId = value; AdditionalData?.Remove("balanceId"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("balanceId"); else _explicitNullProperties?.Remove("balanceId"); } }
+        private int? _explicitNullValueBalanceId = default!;
+        /// <summary>Timestamp of when the order was created.</summary>
+        public DateTimeOffset? CreationTime { get => _explicitNullValueCreationTime; set { _explicitNullValueCreationTime = value; AdditionalData?.Remove("creationTime"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("creationTime"); else _explicitNullProperties?.Remove("creationTime"); } }
+        private DateTimeOffset? _explicitNullValueCreationTime = default!;
+        /// <summary>Currency code (ISO 4217 Alphabetic Code) for the balance account.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Currency { get => _explicitNullValueCurrency; set { _explicitNullValueCurrency = value; AdditionalData?.Remove("currency"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("currency"); else _explicitNullProperties?.Remove("currency"); } }
@@ -37,6 +56,12 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public string Currency { get => _explicitNullValueCurrency; set { _explicitNullValueCurrency = value; AdditionalData?.Remove("currency"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("currency"); else _explicitNullProperties?.Remove("currency"); } }
         private string _explicitNullValueCurrency = default!;
 #endif
+        /// <summary>Unique ID of the order.</summary>
+        public Guid? Id { get => _explicitNullValueId; set { _explicitNullValueId = value; AdditionalData?.Remove("id"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("id"); else _explicitNullProperties?.Remove("id"); } }
+        private Guid? _explicitNullValueId = default!;
+        /// <summary>Timestamp of the last modification to the order.</summary>
+        public DateTimeOffset? ModificationTime { get => _explicitNullValueModificationTime; set { _explicitNullValueModificationTime = value; AdditionalData?.Remove("modificationTime"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("modificationTime"); else _explicitNullProperties?.Remove("modificationTime"); } }
+        private DateTimeOffset? _explicitNullValueModificationTime = default!;
         /// <summary>List of requirements for the order.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -75,7 +100,12 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
+                { "accountDetailsId", n => { AccountDetailsId = n.GetIntValue(); } },
+                { "balanceId", n => { BalanceId = n.GetIntValue(); } },
+                { "creationTime", n => { CreationTime = n.GetDateTimeOffsetValue(); } },
                 { "currency", n => { Currency = n.GetStringValue(); } },
+                { "id", n => { Id = n.GetGuidValue(); } },
+                { "modificationTime", n => { ModificationTime = n.GetDateTimeOffsetValue(); } },
                 { "requirements", n => { Requirements = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsOrdersList200ResponseItemRequirementsItem>(global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsOrdersList200ResponseItemRequirementsItem.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "status", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsOrdersList200ResponseItemStatus>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueStatus = default; _explicitNullProperties?.Remove("status"); AdditionalData["status"] = unknown; } else { Status = parsed; AdditionalData.Remove("status"); } } },
             };
@@ -87,7 +117,12 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
+            writer.WriteIntValue("accountDetailsId", AccountDetailsId);
+            writer.WriteIntValue("balanceId", BalanceId);
+            writer.WriteDateTimeOffsetValue("creationTime", CreationTime);
             writer.WriteStringValue("currency", Currency);
+            writer.WriteGuidValue("id", Id);
+            writer.WriteDateTimeOffsetValue("modificationTime", ModificationTime);
             writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsOrdersList200ResponseItemRequirementsItem>("requirements", Requirements);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsOrdersList200ResponseItemStatus>("status", Status);
             if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);

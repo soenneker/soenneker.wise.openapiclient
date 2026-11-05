@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
-    /// <summary>Requirement type.</summary>
+    /// <summary>Requirement type.The most common requirements types:- `VERIFICATION`: The user needs to be fully verified before account details can be issued.- `TOP_UP`: A fee will be charged and must be paid through wise.com before account details can be issued.</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public enum BankAccountDetailsOrderCreate200ResponseRequirementsItemType
     {
@@ -14,6 +14,18 @@ namespace Soenneker.Wise.OpenApiClient.Models
         [EnumMember(Value = "TOP_UP")]
         #pragma warning disable CS1591
         TopUp,
+        #pragma warning restore CS1591
+        [EnumMember(Value = "FEE")]
+        #pragma warning disable CS1591
+        Fee,
+        #pragma warning restore CS1591
+        [EnumMember(Value = "PARTNER_APPROVAL")]
+        #pragma warning disable CS1591
+        PartnerApproval,
+        #pragma warning restore CS1591
+        [EnumMember(Value = "TERMS_ACCEPTANCE")]
+        #pragma warning disable CS1591
+        TermsAcceptance,
         #pragma warning restore CS1591
     }
 }

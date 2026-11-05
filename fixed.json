@@ -2827,7 +2827,7 @@
           "bank-account-details"
         ],
         "summary": "Create bank account details order",
-        "description": "Creates an order which will issue account details. It should use the same currency as the balance previously created. Fulfilling all the requirements will complete the order, reaching status \u0060DONE\u0060.\n\nThe possible values for a requirement status are:\n- \u0060PENDING_USER\u0060: The requirement has some pending action from the user.\n- \u0060PENDING_TW\u0060: The requirement has some pending action from Wise.\n- \u0060DONE\u0060: The requirement is completed.\n\nThe more common requirements are:\n- \u0060VERIFICATION\u0060: The user needs to be fully verified before completing this requirement.\n- \u0060TOP_UP\u0060: A fee will be charged and must be paid through wise.com before completing this requirement.\n",
+        "description": "Creates an order to issue account details.\n\nThe \u0060currency\u0060 value in the request determines which balance account the account details are for. The profile must have an existing [balance account](/api-reference/balance/balancecreate) for that currency prior to submitting this request.\n\nOnce the order is created, the response returns the order status and an array of requirements, if applicable.\nAll requirements must be fulfilled to complete the order. Review our [Bank account details guide](/guides/product/accounts/bank-account-details) for more details about this workflow.\n",
         "operationId": "BankAccountDetailsOrderCreate",
         "parameters": [
           {
@@ -2858,7 +2858,7 @@
         },
         "responses": {
           "200": {
-            "description": "Bank account details order created.",
+            "description": "Bank account details order created. \n\nThe objects in the \u0060requirements\u0060 array include the type and status of each requirement. All requirements must be fulfilled to complete the order.\n",
             "headers": {
               "X-External-Correlation-Id": {
                 "$ref": "#/components/headers/X-External-Correlation-Id"
@@ -2923,7 +2923,7 @@
           "bank-account-details"
         ],
         "summary": "List bank account detail orders",
-        "description": "Returns the bank account assignment requests for a profile and multi-currency account.\n\nThe response includes bank-details orders in the following statuses: \u0060PENDING_USER\u0060, \u0060PENDING_TW\u0060, \u0060REQUIREMENTS_FULFILLED\u0060, \u0060DONE\u0060.\n",
+        "description": "Returns the bank account details orders for the specified profile.\n\nEach object in the response array includes the account details order ID, the order status, the currency, the balance ID, the requirements (type and status), and the account details ID (after account details have been issued).\n\nUse the \u0060accountDetailsId\u0060 value from this response to [Get account details by ID](/api-reference/bank-account-details/getaccountdetails).\n",
         "operationId": "BankAccountDetailsOrdersList",
         "parameters": [
           {
@@ -17630,6 +17630,104 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProfileDirectorUpdate200ResponseSchema"
+                },
+                "example": [
+                  {
+                    "id": 14,
+                    "firstName": "John",
+                    "lastName": "Doe",
+                    "dateOfBirth": "1982-05-20",
+                    "countryOfResidenceIso3Code": "usa"
+                  },
+                  {
+                    "id": 15,
+                    "firstName": "Jane",
+                    "lastName": "Doe",
+                    "dateOfBirth": "1981-12-07",
+                    "countryOfResidenceIso3Code": "usa"
+                  }
+                ]
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit exceeded. Retry after the number of seconds specified in the \u0060Retry-After\u0060 header.",
+            "headers": {
+              "Retry-After": {
+                "description": "Number of seconds to wait before retrying the request.",
+                "schema": {
+                  "type": "integer"
+                },
+                "example": 5
+              },
+              "X-Rate-Limited-By": {
+                "description": "Identifies the rate limiter that triggered the 429 response.",
+                "schema": {
+                  "type": "string"
+                },
+                "example": "wise-public-api"
+              },
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Value429ResponseContentError"
+                }
+              }
+            },
+            "x-global": true
+          }
+        },
+        "security": [
+          {
+            "UserToken": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "profile"
+        ],
+        "summary": "Delete all business directors",
+        "description": "Deletes all director objects associated with the business profile.\n",
+        "operationId": "ProfileDirectorsDelete",
+        "parameters": [
+          {
+            "name": "profileId",
+            "in": "path",
+            "description": "Business profile ID.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "description": "Optional UUID for correlating requests across systems. If provided, Wise echoes it back in the response. Maximum 36 characters. [Learn more](/guides/developer/headers/correlation-id).\n",
+            "$ref": "#/components/parameters/X-External-Correlation-Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of all directors deleted from the business profile.",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileDirectorsDelete200ResponseSchema"
                 },
                 "example": [
                   {
@@ -52930,7 +53028,7 @@
         "properties": {
           "currency": {
             "type": "string",
-            "description": "Balance currency (ISO 4217 Alphabetic Code).",
+            "description": "Balance currency (ISO 4217 Alphabetic Code) for the requested bank account details.",
             "example": "EUR"
           }
         }
@@ -58884,6 +58982,12 @@
           "$ref": "#/components/schemas/Director"
         }
       },
+      "ProfileDirectorsDelete200ResponseSchema": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Director"
+        }
+      },
       "ProfileUboCreateRequestRequestBody": {
         "type": "array",
         "items": {
@@ -61885,13 +61989,27 @@
       "BankAccountDetailsOrdersList200ResponseSchemaItem": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique ID of the order.",
+            "format": "uuid",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          },
           "status": {
             "$ref": "#/components/schemas/BankAccountDetailsOrdersList200ResponseItemStatus"
           },
           "currency": {
             "type": "string",
-            "description": "Currency code (ISO 4217 Alphabetic Code).",
+            "description": "Currency code (ISO 4217 Alphabetic Code) for the balance account.",
             "example": "EUR"
+          },
+          "balanceId": {
+            "type": [
+              "null",
+              "integer"
+            ],
+            "description": "ID of the balance the order is for. If null, primary balance can be assumed.",
+            "example": 200001
           },
           "requirements": {
             "type": "array",
@@ -61899,6 +62017,23 @@
               "$ref": "#/components/schemas/BankAccountDetailsOrdersList200ResponseItemRequirementsItem"
             },
             "description": "List of requirements for the order."
+          },
+          "accountDetailsId": {
+            "type": "integer",
+            "description": "Unique ID of the issued account details. Populated only for completed orders.",
+            "example": 123456789
+          },
+          "modificationTime": {
+            "type": "string",
+            "description": "Timestamp of the last modification to the order.",
+            "format": "date-time",
+            "example": "2026-01-01T12:30:00Z"
+          },
+          "creationTime": {
+            "type": "string",
+            "description": "Timestamp of when the order was created.",
+            "format": "date-time",
+            "example": "2026-01-01T12:00:00Z"
           }
         }
       },
@@ -67852,6 +67987,7 @@
         "enum": [
           "PENDING_USER",
           "PENDING_TW",
+          "REQUIREMENTS_FULFILLED",
           "DONE"
         ],
         "type": "string",
@@ -67868,6 +68004,10 @@
             {
               "value": "PENDING_TW",
               "name": "PendingTw"
+            },
+            {
+              "value": "REQUIREMENTS_FULFILLED",
+              "name": "RequirementsFulfilled"
             },
             {
               "value": "DONE",
@@ -69592,10 +69732,13 @@
       "BankAccountDetailsOrderCreate200ResponseRequirementsItemType": {
         "enum": [
           "VERIFICATION",
-          "TOP_UP"
+          "TOP_UP",
+          "FEE",
+          "PARTNER_APPROVAL",
+          "TERMS_ACCEPTANCE"
         ],
         "type": "string",
-        "description": "Requirement type.",
+        "description": "Requirement type.\n\nThe most common requirements types:\n- \u0060VERIFICATION\u0060: The user needs to be fully verified before account details can be issued.\n- \u0060TOP_UP\u0060: A fee will be charged and must be paid through wise.com before account details can be issued.\n",
         "example": "VERIFICATION",
         "x-ms-enum": {
           "name": "BankAccountDetailsOrderCreate200ResponseRequirementsItemType",
@@ -69608,6 +69751,18 @@
             {
               "value": "TOP_UP",
               "name": "TopUp"
+            },
+            {
+              "value": "FEE",
+              "name": "Fee"
+            },
+            {
+              "value": "PARTNER_APPROVAL",
+              "name": "PartnerApproval"
+            },
+            {
+              "value": "TERMS_ACCEPTANCE",
+              "name": "TermsAcceptance"
             }
           ]
         }
@@ -69616,10 +69771,13 @@
         "enum": [
           "PENDING_USER",
           "PENDING_TW",
-          "DONE"
+          "DONE",
+          "FAILED",
+          "REFUNDED",
+          "WAIVED"
         ],
         "type": "string",
-        "description": "Requirement status.",
+        "description": "Requirement status.\n\nThe following values indicate pending actions:\n- \u0060PENDING_USER\u0060: The requirement has some pending action from the user.\n- \u0060PENDING_TW\u0060: The requirement has some pending action from Wise.\n",
         "example": "PENDING_USER",
         "x-ms-enum": {
           "name": "BankAccountDetailsOrderCreate200ResponseRequirementsItemStatus",
@@ -69636,6 +69794,18 @@
             {
               "value": "DONE",
               "name": "Done"
+            },
+            {
+              "value": "FAILED",
+              "name": "Failed"
+            },
+            {
+              "value": "REFUNDED",
+              "name": "Refunded"
+            },
+            {
+              "value": "WAIVED",
+              "name": "Waived"
             }
           ]
         }
@@ -70208,7 +70378,10 @@
       "BankAccountDetailsOrdersList200ResponseItemRequirementsItemType": {
         "enum": [
           "VERIFICATION",
-          "TOP_UP"
+          "TOP_UP",
+          "FEE",
+          "PARTNER_APPROVAL",
+          "TERMS_ACCEPTANCE"
         ],
         "type": "string",
         "description": "Requirement type.",
@@ -70224,6 +70397,18 @@
             {
               "value": "TOP_UP",
               "name": "TopUp"
+            },
+            {
+              "value": "FEE",
+              "name": "Fee"
+            },
+            {
+              "value": "PARTNER_APPROVAL",
+              "name": "PartnerApproval"
+            },
+            {
+              "value": "TERMS_ACCEPTANCE",
+              "name": "TermsAcceptance"
             }
           ]
         }
@@ -70232,10 +70417,13 @@
         "enum": [
           "PENDING_USER",
           "PENDING_TW",
-          "DONE"
+          "FAILED",
+          "DONE",
+          "REFUNDED",
+          "WAIVED"
         ],
         "type": "string",
-        "description": "Requirement status.",
+        "description": "Requirement status.\n\nThe following values indicate pending actions:\n- \u0060PENDING_USER\u0060: The requirement has some pending action from the user.\n- \u0060PENDING_TW\u0060: The requirement has some pending action from Wise.\n",
         "example": "DONE",
         "x-ms-enum": {
           "name": "BankAccountDetailsOrdersList200ResponseItemRequirementsItemStatus",
@@ -70250,8 +70438,20 @@
               "name": "PendingTw"
             },
             {
+              "value": "FAILED",
+              "name": "Failed"
+            },
+            {
               "value": "DONE",
               "name": "Done"
+            },
+            {
+              "value": "REFUNDED",
+              "name": "Refunded"
+            },
+            {
+              "value": "WAIVED",
+              "name": "Waived"
             }
           ]
         }
@@ -74959,7 +75159,7 @@
     },
     {
       "name": "bank-account-details",
-      "description": "Bank account details allow users to receive money into their Wise Multi-Currency Account. Each currency balance can have local bank details (for domestic payments) and international bank details (for SWIFT payments) where available.\n\nBank account details can be retrieved for existing balances, or new details can be ordered for currencies where they\u0027re available but not yet issued.\n",
+      "description": "Bank account details allow users to receive money into their Wise Multi-Currency Account. Each currency balance can have local bank details (for domestic payments) and international bank details (for Swift payments) where available.\n\nYou can retrieve bank account details for existing balances, or order new details for currencies where they\u0027re available but not yet issued.\n",
       "x-displayName": "Bank Account Details"
     },
     {
@@ -80174,6 +80374,12 @@
         "$ref": "#/components/schemas/Director"
       }
     },
+    "ProfileDirectorsDelete200Response": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Director"
+      }
+    },
     "ProfileUboCreateRequest": {
       "type": "array",
       "items": {
@@ -80379,13 +80585,27 @@
     "BankAccountDetailsOrdersList200ResponseItem": {
       "type": "object",
       "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique ID of the order.",
+          "format": "uuid",
+          "example": "123e4567-e89b-12d3-a456-426614174000"
+        },
         "status": {
           "$ref": "#/components/schemas/BankAccountDetailsOrdersList200ResponseItemStatus"
         },
         "currency": {
           "type": "string",
-          "description": "Currency code (ISO 4217 Alphabetic Code).",
+          "description": "Currency code (ISO 4217 Alphabetic Code) for the balance account.",
           "example": "EUR"
+        },
+        "balanceId": {
+          "type": [
+            "null",
+            "integer"
+          ],
+          "description": "ID of the balance the order is for. If null, primary balance can be assumed.",
+          "example": 200001
         },
         "requirements": {
           "type": "array",
@@ -80393,6 +80613,23 @@
             "$ref": "#/components/schemas/BankAccountDetailsOrdersList200ResponseItemRequirementsItem"
           },
           "description": "List of requirements for the order."
+        },
+        "accountDetailsId": {
+          "type": "integer",
+          "description": "Unique ID of the issued account details. Populated only for completed orders.",
+          "example": 123456789
+        },
+        "modificationTime": {
+          "type": "string",
+          "description": "Timestamp of the last modification to the order.",
+          "format": "date-time",
+          "example": "2026-01-01T12:30:00Z"
+        },
+        "creationTime": {
+          "type": "string",
+          "description": "Timestamp of when the order was created.",
+          "format": "date-time",
+          "example": "2026-01-01T12:00:00Z"
         }
       }
     },

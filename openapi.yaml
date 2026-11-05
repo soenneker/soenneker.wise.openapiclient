@@ -142,13 +142,12 @@ tags:
     description: >
       Bank account details allow users to receive money into their Wise
       Multi-Currency Account. Each currency balance can have local bank details
-      (for domestic payments) and international bank details (for SWIFT
+      (for domestic payments) and international bank details (for Swift
       payments) where available.
 
 
-      Bank account details can be retrieved for existing balances, or new
-      details can be ordered for currencies where they're available but not yet
-      issued.
+      You can retrieve bank account details for existing balances, or order new
+      details for currencies where they're available but not yet issued.
   - name: batch-group
     x-displayName: Batch Payment Groups
     description: >
@@ -4363,27 +4362,22 @@ paths:
         - UserToken: []
         - PersonalToken: []
       description: >
-        Creates an order which will issue account details. It should use the
-        same currency as the balance previously created. Fulfilling all the
-        requirements will complete the order, reaching status `DONE`.
+        Creates an order to issue account details.
 
 
-        The possible values for a requirement status are:
-
-        - `PENDING_USER`: The requirement has some pending action from the user.
-
-        - `PENDING_TW`: The requirement has some pending action from Wise.
-
-        - `DONE`: The requirement is completed.
+        The `currency` value in the request determines which balance account the
+        account details are for. The profile must have an existing [balance
+        account](/api-reference/balance/balancecreate) for that currency prior
+        to submitting this request.
 
 
-        The more common requirements are:
+        Once the order is created, the response returns the order status and an
+        array of requirements, if applicable.
 
-        - `VERIFICATION`: The user needs to be fully verified before completing
-        this requirement.
-
-        - `TOP_UP`: A fee will be charged and must be paid through wise.com
-        before completing this requirement.
+        All requirements must be fulfilled to complete the order. Review our
+        [Bank account details
+        guide](/guides/product/accounts/bank-account-details) for more details
+        about this workflow.
       parameters:
         - name: profileId
           in: path
@@ -4405,11 +4399,19 @@ paths:
               properties:
                 currency:
                   type: string
-                  description: Balance currency (ISO 4217 Alphabetic Code).
+                  description: >-
+                    Balance currency (ISO 4217 Alphabetic Code) for the
+                    requested bank account details.
                   example: EUR
       responses:
         '200':
-          description: Bank account details order created.
+          description: >
+            Bank account details order created. 
+
+
+            The objects in the `requirements` array include the type and status
+            of each requirement. All requirements must be fulfilled to complete
+            the order.
           content:
             application/json:
               schema:
@@ -4421,6 +4423,7 @@ paths:
                     enum:
                       - PENDING_USER
                       - PENDING_TW
+                      - REQUIREMENTS_FULFILLED
                       - DONE
                     example: PENDING_USER
                   currency:
@@ -4435,18 +4438,45 @@ paths:
                       properties:
                         type:
                           type: string
-                          description: Requirement type.
+                          description: >
+                            Requirement type.
+
+
+                            The most common requirements types:
+
+                            - `VERIFICATION`: The user needs to be fully
+                            verified before account details can be issued.
+
+                            - `TOP_UP`: A fee will be charged and must be paid
+                            through wise.com before account details can be
+                            issued.
                           enum:
                             - VERIFICATION
                             - TOP_UP
+                            - FEE
+                            - PARTNER_APPROVAL
+                            - TERMS_ACCEPTANCE
                           example: VERIFICATION
                         status:
                           type: string
-                          description: Requirement status.
+                          description: >
+                            Requirement status.
+
+
+                            The following values indicate pending actions:
+
+                            - `PENDING_USER`: The requirement has some pending
+                            action from the user.
+
+                            - `PENDING_TW`: The requirement has some pending
+                            action from Wise.
                           enum:
                             - PENDING_USER
                             - PENDING_TW
                             - DONE
+                            - FAILED
+                            - REFUNDED
+                            - WAIVED
                           example: PENDING_USER
           headers:
             X-External-Correlation-Id:
@@ -4464,12 +4494,17 @@ paths:
         - UserToken: []
         - PersonalToken: []
       description: >
-        Returns the bank account assignment requests for a profile and
-        multi-currency account.
+        Returns the bank account details orders for the specified profile.
 
 
-        The response includes bank-details orders in the following statuses:
-        `PENDING_USER`, `PENDING_TW`, `REQUIREMENTS_FULFILLED`, `DONE`.
+        Each object in the response array includes the account details order ID,
+        the order status, the currency, the balance ID, the requirements (type
+        and status), and the account details ID (after account details have been
+        issued).
+
+
+        Use the `accountDetailsId` value from this response to [Get account
+        details by ID](/api-reference/bank-account-details/getaccountdetails).
       parameters:
         - name: profileId
           in: path
@@ -4497,6 +4532,11 @@ paths:
                 items:
                   type: object
                   properties:
+                    id:
+                      type: string
+                      description: Unique ID of the order.
+                      format: uuid
+                      example: 123e4567-e89b-12d3-a456-426614174000
                     status:
                       type: string
                       description: Order status.
@@ -4508,8 +4548,18 @@ paths:
                       example: DONE
                     currency:
                       type: string
-                      description: Currency code (ISO 4217 Alphabetic Code).
+                      description: >-
+                        Currency code (ISO 4217 Alphabetic Code) for the balance
+                        account.
                       example: EUR
+                    balanceId:
+                      type:
+                        - integer
+                        - 'null'
+                      description: >-
+                        ID of the balance the order is for. If null, primary
+                        balance can be assumed.
+                      example: 200001
                     requirements:
                       type: array
                       description: List of requirements for the order.
@@ -4522,15 +4572,47 @@ paths:
                             enum:
                               - VERIFICATION
                               - TOP_UP
+                              - FEE
+                              - PARTNER_APPROVAL
+                              - TERMS_ACCEPTANCE
                             example: TOP_UP
                           status:
                             type: string
-                            description: Requirement status.
+                            description: >
+                              Requirement status.
+
+
+                              The following values indicate pending actions:
+
+                              - `PENDING_USER`: The requirement has some pending
+                              action from the user.
+
+                              - `PENDING_TW`: The requirement has some pending
+                              action from Wise.
                             enum:
                               - PENDING_USER
                               - PENDING_TW
+                              - FAILED
                               - DONE
+                              - REFUNDED
+                              - WAIVED
                             example: DONE
+                    accountDetailsId:
+                      type: integer
+                      description: >-
+                        Unique ID of the issued account details. Populated only
+                        for completed orders.
+                      example: 123456789
+                    modificationTime:
+                      type: string
+                      description: Timestamp of the last modification to the order.
+                      format: date-time
+                      example: '2026-01-01T12:30:00Z'
+                    creationTime:
+                      type: string
+                      description: Timestamp of when the order was created.
+                      format: date-time
+                      example: '2026-01-01T12:00:00Z'
           headers:
             X-External-Correlation-Id:
               $ref: '#/components/headers/X-External-Correlation-Id'
@@ -16744,6 +16826,51 @@ paths:
       responses:
         '200':
           description: List of all directors associated with the business profile.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/director'
+              example:
+                - id: 14
+                  firstName: John
+                  lastName: Doe
+                  dateOfBirth: '1982-05-20'
+                  countryOfResidenceIso3Code: usa
+                - id: 15
+                  firstName: Jane
+                  lastName: Doe
+                  dateOfBirth: '1981-12-07'
+                  countryOfResidenceIso3Code: usa
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '429':
+          $ref: '#/components/responses/429'
+    delete:
+      operationId: profileDirectorsDelete
+      summary: Delete all business directors
+      description: |
+        Deletes all director objects associated with the business profile.
+      tags:
+        - profile
+      security:
+        - UserToken: []
+      parameters:
+        - name: profileId
+          in: path
+          required: true
+          description: Business profile ID.
+          schema:
+            type: integer
+            format: int64
+        - $ref: '#/components/parameters/X-External-Correlation-Id'
+      responses:
+        '200':
+          description: List of all directors deleted from the business profile.
           content:
             application/json:
               schema:

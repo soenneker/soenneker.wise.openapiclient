@@ -34,6 +34,32 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.Item.Directors
         {
         }
         /// <summary>
+        /// Deletes all director objects associated with the business profile.
+        /// </summary>
+        /// <returns>A List&lt;global::Soenneker.Wise.OpenApiClient.Models.Director&gt;</returns>
+        /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
+        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContentError">When receiving a 429 status code</exception>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public async Task<List<global::Soenneker.Wise.OpenApiClient.Models.Director>?> DeleteAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
+#nullable restore
+#else
+        public async Task<List<global::Soenneker.Wise.OpenApiClient.Models.Director>> DeleteAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
+#endif
+            var requestInfo = ToDeleteRequestInformation(requestConfiguration);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "429", global::Soenneker.Wise.OpenApiClient.Models.Value429ResponseContentError.CreateFromDiscriminatorValue },
+                { "4XX", global::Soenneker.OpenApi.Generated.OpenApiRawError.CreateFromDiscriminatorValue },
+                { "5XX", global::Soenneker.OpenApi.Generated.OpenApiRawError.CreateFromDiscriminatorValue },
+            };
+            var collectionResult = await RequestAdapter.SendCollectionAsync<global::Soenneker.Wise.OpenApiClient.Models.Director>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.Director.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
+            return collectionResult?.AsList();
+        }
+        /// <summary>
         /// Returns the list of director objects associated with the business profile.
         /// </summary>
         /// <returns>A List&lt;global::Soenneker.Wise.OpenApiClient.Models.Director&gt;</returns>
@@ -114,6 +140,25 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.Item.Directors
             };
             var collectionResult = await RequestAdapter.SendCollectionAsync<global::Soenneker.Wise.OpenApiClient.Models.Director>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.Director.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
             return collectionResult?.AsList();
+        }
+        /// <summary>
+        /// Deletes all director objects associated with the business profile.
+        /// </summary>
+        /// <returns>A <see cref="RequestInformation"/></returns>
+        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public RequestInformation ToDeleteRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        {
+#nullable restore
+#else
+        public RequestInformation ToDeleteRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        {
+#endif
+            var requestInfo = new RequestInformation(Method.DELETE, UrlTemplate, PathParameters);
+            requestInfo.Configure(requestConfiguration);
+            requestInfo.Headers.TryAdd("Accept", "application/json");
+            return requestInfo;
         }
         /// <summary>
         /// Returns the list of director objects associated with the business profile.

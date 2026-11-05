@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
-    /// <summary>Requirement status.</summary>
+    /// <summary>Requirement status.The following values indicate pending actions:- `PENDING_USER`: The requirement has some pending action from the user.- `PENDING_TW`: The requirement has some pending action from Wise.</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public enum BankAccountDetailsOrderCreate200ResponseRequirementsItemStatus
     {
@@ -18,6 +18,18 @@ namespace Soenneker.Wise.OpenApiClient.Models
         [EnumMember(Value = "DONE")]
         #pragma warning disable CS1591
         Done,
+        #pragma warning restore CS1591
+        [EnumMember(Value = "FAILED")]
+        #pragma warning disable CS1591
+        Failed,
+        #pragma warning restore CS1591
+        [EnumMember(Value = "REFUNDED")]
+        #pragma warning disable CS1591
+        Refunded,
+        #pragma warning restore CS1591
+        [EnumMember(Value = "WAIVED")]
+        #pragma warning disable CS1591
+        Waived,
         #pragma warning restore CS1591
     }
 }

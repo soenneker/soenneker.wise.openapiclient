@@ -34,7 +34,7 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.Item.AccountDetailsOrders
         {
         }
         /// <summary>
-        /// Returns the bank account assignment requests for a profile and multi-currency account.The response includes bank-details orders in the following statuses: `PENDING_USER`, `PENDING_TW`, `REQUIREMENTS_FULFILLED`, `DONE`.
+        /// Returns the bank account details orders for the specified profile.Each object in the response array includes the account details order ID, the order status, the currency, the balance ID, the requirements (type and status), and the account details ID (after account details have been issued).Use the `accountDetailsId` value from this response to [Get account details by ID](/api-reference/bank-account-details/getaccountdetails).
         /// </summary>
         /// <returns>A List&lt;global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsOrdersList200ResponseSchemaItem&gt;</returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
@@ -60,7 +60,7 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.Item.AccountDetailsOrders
             return collectionResult?.AsList();
         }
         /// <summary>
-        /// Creates an order which will issue account details. It should use the same currency as the balance previously created. Fulfilling all the requirements will complete the order, reaching status `DONE`.The possible values for a requirement status are:- `PENDING_USER`: The requirement has some pending action from the user.- `PENDING_TW`: The requirement has some pending action from Wise.- `DONE`: The requirement is completed.The more common requirements are:- `VERIFICATION`: The user needs to be fully verified before completing this requirement.- `TOP_UP`: A fee will be charged and must be paid through wise.com before completing this requirement.
+        /// Creates an order to issue account details.The `currency` value in the request determines which balance account the account details are for. The profile must have an existing [balance account](/api-reference/balance/balancecreate) for that currency prior to submitting this request.Once the order is created, the response returns the order status and an array of requirements, if applicable.All requirements must be fulfilled to complete the order. Review our [Bank account details guide](/guides/product/accounts/bank-account-details) for more details about this workflow.
         /// </summary>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsOrderCreate200Response"/></returns>
         /// <param name="body">The request body</param>
@@ -87,7 +87,7 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.Item.AccountDetailsOrders
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsOrderCreate200Response>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsOrderCreate200Response.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Returns the bank account assignment requests for a profile and multi-currency account.The response includes bank-details orders in the following statuses: `PENDING_USER`, `PENDING_TW`, `REQUIREMENTS_FULFILLED`, `DONE`.
+        /// Returns the bank account details orders for the specified profile.Each object in the response array includes the account details order ID, the order status, the currency, the balance ID, the requirements (type and status), and the account details ID (after account details have been issued).Use the `accountDetailsId` value from this response to [Get account details by ID](/api-reference/bank-account-details/getaccountdetails).
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
@@ -106,7 +106,7 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.Item.AccountDetailsOrders
             return requestInfo;
         }
         /// <summary>
-        /// Creates an order which will issue account details. It should use the same currency as the balance previously created. Fulfilling all the requirements will complete the order, reaching status `DONE`.The possible values for a requirement status are:- `PENDING_USER`: The requirement has some pending action from the user.- `PENDING_TW`: The requirement has some pending action from Wise.- `DONE`: The requirement is completed.The more common requirements are:- `VERIFICATION`: The user needs to be fully verified before completing this requirement.- `TOP_UP`: A fee will be charged and must be paid through wise.com before completing this requirement.
+        /// Creates an order to issue account details.The `currency` value in the request determines which balance account the account details are for. The profile must have an existing [balance account](/api-reference/balance/balancecreate) for that currency prior to submitting this request.Once the order is created, the response returns the order status and an array of requirements, if applicable.All requirements must be fulfilled to complete the order. Review our [Bank account details guide](/guides/product/accounts/bank-account-details) for more details about this workflow.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>
@@ -137,7 +137,7 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.Item.AccountDetailsOrders
             return new global::Soenneker.Wise.OpenApiClient.Profiles.Item.AccountDetailsOrders.AccountDetailsOrdersRequestBuilder(rawUrl, RequestAdapter);
         }
         /// <summary>
-        /// Returns the bank account assignment requests for a profile and multi-currency account.The response includes bank-details orders in the following statuses: `PENDING_USER`, `PENDING_TW`, `REQUIREMENTS_FULFILLED`, `DONE`.
+        /// Returns the bank account details orders for the specified profile.Each object in the response array includes the account details order ID, the order status, the currency, the balance ID, the requirements (type and status), and the account details ID (after account details have been issued).Use the `accountDetailsId` value from this response to [Get account details by ID](/api-reference/bank-account-details/getaccountdetails).
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
         public partial class AccountDetailsOrdersRequestBuilderGetQueryParameters 

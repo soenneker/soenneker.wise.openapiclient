@@ -15,6 +15,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         #pragma warning disable CS1591
         PendingTw,
         #pragma warning restore CS1591
+        [EnumMember(Value = "REQUIREMENTS_FULFILLED")]
+        #pragma warning disable CS1591
+        RequirementsFulfilled,
+        #pragma warning restore CS1591
         [EnumMember(Value = "DONE")]
         #pragma warning disable CS1591
         Done,

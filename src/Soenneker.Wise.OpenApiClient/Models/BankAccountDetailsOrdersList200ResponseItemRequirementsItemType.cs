@@ -15,5 +15,17 @@ namespace Soenneker.Wise.OpenApiClient.Models
         #pragma warning disable CS1591
         TopUp,
         #pragma warning restore CS1591
+        [EnumMember(Value = "FEE")]
+        #pragma warning disable CS1591
+        Fee,
+        #pragma warning restore CS1591
+        [EnumMember(Value = "PARTNER_APPROVAL")]
+        #pragma warning disable CS1591
+        PartnerApproval,
+        #pragma warning restore CS1591
+        [EnumMember(Value = "TERMS_ACCEPTANCE")]
+        #pragma warning disable CS1591
+        TermsAcceptance,
+        #pragma warning restore CS1591
     }
 }

@@ -25,7 +25,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Requirement status.</summary>
+        /// <summary>Requirement status.The following values indicate pending actions:- `PENDING_USER`: The requirement has some pending action from the user.- `PENDING_TW`: The requirement has some pending action from Wise.</summary>
         public global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsOrdersList200ResponseItemRequirementsItemStatus? Status { get => _explicitNullValueStatus; set { _explicitNullValueStatus = value; AdditionalData?.Remove("status"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("status"); else _explicitNullProperties?.Remove("status"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.BankAccountDetailsOrdersList200ResponseItemRequirementsItemStatus? _explicitNullValueStatus = default!;
         /// <summary>Requirement type.</summary>
