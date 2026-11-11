@@ -27391,7 +27391,7 @@
           "transfer"
         ],
         "summary": "Cancel a transfer",
-        "description": "Transfers can be cancelled via API when they are in the \u0060incoming_payment_waiting\u0060 state. \n\nIf the transfer is being held for compliance-related reasons or has moved into the \u0060funds_converted\u0060 state, the API will return a **409 Conflict** error with the code \u0060transfer.cancellation.not.allowed\u0060.\n\n{% admonition type=\u0022info\u0022 %}\nSome special conditions can apply for Embedded Solutions partners. Discuss with your implementation team for details.\n{% /admonition %}\n",
+        "description": "Transfers can be cancelled via API when they are in the \u0060incoming_payment_waiting\u0060 state.\n\nThe response returns a \u0060409 Conflict\u0060 error with the code \u0060transfer.cancellation.not.allowed\u0060 if either of the following is true:\n  - The transfer is in the \u0060processing\u0060 state and being held for compliance-related reasons.\n  - The transfer has moved into the \u0060funds_converted\u0060 state.\n\n{% admonition type=\u0022info\u0022 %}\nSome special conditions can apply for Embedded Solutions partners. Discuss with your implementation team for details.\n{% /admonition %}\n",
         "operationId": "TransferCancel",
         "parameters": [
           {
@@ -27411,7 +27411,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns the cancelled transfer object, with or without an \u0060originator\u0060 block depending on the type of transfer.",
+            "description": "Returns the transfer object with \u0060status\u0060 set to \u0060cancelled\u0060. If the original transfer was a third-party transfer, the response includes the \u0060originator\u0060 object.",
             "headers": {
               "X-External-Correlation-Id": {
                 "$ref": "#/components/headers/X-External-Correlation-Id"
@@ -27440,7 +27440,7 @@
             }
           },
           "409": {
-            "description": "Transfer cannot be cancelled because it is in a non-cancellable state or has other restrictions. The error response will include the code \u0060transfer.cancellation.not.allowed\u0060.",
+            "description": "Transfer cannot be cancelled because it is in a non-cancellable state or has other restrictions. The error response includes the code \u0060transfer.cancellation.not.allowed\u0060.",
             "headers": {
               "X-External-Correlation-Id": {
                 "$ref": "#/components/headers/X-External-Correlation-Id"

@@ -34,7 +34,7 @@ namespace Soenneker.Wise.OpenApiClient.Transfers.Item.Cancel
         {
         }
         /// <summary>
-        /// Transfers can be cancelled via API when they are in the `incoming_payment_waiting` state. If the transfer is being held for compliance-related reasons or has moved into the `funds_converted` state, the API will return a **409 Conflict** error with the code `transfer.cancellation.not.allowed`.{% admonition type=&quot;info&quot; %}Some special conditions can apply for Embedded Solutions partners. Discuss with your implementation team for details.{% /admonition %}
+        /// Transfers can be cancelled via API when they are in the `incoming_payment_waiting` state.The response returns a `409 Conflict` error with the code `transfer.cancellation.not.allowed` if either of the following is true:  - The transfer is in the `processing` state and being held for compliance-related reasons.  - The transfer has moved into the `funds_converted` state.{% admonition type=&quot;info&quot; %}Some special conditions can apply for Embedded Solutions partners. Discuss with your implementation team for details.{% /admonition %}
         /// </summary>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.TransferCancel200Response"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
@@ -59,7 +59,7 @@ namespace Soenneker.Wise.OpenApiClient.Transfers.Item.Cancel
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.TransferCancel200Response>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.TransferCancel200Response.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Transfers can be cancelled via API when they are in the `incoming_payment_waiting` state. If the transfer is being held for compliance-related reasons or has moved into the `funds_converted` state, the API will return a **409 Conflict** error with the code `transfer.cancellation.not.allowed`.{% admonition type=&quot;info&quot; %}Some special conditions can apply for Embedded Solutions partners. Discuss with your implementation team for details.{% /admonition %}
+        /// Transfers can be cancelled via API when they are in the `incoming_payment_waiting` state.The response returns a `409 Conflict` error with the code `transfer.cancellation.not.allowed` if either of the following is true:  - The transfer is in the `processing` state and being held for compliance-related reasons.  - The transfer has moved into the `funds_converted` state.{% admonition type=&quot;info&quot; %}Some special conditions can apply for Embedded Solutions partners. Discuss with your implementation team for details.{% /admonition %}
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
