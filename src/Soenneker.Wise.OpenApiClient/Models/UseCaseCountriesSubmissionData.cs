@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// ```json {% title=&quot;Example&quot; %}{  &quot;data&quot;: {    &quot;useCaseCountries&quot;: [      &quot;usa&quot;,      &quot;gbr&quot;,      &quot;deu&quot;    ]  },  &quot;version&quot;: &quot;V1&quot;,  &quot;kycReviewId&quot;: &quot;93a903ea-636c-4c86-a25c-cf6d2bd00e81&quot;}```
+    /// ```json {% title=&quot;Example&quot; %}{  &quot;data&quot;: {    &quot;useCaseCountries&quot;: [      &quot;USA&quot;,      &quot;GBR&quot;,      &quot;DEU&quot;    ]  },  &quot;version&quot;: &quot;V1&quot;,  &quot;kycReviewId&quot;: &quot;93a903ea-636c-4c86-a25c-cf6d2bd00e81&quot;}```
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class UseCaseCountriesSubmissionData : IAdditionalDataHolder, IParsable

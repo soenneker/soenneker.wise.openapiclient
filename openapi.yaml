@@ -1037,8 +1037,8 @@ tags:
 
 
       Please refer to our [Hosted KYC
-      guide](/guides/product/kyc/wise-kyc/hosted-kyc) for more information on
-      the general use of the endpoints included below.
+      guide](/guides/product/account-setup/customer-onboarding/hosted-kyc) for
+      more information on the general use of the endpoints included below.
   - name: multi-currency-account
     x-displayName: Multi Currency Account
     description: >
@@ -4237,8 +4237,10 @@ paths:
   /balances/account-details/{id}:
     get:
       description: >
-        Retrieves account details by ID. Account details identify an account
-        that can receive funds
+        Retrieves account details by ID.
+
+
+        Account details identify an account that can receive funds
 
         (e.g. an IBAN, or a sort code and account number). GB, US and BE account
         details are supported.
@@ -4247,7 +4249,7 @@ paths:
         Found`. For coverage across
 
         all countries, use the [2026Q3 account details
-        API](https://docs.wise.com/api-reference/bank-account-details/bankaccountdetailsget).
+        API](/api-reference/2026q3/bank-account-details/bankaccountdetailsget).
       summary: Get account details by ID
       operationId: getAccountDetails
       parameters:
@@ -10152,6 +10154,11 @@ paths:
         `NOT_PROVIDED` and `apiCollectionSupported` is `true`.
 
 
+        File names in `submissionData` (such as `frontSideFileName`) must
+        exactly match the names of the uploaded files, including case. Use
+        lowercase file extensions: `.png`, `.jpg`, `.jpeg` or `.pdf`.
+
+
         The structure of `submissionData` depends on the `requirementKey`. If
         you already know which requirement type you are implementing, select it
         in the request body to see its fields and a matching request sample.
@@ -10377,7 +10384,7 @@ paths:
                           acceptedValues:
                             - xx.png
                 missing-front-filename:
-                  summary: Multiple files provided without frontFileName field
+                  summary: Multiple files provided without frontSideFilename field
                   value:
                     type: /errors/types/validation
                     title: Validation Error
@@ -10538,7 +10545,7 @@ paths:
                         ref: educationPaidWithLoan
                         detail: educationPaidWithLoan cannot be null
                 india-transfer-purpose-educationpaidwithloan-not-required:
-                  summary: educationPaidWithLoan not required
+                  summary: educationPaidWithLoan is true for a non-education code
                   value:
                     type: /errors/types/validation
                     title: Validation Error
@@ -25775,8 +25782,10 @@ paths:
   /incoming-transfers/{incomingTransferId}:
     get:
       description: >-
-        Retrieves an incoming transfer by id. You can pull the incoming-transfer
-        ID from the webhook payload.
+        Retrieves an incoming transfer by its ID. Retrieve the
+        `incoming_transfer_id` value from the [incoming transfer credited
+        webhook](/api-reference/webhook-event/eventincomingtransfercredited)
+        payload.
       summary: Get an incoming transfer
       operationId: GetIncomingTransfer
       parameters:
@@ -31836,7 +31845,7 @@ components:
               version:
                 type: string
                 description: The version identifier.
-                example: v1
+                example: V1
               validUntil:
                 type:
                   - string
@@ -31855,9 +31864,9 @@ components:
             provide additional contextual information. The keys within this
             object vary depending on the parent requirement `key`. See the [KYC
             requirement
-            types](/guides/product/kyc/wise-kyc/kyc-requirement-types) guide for
-            details on which requirement types support attributes and what keys
-            they contain.
+            types](/guides/product/account-setup/customer-onboarding/kyc-requirement-types)
+            guide for details on which requirement types support attributes and
+            what keys they contain.
     kyc-review:
       title: KYC Review
       description: >-
@@ -32442,7 +32451,7 @@ components:
         account creator) is not listed as a Director of the company.
 
 
-        No `data` field is needed. See
+        A `data` field is only needed if you upload more than one file. See
         [BUSINESS_AUTHORISATION_ID](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_authorisation_id)
         in the KYC requirement types guide for more details.
       type: object
@@ -32463,19 +32472,33 @@ components:
             - version
             - kycReviewId
           properties:
+            data:
+              type: object
+              description: Only needed if you upload more than one file.
+              properties:
+                frontSideFilename:
+                  type: string
+                  description: >-
+                    The file name of the front side of the document. Required if
+                    you upload more than one file. Must exactly match the name
+                    of an uploaded file. Note the lowercase `n` in `Filename`.
+                  example: front_side.jpg
             version:
               $ref: '#/components/schemas/version'
             kycReviewId:
               $ref: '#/components/schemas/kyc-review-id'
         files:
           type: array
+          minItems: 1
           items:
             type: string
             format: binary
           examples:
             - - document.pdf
           description: >
-            Upload the identification document.
+            Upload the identification document. If you upload more than one
+            file, set `data.frontSideFilename` to the name of the front side
+            file.
 
 
             Accepted file types: `image/png` (`.png`), `image/jpeg` (`.jpg` or
@@ -32539,6 +32562,7 @@ components:
               $ref: '#/components/schemas/kyc-review-id'
         files:
           type: array
+          minItems: 1
           items:
             type: string
             format: binary
@@ -32658,6 +32682,7 @@ components:
               $ref: '#/components/schemas/kyc-review-id'
         files:
           type: array
+          minItems: 1
           items:
             type: string
             format: binary
@@ -32840,6 +32865,7 @@ components:
               $ref: '#/components/schemas/kyc-review-id'
         files:
           type: array
+          minItems: 1
           items:
             type: string
             format: binary
@@ -32968,6 +32994,7 @@ components:
               $ref: '#/components/schemas/kyc-review-id'
         files:
           type: array
+          minItems: 1
           items:
             type: string
             format: binary
@@ -33028,6 +33055,7 @@ components:
               properties:
                 sourceOfWealthList:
                   type: array
+                  minItems: 1
                   items:
                     type: string
                     enum:
@@ -33042,7 +33070,11 @@ components:
                     - OTHER
                 otherSourceOfWealthDescription:
                   type: string
-                  description: Required if `OTHER` is provided in `sourceOfWealthList`.
+                  minLength: 3
+                  maxLength: 2000
+                  description: >-
+                    Required if `OTHER` is provided in `sourceOfWealthList`.
+                    Must be between 3 and 2000 characters.
                   example: Loan from friends
             version:
               $ref: '#/components/schemas/version'
@@ -33095,8 +33127,11 @@ components:
               properties:
                 sourceOfWealthList:
                   type: array
+                  minItems: 1
                   items:
                     type: object
+                    required:
+                      - businessSourceOfWealthInfo
                     properties:
                       businessSourceOfWealthInfo:
                         type: string
@@ -33114,7 +33149,7 @@ components:
                         type: boolean
                         description: >-
                           Whether this source of wealth is used to fund the
-                          action.
+                          action. Defaults to `false` if omitted.
                         example: false
             version:
               $ref: '#/components/schemas/version'
@@ -33162,6 +33197,9 @@ components:
           properties:
             data:
               type: object
+              required:
+                - sourceOfWealthType
+                - documentType
               properties:
                 sourceOfWealthType:
                   type: string
@@ -33204,6 +33242,7 @@ components:
               $ref: '#/components/schemas/kyc-review-id'
         files:
           type: array
+          minItems: 1
           items:
             type: string
             format: binary
@@ -33285,8 +33324,8 @@ components:
                     documentType:
                       type: string
                       description: >
-                        Accepted document types vary by the region the business
-                        is located in.
+                        Accepted document types depend on where the business and
+                        the UBO are located.
 
 
                         **US business address** (United States, American Samoa,
@@ -33300,24 +33339,26 @@ components:
                         - `NON_US_PASSPORT`
 
 
-                        **EEA business address:**
-
-                        - `NATIONAL_ID`
-
-                        - `PASSPORT`
+                        US businesses can submit an SSN instead of a document:
+                        select the **SSN** option instead of **Document
+                        upload**.
 
 
-                        **Other regions:**
+                        **All other business addresses:**
 
-                        - `DRIVING_LICENSE`
+                        - `DRIVING_LICENSE`, except when both the business
+                        address and the UBO's address are in the EEA.
 
-                        - `NATIONAL_ID`
+                        - `NATIONAL_ID`, except for Indian nationals when the
+                        business is in India, and non-EEA nationals when the
+                        business is in Spain.
 
-                        - `PASSPORT`
+                        - `PASSPORT`, except for Spanish nationals when the
+                        business is in Spain.
 
 
-                        US businesses can submit an SSN instead of a document;
-                        select **SSN** above.
+                        If a document type isn't accepted for the UBO, the
+                        request is rejected with a `400` error.
                       enum:
                         - NON_US_DRIVING_LICENSE
                         - NON_US_NATIONAL_ID
@@ -33352,6 +33393,7 @@ components:
                   $ref: '#/components/schemas/kyc-review-id'
             files:
               type: array
+              minItems: 1
               items:
                 type: string
                 format: binary
@@ -33423,9 +33465,10 @@ components:
                     ssn:
                       type: string
                       description: >-
-                        The UBO's Social Security Number, as 9 digits without
-                        dashes.
-                      pattern: ^[0-9]{9}$
+                        The UBO's 9-digit Social Security Number, without
+                        dashes. It can't start with `000` or `666`, have `00` as
+                        the 4th and 5th digits, or end with `0000`.
+                      pattern: ^(?!000|666)[0-9]{3}(?!00)[0-9]{2}(?!0000)[0-9]{4}$
                       example: '555501234'
                 version:
                   $ref: '#/components/schemas/version'
@@ -33533,10 +33576,17 @@ components:
           properties:
             data:
               type: object
+              required:
+                - issuingCountry
+                - documentType
+                - frontSideFileName
               properties:
                 issuingCountry:
                   type: string
-                  description: ISO 3166-1 alpha-2 country code.
+                  description: >-
+                    The country that issued the document, as an uppercase ISO
+                    3166-1 alpha-2 country code (for example, `GB`).
+                  pattern: ^[A-Z]{2}$
                   example: GB
                 documentType:
                   type: string
@@ -33550,14 +33600,16 @@ components:
                 frontSideFileName:
                   type: string
                   description: >-
-                    Filename of the front side image. Required for `ID_CARD`,
-                    `DRIVERS_LICENSE`, `TAX_ID`, `RESIDENCE_PERMIT`.
+                    The file name of the front side of the document. If you
+                    upload only one file, use its name. Must exactly match the
+                    name of an uploaded file.
                   example: front_side.jpg
                 backSideFileName:
                   type: string
                   description: >-
-                    Filename of the back side image. Required for `ID_CARD`,
-                    `DRIVERS_LICENSE`, `TAX_ID`, `RESIDENCE_PERMIT`.
+                    The file name of the back side of the document. Required if
+                    you upload 2 files. Must exactly match the name of an
+                    uploaded file.
                   example: back_side.jpg
             version:
               $ref: '#/components/schemas/version'
@@ -33565,6 +33617,8 @@ components:
               $ref: '#/components/schemas/kyc-review-id'
         files:
           type: array
+          minItems: 1
+          maxItems: 2
           items:
             type: string
             format: binary
@@ -33572,8 +33626,9 @@ components:
             - - front_side.jpg
               - back_side.jpg
           description: >
-            Upload the ID document, with file names matching `frontSideFileName`
-            and `backSideFileName`.
+            Upload 1 file, or 2 files for a document with a front and back side.
+            The file names must match `frontSideFileName` and
+            `backSideFileName`.
 
 
             Accepted file types: `image/png` (`.png`), `image/jpeg` (`.jpg` or
@@ -33620,6 +33675,10 @@ components:
           properties:
             data:
               type: object
+              required:
+                - amount
+                - currency
+                - incomeType
               properties:
                 amount:
                   type: number
@@ -33695,7 +33754,6 @@ components:
               required:
                 - code
                 - tcsTaxApplies
-                - educationPaidWithLoan
                 - passportFileName
                 - additionalDocumentFileName
               properties:
@@ -33719,10 +33777,11 @@ components:
                 educationPaidWithLoan:
                   type: boolean
                   description: >-
-                    If `code` is `OVERSEAS_EDUCATION` or `EDUCATION_EXPENSES`,
-                    set to `true` if the profile is paying for this transfer
-                    with a loan from a financial institution. For other codes
-                    set to `false`.
+                    Required if `code` is `OVERSEAS_EDUCATION` or
+                    `EDUCATION_EXPENSES`. Set to `true` if the profile is paying
+                    for this transfer with a loan from a financial institution,
+                    otherwise `false`. For other codes, omit it or set it to
+                    `false`.
                   example: true
                 passportFileName:
                   type: string
@@ -33757,6 +33816,7 @@ components:
               $ref: '#/components/schemas/kyc-review-id'
         files:
           type: array
+          minItems: 1
           items:
             type: string
             format: binary
@@ -33815,6 +33875,7 @@ components:
               $ref: '#/components/schemas/kyc-review-id'
         files:
           type: array
+          minItems: 1
           items:
             type: string
             format: binary
@@ -33873,6 +33934,8 @@ components:
           properties:
             data:
               type: object
+              required:
+                - documentType
               properties:
                 documentType:
                   type: string
@@ -33904,6 +33967,7 @@ components:
               $ref: '#/components/schemas/kyc-review-id'
         files:
           type: array
+          minItems: 1
           items:
             type: string
             format: binary
@@ -34003,6 +34067,7 @@ components:
                         description: >-
                           The shareholder's country as an uppercase ISO 3166-1
                           alpha-2 country code.
+                        pattern: ^[A-Z]{2}$
                         example: US
                       ownershipPercentage:
                         type: integer
@@ -34058,6 +34123,9 @@ components:
           properties:
             data:
               type: object
+              required:
+                - documentType
+                - tradingAddressId
               properties:
                 documentType:
                   type: string
@@ -34086,6 +34154,7 @@ components:
               $ref: '#/components/schemas/kyc-review-id'
         files:
           type: array
+          minItems: 1
           items:
             type: string
             format: binary
@@ -34138,6 +34207,8 @@ components:
           properties:
             data:
               type: object
+              required:
+                - category
               properties:
                 category:
                   type: string
@@ -34206,6 +34277,7 @@ components:
               $ref: '#/components/schemas/kyc-review-id'
         files:
           type: array
+          minItems: 1
           items:
             type: string
             format: binary
@@ -34272,16 +34344,30 @@ components:
                 secondaryIncomeType:
                   type: string
                   description: >-
-                    Required when `hasSecondaryIncome` is `true`. Accepted
-                    values for personal profiles.
-                  enum:
-                    - SALARY
-                    - PENSION
-                    - INHERITANCE
-                    - PROPERTY_SALE
-                    - LOAN
-                    - INVESTMENTS
-                    - OTHER
+                    Required when `hasSecondaryIncome` is `true`. The accepted
+                    values depend on whether the profile is personal or
+                    business.
+                  anyOf:
+                    - title: Personal profiles
+                      type: string
+                      enum:
+                        - SALARY
+                        - PENSION
+                        - INHERITANCE
+                        - PROPERTY_SALE
+                        - FREELANCER
+                        - LOAN
+                        - INVESTMENTS
+                        - OTHER
+                    - title: Business profiles
+                      type: string
+                      enum:
+                        - BUSINESS_ACTIVITIES
+                        - LOAN_OR_OTHER_FINANCING
+                        - DONATION
+                        - GRANTS
+                        - INVESTMENTS
+                        - OTHER
                   example: SALARY
                 secondaryIncomeDescription:
                   type:
@@ -34342,18 +34428,37 @@ components:
           properties:
             data:
               type: object
+              required:
+                - secondaryIncomeType
+                - secondaryIncomeDocumentType
               properties:
                 secondaryIncomeType:
                   type: string
-                  description: Accepted values for personal profiles.
-                  enum:
-                    - SALARY
-                    - PENSION
-                    - INHERITANCE
-                    - PROPERTY_SALE
-                    - LOAN
-                    - INVESTMENTS
-                    - OTHER
+                  description: >-
+                    The type of secondary income the document proves. The
+                    accepted values depend on whether the profile is personal or
+                    business.
+                  anyOf:
+                    - title: Personal profiles
+                      type: string
+                      enum:
+                        - SALARY
+                        - PENSION
+                        - INHERITANCE
+                        - PROPERTY_SALE
+                        - FREELANCER
+                        - LOAN
+                        - INVESTMENTS
+                        - OTHER
+                    - title: Business profiles
+                      type: string
+                      enum:
+                        - BUSINESS_ACTIVITIES
+                        - LOAN_OR_OTHER_FINANCING
+                        - DONATION
+                        - GRANTS
+                        - INVESTMENTS
+                        - OTHER
                   example: SALARY
                 secondaryIncomeDocumentType:
                   type: string
@@ -34437,6 +34542,35 @@ components:
                         - LEASE_AGREEMENT
                         - BANK_STATEMENT
                         - OTHER
+                    - title: Other income types
+                      description: >-
+                        When `secondaryIncomeType` is `FREELANCER`,
+                        `BUSINESS_ACTIVITIES`, `LOAN_OR_OTHER_FINANCING`,
+                        `DONATION` or `GRANTS`, the document type isn't
+                        restricted by income type. Any of these values is
+                        accepted.
+                      type: string
+                      enum:
+                        - PAYSLIP
+                        - BANK_STATEMENT
+                        - TAX_RETURN
+                        - EMPLOYMENT_CONTRACT
+                        - PROOF_OF_EMPLOYMENT
+                        - STOCK_PLAN_EXERCISE_CONFIRMATION
+                        - PORTFOLIO_STATEMENT
+                        - DIVIDEND_VOUCHER
+                        - PENSION_STATEMENT
+                        - GRANT_OF_PROBATE
+                        - WILL
+                        - TRUST_DEED
+                        - LOAN_AGREEMENT
+                        - SALE_CONTRACT
+                        - SETTLEMENT_STATEMENT
+                        - GIFT_LETTER
+                        - SCHOLARSHIP
+                        - GRANT_LETTER
+                        - LEASE_AGREEMENT
+                        - OTHER
                 secondaryIncomeDescription:
                   type:
                     - string
@@ -34451,6 +34585,7 @@ components:
               $ref: '#/components/schemas/kyc-review-id'
         files:
           type: array
+          minItems: 1
           items:
             type: string
             format: binary
@@ -34478,8 +34613,8 @@ components:
 
 
         Customers either provide their SSN or, if they don't have one, a reason
-        why it is unavailable. Exactly one of `ssnNumber` or
-        `ssnUnavailableReason` must be provided; the other must be `null`. Files
+        why it is unavailable. Provide exactly one of `ssnNumber` or
+        `ssnUnavailableReason`, and omit the other or set it to `null`. Files
         are not required for either scenario.
 
 
@@ -34492,7 +34627,7 @@ components:
         - submissionData
       properties:
         submissionData:
-          anyOf:
+          oneOf:
             - title: SSN available
               description: |
                 ```json {% title="Example" %}
@@ -34583,9 +34718,9 @@ components:
             - title: Local Entity TIN Exemptions
               description: >
                 If a customer is onboarded to a local Wise entity, providing a
-                TIN for that specific country is not required. View the full
-                list of Wise Group Entities
-                [here](https://wise.com/help/articles/2974131/what-are-the-wise-group-entities).
+                TIN for that specific country is not required. View the [full
+                list of Wise Group
+                Entities](https://wise.com/help/articles/2974131/what-are-the-wise-group-entities).
                 If you are unsure which entity your customers are onboarded to,
                 please contact your Account Manager.
 
@@ -34660,7 +34795,7 @@ components:
                       },
                       {
                         "taxCountry": "BR",
-                        "skipReason": "TAX_EXEMPT"
+                        "skipReason": "NO_TAXABLE_INCOME"
                       }
                     ]
                   },
@@ -34758,14 +34893,12 @@ components:
                   $ref: '#/components/schemas/kyc-review-id'
             - title: Golden Visa Declarations
               description: >
-                For customers whose only tax residency is in a Golden Visa
-                sponsor country, a mandatory Golden Visa Declaration must be
-                completed. All fields within the `goldenVisaDeclaration` object
-                must be set to `true`. Refer to the [full list of Golden Visa
-                countries](https://wise.com/us/blog/golden-visa-countries#which-countries-have-golden-visa-programs)
-                to identify applicable jurisdictions. If any declaration value
-                is `false`, the customer defaults to Standard CRS Collection and
-                must provide a TIN.
+                If every country the customer declares is a Golden Visa country,
+                you must also send a `goldenVisaDeclaration` with all three
+                values set to `true`. The Golden Visa countries are `AE`, `AG`,
+                `BB`, `BH`, `BS`, `CY`, `DM`, `GD`, `KN`, `LC`, `SC`, `TC` and
+                `VU`. If any value is missing or not `true`, the request is
+                rejected with a `400` error.
 
 
                 ```json {% title="Example" %}
@@ -34862,18 +34995,24 @@ components:
                       properties:
                         NO_OTHER_RESIDENCE:
                           type: boolean
+                          enum:
+                            - true
                           description: >-
                             Customer does not hold residency rights in any other
                             jurisdiction.
                           example: true
                         WITHIN_TIME_FRAME:
                           type: boolean
+                          enum:
+                            - true
                           description: >-
                             Customer did not spend more than 90 days in any
                             other jurisdiction in the previous year.
                           example: true
                         DID_NOT_FILE_INCOME:
                           type: boolean
+                          enum:
+                            - true
                           description: >-
                             Customer did not file a tax return in any other
                             jurisdiction during the previous year.
@@ -34902,9 +35041,9 @@ components:
             {
               "data": {
                 "useCaseCountries": [
-                  "usa",
-                  "gbr",
-                  "deu"
+                  "USA",
+                  "GBR",
+                  "DEU"
                 ]
               },
               "version": "V1",
@@ -34924,13 +35063,16 @@ components:
               properties:
                 useCaseCountries:
                   type: array
-                  description: Country codes in ISO 3166-1 alpha-3 standard.
+                  minItems: 1
+                  description: >-
+                    Country codes in ISO 3166-1 alpha-3 format (for example,
+                    `USA`). At least one is required.
                   items:
                     type: string
                   example:
-                    - usa
-                    - gbr
-                    - deu
+                    - USA
+                    - GBR
+                    - DEU
             version:
               $ref: '#/components/schemas/version'
             kycReviewId:
@@ -41223,7 +41365,9 @@ components:
         name:
           type: string
           maxLength: 140
-          description: Full name of the debtor.
+          description: >-
+            Full name of the debtor. Omitted when unavailable, for example on
+            some `FI_CREDIT_TRANSFER` payments.
           example: Sarah Jenkins
         address:
           $ref: '#/components/schemas/Iso20022Address'
@@ -41234,8 +41378,6 @@ components:
         agent:
           $ref: '#/components/schemas/FinancialInstitution'
           description: Financial institution acting as the debtor's agent
-      required:
-        - name
     Creditor:
       type: object
       properties:

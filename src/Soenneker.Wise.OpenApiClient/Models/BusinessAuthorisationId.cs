@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// The identification document of one company Director. This document is required to verify authorisation to act on the account on behalf of the organisation. It is only asked for if the Business Representative (the account creator) is not listed as a Director of the company.No `data` field is needed. See [BUSINESS_AUTHORISATION_ID](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_authorisation_id) in the KYC requirement types guide for more details.
+    /// The identification document of one company Director. This document is required to verify authorisation to act on the account on behalf of the organisation. It is only asked for if the Business Representative (the account creator) is not listed as a Director of the company.A `data` field is only needed if you upload more than one file. See [BUSINESS_AUTHORISATION_ID](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_authorisation_id) in the KYC requirement types guide for more details.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class BusinessAuthorisationId : IAdditionalDataHolder, IParsable
@@ -26,7 +26,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Upload the identification document.Accepted file types: `image/png` (`.png`), `image/jpeg` (`.jpg` or `.jpeg`) and `application/pdf` (`.pdf`). The content type must match the file extension.```json {% title=&quot;Example&quot; %}[&quot;document.pdf&quot;]```</summary>
+        /// <summary>Upload the identification document. If you upload more than one file, set `data.frontSideFilename` to the name of the front side file.Accepted file types: `image/png` (`.png`), `image/jpeg` (`.jpg` or `.jpeg`) and `application/pdf` (`.pdf`). The content type must match the file extension.```json {% title=&quot;Example&quot; %}[&quot;document.pdf&quot;]```</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<byte[]>? Files { get => _explicitNullValueFiles; set { _explicitNullValueFiles = value; AdditionalData?.Remove("files"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("files"); else _explicitNullProperties?.Remove("files"); } }

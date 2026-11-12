@@ -34,7 +34,7 @@ namespace Soenneker.Wise.OpenApiClient.IncomingTransfers.Item
         {
         }
         /// <summary>
-        /// Retrieves an incoming transfer by id. You can pull the incoming-transfer ID from the webhook payload.
+        /// Retrieves an incoming transfer by its ID. Retrieve the `incoming_transfer_id` value from the [incoming transfer credited webhook](/api-reference/webhook-event/eventincomingtransfercredited) payload.
         /// </summary>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.IncomingTransfer"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
@@ -59,7 +59,7 @@ namespace Soenneker.Wise.OpenApiClient.IncomingTransfers.Item
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.IncomingTransfer>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.IncomingTransfer.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Retrieves an incoming transfer by id. You can pull the incoming-transfer ID from the webhook payload.
+        /// Retrieves an incoming transfer by its ID. Retrieve the `incoming_transfer_id` value from the [incoming transfer credited webhook](/api-reference/webhook-event/eventincomingtransfercredited) payload.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>

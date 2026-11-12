@@ -57,7 +57,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public string SecondaryIncomeDescription { get => _explicitNullValueSecondaryIncomeDescription; set { _explicitNullValueSecondaryIncomeDescription = value; AdditionalData?.Remove("secondaryIncomeDescription"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("secondaryIncomeDescription"); else _explicitNullProperties?.Remove("secondaryIncomeDescription"); } }
         private string _explicitNullValueSecondaryIncomeDescription = default!;
 #endif
-        /// <summary>Required when `hasSecondaryIncome` is `true`. Accepted values for personal profiles.</summary>
+        /// <summary>Required when `hasSecondaryIncome` is `true`. The accepted values depend on whether the profile is personal or business.</summary>
         public global::Soenneker.Wise.OpenApiClient.Models.SourceOfWealthInfoSubmissionDataDataSecondaryIncomeType? SecondaryIncomeType { get => _explicitNullValueSecondaryIncomeType; set { _explicitNullValueSecondaryIncomeType = value; AdditionalData?.Remove("secondaryIncomeType"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("secondaryIncomeType"); else _explicitNullProperties?.Remove("secondaryIncomeType"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.SourceOfWealthInfoSubmissionDataDataSecondaryIncomeType? _explicitNullValueSecondaryIncomeType = default!;
         /// <summary>

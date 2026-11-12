@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// If a customer is onboarded to a local Wise entity, providing a TIN for that specific country is not required. View the full list of Wise Group Entities [here](https://wise.com/help/articles/2974131/what-are-the-wise-group-entities). If you are unsure which entity your customers are onboarded to, please contact your Account Manager.```json {% title=&quot;Example&quot; %}{  &quot;data&quot;: {    &quot;taxInfoList&quot;: [      {        &quot;taxCountry&quot;: &quot;SG&quot;      }    ]  },  &quot;version&quot;: &quot;V1&quot;,  &quot;kycReviewId&quot;: &quot;93a903ea-636c-4c86-a25c-cf6d2bd00e81&quot;}```
+    /// If a customer is onboarded to a local Wise entity, providing a TIN for that specific country is not required. View the [full list of Wise Group Entities](https://wise.com/help/articles/2974131/what-are-the-wise-group-entities). If you are unsure which entity your customers are onboarded to, please contact your Account Manager.```json {% title=&quot;Example&quot; %}{  &quot;data&quot;: {    &quot;taxInfoList&quot;: [      {        &quot;taxCountry&quot;: &quot;SG&quot;      }    ]  },  &quot;version&quot;: &quot;V1&quot;,  &quot;kycReviewId&quot;: &quot;93a903ea-636c-4c86-a25c-cf6d2bd00e81&quot;}```
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class TaxResidencySubmissionDataLocalEntityTinExemptions : IAdditionalDataHolder, IParsable

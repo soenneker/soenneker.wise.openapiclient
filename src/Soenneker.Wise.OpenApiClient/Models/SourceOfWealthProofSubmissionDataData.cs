@@ -47,7 +47,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public global::Soenneker.Wise.OpenApiClient.Models.SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentType SecondaryIncomeDocumentType { get => _explicitNullValueSecondaryIncomeDocumentType; set { _explicitNullValueSecondaryIncomeDocumentType = value; AdditionalData?.Remove("secondaryIncomeDocumentType"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("secondaryIncomeDocumentType"); else _explicitNullProperties?.Remove("secondaryIncomeDocumentType"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentType _explicitNullValueSecondaryIncomeDocumentType = default!;
 #endif
-        /// <summary>Accepted values for personal profiles.</summary>
+        /// <summary>The type of secondary income the document proves. The accepted values depend on whether the profile is personal or business.</summary>
         public global::Soenneker.Wise.OpenApiClient.Models.SourceOfWealthProofSubmissionDataDataSecondaryIncomeType? SecondaryIncomeType { get => _explicitNullValueSecondaryIncomeType; set { _explicitNullValueSecondaryIncomeType = value; AdditionalData?.Remove("secondaryIncomeType"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("secondaryIncomeType"); else _explicitNullProperties?.Remove("secondaryIncomeType"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.SourceOfWealthProofSubmissionDataDataSecondaryIncomeType? _explicitNullValueSecondaryIncomeType = default!;
         /// <summary>

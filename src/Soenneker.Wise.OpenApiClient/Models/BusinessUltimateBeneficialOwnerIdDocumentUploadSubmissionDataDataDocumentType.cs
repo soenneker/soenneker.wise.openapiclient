@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
-    /// <summary>Accepted document types vary by the region the business is located in.**US business address** (United States, American Samoa, Guam, North Mariana Islands, Puerto Rico, United States Virgin Islands, United States Minor Outlying Islands):- `NON_US_DRIVING_LICENSE`- `NON_US_NATIONAL_ID`- `NON_US_PASSPORT`**EEA business address:**- `NATIONAL_ID`- `PASSPORT`**Other regions:**- `DRIVING_LICENSE`- `NATIONAL_ID`- `PASSPORT`US businesses can submit an SSN instead of a document; select **SSN** above.</summary>
+    /// <summary>Accepted document types depend on where the business and the UBO are located.**US business address** (United States, American Samoa, Guam, North Mariana Islands, Puerto Rico, United States Virgin Islands, United States Minor Outlying Islands):- `NON_US_DRIVING_LICENSE`- `NON_US_NATIONAL_ID`- `NON_US_PASSPORT`US businesses can submit an SSN instead of a document: select the **SSN** option instead of **Document upload**.**All other business addresses:**- `DRIVING_LICENSE`, except when both the business address and the UBO&apos;s address are in the EEA.- `NATIONAL_ID`, except for Indian nationals when the business is in India, and non-EEA nationals when the business is in Spain.- `PASSPORT`, except for Spanish nationals when the business is in Spain.If a document type isn&apos;t accepted for the UBO, the request is rejected with a `400` error.</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public enum BusinessUltimateBeneficialOwnerIdDocumentUploadSubmissionDataDataDocumentType
     {

@@ -24,7 +24,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>```json {% title=&quot;Example&quot; %}{  &quot;data&quot;: {    &quot;useCaseCountries&quot;: [      &quot;usa&quot;,      &quot;gbr&quot;,      &quot;deu&quot;    ]  },  &quot;version&quot;: &quot;V1&quot;,  &quot;kycReviewId&quot;: &quot;93a903ea-636c-4c86-a25c-cf6d2bd00e81&quot;}```</summary>
+        /// <summary>```json {% title=&quot;Example&quot; %}{  &quot;data&quot;: {    &quot;useCaseCountries&quot;: [      &quot;USA&quot;,      &quot;GBR&quot;,      &quot;DEU&quot;    ]  },  &quot;version&quot;: &quot;V1&quot;,  &quot;kycReviewId&quot;: &quot;93a903ea-636c-4c86-a25c-cf6d2bd00e81&quot;}```</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Soenneker.Wise.OpenApiClient.Models.UseCaseCountriesSubmissionData? SubmissionData { get => _explicitNullValueSubmissionData; set { _explicitNullValueSubmissionData = value; AdditionalData?.Remove("submissionData"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("submissionData"); else _explicitNullProperties?.Remove("submissionData"); } }

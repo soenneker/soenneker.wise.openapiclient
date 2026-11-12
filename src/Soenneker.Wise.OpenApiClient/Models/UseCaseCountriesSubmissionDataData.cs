@@ -23,7 +23,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Country codes in ISO 3166-1 alpha-3 standard.</summary>
+        /// <summary>Country codes in ISO 3166-1 alpha-3 format (for example, `USA`). At least one is required.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<string>? UseCaseCountries { get => _explicitNullValueUseCaseCountries; set { _explicitNullValueUseCaseCountries = value; AdditionalData?.Remove("useCaseCountries"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("useCaseCountries"); else _explicitNullProperties?.Remove("useCaseCountries"); } }

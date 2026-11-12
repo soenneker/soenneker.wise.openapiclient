@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// For customers not onboarded to a local Wise entity, a Tax Identification Number (TIN) is mandatory for all declared tax residencies. If a TIN cannot be provided, a `skipReason` must be given instead.```json {% title=&quot;Example&quot; %}{  &quot;data&quot;: {    &quot;taxInfoList&quot;: [      {        &quot;taxCountry&quot;: &quot;SG&quot;,        &quot;taxId&quot;: {          &quot;type&quot;: &quot;SG_NRIC&quot;,          &quot;number&quot;: &quot;S1234567A&quot;        }      },      {        &quot;taxCountry&quot;: &quot;BR&quot;,        &quot;skipReason&quot;: &quot;TAX_EXEMPT&quot;      }    ]  },  &quot;version&quot;: &quot;V1&quot;,  &quot;kycReviewId&quot;: &quot;93a903ea-636c-4c86-a25c-cf6d2bd00e81&quot;}```
+    /// For customers not onboarded to a local Wise entity, a Tax Identification Number (TIN) is mandatory for all declared tax residencies. If a TIN cannot be provided, a `skipReason` must be given instead.```json {% title=&quot;Example&quot; %}{  &quot;data&quot;: {    &quot;taxInfoList&quot;: [      {        &quot;taxCountry&quot;: &quot;SG&quot;,        &quot;taxId&quot;: {          &quot;type&quot;: &quot;SG_NRIC&quot;,          &quot;number&quot;: &quot;S1234567A&quot;        }      },      {        &quot;taxCountry&quot;: &quot;BR&quot;,        &quot;skipReason&quot;: &quot;NO_TAXABLE_INCOME&quot;      }    ]  },  &quot;version&quot;: &quot;V1&quot;,  &quot;kycReviewId&quot;: &quot;93a903ea-636c-4c86-a25c-cf6d2bd00e81&quot;}```
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class TaxResidencySubmissionDataStandardCrsCollection : IAdditionalDataHolder, IParsable

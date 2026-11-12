@@ -42,9 +42,16 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public static global::Soenneker.Wise.OpenApiClient.Models.SsnDeclarationSubmissionData CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
+            var mappingValue = parseNode.GetChildNode("")?.GetStringValue();
             var result = new global::Soenneker.Wise.OpenApiClient.Models.SsnDeclarationSubmissionData();
-            
-            
+            if("SsnDeclarationSubmissionDataSsnAvailable".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+            {
+                
+            }
+            else if("SsnDeclarationSubmissionDataSsnUnavailable".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+            {
+                
+            }
             
             var unionPayload = parseNode.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue);
             var unionBranchMatches = unionPayload is global::Microsoft.Kiota.Abstractions.Serialization.UntypedObject ? ((global::System.Func<bool?[]>)(() => { int remaining = 10000;
@@ -156,9 +163,13 @@ return result;
         {
             if (UnrecognizedValue is global::Microsoft.Kiota.Abstractions.Serialization.UntypedObject rawFields) { var fields = new global::System.Collections.Generic.Dictionary<string, global::System.Action<IParseNode>>(); foreach (var entry in rawFields.GetValue()) fields[entry.Key] = _ => { }; return fields; }
 
-            if(SsnDeclarationSubmissionDataSsnAvailable != null || SsnDeclarationSubmissionDataSsnUnavailable != null)
+            if(SsnDeclarationSubmissionDataSsnAvailable != null)
             {
-                return ParseNodeHelper.MergeDeserializersForIntersectionWrapper(SsnDeclarationSubmissionDataSsnAvailable, SsnDeclarationSubmissionDataSsnUnavailable);
+                return SsnDeclarationSubmissionDataSsnAvailable.GetFieldDeserializers();
+            }
+            else if(SsnDeclarationSubmissionDataSsnUnavailable != null)
+            {
+                return SsnDeclarationSubmissionDataSsnUnavailable.GetFieldDeserializers();
             }
             return new Dictionary<string, Action<IParseNode>>();
         }
@@ -177,7 +188,16 @@ return result;
             if (SsnDeclarationSubmissionDataSsnUnavailable != null && selectedUnionBranches == 1) { if (SsnDeclarationSubmissionDataSsnUnavailable is global::Microsoft.Kiota.Abstractions.Serialization.IAdditionalDataHolder selectedData) foreach (var entry in AdditionalData) selectedData.AdditionalData[entry.Key] = entry.Value; writer.WriteObjectValue(null, SsnDeclarationSubmissionDataSsnUnavailable); return; }
 
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.SsnDeclarationSubmissionDataSsnAvailable>(null, SsnDeclarationSubmissionDataSsnAvailable, SsnDeclarationSubmissionDataSsnUnavailable);
+            if(SsnDeclarationSubmissionDataSsnAvailable != null)
+            {
+                if (SsnDeclarationSubmissionDataSsnAvailable is global::Microsoft.Kiota.Abstractions.Serialization.IAdditionalDataHolder unionData) foreach (var entry in AdditionalData) unionData.AdditionalData[entry.Key] = entry.Value;
+                writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.SsnDeclarationSubmissionDataSsnAvailable>(null, SsnDeclarationSubmissionDataSsnAvailable);
+            }
+            else if(SsnDeclarationSubmissionDataSsnUnavailable != null)
+            {
+                if (SsnDeclarationSubmissionDataSsnUnavailable is global::Microsoft.Kiota.Abstractions.Serialization.IAdditionalDataHolder unionData) foreach (var entry in AdditionalData) unionData.AdditionalData[entry.Key] = entry.Value;
+                writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.SsnDeclarationSubmissionDataSsnUnavailable>(null, SsnDeclarationSubmissionDataSsnUnavailable);
+            }
         }
     }
 }

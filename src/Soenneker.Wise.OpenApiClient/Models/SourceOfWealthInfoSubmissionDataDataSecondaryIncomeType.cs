@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
-    /// <summary>Required when `hasSecondaryIncome` is `true`. Accepted values for personal profiles.</summary>
+    /// <summary>Required when `hasSecondaryIncome` is `true`. The accepted values depend on whether the profile is personal or business.</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public enum SourceOfWealthInfoSubmissionDataDataSecondaryIncomeType
     {
@@ -23,6 +23,10 @@ namespace Soenneker.Wise.OpenApiClient.Models
         #pragma warning disable CS1591
         PropertySale,
         #pragma warning restore CS1591
+        [EnumMember(Value = "FREELANCER")]
+        #pragma warning disable CS1591
+        Freelancer,
+        #pragma warning restore CS1591
         [EnumMember(Value = "LOAN")]
         #pragma warning disable CS1591
         Loan,
@@ -34,6 +38,22 @@ namespace Soenneker.Wise.OpenApiClient.Models
         [EnumMember(Value = "OTHER")]
         #pragma warning disable CS1591
         Other,
+        #pragma warning restore CS1591
+        [EnumMember(Value = "BUSINESS_ACTIVITIES")]
+        #pragma warning disable CS1591
+        BusinessActivities,
+        #pragma warning restore CS1591
+        [EnumMember(Value = "LOAN_OR_OTHER_FINANCING")]
+        #pragma warning disable CS1591
+        LoanOrOtherFinancing,
+        #pragma warning restore CS1591
+        [EnumMember(Value = "DONATION")]
+        #pragma warning disable CS1591
+        Donation,
+        #pragma warning restore CS1591
+        [EnumMember(Value = "GRANTS")]
+        #pragma warning disable CS1591
+        Grants,
         #pragma warning restore CS1591
     }
 }

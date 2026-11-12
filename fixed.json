@@ -2646,7 +2646,7 @@
           "bank-account-details"
         ],
         "summary": "Get account details by ID",
-        "description": "Retrieves account details by ID. Account details identify an account that can receive funds\n(e.g. an IBAN, or a sort code and account number). GB, US and BE account details are supported.\nRequesting account details for an unsupported country returns \u0060404 Not Found\u0060. For coverage across\nall countries, use the [2026Q3 account details API](https://docs.wise.com/api-reference/bank-account-details/bankaccountdetailsget).\n",
+        "description": "Retrieves account details by ID.\n\nAccount details identify an account that can receive funds\n(e.g. an IBAN, or a sort code and account number). GB, US and BE account details are supported.\nRequesting account details for an unsupported country returns \u0060404 Not Found\u0060. For coverage across\nall countries, use the [2026Q3 account details API](/api-reference/2026q3/bank-account-details/bankaccountdetailsget).\n",
         "operationId": "GetAccountDetails",
         "parameters": [
           {
@@ -9822,7 +9822,7 @@
           "kyc-review"
         ],
         "summary": "Submit a KYC Requirement",
-        "description": "Submit a KYC requirement for a KYC Review.\n\n- A KYC requirement can only be submitted if the KYC Review status is \u0060WAITING_CUSTOMER_INPUT\u0060 or \u0060PASSED_WITH_REQUIREMENTS\u0060.\n- A KYC requirement should only be submitted if its \u0060state\u0060 is \u0060NOT_PROVIDED\u0060 and \u0060apiCollectionSupported\u0060 is \u0060true\u0060.\n\nThe structure of \u0060submissionData\u0060 depends on the \u0060requirementKey\u0060. If you already know which requirement type you are implementing, select it in the request body to see its fields and a matching request sample.\n\nTo explore which requirement types exist and what each one collects, see the [KYC requirement types](/guides/product/account-setup/customer-onboarding/kyc-requirement-types) guide for the full list of supported requirement types, submission data structures, and accepted values.\n",
+        "description": "Submit a KYC requirement for a KYC Review.\n\n- A KYC requirement can only be submitted if the KYC Review status is \u0060WAITING_CUSTOMER_INPUT\u0060 or \u0060PASSED_WITH_REQUIREMENTS\u0060.\n- A KYC requirement should only be submitted if its \u0060state\u0060 is \u0060NOT_PROVIDED\u0060 and \u0060apiCollectionSupported\u0060 is \u0060true\u0060.\n\nFile names in \u0060submissionData\u0060 (such as \u0060frontSideFileName\u0060) must exactly match the names of the uploaded files, including case. Use lowercase file extensions: \u0060.png\u0060, \u0060.jpg\u0060, \u0060.jpeg\u0060 or \u0060.pdf\u0060.\n\nThe structure of \u0060submissionData\u0060 depends on the \u0060requirementKey\u0060. If you already know which requirement type you are implementing, select it in the request body to see its fields and a matching request sample.\n\nTo explore which requirement types exist and what each one collects, see the [KYC requirement types](/guides/product/account-setup/customer-onboarding/kyc-requirement-types) guide for the full list of supported requirement types, submission data structures, and accepted values.\n",
         "operationId": "KycReviewRequirementSubmit",
         "parameters": [
           {
@@ -10025,7 +10025,7 @@
                     }
                   },
                   "missing-front-filename": {
-                    "summary": "Multiple files provided without frontFileName field",
+                    "summary": "Multiple files provided without frontSideFilename field",
                     "value": {
                       "type": "/errors/types/validation",
                       "title": "Validation Error",
@@ -10224,7 +10224,7 @@
                     }
                   },
                   "india-transfer-purpose-educationpaidwithloan-not-required": {
-                    "summary": "educationPaidWithLoan not required",
+                    "summary": "educationPaidWithLoan is true for a non-education code",
                     "value": {
                       "type": "/errors/types/validation",
                       "title": "Validation Error",
@@ -29107,7 +29107,7 @@
           "incoming-transfer"
         ],
         "summary": "Get an incoming transfer",
-        "description": "Retrieves an incoming transfer by id. You can pull the incoming-transfer ID from the webhook payload.",
+        "description": "Retrieves an incoming transfer by its ID. Retrieve the \u0060incoming_transfer_id\u0060 value from the [incoming transfer credited webhook](/api-reference/webhook-event/eventincomingtransfercredited) payload.",
         "operationId": "GetIncomingTransfer",
         "parameters": [
           {
@@ -32663,15 +32663,16 @@
                 "document.pdf"
               ]
             ],
+            "minItems": 1,
             "type": "array",
             "items": {
               "type": "string",
               "format": "binary"
             },
-            "description": "Upload the identification document.\n\nAccepted file types: \u0060image/png\u0060 (\u0060.png\u0060), \u0060image/jpeg\u0060 (\u0060.jpg\u0060 or \u0060.jpeg\u0060) and \u0060application/pdf\u0060 (\u0060.pdf\u0060). The content type must match the file extension.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n[\u0022document.pdf\u0022]\n\u0060\u0060\u0060\n"
+            "description": "Upload the identification document. If you upload more than one file, set \u0060data.frontSideFilename\u0060 to the name of the front side file.\n\nAccepted file types: \u0060image/png\u0060 (\u0060.png\u0060), \u0060image/jpeg\u0060 (\u0060.jpg\u0060 or \u0060.jpeg\u0060) and \u0060application/pdf\u0060 (\u0060.pdf\u0060). The content type must match the file extension.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n[\u0022document.pdf\u0022]\n\u0060\u0060\u0060\n"
           }
         },
-        "description": "The identification document of one company Director. This document is required to verify authorisation to act on the account on behalf of the organisation. It is only asked for if the Business Representative (the account creator) is not listed as a Director of the company.\n\nNo \u0060data\u0060 field is needed. See [BUSINESS_AUTHORISATION_ID](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_authorisation_id) in the KYC requirement types guide for more details.\n"
+        "description": "The identification document of one company Director. This document is required to verify authorisation to act on the account on behalf of the organisation. It is only asked for if the Business Representative (the account creator) is not listed as a Director of the company.\n\nA \u0060data\u0060 field is only needed if you upload more than one file. See [BUSINESS_AUTHORISATION_ID](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_authorisation_id) in the KYC requirement types guide for more details.\n"
       },
       "BusinessAuthorisationLetter": {
         "title": "BUSINESS_AUTHORISATION_LETTER",
@@ -32690,6 +32691,7 @@
                 "document.pdf"
               ]
             ],
+            "minItems": 1,
             "type": "array",
             "items": {
               "type": "string",
@@ -32730,6 +32732,7 @@
                 "document.pdf"
               ]
             ],
+            "minItems": 1,
             "type": "array",
             "items": {
               "type": "string",
@@ -32783,6 +32786,7 @@
                 "document.pdf"
               ]
             ],
+            "minItems": 1,
             "type": "array",
             "items": {
               "type": "string",
@@ -32823,6 +32827,7 @@
                 "document.pdf"
               ]
             ],
+            "minItems": 1,
             "type": "array",
             "items": {
               "type": "string",
@@ -32876,6 +32881,7 @@
                 "document.pdf"
               ]
             ],
+            "minItems": 1,
             "type": "array",
             "items": {
               "type": "string",
@@ -32929,12 +32935,14 @@
                 "back_side.jpg"
               ]
             ],
+            "maxItems": 2,
+            "minItems": 1,
             "type": "array",
             "items": {
               "type": "string",
               "format": "binary"
             },
-            "description": "Upload the ID document, with file names matching \u0060frontSideFileName\u0060 and \u0060backSideFileName\u0060.\n\nAccepted file types: \u0060image/png\u0060 (\u0060.png\u0060), \u0060image/jpeg\u0060 (\u0060.jpg\u0060 or \u0060.jpeg\u0060) and \u0060application/pdf\u0060 (\u0060.pdf\u0060). The content type must match the file extension.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n[\u0022front_side.jpg\u0022, \u0022back_side.jpg\u0022]\n\u0060\u0060\u0060\n"
+            "description": "Upload 1 file, or 2 files for a document with a front and back side. The file names must match \u0060frontSideFileName\u0060 and \u0060backSideFileName\u0060.\n\nAccepted file types: \u0060image/png\u0060 (\u0060.png\u0060), \u0060image/jpeg\u0060 (\u0060.jpg\u0060 or \u0060.jpeg\u0060) and \u0060application/pdf\u0060 (\u0060.pdf\u0060). The content type must match the file extension.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n[\u0022front_side.jpg\u0022, \u0022back_side.jpg\u0022]\n\u0060\u0060\u0060\n"
           }
         },
         "description": "Provide a clear copy of the ID document. The full document needs to be in frame and all information on the document needs to be visible. If the document has information on the backside, both sides are needed. Expired documents and documents issued over 15 years ago cannot be accepted.\n\nSee [ID_DOCUMENT](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#id_document) in the KYC requirement types guide for more details.\n"
@@ -32971,6 +32979,7 @@
                 "file3.png"
               ]
             ],
+            "minItems": 1,
             "type": "array",
             "items": {
               "type": "string",
@@ -32998,6 +33007,7 @@
                 "document.pdf"
               ]
             ],
+            "minItems": 1,
             "type": "array",
             "items": {
               "type": "string",
@@ -33026,6 +33036,7 @@
                 "back.jpg"
               ]
             ],
+            "minItems": 1,
             "type": "array",
             "items": {
               "type": "string",
@@ -33066,6 +33077,7 @@
                 "document.pdf"
               ]
             ],
+            "minItems": 1,
             "type": "array",
             "items": {
               "type": "string",
@@ -33106,6 +33118,7 @@
                 "document.pdf"
               ]
             ],
+            "minItems": 1,
             "type": "array",
             "items": {
               "type": "string",
@@ -33146,6 +33159,7 @@
                 "document.pdf"
               ]
             ],
+            "minItems": 1,
             "type": "array",
             "items": {
               "type": "string",
@@ -33167,7 +33181,7 @@
             "$ref": "#/components/schemas/SsnDeclarationSubmissionData"
           }
         },
-        "description": "Declaration of the customer\u0027s US Social Security Number (SSN). This requirement only applies to customers in the US region.\n\nCustomers either provide their SSN or, if they don\u0027t have one, a reason why it is unavailable. Exactly one of \u0060ssnNumber\u0060 or \u0060ssnUnavailableReason\u0060 must be provided; the other must be \u0060null\u0060. Files are not required for either scenario.\n\nSee [SSN_DECLARATION](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#ssn_declaration) in the KYC requirement types guide for more details and sandbox test data.\n"
+        "description": "Declaration of the customer\u0027s US Social Security Number (SSN). This requirement only applies to customers in the US region.\n\nCustomers either provide their SSN or, if they don\u0027t have one, a reason why it is unavailable. Provide exactly one of \u0060ssnNumber\u0060 or \u0060ssnUnavailableReason\u0060, and omit the other or set it to \u0060null\u0060. Files are not required for either scenario.\n\nSee [SSN_DECLARATION](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#ssn_declaration) in the KYC requirement types guide for more details and sandbox test data.\n"
       },
       "TaxResidency": {
         "title": "TAX_RESIDENCY",
@@ -38265,15 +38279,12 @@
         }
       },
       "Debtor": {
-        "required": [
-          "name"
-        ],
         "type": "object",
         "properties": {
           "name": {
             "maxLength": 140,
             "type": "string",
-            "description": "Full name of the debtor.",
+            "description": "Full name of the debtor. Omitted when unavailable, for example on some \u0060FI_CREDIT_TRANSFER\u0060 payments.",
             "example": "Sarah Jenkins"
           },
           "address": {
@@ -39613,6 +39624,7 @@
                 "image2.jpeg"
               ]
             ],
+            "minItems": 1,
             "type": "array",
             "items": {
               "type": "string",
@@ -39699,6 +39711,152 @@
           ]
         }
       },
+      "SourceOfWealthInfoSubmissionDataDataSecondaryIncomeType": {
+        "type": "string",
+        "description": "Required when \u0060hasSecondaryIncome\u0060 is \u0060true\u0060. The accepted values depend on whether the profile is personal or business.",
+        "example": "SALARY",
+        "enum": [
+          "SALARY",
+          "PENSION",
+          "INHERITANCE",
+          "PROPERTY_SALE",
+          "FREELANCER",
+          "LOAN",
+          "INVESTMENTS",
+          "OTHER",
+          "BUSINESS_ACTIVITIES",
+          "LOAN_OR_OTHER_FINANCING",
+          "DONATION",
+          "GRANTS"
+        ],
+        "x-ms-enum": {
+          "name": "SourceOfWealthInfoSubmissionDataDataSecondaryIncomeType",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "SALARY",
+              "name": "Salary"
+            },
+            {
+              "value": "PENSION",
+              "name": "Pension"
+            },
+            {
+              "value": "INHERITANCE",
+              "name": "Inheritance"
+            },
+            {
+              "value": "PROPERTY_SALE",
+              "name": "PropertySale"
+            },
+            {
+              "value": "FREELANCER",
+              "name": "Freelancer"
+            },
+            {
+              "value": "LOAN",
+              "name": "Loan"
+            },
+            {
+              "value": "INVESTMENTS",
+              "name": "Investments"
+            },
+            {
+              "value": "OTHER",
+              "name": "Other"
+            },
+            {
+              "value": "BUSINESS_ACTIVITIES",
+              "name": "BusinessActivities"
+            },
+            {
+              "value": "LOAN_OR_OTHER_FINANCING",
+              "name": "LoanOrOtherFinancing"
+            },
+            {
+              "value": "DONATION",
+              "name": "Donation"
+            },
+            {
+              "value": "GRANTS",
+              "name": "Grants"
+            }
+          ]
+        }
+      },
+      "SourceOfWealthProofSubmissionDataDataSecondaryIncomeType": {
+        "type": "string",
+        "description": "The type of secondary income the document proves. The accepted values depend on whether the profile is personal or business.",
+        "example": "SALARY",
+        "enum": [
+          "SALARY",
+          "PENSION",
+          "INHERITANCE",
+          "PROPERTY_SALE",
+          "FREELANCER",
+          "LOAN",
+          "INVESTMENTS",
+          "OTHER",
+          "BUSINESS_ACTIVITIES",
+          "LOAN_OR_OTHER_FINANCING",
+          "DONATION",
+          "GRANTS"
+        ],
+        "x-ms-enum": {
+          "name": "SourceOfWealthProofSubmissionDataDataSecondaryIncomeType",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "SALARY",
+              "name": "Salary"
+            },
+            {
+              "value": "PENSION",
+              "name": "Pension"
+            },
+            {
+              "value": "INHERITANCE",
+              "name": "Inheritance"
+            },
+            {
+              "value": "PROPERTY_SALE",
+              "name": "PropertySale"
+            },
+            {
+              "value": "FREELANCER",
+              "name": "Freelancer"
+            },
+            {
+              "value": "LOAN",
+              "name": "Loan"
+            },
+            {
+              "value": "INVESTMENTS",
+              "name": "Investments"
+            },
+            {
+              "value": "OTHER",
+              "name": "Other"
+            },
+            {
+              "value": "BUSINESS_ACTIVITIES",
+              "name": "BusinessActivities"
+            },
+            {
+              "value": "LOAN_OR_OTHER_FINANCING",
+              "name": "LoanOrOtherFinancing"
+            },
+            {
+              "value": "DONATION",
+              "name": "Donation"
+            },
+            {
+              "value": "GRANTS",
+              "name": "Grants"
+            }
+          ]
+        }
+      },
       "SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentType": {
         "examples": [
           "PAYSLIP"
@@ -39730,12 +39888,15 @@
           },
           {
             "$ref": "#/components/schemas/SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeAnyOf8"
+          },
+          {
+            "$ref": "#/components/schemas/SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeAnyOf9"
           }
         ],
         "description": "The type of document being uploaded."
       },
       "SsnDeclarationSubmissionData": {
-        "anyOf": [
+        "oneOf": [
           {
             "$ref": "#/components/schemas/SsnDeclarationSubmissionDataSsnAvailable"
           },
@@ -40079,7 +40240,7 @@
             "example": "93a903ea-636c-4c86-a25c-cf6d2bd00e81"
           }
         },
-        "description": "If a customer is onboarded to a local Wise entity, providing a TIN for that specific country is not required. View the full list of Wise Group Entities [here](https://wise.com/help/articles/2974131/what-are-the-wise-group-entities). If you are unsure which entity your customers are onboarded to, please contact your Account Manager.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022data\u0022: {\n    \u0022taxInfoList\u0022: [\n      {\n        \u0022taxCountry\u0022: \u0022SG\u0022\n      }\n    ]\n  },\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
+        "description": "If a customer is onboarded to a local Wise entity, providing a TIN for that specific country is not required. View the [full list of Wise Group Entities](https://wise.com/help/articles/2974131/what-are-the-wise-group-entities). If you are unsure which entity your customers are onboarded to, please contact your Account Manager.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022data\u0022: {\n    \u0022taxInfoList\u0022: [\n      {\n        \u0022taxCountry\u0022: \u0022SG\u0022\n      }\n    ]\n  },\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
       },
       "TaxResidencySubmissionDataStandardCrsCollection": {
         "title": "Standard CRS Collection",
@@ -40103,7 +40264,7 @@
             "example": "93a903ea-636c-4c86-a25c-cf6d2bd00e81"
           }
         },
-        "description": "For customers not onboarded to a local Wise entity, a Tax Identification Number (TIN) is mandatory for all declared tax residencies. If a TIN cannot be provided, a \u0060skipReason\u0060 must be given instead.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022data\u0022: {\n    \u0022taxInfoList\u0022: [\n      {\n        \u0022taxCountry\u0022: \u0022SG\u0022,\n        \u0022taxId\u0022: {\n          \u0022type\u0022: \u0022SG_NRIC\u0022,\n          \u0022number\u0022: \u0022S1234567A\u0022\n        }\n      },\n      {\n        \u0022taxCountry\u0022: \u0022BR\u0022,\n        \u0022skipReason\u0022: \u0022TAX_EXEMPT\u0022\n      }\n    ]\n  },\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
+        "description": "For customers not onboarded to a local Wise entity, a Tax Identification Number (TIN) is mandatory for all declared tax residencies. If a TIN cannot be provided, a \u0060skipReason\u0060 must be given instead.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022data\u0022: {\n    \u0022taxInfoList\u0022: [\n      {\n        \u0022taxCountry\u0022: \u0022SG\u0022,\n        \u0022taxId\u0022: {\n          \u0022type\u0022: \u0022SG_NRIC\u0022,\n          \u0022number\u0022: \u0022S1234567A\u0022\n        }\n      },\n      {\n        \u0022taxCountry\u0022: \u0022BR\u0022,\n        \u0022skipReason\u0022: \u0022NO_TAXABLE_INCOME\u0022\n      }\n    ]\n  },\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
       },
       "TaxResidencySubmissionDataGoldenVisaDeclarations": {
         "title": "Golden Visa Declarations",
@@ -40127,7 +40288,7 @@
             "example": "93a903ea-636c-4c86-a25c-cf6d2bd00e81"
           }
         },
-        "description": "For customers whose only tax residency is in a Golden Visa sponsor country, a mandatory Golden Visa Declaration must be completed. All fields within the \u0060goldenVisaDeclaration\u0060 object must be set to \u0060true\u0060. Refer to the [full list of Golden Visa countries](https://wise.com/us/blog/golden-visa-countries#which-countries-have-golden-visa-programs) to identify applicable jurisdictions. If any declaration value is \u0060false\u0060, the customer defaults to Standard CRS Collection and must provide a TIN.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022data\u0022: {\n    \u0022taxInfoList\u0022: [\n      {\n        \u0022taxCountry\u0022: \u0022AE\u0022,\n        \u0022skipReason\u0022: \u0022NO_TAXABLE_INCOME\u0022\n      },\n      {\n        \u0022taxCountry\u0022: \u0022AG\u0022,\n        \u0022skipReason\u0022: \u0022NO_TAXABLE_INCOME\u0022\n      },\n      {\n        \u0022taxCountry\u0022: \u0022BS\u0022,\n        \u0022skipReason\u0022: \u0022TAX_EXEMPT\u0022\n      }\n    ],\n    \u0022goldenVisaDeclaration\u0022: {\n      \u0022NO_OTHER_RESIDENCE\u0022: true,\n      \u0022WITHIN_TIME_FRAME\u0022: true,\n      \u0022DID_NOT_FILE_INCOME\u0022: true\n    }\n  },\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
+        "description": "If every country the customer declares is a Golden Visa country, you must also send a \u0060goldenVisaDeclaration\u0060 with all three values set to \u0060true\u0060. The Golden Visa countries are \u0060AE\u0060, \u0060AG\u0060, \u0060BB\u0060, \u0060BH\u0060, \u0060BS\u0060, \u0060CY\u0060, \u0060DM\u0060, \u0060GD\u0060, \u0060KN\u0060, \u0060LC\u0060, \u0060SC\u0060, \u0060TC\u0060 and \u0060VU\u0060. If any value is missing or not \u0060true\u0060, the request is rejected with a \u0060400\u0060 error.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022data\u0022: {\n    \u0022taxInfoList\u0022: [\n      {\n        \u0022taxCountry\u0022: \u0022AE\u0022,\n        \u0022skipReason\u0022: \u0022NO_TAXABLE_INCOME\u0022\n      },\n      {\n        \u0022taxCountry\u0022: \u0022AG\u0022,\n        \u0022skipReason\u0022: \u0022NO_TAXABLE_INCOME\u0022\n      },\n      {\n        \u0022taxCountry\u0022: \u0022BS\u0022,\n        \u0022skipReason\u0022: \u0022TAX_EXEMPT\u0022\n      }\n    ],\n    \u0022goldenVisaDeclaration\u0022: {\n      \u0022NO_OTHER_RESIDENCE\u0022: true,\n      \u0022WITHIN_TIME_FRAME\u0022: true,\n      \u0022DID_NOT_FILE_INCOME\u0022: true\n    }\n  },\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
       },
       "ContentSubmissionDataSubmissionDataIndividualSubmission": {
         "title": "Individual submission",
@@ -40874,7 +41035,7 @@
           "version": {
             "type": "string",
             "description": "The version identifier.",
-            "example": "v1"
+            "example": "V1"
           },
           "validUntil": {
             "type": [
@@ -41034,6 +41195,9 @@
         ],
         "type": "object",
         "properties": {
+          "data": {
+            "$ref": "#/components/schemas/BusinessAuthorisationIdSubmissionDataData"
+          },
           "version": {
             "$ref": "#/components/schemas/Version"
           },
@@ -41572,7 +41736,7 @@
             "example": "93a903ea-636c-4c86-a25c-cf6d2bd00e81"
           }
         },
-        "description": "\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022data\u0022: {\n    \u0022useCaseCountries\u0022: [\n      \u0022usa\u0022,\n      \u0022gbr\u0022,\n      \u0022deu\u0022\n    ]\n  },\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
+        "description": "\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022data\u0022: {\n    \u0022useCaseCountries\u0022: [\n      \u0022USA\u0022,\n      \u0022GBR\u0022,\n      \u0022DEU\u0022\n    ]\n  },\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
       },
       "OttResponseOneTimeTokenProperties": {
         "type": "object",
@@ -45365,6 +45529,17 @@
           }
         }
       },
+      "BusinessAuthorisationIdSubmissionDataData": {
+        "type": "object",
+        "properties": {
+          "frontSideFilename": {
+            "type": "string",
+            "description": "The file name of the front side of the document. Required if you upload more than one file. Must exactly match the name of an uploaded file. Note the lowercase \u0060n\u0060 in \u0060Filename\u0060.",
+            "example": "front_side.jpg"
+          }
+        },
+        "description": "Only needed if you upload more than one file."
+      },
       "BusinessControllingPersonSubmissionDataData": {
         "required": [
           "shareholderId",
@@ -45435,6 +45610,7 @@
         "type": "object",
         "properties": {
           "sourceOfWealthList": {
+            "minItems": 1,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/BusinessSourceOfWealthSubmissionDataDataSourceOfWealthListItem"
@@ -45445,8 +45621,10 @@
             ]
           },
           "otherSourceOfWealthDescription": {
+            "maxLength": 2000,
+            "minLength": 3,
             "type": "string",
-            "description": "Required if \u0060OTHER\u0060 is provided in \u0060sourceOfWealthList\u0060.",
+            "description": "Required if \u0060OTHER\u0060 is provided in \u0060sourceOfWealthList\u0060. Must be between 3 and 2000 characters.",
             "example": "Loan from friends"
           }
         }
@@ -45458,6 +45636,7 @@
         "type": "object",
         "properties": {
           "sourceOfWealthList": {
+            "minItems": 1,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/BusinessSourceOfWealthInfoSubmissionDataDataSourceOfWealthListItem"
@@ -45466,6 +45645,10 @@
         }
       },
       "BusinessSourceOfWealthProofSubmissionDataData": {
+        "required": [
+          "sourceOfWealthType",
+          "documentType"
+        ],
         "type": "object",
         "properties": {
           "sourceOfWealthType": {
@@ -45496,11 +45679,17 @@
         }
       },
       "IdDocumentSubmissionDataData": {
+        "required": [
+          "issuingCountry",
+          "documentType",
+          "frontSideFileName"
+        ],
         "type": "object",
         "properties": {
           "issuingCountry": {
+            "pattern": "^[A-Z]{2}$",
             "type": "string",
-            "description": "ISO 3166-1 alpha-2 country code.",
+            "description": "The country that issued the document, as an uppercase ISO 3166-1 alpha-2 country code (for example, \u0060GB\u0060).",
             "example": "GB"
           },
           "documentType": {
@@ -45508,17 +45697,22 @@
           },
           "frontSideFileName": {
             "type": "string",
-            "description": "Filename of the front side image. Required for \u0060ID_CARD\u0060, \u0060DRIVERS_LICENSE\u0060, \u0060TAX_ID\u0060, \u0060RESIDENCE_PERMIT\u0060.",
+            "description": "The file name of the front side of the document. If you upload only one file, use its name. Must exactly match the name of an uploaded file.",
             "example": "front_side.jpg"
           },
           "backSideFileName": {
             "type": "string",
-            "description": "Filename of the back side image. Required for \u0060ID_CARD\u0060, \u0060DRIVERS_LICENSE\u0060, \u0060TAX_ID\u0060, \u0060RESIDENCE_PERMIT\u0060.",
+            "description": "The file name of the back side of the document. Required if you upload 2 files. Must exactly match the name of an uploaded file.",
             "example": "back_side.jpg"
           }
         }
       },
       "IncomeSubmissionDataData": {
+        "required": [
+          "amount",
+          "currency",
+          "incomeType"
+        ],
         "type": "object",
         "properties": {
           "amount": {
@@ -45549,7 +45743,6 @@
         "required": [
           "code",
           "tcsTaxApplies",
-          "educationPaidWithLoan",
           "passportFileName",
           "additionalDocumentFileName"
         ],
@@ -45565,7 +45758,7 @@
           },
           "educationPaidWithLoan": {
             "type": "boolean",
-            "description": "If \u0060code\u0060 is \u0060OVERSEAS_EDUCATION\u0060 or \u0060EDUCATION_EXPENSES\u0060, set to \u0060true\u0060 if the profile is paying for this transfer with a loan from a financial institution. For other codes set to \u0060false\u0060.",
+            "description": "Required if \u0060code\u0060 is \u0060OVERSEAS_EDUCATION\u0060 or \u0060EDUCATION_EXPENSES\u0060. Set to \u0060true\u0060 if the profile is paying for this transfer with a loan from a financial institution, otherwise \u0060false\u0060. For other codes, omit it or set it to \u0060false\u0060.",
             "example": true
           },
           "passportFileName": {
@@ -45586,6 +45779,9 @@
         }
       },
       "JpnPersonalMynumberSubmissionDataData": {
+        "required": [
+          "documentType"
+        ],
         "type": "object",
         "properties": {
           "documentType": {
@@ -45619,6 +45815,10 @@
         }
       },
       "ProofOfTradingAddressSubmissionDataData": {
+        "required": [
+          "documentType",
+          "tradingAddressId"
+        ],
         "type": "object",
         "properties": {
           "documentType": {
@@ -45633,6 +45833,9 @@
         }
       },
       "SourceOfFundsSubmissionDataData": {
+        "required": [
+          "category"
+        ],
         "type": "object",
         "properties": {
           "category": {
@@ -45684,6 +45887,10 @@
         }
       },
       "SourceOfWealthProofSubmissionDataData": {
+        "required": [
+          "secondaryIncomeType",
+          "secondaryIncomeDocumentType"
+        ],
         "type": "object",
         "properties": {
           "secondaryIncomeType": {
@@ -45709,15 +45916,16 @@
         "type": "object",
         "properties": {
           "useCaseCountries": {
+            "minItems": 1,
             "type": "array",
             "items": {
               "type": "string"
             },
-            "description": "Country codes in ISO 3166-1 alpha-3 standard.",
+            "description": "Country codes in ISO 3166-1 alpha-3 format (for example, \u0060USA\u0060). At least one is required.",
             "example": [
-              "usa",
-              "gbr",
-              "deu"
+              "USA",
+              "GBR",
+              "DEU"
             ]
           }
         }
@@ -49428,9 +49636,9 @@
             "example": "489209"
           },
           "ssn": {
-            "pattern": "^[0-9]{9}$",
+            "pattern": "^(?!000|666)[0-9]{3}(?!00)[0-9]{2}(?!0000)[0-9]{4}$",
             "type": "string",
-            "description": "The UBO\u0027s Social Security Number, as 9 digits without dashes.",
+            "description": "The UBO\u0027s 9-digit Social Security Number, without dashes. It can\u0027t start with \u0060000\u0060 or \u0060666\u0060, have \u006000\u0060 as the 4th and 5th digits, or end with \u00600000\u0060.",
             "example": "555501234"
           }
         }
@@ -49473,19 +49681,13 @@
         "type": "object",
         "properties": {
           "NO_OTHER_RESIDENCE": {
-            "type": "boolean",
-            "description": "Customer does not hold residency rights in any other jurisdiction.",
-            "example": true
+            "$ref": "#/components/schemas/TaxResidencySubmissionDataGoldenVisaDeclarationsDataGoldenVisaDeclarationNoOtherResidence"
           },
           "WITHIN_TIME_FRAME": {
-            "type": "boolean",
-            "description": "Customer did not spend more than 90 days in any other jurisdiction in the previous year.",
-            "example": true
+            "$ref": "#/components/schemas/TaxResidencySubmissionDataGoldenVisaDeclarationsDataGoldenVisaDeclarationWithinTimeFrame"
           },
           "DID_NOT_FILE_INCOME": {
-            "type": "boolean",
-            "description": "Customer did not file a tax return in any other jurisdiction during the previous year.",
-            "example": true
+            "$ref": "#/components/schemas/TaxResidencySubmissionDataGoldenVisaDeclarationsDataGoldenVisaDeclarationDidNotFileIncome"
           }
         },
         "description": "A set of affirmations required for users holding specific residency-by-investment visas. All values must be set to \u0060true\u0060."
@@ -49643,6 +49845,9 @@
         }
       },
       "BusinessSourceOfWealthInfoSubmissionDataDataSourceOfWealthListItem": {
+        "required": [
+          "businessSourceOfWealthInfo"
+        ],
         "type": "object",
         "properties": {
           "businessSourceOfWealthInfo": {
@@ -49650,7 +49855,7 @@
           },
           "isSourceOfFund": {
             "type": "boolean",
-            "description": "Whether this source of wealth is used to fund the action.",
+            "description": "Whether this source of wealth is used to fund the action. Defaults to \u0060false\u0060 if omitted.",
             "example": false
           }
         }
@@ -49669,6 +49874,7 @@
             "example": "Example Holdings Inc"
           },
           "country": {
+            "pattern": "^[A-Z]{2}$",
             "type": "string",
             "description": "The shareholder\u0027s country as an uppercase ISO 3166-1 alpha-2 country code.",
             "example": "US"
@@ -59829,7 +60035,7 @@
           "null",
           "object"
         ],
-        "description": "**Conditional:** Only present for certain requirement types that provide additional contextual information. The keys within this object vary depending on the parent requirement \u0060key\u0060. See the [KYC requirement types](/guides/product/kyc/wise-kyc/kyc-requirement-types) guide for details on which requirement types support attributes and what keys they contain.\n"
+        "description": "**Conditional:** Only present for certain requirement types that provide additional contextual information. The keys within this object vary depending on the parent requirement \u0060key\u0060. See the [KYC requirement types](/guides/product/account-setup/customer-onboarding/kyc-requirement-types) guide for details on which requirement types support attributes and what keys they contain.\n"
       },
       "MessageSubmissionResponseContentProperty": {
         "type": "object",
@@ -64999,6 +65205,119 @@
           ]
         }
       },
+      "SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeAnyOf9": {
+        "title": "Other income types",
+        "enum": [
+          "PAYSLIP",
+          "BANK_STATEMENT",
+          "TAX_RETURN",
+          "EMPLOYMENT_CONTRACT",
+          "PROOF_OF_EMPLOYMENT",
+          "STOCK_PLAN_EXERCISE_CONFIRMATION",
+          "PORTFOLIO_STATEMENT",
+          "DIVIDEND_VOUCHER",
+          "PENSION_STATEMENT",
+          "GRANT_OF_PROBATE",
+          "WILL",
+          "TRUST_DEED",
+          "LOAN_AGREEMENT",
+          "SALE_CONTRACT",
+          "SETTLEMENT_STATEMENT",
+          "GIFT_LETTER",
+          "SCHOLARSHIP",
+          "GRANT_LETTER",
+          "LEASE_AGREEMENT",
+          "OTHER"
+        ],
+        "type": "string",
+        "description": "When \u0060secondaryIncomeType\u0060 is \u0060FREELANCER\u0060, \u0060BUSINESS_ACTIVITIES\u0060, \u0060LOAN_OR_OTHER_FINANCING\u0060, \u0060DONATION\u0060 or \u0060GRANTS\u0060, the document type isn\u0027t restricted by income type. Any of these values is accepted.",
+        "x-ms-enum": {
+          "name": "SourceOfWealthProofSubmissionDataDataSecondaryIncomeDocumentTypeAnyOf9",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "PAYSLIP",
+              "name": "Payslip"
+            },
+            {
+              "value": "BANK_STATEMENT",
+              "name": "BankStatement"
+            },
+            {
+              "value": "TAX_RETURN",
+              "name": "TaxReturn"
+            },
+            {
+              "value": "EMPLOYMENT_CONTRACT",
+              "name": "EmploymentContract"
+            },
+            {
+              "value": "PROOF_OF_EMPLOYMENT",
+              "name": "ProofOfEmployment"
+            },
+            {
+              "value": "STOCK_PLAN_EXERCISE_CONFIRMATION",
+              "name": "StockPlanExerciseConfirmation"
+            },
+            {
+              "value": "PORTFOLIO_STATEMENT",
+              "name": "PortfolioStatement"
+            },
+            {
+              "value": "DIVIDEND_VOUCHER",
+              "name": "DividendVoucher"
+            },
+            {
+              "value": "PENSION_STATEMENT",
+              "name": "PensionStatement"
+            },
+            {
+              "value": "GRANT_OF_PROBATE",
+              "name": "GrantOfProbate"
+            },
+            {
+              "value": "WILL",
+              "name": "Will"
+            },
+            {
+              "value": "TRUST_DEED",
+              "name": "TrustDeed"
+            },
+            {
+              "value": "LOAN_AGREEMENT",
+              "name": "LoanAgreement"
+            },
+            {
+              "value": "SALE_CONTRACT",
+              "name": "SaleContract"
+            },
+            {
+              "value": "SETTLEMENT_STATEMENT",
+              "name": "SettlementStatement"
+            },
+            {
+              "value": "GIFT_LETTER",
+              "name": "GiftLetter"
+            },
+            {
+              "value": "SCHOLARSHIP",
+              "name": "Scholarship"
+            },
+            {
+              "value": "GRANT_LETTER",
+              "name": "GrantLetter"
+            },
+            {
+              "value": "LEASE_AGREEMENT",
+              "name": "LeaseAgreement"
+            },
+            {
+              "value": "OTHER",
+              "name": "Other"
+            }
+          ]
+        }
+      },
       "TaxResidencySubmissionDataStandardCrsCollectionDataTaxInfoListItemSkipReason": {
         "enum": [
           "TAX_EXEMPT",
@@ -67232,102 +67551,6 @@
           ]
         }
       },
-      "SourceOfWealthInfoSubmissionDataDataSecondaryIncomeType": {
-        "enum": [
-          "SALARY",
-          "PENSION",
-          "INHERITANCE",
-          "PROPERTY_SALE",
-          "LOAN",
-          "INVESTMENTS",
-          "OTHER"
-        ],
-        "type": "string",
-        "description": "Required when \u0060hasSecondaryIncome\u0060 is \u0060true\u0060. Accepted values for personal profiles.",
-        "example": "SALARY",
-        "x-ms-enum": {
-          "name": "SourceOfWealthInfoSubmissionDataDataSecondaryIncomeType",
-          "modelAsString": false,
-          "values": [
-            {
-              "value": "SALARY",
-              "name": "Salary"
-            },
-            {
-              "value": "PENSION",
-              "name": "Pension"
-            },
-            {
-              "value": "INHERITANCE",
-              "name": "Inheritance"
-            },
-            {
-              "value": "PROPERTY_SALE",
-              "name": "PropertySale"
-            },
-            {
-              "value": "LOAN",
-              "name": "Loan"
-            },
-            {
-              "value": "INVESTMENTS",
-              "name": "Investments"
-            },
-            {
-              "value": "OTHER",
-              "name": "Other"
-            }
-          ]
-        }
-      },
-      "SourceOfWealthProofSubmissionDataDataSecondaryIncomeType": {
-        "enum": [
-          "SALARY",
-          "PENSION",
-          "INHERITANCE",
-          "PROPERTY_SALE",
-          "LOAN",
-          "INVESTMENTS",
-          "OTHER"
-        ],
-        "type": "string",
-        "description": "Accepted values for personal profiles.",
-        "example": "SALARY",
-        "x-ms-enum": {
-          "name": "SourceOfWealthProofSubmissionDataDataSecondaryIncomeType",
-          "modelAsString": false,
-          "values": [
-            {
-              "value": "SALARY",
-              "name": "Salary"
-            },
-            {
-              "value": "PENSION",
-              "name": "Pension"
-            },
-            {
-              "value": "INHERITANCE",
-              "name": "Inheritance"
-            },
-            {
-              "value": "PROPERTY_SALE",
-              "name": "PropertySale"
-            },
-            {
-              "value": "LOAN",
-              "name": "Loan"
-            },
-            {
-              "value": "INVESTMENTS",
-              "name": "Investments"
-            },
-            {
-              "value": "OTHER",
-              "name": "Other"
-            }
-          ]
-        }
-      },
       "V40021DataResourceState": {
         "enum": [
           "ACTIVE",
@@ -67557,7 +67780,7 @@
           "PASSPORT"
         ],
         "type": "string",
-        "description": "Accepted document types vary by the region the business is located in.\n\n**US business address** (United States, American Samoa, Guam, North Mariana Islands, Puerto Rico, United States Virgin Islands, United States Minor Outlying Islands):\n- \u0060NON_US_DRIVING_LICENSE\u0060\n- \u0060NON_US_NATIONAL_ID\u0060\n- \u0060NON_US_PASSPORT\u0060\n\n**EEA business address:**\n- \u0060NATIONAL_ID\u0060\n- \u0060PASSPORT\u0060\n\n**Other regions:**\n- \u0060DRIVING_LICENSE\u0060\n- \u0060NATIONAL_ID\u0060\n- \u0060PASSPORT\u0060\n\nUS businesses can submit an SSN instead of a document; select **SSN** above.\n",
+        "description": "Accepted document types depend on where the business and the UBO are located.\n\n**US business address** (United States, American Samoa, Guam, North Mariana Islands, Puerto Rico, United States Virgin Islands, United States Minor Outlying Islands):\n- \u0060NON_US_DRIVING_LICENSE\u0060\n- \u0060NON_US_NATIONAL_ID\u0060\n- \u0060NON_US_PASSPORT\u0060\n\nUS businesses can submit an SSN instead of a document: select the **SSN** option instead of **Document upload**.\n\n**All other business addresses:**\n- \u0060DRIVING_LICENSE\u0060, except when both the business address and the UBO\u0027s address are in the EEA.\n- \u0060NATIONAL_ID\u0060, except for Indian nationals when the business is in India, and non-EEA nationals when the business is in Spain.\n- \u0060PASSPORT\u0060, except for Spanish nationals when the business is in Spain.\n\nIf a document type isn\u0027t accepted for the UBO, the request is rejected with a \u0060400\u0060 error.\n",
         "example": "NATIONAL_ID",
         "x-ms-enum": {
           "name": "BusinessUltimateBeneficialOwnerIdDocumentUploadSubmissionDataDataDocumentType",
@@ -67633,6 +67856,30 @@
             }
           ]
         }
+      },
+      "TaxResidencySubmissionDataGoldenVisaDeclarationsDataGoldenVisaDeclarationNoOtherResidence": {
+        "enum": [
+          true
+        ],
+        "type": "boolean",
+        "description": "Customer does not hold residency rights in any other jurisdiction.",
+        "example": true
+      },
+      "TaxResidencySubmissionDataGoldenVisaDeclarationsDataGoldenVisaDeclarationWithinTimeFrame": {
+        "enum": [
+          true
+        ],
+        "type": "boolean",
+        "description": "Customer did not spend more than 90 days in any other jurisdiction in the previous year.",
+        "example": true
+      },
+      "TaxResidencySubmissionDataGoldenVisaDeclarationsDataGoldenVisaDeclarationDidNotFileIncome": {
+        "enum": [
+          true
+        ],
+        "type": "boolean",
+        "description": "Customer did not file a tax return in any other jurisdiction during the previous year.",
+        "example": true
       },
       "BusinessSourceOfWealthInfoSubmissionDataDataSourceOfWealthListItemBusinessSourceOfWealthInfo": {
         "enum": [
@@ -75249,7 +75496,7 @@
     },
     {
       "name": "kyc-review",
-      "description": "KYC Review API provides endpoints to view, update and submit information related to the KYC flow.\n\nThere are two ways to collect KYC requirements from your customers:\n- **Hosted KYC** \u2014 redirect your customer to a Wise-hosted UI that guides them through the process.\n- **API submission** \u2014 use the [KYC Requirement Submit](/api-reference/kyc-review/kycreviewrequirementsubmit) endpoint to submit requirements directly. This is only available for requirement types where \u0060apiCollectionSupported\u0060 is \u0060true\u0060.\n\nPlease refer to our [Hosted KYC guide](/guides/product/kyc/wise-kyc/hosted-kyc) for more information on the general use of the endpoints included below.\n",
+      "description": "KYC Review API provides endpoints to view, update and submit information related to the KYC flow.\n\nThere are two ways to collect KYC requirements from your customers:\n- **Hosted KYC** \u2014 redirect your customer to a Wise-hosted UI that guides them through the process.\n- **API submission** \u2014 use the [KYC Requirement Submit](/api-reference/kyc-review/kycreviewrequirementsubmit) endpoint to submit requirements directly. This is only available for requirement types where \u0060apiCollectionSupported\u0060 is \u0060true\u0060.\n\nPlease refer to our [Hosted KYC guide](/guides/product/account-setup/customer-onboarding/hosted-kyc) for more information on the general use of the endpoints included below.\n",
       "x-displayName": "KYC Review"
     },
     {
@@ -80094,7 +80341,7 @@
         "null",
         "object"
       ],
-      "description": "**Conditional:** Only present for certain requirement types that provide additional contextual information. The keys within this object vary depending on the parent requirement \u0060key\u0060. See the [KYC requirement types](/guides/product/kyc/wise-kyc/kyc-requirement-types) guide for details on which requirement types support attributes and what keys they contain.\n"
+      "description": "**Conditional:** Only present for certain requirement types that provide additional contextual information. The keys within this object vary depending on the parent requirement \u0060key\u0060. See the [KYC requirement types](/guides/product/account-setup/customer-onboarding/kyc-requirement-types) guide for details on which requirement types support attributes and what keys they contain.\n"
     },
     "MessageSubmissionResponseContent": {
       "type": "object",
@@ -81291,6 +81538,194 @@
           {
             "value": "BUSINESS_FINANCING",
             "name": "BusinessFinancing"
+          },
+          {
+            "value": "OTHER",
+            "name": "Other"
+          }
+        ]
+      }
+    },
+    "SourceOfWealthInfoSubmissionDataDataSecondaryIncomeTypeAnyOf1": {
+      "title": "Personal profiles",
+      "enum": [
+        "SALARY",
+        "PENSION",
+        "INHERITANCE",
+        "PROPERTY_SALE",
+        "FREELANCER",
+        "LOAN",
+        "INVESTMENTS",
+        "OTHER"
+      ],
+      "type": "string",
+      "x-ms-enum": {
+        "name": "SourceOfWealthInfoSubmissionDataDataSecondaryIncomeTypeAnyOf1",
+        "modelAsString": false,
+        "values": [
+          {
+            "value": "SALARY",
+            "name": "Salary"
+          },
+          {
+            "value": "PENSION",
+            "name": "Pension"
+          },
+          {
+            "value": "INHERITANCE",
+            "name": "Inheritance"
+          },
+          {
+            "value": "PROPERTY_SALE",
+            "name": "PropertySale"
+          },
+          {
+            "value": "FREELANCER",
+            "name": "Freelancer"
+          },
+          {
+            "value": "LOAN",
+            "name": "Loan"
+          },
+          {
+            "value": "INVESTMENTS",
+            "name": "Investments"
+          },
+          {
+            "value": "OTHER",
+            "name": "Other"
+          }
+        ]
+      }
+    },
+    "SourceOfWealthInfoSubmissionDataDataSecondaryIncomeTypeAnyOf2": {
+      "title": "Business profiles",
+      "enum": [
+        "BUSINESS_ACTIVITIES",
+        "LOAN_OR_OTHER_FINANCING",
+        "DONATION",
+        "GRANTS",
+        "INVESTMENTS",
+        "OTHER"
+      ],
+      "type": "string",
+      "x-ms-enum": {
+        "name": "SourceOfWealthInfoSubmissionDataDataSecondaryIncomeTypeAnyOf2",
+        "modelAsString": false,
+        "values": [
+          {
+            "value": "BUSINESS_ACTIVITIES",
+            "name": "BusinessActivities"
+          },
+          {
+            "value": "LOAN_OR_OTHER_FINANCING",
+            "name": "LoanOrOtherFinancing"
+          },
+          {
+            "value": "DONATION",
+            "name": "Donation"
+          },
+          {
+            "value": "GRANTS",
+            "name": "Grants"
+          },
+          {
+            "value": "INVESTMENTS",
+            "name": "Investments"
+          },
+          {
+            "value": "OTHER",
+            "name": "Other"
+          }
+        ]
+      }
+    },
+    "SourceOfWealthProofSubmissionDataDataSecondaryIncomeTypeAnyOf1": {
+      "title": "Personal profiles",
+      "enum": [
+        "SALARY",
+        "PENSION",
+        "INHERITANCE",
+        "PROPERTY_SALE",
+        "FREELANCER",
+        "LOAN",
+        "INVESTMENTS",
+        "OTHER"
+      ],
+      "type": "string",
+      "x-ms-enum": {
+        "name": "SourceOfWealthProofSubmissionDataDataSecondaryIncomeTypeAnyOf1",
+        "modelAsString": false,
+        "values": [
+          {
+            "value": "SALARY",
+            "name": "Salary"
+          },
+          {
+            "value": "PENSION",
+            "name": "Pension"
+          },
+          {
+            "value": "INHERITANCE",
+            "name": "Inheritance"
+          },
+          {
+            "value": "PROPERTY_SALE",
+            "name": "PropertySale"
+          },
+          {
+            "value": "FREELANCER",
+            "name": "Freelancer"
+          },
+          {
+            "value": "LOAN",
+            "name": "Loan"
+          },
+          {
+            "value": "INVESTMENTS",
+            "name": "Investments"
+          },
+          {
+            "value": "OTHER",
+            "name": "Other"
+          }
+        ]
+      }
+    },
+    "SourceOfWealthProofSubmissionDataDataSecondaryIncomeTypeAnyOf2": {
+      "title": "Business profiles",
+      "enum": [
+        "BUSINESS_ACTIVITIES",
+        "LOAN_OR_OTHER_FINANCING",
+        "DONATION",
+        "GRANTS",
+        "INVESTMENTS",
+        "OTHER"
+      ],
+      "type": "string",
+      "x-ms-enum": {
+        "name": "SourceOfWealthProofSubmissionDataDataSecondaryIncomeTypeAnyOf2",
+        "modelAsString": false,
+        "values": [
+          {
+            "value": "BUSINESS_ACTIVITIES",
+            "name": "BusinessActivities"
+          },
+          {
+            "value": "LOAN_OR_OTHER_FINANCING",
+            "name": "LoanOrOtherFinancing"
+          },
+          {
+            "value": "DONATION",
+            "name": "Donation"
+          },
+          {
+            "value": "GRANTS",
+            "name": "Grants"
+          },
+          {
+            "value": "INVESTMENTS",
+            "name": "Investments"
           },
           {
             "value": "OTHER",

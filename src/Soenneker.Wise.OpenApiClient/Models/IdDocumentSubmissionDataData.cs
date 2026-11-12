@@ -29,7 +29,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Filename of the back side image. Required for `ID_CARD`, `DRIVERS_LICENSE`, `TAX_ID`, `RESIDENCE_PERMIT`.</summary>
+        /// <summary>The file name of the back side of the document. Required if you upload 2 files. Must exactly match the name of an uploaded file.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? BackSideFileName { get => _explicitNullValueBackSideFileName; set { _explicitNullValueBackSideFileName = value; AdditionalData?.Remove("backSideFileName"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("backSideFileName"); else _explicitNullProperties?.Remove("backSideFileName"); } }
@@ -42,7 +42,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The documentType property</summary>
         public global::Soenneker.Wise.OpenApiClient.Models.IdDocumentSubmissionDataDataDocumentType? DocumentType { get => _explicitNullValueDocumentType; set { _explicitNullValueDocumentType = value; AdditionalData?.Remove("documentType"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("documentType"); else _explicitNullProperties?.Remove("documentType"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.IdDocumentSubmissionDataDataDocumentType? _explicitNullValueDocumentType = default!;
-        /// <summary>Filename of the front side image. Required for `ID_CARD`, `DRIVERS_LICENSE`, `TAX_ID`, `RESIDENCE_PERMIT`.</summary>
+        /// <summary>The file name of the front side of the document. If you upload only one file, use its name. Must exactly match the name of an uploaded file.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? FrontSideFileName { get => _explicitNullValueFrontSideFileName; set { _explicitNullValueFrontSideFileName = value; AdditionalData?.Remove("frontSideFileName"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("frontSideFileName"); else _explicitNullProperties?.Remove("frontSideFileName"); } }
@@ -52,7 +52,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public string FrontSideFileName { get => _explicitNullValueFrontSideFileName; set { _explicitNullValueFrontSideFileName = value; AdditionalData?.Remove("frontSideFileName"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("frontSideFileName"); else _explicitNullProperties?.Remove("frontSideFileName"); } }
         private string _explicitNullValueFrontSideFileName = default!;
 #endif
-        /// <summary>ISO 3166-1 alpha-2 country code.</summary>
+        /// <summary>The country that issued the document, as an uppercase ISO 3166-1 alpha-2 country code (for example, `GB`).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? IssuingCountry { get => _explicitNullValueIssuingCountry; set { _explicitNullValueIssuingCountry = value; AdditionalData?.Remove("issuingCountry"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("issuingCountry"); else _explicitNullProperties?.Remove("issuingCountry"); } }

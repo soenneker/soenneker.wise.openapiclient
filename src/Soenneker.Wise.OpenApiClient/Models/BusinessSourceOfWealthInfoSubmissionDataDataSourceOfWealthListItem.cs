@@ -28,7 +28,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The businessSourceOfWealthInfo property</summary>
         public global::Soenneker.Wise.OpenApiClient.Models.BusinessSourceOfWealthInfoSubmissionDataDataSourceOfWealthListItemBusinessSourceOfWealthInfo? BusinessSourceOfWealthInfo { get => _explicitNullValueBusinessSourceOfWealthInfo; set { _explicitNullValueBusinessSourceOfWealthInfo = value; AdditionalData?.Remove("businessSourceOfWealthInfo"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("businessSourceOfWealthInfo"); else _explicitNullProperties?.Remove("businessSourceOfWealthInfo"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.BusinessSourceOfWealthInfoSubmissionDataDataSourceOfWealthListItemBusinessSourceOfWealthInfo? _explicitNullValueBusinessSourceOfWealthInfo = default!;
-        /// <summary>Whether this source of wealth is used to fund the action.</summary>
+        /// <summary>Whether this source of wealth is used to fund the action. Defaults to `false` if omitted.</summary>
         public bool? IsSourceOfFund { get => _explicitNullValueIsSourceOfFund; set { _explicitNullValueIsSourceOfFund = value; AdditionalData?.Remove("isSourceOfFund"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("isSourceOfFund"); else _explicitNullProperties?.Remove("isSourceOfFund"); } }
         private bool? _explicitNullValueIsSourceOfFund = default!;
         /// <summary>

@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Declaration of the customer&apos;s US Social Security Number (SSN). This requirement only applies to customers in the US region.Customers either provide their SSN or, if they don&apos;t have one, a reason why it is unavailable. Exactly one of `ssnNumber` or `ssnUnavailableReason` must be provided; the other must be `null`. Files are not required for either scenario.See [SSN_DECLARATION](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#ssn_declaration) in the KYC requirement types guide for more details and sandbox test data.
+    /// Declaration of the customer&apos;s US Social Security Number (SSN). This requirement only applies to customers in the US region.Customers either provide their SSN or, if they don&apos;t have one, a reason why it is unavailable. Provide exactly one of `ssnNumber` or `ssnUnavailableReason`, and omit the other or set it to `null`. Files are not required for either scenario.See [SSN_DECLARATION](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#ssn_declaration) in the KYC requirement types guide for more details and sandbox test data.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class SsnDeclaration : IAdditionalDataHolder, IParsable
