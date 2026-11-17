@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// How the business intends to use the Wise account.See [BUSINESS_USE_CASE](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_use_case) in the KYC requirement types guide for more details.
+    /// How the business intends to use the Wise account.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class BusinessUseCase : IAdditionalDataHolder, IParsable

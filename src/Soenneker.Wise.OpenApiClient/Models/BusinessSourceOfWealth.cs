@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// The source of the business&apos;s wealth.See [BUSINESS_SOURCE_OF_WEALTH](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_source_of_wealth) in the KYC requirement types guide for more details.
+    /// The source of the business&apos;s wealth.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class BusinessSourceOfWealth : IAdditionalDataHolder, IParsable

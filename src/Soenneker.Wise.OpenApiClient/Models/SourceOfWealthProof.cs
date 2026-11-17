@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// A document proving the secondary source of wealth income. The accepted document types depend on the `secondaryIncomeType` provided.See [SOURCE_OF_WEALTH_PROOF](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#source_of_wealth_proof) in the KYC requirement types guide for more details.
+    /// A document proving the secondary source of wealth income. The accepted document types depend on the `secondaryIncomeType` provided.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class SourceOfWealthProof : IAdditionalDataHolder, IParsable

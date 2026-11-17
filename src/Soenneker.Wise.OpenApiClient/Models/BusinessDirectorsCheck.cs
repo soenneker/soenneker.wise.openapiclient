@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Confirm the directors of the business. Directors can be members of the board of directors, general partners or part of executive management. If a director is another business, a document identifying the individuals directing that business is needed.No `data` field is needed. See [BUSINESS_DIRECTORS_CHECK](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_directors_check) in the KYC requirement types guide for more details.
+    /// Confirm the directors of the business. Directors can be members of the board of directors, general partners or part of executive management. If a director is another business, a document identifying the individuals directing that business is needed.No `data` field is needed.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class BusinessDirectorsCheck : IAdditionalDataHolder, IParsable

@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// The code representing the purpose of the profile&apos;s transfer, along with supporting documents based on the code provided. This only appears for transfers from INR to one of GBP, USD, EUR, AUD, CAD, SGD.See [INDIA_TRANSFER_PURPOSE](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#india_transfer_purpose) in the KYC requirement types guide for more details.
+    /// The code representing the purpose of the profile&apos;s transfer, along with supporting documents based on the code provided. This only appears for transfers from INR to one of GBP, USD, EUR, AUD, CAD, SGD.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class IndiaTransferPurpose : IAdditionalDataHolder, IParsable
@@ -26,7 +26,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Upload the supporting documents, with file names matching the `*FileName` fields.Accepted file types: `image/png` (`.png`), `image/jpeg` (`.jpg` or `.jpeg`) and `application/pdf` (`.pdf`). The content type must match the file extension.```json {% title=&quot;Example&quot; %}[&quot;file1.png&quot;, &quot;file2.png&quot;, &quot;file3.png&quot;]```</summary>
+        /// <summary>Upload the supporting documents, with file names matching the `*FileName` fields.Accepted file types: `image/png` (`.png`), `image/jpeg` (`.jpg` or `.jpeg`) and `application/pdf` (`.pdf`). The content type must match the file extension.```json {% title=&quot;Example&quot; %}[&quot;file1.png&quot;, &quot;file2.png&quot;, &quot;file3.png&quot;]```{% admonition type=&quot;warning&quot; name=&quot;File names must match&quot; %}File names in `submissionData` must exactly match the names of the uploaded files, including case. Use lowercase file extensions: `.png`, `.jpg`, `.jpeg` or `.pdf`.{% /admonition %}</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<byte[]>? Files { get => _explicitNullValueFiles; set { _explicitNullValueFiles = value; AdditionalData?.Remove("files"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("files"); else _explicitNullProperties?.Remove("files"); } }

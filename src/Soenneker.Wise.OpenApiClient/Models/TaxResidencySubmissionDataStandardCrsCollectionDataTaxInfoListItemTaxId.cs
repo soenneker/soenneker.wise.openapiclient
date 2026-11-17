@@ -36,7 +36,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public string Number { get => _explicitNullValueNumber; set { _explicitNullValueNumber = value; AdditionalData?.Remove("number"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("number"); else _explicitNullProperties?.Remove("number"); } }
         private string _explicitNullValueNumber = default!;
 #endif
-        /// <summary>The specific TIN identifier type for that country. Must be one of the types listed for the `taxCountry` in the [TIN types reference](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#tin-types-reference). Any other value is rejected.</summary>
+        /// <summary>The specific TIN identifier type for that country. Must be one of the types listed for the `taxCountry` in the [TIN types](/guides/product/account-setup/customer-onboarding/tin-types) guide. Any other value is rejected.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Type { get => _explicitNullValueType; set { _explicitNullValueType = value; AdditionalData?.Remove("type"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("type"); else _explicitNullProperties?.Remove("type"); } }

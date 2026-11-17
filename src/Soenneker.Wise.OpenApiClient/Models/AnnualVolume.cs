@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// A rough estimate of the yearly volume the customer intends to send or receive.See [ANNUAL_VOLUME](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#annual_volume) in the KYC requirement types guide for more details.
+    /// A rough estimate of the yearly volume the customer intends to send or receive.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class AnnualVolume : IAdditionalDataHolder, IParsable

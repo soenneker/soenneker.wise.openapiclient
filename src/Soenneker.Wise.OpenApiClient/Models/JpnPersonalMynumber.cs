@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Proof of My Number for the customer. My Number is a 12-digit ID number issued to all Japan citizens and residents, including resident foreigners living in Japan for over 90 days. All the information (name, DOB, address) on a My Number document has to match the information on the profile and on the ID document.See [JPN_PERSONAL_MYNUMBER](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#jpn_personal_mynumber) in the KYC requirement types guide for more details.
+    /// Proof of My Number for the customer. My Number is a 12-digit ID number issued to all Japanese citizens and residents, including foreign residents who have lived in Japan for more than 90 days.The name, date of birth and address on the My Number document must match the information on the profile and on the customer&apos;s ID document.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class JpnPersonalMynumber : IAdditionalDataHolder, IParsable
@@ -26,7 +26,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>The required number of files depends on `documentType`:| Document type | File requirements ||---|---|| `MY_NUMBER_CARD` | 2 files (front and back) || `MY_NUMBER_NOTIFICATION_CARD` | 2 files (front and back) || `RESIDENCE_CERTIFICATE` | 1 or more files (all pages) |Accepted file types: `image/png` (`.png`), `image/jpeg` (`.jpg` or `.jpeg`) and `application/pdf` (`.pdf`). The content type must match the file extension.```json {% title=&quot;Example&quot; %}[&quot;front.jpg&quot;, &quot;back.jpg&quot;]```</summary>
+        /// <summary>The required number of files depends on `documentType`:| Document type | File requirements ||---|---|| `MY_NUMBER_CARD` | 2 files (front and back) || `MY_NUMBER_NOTIFICATION_CARD` | 2 files (front and back) || `RESIDENCE_CERTIFICATE` | 1 or more files (all pages) |Accepted file types: `image/png` (`.png`), `image/jpeg` (`.jpg` or `.jpeg`) and `application/pdf` (`.pdf`). The content type must match the file extension.```json {% title=&quot;Example&quot; %}[&quot;front.jpg&quot;, &quot;back.jpg&quot;]```{% admonition type=&quot;warning&quot; name=&quot;File names must match&quot; %}File names in `submissionData` must exactly match the names of the uploaded files, including case. Use lowercase file extensions: `.png`, `.jpg`, `.jpeg` or `.pdf`.{% /admonition %}</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<byte[]>? Files { get => _explicitNullValueFiles; set { _explicitNullValueFiles = value; AdditionalData?.Remove("files"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("files"); else _explicitNullProperties?.Remove("files"); } }

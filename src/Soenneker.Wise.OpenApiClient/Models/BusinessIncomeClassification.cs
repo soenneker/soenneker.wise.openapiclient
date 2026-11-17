@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Under the Common Reporting Standard (CRS), we are required to collect your business&apos;s tax classification based on how it earns income. Depending on your selection, we may need to ask for additional information (such as tax details on controlling persons).See [BUSINESS_INCOME_CLASSIFICATION](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_income_classification) in the KYC requirement types guide for more details.
+    /// Under the Common Reporting Standard (CRS), we are required to collect your business&apos;s tax classification based on how it earns income. Depending on your selection, we may need to ask for additional information (such as tax details on controlling persons).
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class BusinessIncomeClassification : IAdditionalDataHolder, IParsable

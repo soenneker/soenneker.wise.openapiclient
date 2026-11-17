@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Whether there is a secondary source of income, and if so its type and amount. When `hasSecondaryIncome` is `false`, no other fields are required.See [SOURCE_OF_WEALTH_INFO](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#source_of_wealth_info) in the KYC requirement types guide for more details.
+    /// Whether there is a secondary source of income, and if so its type and amount. When `hasSecondaryIncome` is `false`, no other fields are required.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class SourceOfWealthInfo : IAdditionalDataHolder, IParsable

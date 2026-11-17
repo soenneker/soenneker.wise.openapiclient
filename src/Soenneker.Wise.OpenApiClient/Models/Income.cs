@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Approximate gross yearly income.See [INCOME](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#income) in the KYC requirement types guide for more details.
+    /// Approximate gross yearly income.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class Income : IAdditionalDataHolder, IParsable

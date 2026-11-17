@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Documents showing who ultimately owns and controls the company (e.g. a recent shareholder register, operating agreement, or partnership deed). If an owner is another business, a document identifying the individuals who are the ultimate beneficial owners of that business is needed.No `data` field is needed. See [BUSINESS_SHAREHOLDERS_CHECK](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_shareholders_check) in the KYC requirement types guide for more details.
+    /// Documents showing who ultimately owns and controls the company (e.g. a recent shareholder register, operating agreement, or partnership deed). If an owner is another business, a document identifying the individuals who are the ultimate beneficial owners of that business is needed.No `data` field is needed.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class BusinessShareholdersCheck : IAdditionalDataHolder, IParsable

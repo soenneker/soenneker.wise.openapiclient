@@ -23,7 +23,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>The customer&apos;s 9-digit Social Security Number (including or excluding dashes).</summary>
+        /// <summary>The customer&apos;s 9-digit Social Security Number (including or excluding dashes).In sandbox, submit these values to simulate failures:- `666000002`: the SSN check can&apos;t be completed, and the customer must retry the submission.- `666000003`: the SSN doesn&apos;t match the customer&apos;s profile details.These values only trigger these scenarios in sandbox. Don&apos;t use them in production.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? SsnNumber { get => _explicitNullValueSsnNumber; set { _explicitNullValueSsnNumber = value; AdditionalData?.Remove("ssnNumber"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("ssnNumber"); else _explicitNullProperties?.Remove("ssnNumber"); } }

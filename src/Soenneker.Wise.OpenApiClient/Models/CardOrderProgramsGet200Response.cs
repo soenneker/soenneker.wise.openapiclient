@@ -19,6 +19,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             if (parseNode.GetChildNode("cardPrograms") is null) { _explicitNullValueCardPrograms = default!; _explicitNullProperties?.Remove("cardPrograms"); }
             else if (parseNode.GetChildNode("cardPrograms") is { } nullNodeCardPrograms && nullNodeCardPrograms.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) CardPrograms = null;
+            if (parseNode.GetChildNode("declineReasons") is null) { _explicitNullValueDeclineReasons = default!; _explicitNullProperties?.Remove("declineReasons"); }
+            else if (parseNode.GetChildNode("declineReasons") is { } nullNodeDeclineReasons && nullNodeDeclineReasons.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) DeclineReasons = null;
         }
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -32,6 +34,16 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public List<global::Soenneker.Wise.OpenApiClient.Models.CardOrderProgramsGet200ResponseCardProgramsItem> CardPrograms { get => _explicitNullValueCardPrograms; set { _explicitNullValueCardPrograms = value; AdditionalData?.Remove("cardPrograms"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("cardPrograms"); else _explicitNullProperties?.Remove("cardPrograms"); } }
         private List<global::Soenneker.Wise.OpenApiClient.Models.CardOrderProgramsGet200ResponseCardProgramsItem> _explicitNullValueCardPrograms = default!;
+#endif
+        /// <summary>List of reasons why no card program is available for the profile. Only returned when `cardPrograms` is empty. Currently, the list contains only one of the following reasons.- `CARD_LIMIT_REACHED`: Only applies to personal profiles. The customer has the maximum number of cards on their profile, including card orders that are in progress. To order a new card, the customer must cancel an existing card or card order.- `DAILY_DIGITAL_CARD_LIMIT_REACHED`: Only applies to personal profiles. The customer has ordered the maximum number of digital cards today, including digital card orders that are in progress. The limit resets at 00:00 UTC each day.- `LOCATION_NOT_SUPPORTED`: Cards are not available in the country of the profile address. To see the address, [retrieve the profile](/api-reference/profile/profileget). If the customer&apos;s address has changed, they can update it and try again.- `NOT_AVAILABLE`: Cards are not available for another reason, which can include risk or compliance reasons. Do not share the reason with the customer. Show a general message instead, for example: &quot;This service is not available. Contact [partner_name] for more details.&quot;Wise can add new reasons within the same API version. Treat any value that you do not recognise as `NOT_AVAILABLE`.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public List<global::Soenneker.Wise.OpenApiClient.Models.CardOrderProgramsGet200ResponseDeclineReasonsItem?>? DeclineReasons { get => _explicitNullValueDeclineReasons; set { _explicitNullValueDeclineReasons = value; AdditionalData?.Remove("declineReasons"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("declineReasons"); else _explicitNullProperties?.Remove("declineReasons"); } }
+        private List<global::Soenneker.Wise.OpenApiClient.Models.CardOrderProgramsGet200ResponseDeclineReasonsItem?>? _explicitNullValueDeclineReasons = default!;
+#nullable restore
+#else
+        public List<global::Soenneker.Wise.OpenApiClient.Models.CardOrderProgramsGet200ResponseDeclineReasonsItem?> DeclineReasons { get => _explicitNullValueDeclineReasons; set { _explicitNullValueDeclineReasons = value; AdditionalData?.Remove("declineReasons"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("declineReasons"); else _explicitNullProperties?.Remove("declineReasons"); } }
+        private List<global::Soenneker.Wise.OpenApiClient.Models.CardOrderProgramsGet200ResponseDeclineReasonsItem?> _explicitNullValueDeclineReasons = default!;
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.CardOrderProgramsGet200Response"/> and sets the default values.
@@ -59,6 +71,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "cardPrograms", n => { CardPrograms = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.CardOrderProgramsGet200ResponseCardProgramsItem>(global::Soenneker.Wise.OpenApiClient.Models.CardOrderProgramsGet200ResponseCardProgramsItem.CreateFromDiscriminatorValue)?.AsList(); } },
+                { "declineReasons", n => { DeclineReasons = n.GetCollectionOfEnumValues<global::Soenneker.Wise.OpenApiClient.Models.CardOrderProgramsGet200ResponseDeclineReasonsItem>()?.AsList(); } },
             };
         }
         /// <summary>
@@ -69,6 +82,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.CardOrderProgramsGet200ResponseCardProgramsItem>("cardPrograms", CardPrograms);
+            writer.WriteCollectionOfEnumValues<global::Soenneker.Wise.OpenApiClient.Models.CardOrderProgramsGet200ResponseDeclineReasonsItem>("declineReasons", DeclineReasons);
             if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);
         }

@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Provide contact details, including email addresses, for all current shareholders of the business. Submit all contact details in a single request; requests that omit any shareholders are rejected.See [BUSINESS_SHAREHOLDER_CONTACT_DETAILS](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_shareholder_contact_details) in the KYC requirement types guide for more details.
+    /// Provide contact details, including email addresses, for all current shareholders of the business. Submit all contact details in a single request; requests that omit any shareholders are rejected.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class BusinessShareholderContactDetails : IAdditionalDataHolder, IParsable

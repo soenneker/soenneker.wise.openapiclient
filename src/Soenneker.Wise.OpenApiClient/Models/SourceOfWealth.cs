@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Source of wealth document upload.No `data` field is needed. See [SOURCE_OF_WEALTH](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#source_of_wealth) in the KYC requirement types guide for more details.
+    /// Source of wealth document upload.No `data` field is needed.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class SourceOfWealth : IAdditionalDataHolder, IParsable

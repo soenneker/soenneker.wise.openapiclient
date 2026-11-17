@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Provide a clear copy of the ID document. The full document needs to be in frame and all information on the document needs to be visible. If the document has information on the backside, both sides are needed. Expired documents and documents issued over 15 years ago cannot be accepted.See [ID_DOCUMENT](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#id_document) in the KYC requirement types guide for more details.
+    /// Provide a clear copy of the ID document. The full document needs to be in frame and all information on the document needs to be visible. If the document has information on the backside, both sides are needed. Expired documents and documents issued over 15 years ago cannot be accepted.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class IdDocument : IAdditionalDataHolder, IParsable
@@ -26,7 +26,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Upload 1 file, or 2 files for a document with a front and back side. The file names must match `frontSideFileName` and `backSideFileName`.Accepted file types: `image/png` (`.png`), `image/jpeg` (`.jpg` or `.jpeg`) and `application/pdf` (`.pdf`). The content type must match the file extension.```json {% title=&quot;Example&quot; %}[&quot;front_side.jpg&quot;, &quot;back_side.jpg&quot;]```</summary>
+        /// <summary>Upload 1 file, or 2 files for a document with a front and back side. The file names must match `frontSideFileName` and `backSideFileName`.Accepted file types: `image/png` (`.png`), `image/jpeg` (`.jpg` or `.jpeg`) and `application/pdf` (`.pdf`). The content type must match the file extension.```json {% title=&quot;Example&quot; %}[&quot;front_side.jpg&quot;, &quot;back_side.jpg&quot;]```{% admonition type=&quot;warning&quot; name=&quot;File names must match&quot; %}File names in `submissionData` must exactly match the names of the uploaded files, including case. Use lowercase file extensions: `.png`, `.jpg`, `.jpeg` or `.pdf`.{% /admonition %}</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<byte[]>? Files { get => _explicitNullValueFiles; set { _explicitNullValueFiles = value; AdditionalData?.Remove("files"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("files"); else _explicitNullProperties?.Remove("files"); } }

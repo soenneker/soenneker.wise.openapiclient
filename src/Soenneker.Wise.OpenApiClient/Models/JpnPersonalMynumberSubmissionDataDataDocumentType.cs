@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
-    /// <summary>The type of My Number document being submitted.</summary>
+    /// <summary>The type of My Number document being submitted.- `MY_NUMBER_CARD`: My Number card.- `MY_NUMBER_NOTIFICATION_CARD`: My Number notification card. It has no photo, so it&apos;s only accepted as a My Number document, not as an ID document.- `RESIDENCE_CERTIFICATE`: Residence Certificate (Juminhyo). Must be issued within the last 6 months and show the customer&apos;s My Number (個人番号).</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public enum JpnPersonalMynumberSubmissionDataDataDocumentType
     {

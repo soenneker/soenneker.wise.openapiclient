@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Country codes where the business intends to send money. If unsure, select the country codes that correspond with the target currencies.See [USE_CASE_COUNTRIES](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#use_case_countries) in the KYC requirement types guide for more details.
+    /// Country codes where the business intends to send money. If unsure, select the country codes that correspond with the target currencies.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class UseCaseCountries : IAdditionalDataHolder, IParsable

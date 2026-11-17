@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// A legal entity shareholder is another business or organisation that directly or indirectly owns part or all of the business being onboarded. Provide the name, registered country and ownership percentage of every legal entity shareholder that owns 25% or more, directly or indirectly. Do not include individual shareholders or the business being onboarded. If there are no qualifying legal entity shareholders, submit an empty list.See [LEGAL_ENTITY_SHAREHOLDER](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#legal_entity_shareholder) in the KYC requirement types guide for more details.
+    /// A legal entity shareholder is another business or organisation that directly or indirectly owns part or all of the business being onboarded. Provide the name, registered country and ownership percentage of every legal entity shareholder that owns 25% or more, directly or indirectly. Do not include individual shareholders or the business being onboarded. If there are no qualifying legal entity shareholders, submit an empty list.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class LegalEntityShareholder : IAdditionalDataHolder, IParsable

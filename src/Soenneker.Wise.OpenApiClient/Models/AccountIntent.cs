@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// How the customer intends to use their Wise account.See [ACCOUNT_INTENT](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#account_intent) in the KYC requirement types guide for more details.
+    /// How the customer intends to use their Wise account.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class AccountIntent : IAdditionalDataHolder, IParsable

@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// The purpose of the account.See [ACCOUNT_PURPOSE](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#account_purpose) in the KYC requirement types guide for more details.
+    /// The purpose of the account.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class AccountPurpose : IAdditionalDataHolder, IParsable

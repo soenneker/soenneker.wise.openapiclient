@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Declare exactly one shareholder as the person who controls the business and provide their business title.See [BUSINESS_CONTROLLING_PERSON](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_controlling_person) in the KYC requirement types guide for more details.
+    /// Declare exactly one shareholder as the person who controls the business and provide their business title.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class BusinessControllingPerson : IAdditionalDataHolder, IParsable

@@ -5675,6 +5675,30 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/CardOrderProgramsGet200Response"
+                },
+                "examples": {
+                  "cardProgramsAvailable": {
+                    "summary": "Card programs are available",
+                    "value": {
+                      "cardPrograms": [
+                        {
+                          "name": "VISA_DEBIT_BUSINESS_UK_1_CARDS_API",
+                          "scheme": "VISA",
+                          "defaultCurrency": "GBP",
+                          "cardType": "VIRTUAL_NON_UPGRADEABLE"
+                        }
+                      ]
+                    }
+                  },
+                  "noCardProgramsAvailable": {
+                    "summary": "No card programs are available",
+                    "value": {
+                      "cardPrograms": [],
+                      "declineReasons": [
+                        "CARD_LIMIT_REACHED"
+                      ]
+                    }
+                  }
                 }
               }
             }
@@ -9822,7 +9846,7 @@
           "kyc-review"
         ],
         "summary": "Submit a KYC Requirement",
-        "description": "Submit a KYC requirement for a KYC Review.\n\n- A KYC requirement can only be submitted if the KYC Review status is \u0060WAITING_CUSTOMER_INPUT\u0060 or \u0060PASSED_WITH_REQUIREMENTS\u0060.\n- A KYC requirement should only be submitted if its \u0060state\u0060 is \u0060NOT_PROVIDED\u0060 and \u0060apiCollectionSupported\u0060 is \u0060true\u0060.\n\nFile names in \u0060submissionData\u0060 (such as \u0060frontSideFileName\u0060) must exactly match the names of the uploaded files, including case. Use lowercase file extensions: \u0060.png\u0060, \u0060.jpg\u0060, \u0060.jpeg\u0060 or \u0060.pdf\u0060.\n\nThe structure of \u0060submissionData\u0060 depends on the \u0060requirementKey\u0060. If you already know which requirement type you are implementing, select it in the request body to see its fields and a matching request sample.\n\nTo explore which requirement types exist and what each one collects, see the [KYC requirement types](/guides/product/account-setup/customer-onboarding/kyc-requirement-types) guide for the full list of supported requirement types, submission data structures, and accepted values.\n",
+        "description": "Submit a KYC requirement for a KYC Review. To find out which requirements you can submit, and for an overview of all requirement types, see the [KYC requirement types](/guides/product/account-setup/customer-onboarding/kyc-requirement-types) guide.\n\nThe structure of the request body depends on the \u0060requirementKey\u0060. If you already know which requirement type you are implementing, select it in the request body to see its fields and a matching request sample.\n",
         "operationId": "KycReviewRequirementSubmit",
         "parameters": [
           {
@@ -9838,7 +9862,7 @@
           {
             "name": "requirementKey",
             "in": "path",
-            "description": "The KYC requirement type to submit.\n\nTo see the fields for a requirement type, select it in the request body dropdown below. To compare all requirement types, see the [KYC requirement types](/guides/product/account-setup/customer-onboarding/kyc-requirement-types) guide.\n",
+            "description": "The KYC requirement type to submit.\n\nTo see the fields for a requirement type, select it in the request body dropdown below. For an overview of all requirement types, see the [KYC requirement types](/guides/product/account-setup/customer-onboarding/kyc-requirement-types) guide.\n",
             "required": true,
             "schema": {
               "$ref": "#/components/schemas/KycReviewRequirementSubmitRequirementKeyParameter"
@@ -32405,6 +32429,39 @@
         }
       },
       "KycRequirement": {
+        "examples": [
+          {
+            "key": "ID_DOCUMENT",
+            "state": "IN_REVIEW",
+            "apiCollectionSupported": true,
+            "additionalRequirements": [
+              {
+                "additionalRequirementId": "8b789c45-60ae-475d-b667-c8714db9a6a4",
+                "apiCollectionSupported": true,
+                "key": "DOCUMENT_OR_WRITTEN_ANSWER",
+                "state": "NOT_PROVIDED",
+                "reasons": [
+                  {
+                    "errorCode": "CUSTOM_QUESTION",
+                    "description": "Please explain why the name on your ID document is different from the name on your account.",
+                    "dateTime": "2026-04-13T10:54:21.929314"
+                  }
+                ],
+                "attributes": {
+                  "fields": {
+                    "markdownText": "Please explain why the name on your ID document is different from the name on your account."
+                  }
+                }
+              }
+            ],
+            "versions": [
+              {
+                "version": "V1",
+                "validUntil": "2026-06-30"
+              }
+            ]
+          }
+        ],
         "title": "KYC Requirement",
         "type": "object",
         "properties": {
@@ -32439,7 +32496,7 @@
             "description": "**Conditional:** Only present when \u0060apiCollectionSupported\u0060 is \u0060true\u0060. Lists the available versions and their validity.\n"
           },
           "attributes": {
-            "$ref": "#/components/schemas/KycRequirementAttributesProperty"
+            "$ref": "#/components/schemas/KycRequirementAttributes"
           }
         },
         "description": "An object returned as part of the [KYC Review](/api-reference/kyc-review/kyc-review) object, which includes information about a required evidence, its state, and any additional information that might be required.",
@@ -32605,7 +32662,7 @@
             "$ref": "#/components/schemas/AccountIntentSubmissionData"
           }
         },
-        "description": "How the customer intends to use their Wise account.\n\nSee [ACCOUNT_INTENT](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#account_intent) in the KYC requirement types guide for more details.\n"
+        "description": "How the customer intends to use their Wise account.\n"
       },
       "AccountPurpose": {
         "title": "ACCOUNT_PURPOSE",
@@ -32618,7 +32675,7 @@
             "$ref": "#/components/schemas/AccountPurposeSubmissionData"
           }
         },
-        "description": "The purpose of the account.\n\nSee [ACCOUNT_PURPOSE](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#account_purpose) in the KYC requirement types guide for more details.\n"
+        "description": "The purpose of the account.\n"
       },
       "AnnualVolume": {
         "title": "ANNUAL_VOLUME",
@@ -32631,7 +32688,7 @@
             "$ref": "#/components/schemas/AnnualVolumeSubmissionData"
           }
         },
-        "description": "A rough estimate of the yearly volume the customer intends to send or receive.\n\nSee [ANNUAL_VOLUME](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#annual_volume) in the KYC requirement types guide for more details.\n"
+        "description": "A rough estimate of the yearly volume the customer intends to send or receive.\n"
       },
       "BusinessAnnualIncome": {
         "title": "BUSINESS_ANNUAL_INCOME",
@@ -32644,7 +32701,7 @@
             "$ref": "#/components/schemas/BusinessAnnualIncomeSubmissionData"
           }
         },
-        "description": "The organisation\u0027s approximate gross yearly income.\n\nSee [BUSINESS_ANNUAL_INCOME](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_annual_income) in the KYC requirement types guide for more details.\n"
+        "description": "The organisation\u0027s approximate gross yearly income.\n"
       },
       "BusinessAuthorisationId": {
         "title": "BUSINESS_AUTHORISATION_ID",
@@ -32669,10 +32726,10 @@
               "type": "string",
               "format": "binary"
             },
-            "description": "Upload the identification document. If you upload more than one file, set \u0060data.frontSideFilename\u0060 to the name of the front side file.\n\nAccepted file types: \u0060image/png\u0060 (\u0060.png\u0060), \u0060image/jpeg\u0060 (\u0060.jpg\u0060 or \u0060.jpeg\u0060) and \u0060application/pdf\u0060 (\u0060.pdf\u0060). The content type must match the file extension.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n[\u0022document.pdf\u0022]\n\u0060\u0060\u0060\n"
+            "description": "Upload the identification document. If you upload more than one file, set \u0060data.frontSideFilename\u0060 to the name of the front side file.\n\nAccepted file types: \u0060image/png\u0060 (\u0060.png\u0060), \u0060image/jpeg\u0060 (\u0060.jpg\u0060 or \u0060.jpeg\u0060) and \u0060application/pdf\u0060 (\u0060.pdf\u0060). The content type must match the file extension.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n[\u0022document.pdf\u0022]\n\u0060\u0060\u0060\n\n{% admonition type=\u0022warning\u0022 name=\u0022File names must match\u0022 %}\nFile names in \u0060submissionData\u0060 must exactly match the names of the uploaded files, including case. Use lowercase file extensions: \u0060.png\u0060, \u0060.jpg\u0060, \u0060.jpeg\u0060 or \u0060.pdf\u0060.\n{% /admonition %}\n"
           }
         },
-        "description": "The identification document of one company Director. This document is required to verify authorisation to act on the account on behalf of the organisation. It is only asked for if the Business Representative (the account creator) is not listed as a Director of the company.\n\nA \u0060data\u0060 field is only needed if you upload more than one file. See [BUSINESS_AUTHORISATION_ID](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_authorisation_id) in the KYC requirement types guide for more details.\n"
+        "description": "The identification document of one company Director. This document is required to verify authorisation to act on the account on behalf of the organisation. It is only asked for if the Business Representative (the account creator) is not listed as a Director of the company.\n\nA \u0060data\u0060 field is only needed if you upload more than one file.\n"
       },
       "BusinessAuthorisationLetter": {
         "title": "BUSINESS_AUTHORISATION_LETTER",
@@ -32700,7 +32757,7 @@
             "description": "Upload the authorisation letter.\n\nAccepted file types: \u0060image/png\u0060 (\u0060.png\u0060), \u0060image/jpeg\u0060 (\u0060.jpg\u0060 or \u0060.jpeg\u0060) and \u0060application/pdf\u0060 (\u0060.pdf\u0060). The content type must match the file extension.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n[\u0022document.pdf\u0022]\n\u0060\u0060\u0060\n"
           }
         },
-        "description": "A document authorising the Business Representative to act on the account on behalf of the organisation. When the Business Representative is also a Director, they are automatically authorised and this document is not needed.\n\nThe document must include:\n- Business name, legal type, registration number, country of incorporation and registered address.\n- Legal Representative\u0027s (the Director) name, date of birth, function in the company (such as Director), permission to act on behalf of the organisation and signature.\n- Authorised Representative\u0027s (the Business Representative) name, date of birth, authority to act on the account and signature.\n- Date of issue.\n\nNo \u0060data\u0060 field is needed. See [BUSINESS_AUTHORISATION_LETTER](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_authorisation_letter) in the KYC requirement types guide for more details.\n"
+        "description": "A document authorising the Business Representative to act on the account on behalf of the organisation. When the Business Representative is also a Director, they are automatically authorised and this document is not needed.\n\nThe document must include:\n- Business name, legal type, registration number, country of incorporation and registered address.\n- Legal Representative\u0027s (the Director) name, date of birth, function in the company (such as Director), permission to act on behalf of the organisation and signature.\n- Authorised Representative\u0027s (the Business Representative) name, date of birth, authority to act on the account and signature.\n- Date of issue.\n\nNo \u0060data\u0060 field is needed.\n"
       },
       "BusinessControllingPerson": {
         "title": "BUSINESS_CONTROLLING_PERSON",
@@ -32713,7 +32770,7 @@
             "$ref": "#/components/schemas/BusinessControllingPersonSubmissionData"
           }
         },
-        "description": "Declare exactly one shareholder as the person who controls the business and provide their business title.\n\nSee [BUSINESS_CONTROLLING_PERSON](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_controlling_person) in the KYC requirement types guide for more details.\n"
+        "description": "Declare exactly one shareholder as the person who controls the business and provide their business title.\n"
       },
       "BusinessDirectorsCheck": {
         "title": "BUSINESS_DIRECTORS_CHECK",
@@ -32741,7 +32798,7 @@
             "description": "Upload the relevant documents.\n\nAccepted file types: \u0060image/png\u0060 (\u0060.png\u0060), \u0060image/jpeg\u0060 (\u0060.jpg\u0060 or \u0060.jpeg\u0060) and \u0060application/pdf\u0060 (\u0060.pdf\u0060). The content type must match the file extension.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n[\u0022document.pdf\u0022]\n\u0060\u0060\u0060\n"
           }
         },
-        "description": "Confirm the directors of the business. Directors can be members of the board of directors, general partners or part of executive management. If a director is another business, a document identifying the individuals directing that business is needed.\n\nNo \u0060data\u0060 field is needed. See [BUSINESS_DIRECTORS_CHECK](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_directors_check) in the KYC requirement types guide for more details.\n"
+        "description": "Confirm the directors of the business. Directors can be members of the board of directors, general partners or part of executive management. If a director is another business, a document identifying the individuals directing that business is needed.\n\nNo \u0060data\u0060 field is needed.\n"
       },
       "BusinessIncomeClassification": {
         "title": "BUSINESS_INCOME_CLASSIFICATION",
@@ -32754,7 +32811,7 @@
             "$ref": "#/components/schemas/BusinessIncomeClassificationSubmissionData"
           }
         },
-        "description": "Under the Common Reporting Standard (CRS), we are required to collect your business\u0027s tax classification based on how it earns income. Depending on your selection, we may need to ask for additional information (such as tax details on controlling persons).\n\nSee [BUSINESS_INCOME_CLASSIFICATION](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_income_classification) in the KYC requirement types guide for more details.\n"
+        "description": "Under the Common Reporting Standard (CRS), we are required to collect your business\u0027s tax classification based on how it earns income. Depending on your selection, we may need to ask for additional information (such as tax details on controlling persons).\n"
       },
       "BusinessMonthlyVolume": {
         "title": "BUSINESS_MONTHLY_VOLUME",
@@ -32767,7 +32824,7 @@
             "$ref": "#/components/schemas/BusinessMonthlyVolumeSubmissionData"
           }
         },
-        "description": "A rough estimate of the monthly volumes the business intends to send or receive.\n\nSee [BUSINESS_MONTHLY_VOLUME](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_monthly_volume) in the KYC requirement types guide for more details.\n"
+        "description": "A rough estimate of the monthly volumes the business intends to send or receive.\n"
       },
       "BusinessRegistrationDocs": {
         "title": "BUSINESS_REGISTRATION_DOCS",
@@ -32795,7 +32852,7 @@
             "description": "Upload the registration documents.\n\nAccepted file types: \u0060image/png\u0060 (\u0060.png\u0060), \u0060image/jpeg\u0060 (\u0060.jpg\u0060 or \u0060.jpeg\u0060) and \u0060application/pdf\u0060 (\u0060.pdf\u0060). The content type must match the file extension.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n[\u0022document.pdf\u0022]\n\u0060\u0060\u0060\n"
           }
         },
-        "description": "Proof of Business Registration, such as a certificate of incorporation, articles of association, or an official registry excerpt. It should be the document on record with the local business or tax authority. It must show:\n- The business name, identification number and full registered address.\n- The directors, managers, partners, trustees or members of the executive board.\n- The owners, members or shareholders and their respective holdings.\n\nIf any of the above information has changed since formation, upload a document showing the most up to date details.\n\nNo \u0060data\u0060 field is needed. See [BUSINESS_REGISTRATION_DOCS](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_registration_docs) in the KYC requirement types guide for more details.\n"
+        "description": "Proof of Business Registration, such as a certificate of incorporation, articles of association, or an official registry excerpt. It should be the document on record with the local business or tax authority. It must show:\n- The business name, identification number and full registered address.\n- The directors, managers, partners, trustees or members of the executive board.\n- The owners, members or shareholders and their respective holdings.\n\nIf any of the above information has changed since formation, upload a document showing the most up to date details.\n\nNo \u0060data\u0060 field is needed.\n"
       },
       "BusinessShareholderContactDetails": {
         "title": "BUSINESS_SHAREHOLDER_CONTACT_DETAILS",
@@ -32808,7 +32865,7 @@
             "$ref": "#/components/schemas/BusinessShareholderContactDetailsSubmissionData"
           }
         },
-        "description": "Provide contact details, including email addresses, for all current shareholders of the business. Submit all contact details in a single request; requests that omit any shareholders are rejected.\n\nSee [BUSINESS_SHAREHOLDER_CONTACT_DETAILS](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_shareholder_contact_details) in the KYC requirement types guide for more details.\n"
+        "description": "Provide contact details, including email addresses, for all current shareholders of the business. Submit all contact details in a single request; requests that omit any shareholders are rejected.\n"
       },
       "BusinessShareholdersCheck": {
         "title": "BUSINESS_SHAREHOLDERS_CHECK",
@@ -32836,7 +32893,7 @@
             "description": "Upload the relevant documents.\n\nAccepted file types: \u0060image/png\u0060 (\u0060.png\u0060), \u0060image/jpeg\u0060 (\u0060.jpg\u0060 or \u0060.jpeg\u0060) and \u0060application/pdf\u0060 (\u0060.pdf\u0060). The content type must match the file extension.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n[\u0022document.pdf\u0022]\n\u0060\u0060\u0060\n"
           }
         },
-        "description": "Documents showing who ultimately owns and controls the company (e.g. a recent shareholder register, operating agreement, or partnership deed). If an owner is another business, a document identifying the individuals who are the ultimate beneficial owners of that business is needed.\n\nNo \u0060data\u0060 field is needed. See [BUSINESS_SHAREHOLDERS_CHECK](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_shareholders_check) in the KYC requirement types guide for more details.\n"
+        "description": "Documents showing who ultimately owns and controls the company (e.g. a recent shareholder register, operating agreement, or partnership deed). If an owner is another business, a document identifying the individuals who are the ultimate beneficial owners of that business is needed.\n\nNo \u0060data\u0060 field is needed.\n"
       },
       "BusinessSourceOfWealth": {
         "title": "BUSINESS_SOURCE_OF_WEALTH",
@@ -32849,7 +32906,7 @@
             "$ref": "#/components/schemas/BusinessSourceOfWealthSubmissionData"
           }
         },
-        "description": "The source of the business\u0027s wealth.\n\nSee [BUSINESS_SOURCE_OF_WEALTH](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_source_of_wealth) in the KYC requirement types guide for more details.\n"
+        "description": "The source of the business\u0027s wealth.\n"
       },
       "BusinessSourceOfWealthInfo": {
         "title": "BUSINESS_SOURCE_OF_WEALTH_INFO",
@@ -32862,7 +32919,7 @@
             "$ref": "#/components/schemas/BusinessSourceOfWealthInfoSubmissionData"
           }
         },
-        "description": "The source of the business\u0027s wealth and whether it is used to fund the action.\n\nSee [BUSINESS_SOURCE_OF_WEALTH_INFO](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_source_of_wealth_info) in the KYC requirement types guide for more details.\n"
+        "description": "The source of the business\u0027s wealth and whether it is used to fund the action.\n"
       },
       "BusinessSourceOfWealthProof": {
         "title": "BUSINESS_SOURCE_OF_WEALTH_PROOF",
@@ -32890,7 +32947,7 @@
             "description": "Upload the proof document.\n\nAccepted file types: \u0060image/png\u0060 (\u0060.png\u0060), \u0060image/jpeg\u0060 (\u0060.jpg\u0060 or \u0060.jpeg\u0060) and \u0060application/pdf\u0060 (\u0060.pdf\u0060). The content type must match the file extension.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n[\u0022document.pdf\u0022]\n\u0060\u0060\u0060\n"
           }
         },
-        "description": "A high-quality photo or PDF of a document proving the source of the business\u0027s wealth. The required documentation varies depending on the selected source category. Examples include the most recent 3-6 months worth of bank statements, latest audited financials, latest tax returns, loan agreements, or investment contracts that are less than 12 months old. The document should display the business income amount (if you have more than one type of income, you will have to upload documents for each of them), the business name, the issue date and signatures, if applicable.\n\nSee [BUSINESS_SOURCE_OF_WEALTH_PROOF](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_source_of_wealth_proof) in the KYC requirement types guide for more details.\n"
+        "description": "A high-quality photo or PDF of a document proving the source of the business\u0027s wealth. The required documentation varies depending on the selected source category. Examples include the most recent 3-6 months worth of bank statements, latest audited financials, latest tax returns, loan agreements, or investment contracts that are less than 12 months old. The document should display the business income amount (if you have more than one type of income, you will have to upload documents for each of them), the business name, the issue date and signatures, if applicable.\n"
       },
       "BusinessUltimateBeneficialOwnerId": {
         "title": "BUSINESS_ULTIMATE_BENEFICIAL_OWNER_ID",
@@ -32902,7 +32959,7 @@
             "$ref": "#/components/schemas/BusinessUltimateBeneficialOwnerIdSsn"
           }
         ],
-        "description": "The Ultimate Beneficial Owner (UBO) ID document should be submitted for all UBOs that have more than 25% share. While this requirement is \u0060NOT_PROVIDED\u0060, its \u0060attributes.requiredUbos\u0060 lists the shareholder IDs that still need an ID document.\n\nProvide a clear copy of the ID document. The full document needs to be in frame and all information on the document needs to be visible. If the document has information on the backside, both sides are needed. Expired documents and documents issued over 15 years ago cannot be accepted.\n\nWhen \u0060data.documentType\u0060 is \u0060SSN\u0060, set \u0060data.ssn\u0060 instead of the file names and don\u0027t upload files.\n\nSee [BUSINESS_ULTIMATE_BENEFICIAL_OWNER_ID](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_ultimate_beneficial_owner_id) in the KYC requirement types guide for more details.\n"
+        "description": "The Ultimate Beneficial Owner (UBO) ID document should be submitted for all UBOs that have more than 25% share. Submit one request for each UBO, with \u0060shareholderId\u0060 set to the UBO\u0027s ID. While this requirement is \u0060NOT_PROVIDED\u0060, its \u0060attributes.requiredUbos\u0060 lists the shareholder IDs that still need an ID document. See the [KYC Requirement](/api-reference/kyc-review/kyc-requirement) object.\n\nProvide a clear copy of the ID document. The full document needs to be in frame and all information on the document needs to be visible. If the document has information on the backside, both sides are needed. Expired documents and documents issued over 15 years ago cannot be accepted.\n\nWhen \u0060data.documentType\u0060 is \u0060SSN\u0060, set \u0060data.ssn\u0060 instead of the file names and don\u0027t upload files.\n"
       },
       "BusinessUseCase": {
         "title": "BUSINESS_USE_CASE",
@@ -32915,7 +32972,7 @@
             "$ref": "#/components/schemas/BusinessUseCaseSubmissionData"
           }
         },
-        "description": "How the business intends to use the Wise account.\n\nSee [BUSINESS_USE_CASE](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_use_case) in the KYC requirement types guide for more details.\n"
+        "description": "How the business intends to use the Wise account.\n"
       },
       "IdDocument": {
         "title": "ID_DOCUMENT",
@@ -32942,10 +32999,10 @@
               "type": "string",
               "format": "binary"
             },
-            "description": "Upload 1 file, or 2 files for a document with a front and back side. The file names must match \u0060frontSideFileName\u0060 and \u0060backSideFileName\u0060.\n\nAccepted file types: \u0060image/png\u0060 (\u0060.png\u0060), \u0060image/jpeg\u0060 (\u0060.jpg\u0060 or \u0060.jpeg\u0060) and \u0060application/pdf\u0060 (\u0060.pdf\u0060). The content type must match the file extension.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n[\u0022front_side.jpg\u0022, \u0022back_side.jpg\u0022]\n\u0060\u0060\u0060\n"
+            "description": "Upload 1 file, or 2 files for a document with a front and back side. The file names must match \u0060frontSideFileName\u0060 and \u0060backSideFileName\u0060.\n\nAccepted file types: \u0060image/png\u0060 (\u0060.png\u0060), \u0060image/jpeg\u0060 (\u0060.jpg\u0060 or \u0060.jpeg\u0060) and \u0060application/pdf\u0060 (\u0060.pdf\u0060). The content type must match the file extension.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n[\u0022front_side.jpg\u0022, \u0022back_side.jpg\u0022]\n\u0060\u0060\u0060\n\n{% admonition type=\u0022warning\u0022 name=\u0022File names must match\u0022 %}\nFile names in \u0060submissionData\u0060 must exactly match the names of the uploaded files, including case. Use lowercase file extensions: \u0060.png\u0060, \u0060.jpg\u0060, \u0060.jpeg\u0060 or \u0060.pdf\u0060.\n{% /admonition %}\n"
           }
         },
-        "description": "Provide a clear copy of the ID document. The full document needs to be in frame and all information on the document needs to be visible. If the document has information on the backside, both sides are needed. Expired documents and documents issued over 15 years ago cannot be accepted.\n\nSee [ID_DOCUMENT](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#id_document) in the KYC requirement types guide for more details.\n"
+        "description": "Provide a clear copy of the ID document. The full document needs to be in frame and all information on the document needs to be visible. If the document has information on the backside, both sides are needed. Expired documents and documents issued over 15 years ago cannot be accepted.\n"
       },
       "Income": {
         "title": "INCOME",
@@ -32958,7 +33015,7 @@
             "$ref": "#/components/schemas/IncomeSubmissionData"
           }
         },
-        "description": "Approximate gross yearly income.\n\nSee [INCOME](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#income) in the KYC requirement types guide for more details.\n"
+        "description": "Approximate gross yearly income.\n"
       },
       "IndiaTransferPurpose": {
         "title": "INDIA_TRANSFER_PURPOSE",
@@ -32985,10 +33042,10 @@
               "type": "string",
               "format": "binary"
             },
-            "description": "Upload the supporting documents, with file names matching the \u0060*FileName\u0060 fields.\n\nAccepted file types: \u0060image/png\u0060 (\u0060.png\u0060), \u0060image/jpeg\u0060 (\u0060.jpg\u0060 or \u0060.jpeg\u0060) and \u0060application/pdf\u0060 (\u0060.pdf\u0060). The content type must match the file extension.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n[\u0022file1.png\u0022, \u0022file2.png\u0022, \u0022file3.png\u0022]\n\u0060\u0060\u0060\n"
+            "description": "Upload the supporting documents, with file names matching the \u0060*FileName\u0060 fields.\n\nAccepted file types: \u0060image/png\u0060 (\u0060.png\u0060), \u0060image/jpeg\u0060 (\u0060.jpg\u0060 or \u0060.jpeg\u0060) and \u0060application/pdf\u0060 (\u0060.pdf\u0060). The content type must match the file extension.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n[\u0022file1.png\u0022, \u0022file2.png\u0022, \u0022file3.png\u0022]\n\u0060\u0060\u0060\n\n{% admonition type=\u0022warning\u0022 name=\u0022File names must match\u0022 %}\nFile names in \u0060submissionData\u0060 must exactly match the names of the uploaded files, including case. Use lowercase file extensions: \u0060.png\u0060, \u0060.jpg\u0060, \u0060.jpeg\u0060 or \u0060.pdf\u0060.\n{% /admonition %}\n"
           }
         },
-        "description": "The code representing the purpose of the profile\u0027s transfer, along with supporting documents based on the code provided. This only appears for transfers from INR to one of GBP, USD, EUR, AUD, CAD, SGD.\n\nSee [INDIA_TRANSFER_PURPOSE](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#india_transfer_purpose) in the KYC requirement types guide for more details.\n"
+        "description": "The code representing the purpose of the profile\u0027s transfer, along with supporting documents based on the code provided. This only appears for transfers from INR to one of GBP, USD, EUR, AUD, CAD, SGD.\n"
       },
       "JpnBusinessCert": {
         "title": "JPN_BUSINESS_CERT",
@@ -33016,7 +33073,7 @@
             "description": "Upload the business document.\n\nAccepted file types: \u0060image/png\u0060 (\u0060.png\u0060), \u0060image/jpeg\u0060 (\u0060.jpg\u0060 or \u0060.jpeg\u0060) and \u0060application/pdf\u0060 (\u0060.pdf\u0060). The content type must match the file extension.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n[\u0022document.pdf\u0022]\n\u0060\u0060\u0060\n"
           }
         },
-        "description": "Certificate of Registered Matters for the business. Required for corporations only in Japan. The document verifies: business name, registered address, registration date, business activities, directors, and must be issued within 6 months.\n\nNo \u0060data\u0060 field is needed. See [JPN_BUSINESS_CERT](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#jpn_business_cert) in the KYC requirement types guide for more details.\n"
+        "description": "Certificate of Registered Matters for the business. Required for corporations only in Japan. The document verifies: business name, registered address, registration date, business activities, directors, and must be issued within 6 months.\n\nNo \u0060data\u0060 field is needed.\n"
       },
       "JpnPersonalMynumber": {
         "title": "JPN_PERSONAL_MYNUMBER",
@@ -33042,10 +33099,10 @@
               "type": "string",
               "format": "binary"
             },
-            "description": "The required number of files depends on \u0060documentType\u0060:\n\n| Document type | File requirements |\n|---|---|\n| \u0060MY_NUMBER_CARD\u0060 | 2 files (front and back) |\n| \u0060MY_NUMBER_NOTIFICATION_CARD\u0060 | 2 files (front and back) |\n| \u0060RESIDENCE_CERTIFICATE\u0060 | 1 or more files (all pages) |\n\nAccepted file types: \u0060image/png\u0060 (\u0060.png\u0060), \u0060image/jpeg\u0060 (\u0060.jpg\u0060 or \u0060.jpeg\u0060) and \u0060application/pdf\u0060 (\u0060.pdf\u0060). The content type must match the file extension.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n[\u0022front.jpg\u0022, \u0022back.jpg\u0022]\n\u0060\u0060\u0060\n"
+            "description": "The required number of files depends on \u0060documentType\u0060:\n\n| Document type | File requirements |\n|---|---|\n| \u0060MY_NUMBER_CARD\u0060 | 2 files (front and back) |\n| \u0060MY_NUMBER_NOTIFICATION_CARD\u0060 | 2 files (front and back) |\n| \u0060RESIDENCE_CERTIFICATE\u0060 | 1 or more files (all pages) |\n\nAccepted file types: \u0060image/png\u0060 (\u0060.png\u0060), \u0060image/jpeg\u0060 (\u0060.jpg\u0060 or \u0060.jpeg\u0060) and \u0060application/pdf\u0060 (\u0060.pdf\u0060). The content type must match the file extension.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n[\u0022front.jpg\u0022, \u0022back.jpg\u0022]\n\u0060\u0060\u0060\n\n{% admonition type=\u0022warning\u0022 name=\u0022File names must match\u0022 %}\nFile names in \u0060submissionData\u0060 must exactly match the names of the uploaded files, including case. Use lowercase file extensions: \u0060.png\u0060, \u0060.jpg\u0060, \u0060.jpeg\u0060 or \u0060.pdf\u0060.\n{% /admonition %}\n"
           }
         },
-        "description": "Proof of My Number for the customer. My Number is a 12-digit ID number issued to all Japan citizens and residents, including resident foreigners living in Japan for over 90 days. All the information (name, DOB, address) on a My Number document has to match the information on the profile and on the ID document.\n\nSee [JPN_PERSONAL_MYNUMBER](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#jpn_personal_mynumber) in the KYC requirement types guide for more details.\n"
+        "description": "Proof of My Number for the customer. My Number is a 12-digit ID number issued to all Japanese citizens and residents, including foreign residents who have lived in Japan for more than 90 days.\n\nThe name, date of birth and address on the My Number document must match the information on the profile and on the customer\u0027s ID document.\n"
       },
       "LegalEntityShareholder": {
         "title": "LEGAL_ENTITY_SHAREHOLDER",
@@ -33058,7 +33115,7 @@
             "$ref": "#/components/schemas/LegalEntityShareholderSubmissionData"
           }
         },
-        "description": "A legal entity shareholder is another business or organisation that directly or indirectly owns part or all of the business being onboarded. Provide the name, registered country and ownership percentage of every legal entity shareholder that owns 25% or more, directly or indirectly. Do not include individual shareholders or the business being onboarded. If there are no qualifying legal entity shareholders, submit an empty list.\n\nSee [LEGAL_ENTITY_SHAREHOLDER](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#legal_entity_shareholder) in the KYC requirement types guide for more details.\n"
+        "description": "A legal entity shareholder is another business or organisation that directly or indirectly owns part or all of the business being onboarded. Provide the name, registered country and ownership percentage of every legal entity shareholder that owns 25% or more, directly or indirectly. Do not include individual shareholders or the business being onboarded. If there are no qualifying legal entity shareholders, submit an empty list.\n"
       },
       "ProofOfTradingAddress": {
         "title": "PROOF_OF_TRADING_ADDRESS",
@@ -33086,7 +33143,7 @@
             "description": "Upload the proof document.\n\nAccepted file types: \u0060image/png\u0060 (\u0060.png\u0060), \u0060image/jpeg\u0060 (\u0060.jpg\u0060 or \u0060.jpeg\u0060) and \u0060application/pdf\u0060 (\u0060.pdf\u0060). The content type must match the file extension.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n[\u0022document.pdf\u0022]\n\u0060\u0060\u0060\n"
           }
         },
-        "description": "High-quality image or PDF of a document verifying the physical location of the business operations. The document must clearly display the business name (or owner\u0027s name), the full trading address, an issue date, and the issuer\u0027s identity (e.g. bank or utility logo). Utility bills and bank statements must be less than 3 months old. Other documents (like tax bills, insurance policies, or licences) must be less than 12 months old.\n\nSee [PROOF_OF_TRADING_ADDRESS](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#proof_of_trading_address) in the KYC requirement types guide for more details.\n"
+        "description": "High-quality image or PDF of a document verifying the physical location of the business operations. The document must clearly display the business name (or owner\u0027s name), the full trading address, an issue date, and the issuer\u0027s identity (e.g. bank or utility logo). Utility bills and bank statements must be less than 3 months old. Other documents (like tax bills, insurance policies, or licences) must be less than 12 months old.\n"
       },
       "SourceOfFunds": {
         "title": "SOURCE_OF_FUNDS",
@@ -33099,7 +33156,7 @@
             "$ref": "#/components/schemas/SourceOfFundsSubmissionData"
           }
         },
-        "description": "The origin category of the money used to finance a specific transaction or operation.\n\nSee [SOURCE_OF_FUNDS](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#source_of_funds) in the KYC requirement types guide for more details.\n"
+        "description": "The origin category of the money used to finance a specific transaction or operation.\n"
       },
       "SourceOfWealth": {
         "title": "SOURCE_OF_WEALTH",
@@ -33127,7 +33184,7 @@
             "description": "Upload the source of wealth document.\n\nAccepted file types: \u0060image/png\u0060 (\u0060.png\u0060), \u0060image/jpeg\u0060 (\u0060.jpg\u0060 or \u0060.jpeg\u0060) and \u0060application/pdf\u0060 (\u0060.pdf\u0060). The content type must match the file extension.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n[\u0022document.pdf\u0022]\n\u0060\u0060\u0060\n"
           }
         },
-        "description": "Source of wealth document upload.\n\nNo \u0060data\u0060 field is needed. See [SOURCE_OF_WEALTH](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#source_of_wealth) in the KYC requirement types guide for more details.\n"
+        "description": "Source of wealth document upload.\n\nNo \u0060data\u0060 field is needed.\n"
       },
       "SourceOfWealthInfo": {
         "title": "SOURCE_OF_WEALTH_INFO",
@@ -33140,7 +33197,7 @@
             "$ref": "#/components/schemas/SourceOfWealthInfoSubmissionData"
           }
         },
-        "description": "Whether there is a secondary source of income, and if so its type and amount. When \u0060hasSecondaryIncome\u0060 is \u0060false\u0060, no other fields are required.\n\nSee [SOURCE_OF_WEALTH_INFO](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#source_of_wealth_info) in the KYC requirement types guide for more details.\n"
+        "description": "Whether there is a secondary source of income, and if so its type and amount. When \u0060hasSecondaryIncome\u0060 is \u0060false\u0060, no other fields are required.\n"
       },
       "SourceOfWealthProof": {
         "title": "SOURCE_OF_WEALTH_PROOF",
@@ -33168,7 +33225,7 @@
             "description": "Upload the proof document.\n\nAccepted file types: \u0060image/png\u0060 (\u0060.png\u0060), \u0060image/jpeg\u0060 (\u0060.jpg\u0060 or \u0060.jpeg\u0060) and \u0060application/pdf\u0060 (\u0060.pdf\u0060). The content type must match the file extension.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n[\u0022document.pdf\u0022]\n\u0060\u0060\u0060\n"
           }
         },
-        "description": "A document proving the secondary source of wealth income. The accepted document types depend on the \u0060secondaryIncomeType\u0060 provided.\n\nSee [SOURCE_OF_WEALTH_PROOF](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#source_of_wealth_proof) in the KYC requirement types guide for more details.\n"
+        "description": "A document proving the secondary source of wealth income. The accepted document types depend on the \u0060secondaryIncomeType\u0060 provided.\n"
       },
       "SsnDeclaration": {
         "title": "SSN_DECLARATION",
@@ -33181,7 +33238,7 @@
             "$ref": "#/components/schemas/SsnDeclarationSubmissionData"
           }
         },
-        "description": "Declaration of the customer\u0027s US Social Security Number (SSN). This requirement only applies to customers in the US region.\n\nCustomers either provide their SSN or, if they don\u0027t have one, a reason why it is unavailable. Provide exactly one of \u0060ssnNumber\u0060 or \u0060ssnUnavailableReason\u0060, and omit the other or set it to \u0060null\u0060. Files are not required for either scenario.\n\nSee [SSN_DECLARATION](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#ssn_declaration) in the KYC requirement types guide for more details and sandbox test data.\n"
+        "description": "Declaration of the customer\u0027s US Social Security Number (SSN). This requirement only applies to customers in the US region.\n\nCustomers either provide their SSN or, if they don\u0027t have one, a reason why it is unavailable. Provide exactly one of \u0060ssnNumber\u0060 or \u0060ssnUnavailableReason\u0060, and omit the other or set it to \u0060null\u0060. Files are not required for either scenario.\n\nTo simulate failures in sandbox, see the \u0060ssnNumber\u0060 field.\n"
       },
       "TaxResidency": {
         "title": "TAX_RESIDENCY",
@@ -33194,7 +33251,7 @@
             "$ref": "#/components/schemas/TaxResidencySubmissionData"
           }
         },
-        "description": "Users must declare all countries where they hold tax residency. While this is usually where a user lives and works, those with more complex setups (e.g. digital nomads) must list all applicable jurisdictions.\n\nDepending on the user\u0027s situation and the Wise entity they are onboarded to, there are three distinct submission scenarios for tax residency. Files are not required for any scenario.\n\nSee [TAX_RESIDENCY](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#tax_residency) in the KYC requirement types guide for more details and the TIN types accepted per country.\n"
+        "description": "Users must declare all countries where they hold tax residency. While this is usually where a user lives and works, those with more complex setups (e.g. digital nomads) must list all applicable jurisdictions.\n\nDepending on the user\u0027s situation and the Wise entity they are onboarded to, there are three distinct submission scenarios for tax residency. Files are not required for any scenario.\n\nSee [Tax identification number (TIN) types](/guides/product/account-setup/customer-onboarding/tin-types) for the TIN types accepted per country.\n"
       },
       "UseCaseCountries": {
         "title": "USE_CASE_COUNTRIES",
@@ -33207,7 +33264,7 @@
             "$ref": "#/components/schemas/UseCaseCountriesSubmissionData"
           }
         },
-        "description": "Country codes where the business intends to send money. If unsure, select the country codes that correspond with the target currencies.\n\nSee [USE_CASE_COUNTRIES](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#use_case_countries) in the KYC requirement types guide for more details.\n"
+        "description": "Country codes where the business intends to send money. If unsure, select the country codes that correspond with the target currencies.\n"
       },
       "RequestBody": {
         "type": "object",
@@ -39630,7 +39687,7 @@
               "type": "string",
               "format": "binary"
             },
-            "description": "Upload the ID document, with file names matching \u0060data.frontSideFileName\u0060 and \u0060data.backSideFileName\u0060.\n\nAccepted file types: \u0060image/png\u0060 (\u0060.png\u0060), \u0060image/jpeg\u0060 (\u0060.jpg\u0060 or \u0060.jpeg\u0060) and \u0060application/pdf\u0060 (\u0060.pdf\u0060). The content type must match the file extension.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n[\u0022image1.jpeg\u0022, \u0022image2.jpeg\u0022]\n\u0060\u0060\u0060\n"
+            "description": "Upload the ID document, with file names matching \u0060data.frontSideFileName\u0060 and \u0060data.backSideFileName\u0060.\n\nAccepted file types: \u0060image/png\u0060 (\u0060.png\u0060), \u0060image/jpeg\u0060 (\u0060.jpg\u0060 or \u0060.jpeg\u0060) and \u0060application/pdf\u0060 (\u0060.pdf\u0060). The content type must match the file extension.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n[\u0022image1.jpeg\u0022, \u0022image2.jpeg\u0022]\n\u0060\u0060\u0060\n\n{% admonition type=\u0022warning\u0022 name=\u0022File names must match\u0022 %}\nFile names in \u0060submissionData\u0060 must exactly match the names of the uploaded files, including case. Use lowercase file extensions: \u0060.png\u0060, \u0060.jpg\u0060, \u0060.jpeg\u0060 or \u0060.pdf\u0060.\n{% /admonition %}\n"
           }
         },
         "description": "Submit an ID document for the UBO. Upload the document in \u0060files\u0060, with file names matching \u0060frontSideFileName\u0060 and \u0060backSideFileName\u0060."
@@ -41015,6 +41072,11 @@
             "format": "uuid",
             "example": "8b789c45-60ae-475d-b667-c8714db9a6a4"
           },
+          "apiCollectionSupported": {
+            "type": "boolean",
+            "description": "Indicates if the additional requirement can be submitted via the [KYC Additional Requirement Submit](/api-reference/preview/kyc-review/kycreviewadditionalrequirementsubmit) endpoint. If \u0060false\u0060, it should be provided via the Hosted KYC flow.\nThis is independent of the parent KYC requirement\u0027s \u0060apiCollectionSupported\u0060, so an additional requirement can be submitted via API even if its parent KYC requirement can\u0027t. Currently, additional requirements where this is \u0060true\u0060 always have the \u0060DOCUMENT_OR_WRITTEN_ANSWER\u0060 \u0060key\u0060 and a single \u0060reason\u0060 with the \u0060CUSTOM_QUESTION\u0060 \u0060errorCode\u0060.\n",
+            "example": true
+          },
           "key": {
             "$ref": "#/components/schemas/KycRequirementAdditionalRequirementsItemKey"
           },
@@ -41022,7 +41084,18 @@
             "$ref": "#/components/schemas/KycRequirementAdditionalRequirementsItemState"
           },
           "reasons": {
-            "$ref": "#/components/schemas/KycRequirementAdditionalRequirementsItemReasons"
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/KycRequirementAdditionalRequirementsItemReasonsItem"
+            },
+            "description": "The reasons this additional requirement has been requested. Currently, this list always contains one reason, but it may contain more in the future.",
+            "example": [
+              {
+                "errorCode": "CUSTOM_QUESTION",
+                "description": "Please explain why the name on your ID document is different from the name on your account.",
+                "dateTime": "2026-04-13T10:54:21.929314"
+              }
+            ]
           },
           "attributes": {
             "$ref": "#/components/schemas/KycRequirementAdditionalRequirementsItemAttributes"
@@ -41047,6 +41120,22 @@
             "example": "2026-06-30"
           }
         }
+      },
+      "KycRequirementAttributes": {
+        "type": [
+          "null",
+          "object"
+        ],
+        "properties": {
+          "requiredUbos": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "**Beta:** Attributes for this requirement type are in beta. Their structure and keys may change.\n\nOnly returned for \u0060BUSINESS_ULTIMATE_BENEFICIAL_OWNER_ID\u0060 when its \u0060state\u0060 is \u0060NOT_PROVIDED\u0060. The shareholder IDs that still need a UBO ID document. These correspond to the \u0060id\u0060 values returned by the [List UBOs](/api-reference/profile/profileubolist) endpoint. Only shareholders with outstanding UBO ID requirements are included.\n\n\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022key\u0022: \u0022BUSINESS_ULTIMATE_BENEFICIAL_OWNER_ID\u0022,\n  \u0022state\u0022: \u0022NOT_PROVIDED\u0022,\n  \u0022apiCollectionSupported\u0022: true,\n  \u0022versions\u0022: [{ \u0022version\u0022: \u0022V1\u0022 }],\n  \u0022attributes\u0022: {\n    \u0022requiredUbos\u0022: [\n      \u00227ff6c4998a59d71ad9834041727017d2\u0022,\n      \u0022a9578a5a0544d06fd73756dc627518a4\u0022\n    ]\n  }\n}\n\u0060\u0060\u0060\n"
+          }
+        },
+        "description": "**Conditional:** Only present for certain requirement types that provide additional contextual information. The keys within this object depend on the parent requirement \u0060key\u0060.\n"
       },
       "KycReviewTriggerReferencesItem": {
         "type": "object",
@@ -44980,7 +45069,7 @@
         "properties": {
           "ssnNumber": {
             "type": "string",
-            "description": "The customer\u0027s 9-digit Social Security Number (including or excluding dashes).",
+            "description": "The customer\u0027s 9-digit Social Security Number (including or excluding dashes).\n\nIn sandbox, submit these values to simulate failures:\n- \u0060666000002\u0060: the SSN check can\u0027t be completed, and the customer must retry the submission.\n- \u0060666000003\u0060: the SSN doesn\u0027t match the customer\u0027s profile details.\n\nThese values only trigger these scenarios in sandbox. Don\u0027t use them in production.\n",
             "example": "123-45-6789"
           }
         }
@@ -45172,7 +45261,7 @@
         "properties": {
           "type": {
             "type": "string",
-            "description": "The specific TIN identifier type for that country. Must be one of the types listed for the \u0060taxCountry\u0060 in the [TIN types reference](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#tin-types-reference). Any other value is rejected.",
+            "description": "The specific TIN identifier type for that country. Must be one of the types listed for the \u0060taxCountry\u0060 in the [TIN types](/guides/product/account-setup/customer-onboarding/tin-types) guide. Any other value is rejected.",
             "example": "SG_NRIC"
           },
           "number": {
@@ -45428,15 +45517,16 @@
           }
         }
       },
-      "KycRequirementAdditionalRequirementsItemReasons": {
+      "KycRequirementAdditionalRequirementsItemReasonsItem": {
         "type": "object",
         "properties": {
           "errorCode": {
-            "$ref": "#/components/schemas/KycRequirementAdditionalRequirementsItemReasonsErrorCode"
+            "$ref": "#/components/schemas/KycRequirementAdditionalRequirementsItemReasonsItemErrorCode"
           },
           "description": {
             "type": "string",
-            "example": "The provided document or information has expired. A valid document is required."
+            "description": "Describes what is needed and why. For a reason with the \u0060CUSTOM_QUESTION\u0060 \u0060errorCode\u0060, this is the question written by a Wise agent, which you can show your customer or colleagues that collect RFI from customers. As it\u0027s written by a Wise agent, it\u0027s in the language you communicate with Wise in and isn\u0027t translated.\n",
+            "example": "Please explain why the name on your ID document is different from the name on your account."
           },
           "dateTime": {
             "type": "string",
@@ -45444,8 +45534,7 @@
             "format": "date-time",
             "example": "2026-04-13T10:54:21.929314"
           }
-        },
-        "description": "Contains information about the reason this additional requirement has been requested."
+        }
       },
       "KycRequirementAdditionalRequirementsItemAttributes": {
         "type": "object",
@@ -45465,7 +45554,12 @@
             ]
           }
         },
-        "description": "Contains metadata information about the additional requirement. Not returned if empty."
+        "description": "Contains metadata information about the additional requirement. Not returned if empty.",
+        "example": {
+          "fields": {
+            "markdownText": "Please explain why the name on your ID document is different from the name on your account."
+          }
+        }
       },
       "AccountIntentSubmissionDataData": {
         "required": [
@@ -48178,7 +48272,20 @@
             "items": {
               "$ref": "#/components/schemas/V5002DataResourceRequirementChangesItem"
             },
-            "description": "List of requirement changes that triggered this event."
+            "description": "List of requirement changes that triggered this event.",
+            "example": [
+              {
+                "key": "ID_DOCUMENT",
+                "newState": "IN_REVIEW",
+                "prevState": "IN_REVIEW",
+                "additionalRequirements": [
+                  {
+                    "additionalRequirementId": "8b789c45-60ae-475d-b667-c8714db9a6a4",
+                    "newState": "NOT_PROVIDED"
+                  }
+                ]
+              }
+            ]
           }
         }
       },
@@ -49817,8 +49924,9 @@
           },
           "markdownText": {
             "type": "string",
-            "description": "Free format text written by a Wise Agent in markdown format.",
-            "example": "Requirement details were unclear, *please* provide a clear scan where:\n\n*   All information is clearly readable\n*   The document is in colour"
+            "description": "Free format text written by a Wise Agent in markdown format. Only returned when the additional requirement\u0027s reason has the \u0060CUSTOM_QUESTION\u0060 \u0060errorCode\u0060, where the same text is returned as the reason\u0027s \u0060description\u0060. This field is deprecated and will be removed in the future. Use the reason\u0027s \u0060description\u0060 instead.",
+            "example": "Please explain why the name on your ID document is different from the name on your account.",
+            "deprecated": true
           }
         },
         "description": "Not returned if empty"
@@ -53787,6 +53895,13 @@
               "$ref": "#/components/schemas/CardOrderProgramsGet200ResponseCardProgramsItem"
             },
             "description": "List of available card programs. A Card Program is what Wise refers to all the cards that you will be issuing with us, grouped by product type and by issuing country."
+          },
+          "declineReasons": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CardOrderProgramsGet200ResponseDeclineReasonsItem"
+            },
+            "description": "List of reasons why no card program is available for the profile. Only returned when \u0060cardPrograms\u0060 is empty. Currently, the list contains only one of the following reasons.\n\n- \u0060CARD_LIMIT_REACHED\u0060: Only applies to personal profiles. The customer has the maximum number of cards on their profile, including card orders that are in progress. To order a new card, the customer must cancel an existing card or card order.\n- \u0060DAILY_DIGITAL_CARD_LIMIT_REACHED\u0060: Only applies to personal profiles. The customer has ordered the maximum number of digital cards today, including digital card orders that are in progress. The limit resets at 00:00 UTC each day.\n- \u0060LOCATION_NOT_SUPPORTED\u0060: Cards are not available in the country of the profile address. To see the address, [retrieve the profile](/api-reference/profile/profileget). If the customer\u0027s address has changed, they can update it and try again.\n- \u0060NOT_AVAILABLE\u0060: Cards are not available for another reason, which can include risk or compliance reasons. Do not share the reason with the customer. Show a general message instead, for example: \u0022This service is not available. Contact [partner_name] for more details.\u0022\n\nWise can add new reasons within the same API version. Treat any value that you do not recognise as \u0060NOT_AVAILABLE\u0060.\n"
           }
         }
       },
@@ -60030,13 +60145,6 @@
           "mainSourceOfFunding": "BUSINESS_LOAN"
         }
       },
-      "KycRequirementAttributesProperty": {
-        "type": [
-          "null",
-          "object"
-        ],
-        "description": "**Conditional:** Only present for certain requirement types that provide additional contextual information. The keys within this object vary depending on the parent requirement \u0060key\u0060. See the [KYC requirement types](/guides/product/account-setup/customer-onboarding/kyc-requirement-types) guide for details on which requirement types support attributes and what keys they contain.\n"
-      },
       "MessageSubmissionResponseContentProperty": {
         "type": "object",
         "description": "The content of the created message.\n- For FREEFORM: contains \u0060text.freeText\u0060\n- For SUBMISSION types: contains \u0060submissionData\u0060\n- For FILE_SUBMISSION: contains \u0060submissionData\u0060 with \u0060profileId\u0060 and \u0060fileIds\u0060\n"
@@ -64111,7 +64219,7 @@
         ],
         "type": "string",
         "description": "The state of the KYC requirement.\n- \u0060NOT_PROVIDED\u0060 \u2014 the information is pending. Either the Hosted KYC flow or [KYC Requirement Submit](/api-reference/kyc-review/kycreviewrequirementsubmit) endpoint should be used to fulfil the requirement.\n- \u0060IN_REVIEW\u0060 \u2014 the required information has been retrieved and the KYC requirement is being reviewed. No action is needed.\n- \u0060VERIFIED\u0060 \u2014 the required information has been received and verified on our side. No action is needed.\n",
-        "example": "NOT_PROVIDED",
+        "example": "IN_REVIEW",
         "x-ms-enum": {
           "name": "KycRequirementState",
           "modelAsString": false,
@@ -65532,7 +65640,7 @@
       },
       "KycRequirementAdditionalRequirementsItemKey": {
         "enum": [
-          "ACKNOWLEDGEMENT,",
+          "ACKNOWLEDGEMENT",
           "DOCUMENT",
           "WRITTEN_ANSWER",
           "DOCUMENT_AND_WRITTEN_ANSWER",
@@ -65541,15 +65649,15 @@
           "CUSTOM_REQUEST"
         ],
         "type": "string",
-        "description": "A key outlining what type of evidence is additionally required",
+        "description": "The type of evidence that is additionally required, which determines what to submit:\n- \u0060DOCUMENT\u0060 \u2014 files.\n- \u0060WRITTEN_ANSWER\u0060 \u2014 a \u0060writtenAnswer\u0060.\n- \u0060DOCUMENT_AND_WRITTEN_ANSWER\u0060 \u2014 both files and a \u0060writtenAnswer\u0060.\n- \u0060DOCUMENT_OR_WRITTEN_ANSWER\u0060 \u2014 files, a \u0060writtenAnswer\u0060 or both.\n\nCurrently, additional requirements that can be submitted via API are always \u0060DOCUMENT_OR_WRITTEN_ANSWER\u0060.\n",
         "example": "DOCUMENT_OR_WRITTEN_ANSWER",
         "x-ms-enum": {
           "name": "KycRequirementAdditionalRequirementsItemKey",
           "modelAsString": false,
           "values": [
             {
-              "value": "ACKNOWLEDGEMENT,",
-              "name": "ACKNOWLEDGEMENTComma"
+              "value": "ACKNOWLEDGEMENT",
+              "name": "Acknowledgement"
             },
             {
               "value": "DOCUMENT",
@@ -65585,7 +65693,7 @@
           "VERIFIED"
         ],
         "type": "string",
-        "description": "The state of the additional requirement. This state should be treated as independent of the parent KYC Requirement\u0027s state. They can, but don\u0027t have to, change together.\n- \u0060NOT_PROVIDED\u0060 \u2014 the information is pending. Either the Hosted KYC flow or [KYC Requirement Submit](/api-reference/kyc-review/kycreviewrequirementsubmit) endpoint should be used to fulfil the additional requirement.\n- \u0060IN_REVIEW\u0060 \u2014 the required information has been retrieved and the additional requirement is being reviewed. No action is needed.\n- \u0060VERIFIED\u0060 \u2014 the required information has been received and verified on our side. No action is needed.\n",
+        "description": "The state of the additional requirement. This state should be treated as independent of the parent KYC Requirement\u0027s state. They can, but don\u0027t have to, change together.\n- \u0060NOT_PROVIDED\u0060 \u2014 the information is pending. If \u0060apiCollectionSupported\u0060 is \u0060true\u0060, the [KYC Additional Requirement Submit](/api-reference/preview/kyc-review/kycreviewadditionalrequirementsubmit) endpoint can be used to fulfil the additional requirement, otherwise use the Hosted KYC flow.\n- \u0060IN_REVIEW\u0060 \u2014 the required information has been retrieved and the additional requirement is being reviewed. No action is needed.\n- \u0060VERIFIED\u0060 \u2014 the required information has been received and verified on our side. No action is needed.\n",
         "example": "NOT_PROVIDED",
         "x-ms-enum": {
           "name": "KycRequirementAdditionalRequirementsItemState",
@@ -66761,8 +66869,9 @@
           ]
         }
       },
-      "KycRequirementAdditionalRequirementsItemReasonsErrorCode": {
+      "KycRequirementAdditionalRequirementsItemReasonsItemErrorCode": {
         "enum": [
+          "CUSTOM_QUESTION",
           "NEEDED",
           "WRONG_DOCUMENT",
           "EXPIRED",
@@ -66785,12 +66894,16 @@
           "OTHER"
         ],
         "type": "string",
-        "description": "Code for the reason this additional requirement has been requested.",
-        "example": "EXPIRED",
+        "description": "Code for the reason this additional requirement has been requested.\n\n\u0060CUSTOM_QUESTION\u0060 means a Wise agent has written a question for your customer, returned in this reason\u0027s \u0060description\u0060.\n",
+        "example": "CUSTOM_QUESTION",
         "x-ms-enum": {
-          "name": "KycRequirementAdditionalRequirementsItemReasonsErrorCode",
+          "name": "KycRequirementAdditionalRequirementsItemReasonsItemErrorCode",
           "modelAsString": false,
           "values": [
+            {
+              "value": "CUSTOM_QUESTION",
+              "name": "CustomQuestion"
+            },
             {
               "value": "NEEDED",
               "name": "Needed"
@@ -67468,7 +67581,7 @@
           "RESIDENCE_CERTIFICATE"
         ],
         "type": "string",
-        "description": "The type of My Number document being submitted.",
+        "description": "The type of My Number document being submitted.\n- \u0060MY_NUMBER_CARD\u0060: My Number card.\n- \u0060MY_NUMBER_NOTIFICATION_CARD\u0060: My Number notification card. It has no photo, so it\u0027s only accepted as a My Number document, not as an ID document.\n- \u0060RESIDENCE_CERTIFICATE\u0060: Residence Certificate (Juminhyo). Must be issued within the last 6 months and show the customer\u0027s My Number (\u500B\u4EBA\u756A\u53F7).\n",
         "example": "MY_NUMBER_CARD",
         "x-ms-enum": {
           "name": "JpnPersonalMynumberSubmissionDataDataDocumentType",
@@ -68478,6 +68591,37 @@
             {
               "value": "KIOSK_COLLECTION",
               "name": "KioskCollection"
+            }
+          ]
+        }
+      },
+      "CardOrderProgramsGet200ResponseDeclineReasonsItem": {
+        "enum": [
+          "CARD_LIMIT_REACHED",
+          "DAILY_DIGITAL_CARD_LIMIT_REACHED",
+          "LOCATION_NOT_SUPPORTED",
+          "NOT_AVAILABLE"
+        ],
+        "type": "string",
+        "x-ms-enum": {
+          "name": "CardOrderProgramsGet200ResponseDeclineReasonsItem",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "CARD_LIMIT_REACHED",
+              "name": "CardLimitReached"
+            },
+            {
+              "value": "DAILY_DIGITAL_CARD_LIMIT_REACHED",
+              "name": "DailyDigitalCardLimitReached"
+            },
+            {
+              "value": "LOCATION_NOT_SUPPORTED",
+              "name": "LocationNotSupported"
+            },
+            {
+              "value": "NOT_AVAILABLE",
+              "name": "NotAvailable"
             }
           ]
         }
@@ -75621,7 +75765,7 @@
     },
     {
       "name": "incoming-transfer",
-      "description": "{% admonition type=\u0022info\u0022 %}\nIncoming transfers are not publicly available. To get access, contact your Wise implementation manager.\n{% /admonition %}\n\nAn incoming transfer represents a payment received into a Wise balance via a supported payment rail (SWIFT, SEPA, Faster Payments, ACH, or the Wise network).",
+      "description": "An incoming transfer represents a payment received into a Wise balance via a supported payment rail (SWIFT, SEPA, Faster Payments, ACH, or the Wise network).\n\n{% admonition type=\u0022info\u0022 %}\nIncoming transfers are not automatically enabled. Contact your Wise implementation manager if you\u2019d like to enable incoming transfers for your integration.\n{% /admonition %}\n",
       "x-displayName": "Incoming Transfers"
     },
     {
@@ -80335,13 +80479,6 @@
           "example": "SAMPUS33"
         }
       }
-    },
-    "KycRequirementAttributes": {
-      "type": [
-        "null",
-        "object"
-      ],
-      "description": "**Conditional:** Only present for certain requirement types that provide additional contextual information. The keys within this object vary depending on the parent requirement \u0060key\u0060. See the [KYC requirement types](/guides/product/account-setup/customer-onboarding/kyc-requirement-types) guide for details on which requirement types support attributes and what keys they contain.\n"
     },
     "MessageSubmissionResponseContent": {
       "type": "object",

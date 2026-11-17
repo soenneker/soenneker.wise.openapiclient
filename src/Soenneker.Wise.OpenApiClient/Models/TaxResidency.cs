@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Users must declare all countries where they hold tax residency. While this is usually where a user lives and works, those with more complex setups (e.g. digital nomads) must list all applicable jurisdictions.Depending on the user&apos;s situation and the Wise entity they are onboarded to, there are three distinct submission scenarios for tax residency. Files are not required for any scenario.See [TAX_RESIDENCY](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#tax_residency) in the KYC requirement types guide for more details and the TIN types accepted per country.
+    /// Users must declare all countries where they hold tax residency. While this is usually where a user lives and works, those with more complex setups (e.g. digital nomads) must list all applicable jurisdictions.Depending on the user&apos;s situation and the Wise entity they are onboarded to, there are three distinct submission scenarios for tax residency. Files are not required for any scenario.See [Tax identification number (TIN) types](/guides/product/account-setup/customer-onboarding/tin-types) for the TIN types accepted per country.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class TaxResidency : IAdditionalDataHolder, IParsable

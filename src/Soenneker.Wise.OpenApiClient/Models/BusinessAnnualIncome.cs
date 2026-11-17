@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// The organisation&apos;s approximate gross yearly income.See [BUSINESS_ANNUAL_INCOME](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_annual_income) in the KYC requirement types guide for more details.
+    /// The organisation&apos;s approximate gross yearly income.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class BusinessAnnualIncome : IAdditionalDataHolder, IParsable

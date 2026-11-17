@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// A high-quality photo or PDF of a document proving the source of the business&apos;s wealth. The required documentation varies depending on the selected source category. Examples include the most recent 3-6 months worth of bank statements, latest audited financials, latest tax returns, loan agreements, or investment contracts that are less than 12 months old. The document should display the business income amount (if you have more than one type of income, you will have to upload documents for each of them), the business name, the issue date and signatures, if applicable.See [BUSINESS_SOURCE_OF_WEALTH_PROOF](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_source_of_wealth_proof) in the KYC requirement types guide for more details.
+    /// A high-quality photo or PDF of a document proving the source of the business&apos;s wealth. The required documentation varies depending on the selected source category. Examples include the most recent 3-6 months worth of bank statements, latest audited financials, latest tax returns, loan agreements, or investment contracts that are less than 12 months old. The document should display the business income amount (if you have more than one type of income, you will have to upload documents for each of them), the business name, the issue date and signatures, if applicable.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class BusinessSourceOfWealthProof : IAdditionalDataHolder, IParsable

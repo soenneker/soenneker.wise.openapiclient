@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// The origin category of the money used to finance a specific transaction or operation.See [SOURCE_OF_FUNDS](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#source_of_funds) in the KYC requirement types guide for more details.
+    /// The origin category of the money used to finance a specific transaction or operation.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class SourceOfFunds : IAdditionalDataHolder, IParsable

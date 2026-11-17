@@ -1450,18 +1450,19 @@ tags:
       your own financial license.
   - name: incoming-transfer
     x-displayName: Incoming Transfers
-    description: >-
-      {% admonition type="info" %}
-
-      Incoming transfers are not publicly available. To get access, contact your
-      Wise implementation manager.
-
-      {% /admonition %}
-
-
+    description: >
       An incoming transfer represents a payment received into a Wise balance via
       a supported payment rail (SWIFT, SEPA, Faster Payments, ACH, or the Wise
       network).
+
+
+      {% admonition type="info" %}
+
+      Incoming transfers are not automatically enabled. Contact your Wise
+      implementation manager if you’d like to enable incoming transfers for your
+      integration.
+
+      {% /admonition %}
   - name: gpi-tracking
     x-displayName: GPI Tracking
     description: >
@@ -6781,6 +6782,65 @@ paths:
                             - VIRTUAL_NON_UPGRADEABLE
                             - PHYSICAL
                           example: VIRTUAL_NON_UPGRADEABLE
+                  declineReasons:
+                    type: array
+                    description: >
+                      List of reasons why no card program is available for the
+                      profile. Only returned when `cardPrograms` is empty.
+                      Currently, the list contains only one of the following
+                      reasons.
+
+
+                      - `CARD_LIMIT_REACHED`: Only applies to personal profiles.
+                      The customer has the maximum number of cards on their
+                      profile, including card orders that are in progress. To
+                      order a new card, the customer must cancel an existing
+                      card or card order.
+
+                      - `DAILY_DIGITAL_CARD_LIMIT_REACHED`: Only applies to
+                      personal profiles. The customer has ordered the maximum
+                      number of digital cards today, including digital card
+                      orders that are in progress. The limit resets at 00:00 UTC
+                      each day.
+
+                      - `LOCATION_NOT_SUPPORTED`: Cards are not available in the
+                      country of the profile address. To see the address,
+                      [retrieve the profile](/api-reference/profile/profileget).
+                      If the customer's address has changed, they can update it
+                      and try again.
+
+                      - `NOT_AVAILABLE`: Cards are not available for another
+                      reason, which can include risk or compliance reasons. Do
+                      not share the reason with the customer. Show a general
+                      message instead, for example: "This service is not
+                      available. Contact [partner_name] for more details."
+
+
+                      Wise can add new reasons within the same API version.
+                      Treat any value that you do not recognise as
+                      `NOT_AVAILABLE`.
+                    items:
+                      type: string
+                      enum:
+                        - CARD_LIMIT_REACHED
+                        - DAILY_DIGITAL_CARD_LIMIT_REACHED
+                        - LOCATION_NOT_SUPPORTED
+                        - NOT_AVAILABLE
+              examples:
+                cardProgramsAvailable:
+                  summary: Card programs are available
+                  value:
+                    cardPrograms:
+                      - name: VISA_DEBIT_BUSINESS_UK_1_CARDS_API
+                        scheme: VISA
+                        defaultCurrency: GBP
+                        cardType: VIRTUAL_NON_UPGRADEABLE
+                noCardProgramsAvailable:
+                  summary: No card programs are available
+                  value:
+                    cardPrograms: []
+                    declineReasons:
+                      - CARD_LIMIT_REACHED
           headers:
             X-External-Correlation-Id:
               $ref: '#/components/headers/X-External-Correlation-Id'
@@ -10144,31 +10204,16 @@ paths:
       operationId: kycReviewRequirementSubmit
       summary: Submit a KYC Requirement
       description: >
-        Submit a KYC requirement for a KYC Review.
+        Submit a KYC requirement for a KYC Review. To find out which
+        requirements you can submit, and for an overview of all requirement
+        types, see the [KYC requirement
+        types](/guides/product/account-setup/customer-onboarding/kyc-requirement-types)
+        guide.
 
 
-        - A KYC requirement can only be submitted if the KYC Review status is
-        `WAITING_CUSTOMER_INPUT` or `PASSED_WITH_REQUIREMENTS`.
-
-        - A KYC requirement should only be submitted if its `state` is
-        `NOT_PROVIDED` and `apiCollectionSupported` is `true`.
-
-
-        File names in `submissionData` (such as `frontSideFileName`) must
-        exactly match the names of the uploaded files, including case. Use
-        lowercase file extensions: `.png`, `.jpg`, `.jpeg` or `.pdf`.
-
-
-        The structure of `submissionData` depends on the `requirementKey`. If
+        The structure of the request body depends on the `requirementKey`. If
         you already know which requirement type you are implementing, select it
         in the request body to see its fields and a matching request sample.
-
-
-        To explore which requirement types exist and what each one collects, see
-        the [KYC requirement
-        types](/guides/product/account-setup/customer-onboarding/kyc-requirement-types)
-        guide for the full list of supported requirement types, submission data
-        structures, and accepted values.
       tags:
         - kyc-review
       security:
@@ -10189,8 +10234,8 @@ paths:
 
 
             To see the fields for a requirement type, select it in the request
-            body dropdown below. To compare all requirement types, see the [KYC
-            requirement
+            body dropdown below. For an overview of all requirement types, see
+            the [KYC requirement
             types](/guides/product/account-setup/customer-onboarding/kyc-requirement-types)
             guide.
           schema:
@@ -31639,6 +31684,29 @@ components:
       x-tags:
         - kyc-review
       type: object
+      examples:
+        - key: ID_DOCUMENT
+          state: IN_REVIEW
+          apiCollectionSupported: true
+          additionalRequirements:
+            - additionalRequirementId: 8b789c45-60ae-475d-b667-c8714db9a6a4
+              apiCollectionSupported: true
+              key: DOCUMENT_OR_WRITTEN_ANSWER
+              state: NOT_PROVIDED
+              reasons:
+                - errorCode: CUSTOM_QUESTION
+                  description: >-
+                    Please explain why the name on your ID document is different
+                    from the name on your account.
+                  dateTime: '2026-04-13T10:54:21.929314'
+              attributes:
+                fields:
+                  markdownText: >-
+                    Please explain why the name on your ID document is different
+                    from the name on your account.
+          versions:
+            - version: V1
+              validUntil: '2026-06-30'
       properties:
         key:
           type: string
@@ -31665,7 +31733,7 @@ components:
             - NOT_PROVIDED
             - IN_REVIEW
             - VERIFIED
-          example: NOT_PROVIDED
+          example: IN_REVIEW
         apiCollectionSupported:
           type: boolean
           description: >
@@ -31694,11 +31762,43 @@ components:
                   Unique identifier for an additional requirement, generated by
                   Wise.
                 example: 8b789c45-60ae-475d-b667-c8714db9a6a4
+              apiCollectionSupported:
+                type: boolean
+                description: >
+                  Indicates if the additional requirement can be submitted via
+                  the [KYC Additional Requirement
+                  Submit](/api-reference/preview/kyc-review/kycreviewadditionalrequirementsubmit)
+                  endpoint. If `false`, it should be provided via the Hosted KYC
+                  flow.
+
+                  This is independent of the parent KYC requirement's
+                  `apiCollectionSupported`, so an additional requirement can be
+                  submitted via API even if its parent KYC requirement can't.
+                  Currently, additional requirements where this is `true` always
+                  have the `DOCUMENT_OR_WRITTEN_ANSWER` `key` and a single
+                  `reason` with the `CUSTOM_QUESTION` `errorCode`.
+                example: true
               key:
                 type: string
-                description: A key outlining what type of evidence is additionally required
+                description: >
+                  The type of evidence that is additionally required, which
+                  determines what to submit:
+
+                  - `DOCUMENT` — files.
+
+                  - `WRITTEN_ANSWER` — a `writtenAnswer`.
+
+                  - `DOCUMENT_AND_WRITTEN_ANSWER` — both files and a
+                  `writtenAnswer`.
+
+                  - `DOCUMENT_OR_WRITTEN_ANSWER` — files, a `writtenAnswer` or
+                  both.
+
+
+                  Currently, additional requirements that can be submitted via
+                  API are always `DOCUMENT_OR_WRITTEN_ANSWER`.
                 enum:
-                  - ACKNOWLEDGEMENT,
+                  - ACKNOWLEDGEMENT
                   - DOCUMENT
                   - WRITTEN_ANSWER
                   - DOCUMENT_AND_WRITTEN_ANSWER
@@ -31713,10 +31813,12 @@ components:
                   treated as independent of the parent KYC Requirement's state.
                   They can, but don't have to, change together.
 
-                  - `NOT_PROVIDED` — the information is pending. Either the
-                  Hosted KYC flow or [KYC Requirement
-                  Submit](/api-reference/kyc-review/kycreviewrequirementsubmit)
-                  endpoint should be used to fulfil the additional requirement.
+                  - `NOT_PROVIDED` — the information is pending. If
+                  `apiCollectionSupported` is `true`, the [KYC Additional
+                  Requirement
+                  Submit](/api-reference/preview/kyc-review/kycreviewadditionalrequirementsubmit)
+                  endpoint can be used to fulfil the additional requirement,
+                  otherwise use the Hosted KYC flow.
 
                   - `IN_REVIEW` — the required information has been retrieved
                   and the additional requirement is being reviewed. No action is
@@ -31730,55 +31832,82 @@ components:
                   - VERIFIED
                 example: NOT_PROVIDED
               reasons:
-                type: object
+                type: array
                 description: >-
-                  Contains information about the reason this additional
-                  requirement has been requested.
-                properties:
-                  errorCode:
-                    type: string
+                  The reasons this additional requirement has been requested.
+                  Currently, this list always contains one reason, but it may
+                  contain more in the future.
+                example:
+                  - errorCode: CUSTOM_QUESTION
                     description: >-
-                      Code for the reason this additional requirement has been
-                      requested.
-                    enum:
-                      - NEEDED
-                      - WRONG_DOCUMENT
-                      - EXPIRED
-                      - INVALID_TRADING_ADDRESS
-                      - MISSING_ONE_SIDE
-                      - MISSING_COUNTRY_OF_RESIDENCE
-                      - MISSING_DIRECTORS
-                      - MISSING_UBOS
-                      - NO_UBO_DOC_REQUIRED
-                      - MISMATCH_NAME
-                      - MISMATCH_DATE_OF_BIRTH
-                      - AGENT_DETAILS_PROVIDED
-                      - DIRECTOR_IS_BUSINESS
-                      - UBO_IS_BUSINESS
-                      - UNCLEAR
-                      - WEBSITE_LINK_BROKEN
-                      - BUSINESS_NAME_NOT_ON_WEBSITE
-                      - DRIVING_LICENSE_NOT_ACCEPTED
-                      - BUSINESS_NOT_REGISTERED
-                      - OTHER
-                    example: EXPIRED
-                  description:
-                    type: string
-                    example: >-
-                      The provided document or information has expired. A valid
-                      document is required.
-                  dateTime:
-                    type: string
-                    format: date-time
-                    description: >-
-                      Timestamp marking when this additional requirement was
-                      requested.
-                    example: '2026-04-13T10:54:21.929314'
+                      Please explain why the name on your ID document is
+                      different from the name on your account.
+                    dateTime: '2026-04-13T10:54:21.929314'
+                items:
+                  type: object
+                  properties:
+                    errorCode:
+                      type: string
+                      description: >
+                        Code for the reason this additional requirement has been
+                        requested.
+
+
+                        `CUSTOM_QUESTION` means a Wise agent has written a
+                        question for your customer, returned in this reason's
+                        `description`.
+                      enum:
+                        - CUSTOM_QUESTION
+                        - NEEDED
+                        - WRONG_DOCUMENT
+                        - EXPIRED
+                        - INVALID_TRADING_ADDRESS
+                        - MISSING_ONE_SIDE
+                        - MISSING_COUNTRY_OF_RESIDENCE
+                        - MISSING_DIRECTORS
+                        - MISSING_UBOS
+                        - NO_UBO_DOC_REQUIRED
+                        - MISMATCH_NAME
+                        - MISMATCH_DATE_OF_BIRTH
+                        - AGENT_DETAILS_PROVIDED
+                        - DIRECTOR_IS_BUSINESS
+                        - UBO_IS_BUSINESS
+                        - UNCLEAR
+                        - WEBSITE_LINK_BROKEN
+                        - BUSINESS_NAME_NOT_ON_WEBSITE
+                        - DRIVING_LICENSE_NOT_ACCEPTED
+                        - BUSINESS_NOT_REGISTERED
+                        - OTHER
+                      example: CUSTOM_QUESTION
+                    description:
+                      type: string
+                      description: >
+                        Describes what is needed and why. For a reason with the
+                        `CUSTOM_QUESTION` `errorCode`, this is the question
+                        written by a Wise agent, which you can show your
+                        customer or colleagues that collect RFI from customers.
+                        As it's written by a Wise agent, it's in the language
+                        you communicate with Wise in and isn't translated.
+                      example: >-
+                        Please explain why the name on your ID document is
+                        different from the name on your account.
+                    dateTime:
+                      type: string
+                      format: date-time
+                      description: >-
+                        Timestamp marking when this additional requirement was
+                        requested.
+                      example: '2026-04-13T10:54:21.929314'
               attributes:
                 type: object
                 description: >-
                   Contains metadata information about the additional
                   requirement. Not returned if empty.
+                example:
+                  fields:
+                    markdownText: >-
+                      Please explain why the name on your ID document is
+                      different from the name on your account.
                 properties:
                   fields:
                     type: object
@@ -31810,15 +31939,16 @@ components:
                         type: string
                         description: >-
                           Free format text written by a Wise Agent in markdown
-                          format.
+                          format. Only returned when the additional
+                          requirement's reason has the `CUSTOM_QUESTION`
+                          `errorCode`, where the same text is returned as the
+                          reason's `description`. This field is deprecated and
+                          will be removed in the future. Use the reason's
+                          `description` instead.
                         example: >-
-                          Requirement details were unclear, *please* provide a
-                          clear scan where:
-
-
-                          *   All information is clearly readable
-
-                          *   The document is in colour
+                          Please explain why the name on your ID document is
+                          different from the name on your account.
+                        deprecated: true
                   issues:
                     type: array
                     description: >-
@@ -31862,11 +31992,41 @@ components:
           description: >
             **Conditional:** Only present for certain requirement types that
             provide additional contextual information. The keys within this
-            object vary depending on the parent requirement `key`. See the [KYC
-            requirement
-            types](/guides/product/account-setup/customer-onboarding/kyc-requirement-types)
-            guide for details on which requirement types support attributes and
-            what keys they contain.
+            object depend on the parent requirement `key`.
+          properties:
+            requiredUbos:
+              type: array
+              items:
+                type: string
+              description: >
+                **Beta:** Attributes for this requirement type are in beta.
+                Their structure and keys may change.
+
+
+                Only returned for `BUSINESS_ULTIMATE_BENEFICIAL_OWNER_ID` when
+                its `state` is `NOT_PROVIDED`. The shareholder IDs that still
+                need a UBO ID document. These correspond to the `id` values
+                returned by the [List
+                UBOs](/api-reference/profile/profileubolist) endpoint. Only
+                shareholders with outstanding UBO ID requirements are included.
+
+
+                ```json {% title="Example" %}
+
+                {
+                  "key": "BUSINESS_ULTIMATE_BENEFICIAL_OWNER_ID",
+                  "state": "NOT_PROVIDED",
+                  "apiCollectionSupported": true,
+                  "versions": [{ "version": "V1" }],
+                  "attributes": {
+                    "requiredUbos": [
+                      "7ff6c4998a59d71ad9834041727017d2",
+                      "a9578a5a0544d06fd73756dc627518a4"
+                    ]
+                  }
+                }
+
+                ```
     kyc-review:
       title: KYC Review
       description: >-
@@ -32192,13 +32352,8 @@ components:
       example: 93a903ea-636c-4c86-a25c-cf6d2bd00e81
     account-intent:
       title: ACCOUNT_INTENT
-      description: >
+      description: |
         How the customer intends to use their Wise account.
-
-
-        See
-        [ACCOUNT_INTENT](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#account_intent)
-        in the KYC requirement types guide for more details.
       type: object
       required:
         - submissionData
@@ -32290,13 +32445,8 @@ components:
               $ref: '#/components/schemas/kyc-review-id'
     account-purpose:
       title: ACCOUNT_PURPOSE
-      description: >
+      description: |
         The purpose of the account.
-
-
-        See
-        [ACCOUNT_PURPOSE](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#account_purpose)
-        in the KYC requirement types guide for more details.
       type: object
       required:
         - submissionData
@@ -32348,11 +32498,6 @@ components:
       description: >
         A rough estimate of the yearly volume the customer intends to send or
         receive.
-
-
-        See
-        [ANNUAL_VOLUME](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#annual_volume)
-        in the KYC requirement types guide for more details.
       type: object
       required:
         - submissionData
@@ -32396,13 +32541,8 @@ components:
               $ref: '#/components/schemas/kyc-review-id'
     business-annual-income:
       title: BUSINESS_ANNUAL_INCOME
-      description: >
+      description: |
         The organisation's approximate gross yearly income.
-
-
-        See
-        [BUSINESS_ANNUAL_INCOME](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_annual_income)
-        in the KYC requirement types guide for more details.
       type: object
       required:
         - submissionData
@@ -32451,9 +32591,7 @@ components:
         account creator) is not listed as a Director of the company.
 
 
-        A `data` field is only needed if you upload more than one file. See
-        [BUSINESS_AUTHORISATION_ID](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_authorisation_id)
-        in the KYC requirement types guide for more details.
+        A `data` field is only needed if you upload more than one file.
       type: object
       required:
         - submissionData
@@ -32511,6 +32649,15 @@ components:
             ["document.pdf"]
 
             ```
+
+
+            {% admonition type="warning" name="File names must match" %}
+
+            File names in `submissionData` must exactly match the names of the
+            uploaded files, including case. Use lowercase file extensions:
+            `.png`, `.jpg`, `.jpeg` or `.pdf`.
+
+            {% /admonition %}
     business-authorisation-letter:
       title: BUSINESS_AUTHORISATION_LETTER
       description: >
@@ -32535,9 +32682,7 @@ components:
         - Date of issue.
 
 
-        No `data` field is needed. See
-        [BUSINESS_AUTHORISATION_LETTER](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_authorisation_letter)
-        in the KYC requirement types guide for more details.
+        No `data` field is needed.
       type: object
       required:
         - submissionData
@@ -32587,11 +32732,6 @@ components:
       description: >
         Declare exactly one shareholder as the person who controls the business
         and provide their business title.
-
-
-        See
-        [BUSINESS_CONTROLLING_PERSON](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_controlling_person)
-        in the KYC requirement types guide for more details.
       type: object
       required:
         - submissionData
@@ -32655,9 +32795,7 @@ components:
         directing that business is needed.
 
 
-        No `data` field is needed. See
-        [BUSINESS_DIRECTORS_CHECK](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_directors_check)
-        in the KYC requirement types guide for more details.
+        No `data` field is needed.
       type: object
       required:
         - submissionData
@@ -32709,11 +32847,6 @@ components:
         your business's tax classification based on how it earns income.
         Depending on your selection, we may need to ask for additional
         information (such as tax details on controlling persons).
-
-
-        See
-        [BUSINESS_INCOME_CLASSIFICATION](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_income_classification)
-        in the KYC requirement types guide for more details.
       type: object
       required:
         - submissionData
@@ -32774,11 +32907,6 @@ components:
       description: >
         A rough estimate of the monthly volumes the business intends to send or
         receive.
-
-
-        See
-        [BUSINESS_MONTHLY_VOLUME](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_monthly_volume)
-        in the KYC requirement types guide for more details.
       type: object
       required:
         - submissionData
@@ -32838,9 +32966,7 @@ components:
         document showing the most up to date details.
 
 
-        No `data` field is needed. See
-        [BUSINESS_REGISTRATION_DOCS](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_registration_docs)
-        in the KYC requirement types guide for more details.
+        No `data` field is needed.
       type: object
       required:
         - submissionData
@@ -32891,11 +33017,6 @@ components:
         Provide contact details, including email addresses, for all current
         shareholders of the business. Submit all contact details in a single
         request; requests that omit any shareholders are rejected.
-
-
-        See
-        [BUSINESS_SHAREHOLDER_CONTACT_DETAILS](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_shareholder_contact_details)
-        in the KYC requirement types guide for more details.
       type: object
       required:
         - submissionData
@@ -32967,9 +33088,7 @@ components:
         who are the ultimate beneficial owners of that business is needed.
 
 
-        No `data` field is needed. See
-        [BUSINESS_SHAREHOLDERS_CHECK](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_shareholders_check)
-        in the KYC requirement types guide for more details.
+        No `data` field is needed.
       type: object
       required:
         - submissionData
@@ -33016,13 +33135,8 @@ components:
             ```
     business-source-of-wealth:
       title: BUSINESS_SOURCE_OF_WEALTH
-      description: >
+      description: |
         The source of the business's wealth.
-
-
-        See
-        [BUSINESS_SOURCE_OF_WEALTH](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_source_of_wealth)
-        in the KYC requirement types guide for more details.
       type: object
       required:
         - submissionData
@@ -33085,11 +33199,6 @@ components:
       description: >
         The source of the business's wealth and whether it is used to fund the
         action.
-
-
-        See
-        [BUSINESS_SOURCE_OF_WEALTH_INFO](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_source_of_wealth_info)
-        in the KYC requirement types guide for more details.
       type: object
       required:
         - submissionData
@@ -33167,11 +33276,6 @@ components:
         more than one type of income, you will have to upload documents for each
         of them), the business name, the issue date and signatures, if
         applicable.
-
-
-        See
-        [BUSINESS_SOURCE_OF_WEALTH_PROOF](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_source_of_wealth_proof)
-        in the KYC requirement types guide for more details.
       type: object
       required:
         - submissionData
@@ -33266,9 +33370,11 @@ components:
       title: BUSINESS_ULTIMATE_BENEFICIAL_OWNER_ID
       description: >
         The Ultimate Beneficial Owner (UBO) ID document should be submitted for
-        all UBOs that have more than 25% share. While this requirement is
+        all UBOs that have more than 25% share. Submit one request for each UBO,
+        with `shareholderId` set to the UBO's ID. While this requirement is
         `NOT_PROVIDED`, its `attributes.requiredUbos` lists the shareholder IDs
-        that still need an ID document.
+        that still need an ID document. See the [KYC
+        Requirement](/api-reference/kyc-review/kyc-requirement) object.
 
 
         Provide a clear copy of the ID document. The full document needs to be
@@ -33279,11 +33385,6 @@ components:
 
         When `data.documentType` is `SSN`, set `data.ssn` instead of the file
         names and don't upload files.
-
-
-        See
-        [BUSINESS_ULTIMATE_BENEFICIAL_OWNER_ID](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_ultimate_beneficial_owner_id)
-        in the KYC requirement types guide for more details.
       type: object
       anyOf:
         - title: Document upload
@@ -33415,6 +33516,15 @@ components:
                 ["image1.jpeg", "image2.jpeg"]
 
                 ```
+
+
+                {% admonition type="warning" name="File names must match" %}
+
+                File names in `submissionData` must exactly match the names of
+                the uploaded files, including case. Use lowercase file
+                extensions: `.png`, `.jpg`, `.jpeg` or `.pdf`.
+
+                {% /admonition %}
         - title: SSN
           description: >-
             For businesses with a US business address, submit the UBO's Social
@@ -33476,13 +33586,8 @@ components:
                   $ref: '#/components/schemas/kyc-review-id'
     business-use-case:
       title: BUSINESS_USE_CASE
-      description: >
+      description: |
         How the business intends to use the Wise account.
-
-
-        See
-        [BUSINESS_USE_CASE](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_use_case)
-        in the KYC requirement types guide for more details.
       type: object
       required:
         - submissionData
@@ -33544,11 +33649,6 @@ components:
         in frame and all information on the document needs to be visible. If the
         document has information on the backside, both sides are needed. Expired
         documents and documents issued over 15 years ago cannot be accepted.
-
-
-        See
-        [ID_DOCUMENT](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#id_document)
-        in the KYC requirement types guide for more details.
       type: object
       required:
         - submissionData
@@ -33641,15 +33741,19 @@ components:
             ["front_side.jpg", "back_side.jpg"]
 
             ```
+
+
+            {% admonition type="warning" name="File names must match" %}
+
+            File names in `submissionData` must exactly match the names of the
+            uploaded files, including case. Use lowercase file extensions:
+            `.png`, `.jpg`, `.jpeg` or `.pdf`.
+
+            {% /admonition %}
     income:
       title: INCOME
-      description: >
+      description: |
         Approximate gross yearly income.
-
-
-        See
-        [INCOME](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#income)
-        in the KYC requirement types guide for more details.
       type: object
       required:
         - submissionData
@@ -33717,11 +33821,6 @@ components:
         The code representing the purpose of the profile's transfer, along with
         supporting documents based on the code provided. This only appears for
         transfers from INR to one of GBP, USD, EUR, AUD, CAD, SGD.
-
-
-        See
-        [INDIA_TRANSFER_PURPOSE](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#india_transfer_purpose)
-        in the KYC requirement types guide for more details.
       type: object
       required:
         - submissionData
@@ -33839,6 +33938,15 @@ components:
             ["file1.png", "file2.png", "file3.png"]
 
             ```
+
+
+            {% admonition type="warning" name="File names must match" %}
+
+            File names in `submissionData` must exactly match the names of the
+            uploaded files, including case. Use lowercase file extensions:
+            `.png`, `.jpg`, `.jpeg` or `.pdf`.
+
+            {% /admonition %}
     jpn-business-cert:
       title: JPN_BUSINESS_CERT
       description: >
@@ -33848,9 +33956,7 @@ components:
         and must be issued within 6 months.
 
 
-        No `data` field is needed. See
-        [JPN_BUSINESS_CERT](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#jpn_business_cert)
-        in the KYC requirement types guide for more details.
+        No `data` field is needed.
       type: object
       required:
         - submissionData
@@ -33899,15 +34005,12 @@ components:
       title: JPN_PERSONAL_MYNUMBER
       description: >
         Proof of My Number for the customer. My Number is a 12-digit ID number
-        issued to all Japan citizens and residents, including resident
-        foreigners living in Japan for over 90 days. All the information (name,
-        DOB, address) on a My Number document has to match the information on
-        the profile and on the ID document.
+        issued to all Japanese citizens and residents, including foreign
+        residents who have lived in Japan for more than 90 days.
 
 
-        See
-        [JPN_PERSONAL_MYNUMBER](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#jpn_personal_mynumber)
-        in the KYC requirement types guide for more details.
+        The name, date of birth and address on the My Number document must match
+        the information on the profile and on the customer's ID document.
       type: object
       required:
         - submissionData
@@ -33939,7 +34042,18 @@ components:
               properties:
                 documentType:
                   type: string
-                  description: The type of My Number document being submitted.
+                  description: >
+                    The type of My Number document being submitted.
+
+                    - `MY_NUMBER_CARD`: My Number card.
+
+                    - `MY_NUMBER_NOTIFICATION_CARD`: My Number notification
+                    card. It has no photo, so it's only accepted as a My Number
+                    document, not as an ID document.
+
+                    - `RESIDENCE_CERTIFICATE`: Residence Certificate (Juminhyo).
+                    Must be issued within the last 6 months and show the
+                    customer's My Number (個人番号).
                   enum:
                     - MY_NUMBER_CARD
                     - MY_NUMBER_NOTIFICATION_CARD
@@ -33999,6 +34113,15 @@ components:
             ["front.jpg", "back.jpg"]
 
             ```
+
+
+            {% admonition type="warning" name="File names must match" %}
+
+            File names in `submissionData` must exactly match the names of the
+            uploaded files, including case. Use lowercase file extensions:
+            `.png`, `.jpg`, `.jpeg` or `.pdf`.
+
+            {% /admonition %}
     legal-entity-shareholder:
       title: LEGAL_ENTITY_SHAREHOLDER
       description: >
@@ -34009,11 +34132,6 @@ components:
         Do not include individual shareholders or the business being onboarded.
         If there are no qualifying legal entity shareholders, submit an empty
         list.
-
-
-        See
-        [LEGAL_ENTITY_SHAREHOLDER](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#legal_entity_shareholder)
-        in the KYC requirement types guide for more details.
       type: object
       required:
         - submissionData
@@ -34093,11 +34211,6 @@ components:
         bills and bank statements must be less than 3 months old. Other
         documents (like tax bills, insurance policies, or licences) must be less
         than 12 months old.
-
-
-        See
-        [PROOF_OF_TRADING_ADDRESS](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#proof_of_trading_address)
-        in the KYC requirement types guide for more details.
       type: object
       required:
         - submissionData
@@ -34179,11 +34292,6 @@ components:
       description: >
         The origin category of the money used to finance a specific transaction
         or operation.
-
-
-        See
-        [SOURCE_OF_FUNDS](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#source_of_funds)
-        in the KYC requirement types guide for more details.
       type: object
       required:
         - submissionData
@@ -34246,13 +34354,10 @@ components:
               $ref: '#/components/schemas/kyc-review-id'
     source-of-wealth:
       title: SOURCE_OF_WEALTH
-      description: >
+      description: |
         Source of wealth document upload.
 
-
-        No `data` field is needed. See
-        [SOURCE_OF_WEALTH](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#source_of_wealth)
-        in the KYC requirement types guide for more details.
+        No `data` field is needed.
       type: object
       required:
         - submissionData
@@ -34303,11 +34408,6 @@ components:
         Whether there is a secondary source of income, and if so its type and
         amount. When `hasSecondaryIncome` is `false`, no other fields are
         required.
-
-
-        See
-        [SOURCE_OF_WEALTH_INFO](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#source_of_wealth_info)
-        in the KYC requirement types guide for more details.
       type: object
       required:
         - submissionData
@@ -34398,11 +34498,6 @@ components:
       description: >
         A document proving the secondary source of wealth income. The accepted
         document types depend on the `secondaryIncomeType` provided.
-
-
-        See
-        [SOURCE_OF_WEALTH_PROOF](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#source_of_wealth_proof)
-        in the KYC requirement types guide for more details.
       type: object
       required:
         - submissionData
@@ -34618,10 +34713,7 @@ components:
         are not required for either scenario.
 
 
-        See
-        [SSN_DECLARATION](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#ssn_declaration)
-        in the KYC requirement types guide for more details and sandbox test
-        data.
+        To simulate failures in sandbox, see the `ssnNumber` field.
       type: object
       required:
         - submissionData
@@ -34652,9 +34744,22 @@ components:
                   properties:
                     ssnNumber:
                       type: string
-                      description: >-
+                      description: >
                         The customer's 9-digit Social Security Number (including
                         or excluding dashes).
+
+
+                        In sandbox, submit these values to simulate failures:
+
+                        - `666000002`: the SSN check can't be completed, and the
+                        customer must retry the submission.
+
+                        - `666000003`: the SSN doesn't match the customer's
+                        profile details.
+
+
+                        These values only trigger these scenarios in sandbox.
+                        Don't use them in production.
                       example: 123-45-6789
                 version:
                   $ref: '#/components/schemas/version'
@@ -34705,10 +34810,9 @@ components:
         Files are not required for any scenario.
 
 
-        See
-        [TAX_RESIDENCY](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#tax_residency)
-        in the KYC requirement types guide for more details and the TIN types
-        accepted per country.
+        See [Tax identification number (TIN)
+        types](/guides/product/account-setup/customer-onboarding/tin-types) for
+        the TIN types accepted per country.
       type: object
       required:
         - submissionData
@@ -34859,9 +34963,9 @@ components:
                                 description: >-
                                   The specific TIN identifier type for that
                                   country. Must be one of the types listed for
-                                  the `taxCountry` in the [TIN types
-                                  reference](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#tin-types-reference).
-                                  Any other value is rejected.
+                                  the `taxCountry` in the [TIN
+                                  types](/guides/product/account-setup/customer-onboarding/tin-types)
+                                  guide. Any other value is rejected.
                                 example: SG_NRIC
                               number:
                                 type: string
@@ -35026,11 +35130,6 @@ components:
       description: >
         Country codes where the business intends to send money. If unsure,
         select the country codes that correspond with the target currencies.
-
-
-        See
-        [USE_CASE_COUNTRIES](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#use_case_countries)
-        in the KYC requirement types guide for more details.
       type: object
       required:
         - submissionData
@@ -46214,6 +46313,13 @@ components:
                 requirementChanges:
                   type: array
                   description: List of requirement changes that triggered this event.
+                  example:
+                    - key: ID_DOCUMENT
+                      newState: IN_REVIEW
+                      prevState: IN_REVIEW
+                      additionalRequirements:
+                        - additionalRequirementId: 8b789c45-60ae-475d-b667-c8714db9a6a4
+                          newState: NOT_PROVIDED
                   items:
                     type: object
                     properties:

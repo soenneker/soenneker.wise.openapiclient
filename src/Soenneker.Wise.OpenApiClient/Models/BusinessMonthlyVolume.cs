@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// A rough estimate of the monthly volumes the business intends to send or receive.See [BUSINESS_MONTHLY_VOLUME](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_monthly_volume) in the KYC requirement types guide for more details.
+    /// A rough estimate of the monthly volumes the business intends to send or receive.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class BusinessMonthlyVolume : IAdditionalDataHolder, IParsable

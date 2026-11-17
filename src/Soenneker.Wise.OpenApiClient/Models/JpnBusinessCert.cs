@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Certificate of Registered Matters for the business. Required for corporations only in Japan. The document verifies: business name, registered address, registration date, business activities, directors, and must be issued within 6 months.No `data` field is needed. See [JPN_BUSINESS_CERT](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#jpn_business_cert) in the KYC requirement types guide for more details.
+    /// Certificate of Registered Matters for the business. Required for corporations only in Japan. The document verifies: business name, registered address, registration date, business activities, directors, and must be issued within 6 months.No `data` field is needed.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class JpnBusinessCert : IAdditionalDataHolder, IParsable

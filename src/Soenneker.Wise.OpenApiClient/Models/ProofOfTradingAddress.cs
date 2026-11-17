@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// High-quality image or PDF of a document verifying the physical location of the business operations. The document must clearly display the business name (or owner&apos;s name), the full trading address, an issue date, and the issuer&apos;s identity (e.g. bank or utility logo). Utility bills and bank statements must be less than 3 months old. Other documents (like tax bills, insurance policies, or licences) must be less than 12 months old.See [PROOF_OF_TRADING_ADDRESS](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#proof_of_trading_address) in the KYC requirement types guide for more details.
+    /// High-quality image or PDF of a document verifying the physical location of the business operations. The document must clearly display the business name (or owner&apos;s name), the full trading address, an issue date, and the issuer&apos;s identity (e.g. bank or utility logo). Utility bills and bank statements must be less than 3 months old. Other documents (like tax bills, insurance policies, or licences) must be less than 12 months old.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class ProofOfTradingAddress : IAdditionalDataHolder, IParsable

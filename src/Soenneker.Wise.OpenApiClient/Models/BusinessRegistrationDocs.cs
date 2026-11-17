@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Proof of Business Registration, such as a certificate of incorporation, articles of association, or an official registry excerpt. It should be the document on record with the local business or tax authority. It must show:- The business name, identification number and full registered address.- The directors, managers, partners, trustees or members of the executive board.- The owners, members or shareholders and their respective holdings.If any of the above information has changed since formation, upload a document showing the most up to date details.No `data` field is needed. See [BUSINESS_REGISTRATION_DOCS](/guides/product/account-setup/customer-onboarding/kyc-requirement-types#business_registration_docs) in the KYC requirement types guide for more details.
+    /// Proof of Business Registration, such as a certificate of incorporation, articles of association, or an official registry excerpt. It should be the document on record with the local business or tax authority. It must show:- The business name, identification number and full registered address.- The directors, managers, partners, trustees or members of the executive board.- The owners, members or shareholders and their respective holdings.If any of the above information has changed since formation, upload a document showing the most up to date details.No `data` field is needed.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class BusinessRegistrationDocs : IAdditionalDataHolder, IParsable
