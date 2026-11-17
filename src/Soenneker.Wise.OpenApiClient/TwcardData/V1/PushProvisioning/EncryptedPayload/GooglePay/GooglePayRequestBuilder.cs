@@ -34,7 +34,7 @@ namespace Soenneker.Wise.OpenApiClient.TwcardData.V1.PushProvisioning.EncryptedP
         {
         }
         /// <summary>
-        /// Returns encrypted cardholder information and other metadata needed for Google Pay push provisioning.{% admonition type=&quot;warning&quot; %}This API is not available for sandbox testing.{% /admonition %}
+        /// Returns encrypted cardholder information and other metadata needed for Google Pay push provisioning. It returns the issuer opaque payment card (OPC), an encrypted payload containing the card details, which your app passes unchanged to Google&apos;s SDK. It is used in both Unified Android Push Provisioning and the Deprecated Token Service Provider (TSP) OPC-only flow. Unified Android Push Provisioning also uses [Push provisioning Google OPC](/api-reference/digital-wallet/pushprovisioninggoogleopcpost).{% admonition type=&quot;warning&quot; %}This API is not available for sandbox testing.{% /admonition %}
         /// </summary>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningGooglePayGet200Response"/></returns>
         /// <param name="body">The request body</param>
@@ -61,7 +61,7 @@ namespace Soenneker.Wise.OpenApiClient.TwcardData.V1.PushProvisioning.EncryptedP
             return await RequestAdapter.SendAsync<global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningGooglePayGet200Response>(requestInfo, global::Soenneker.Wise.OpenApiClient.Models.PushProvisioningGooglePayGet200Response.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Returns encrypted cardholder information and other metadata needed for Google Pay push provisioning.{% admonition type=&quot;warning&quot; %}This API is not available for sandbox testing.{% /admonition %}
+        /// Returns encrypted cardholder information and other metadata needed for Google Pay push provisioning. It returns the issuer opaque payment card (OPC), an encrypted payload containing the card details, which your app passes unchanged to Google&apos;s SDK. It is used in both Unified Android Push Provisioning and the Deprecated Token Service Provider (TSP) OPC-only flow. Unified Android Push Provisioning also uses [Push provisioning Google OPC](/api-reference/digital-wallet/pushprovisioninggoogleopcpost).{% admonition type=&quot;warning&quot; %}This API is not available for sandbox testing.{% /admonition %}
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>

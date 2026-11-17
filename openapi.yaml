@@ -9897,8 +9897,18 @@ paths:
     post:
       operationId: kycReviewCreate
       summary: Create a KYC Review
-      description: |
+      description: >
         Creates a KYC Review for a specific customer action.
+
+
+        {% admonition type="info" %}
+
+        A profile can have at most one `PROACTIVE_SEND_MONEY` KYC Review. A
+        quote can have at most one `QUOTE` KYC Review. If a review already
+        exists for the profile or quote, this endpoint returns the existing
+        review instead of creating a new one.
+
+        {% /admonition %}
       tags:
         - kyc-review
       security:
@@ -9961,8 +9971,23 @@ paths:
                         cycle per profile so referencing by ID isn't useful.
                       example: ba83a43a-f623-46f0-956d-196c13e2ab01
       responses:
+        '200':
+          description: >-
+            The existing KYC Review is returned because it has already
+            progressed past `NEW`.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/kyc-review'
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
         '202':
-          description: KYC Review successfully created.
+          description: >-
+            KYC Review successfully created, or the existing KYC Review is
+            returned while it is still `NEW`.
           content:
             application/json:
               schema:
@@ -18110,7 +18135,13 @@ paths:
       summary: Push provisioning for Google Pay
       description: >
         Returns encrypted cardholder information and other metadata needed for
-        Google Pay push provisioning.
+        Google Pay push provisioning. It returns the issuer opaque payment card
+        (OPC), an encrypted payload containing the card details, which your app
+        passes unchanged to Google's SDK. It is used in both Unified Android
+        Push Provisioning and the Deprecated Token Service Provider (TSP)
+        OPC-only flow. Unified Android Push Provisioning also uses [Push
+        provisioning Google
+        OPC](/api-reference/digital-wallet/pushprovisioninggoogleopcpost).
 
 
         {% admonition type="warning" %}
@@ -18123,10 +18154,9 @@ paths:
       servers:
         - url: https://twcard.wise.com
           description: Production Environment
-        - url: https://twcard.wise-sandbox.com
-          description: Sandbox Environment
       security:
         - UserToken: []
+        - ClientCredentialsToken: []
       parameters:
         - name: x-tw-twcard-card-token
           in: header
@@ -18243,6 +18273,86 @@ paths:
               $ref: '#/components/headers/x-trace-id'
         '429':
           $ref: '#/components/responses/429'
+  /twcard-data/v1/push-provisioning/encrypted-payload/google-opc:
+    post:
+      operationId: pushProvisioningGoogleOpcPost
+      summary: Push provisioning Google OPC for Google Pay
+      description: >
+        Returns the Google opaque payment card (OPC) needed for Unified Android
+        Push Provisioning. It lets Google save the card to the user's Google
+        account. The OPC is an encrypted payload containing the card details: do
+        not parse or modify it, and pass it unchanged to Google's SDK.
+
+
+        Use this together with [Push provisioning for Google
+        Pay](/api-reference/digital-wallet/pushprovisioninggooglepayget), which
+        returns the issuer OPC. For Unified Android Push Provisioning, see the
+        [Digital wallets
+        guide](/guides/product/issue-cards/card-digital-wallet#unified-android-push-provisioning).
+
+
+        {% admonition type="warning" %}
+
+        This API is not available for sandbox testing.
+
+        {% /admonition %}
+      tags:
+        - digital-wallet
+      servers:
+        - url: https://twcard.wise.com
+          description: Production Environment
+      security:
+        - UserToken: []
+        - ClientCredentialsToken: []
+      parameters:
+        - name: x-tw-twcard-card-token
+          in: header
+          required: true
+          description: >-
+            The card token identifying which card to retrieve the Google OPC
+            for.
+          schema:
+            type: string
+            format: uuid
+          example: a3f90c98-1cd1-4488-9050-2e32c696f8fa
+        - $ref: '#/components/parameters/X-External-Correlation-Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - googleServerSessionId
+              properties:
+                googleServerSessionId:
+                  type: string
+                  description: >-
+                    Server session ID as received in the Google SDK during the
+                    push provisioning flow.
+                  example: d1c3b8e2-5f0a-4c7e-9a41-6b2f7e8d9c10
+      responses:
+        '200':
+          description: Google OPC for Google Pay.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  googleOpc:
+                    type: string
+                    description: >-
+                      Google opaque payment card, bound to the
+                      `googleServerSessionId` it was requested with. The
+                      response is encoded in Base64.
+                    example: eyJraWQiOiIwQk...
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '429':
+          $ref: '#/components/responses/429'
   /twcard-data/v1/push-provisioning/encrypted-payload/apple-pay:
     post:
       operationId: pushProvisioningApplePayGet
@@ -18266,6 +18376,7 @@ paths:
           description: Sandbox Environment
       security:
         - UserToken: []
+        - ClientCredentialsToken: []
       parameters:
         - name: x-tw-twcard-card-token
           in: header

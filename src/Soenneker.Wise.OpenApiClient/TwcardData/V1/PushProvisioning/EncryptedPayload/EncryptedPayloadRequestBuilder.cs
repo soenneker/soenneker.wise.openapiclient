@@ -3,6 +3,7 @@
 using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions;
 using Soenneker.Wise.OpenApiClient.TwcardData.V1.PushProvisioning.EncryptedPayload.ApplePay;
+using Soenneker.Wise.OpenApiClient.TwcardData.V1.PushProvisioning.EncryptedPayload.GoogleOpc;
 using Soenneker.Wise.OpenApiClient.TwcardData.V1.PushProvisioning.EncryptedPayload.GooglePay;
 using System.Collections.Generic;
 using System.IO;
@@ -20,6 +21,11 @@ namespace Soenneker.Wise.OpenApiClient.TwcardData.V1.PushProvisioning.EncryptedP
         public global::Soenneker.Wise.OpenApiClient.TwcardData.V1.PushProvisioning.EncryptedPayload.ApplePay.ApplePayRequestBuilder ApplePay
         {
             get => new global::Soenneker.Wise.OpenApiClient.TwcardData.V1.PushProvisioning.EncryptedPayload.ApplePay.ApplePayRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The googleOpc property</summary>
+        public global::Soenneker.Wise.OpenApiClient.TwcardData.V1.PushProvisioning.EncryptedPayload.GoogleOpc.GoogleOpcRequestBuilder GoogleOpc
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.TwcardData.V1.PushProvisioning.EncryptedPayload.GoogleOpc.GoogleOpcRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The googlePay property</summary>
         public global::Soenneker.Wise.OpenApiClient.TwcardData.V1.PushProvisioning.EncryptedPayload.GooglePay.GooglePayRequestBuilder GooglePay

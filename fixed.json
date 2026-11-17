@@ -9337,7 +9337,7 @@
           "kyc-review"
         ],
         "summary": "Create a KYC Review",
-        "description": "Creates a KYC Review for a specific customer action.\n",
+        "description": "Creates a KYC Review for a specific customer action.\n\n{% admonition type=\u0022info\u0022 %}\nA profile can have at most one \u0060PROACTIVE_SEND_MONEY\u0060 KYC Review. A quote can have at most one \u0060QUOTE\u0060 KYC Review. If a review already exists for the profile or quote, this endpoint returns the existing review instead of creating a new one.\n{% /admonition %}\n",
         "operationId": "KycReviewCreate",
         "parameters": [
           {
@@ -9366,8 +9366,26 @@
           "required": true
         },
         "responses": {
+          "200": {
+            "description": "The existing KYC Review is returned because it has already progressed past \u0060NEW\u0060.",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KycReview"
+                }
+              }
+            }
+          },
           "202": {
-            "description": "KYC Review successfully created.",
+            "description": "KYC Review successfully created, or the existing KYC Review is returned while it is still \u0060NEW\u0060.",
             "headers": {
               "X-External-Correlation-Id": {
                 "$ref": "#/components/headers/X-External-Correlation-Id"
@@ -9449,25 +9467,6 @@
               }
             },
             "x-global": true
-          },
-          "200": {
-            "description": "KYC Review successfully created.",
-            "headers": {
-              "X-External-Correlation-Id": {
-                "$ref": "#/components/headers/X-External-Correlation-Id"
-              },
-              "x-trace-id": {
-                "$ref": "#/components/headers/x-trace-id"
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/KycReview"
-                }
-              }
-            },
-            "x-client-success-response-status": "202"
           }
         },
         "security": [
@@ -18955,7 +18954,7 @@
           "digital-wallet"
         ],
         "summary": "Push provisioning for Google Pay",
-        "description": "Returns encrypted cardholder information and other metadata needed for Google Pay push provisioning.\n\n{% admonition type=\u0022warning\u0022 %}\nThis API is not available for sandbox testing.\n{% /admonition %}\n",
+        "description": "Returns encrypted cardholder information and other metadata needed for Google Pay push provisioning. It returns the issuer opaque payment card (OPC), an encrypted payload containing the card details, which your app passes unchanged to Google\u0027s SDK. It is used in both Unified Android Push Provisioning and the Deprecated Token Service Provider (TSP) OPC-only flow. Unified Android Push Provisioning also uses [Push provisioning Google OPC](/api-reference/digital-wallet/pushprovisioninggoogleopcpost).\n\n{% admonition type=\u0022warning\u0022 %}\nThis API is not available for sandbox testing.\n{% /admonition %}\n",
         "operationId": "PushProvisioningGooglePayGet",
         "parameters": [
           {
@@ -19040,16 +19039,119 @@
         "security": [
           {
             "UserToken": []
+          },
+          {
+            "ClientCredentialsToken": []
           }
         ],
         "servers": [
           {
             "url": "https://twcard.wise.com",
             "description": "Production Environment"
+          }
+        ]
+      }
+    },
+    "/twcard-data/v1/push-provisioning/encrypted-payload/google-opc": {
+      "post": {
+        "tags": [
+          "digital-wallet"
+        ],
+        "summary": "Push provisioning Google OPC for Google Pay",
+        "description": "Returns the Google opaque payment card (OPC) needed for Unified Android Push Provisioning. It lets Google save the card to the user\u0027s Google account. The OPC is an encrypted payload containing the card details: do not parse or modify it, and pass it unchanged to Google\u0027s SDK.\n\nUse this together with [Push provisioning for Google Pay](/api-reference/digital-wallet/pushprovisioninggooglepayget), which returns the issuer OPC. For Unified Android Push Provisioning, see the [Digital wallets guide](/guides/product/issue-cards/card-digital-wallet#unified-android-push-provisioning).\n\n{% admonition type=\u0022warning\u0022 %}\nThis API is not available for sandbox testing.\n{% /admonition %}\n",
+        "operationId": "PushProvisioningGoogleOpcPost",
+        "parameters": [
+          {
+            "name": "x-tw-twcard-card-token",
+            "in": "header",
+            "description": "The card token identifying which card to retrieve the Google OPC for.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "a3f90c98-1cd1-4488-9050-2e32c696f8fa"
           },
           {
-            "url": "https://twcard.wise-sandbox.com",
-            "description": "Sandbox Environment"
+            "description": "Optional UUID for correlating requests across systems. If provided, Wise echoes it back in the response. Maximum 36 characters. [Learn more](/guides/developer/headers/correlation-id).\n",
+            "$ref": "#/components/parameters/X-External-Correlation-Id"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PushProvisioningGoogleOpcPostRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Google OPC for Google Pay.",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PushProvisioningGoogleOpcPost200Response"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit exceeded. Retry after the number of seconds specified in the \u0060Retry-After\u0060 header.",
+            "headers": {
+              "Retry-After": {
+                "description": "Number of seconds to wait before retrying the request.",
+                "schema": {
+                  "type": "integer"
+                },
+                "example": 5
+              },
+              "X-Rate-Limited-By": {
+                "description": "Identifies the rate limiter that triggered the 429 response.",
+                "schema": {
+                  "type": "string"
+                },
+                "example": "wise-public-api"
+              },
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Value429ResponseContentError"
+                }
+              }
+            },
+            "x-global": true
+          }
+        },
+        "security": [
+          {
+            "UserToken": []
+          },
+          {
+            "ClientCredentialsToken": []
+          }
+        ],
+        "servers": [
+          {
+            "url": "https://twcard.wise.com",
+            "description": "Production Environment"
           }
         ]
       }
@@ -19145,6 +19247,9 @@
         "security": [
           {
             "UserToken": []
+          },
+          {
+            "ClientCredentialsToken": []
           }
         ],
         "servers": [
@@ -56037,6 +56142,29 @@
           },
           "userAddress": {
             "$ref": "#/components/schemas/PushProvisioningGooglePayGet200ResponseUserAddress"
+          }
+        }
+      },
+      "PushProvisioningGoogleOpcPostRequest": {
+        "required": [
+          "googleServerSessionId"
+        ],
+        "type": "object",
+        "properties": {
+          "googleServerSessionId": {
+            "type": "string",
+            "description": "Server session ID as received in the Google SDK during the push provisioning flow.",
+            "example": "d1c3b8e2-5f0a-4c7e-9a41-6b2f7e8d9c10"
+          }
+        }
+      },
+      "PushProvisioningGoogleOpcPost200Response": {
+        "type": "object",
+        "properties": {
+          "googleOpc": {
+            "type": "string",
+            "description": "Google opaque payment card, bound to the \u0060googleServerSessionId\u0060 it was requested with. The response is encoded in Base64.",
+            "example": "eyJraWQiOiIwQk..."
           }
         }
       },

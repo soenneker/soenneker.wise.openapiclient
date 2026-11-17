@@ -73,7 +73,7 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.Item.KycReviews
             return collectionResult?.AsList();
         }
         /// <summary>
-        /// Creates a KYC Review for a specific customer action.
+        /// Creates a KYC Review for a specific customer action.{% admonition type=&quot;info&quot; %}A profile can have at most one `PROACTIVE_SEND_MONEY` KYC Review. A quote can have at most one `QUOTE` KYC Review. If a review already exists for the profile or quote, this endpoint returns the existing review instead of creating a new one.{% /admonition %}
         /// </summary>
         /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.KycReview"/></returns>
         /// <param name="body">The request body</param>
@@ -119,7 +119,7 @@ namespace Soenneker.Wise.OpenApiClient.Profiles.Item.KycReviews
             return requestInfo;
         }
         /// <summary>
-        /// Creates a KYC Review for a specific customer action.
+        /// Creates a KYC Review for a specific customer action.{% admonition type=&quot;info&quot; %}A profile can have at most one `PROACTIVE_SEND_MONEY` KYC Review. A quote can have at most one `QUOTE` KYC Review. If a review already exists for the profile or quote, this endpoint returns the existing review instead of creating a new one.{% /admonition %}
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>
