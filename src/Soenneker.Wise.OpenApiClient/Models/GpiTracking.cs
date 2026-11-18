@@ -159,7 +159,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
         public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
         {
-            return new Dictionary<string, Action<IParseNode>>
+            return new Dictionary<string, Action<IParseNode>>(13)
             {
                 { "cancellationStatus", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.GpiTrackingCancellationStatus>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueCancellationStatus = default; _explicitNullProperties?.Remove("cancellationStatus"); AdditionalData["cancellationStatus"] = unknown; } else { CancellationStatus = parsed; AdditionalData.Remove("cancellationStatus"); } } },
                 { "completedAt", n => { CompletedAt = n.GetDateTimeOffsetValue(); } },

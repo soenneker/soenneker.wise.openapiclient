@@ -32165,6 +32165,7 @@ components:
             - PASSED_WITH_REQUIREMENTS
             - WAITING_CUSTOMER_INPUT
             - PROCESSING
+            - EXPIRED
           example: WAITING_CUSTOMER_INPUT
         createdAt:
           type: string

@@ -85,7 +85,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
         public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
         {
-            return new Dictionary<string, Action<IParseNode>>
+            return new Dictionary<string, Action<IParseNode>>(4)
             {
                 { "backSideFileName", n => { BackSideFileName = n.GetStringValue(); } },
                 { "documentType", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.IdDocumentSubmissionDataDataDocumentType>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueDocumentType = default; _explicitNullProperties?.Remove("documentType"); AdditionalData["documentType"] = unknown; } else { DocumentType = parsed; AdditionalData.Remove("documentType"); } } },

@@ -79,7 +79,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
         public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
         {
-            return new Dictionary<string, Action<IParseNode>>
+            return new Dictionary<string, Action<IParseNode>>(7)
             {
                 { "caseId", n => { CaseId = n.GetLongValue(); } },
                 { "closingReason", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.SimulateSanctionCaseRequestClosingReason>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueClosingReason = default; _explicitNullProperties?.Remove("closingReason"); AdditionalData["closingReason"] = unknown; } else { ClosingReason = parsed; AdditionalData.Remove("closingReason"); } } },

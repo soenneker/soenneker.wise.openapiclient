@@ -83,7 +83,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
         public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
         {
-            return new Dictionary<string, Action<IParseNode>>
+            return new Dictionary<string, Action<IParseNode>>(5)
             {
                 { "current_status", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V40022DataCurrentStatus>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueCurrentStatus = default; _explicitNullProperties?.Remove("current_status"); AdditionalData["current_status"] = unknown; } else { CurrentStatus = parsed; AdditionalData.Remove("current_status"); } } },
                 { "occurred_at", n => { OccurredAt = n.GetDateTimeOffsetValue(); } },

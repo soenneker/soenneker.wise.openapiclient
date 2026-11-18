@@ -85,7 +85,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
         public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
         {
-            return new Dictionary<string, Action<IParseNode>>
+            return new Dictionary<string, Action<IParseNode>>(4)
             {
                 { "amount", n => { Amount = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V20011DataBalanceMovementsItemAmount>(global::Soenneker.Wise.OpenApiClient.Models.V20011DataBalanceMovementsItemAmount.CreateFromDiscriminatorValue); } },
                 { "balance_id", n => { BalanceId = n.GetStringValue(); } },

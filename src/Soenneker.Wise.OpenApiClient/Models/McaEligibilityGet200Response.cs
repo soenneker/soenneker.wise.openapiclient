@@ -71,7 +71,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
         public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
         {
-            return new Dictionary<string, Action<IParseNode>>
+            return new Dictionary<string, Action<IParseNode>>(4)
             {
                 { "accountType", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.McaEligibilityGet200ResponseAccountType>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueAccountType = default; _explicitNullProperties?.Remove("accountType"); AdditionalData["accountType"] = unknown; } else { AccountType = parsed; AdditionalData.Remove("accountType"); } } },
                 { "eligibilityCode", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.McaEligibilityGet200ResponseEligibilityCode>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueEligibilityCode = default; _explicitNullProperties?.Remove("eligibilityCode"); AdditionalData["eligibilityCode"] = unknown; } else { EligibilityCode = parsed; AdditionalData.Remove("eligibilityCode"); } } },

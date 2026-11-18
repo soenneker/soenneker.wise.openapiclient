@@ -78,7 +78,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
         public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
         {
-            return new Dictionary<string, Action<IParseNode>>
+            return new Dictionary<string, Action<IParseNode>>(4)
             {
                 { "delivery_update", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.DeliveryUpdateRequestDeliveryUpdate>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueDeliveryUpdate = default; _explicitNullProperties?.Remove("delivery_update"); AdditionalData["delivery_update"] = unknown; } else { DeliveryUpdate = parsed; AdditionalData.Remove("delivery_update"); } } },
                 { "delivery_update_path", n => { DeliveryUpdatePath = n.GetCollectionOfEnumValues<global::Soenneker.Wise.OpenApiClient.Models.DeliveryUpdate>()?.AsList(); } },

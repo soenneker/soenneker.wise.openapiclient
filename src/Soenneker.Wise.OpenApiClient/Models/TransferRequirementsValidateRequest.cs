@@ -76,7 +76,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
         public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
         {
-            return new Dictionary<string, Action<IParseNode>>
+            return new Dictionary<string, Action<IParseNode>>(5)
             {
                 { "customerTransactionId", n => { CustomerTransactionId = n.GetGuidValue(); } },
                 { "details", n => { Details = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.TransferRequirementsValidateRequestDetails>(global::Soenneker.Wise.OpenApiClient.Models.TransferRequirementsValidateRequestDetails.CreateFromDiscriminatorValue); } },

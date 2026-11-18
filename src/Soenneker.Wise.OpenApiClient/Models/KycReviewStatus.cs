@@ -27,5 +27,9 @@ namespace Soenneker.Wise.OpenApiClient.Models
         #pragma warning disable CS1591
         Processing,
         #pragma warning restore CS1591
+        [EnumMember(Value = "EXPIRED")]
+        #pragma warning disable CS1591
+        Expired,
+        #pragma warning restore CS1591
     }
 }

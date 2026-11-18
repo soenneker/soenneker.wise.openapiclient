@@ -117,7 +117,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
         public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
         {
-            return new Dictionary<string, Action<IParseNode>>
+            return new Dictionary<string, Action<IParseNode>>(6)
             {
                 { "accountHolder", n => { AccountHolder = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseAccountHolder>(global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseAccountHolder.CreateFromDiscriminatorValue); } },
                 { "bankDetails", n => { BankDetails = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseBankDetails>(global::Soenneker.Wise.OpenApiClient.Models.BalanceStatementGet200ResponseBankDetails.CreateFromDiscriminatorValue); } },

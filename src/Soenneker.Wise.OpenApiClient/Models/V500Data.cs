@@ -76,7 +76,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
         public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
         {
-            return new Dictionary<string, Action<IParseNode>>
+            return new Dictionary<string, Action<IParseNode>>(5)
             {
                 { "failure_description", n => { FailureDescription = n.GetStringValue(); } },
                 { "failure_reason_code", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.V500DataFailureReasonCode>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueFailureReasonCode = default; _explicitNullProperties?.Remove("failure_reason_code"); AdditionalData["failure_reason_code"] = unknown; } else { FailureReasonCode = parsed; AdditionalData.Remove("failure_reason_code"); } } },

@@ -71,7 +71,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
         public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
         {
-            return new Dictionary<string, Action<IParseNode>>
+            return new Dictionary<string, Action<IParseNode>>(4)
             {
                 { "keyId", n => { KeyId = n.GetGuidValue(); } },
                 { "keyMaterial", n => { KeyMaterial = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.JoseResponsePublicKeysGet200ResponseKeyMaterial>(global::Soenneker.Wise.OpenApiClient.Models.JoseResponsePublicKeysGet200ResponseKeyMaterial.CreateFromDiscriminatorValue); } },

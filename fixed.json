@@ -64373,7 +64373,8 @@
           "PASSED",
           "PASSED_WITH_REQUIREMENTS",
           "WAITING_CUSTOMER_INPUT",
-          "PROCESSING"
+          "PROCESSING",
+          "EXPIRED"
         ],
         "type": "string",
         "description": "Aggregated state of the underlying requirement set. Any of the states below could move into any other state.\n",
@@ -64401,6 +64402,10 @@
             {
               "value": "PROCESSING",
               "name": "Processing"
+            },
+            {
+              "value": "EXPIRED",
+              "name": "Expired"
             }
           ]
         }

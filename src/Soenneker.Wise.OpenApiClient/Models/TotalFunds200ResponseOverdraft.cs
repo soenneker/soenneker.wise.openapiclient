@@ -93,7 +93,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
         public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
         {
-            return new Dictionary<string, Action<IParseNode>>
+            return new Dictionary<string, Action<IParseNode>>(4)
             {
                 { "available", n => { Available = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseOverdraftAvailable>(global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseOverdraftAvailable.CreateFromDiscriminatorValue); } },
                 { "availableByCurrency", n => { AvailableByCurrency = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseOverdraftAvailableByCurrencyItem>(global::Soenneker.Wise.OpenApiClient.Models.TotalFunds200ResponseOverdraftAvailableByCurrencyItem.CreateFromDiscriminatorValue)?.AsList(); } },

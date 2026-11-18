@@ -78,7 +78,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
         public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
         {
-            return new Dictionary<string, Action<IParseNode>>
+            return new Dictionary<string, Action<IParseNode>>(4)
             {
                 { "cardType", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CardOrderProgramsGet200ResponseCardProgramsItemCardType>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueCardType = default; _explicitNullProperties?.Remove("cardType"); AdditionalData["cardType"] = unknown; } else { CardType = parsed; AdditionalData.Remove("cardType"); } } },
                 { "defaultCurrency", n => { DefaultCurrency = n.GetStringValue(); } },

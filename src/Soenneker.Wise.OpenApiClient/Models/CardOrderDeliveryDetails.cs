@@ -86,7 +86,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
         public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
         {
-            return new Dictionary<string, Action<IParseNode>>
+            return new Dictionary<string, Action<IParseNode>>(4)
             {
                 { "deliveryOption", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.CardOrderDeliveryDetailsDeliveryOption>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueDeliveryOption = default; _explicitNullProperties?.Remove("deliveryOption"); AdditionalData["deliveryOption"] = unknown; } else { DeliveryOption = parsed; AdditionalData.Remove("deliveryOption"); } } },
                 { "deliveryVendor", n => { DeliveryVendor = n.GetStringValue(); } },
