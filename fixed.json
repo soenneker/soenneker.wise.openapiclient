@@ -28029,6 +28029,7 @@
                   "response-private-legalentity": {
                     "summary": "PRIVATE Originator Response",
                     "value": {
+                      "payinSessionId": "123e4567-e89b-12d3-a456-426614174000",
                       "id": 16521632,
                       "originalTransferId": "54a6bc09-cef9-49a8-9041-f1f0c654cd88",
                       "user": 4342275,
@@ -28173,6 +28174,7 @@
                   "response-private-legalentity": {
                     "summary": "PRIVATE Originator Response",
                     "value": {
+                      "payinSessionId": "123e4567-e89b-12d3-a456-426614174000",
                       "id": 16521632,
                       "originalTransferId": "54a6bc09-cef9-49a8-9041-f1f0c654cd88",
                       "user": 4342275,
@@ -28324,6 +28326,7 @@
                   "response-private-legalentity": {
                     "summary": "PRIVATE Originator Response",
                     "value": {
+                      "payinSessionId": "123e4567-e89b-12d3-a456-426614174000",
                       "id": 16521632,
                       "originalTransferId": "54a6bc09-cef9-49a8-9041-f1f0c654cd88",
                       "user": 4342275,
@@ -37804,6 +37807,12 @@
             "description": "Timestamp when transfer was created.",
             "format": "date-time",
             "example": "2025-10-29T12:28:16.000Z"
+          },
+          "payinSessionId": {
+            "maxLength": 64,
+            "type": "string",
+            "description": "Payin session ID to use with the funding APIs. Newly created transfers include this ID. Legacy transfers may not have one.",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
           }
         },
         "description": "Returns the originator transfer object."
@@ -37905,6 +37914,12 @@
             "description": "Timestamp when transfer was created.",
             "format": "date-time",
             "example": "2025-10-29T12:28:16.000Z"
+          },
+          "payinSessionId": {
+            "maxLength": 64,
+            "type": "string",
+            "description": "Payin session ID to use with the funding APIs. Newly created transfers include this ID. Legacy transfers may not have one.",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
           }
         },
         "description": "Returns the originator transfer object."

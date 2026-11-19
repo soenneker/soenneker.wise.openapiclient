@@ -30,6 +30,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
             else if (parseNode.GetChildNode("originalTransferId") is { } nullNodeOriginalTransferId && nullNodeOriginalTransferId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) OriginalTransferId = null;
             if (parseNode.GetChildNode("originator") is null) { _explicitNullValueOriginator = default!; _explicitNullProperties?.Remove("originator"); }
             else if (parseNode.GetChildNode("originator") is { } nullNodeOriginator && nullNodeOriginator.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Originator = null;
+            if (parseNode.GetChildNode("payinSessionId") is null) { _explicitNullValuePayinSessionId = default!; _explicitNullProperties?.Remove("payinSessionId"); }
+            else if (parseNode.GetChildNode("payinSessionId") is { } nullNodePayinSessionId && nullNodePayinSessionId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PayinSessionId = null;
             if (parseNode.GetChildNode("quote") is null) { _explicitNullValueQuote = default!; _explicitNullProperties?.Remove("quote"); }
             else if (parseNode.GetChildNode("quote") is { } nullNodeQuote && nullNodeQuote.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Quote = null;
             if (parseNode.GetChildNode("rate") is null) { _explicitNullValueRate = default!; _explicitNullProperties?.Remove("rate"); }
@@ -92,6 +94,16 @@ namespace Soenneker.Wise.OpenApiClient.Models
 #else
         public global::Soenneker.Wise.OpenApiClient.Models.OriginatorResponse Originator { get => _explicitNullValueOriginator; set { _explicitNullValueOriginator = value; AdditionalData?.Remove("originator"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("originator"); else _explicitNullProperties?.Remove("originator"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.OriginatorResponse _explicitNullValueOriginator = default!;
+#endif
+        /// <summary>Payin session ID to use with the funding APIs. Newly created transfers include this ID. Legacy transfers may not have one.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? PayinSessionId { get => _explicitNullValuePayinSessionId; set { _explicitNullValuePayinSessionId = value; AdditionalData?.Remove("payinSessionId"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("payinSessionId"); else _explicitNullProperties?.Remove("payinSessionId"); } }
+        private string? _explicitNullValuePayinSessionId = default!;
+#nullable restore
+#else
+        public string PayinSessionId { get => _explicitNullValuePayinSessionId; set { _explicitNullValuePayinSessionId = value; AdditionalData?.Remove("payinSessionId"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("payinSessionId"); else _explicitNullProperties?.Remove("payinSessionId"); } }
+        private string _explicitNullValuePayinSessionId = default!;
 #endif
         /// <summary>Quote ID</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -174,7 +186,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
         public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
         {
-            return new Dictionary<string, Action<IParseNode>>(16)
+            return new Dictionary<string, Action<IParseNode>>(17)
             {
                 { "created", n => { Created = n.GetDateTimeOffsetValue(); } },
                 { "details", n => { Details = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.DetailsResponse>(global::Soenneker.Wise.OpenApiClient.Models.DetailsResponse.CreateFromDiscriminatorValue); } },
@@ -182,6 +194,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "id", n => { Id = n.GetLongValue(); } },
                 { "originalTransferId", n => { OriginalTransferId = n.GetStringValue(); } },
                 { "originator", n => { Originator = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.OriginatorResponse>(global::Soenneker.Wise.OpenApiClient.Models.OriginatorResponse.CreateFromDiscriminatorValue); } },
+                { "payinSessionId", n => { PayinSessionId = n.GetStringValue(); } },
                 { "quote", n => { Quote = n.GetStringValue(); } },
                 { "rate", n => { Rate = n.GetDecimalValue(); } },
                 { "sourceAccount", n => { SourceAccount = n.GetLongValue(); } },
@@ -207,6 +220,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteLongValue("id", Id);
             writer.WriteStringValue("originalTransferId", OriginalTransferId);
             writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.OriginatorResponse>("originator", Originator);
+            writer.WriteStringValue("payinSessionId", PayinSessionId);
             writer.WriteStringValue("quote", Quote);
             writer.WriteDecimalValue("rate", Rate);
             writer.WriteLongValue("sourceAccount", SourceAccount);
