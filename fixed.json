@@ -49720,13 +49720,7 @@
             "example": null
           },
           "validationAsync": {
-            "type": [
-              "null",
-              "string"
-            ],
-            "description": "Deprecated. This validation will instead be performed when submitting the request.",
-            "example": null,
-            "deprecated": true
+            "$ref": "#/components/schemas/AddressRequirementsResponseItemFieldsItemGroupItemValidationAsync"
           },
           "valuesAllowed": {
             "type": "array",
@@ -49801,10 +49795,7 @@
             "example": "^[^\\s]\u002B@[^\\s]\u002B\\.[^\\s]{2,}$"
           },
           "validationAsync": {
-            "type": "string",
-            "description": "Deprecated. This validation will instead be performed when submitting the request.",
-            "example": null,
-            "deprecated": true
+            "$ref": "#/components/schemas/AccountRequirementsResponseItemFieldsItemGroupItemValidationAsync"
           },
           "valuesAllowed": {
             "type": [
@@ -51658,6 +51649,28 @@
           }
         }
       },
+      "AddressRequirementsResponseItemFieldsItemGroupItemValidationAsync": {
+        "type": [
+          "null",
+          "object"
+        ],
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "URL to perform async validation.",
+            "example": "https://example.com/validate"
+          },
+          "params": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AddressRequirementsResponseItemFieldsItemGroupItemValidationAsyncParamsItem"
+            }
+          }
+        },
+        "description": "Deprecated. This validation is performed when submitting the request.",
+        "example": null,
+        "deprecated": true
+      },
       "AddressRequirementsResponseItemFieldsItemGroupItemValuesAllowedItem": {
         "type": "object",
         "properties": {
@@ -51670,6 +51683,28 @@
             "description": "Display name for the value."
           }
         }
+      },
+      "AccountRequirementsResponseItemFieldsItemGroupItemValidationAsync": {
+        "type": [
+          "null",
+          "object"
+        ],
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "URL to perform async validation.",
+            "example": "https://example.com/validate"
+          },
+          "params": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AccountRequirementsResponseItemFieldsItemGroupItemValidationAsyncParamsItem"
+            }
+          }
+        },
+        "description": "Deprecated. This validation is performed when submitting the request.",
+        "example": null,
+        "deprecated": true
       },
       "AccountRequirementsResponseItemFieldsItemGroupItemValuesAllowedItem": {
         "type": "object",
@@ -52642,6 +52677,46 @@
             "type": "string",
             "description": "Currency of fee. 3-letter ISO currency code.",
             "example": "USD"
+          }
+        }
+      },
+      "AddressRequirementsResponseItemFieldsItemGroupItemValidationAsyncParamsItem": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "Parameter key",
+            "example": "paramKey"
+          },
+          "parameterName": {
+            "type": "string",
+            "description": "Parameter name",
+            "example": "paramName"
+          },
+          "required": {
+            "type": "boolean",
+            "description": "Indicates whether the parameter is required.",
+            "example": true
+          }
+        }
+      },
+      "AccountRequirementsResponseItemFieldsItemGroupItemValidationAsyncParamsItem": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "Parameter key",
+            "example": "paramKey"
+          },
+          "parameterName": {
+            "type": "string",
+            "description": "Parameter name",
+            "example": "paramName"
+          },
+          "required": {
+            "type": "boolean",
+            "description": "Indicates whether the parameter is required.",
+            "example": true
           }
         }
       },

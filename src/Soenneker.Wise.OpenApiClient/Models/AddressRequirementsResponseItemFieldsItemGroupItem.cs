@@ -88,16 +88,16 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Display type of field.</summary>
         public global::Soenneker.Wise.OpenApiClient.Models.AddressRequirementsResponseItemFieldsItemGroupItemType? Type { get => _explicitNullValueType; set { _explicitNullValueType = value; AdditionalData?.Remove("type"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("type"); else _explicitNullProperties?.Remove("type"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.AddressRequirementsResponseItemFieldsItemGroupItemType? _explicitNullValueType = default!;
-        /// <summary>Deprecated. This validation will instead be performed when submitting the request.</summary>
+        /// <summary>Deprecated. This validation is performed when submitting the request.</summary>
         [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? ValidationAsync { get => _explicitNullValueValidationAsync; set { _explicitNullValueValidationAsync = value; AdditionalData?.Remove("validationAsync"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("validationAsync"); else _explicitNullProperties?.Remove("validationAsync"); } }
-        private string? _explicitNullValueValidationAsync = default!;
+        public global::Soenneker.Wise.OpenApiClient.Models.AddressRequirementsResponseItemFieldsItemGroupItemValidationAsync? ValidationAsync { get => _explicitNullValueValidationAsync; set { _explicitNullValueValidationAsync = value; AdditionalData?.Remove("validationAsync"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("validationAsync"); else _explicitNullProperties?.Remove("validationAsync"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.AddressRequirementsResponseItemFieldsItemGroupItemValidationAsync? _explicitNullValueValidationAsync = default!;
 #nullable restore
 #else
-        public string ValidationAsync { get => _explicitNullValueValidationAsync; set { _explicitNullValueValidationAsync = value; AdditionalData?.Remove("validationAsync"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("validationAsync"); else _explicitNullProperties?.Remove("validationAsync"); } }
-        private string _explicitNullValueValidationAsync = default!;
+        public global::Soenneker.Wise.OpenApiClient.Models.AddressRequirementsResponseItemFieldsItemGroupItemValidationAsync ValidationAsync { get => _explicitNullValueValidationAsync; set { _explicitNullValueValidationAsync = value; AdditionalData?.Remove("validationAsync"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("validationAsync"); else _explicitNullProperties?.Remove("validationAsync"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.AddressRequirementsResponseItemFieldsItemGroupItemValidationAsync _explicitNullValueValidationAsync = default!;
 #endif
         /// <summary>Regexp validation pattern.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -152,7 +152,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "refreshRequirementsOnChange", n => { RefreshRequirementsOnChange = n.GetBoolValue(); } },
                 { "required", n => { Required = n.GetBoolValue(); } },
                 { "type", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.AddressRequirementsResponseItemFieldsItemGroupItemType>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueType = default; _explicitNullProperties?.Remove("type"); AdditionalData["type"] = unknown; } else { Type = parsed; AdditionalData.Remove("type"); } } },
-                { "validationAsync", n => { ValidationAsync = n.GetStringValue(); } },
+                { "validationAsync", n => { ValidationAsync = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.AddressRequirementsResponseItemFieldsItemGroupItemValidationAsync>(global::Soenneker.Wise.OpenApiClient.Models.AddressRequirementsResponseItemFieldsItemGroupItemValidationAsync.CreateFromDiscriminatorValue); } },
                 { "validationRegexp", n => { ValidationRegexp = n.GetStringValue(); } },
                 { "valuesAllowed", n => { ValuesAllowed = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.AddressRequirementsResponseItemFieldsItemGroupItemValuesAllowedItem>(global::Soenneker.Wise.OpenApiClient.Models.AddressRequirementsResponseItemFieldsItemGroupItemValuesAllowedItem.CreateFromDiscriminatorValue)?.AsList(); } },
             };
@@ -172,7 +172,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteBoolValue("refreshRequirementsOnChange", RefreshRequirementsOnChange);
             writer.WriteBoolValue("required", Required);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.AddressRequirementsResponseItemFieldsItemGroupItemType>("type", Type);
-            writer.WriteStringValue("validationAsync", ValidationAsync);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.AddressRequirementsResponseItemFieldsItemGroupItemValidationAsync>("validationAsync", ValidationAsync);
             writer.WriteStringValue("validationRegexp", ValidationRegexp);
             writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.AddressRequirementsResponseItemFieldsItemGroupItemValuesAllowedItem>("valuesAllowed", ValuesAllowed);
             if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);

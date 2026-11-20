@@ -29454,12 +29454,34 @@ components:
                         example: null
                       validationAsync:
                         type:
-                          - string
+                          - object
                           - 'null'
-                        description: >-
-                          Deprecated. This validation will instead be performed
-                          when submitting the request.
+                        properties:
+                          url:
+                            type: string
+                            description: URL to perform async validation.
+                            example: https://example.com/validate
+                          params:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                key:
+                                  type: string
+                                  description: Parameter key
+                                  example: paramKey
+                                parameterName:
+                                  type: string
+                                  description: Parameter name
+                                  example: paramName
+                                required:
+                                  type: boolean
+                                  description: Indicates whether the parameter is required.
+                                  example: true
                         deprecated: true
+                        description: >-
+                          Deprecated. This validation is performed when
+                          submitting the request.
                         example: null
                       valuesAllowed:
                         type: array
@@ -38714,11 +38736,35 @@ components:
                         description: Regex pattern for validation, when applicable.
                         example: ^[^\s]+@[^\s]+\.[^\s]{2,}$
                       validationAsync:
-                        type: string
+                        type:
+                          - object
+                          - 'null'
+                        properties:
+                          url:
+                            type: string
+                            description: URL to perform async validation.
+                            example: https://example.com/validate
+                          params:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                key:
+                                  type: string
+                                  description: Parameter key
+                                  example: paramKey
+                                parameterName:
+                                  type: string
+                                  description: Parameter name
+                                  example: paramName
+                                required:
+                                  type: boolean
+                                  description: Indicates whether the parameter is required.
+                                  example: true
                         deprecated: true
                         description: >-
-                          Deprecated. This validation will instead be performed
-                          when submitting the request.
+                          Deprecated. This validation is performed when
+                          submitting the request.
                         example: null
                       valuesAllowed:
                         type:
