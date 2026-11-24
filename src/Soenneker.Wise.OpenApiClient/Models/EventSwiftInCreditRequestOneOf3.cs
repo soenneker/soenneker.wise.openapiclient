@@ -34,12 +34,12 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>The data property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.V410Data? Data { get => _explicitNullValueData; set { _explicitNullValueData = value; AdditionalData?.Remove("data"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("data"); else _explicitNullProperties?.Remove("data"); } }
-        private global::Soenneker.Wise.OpenApiClient.Models.V410Data? _explicitNullValueData = default!;
+        public global::Soenneker.Wise.OpenApiClient.Models.V4102Data? Data { get => _explicitNullValueData; set { _explicitNullValueData = value; AdditionalData?.Remove("data"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("data"); else _explicitNullProperties?.Remove("data"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.V4102Data? _explicitNullValueData = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.V410Data Data { get => _explicitNullValueData; set { _explicitNullValueData = value; AdditionalData?.Remove("data"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("data"); else _explicitNullProperties?.Remove("data"); } }
-        private global::Soenneker.Wise.OpenApiClient.Models.V410Data _explicitNullValueData = default!;
+        public global::Soenneker.Wise.OpenApiClient.Models.V4102Data Data { get => _explicitNullValueData; set { _explicitNullValueData = value; AdditionalData?.Remove("data"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("data"); else _explicitNullProperties?.Remove("data"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.V4102Data _explicitNullValueData = default!;
 #endif
         /// <summary>Event type identifier</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -85,7 +85,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             return new Dictionary<string, Action<IParseNode>>(5)
             {
-                { "data", n => { Data = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V410Data>(global::Soenneker.Wise.OpenApiClient.Models.V410Data.CreateFromDiscriminatorValue); } },
+                { "data", n => { Data = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V4102Data>(global::Soenneker.Wise.OpenApiClient.Models.V4102Data.CreateFromDiscriminatorValue); } },
                 { "event_type", n => { EventType = n.GetStringValue(); } },
                 { "schema_version", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.EventSwiftInCreditRequestOneOf3_schema_version>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueSchemaVersion = default; _explicitNullProperties?.Remove("schema_version"); AdditionalData["schema_version"] = unknown; } else { SchemaVersion = parsed; AdditionalData.Remove("schema_version"); } } },
                 { "sent_at", n => { SentAt = n.GetDateTimeOffsetValue(); } },
@@ -99,7 +99,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V410Data>("data", Data);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V4102Data>("data", Data);
             writer.WriteStringValue("event_type", EventType);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.EventSwiftInCreditRequestOneOf3_schema_version>("schema_version", SchemaVersion);
             writer.WriteDateTimeOffsetValue("sent_at", SentAt);

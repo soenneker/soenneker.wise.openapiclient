@@ -9,7 +9,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 {
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
-    public partial class V410DataResourceSender : IAdditionalDataHolder, IParsable
+    public partial class V4102DataResourceSender : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
     , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
         // Track explicitly assigned nulls separately from absent properties.
@@ -42,22 +42,22 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Structured address of the ultimate sender.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.V410DataResourceSenderAddress? Address { get => _explicitNullValueAddress; set { _explicitNullValueAddress = value; AdditionalData?.Remove("address"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("address"); else _explicitNullProperties?.Remove("address"); } }
-        private global::Soenneker.Wise.OpenApiClient.Models.V410DataResourceSenderAddress? _explicitNullValueAddress = default!;
+        public global::Soenneker.Wise.OpenApiClient.Models.V4102DataResourceSenderAddress? Address { get => _explicitNullValueAddress; set { _explicitNullValueAddress = value; AdditionalData?.Remove("address"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("address"); else _explicitNullProperties?.Remove("address"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.V4102DataResourceSenderAddress? _explicitNullValueAddress = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.V410DataResourceSenderAddress Address { get => _explicitNullValueAddress; set { _explicitNullValueAddress = value; AdditionalData?.Remove("address"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("address"); else _explicitNullProperties?.Remove("address"); } }
-        private global::Soenneker.Wise.OpenApiClient.Models.V410DataResourceSenderAddress _explicitNullValueAddress = default!;
+        public global::Soenneker.Wise.OpenApiClient.Models.V4102DataResourceSenderAddress Address { get => _explicitNullValueAddress; set { _explicitNullValueAddress = value; AdditionalData?.Remove("address"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("address"); else _explicitNullProperties?.Remove("address"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.V4102DataResourceSenderAddress _explicitNullValueAddress = default!;
 #endif
         /// <summary>Sender bank details.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Soenneker.Wise.OpenApiClient.Models.V410DataResourceSenderBankDetails? BankDetails { get => _explicitNullValueBankDetails; set { _explicitNullValueBankDetails = value; AdditionalData?.Remove("bank_details"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("bank_details"); else _explicitNullProperties?.Remove("bank_details"); } }
-        private global::Soenneker.Wise.OpenApiClient.Models.V410DataResourceSenderBankDetails? _explicitNullValueBankDetails = default!;
+        public global::Soenneker.Wise.OpenApiClient.Models.V4102DataResourceSenderBankDetails? BankDetails { get => _explicitNullValueBankDetails; set { _explicitNullValueBankDetails = value; AdditionalData?.Remove("bank_details"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("bank_details"); else _explicitNullProperties?.Remove("bank_details"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.V4102DataResourceSenderBankDetails? _explicitNullValueBankDetails = default!;
 #nullable restore
 #else
-        public global::Soenneker.Wise.OpenApiClient.Models.V410DataResourceSenderBankDetails BankDetails { get => _explicitNullValueBankDetails; set { _explicitNullValueBankDetails = value; AdditionalData?.Remove("bank_details"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("bank_details"); else _explicitNullProperties?.Remove("bank_details"); } }
-        private global::Soenneker.Wise.OpenApiClient.Models.V410DataResourceSenderBankDetails _explicitNullValueBankDetails = default!;
+        public global::Soenneker.Wise.OpenApiClient.Models.V4102DataResourceSenderBankDetails BankDetails { get => _explicitNullValueBankDetails; set { _explicitNullValueBankDetails = value; AdditionalData?.Remove("bank_details"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("bank_details"); else _explicitNullProperties?.Remove("bank_details"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.V4102DataResourceSenderBankDetails _explicitNullValueBankDetails = default!;
 #endif
         /// <summary>Name of the ultimate sender.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -70,21 +70,21 @@ namespace Soenneker.Wise.OpenApiClient.Models
         private string _explicitNullValueName = default!;
 #endif
         /// <summary>
-        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.V410DataResourceSender"/> and sets the default values.
+        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.V4102DataResourceSender"/> and sets the default values.
         /// </summary>
-        public V410DataResourceSender()
+        public V4102DataResourceSender()
         {
             AdditionalData = new Dictionary<string, object>();
         }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.V410DataResourceSender"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.V4102DataResourceSender"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static global::Soenneker.Wise.OpenApiClient.Models.V410DataResourceSender CreateFromDiscriminatorValue(IParseNode parseNode)
+        public static global::Soenneker.Wise.OpenApiClient.Models.V4102DataResourceSender CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.V410DataResourceSender(), parseNode);
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.V4102DataResourceSender(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -95,8 +95,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
             return new Dictionary<string, Action<IParseNode>>(4)
             {
                 { "account", n => { Account = n.GetStringValue(); } },
-                { "address", n => { Address = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V410DataResourceSenderAddress>(global::Soenneker.Wise.OpenApiClient.Models.V410DataResourceSenderAddress.CreateFromDiscriminatorValue); } },
-                { "bank_details", n => { BankDetails = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V410DataResourceSenderBankDetails>(global::Soenneker.Wise.OpenApiClient.Models.V410DataResourceSenderBankDetails.CreateFromDiscriminatorValue); } },
+                { "address", n => { Address = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V4102DataResourceSenderAddress>(global::Soenneker.Wise.OpenApiClient.Models.V4102DataResourceSenderAddress.CreateFromDiscriminatorValue); } },
+                { "bank_details", n => { BankDetails = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V4102DataResourceSenderBankDetails>(global::Soenneker.Wise.OpenApiClient.Models.V4102DataResourceSenderBankDetails.CreateFromDiscriminatorValue); } },
                 { "name", n => { Name = n.GetStringValue(); } },
             };
         }
@@ -108,8 +108,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("account", Account);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V410DataResourceSenderAddress>("address", Address);
-            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V410DataResourceSenderBankDetails>("bank_details", BankDetails);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V4102DataResourceSenderAddress>("address", Address);
+            writer.WriteObjectValue<global::Soenneker.Wise.OpenApiClient.Models.V4102DataResourceSenderBankDetails>("bank_details", BankDetails);
             writer.WriteStringValue("name", Name);
             if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);

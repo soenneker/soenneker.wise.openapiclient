@@ -8,10 +8,10 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Recipient bank address (same structure as `recipient.address`).
+    /// Structured address of the ultimate recipient.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    public partial class V410DataResourceRecipientBankDetailsAddress : IAdditionalDataHolder, IParsable
+    public partial class V4102DataResourceRecipientAddress : IAdditionalDataHolder, IParsable
     , global::Soenneker.OpenApi.Generated.IOpenApiExplicitNulls {
         // Track explicitly assigned nulls separately from absent properties.
         private global::System.Collections.Generic.HashSet<string> _explicitNullProperties = null!;
@@ -120,21 +120,21 @@ namespace Soenneker.Wise.OpenApiClient.Models
         private string _explicitNullValueTownName = default!;
 #endif
         /// <summary>
-        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.V410DataResourceRecipientBankDetailsAddress"/> and sets the default values.
+        /// Instantiates a new <see cref="global::Soenneker.Wise.OpenApiClient.Models.V4102DataResourceRecipientAddress"/> and sets the default values.
         /// </summary>
-        public V410DataResourceRecipientBankDetailsAddress()
+        public V4102DataResourceRecipientAddress()
         {
             AdditionalData = new Dictionary<string, object>();
         }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
-        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.V410DataResourceRecipientBankDetailsAddress"/></returns>
+        /// <returns>A <see cref="global::Soenneker.Wise.OpenApiClient.Models.V4102DataResourceRecipientAddress"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static global::Soenneker.Wise.OpenApiClient.Models.V410DataResourceRecipientBankDetailsAddress CreateFromDiscriminatorValue(IParseNode parseNode)
+        public static global::Soenneker.Wise.OpenApiClient.Models.V4102DataResourceRecipientAddress CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.V410DataResourceRecipientBankDetailsAddress(), parseNode);
+            return global::Soenneker.OpenApi.Generated.OpenApiNullTracking.Capture(new global::Soenneker.Wise.OpenApiClient.Models.V4102DataResourceRecipientAddress(), parseNode);
         }
         /// <summary>
         /// The deserialization information for the current model

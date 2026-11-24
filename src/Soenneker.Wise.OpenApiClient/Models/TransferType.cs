@@ -3,14 +3,21 @@ using System.Runtime.Serialization;
 using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
+    /// <summary>Type of transfer.- `standard`: A [standard transfer](/guides/product/send-money/transfers/standard-api-transfers).- `third_party`: A [third party transfer](/guides/product/send-money/transfers/correspondent-create-transfer), also called an originator transfer.- `charge`: A Charge, which moves funds from your customer&apos;s balance to your Enterprise Account for fees such as subscriptions.</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    #pragma warning disable CS1591
     public enum TransferType
-    #pragma warning restore CS1591
     {
-        [EnumMember(Value = "TRANSFER")]
+        [EnumMember(Value = "standard")]
         #pragma warning disable CS1591
-        Transfer,
+        Standard,
+        #pragma warning restore CS1591
+        [EnumMember(Value = "third_party")]
+        #pragma warning disable CS1591
+        ThirdParty,
+        #pragma warning restore CS1591
+        [EnumMember(Value = "charge")]
+        #pragma warning disable CS1591
+        Charge,
         #pragma warning restore CS1591
     }
 }

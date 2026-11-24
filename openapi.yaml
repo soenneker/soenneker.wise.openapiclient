@@ -27048,9 +27048,11 @@ webhooks:
               discriminator:
                 propertyName: schema_version
                 mapping:
+                  4.1.0: '#/components/schemas/v4.1.0'
                   4.0.0: '#/components/schemas/v4.0.0-4'
                   2.0.0: '#/components/schemas/v2.0.0-4'
               oneOf:
+                - $ref: '#/components/schemas/v4.1.0'
                 - $ref: '#/components/schemas/v4.0.0-4'
                 - $ref: '#/components/schemas/v2.0.0-4'
       responses:
@@ -28543,13 +28545,13 @@ webhooks:
                 mapping:
                   4.3.0: '#/components/schemas/v4.3.0'
                   4.2.0: '#/components/schemas/v4.2.0'
-                  4.1.0: '#/components/schemas/v4.1.0'
+                  4.1.0: '#/components/schemas/v4.1.0-2'
                   4.0.0: '#/components/schemas/v4.0.0-25'
                   3.0.0: '#/components/schemas/v3.0.0-2'
               oneOf:
                 - $ref: '#/components/schemas/v4.3.0'
                 - $ref: '#/components/schemas/v4.2.0'
-                - $ref: '#/components/schemas/v4.1.0'
+                - $ref: '#/components/schemas/v4.1.0-2'
                 - $ref: '#/components/schemas/v4.0.0-25'
                 - $ref: '#/components/schemas/v3.0.0-2'
       responses:
@@ -40530,6 +40532,26 @@ components:
             ID of the Payin Session generated for the transfer, which can be
             used for certain payin methods when funding the transfer
           example: 23330542-8e9e-419f-95eb-312b880f92ad
+        type:
+          type: string
+          description: >
+            Type of transfer.
+
+
+            - `standard`: A [standard
+            transfer](/guides/product/send-money/transfers/standard-api-transfers).
+
+            - `third_party`: A [third party
+            transfer](/guides/product/send-money/transfers/correspondent-create-transfer),
+            also called an originator transfer.
+
+            - `charge`: A Charge, which moves funds from your customer's balance
+            to your Enterprise Account for fees such as subscriptions.
+          enum:
+            - standard
+            - third_party
+            - charge
+          example: standard
     originator-transfer:
       title: Originator Transfer
       x-tags:
@@ -40728,6 +40750,26 @@ components:
             ID of the Payin Session generated for the transfer, which can be
             used for certain payin methods when funding the transfer.
           example: 23330542-8e9e-419f-95eb-312b880f92ad
+        type:
+          type: string
+          description: >
+            Type of transfer.
+
+
+            - `standard`: A [standard
+            transfer](/guides/product/send-money/transfers/standard-api-transfers).
+
+            - `third_party`: A [third party
+            transfer](/guides/product/send-money/transfers/correspondent-create-transfer),
+            also called an originator transfer.
+
+            - `charge`: A Charge, which moves funds from your customer's balance
+            to your Enterprise Account for fees such as subscriptions.
+          enum:
+            - standard
+            - third_party
+            - charge
+          example: third_party
     transfer-requirement:
       title: Transfer Requirement
       type: object
@@ -43056,6 +43098,95 @@ components:
               format: date-time
               description: When the state change occurred.
               example: '2023-08-10T10:17:23.000+00:00'
+    v4.1.0:
+      title: Schema version 4.1.0
+      type: object
+      properties:
+        schema_version:
+          type: string
+          description: >-
+            Version of the event schema. Determined by the `schema_version` on
+            your [webhook subscription](/api-reference/webhook).
+          enum:
+            - 4.1.0
+          example: 4.1.0
+        subscription_id:
+          type: string
+          format: uuid
+          description: ID of the webhook subscription that triggered this event.
+          example: 01234567-89ab-cdef-0123-456789abcdef
+        event_type:
+          type: string
+          description: Event type identifier
+          example: transfers#state-change
+        sent_at:
+          type: string
+          format: date-time
+          description: Timestamp when the event was sent.
+          example: '2020-01-01T12:34:56.123Z'
+        data:
+          type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: Resource type
+                  example: transfer
+                id:
+                  type: integer
+                  format: int64
+                  description: Transfer ID
+                  example: 111
+                profile_id:
+                  type: integer
+                  format: int64
+                  description: Profile ID of the transfer owner.
+                  example: 222
+                account_id:
+                  type: integer
+                  format: int64
+                  description: Recipient account ID
+                  example: 333
+            current_state:
+              type: string
+              description: >
+                Current transfer status. See [Transfer
+                statuses](/guides/product/send-money/tracking/transfer-statuses)
+                for possible values.
+              example: processing
+            previous_state:
+              type:
+                - string
+                - 'null'
+              description: >-
+                Previous transfer status. Note that this will be null for newly
+                created transfers.
+              example: incoming_payment_waiting
+            occurred_at:
+              type: string
+              format: date-time
+              description: Timestamp when the state change occurred.
+              example: '2020-01-01T12:34:56.789Z'
+            type:
+              type: string
+              description: >
+                - `standard`: A [standard
+                transfer](/guides/product/send-money/transfers/standard-api-transfers).
+
+                - `third_party`: A [third party
+                transfer](/guides/product/send-money/transfers/correspondent-create-transfer),
+                also called an originator transfer.
+
+                - `charge`: A Charge, which moves funds from your customer's
+                balance to your Enterprise Account for fees such as
+                subscriptions.
+              enum:
+                - standard
+                - third_party
+                - charge
+              example: standard
     v4.0.0-4:
       title: Schema version 4.0.0
       type: object
@@ -48969,7 +49100,7 @@ components:
 
                 Format: `YYYY`-`MM`-`DD`T`HH`:`MM`:`SS`.`mmm`Z
               example: '2023-08-21T12:34:56.789Z'
-    v4.1.0:
+    v4.1.0-2:
       title: Schema version 4.1.0
       type: object
       properties:

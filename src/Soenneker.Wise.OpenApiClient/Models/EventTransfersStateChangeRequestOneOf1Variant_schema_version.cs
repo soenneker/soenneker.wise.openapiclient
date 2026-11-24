@@ -7,9 +7,9 @@ namespace Soenneker.Wise.OpenApiClient.Models
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public enum EventTransfersStateChangeRequestOneOf1Variant_schema_version
     {
-        [EnumMember(Value = "4.0.0")]
+        [EnumMember(Value = "4.1.0")]
         #pragma warning disable CS1591
-        Value400,
+        Value410,
         #pragma warning restore CS1591
     }
 }

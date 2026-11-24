@@ -55,6 +55,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
             else if (parseNode.GetChildNode("targetValue") is { } nullNodeTargetValue && nullNodeTargetValue.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TargetValue = null;
             if (parseNode.GetChildNode("transferRequest") is null) { _explicitNullValueTransferRequest = default!; _explicitNullProperties?.Remove("transferRequest"); }
             else if (parseNode.GetChildNode("transferRequest") is { } nullNodeTransferRequest && nullNodeTransferRequest.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) TransferRequest = null;
+            if (parseNode.GetChildNode("type") is null) { _explicitNullValueType = default!; _explicitNullProperties?.Remove("type"); }
+            else if (parseNode.GetChildNode("type") is { } nullNodeType && nullNodeType.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Type = null;
             if (parseNode.GetChildNode("user") is null) { _explicitNullValueUser = default!; _explicitNullProperties?.Remove("user"); }
             else if (parseNode.GetChildNode("user") is { } nullNodeUser && nullNodeUser.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) User = null;
         }
@@ -176,6 +178,9 @@ namespace Soenneker.Wise.OpenApiClient.Models
         [Obsolete("")]
         public int? TransferRequest { get => _explicitNullValueTransferRequest; set { _explicitNullValueTransferRequest = value; AdditionalData?.Remove("transferRequest"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("transferRequest"); else _explicitNullProperties?.Remove("transferRequest"); } }
         private int? _explicitNullValueTransferRequest = default!;
+        /// <summary>Type of transfer.- `standard`: A [standard transfer](/guides/product/send-money/transfers/standard-api-transfers).- `third_party`: A [third party transfer](/guides/product/send-money/transfers/correspondent-create-transfer), also called an originator transfer.- `charge`: A Charge, which moves funds from your customer&apos;s balance to your Enterprise Account for fees such as subscriptions.</summary>
+        public global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransferType? Type { get => _explicitNullValueType; set { _explicitNullValueType = value; AdditionalData?.Remove("type"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("type"); else _explicitNullProperties?.Remove("type"); } }
+        private global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransferType? _explicitNullValueType = default!;
         /// <summary>Your user ID</summary>
         public long? User { get => _explicitNullValueUser; set { _explicitNullValueUser = value; AdditionalData?.Remove("user"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("user"); else _explicitNullProperties?.Remove("user"); } }
         private long? _explicitNullValueUser = default!;
@@ -202,7 +207,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
         public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
         {
-            return new Dictionary<string, Action<IParseNode>>(20)
+            return new Dictionary<string, Action<IParseNode>>(21)
             {
                 { "business", n => { Business = n.GetLongValue(); } },
                 { "created", n => { Created = n.GetDateTimeOffsetValue(); } },
@@ -223,6 +228,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "targetCurrency", n => { TargetCurrency = n.GetStringValue(); } },
                 { "targetValue", n => { TargetValue = n.GetDoubleValue(); } },
                 { "transferRequest", n => { TransferRequest = n.GetIntValue(); } },
+                { "type", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransferType>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueType = default; _explicitNullProperties?.Remove("type"); AdditionalData["type"] = unknown; } else { Type = parsed; AdditionalData.Remove("type"); } } },
                 { "user", n => { User = n.GetLongValue(); } },
             };
         }
@@ -252,6 +258,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteStringValue("targetCurrency", TargetCurrency);
             writer.WriteDoubleValue("targetValue", TargetValue);
             writer.WriteIntValue("transferRequest", TransferRequest);
+            writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.OriginatorTransferType>("type", Type);
             writer.WriteLongValue("user", User);
             if (_explicitNullProperties != null) foreach (string name in _explicitNullProperties) writer.WriteNullValue(name);
             writer.WriteAdditionalData(AdditionalData);

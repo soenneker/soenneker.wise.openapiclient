@@ -37179,6 +37179,9 @@
             "description": "ID of the Payin Session generated for the transfer, which can be used for certain payin methods when funding the transfer",
             "format": "uuid",
             "example": "23330542-8e9e-419f-95eb-312b880f92ad"
+          },
+          "type": {
+            "$ref": "#/components/schemas/TransferType"
           }
         },
         "x-tags": [
@@ -37302,6 +37305,9 @@
             "description": "ID of the Payin Session generated for the transfer, which can be used for certain payin methods when funding the transfer.",
             "format": "uuid",
             "example": "23330542-8e9e-419f-95eb-312b880f92ad"
+          },
+          "type": {
+            "$ref": "#/components/schemas/OriginatorTransferType"
           }
         },
         "x-tags": [
@@ -42018,7 +42024,7 @@
         "type": "object",
         "properties": {
           "type": {
-            "$ref": "#/components/schemas/TransferType"
+            "$ref": "#/components/schemas/Case2ReferenceType"
           },
           "referenceId": {
             "maxLength": 128,
@@ -43223,6 +43229,36 @@
             "description": "When the state change occurred.",
             "format": "date-time",
             "example": "2023-08-10T10:17:23.000\u002B00:00"
+          }
+        }
+      },
+      "V410Data": {
+        "type": "object",
+        "properties": {
+          "resource": {
+            "$ref": "#/components/schemas/V410DataResource"
+          },
+          "current_state": {
+            "type": "string",
+            "description": "Current transfer status. See [Transfer statuses](/guides/product/send-money/tracking/transfer-statuses) for possible values.\n",
+            "example": "processing"
+          },
+          "previous_state": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Previous transfer status. Note that this will be null for newly created transfers.",
+            "example": "incoming_payment_waiting"
+          },
+          "occurred_at": {
+            "type": "string",
+            "description": "Timestamp when the state change occurred.",
+            "format": "date-time",
+            "example": "2020-01-01T12:34:56.789Z"
+          },
+          "type": {
+            "$ref": "#/components/schemas/V410DataType"
           }
         }
       },
@@ -44823,7 +44859,7 @@
           }
         }
       },
-      "V410Data": {
+      "V4102Data": {
         "required": [
           "action",
           "resource",
@@ -44832,10 +44868,10 @@
         "type": "object",
         "properties": {
           "action": {
-            "$ref": "#/components/schemas/V410DataAction"
+            "$ref": "#/components/schemas/V4102DataAction"
           },
           "resource": {
-            "$ref": "#/components/schemas/V410DataResource"
+            "$ref": "#/components/schemas/V4102DataResource"
           },
           "occurred_at": {
             "type": "string",
@@ -47013,6 +47049,34 @@
           }
         }
       },
+      "V410DataResource": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Resource type",
+            "example": "transfer"
+          },
+          "id": {
+            "type": "integer",
+            "description": "Transfer ID",
+            "format": "int64",
+            "example": 111
+          },
+          "profile_id": {
+            "type": "integer",
+            "description": "Profile ID of the transfer owner.",
+            "format": "int64",
+            "example": 222
+          },
+          "account_id": {
+            "type": "integer",
+            "description": "Recipient account ID",
+            "format": "int64",
+            "example": 333
+          }
+        }
+      },
       "V4004DataResource": {
         "type": "object",
         "properties": {
@@ -49144,7 +49208,7 @@
           }
         }
       },
-      "V410DataAction": {
+      "V4102DataAction": {
         "required": [
           "type",
           "id",
@@ -49178,7 +49242,7 @@
           }
         }
       },
-      "V410DataResource": {
+      "V4102DataResource": {
         "required": [
           "id",
           "uetr",
@@ -49207,10 +49271,10 @@
             "example": "/RFB/BET072"
           },
           "recipient": {
-            "$ref": "#/components/schemas/V410DataResourceRecipient"
+            "$ref": "#/components/schemas/V4102DataResourceRecipient"
           },
           "sender": {
-            "$ref": "#/components/schemas/V410DataResourceSender"
+            "$ref": "#/components/schemas/V4102DataResourceSender"
           },
           "exchange_rate": {
             "type": "number",
@@ -49219,13 +49283,13 @@
             "example": 0.8
           },
           "instructed_amount": {
-            "$ref": "#/components/schemas/V410DataResourceInstructedAmount"
+            "$ref": "#/components/schemas/V4102DataResourceInstructedAmount"
           },
           "settled_amount": {
-            "$ref": "#/components/schemas/V410DataResourceSettledAmount"
+            "$ref": "#/components/schemas/V4102DataResourceSettledAmount"
           },
           "fee": {
-            "$ref": "#/components/schemas/V410DataResourceFee"
+            "$ref": "#/components/schemas/V4102DataResourceFee"
           },
           "transaction_time": {
             "type": "string",
@@ -49236,7 +49300,7 @@
           "previous_instructing_agents": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/V410DataResourcePreviousInstructingAgentsItem"
+              "$ref": "#/components/schemas/V4102DataResourcePreviousInstructingAgentsItem"
             },
             "description": "List of previous instructing agents in the payment chain, ordered from first to last."
           }
@@ -51235,7 +51299,7 @@
           }
         }
       },
-      "V410DataResourceRecipient": {
+      "V4102DataResourceRecipient": {
         "type": "object",
         "properties": {
           "name": {
@@ -51246,7 +51310,7 @@
             "example": "JOHN SMITH"
           },
           "address": {
-            "$ref": "#/components/schemas/V410DataResourceRecipientAddress"
+            "$ref": "#/components/schemas/V4102DataResourceRecipientAddress"
           },
           "account": {
             "maxLength": 36,
@@ -51256,11 +51320,11 @@
             "example": "BE1234567891234"
           },
           "bank_details": {
-            "$ref": "#/components/schemas/V410DataResourceRecipientBankDetails"
+            "$ref": "#/components/schemas/V4102DataResourceRecipientBankDetails"
           }
         }
       },
-      "V410DataResourceSender": {
+      "V4102DataResourceSender": {
         "type": "object",
         "properties": {
           "name": {
@@ -51271,7 +51335,7 @@
             "example": "GEORGE SMITH"
           },
           "address": {
-            "$ref": "#/components/schemas/V410DataResourceSenderAddress"
+            "$ref": "#/components/schemas/V4102DataResourceSenderAddress"
           },
           "account": {
             "maxLength": 36,
@@ -51281,11 +51345,11 @@
             "example": "EE947700771111111111"
           },
           "bank_details": {
-            "$ref": "#/components/schemas/V410DataResourceSenderBankDetails"
+            "$ref": "#/components/schemas/V4102DataResourceSenderBankDetails"
           }
         }
       },
-      "V410DataResourceInstructedAmount": {
+      "V4102DataResourceInstructedAmount": {
         "required": [
           "value",
           "currency"
@@ -51306,7 +51370,7 @@
         },
         "description": "Amount originally instructed by the ultimate sender."
       },
-      "V410DataResourceSettledAmount": {
+      "V4102DataResourceSettledAmount": {
         "required": [
           "value",
           "currency"
@@ -51326,26 +51390,26 @@
           }
         }
       },
-      "V410DataResourceFee": {
+      "V4102DataResourceFee": {
         "type": "object",
         "properties": {
           "wise": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/V410DataResourceFeeWiseItem"
+              "$ref": "#/components/schemas/V4102DataResourceFeeWiseItem"
             },
             "description": "List of fees applied by Wise (for example, conversion fees). If this list is empty, no fees were applied by Wise."
           },
           "correspondent": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/V410DataResourceFeeCorrespondentItem"
+              "$ref": "#/components/schemas/V4102DataResourceFeeCorrespondentItem"
             },
             "description": "List of fees declared by correspondents (for example, handling fees). If this list is empty, no fees were declared by correspondents."
           }
         }
       },
-      "V410DataResourcePreviousInstructingAgentsItem": {
+      "V4102DataResourcePreviousInstructingAgentsItem": {
         "type": "object",
         "properties": {
           "bic": {
@@ -51359,7 +51423,7 @@
             "example": "SAMPLE BANK USA"
           },
           "address": {
-            "$ref": "#/components/schemas/V410DataResourcePreviousInstructingAgentsItemAddress"
+            "$ref": "#/components/schemas/V4102DataResourcePreviousInstructingAgentsItemAddress"
           }
         }
       },
@@ -52136,7 +52200,7 @@
         },
         "description": "Previous instructing agent bank address (same structure as \u0060recipient.address\u0060)."
       },
-      "V410DataResourceRecipientAddress": {
+      "V4102DataResourceRecipientAddress": {
         "type": "object",
         "properties": {
           "first_line": {
@@ -52187,7 +52251,7 @@
         },
         "description": "Structured address of the ultimate recipient."
       },
-      "V410DataResourceRecipientBankDetails": {
+      "V4102DataResourceRecipientBankDetails": {
         "type": "object",
         "properties": {
           "bic": {
@@ -52201,12 +52265,12 @@
             "example": "EXAMPLE BANK BELGIUM"
           },
           "address": {
-            "$ref": "#/components/schemas/V410DataResourceRecipientBankDetailsAddress"
+            "$ref": "#/components/schemas/V4102DataResourceRecipientBankDetailsAddress"
           }
         },
         "description": "Recipient bank details."
       },
-      "V410DataResourceSenderAddress": {
+      "V4102DataResourceSenderAddress": {
         "type": "object",
         "properties": {
           "first_line": {
@@ -52257,7 +52321,7 @@
         },
         "description": "Structured address of the ultimate sender."
       },
-      "V410DataResourceSenderBankDetails": {
+      "V4102DataResourceSenderBankDetails": {
         "type": "object",
         "properties": {
           "bic": {
@@ -52271,12 +52335,12 @@
             "example": "TEST BANK AG"
           },
           "address": {
-            "$ref": "#/components/schemas/V410DataResourceSenderBankDetailsAddress"
+            "$ref": "#/components/schemas/V4102DataResourceSenderBankDetailsAddress"
           }
         },
         "description": "Sender bank details."
       },
-      "V410DataResourceFeeWiseItem": {
+      "V4102DataResourceFeeWiseItem": {
         "required": [
           "type",
           "value",
@@ -52302,7 +52366,7 @@
           }
         }
       },
-      "V410DataResourceFeeCorrespondentItem": {
+      "V4102DataResourceFeeCorrespondentItem": {
         "required": [
           "value",
           "currency"
@@ -52322,7 +52386,7 @@
           }
         }
       },
-      "V410DataResourcePreviousInstructingAgentsItemAddress": {
+      "V4102DataResourcePreviousInstructingAgentsItemAddress": {
         "type": "object",
         "properties": {
           "first_line": {
@@ -52822,7 +52886,7 @@
         },
         "description": "Sender bank address (same structure as \u0060sender.address\u0060)."
       },
-      "V410DataResourceRecipientBankDetailsAddress": {
+      "V4102DataResourceRecipientBankDetailsAddress": {
         "type": "object",
         "properties": {
           "first_line": {
@@ -52873,7 +52937,7 @@
         },
         "description": "Recipient bank address (same structure as \u0060recipient.address\u0060)."
       },
-      "V410DataResourceSenderBankDetailsAddress": {
+      "V4102DataResourceSenderBankDetailsAddress": {
         "type": "object",
         "properties": {
           "first_line": {
@@ -57623,6 +57687,7 @@
         "x-client-original-discriminator": {
           "propertyName": "schema_version",
           "mapping": {
+            "4.1.0": "#/components/schemas/V410",
             "4.0.0": "#/components/schemas/V4004",
             "2.0.0": "#/components/schemas/V2004"
           }
@@ -57630,8 +57695,9 @@
         "discriminator": {
           "propertyName": "schema_version",
           "mapping": {
-            "4.0.0": "#/components/schemas/EventTransfersStateChangeRequestOneOf1Variant",
-            "2.0.0": "#/components/schemas/EventTransfersStateChangeRequestOneOf2Variant"
+            "4.1.0": "#/components/schemas/EventTransfersStateChangeRequestOneOf1Variant",
+            "4.0.0": "#/components/schemas/EventTransfersStateChangeRequestOneOf2Variant",
+            "2.0.0": "#/components/schemas/EventTransfersStateChangeRequestOneOf3Variant"
           }
         },
         "x-client-original-tagged-union": {
@@ -57642,11 +57708,15 @@
             },
             {
               "$ref": "#/components/schemas/EventTransfersStateChangeRequestOneOf2"
+            },
+            {
+              "$ref": "#/components/schemas/EventTransfersStateChangeRequestOneOf3"
             }
           ],
           "x-client-original-discriminator": {
             "propertyName": "schema_version",
             "mapping": {
+              "4.1.0": "#/components/schemas/V410",
               "4.0.0": "#/components/schemas/V4004",
               "2.0.0": "#/components/schemas/V2004"
             }
@@ -57654,8 +57724,9 @@
           "discriminator": {
             "propertyName": "schema_version",
             "mapping": {
-              "4.0.0": "#/components/schemas/EventTransfersStateChangeRequestOneOf1",
-              "2.0.0": "#/components/schemas/EventTransfersStateChangeRequestOneOf2"
+              "4.1.0": "#/components/schemas/EventTransfersStateChangeRequestOneOf1",
+              "4.0.0": "#/components/schemas/EventTransfersStateChangeRequestOneOf2",
+              "2.0.0": "#/components/schemas/EventTransfersStateChangeRequestOneOf3"
             }
           }
         },
@@ -58875,7 +58946,7 @@
           "mapping": {
             "4.3.0": "#/components/schemas/V430",
             "4.2.0": "#/components/schemas/V420",
-            "4.1.0": "#/components/schemas/V410",
+            "4.1.0": "#/components/schemas/V4102",
             "4.0.0": "#/components/schemas/V40025",
             "3.0.0": "#/components/schemas/V3002"
           }
@@ -65233,6 +65304,62 @@
           ]
         }
       },
+      "TransferType": {
+        "enum": [
+          "standard",
+          "third_party",
+          "charge"
+        ],
+        "type": "string",
+        "description": "Type of transfer.\n\n- \u0060standard\u0060: A [standard transfer](/guides/product/send-money/transfers/standard-api-transfers).\n- \u0060third_party\u0060: A [third party transfer](/guides/product/send-money/transfers/correspondent-create-transfer), also called an originator transfer.\n- \u0060charge\u0060: A Charge, which moves funds from your customer\u0027s balance to your Enterprise Account for fees such as subscriptions.\n",
+        "example": "standard",
+        "x-ms-enum": {
+          "name": "TransferType",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "standard",
+              "name": "Standard"
+            },
+            {
+              "value": "third_party",
+              "name": "ThirdParty"
+            },
+            {
+              "value": "charge",
+              "name": "Charge"
+            }
+          ]
+        }
+      },
+      "OriginatorTransferType": {
+        "enum": [
+          "standard",
+          "third_party",
+          "charge"
+        ],
+        "type": "string",
+        "description": "Type of transfer.\n\n- \u0060standard\u0060: A [standard transfer](/guides/product/send-money/transfers/standard-api-transfers).\n- \u0060third_party\u0060: A [third party transfer](/guides/product/send-money/transfers/correspondent-create-transfer), also called an originator transfer.\n- \u0060charge\u0060: A Charge, which moves funds from your customer\u0027s balance to your Enterprise Account for fees such as subscriptions.\n",
+        "example": "third_party",
+        "x-ms-enum": {
+          "name": "OriginatorTransferType",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "standard",
+              "name": "Standard"
+            },
+            {
+              "value": "third_party",
+              "name": "ThirdParty"
+            },
+            {
+              "value": "charge",
+              "name": "Charge"
+            }
+          ]
+        }
+      },
       "Value400SchemaVersion": {
         "enum": [
           "4.0.0"
@@ -65937,7 +66064,7 @@
           ]
         }
       },
-      "TransferType": {
+      "Case2ReferenceType": {
         "maxLength": 128,
         "enum": [
           "TRANSFER"
@@ -65945,7 +66072,7 @@
         "type": "string",
         "example": "TRANSFER",
         "x-ms-enum": {
-          "name": "TransferType",
+          "name": "Case2ReferenceType",
           "modelAsString": false,
           "values": [
             {
@@ -66247,6 +66374,34 @@
             {
               "value": "WRONG_RUT_NUMBER",
               "name": "WrongRutNumber"
+            }
+          ]
+        }
+      },
+      "V410DataType": {
+        "enum": [
+          "standard",
+          "third_party",
+          "charge"
+        ],
+        "type": "string",
+        "description": "- \u0060standard\u0060: A [standard transfer](/guides/product/send-money/transfers/standard-api-transfers).\n- \u0060third_party\u0060: A [third party transfer](/guides/product/send-money/transfers/correspondent-create-transfer), also called an originator transfer.\n- \u0060charge\u0060: A Charge, which moves funds from your customer\u0027s balance to your Enterprise Account for fees such as subscriptions.\n",
+        "example": "standard",
+        "x-ms-enum": {
+          "name": "V410DataType",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "standard",
+              "name": "Standard"
+            },
+            {
+              "value": "third_party",
+              "name": "ThirdParty"
+            },
+            {
+              "value": "charge",
+              "name": "Charge"
             }
           ]
         }
@@ -71921,7 +72076,7 @@
             "example": "2023-08-21T12:34:58.123Z"
           },
           "data": {
-            "$ref": "#/components/schemas/V410Data"
+            "$ref": "#/components/schemas/V4102Data"
           }
         },
         "required": [
@@ -73174,6 +73329,59 @@
             "properties": {
               "schema_version": {
                 "enum": [
+                  "4.1.0"
+                ],
+                "type": "string",
+                "description": "Version of the event schema. Determined by the \u0060schema_version\u0060 on your [webhook subscription](/api-reference/webhook).",
+                "example": "4.1.0",
+                "x-ms-enum": {
+                  "name": "SchemaVersion",
+                  "modelAsString": false,
+                  "values": [
+                    {
+                      "value": "4.1.0",
+                      "name": "Value410"
+                    }
+                  ]
+                }
+              },
+              "subscription_id": {
+                "type": "string",
+                "description": "ID of the webhook subscription that triggered this event.",
+                "format": "uuid",
+                "example": "01234567-89ab-cdef-0123-456789abcdef"
+              },
+              "event_type": {
+                "type": "string",
+                "description": "Event type identifier",
+                "example": "transfers#state-change"
+              },
+              "sent_at": {
+                "type": "string",
+                "description": "Timestamp when the event was sent.",
+                "format": "date-time",
+                "example": "2020-01-01T12:34:56.123Z"
+              },
+              "data": {
+                "$ref": "#/components/schemas/V410Data"
+              }
+            },
+            "required": [
+              "schema_version"
+            ]
+          }
+        ]
+      },
+      "EventTransfersStateChangeRequestOneOf2Variant": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/EventTransfersStateChangeRequest"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "schema_version": {
+                "enum": [
                   "4.0.0"
                 ],
                 "type": "string",
@@ -73217,7 +73425,7 @@
           }
         ]
       },
-      "EventTransfersStateChangeRequestOneOf2Variant": {
+      "EventTransfersStateChangeRequestOneOf3Variant": {
         "allOf": [
           {
             "$ref": "#/components/schemas/EventTransfersStateChangeRequest"
@@ -78660,6 +78868,35 @@
         }
       }
     },
+    "V410": {
+      "title": "Schema version 4.1.0",
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "$ref": "#/components/schemas/Value410SchemaVersion"
+        },
+        "subscription_id": {
+          "type": "string",
+          "description": "ID of the webhook subscription that triggered this event.",
+          "format": "uuid",
+          "example": "01234567-89ab-cdef-0123-456789abcdef"
+        },
+        "event_type": {
+          "type": "string",
+          "description": "Event type identifier",
+          "example": "transfers#state-change"
+        },
+        "sent_at": {
+          "type": "string",
+          "description": "Timestamp when the event was sent.",
+          "format": "date-time",
+          "example": "2020-01-01T12:34:56.123Z"
+        },
+        "data": {
+          "$ref": "#/components/schemas/V410Data"
+        }
+      }
+    },
     "V4004": {
       "title": "Schema version 4.0.0",
       "type": "object",
@@ -80137,7 +80374,7 @@
         }
       }
     },
-    "V410": {
+    "V4102": {
       "title": "Schema version 4.1.0",
       "type": "object",
       "properties": {
@@ -80162,7 +80399,7 @@
           "example": "2023-08-21T12:34:58.123Z"
         },
         "data": {
-          "$ref": "#/components/schemas/V410Data"
+          "$ref": "#/components/schemas/V4102Data"
         }
       }
     },
@@ -81573,6 +81810,24 @@
         ]
       }
     },
+    "Value410SchemaVersion": {
+      "enum": [
+        "4.1.0"
+      ],
+      "type": "string",
+      "description": "Version of the event schema. Determined by the \u0060schema_version\u0060 on your [webhook subscription](/api-reference/webhook).",
+      "example": "4.1.0",
+      "x-ms-enum": {
+        "name": "Value410SchemaVersion",
+        "modelAsString": false,
+        "values": [
+          {
+            "value": "4.1.0",
+            "name": "Value410"
+          }
+        ]
+      }
+    },
     "Value210SchemaVersion": {
       "enum": [
         "2.1.0"
@@ -81641,24 +81896,6 @@
           {
             "value": "4.2.0",
             "name": "Value420"
-          }
-        ]
-      }
-    },
-    "Value410SchemaVersion": {
-      "enum": [
-        "4.1.0"
-      ],
-      "type": "string",
-      "description": "Version of the event schema. Determined by the \u0060schema_version\u0060 on your [webhook subscription](/api-reference/webhook).",
-      "example": "4.1.0",
-      "x-ms-enum": {
-        "name": "Value410SchemaVersion",
-        "modelAsString": false,
-        "values": [
-          {
-            "value": "4.1.0",
-            "name": "Value410"
           }
         ]
       }
@@ -82570,6 +82807,52 @@
       "properties": {
         "schema_version": {
           "enum": [
+            "4.1.0"
+          ],
+          "type": "string",
+          "description": "Version of the event schema. Determined by the \u0060schema_version\u0060 on your [webhook subscription](/api-reference/webhook).",
+          "example": "4.1.0",
+          "x-ms-enum": {
+            "name": "SchemaVersion",
+            "modelAsString": false,
+            "values": [
+              {
+                "value": "4.1.0",
+                "name": "Value410"
+              }
+            ]
+          }
+        },
+        "subscription_id": {
+          "type": "string",
+          "description": "ID of the webhook subscription that triggered this event.",
+          "format": "uuid",
+          "example": "01234567-89ab-cdef-0123-456789abcdef"
+        },
+        "event_type": {
+          "type": "string",
+          "description": "Event type identifier",
+          "example": "transfers#state-change"
+        },
+        "sent_at": {
+          "type": "string",
+          "description": "Timestamp when the event was sent.",
+          "format": "date-time",
+          "example": "2020-01-01T12:34:56.123Z"
+        },
+        "data": {
+          "$ref": "#/components/schemas/V410Data"
+        }
+      },
+      "required": [
+        "schema_version"
+      ]
+    },
+    "EventTransfersStateChangeRequestOneOf2": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "enum": [
             "4.0.0"
           ],
           "type": "string",
@@ -82611,7 +82894,7 @@
         "schema_version"
       ]
     },
-    "EventTransfersStateChangeRequestOneOf2": {
+    "EventTransfersStateChangeRequestOneOf3": {
       "type": "object",
       "properties": {
         "schema_version": {
