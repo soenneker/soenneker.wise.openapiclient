@@ -37,7 +37,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public string Agent { get => _explicitNullValueAgent; set { _explicitNullValueAgent = value; AdditionalData?.Remove("agent"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("agent"); else _explicitNullProperties?.Remove("agent"); } }
         private string _explicitNullValueAgent = default!;
 #endif
-        /// <summary>Fee amount.</summary>
+        /// <summary>Fee amount. Zero is allowed.</summary>
         public double? Amount { get => _explicitNullValueAmount; set { _explicitNullValueAmount = value; AdditionalData?.Remove("amount"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("amount"); else _explicitNullProperties?.Remove("amount"); } }
         private double? _explicitNullValueAmount = default!;
         /// <summary>ISO 4217 currency code</summary>

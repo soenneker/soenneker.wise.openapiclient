@@ -134,7 +134,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Transfer amount in source currency</summary>
         public decimal? SourceValue { get => _explicitNullValueSourceValue; set { _explicitNullValueSourceValue = value; AdditionalData?.Remove("sourceValue"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("sourceValue"); else _explicitNullProperties?.Remove("sourceValue"); } }
         private decimal? _explicitNullValueSourceValue = default!;
-        /// <summary>Transfer current status. See [Tracking Transfers](https://docs.wise.com/guides/product/send-money/tracking-transfers) for all possible statuses.</summary>
+        /// <summary>Transfer current status. See [Tracking Transfers](/guides/product/send-money/tracking-transfers) for all possible statuses.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Status { get => _explicitNullValueStatus; set { _explicitNullValueStatus = value; AdditionalData?.Remove("status"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("status"); else _explicitNullProperties?.Remove("status"); } }

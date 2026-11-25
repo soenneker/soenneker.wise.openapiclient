@@ -23736,7 +23736,7 @@
           "simulation"
         ],
         "summary": "Simulate incoming Swift payment",
-        "description": "Simulates an incoming Swift transfer into a profile\u0027s account details. This will create a payment into the user\u0027s account details and balance for the specified amount and currency. Using sandbox, you can test the initial tech build for webhook subscriptions, balance statements, and sweeping funds.\n\nIf the request is successful the transfer is logged in our back office, which triggers a [swift-in#credit](/api-reference/webhook-event/eventswiftincredit) event and results in a balance update.\n\n{% admonition type=\u0022info\u0022 %}\nWhile most fields are optional, default values will be provided as needed.\n{% /admonition %}\n",
+        "description": "Simulates an incoming Swift payment in the sandbox. Use this endpoint to test webhook subscriptions, balance statements, and your receive-money integration.\n\nThe profile must have Swift receive enabled and at least one connected test BIC. Use your sandbox profile ID and a user access token.\nIf you supply a beneficiary IBAN, its BIC must match a connected test BIC.\n\nThe simulator creates a \u0060pacs.008.001.08\u0060 payment message. An HTTP \u0060200\u0060 response confirms message submission, not completion of payment processing.\nCheck your subscribed webhooks and the incoming transfer details after processing. See [Test and prepare to go live](/guides/product/receive-money/test-and-go-live#simulate-swift).\n\n#### Amounts and intermediary fees\n\n- \u0060amount\u0060 and \u0060currencyCode\u0060 specify the amount and currency received by Wise after intermediary fees.\n- \u0060instructedAmount\u0060 specifies the payment amount from debtor (payer) to creditor (payee), before charges.\n- \u0060instructedCurrencyCode\u0060 specifies the currency ordered by the initiating party.\n- \u0060charges\u0060 lists the intermediary fees. Each fee has an \u0060amount\u0060, \u0060currency\u0060, and agent BIC.\n\nFor cross-currency inputs and a worked example, see [Choose amounts and intermediary fees](/guides/product/receive-money/test-and-go-live#choose-amounts-and-intermediary-fees).\n",
         "operationId": "SimulationSwiftIn",
         "parameters": [
           {
@@ -23766,6 +23766,89 @@
                   "value": {
                     "currencyCode": "EUR",
                     "amount": 100
+                  }
+                },
+                "sameCurrencyFees": {
+                  "summary": "Same currency with intermediary fees",
+                  "description": "AUD 5,000 instructed, AUD 4,900 received, and AUD 100 in fees. The payment message has no exchange rate.",
+                  "value": {
+                    "currencyCode": "AUD",
+                    "amount": 4900,
+                    "instructedCurrencyCode": "AUD",
+                    "instructedAmount": 5000,
+                    "charges": [
+                      {
+                        "amount": 100,
+                        "currency": "AUD",
+                        "agent": "CHASGB2LXXX"
+                      }
+                    ]
+                  }
+                },
+                "crossCurrencyNoFees": {
+                  "summary": "Cross-currency without intermediary fees",
+                  "description": "USD 5,000 instructed and EUR 4,350 received give a rate of 0.87 EUR per USD.",
+                  "value": {
+                    "currencyCode": "EUR",
+                    "amount": 4350,
+                    "instructedCurrencyCode": "USD",
+                    "instructedAmount": 5000
+                  }
+                },
+                "crossCurrencyReceivedFees": {
+                  "summary": "Cross-currency with fees in the received currency",
+                  "description": "USD 5,000 instructed, EUR 4,350 received, and EUR 50 in fees give a rate of 0.88 EUR per USD.",
+                  "value": {
+                    "currencyCode": "EUR",
+                    "amount": 4350,
+                    "instructedCurrencyCode": "USD",
+                    "instructedAmount": 5000,
+                    "charges": [
+                      {
+                        "amount": 50,
+                        "currency": "EUR",
+                        "agent": "CHASGB2LXXX"
+                      }
+                    ]
+                  }
+                },
+                "crossCurrencyInstructedFees": {
+                  "summary": "Cross-currency with fees in the instructed currency",
+                  "description": "USD 5,000 instructed, EUR 4,312 received, and USD 100 in fees give a rate of 0.88 EUR per USD.",
+                  "value": {
+                    "currencyCode": "EUR",
+                    "amount": 4312,
+                    "instructedCurrencyCode": "USD",
+                    "instructedAmount": 5000,
+                    "charges": [
+                      {
+                        "amount": 100,
+                        "currency": "USD",
+                        "agent": "CHASGB2LXXX"
+                      }
+                    ]
+                  }
+                },
+                "crossCurrencyMixedFees": {
+                  "summary": "Cross-currency with fees in both currencies",
+                  "description": "USD 5,000 instructed, EUR 4,262 received, and fees of USD 100 and EUR 50 give a rate of 0.88 EUR per USD.",
+                  "value": {
+                    "currencyCode": "EUR",
+                    "amount": 4262,
+                    "instructedCurrencyCode": "USD",
+                    "instructedAmount": 5000,
+                    "charges": [
+                      {
+                        "amount": 100,
+                        "currency": "USD",
+                        "agent": "CHASGB2LXXX"
+                      },
+                      {
+                        "amount": 50,
+                        "currency": "EUR",
+                        "agent": "CHASGB2LXXX"
+                      }
+                    ]
                   }
                 },
                 "full": {
@@ -23824,7 +23907,7 @@
         },
         "responses": {
           "200": {
-            "description": "Swift payment simulated successfully.",
+            "description": "Swift payment message submitted successfully. Payment processing continues after this response.",
             "headers": {
               "X-External-Correlation-Id": {
                 "$ref": "#/components/headers/X-External-Correlation-Id"
@@ -23897,7 +23980,7 @@
             }
           },
           "422": {
-            "description": "Unprocessable Entity.",
+            "description": "The partner configuration, beneficiary BIC, or cross-currency fees do not allow simulation.\n\nFor cross-currency payments, non-zero intermediary fees must use either the instructed or received currency.\nFees in the instructed currency that equal or exceed \u0060instructedAmount\u0060 also return HTTP \u0060422\u0060.\n",
             "headers": {
               "X-External-Correlation-Id": {
                 "$ref": "#/components/headers/X-External-Correlation-Id"
@@ -23911,10 +23994,31 @@
                 "schema": {
                   "$ref": "#/components/schemas/SimulationSwiftIn422Response"
                 },
-                "example": {
-                  "arguments": [],
-                  "code": "not.valid",
-                  "message": "None of connected BICs match beneficiary account DE00000000000000000000 (TESTDE00)"
+                "examples": {
+                  "beneficiaryBicMismatch": {
+                    "summary": "Beneficiary BIC is not connected",
+                    "value": {
+                      "arguments": [],
+                      "code": "not.valid",
+                      "message": "None of connected BICs match beneficiary account DE00000000000000000000 (TESTDE00)"
+                    }
+                  },
+                  "unsupportedFeeCurrency": {
+                    "summary": "Unsupported intermediary fee currency for a cross-currency payment",
+                    "value": {
+                      "arguments": [],
+                      "code": "not.valid",
+                      "message": "Cross-currency charges must use the instructed or received currency"
+                    }
+                  },
+                  "instructedAmountConsumedByFees": {
+                    "summary": "Fees in the instructed currency equal or exceed the instructed amount",
+                    "value": {
+                      "arguments": [],
+                      "code": "not.valid",
+                      "message": "Instructed amount must exceed charges in the instructed currency"
+                    }
+                  }
                 },
                 "x-schema-inferred-from-examples": true
               }
@@ -36756,7 +36860,7 @@
           "amount": {
             "exclusiveMinimum": 0,
             "type": "number",
-            "description": "Amount received by Wise.",
+            "description": "Amount received by Wise after intermediary fees.",
             "example": 100
           },
           "instructedCurrencyCode": {
@@ -36768,7 +36872,7 @@
           "instructedAmount": {
             "exclusiveMinimum": 0,
             "type": "number",
-            "description": "Amount sent by the sender.\nIf not provided, it is assumed to be the same as \u0060amount\u0060 plus **same currency** fees.\nAny outstanding fees in other currencies are ignored.\n\nRequired if \u0060instructedCurrencyCode\u0060 is provided.\n",
+            "description": "Payment amount from debtor (payer) to creditor (payee), before charges, in the currency ordered by the initiating party.\nIf omitted, defaults to \u0060amount\u0060 plus the total charges in \u0060currencyCode\u0060.\nCharges in other currencies do not contribute to this default amount.\nFor cross-currency payments, provide this field and \u0060instructedCurrencyCode\u0060 explicitly.\nThis amount must exceed the total charges in the instructed currency for a cross-currency payment.\n\nRequired if \u0060instructedCurrencyCode\u0060 is provided.\n",
             "example": 101
           },
           "beneficiaryName": {
@@ -36821,7 +36925,7 @@
             "items": {
               "$ref": "#/components/schemas/SwiftInRequestChargesItem"
             },
-            "description": "List of fees declared by correspondents (e.g., handling fee)."
+            "description": "Intermediary fees declared by correspondent banks. Defaults to an empty list.\nFor cross-currency payments, each non-zero fee must use \u0060instructedCurrencyCode\u0060 or \u0060currencyCode\u0060.\nFees can use a mixture of these two currencies.\n"
           },
           "previousInstructingAgents": {
             "maxItems": 3,
@@ -37374,7 +37478,7 @@
             "example": "John Godspeed"
           }
         },
-        "description": "Data block to capture the originator name details"
+        "description": "Data block to capture the originator name details.\n\n- For a \u0060PRIVATE\u0060 entity, include both \u0060givenName\u0060 and \u0060familyName\u0060 (\u0060middleNames\u0060 optional).\n- For a \u0060BUSINESS\u0060 entity, include \u0060fullName\u0060.\n\nIf a \u0060PRIVATE\u0060 originator has a one-word name (mononym), send it as \u0060givenName\u0060 and leave \u0060familyName\u0060 empty. Do not repeat the name or use placeholder values.\n\nIf you expect other special cases, such as joint account names, consult your Wise implementation team."
       },
       "Address5": {
         "required": [
@@ -37399,7 +37503,7 @@
           },
           "stateCode": {
             "type": "string",
-            "description": "Payment originator address state code. Required if address country code in (US, CA, BR, AU)",
+            "description": "Payment originator address state code. Required when address country code is US, CA, BR, or AU.\n\nThis field uses the subdivision portion of the ISO 3166-2 code, without the country prefix. See our [address state codes guide](/guides/product/send-money/state-code-reference) for the list of allowed values.",
             "example": "NY"
           },
           "countryCode": {
@@ -37434,7 +37538,7 @@
             "example": "CST-2991992"
           },
           "name": {
-            "description": "Data block to capture the originator name details",
+            "description": "Data block to capture the originator name details.\n\nFor \u0060PRIVATE\u0060 entities, include both \u0060givenName\u0060 and \u0060familyName\u0060 (\u0060middleNames\u0060 optional). If a \u0060PRIVATE\u0060 originator has a one-word name (mononym), send it as \u0060givenName\u0060 and leave \u0060familyName\u0060 empty. Do not repeat the name or use placeholder values.\n\nIf you expect other special cases, such as joint account names, consult your Wise implementation team.",
             "$ref": "#/components/schemas/Name"
           },
           "dateOfBirth": {
@@ -37476,7 +37580,7 @@
             "example": "CST-2991992"
           },
           "name": {
-            "description": "Data block to capture the originator name details",
+            "description": "Data block to capture the originator name details. For \u0060BUSINESS\u0060 entities, include \u0060fullName\u0060.",
             "$ref": "#/components/schemas/Name"
           },
           "businessRegistrationCode": {
@@ -37652,7 +37756,7 @@
           },
           "stateCode": {
             "type": "string",
-            "description": "Payment originator address state code. Required if address country code in (US, CA, BR, AU)",
+            "description": "Payment originator address state code. Applicable when address country code is US, CA, BR, or AU.",
             "example": "NY"
           },
           "countryCode": {
@@ -37751,7 +37855,7 @@
           },
           "status": {
             "type": "string",
-            "description": "Transfer current status. See [Tracking Transfers](https://docs.wise.com/guides/product/send-money/tracking-transfers) for all possible statuses.",
+            "description": "Transfer current status. See [Tracking Transfers](/guides/product/send-money/tracking-transfers) for all possible statuses.",
             "example": "cancelled"
           },
           "rate": {
@@ -38717,6 +38821,11 @@
             "description": "Unique identifier for the incoming transfer. UUID-formatted string.",
             "format": "uuid",
             "example": "123e4567-e89b-12d3-a456-426614174000"
+          },
+          "reconciliationReference": {
+            "type": "string",
+            "description": "Wise-generated reference that links this incoming transfer to a balance statement transaction.\nThe value matches the transaction\u0027s \u0060referenceNumber\u0060 and uses the format \u0060TRANSFER-{number}\u0060,\nfor example \u0060TRANSFER-123456789\u0060.\n\nPass this value unchanged as the \u0060reconciliationReference\u0060 query parameter to the\nGet Incoming Transfers by Reconciliation Reference API.\n\nThe field is omitted when no reconciliation reference is available.",
+            "example": "TRANSFER-123456789"
           },
           "profileId": {
             "type": "integer",
@@ -42714,9 +42823,9 @@
         "type": "object",
         "properties": {
           "amount": {
-            "exclusiveMinimum": 0,
+            "minimum": 0,
             "type": "number",
-            "description": "Fee amount.",
+            "description": "Fee amount. Zero is allowed.",
             "example": 1
           },
           "currency": {
@@ -78470,7 +78579,7 @@
           "example": "CST-2991992"
         },
         "name": {
-          "description": "Data block to capture the originator name details",
+          "description": "Data block to capture the originator name details.\n\nFor \u0060PRIVATE\u0060 entities, include both \u0060givenName\u0060 and \u0060familyName\u0060 (\u0060middleNames\u0060 optional). If a \u0060PRIVATE\u0060 originator has a one-word name (mononym), send it as \u0060givenName\u0060 and leave \u0060familyName\u0060 empty. Do not repeat the name or use placeholder values.\n\nIf you expect other special cases, such as joint account names, consult your Wise implementation team.",
           "$ref": "#/components/schemas/Name"
         },
         "dateOfBirth": {
@@ -78519,7 +78628,7 @@
           "example": "CST-2991992"
         },
         "name": {
-          "description": "Data block to capture the originator name details",
+          "description": "Data block to capture the originator name details. For \u0060BUSINESS\u0060 entities, include \u0060fullName\u0060.",
           "$ref": "#/components/schemas/Name"
         },
         "businessRegistrationCode": {

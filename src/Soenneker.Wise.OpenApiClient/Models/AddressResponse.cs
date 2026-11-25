@@ -71,7 +71,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public string PostCode { get => _explicitNullValuePostCode; set { _explicitNullValuePostCode = value; AdditionalData?.Remove("postCode"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("postCode"); else _explicitNullProperties?.Remove("postCode"); } }
         private string _explicitNullValuePostCode = default!;
 #endif
-        /// <summary>Payment originator address state code. Required if address country code in (US, CA, BR, AU)</summary>
+        /// <summary>Payment originator address state code. Applicable when address country code is US, CA, BR, or AU.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? StateCode { get => _explicitNullValueStateCode; set { _explicitNullValueStateCode = value; AdditionalData?.Remove("stateCode"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("stateCode"); else _explicitNullProperties?.Remove("stateCode"); } }

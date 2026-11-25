@@ -45,6 +45,8 @@ namespace Soenneker.Wise.OpenApiClient.Models
             else if (parseNode.GetChildNode("previousInstructingAgents") is { } nullNodePreviousInstructingAgents && nullNodePreviousInstructingAgents.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) PreviousInstructingAgents = null;
             if (parseNode.GetChildNode("profileId") is null) { _explicitNullValueProfileId = default!; _explicitNullProperties?.Remove("profileId"); }
             else if (parseNode.GetChildNode("profileId") is { } nullNodeProfileId && nullNodeProfileId.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ProfileId = null;
+            if (parseNode.GetChildNode("reconciliationReference") is null) { _explicitNullValueReconciliationReference = default!; _explicitNullProperties?.Remove("reconciliationReference"); }
+            else if (parseNode.GetChildNode("reconciliationReference") is { } nullNodeReconciliationReference && nullNodeReconciliationReference.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) ReconciliationReference = null;
             if (parseNode.GetChildNode("scheme") is null) { _explicitNullValueScheme = default!; _explicitNullProperties?.Remove("scheme"); }
             else if (parseNode.GetChildNode("scheme") is { } nullNodeScheme && nullNodeScheme.GetObjectValue<global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode>(global::Microsoft.Kiota.Abstractions.Serialization.UntypedNode.CreateFromDiscriminatorValue) is null or global::Microsoft.Kiota.Abstractions.Serialization.UntypedNull) Scheme = null;
             if (parseNode.GetChildNode("state") is null) { _explicitNullValueState = default!; _explicitNullProperties?.Remove("state"); }
@@ -155,6 +157,16 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <summary>Profile ID of the balance owner.</summary>
         public long? ProfileId { get => _explicitNullValueProfileId; set { _explicitNullValueProfileId = value; AdditionalData?.Remove("profileId"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("profileId"); else _explicitNullProperties?.Remove("profileId"); } }
         private long? _explicitNullValueProfileId = default!;
+        /// <summary>Wise-generated reference that links this incoming transfer to a balance statement transaction.The value matches the transaction&apos;s `referenceNumber` and uses the format `TRANSFER-{number}`,for example `TRANSFER-123456789`.Pass this value unchanged as the `reconciliationReference` query parameter to theGet Incoming Transfers by Reconciliation Reference API.The field is omitted when no reconciliation reference is available.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? ReconciliationReference { get => _explicitNullValueReconciliationReference; set { _explicitNullValueReconciliationReference = value; AdditionalData?.Remove("reconciliationReference"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("reconciliationReference"); else _explicitNullProperties?.Remove("reconciliationReference"); } }
+        private string? _explicitNullValueReconciliationReference = default!;
+#nullable restore
+#else
+        public string ReconciliationReference { get => _explicitNullValueReconciliationReference; set { _explicitNullValueReconciliationReference = value; AdditionalData?.Remove("reconciliationReference"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("reconciliationReference"); else _explicitNullProperties?.Remove("reconciliationReference"); } }
+        private string _explicitNullValueReconciliationReference = default!;
+#endif
         /// <summary>The payment scheme through which the incoming transfer was received.</summary>
         public global::Soenneker.Wise.OpenApiClient.Models.IncomingTransferScheme? Scheme { get => _explicitNullValueScheme; set { _explicitNullValueScheme = value; AdditionalData?.Remove("scheme"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("scheme"); else _explicitNullProperties?.Remove("scheme"); } }
         private global::Soenneker.Wise.OpenApiClient.Models.IncomingTransferScheme? _explicitNullValueScheme = default!;
@@ -197,7 +209,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
         public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
         {
-            return new Dictionary<string, Action<IParseNode>>(18)
+            return new Dictionary<string, Action<IParseNode>>(19)
             {
                 { "accountDetailsId", n => { AccountDetailsId = n.GetStringValue(); } },
                 { "amounts", n => { Amounts = n.GetObjectValue<global::Soenneker.Wise.OpenApiClient.Models.Amounts>(global::Soenneker.Wise.OpenApiClient.Models.Amounts.CreateFromDiscriminatorValue); } },
@@ -213,6 +225,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
                 { "id", n => { Id = n.GetGuidValue(); } },
                 { "previousInstructingAgents", n => { PreviousInstructingAgents = n.GetCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.FinancialInstitution>(global::Soenneker.Wise.OpenApiClient.Models.FinancialInstitution.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "profileId", n => { ProfileId = n.GetLongValue(); } },
+                { "reconciliationReference", n => { ReconciliationReference = n.GetStringValue(); } },
                 { "scheme", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.IncomingTransferScheme>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueScheme = default; _explicitNullProperties?.Remove("scheme"); AdditionalData["scheme"] = unknown; } else { Scheme = parsed; AdditionalData.Remove("scheme"); } } },
                 { "state", n => { var parsed = n.GetEnumValue<global::Soenneker.Wise.OpenApiClient.Models.IncomingTransferState>(); if (parsed == null && n.GetStringValue() is string unknown) { _explicitNullValueState = default; _explicitNullProperties?.Remove("state"); AdditionalData["state"] = unknown; } else { State = parsed; AdditionalData.Remove("state"); } } },
                 { "uetr", n => { Uetr = n.GetGuidValue(); } },
@@ -240,6 +253,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
             writer.WriteGuidValue("id", Id);
             writer.WriteCollectionOfObjectValues<global::Soenneker.Wise.OpenApiClient.Models.FinancialInstitution>("previousInstructingAgents", PreviousInstructingAgents);
             writer.WriteLongValue("profileId", ProfileId);
+            writer.WriteStringValue("reconciliationReference", ReconciliationReference);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.IncomingTransferScheme>("scheme", Scheme);
             writer.WriteEnumValue<global::Soenneker.Wise.OpenApiClient.Models.IncomingTransferState>("state", State);
             writer.WriteGuidValue("uetr", Uetr);

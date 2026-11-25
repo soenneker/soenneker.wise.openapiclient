@@ -51,7 +51,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
 
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Amount received by Wise.</summary>
+        /// <summary>Amount received by Wise after intermediary fees.</summary>
         public double? Amount { get => _explicitNullValueAmount; set { _explicitNullValueAmount = value; AdditionalData?.Remove("amount"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("amount"); else _explicitNullProperties?.Remove("amount"); } }
         private double? _explicitNullValueAmount = default!;
         /// <summary>Account number of the ultimate beneficiary. It can be either a local account number or an IBAN.*If the provided IBAN resolves to a BIC that does not match any connected test BICs, simulation is not allowed and an error is returned.*</summary>
@@ -84,7 +84,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public string BeneficiaryName { get => _explicitNullValueBeneficiaryName; set { _explicitNullValueBeneficiaryName = value; AdditionalData?.Remove("beneficiaryName"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("beneficiaryName"); else _explicitNullProperties?.Remove("beneficiaryName"); } }
         private string _explicitNullValueBeneficiaryName = default!;
 #endif
-        /// <summary>List of fees declared by correspondents (e.g., handling fee).</summary>
+        /// <summary>Intermediary fees declared by correspondent banks. Defaults to an empty list.For cross-currency payments, each non-zero fee must use `instructedCurrencyCode` or `currencyCode`.Fees can use a mixture of these two currencies.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<global::Soenneker.Wise.OpenApiClient.Models.SwiftInRequestChargesItem>? Charges { get => _explicitNullValueCharges; set { _explicitNullValueCharges = value; AdditionalData?.Remove("charges"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("charges"); else _explicitNullProperties?.Remove("charges"); } }
@@ -104,7 +104,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public string CurrencyCode { get => _explicitNullValueCurrencyCode; set { _explicitNullValueCurrencyCode = value; AdditionalData?.Remove("currencyCode"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("currencyCode"); else _explicitNullProperties?.Remove("currencyCode"); } }
         private string _explicitNullValueCurrencyCode = default!;
 #endif
-        /// <summary>Amount sent by the sender.If not provided, it is assumed to be the same as `amount` plus **same currency** fees.Any outstanding fees in other currencies are ignored.Required if `instructedCurrencyCode` is provided.</summary>
+        /// <summary>Payment amount from debtor (payer) to creditor (payee), before charges, in the currency ordered by the initiating party.If omitted, defaults to `amount` plus the total charges in `currencyCode`.Charges in other currencies do not contribute to this default amount.For cross-currency payments, provide this field and `instructedCurrencyCode` explicitly.This amount must exceed the total charges in the instructed currency for a cross-currency payment.Required if `instructedCurrencyCode` is provided.</summary>
         public double? InstructedAmount { get => _explicitNullValueInstructedAmount; set { _explicitNullValueInstructedAmount = value; AdditionalData?.Remove("instructedAmount"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("instructedAmount"); else _explicitNullProperties?.Remove("instructedAmount"); } }
         private double? _explicitNullValueInstructedAmount = default!;
         /// <summary>ISO 4217 currency code</summary>

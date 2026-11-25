@@ -69,7 +69,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public string LegalEntityType { get => _explicitNullValueLegalEntityType; set { _explicitNullValueLegalEntityType = value; AdditionalData?.Remove("legalEntityType"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("legalEntityType"); else _explicitNullProperties?.Remove("legalEntityType"); } }
         private string _explicitNullValueLegalEntityType = default!;
 #endif
-        /// <summary>Data block to capture the originator name details</summary>
+        /// <summary>Data block to capture the originator name details.For `PRIVATE` entities, include both `givenName` and `familyName` (`middleNames` optional). If a `PRIVATE` originator has a one-word name (mononym), send it as `givenName` and leave `familyName` empty. Do not repeat the name or use placeholder values.If you expect other special cases, such as joint account names, consult your Wise implementation team.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Soenneker.Wise.OpenApiClient.Models.Name? Name { get => _explicitNullValueName; set { _explicitNullValueName = value; AdditionalData?.Remove("name"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("name"); else _explicitNullProperties?.Remove("name"); } }

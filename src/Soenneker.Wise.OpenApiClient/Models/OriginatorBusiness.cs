@@ -79,7 +79,7 @@ namespace Soenneker.Wise.OpenApiClient.Models
         public string LegalEntityType { get => _explicitNullValueLegalEntityType; set { _explicitNullValueLegalEntityType = value; AdditionalData?.Remove("legalEntityType"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("legalEntityType"); else _explicitNullProperties?.Remove("legalEntityType"); } }
         private string _explicitNullValueLegalEntityType = default!;
 #endif
-        /// <summary>Data block to capture the originator name details</summary>
+        /// <summary>Data block to capture the originator name details. For `BUSINESS` entities, include `fullName`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Soenneker.Wise.OpenApiClient.Models.Name? Name { get => _explicitNullValueName; set { _explicitNullValueName = value; AdditionalData?.Remove("name"); if (value is null) (_explicitNullProperties ??= new global::System.Collections.Generic.HashSet<string>()).Add("name"); else _explicitNullProperties?.Remove("name"); } }

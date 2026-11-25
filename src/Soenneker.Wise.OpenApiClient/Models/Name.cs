@@ -8,7 +8,7 @@ using System;
 namespace Soenneker.Wise.OpenApiClient.Models
 {
     /// <summary>
-    /// Data block to capture the originator name details
+    /// Data block to capture the originator name details.- For a `PRIVATE` entity, include both `givenName` and `familyName` (`middleNames` optional).- For a `BUSINESS` entity, include `fullName`.If a `PRIVATE` originator has a one-word name (mononym), send it as `givenName` and leave `familyName` empty. Do not repeat the name or use placeholder values.If you expect other special cases, such as joint account names, consult your Wise implementation team.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class Name : IAdditionalDataHolder, IParsable
