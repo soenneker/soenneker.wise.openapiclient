@@ -16136,6 +16136,281 @@
         ]
       }
     },
+    "/business-registry/lookup": {
+      "get": {
+        "tags": [
+          "business-search"
+        ],
+        "summary": "Look up a business by registration number",
+        "description": "Looks up a business by its registration number, and returns its details, directors and ultimate beneficial owners (UBOs) in one call.\n\nYou can only look up a business by its registration number. Searching by business name is not supported.\n\nUse the response to prefill the business profile, directors and UBOs when you [create a business profile](/api-reference/profile/profilebusinesscreatev3) and [add the directors](/api-reference/profile/profiledirectorcreate) and [UBOs](/api-reference/profile/profileubocreate).\n\nDirectors and UBOs are looked up separately from the business, so a business can be found even when its directors or UBOs can\u0027t be looked up. Check \u0060individuals\u0060 on \u0060directors\u0060 and \u0060ubos\u0060 before you use them: an empty list means none were found, and an omitted list means they couldn\u0027t be looked up.\n\nBusiness lookup is currently only available for businesses registered in the United Kingdom (\u0060GB\u0060).\n\nFor how lookup works and how to handle each response, see the [Business lookup guide](/guides/product/account-setup/customer-onboarding/business-registry-lookup).\n",
+        "operationId": "LookupBusinessRegistry",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "description": "Country where the business is registered, as an ISO 3166-1 alpha-2 code, such as \u0060GB\u0060. Alpha-3 codes, such as \u0060GBR\u0060, are rejected.\n",
+            "required": true,
+            "schema": {
+              "maxLength": 2,
+              "minLength": 2,
+              "type": "string",
+              "example": "GB"
+            }
+          },
+          {
+            "name": "registrationNumber",
+            "in": "query",
+            "description": "Registration number of the business, such as a UK company number. Send it exactly as it was issued, including leading zeros and letter prefixes.\n",
+            "required": true,
+            "schema": {
+              "minLength": 1,
+              "type": "string",
+              "example": "09876543"
+            }
+          },
+          {
+            "description": "Optional UUID for correlating requests across systems. If provided, Wise echoes it back in the response. Maximum 36 characters. [Learn more](/guides/developer/headers/correlation-id).\n",
+            "$ref": "#/components/parameters/X-External-Correlation-Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The business was found. Returns the business, its directors and its UBOs.",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LookupBusinessRegistry200Response"
+                },
+                "examples": {
+                  "gb-business-with-directors-and-ubos": {
+                    "summary": "UK business with directors and a corporate UBO",
+                    "value": {
+                      "business": {
+                        "businessName": "Wise Limited",
+                        "registrationNumber": "13211214",
+                        "companyType": "LIMITED",
+                        "companyFullDescription": "Activities of financial services holding companies",
+                        "companyStatus": "ACTIVE",
+                        "incorporationDate": "2021-02-18",
+                        "address": {
+                          "addressFirstLine": "1st Floor Worship Square 65 Clifton Street",
+                          "city": "London",
+                          "postCode": "EC2A 4JE",
+                          "countryCode": "GBR"
+                        },
+                        "industryCategories": [
+                          "HOLDING_COMPANIES"
+                        ]
+                      },
+                      "directors": {
+                        "totalCountIncludingCompanies": 2,
+                        "individuals": [
+                          {
+                            "firstName": "Kristo",
+                            "lastName": "KAARMANN",
+                            "dateOfBirthMonth": 8,
+                            "dateOfBirthYear": 1980,
+                            "countryOfResidence": "GBR"
+                          },
+                          {
+                            "firstName": "Emmanuel Francois Jean-Claude Laurent",
+                            "lastName": "THOMASSIN",
+                            "dateOfBirthMonth": 3,
+                            "dateOfBirthYear": 1969,
+                            "countryOfResidence": "GBR"
+                          }
+                        ]
+                      },
+                      "ubos": {
+                        "totalCountIncludingCompanies": 1,
+                        "individuals": []
+                      }
+                    }
+                  },
+                  "business-without-ubos": {
+                    "summary": "Business found, UBOs couldn\u0027t be looked up",
+                    "value": {
+                      "business": {
+                        "businessName": "Kestrel Lane Consulting Ltd",
+                        "registrationNumber": "SC654321",
+                        "companyStatus": "ACTIVE",
+                        "address": {
+                          "addressFirstLine": "3 Placeholder Street",
+                          "city": "Glasgow",
+                          "postCode": "G1 1XX",
+                          "countryCode": "GBR"
+                        }
+                      },
+                      "directors": {
+                        "totalCountIncludingCompanies": 1,
+                        "individuals": [
+                          {
+                            "firstName": "RILEY",
+                            "lastName": "BROOKS",
+                            "dateOfBirthMonth": 7,
+                            "dateOfBirthYear": 1990,
+                            "countryOfResidence": "GBR"
+                          }
+                        ]
+                      },
+                      "ubos": {}
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is invalid. \u0060registrationNumber\u0060 is blank, or \u0060country\u0060 is not a valid ISO 3166-1 alpha-2 code. Check \u0060errors\u0060 to see which parameter to correct.\n\nIf \u0060country\u0060 or \u0060registrationNumber\u0060 is missing, the response body is \u0060{\u0022message\u0022: \u0022Could not deserialize input\u0022, \u0022error\u0022: \u0022malformed_request\u0022}\u0060 instead.\n",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/problem\u002Bjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemValidation"
+                },
+                "example": {
+                  "type": "/errors/types/validation",
+                  "title": "Bad Request",
+                  "status": 400,
+                  "errors": [
+                    {
+                      "code": "parameter_invalid_empty",
+                      "detail": "registrationNumber must not be blank.",
+                      "ref": "registrationNumber"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The access token is missing or invalid.",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            }
+          },
+          "403": {
+            "description": "Your client is not permitted to use business lookup. Contact your account team to get access.",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            }
+          },
+          "404": {
+            "description": "No business with the registration number was found for the country. Check the registration number and country, and try again.\n",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/problem\u002Bjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDomain"
+                },
+                "example": {
+                  "type": "/errors/types/domain",
+                  "title": "Not Found",
+                  "status": 404,
+                  "code": "resource_not_found",
+                  "detail": "No business with company number 09876543 was found in the GB registry."
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Business lookup is not available for the country. Collect the business details from your customer instead.\n",
+            "headers": {
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/problem\u002Bjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDomain"
+                },
+                "example": {
+                  "type": "/errors/types/domain",
+                  "title": "Unprocessable Content",
+                  "status": 422,
+                  "code": "operation_not_supported",
+                  "detail": "Registry lookup is not available for DE."
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit exceeded. Retry after the number of seconds specified in the \u0060Retry-After\u0060 header.",
+            "headers": {
+              "Retry-After": {
+                "description": "Number of seconds to wait before retrying the request.",
+                "schema": {
+                  "type": "integer"
+                },
+                "example": 5
+              },
+              "X-Rate-Limited-By": {
+                "description": "Identifies the rate limiter that triggered the 429 response.",
+                "schema": {
+                  "type": "string"
+                },
+                "example": "wise-public-api"
+              },
+              "X-External-Correlation-Id": {
+                "$ref": "#/components/headers/X-External-Correlation-Id"
+              },
+              "x-trace-id": {
+                "$ref": "#/components/headers/x-trace-id"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Value429ResponseContentError"
+                }
+              }
+            },
+            "x-global": true
+          }
+        },
+        "security": [
+          {
+            "ClientCredentialsToken": []
+          }
+        ]
+      }
+    },
     "/profiles": {
       "get": {
         "tags": [
@@ -33025,6 +33300,19 @@
         },
         "description": "Under the Common Reporting Standard (CRS), we are required to collect your business\u0027s tax classification based on how it earns income. Depending on your selection, we may need to ask for additional information (such as tax details on controlling persons).\n"
       },
+      "BusinessIncorporationDate": {
+        "title": "BUSINESS_INCORPORATION_DATE",
+        "required": [
+          "submissionData"
+        ],
+        "type": "object",
+        "properties": {
+          "submissionData": {
+            "$ref": "#/components/schemas/BusinessIncorporationDateSubmissionData"
+          }
+        },
+        "description": "The business\u0027s date of incorporation. Submit incorporationDate in yyyy-MM-dd format.\n"
+      },
       "BusinessMonthlyVolume": {
         "title": "BUSINESS_MONTHLY_VOLUME",
         "required": [
@@ -33512,6 +33800,9 @@
           },
           {
             "$ref": "#/components/schemas/BusinessIncomeClassification"
+          },
+          {
+            "$ref": "#/components/schemas/BusinessIncorporationDate"
           },
           {
             "$ref": "#/components/schemas/BusinessMonthlyVolume"
@@ -35221,6 +35512,240 @@
           },
           "reference": {
             "type": "string"
+          }
+        }
+      },
+      "RegistryAddress": {
+        "type": "object",
+        "properties": {
+          "addressFirstLine": {
+            "type": "string",
+            "description": "First line of the address.",
+            "example": "42 Example Road"
+          },
+          "city": {
+            "type": "string",
+            "description": "City or town.",
+            "example": "Leeds"
+          },
+          "postCode": {
+            "type": "string",
+            "description": "Postal code.",
+            "example": "LS1 4AB"
+          },
+          "stateCode": {
+            "type": "string",
+            "description": "State, province or region code, for countries that use one."
+          },
+          "countryCode": {
+            "type": "string",
+            "description": "Country as an ISO 3166-1 alpha-3 code, such as \u0060GBR\u0060.",
+            "example": "GBR"
+          }
+        },
+        "description": "Address of a business. The country is returned as an ISO 3166-1 alpha-3 \u0060countryCode\u0060."
+      },
+      "RegistryBusiness": {
+        "type": "object",
+        "properties": {
+          "businessName": {
+            "type": "string",
+            "description": "Registered legal name of the business.",
+            "example": "Bramble \u0026 Finch Ltd"
+          },
+          "alternativeBusinessNames": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Other names of the business, such as trading names.",
+            "example": [
+              "Bramble \u0026 Finch"
+            ]
+          },
+          "registrationNumber": {
+            "type": "string",
+            "description": "Registration number of the business, such as the company number in the UK.",
+            "example": "09876543"
+          },
+          "companyType": {
+            "$ref": "#/components/schemas/RegistryBusinessCompanyType"
+          },
+          "companyFullDescription": {
+            "type": "string",
+            "description": "Further description of the business, such as its entity type or nature of business.",
+            "example": "Retail sale via mail order houses or via Internet"
+          },
+          "companyStatus": {
+            "type": "string",
+            "description": "Registration status of the business, in upper case. Values differ between countries.",
+            "example": "ACTIVE"
+          },
+          "incorporationDate": {
+            "type": "string",
+            "description": "Date the business was incorporated or registered.",
+            "format": "date",
+            "example": "2015-06-22"
+          },
+          "address": {
+            "$ref": "#/components/schemas/RegistryAddress"
+          },
+          "operationalAddresses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RegistryAddress"
+            },
+            "description": "Addresses the business trades from, when they\u0027re recorded separately from the registered address. Use them to set \u0060operationalAddresses\u0060 when you create a business profile, or to prefill the operational addresses in your onboarding flow."
+          },
+          "webpage": {
+            "type": "string",
+            "description": "Website of the business.",
+            "example": "https://brambleandfinch.example"
+          },
+          "businessFreeFormDescription": {
+            "type": "string",
+            "description": "Description of what the business does. Use it to set \u0060businessFreeFormDescription\u0060 when you create a business profile, or to prefill the business description in your onboarding flow.",
+            "example": "Online retail of garden tools"
+          },
+          "firstLevelCategory": {
+            "type": "string",
+            "description": "Top-level business category from the legacy category list. Use \u0060industryCategories\u0060 instead.",
+            "deprecated": true
+          },
+          "secondLevelCategory": {
+            "type": "string",
+            "description": "Second-level business category from the legacy category list. Use \u0060industryCategories\u0060 instead.",
+            "deprecated": true
+          },
+          "industryCategories": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Industry categories of the business. Use them to set \u0060industryCategories\u0060 when you create a business profile, or to prefill the business categories in your onboarding flow. See [Business categories](/guides/product/account-setup/customer-onboarding/business-categories)."
+          },
+          "ownerName": {
+            "type": "string",
+            "description": "Name of the business owner, when available, for example for sole traders.",
+            "example": "Alex Morgan"
+          }
+        },
+        "description": "Details of the business."
+      },
+      "RegistryIndividual": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "description": "First name.",
+            "example": "ALEX"
+          },
+          "middleName": {
+            "type": "string",
+            "description": "Middle names, if any.",
+            "example": "JORDAN"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Last name.",
+            "example": "MORGAN"
+          },
+          "dateOfBirthDay": {
+            "maximum": 31,
+            "minimum": 1,
+            "type": "integer",
+            "description": "Day of the month of birth. Omitted when not available.",
+            "example": 14
+          },
+          "dateOfBirthMonth": {
+            "maximum": 12,
+            "minimum": 1,
+            "type": "integer",
+            "description": "Month of birth. Omitted when not available.",
+            "example": 3
+          },
+          "dateOfBirthYear": {
+            "type": "integer",
+            "description": "Year of birth. Omitted when not available.",
+            "example": 1985
+          },
+          "countryOfResidence": {
+            "type": "string",
+            "description": "Country of residence as an ISO 3166-1 alpha-3 code, such as \u0060GBR\u0060.",
+            "example": "GBR"
+          },
+          "address": {
+            "$ref": "#/components/schemas/RegistryIndividualAddress"
+          }
+        },
+        "description": "An individual director or UBO. Names are returned as recorded, so they can be in upper case."
+      },
+      "RegistryPeopleResult": {
+        "type": "object",
+        "properties": {
+          "totalCountIncludingCompanies": {
+            "type": "integer",
+            "description": "Number of directors or UBOs, including companies. \u0060individuals\u0060 lists individuals only, so this can be higher than the number of items in \u0060individuals\u0060.",
+            "example": 2
+          },
+          "individuals": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RegistryIndividual"
+            },
+            "description": "Individual directors or UBOs. Companies are not listed. Empty when none were found, omitted when they couldn\u0027t be looked up."
+          }
+        },
+        "description": "Directors or UBOs of the business.\n\n\u0060individuals\u0060 is an empty list when none were found, and is omitted, together with \u0060totalCountIncludingCompanies\u0060, when they couldn\u0027t be looked up. See [Directors and UBOs](/guides/product/account-setup/customer-onboarding/business-registry-lookup#directors-and-ubos).\n"
+      },
+      "ProblemValidation": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Type of the problem. Always \u0060/errors/types/validation\u0060 for validation errors.",
+            "x-client-original-format": "uri-reference"
+          },
+          "title": {
+            "type": "string",
+            "description": "Short summary of the problem."
+          },
+          "status": {
+            "type": "integer",
+            "description": "HTTP status code."
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProblemValidationErrorsItem"
+            },
+            "description": "Validation failures, one for each invalid parameter."
+          }
+        }
+      },
+      "ProblemDomain": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Type of the problem. Always \u0060/errors/types/domain\u0060 for domain errors.",
+            "x-client-original-format": "uri-reference"
+          },
+          "title": {
+            "type": "string",
+            "description": "Short summary of the problem."
+          },
+          "status": {
+            "type": "integer",
+            "description": "HTTP status code."
+          },
+          "code": {
+            "type": "string",
+            "description": "Machine-readable error code."
+          },
+          "detail": {
+            "type": "string",
+            "description": "Human-readable explanation of the problem."
           }
         }
       },
@@ -41618,6 +42143,29 @@
         },
         "description": "\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022data\u0022: {\n    \u0022classificationType\u0022: \u0022ACTIVE_NFE\u0022\n  },\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
       },
+      "BusinessIncorporationDateSubmissionData": {
+        "required": [
+          "data",
+          "version",
+          "kycReviewId"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/BusinessIncorporationDateSubmissionDataData"
+          },
+          "version": {
+            "$ref": "#/components/schemas/Version"
+          },
+          "kycReviewId": {
+            "type": "string",
+            "description": "The ID of the KYC Review this submission belongs to.",
+            "format": "uuid",
+            "example": "93a903ea-636c-4c86-a25c-cf6d2bd00e81"
+          }
+        },
+        "description": "\u0060\u0060\u0060json {% title=\u0022Example\u0022 %}\n{\n  \u0022data\u0022: {\n    \u0022incorporationDate\u0022: \u00222020-06-15\u0022\n  },\n  \u0022version\u0022: \u0022V1\u0022,\n  \u0022kycReviewId\u0022: \u002293a903ea-636c-4c86-a25c-cf6d2bd00e81\u0022\n}\n\u0060\u0060\u0060\n"
+      },
       "BusinessMonthlyVolumeSubmissionData": {
         "required": [
           "data",
@@ -42356,6 +42904,48 @@
             "description": "Website of the recipient\u0027s business (optional).",
             "example": "https://www.techcorp-global.com",
             "x-client-original-format": "uri"
+          }
+        }
+      },
+      "RegistryIndividualAddress": {
+        "type": "object",
+        "properties": {
+          "addressFirstLine": {
+            "type": "string",
+            "description": "First line of the address.",
+            "example": "7 Sample Lane"
+          },
+          "city": {
+            "type": "string",
+            "description": "City or town.",
+            "example": "York"
+          },
+          "postCode": {
+            "type": "string",
+            "description": "Postal code.",
+            "example": "YO1 7AA"
+          },
+          "state": {
+            "type": "string",
+            "description": "State, province or region."
+          }
+        },
+        "description": "Address of the individual, when available. Use it when you submit UBOs, or to prefill the UBO\u0027s address in your onboarding flow."
+      },
+      "ProblemValidationErrorsItem": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Machine-readable error code, such as \u0060parameter_missing\u0060, \u0060parameter_invalid_empty\u0060, \u0060parameter_invalid_format\u0060 or \u0060parameter_invalid\u0060."
+          },
+          "detail": {
+            "type": "string",
+            "description": "Human-readable explanation of the failure."
+          },
+          "ref": {
+            "type": "string",
+            "description": "Name of the invalid parameter."
           }
         }
       },
@@ -45924,6 +46514,20 @@
         "properties": {
           "classificationType": {
             "$ref": "#/components/schemas/BusinessIncomeClassificationSubmissionDataDataClassificationType"
+          }
+        }
+      },
+      "BusinessIncorporationDateSubmissionDataData": {
+        "required": [
+          "incorporationDate"
+        ],
+        "type": "object",
+        "properties": {
+          "incorporationDate": {
+            "type": "string",
+            "description": "The business\u0027s date of incorporation in \u0060yyyy-MM-dd\u0060 format.",
+            "format": "date",
+            "example": "2020-06-15"
           }
         }
       },
@@ -55462,6 +56066,20 @@
           },
           "wiseInformation": {
             "$ref": "#/components/schemas/PayinDepositDetailGet200ResponseWiseInformation"
+          }
+        }
+      },
+      "LookupBusinessRegistry200Response": {
+        "type": "object",
+        "properties": {
+          "business": {
+            "$ref": "#/components/schemas/RegistryBusiness"
+          },
+          "directors": {
+            "$ref": "#/components/schemas/RegistryPeopleResult"
+          },
+          "ubos": {
+            "$ref": "#/components/schemas/RegistryPeopleResult"
           }
         }
       },
@@ -65086,6 +65704,94 @@
           ]
         }
       },
+      "RegistryBusinessCompanyType": {
+        "enum": [
+          "LIMITED",
+          "PARTNERSHIP",
+          "SOLE_TRADER",
+          "LIMITED_BY_GUARANTEE",
+          "LIMITED_LIABILITY_COMPANY",
+          "FOR_PROFIT_CORPORATION",
+          "NON_PROFIT_CORPORATION",
+          "LIMITED_PARTNERSHIP",
+          "LIMITED_LIABILITY_PARTNERSHIP",
+          "GENERAL_PARTNERSHIP",
+          "SOLE_PROPRIETORSHIP",
+          "PRIVATE_LIMITED_COMPANY",
+          "PUBLIC_LIMITED_COMPANY",
+          "TRUST",
+          "OTHER"
+        ],
+        "type": "string",
+        "description": "Legal form of the business, as one of the \u0060companyType\u0060 values you can use when you create a business profile. Omitted when the legal form doesn\u0027t match any of them.",
+        "example": "LIMITED",
+        "x-ms-enum": {
+          "name": "RegistryBusinessCompanyType",
+          "modelAsString": false,
+          "values": [
+            {
+              "value": "LIMITED",
+              "name": "Limited"
+            },
+            {
+              "value": "PARTNERSHIP",
+              "name": "Partnership"
+            },
+            {
+              "value": "SOLE_TRADER",
+              "name": "SoleTrader"
+            },
+            {
+              "value": "LIMITED_BY_GUARANTEE",
+              "name": "LimitedByGuarantee"
+            },
+            {
+              "value": "LIMITED_LIABILITY_COMPANY",
+              "name": "LimitedLiabilityCompany"
+            },
+            {
+              "value": "FOR_PROFIT_CORPORATION",
+              "name": "ForProfitCorporation"
+            },
+            {
+              "value": "NON_PROFIT_CORPORATION",
+              "name": "NonProfitCorporation"
+            },
+            {
+              "value": "LIMITED_PARTNERSHIP",
+              "name": "LimitedPartnership"
+            },
+            {
+              "value": "LIMITED_LIABILITY_PARTNERSHIP",
+              "name": "LimitedLiabilityPartnership"
+            },
+            {
+              "value": "GENERAL_PARTNERSHIP",
+              "name": "GeneralPartnership"
+            },
+            {
+              "value": "SOLE_PROPRIETORSHIP",
+              "name": "SoleProprietorship"
+            },
+            {
+              "value": "PRIVATE_LIMITED_COMPANY",
+              "name": "PrivateLimitedCompany"
+            },
+            {
+              "value": "PUBLIC_LIMITED_COMPANY",
+              "name": "PublicLimitedCompany"
+            },
+            {
+              "value": "TRUST",
+              "name": "Trust"
+            },
+            {
+              "value": "OTHER",
+              "name": "Other"
+            }
+          ]
+        }
+      },
       "PersonalType": {
         "enum": [
           "PERSONAL"
@@ -71618,6 +72324,7 @@
           "BUSINESS_CONTROLLING_PERSON",
           "BUSINESS_DIRECTORS_CHECK",
           "BUSINESS_INCOME_CLASSIFICATION",
+          "BUSINESS_INCORPORATION_DATE",
           "BUSINESS_MONTHLY_VOLUME",
           "BUSINESS_REGISTRATION_DOCS",
           "BUSINESS_SHAREHOLDER_CONTACT_DETAILS",
@@ -71682,6 +72389,10 @@
             {
               "value": "BUSINESS_INCOME_CLASSIFICATION",
               "name": "BusinessIncomeClassification"
+            },
+            {
+              "value": "BUSINESS_INCORPORATION_DATE",
+              "name": "BusinessIncorporationDate"
             },
             {
               "value": "BUSINESS_MONTHLY_VOLUME",
@@ -76224,6 +76935,11 @@
       "x-displayName": "Profiles"
     },
     {
+      "name": "business-search",
+      "description": "Business search lets you look up a business by its registration number before you create a business profile for it. Use the details returned to prefill the business profile, and its directors and ultimate beneficial owners (UBOs).\n\nFor how lookup works, which countries are supported and how to handle each response, see the [Business lookup guide](/guides/product/account-setup/customer-onboarding/business-registry-lookup).\n",
+      "x-displayName": "Business Search"
+    },
+    {
       "name": "quote",
       "description": "The quote resource defines the currencies involved in a transfer, the amount to send, and the profile sending the money.\n\nThe quote resource is one of the resources required when creating a transfer, along with the recipient account that is receiving the funds.\n\n### Types of quotes\n\nWith the Wise API you can create either **unauthenticated** or **authenticated** quotes.\n\n**Unauthenticated quotes** are for illustrative purposes only. Use this option to display example rates before a user has created or linked an account. This endpoint does not require an auth token and the response has no ID, so it cannot be used to create a transfer.\n\n**Authenticated quotes** require an auth token and provide a quote ID in the response, which you then use when creating a transfer. \n\nUpon creating an authenticated quote, the current mid-market exchange rate is locked and will be used for the transfer created from the quote. The rate is locked for 30 minutes to give a user time to submit the transfer.\n\nThe quote response contains details like the exchange rate, the estimated delivery time, applicable fees, methods for the user to pay for the transfer, and quote expiration time. _Not all fields are applicable to all use cases_.\n",
       "x-displayName": "Quotes"
@@ -76365,7 +77081,8 @@
       "tags": [
         "profile",
         "activity",
-        "address"
+        "address",
+        "business-search"
       ]
     },
     {

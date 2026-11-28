@@ -14,6 +14,7 @@ using Soenneker.Wise.OpenApiClient.Applications;
 using Soenneker.Wise.OpenApiClient.Auth;
 using Soenneker.Wise.OpenApiClient.Balances;
 using Soenneker.Wise.OpenApiClient.BorderlessAccountsConfiguration;
+using Soenneker.Wise.OpenApiClient.BusinessRegistry;
 using Soenneker.Wise.OpenApiClient.Cases;
 using Soenneker.Wise.OpenApiClient.Comparisons;
 using Soenneker.Wise.OpenApiClient.Currencies;
@@ -91,6 +92,11 @@ namespace Soenneker.Wise.OpenApiClient
         public global::Soenneker.Wise.OpenApiClient.BorderlessAccountsConfiguration.BorderlessAccountsConfigurationRequestBuilder BorderlessAccountsConfiguration
         {
             get => new global::Soenneker.Wise.OpenApiClient.BorderlessAccountsConfiguration.BorderlessAccountsConfigurationRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The businessRegistry property</summary>
+        public global::Soenneker.Wise.OpenApiClient.BusinessRegistry.BusinessRegistryRequestBuilder BusinessRegistry
+        {
+            get => new global::Soenneker.Wise.OpenApiClient.BusinessRegistry.BusinessRegistryRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The cases property</summary>
         public global::Soenneker.Wise.OpenApiClient.Cases.CasesRequestBuilder Cases

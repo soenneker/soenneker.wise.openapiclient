@@ -1228,6 +1228,18 @@ tags:
       company). Most API endpoints require a `profileId` parameter, which is the
       ID of either profile type.
 
+  - name: business-search
+    x-displayName: Business Search
+    description: >
+      Business search lets you look up a business by its registration number
+      before you create a business profile for it. Use the details returned to
+      prefill the business profile, and its directors and ultimate beneficial
+      owners (UBOs).
+
+
+      For how lookup works, which countries are supported and how to handle each
+      response, see the [Business lookup
+      guide](/guides/product/account-setup/customer-onboarding/business-registry-lookup).
   - name: quote
     x-displayName: Quotes
     description: >
@@ -1545,6 +1557,7 @@ x-tagGroups:
       - profile
       - activity
       - address
+      - business-search
   - name: Verification
     tags:
       - kyc-review
@@ -10275,6 +10288,7 @@ paths:
               - BUSINESS_CONTROLLING_PERSON
               - BUSINESS_DIRECTORS_CHECK
               - BUSINESS_INCOME_CLASSIFICATION
+              - BUSINESS_INCORPORATION_DATE
               - BUSINESS_MONTHLY_VOLUME
               - BUSINESS_REGISTRATION_DOCS
               - BUSINESS_SHAREHOLDER_CONTACT_DETAILS
@@ -14811,6 +14825,229 @@ paths:
                               - 'null'
                             description: Phone number.
                             example: null
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '429':
+          $ref: '#/components/responses/429'
+  /business-registry/lookup:
+    get:
+      operationId: lookupBusinessRegistry
+      summary: Look up a business by registration number
+      description: >
+        Looks up a business by its registration number, and returns its details,
+        directors and ultimate beneficial owners (UBOs) in one call.
+
+
+        You can only look up a business by its registration number. Searching by
+        business name is not supported.
+
+
+        Use the response to prefill the business profile, directors and UBOs
+        when you [create a business
+        profile](/api-reference/profile/profilebusinesscreatev3) and [add the
+        directors](/api-reference/profile/profiledirectorcreate) and
+        [UBOs](/api-reference/profile/profileubocreate).
+
+
+        Directors and UBOs are looked up separately from the business, so a
+        business can be found even when its directors or UBOs can't be looked
+        up. Check `individuals` on `directors` and `ubos` before you use them:
+        an empty list means none were found, and an omitted list means they
+        couldn't be looked up.
+
+
+        Business lookup is currently only available for businesses registered in
+        the United Kingdom (`GB`).
+
+
+        For how lookup works and how to handle each response, see the [Business
+        lookup
+        guide](/guides/product/account-setup/customer-onboarding/business-registry-lookup).
+      tags:
+        - business-search
+      security:
+        - ClientCredentialsToken: []
+      parameters:
+        - name: country
+          in: query
+          required: true
+          description: >
+            Country where the business is registered, as an ISO 3166-1 alpha-2
+            code, such as `GB`. Alpha-3 codes, such as `GBR`, are rejected.
+          schema:
+            type: string
+            minLength: 2
+            maxLength: 2
+            example: GB
+        - name: registrationNumber
+          in: query
+          required: true
+          description: >
+            Registration number of the business, such as a UK company number.
+            Send it exactly as it was issued, including leading zeros and letter
+            prefixes.
+          schema:
+            type: string
+            minLength: 1
+            example: '09876543'
+        - $ref: '#/components/parameters/X-External-Correlation-Id'
+      responses:
+        '200':
+          description: >-
+            The business was found. Returns the business, its directors and its
+            UBOs.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  business:
+                    $ref: '#/components/schemas/registry-business'
+                  directors:
+                    $ref: '#/components/schemas/registry-people-result'
+                  ubos:
+                    $ref: '#/components/schemas/registry-people-result'
+              examples:
+                gb-business-with-directors-and-ubos:
+                  summary: UK business with directors and a corporate UBO
+                  value:
+                    business:
+                      businessName: Wise Limited
+                      registrationNumber: '13211214'
+                      companyType: LIMITED
+                      companyFullDescription: Activities of financial services holding companies
+                      companyStatus: ACTIVE
+                      incorporationDate: '2021-02-18'
+                      address:
+                        addressFirstLine: 1st Floor Worship Square 65 Clifton Street
+                        city: London
+                        postCode: EC2A 4JE
+                        countryCode: GBR
+                      industryCategories:
+                        - HOLDING_COMPANIES
+                    directors:
+                      totalCountIncludingCompanies: 2
+                      individuals:
+                        - firstName: Kristo
+                          lastName: KAARMANN
+                          dateOfBirthMonth: 8
+                          dateOfBirthYear: 1980
+                          countryOfResidence: GBR
+                        - firstName: Emmanuel Francois Jean-Claude Laurent
+                          lastName: THOMASSIN
+                          dateOfBirthMonth: 3
+                          dateOfBirthYear: 1969
+                          countryOfResidence: GBR
+                    ubos:
+                      totalCountIncludingCompanies: 1
+                      individuals: []
+                business-without-ubos:
+                  summary: Business found, UBOs couldn't be looked up
+                  value:
+                    business:
+                      businessName: Kestrel Lane Consulting Ltd
+                      registrationNumber: SC654321
+                      companyStatus: ACTIVE
+                      address:
+                        addressFirstLine: 3 Placeholder Street
+                        city: Glasgow
+                        postCode: G1 1XX
+                        countryCode: GBR
+                    directors:
+                      totalCountIncludingCompanies: 1
+                      individuals:
+                        - firstName: RILEY
+                          lastName: BROOKS
+                          dateOfBirthMonth: 7
+                          dateOfBirthYear: 1990
+                          countryOfResidence: GBR
+                    ubos: {}
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '400':
+          description: >
+            The request is invalid. `registrationNumber` is blank, or `country`
+            is not a valid ISO 3166-1 alpha-2 code. Check `errors` to see which
+            parameter to correct.
+
+
+            If `country` or `registrationNumber` is missing, the response body
+            is `{"message": "Could not deserialize input", "error":
+            "malformed_request"}` instead.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problem-validation'
+              example:
+                type: /errors/types/validation
+                title: Bad Request
+                status: 400
+                errors:
+                  - code: parameter_invalid_empty
+                    detail: registrationNumber must not be blank.
+                    ref: registrationNumber
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '401':
+          description: The access token is missing or invalid.
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '403':
+          description: >-
+            Your client is not permitted to use business lookup. Contact your
+            account team to get access.
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '404':
+          description: >
+            No business with the registration number was found for the country.
+            Check the registration number and country, and try again.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problem-domain'
+              example:
+                type: /errors/types/domain
+                title: Not Found
+                status: 404
+                code: resource_not_found
+                detail: >-
+                  No business with company number 09876543 was found in the GB
+                  registry.
+          headers:
+            X-External-Correlation-Id:
+              $ref: '#/components/headers/X-External-Correlation-Id'
+            x-trace-id:
+              $ref: '#/components/headers/x-trace-id'
+        '422':
+          description: >
+            Business lookup is not available for the country. Collect the
+            business details from your customer instead.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problem-domain'
+              example:
+                type: /errors/types/domain
+                title: Unprocessable Content
+                status: 422
+                code: operation_not_supported
+                detail: Registry lookup is not available for DE.
           headers:
             X-External-Correlation-Id:
               $ref: '#/components/headers/X-External-Correlation-Id'
@@ -33164,6 +33401,46 @@ components:
               $ref: '#/components/schemas/version'
             kycReviewId:
               $ref: '#/components/schemas/kyc-review-id'
+    business-incorporation-date:
+      title: BUSINESS_INCORPORATION_DATE
+      description: >
+        The business's date of incorporation. Submit incorporationDate in
+        yyyy-MM-dd format.
+      type: object
+      required:
+        - submissionData
+      properties:
+        submissionData:
+          description: |
+            ```json {% title="Example" %}
+            {
+              "data": {
+                "incorporationDate": "2020-06-15"
+              },
+              "version": "V1",
+              "kycReviewId": "93a903ea-636c-4c86-a25c-cf6d2bd00e81"
+            }
+            ```
+          type: object
+          required:
+            - data
+            - version
+            - kycReviewId
+          properties:
+            data:
+              type: object
+              required:
+                - incorporationDate
+              properties:
+                incorporationDate:
+                  type: string
+                  format: date
+                  description: The business's date of incorporation in `yyyy-MM-dd` format.
+                  example: '2020-06-15'
+            version:
+              $ref: '#/components/schemas/version'
+            kycReviewId:
+              $ref: '#/components/schemas/kyc-review-id'
     business-monthly-volume:
       title: BUSINESS_MONTHLY_VOLUME
       description: >
@@ -35460,6 +35737,7 @@ components:
         - $ref: '#/components/schemas/business-controlling-person'
         - $ref: '#/components/schemas/business-directors-check'
         - $ref: '#/components/schemas/business-income-classification'
+        - $ref: '#/components/schemas/business-incorporation-date'
         - $ref: '#/components/schemas/business-monthly-volume'
         - $ref: '#/components/schemas/business-registration-docs'
         - $ref: '#/components/schemas/business-shareholder-contact-details'
@@ -37489,6 +37767,281 @@ components:
           type: string
       required:
         - payinSessionId
+    registry-address:
+      type: object
+      description: >-
+        Address of a business. The country is returned as an ISO 3166-1 alpha-3
+        `countryCode`.
+      properties:
+        addressFirstLine:
+          type: string
+          description: First line of the address.
+          example: 42 Example Road
+        city:
+          type: string
+          description: City or town.
+          example: Leeds
+        postCode:
+          type: string
+          description: Postal code.
+          example: LS1 4AB
+        stateCode:
+          type: string
+          description: State, province or region code, for countries that use one.
+        countryCode:
+          type: string
+          description: Country as an ISO 3166-1 alpha-3 code, such as `GBR`.
+          example: GBR
+    registry-business:
+      type: object
+      description: Details of the business.
+      properties:
+        businessName:
+          type: string
+          description: Registered legal name of the business.
+          example: Bramble & Finch Ltd
+        alternativeBusinessNames:
+          type: array
+          description: Other names of the business, such as trading names.
+          items:
+            type: string
+          example:
+            - Bramble & Finch
+        registrationNumber:
+          type: string
+          description: >-
+            Registration number of the business, such as the company number in
+            the UK.
+          example: '09876543'
+        companyType:
+          type: string
+          description: >-
+            Legal form of the business, as one of the `companyType` values you
+            can use when you create a business profile. Omitted when the legal
+            form doesn't match any of them.
+          enum:
+            - LIMITED
+            - PARTNERSHIP
+            - SOLE_TRADER
+            - LIMITED_BY_GUARANTEE
+            - LIMITED_LIABILITY_COMPANY
+            - FOR_PROFIT_CORPORATION
+            - NON_PROFIT_CORPORATION
+            - LIMITED_PARTNERSHIP
+            - LIMITED_LIABILITY_PARTNERSHIP
+            - GENERAL_PARTNERSHIP
+            - SOLE_PROPRIETORSHIP
+            - PRIVATE_LIMITED_COMPANY
+            - PUBLIC_LIMITED_COMPANY
+            - TRUST
+            - OTHER
+          example: LIMITED
+        companyFullDescription:
+          type: string
+          description: >-
+            Further description of the business, such as its entity type or
+            nature of business.
+          example: Retail sale via mail order houses or via Internet
+        companyStatus:
+          type: string
+          description: >-
+            Registration status of the business, in upper case. Values differ
+            between countries.
+          example: ACTIVE
+        incorporationDate:
+          type: string
+          format: date
+          description: Date the business was incorporated or registered.
+          example: '2015-06-22'
+        address:
+          $ref: '#/components/schemas/registry-address'
+          description: Registered address of the business.
+        operationalAddresses:
+          type: array
+          description: >-
+            Addresses the business trades from, when they're recorded separately
+            from the registered address. Use them to set `operationalAddresses`
+            when you create a business profile, or to prefill the operational
+            addresses in your onboarding flow.
+          items:
+            $ref: '#/components/schemas/registry-address'
+        webpage:
+          type: string
+          description: Website of the business.
+          example: https://brambleandfinch.example
+        businessFreeFormDescription:
+          type: string
+          description: >-
+            Description of what the business does. Use it to set
+            `businessFreeFormDescription` when you create a business profile, or
+            to prefill the business description in your onboarding flow.
+          example: Online retail of garden tools
+        firstLevelCategory:
+          type: string
+          deprecated: true
+          description: >-
+            Top-level business category from the legacy category list. Use
+            `industryCategories` instead.
+        secondLevelCategory:
+          type: string
+          deprecated: true
+          description: >-
+            Second-level business category from the legacy category list. Use
+            `industryCategories` instead.
+        industryCategories:
+          type: array
+          description: >-
+            Industry categories of the business. Use them to set
+            `industryCategories` when you create a business profile, or to
+            prefill the business categories in your onboarding flow. See
+            [Business
+            categories](/guides/product/account-setup/customer-onboarding/business-categories).
+          items:
+            type: string
+        ownerName:
+          type: string
+          description: >-
+            Name of the business owner, when available, for example for sole
+            traders.
+          example: Alex Morgan
+    registry-individual:
+      type: object
+      description: >-
+        An individual director or UBO. Names are returned as recorded, so they
+        can be in upper case.
+      properties:
+        firstName:
+          type: string
+          description: First name.
+          example: ALEX
+        middleName:
+          type: string
+          description: Middle names, if any.
+          example: JORDAN
+        lastName:
+          type: string
+          description: Last name.
+          example: MORGAN
+        dateOfBirthDay:
+          type: integer
+          minimum: 1
+          maximum: 31
+          description: Day of the month of birth. Omitted when not available.
+          example: 14
+        dateOfBirthMonth:
+          type: integer
+          minimum: 1
+          maximum: 12
+          description: Month of birth. Omitted when not available.
+          example: 3
+        dateOfBirthYear:
+          type: integer
+          description: Year of birth. Omitted when not available.
+          example: 1985
+        countryOfResidence:
+          type: string
+          description: Country of residence as an ISO 3166-1 alpha-3 code, such as `GBR`.
+          example: GBR
+        address:
+          type: object
+          description: >-
+            Address of the individual, when available. Use it when you submit
+            UBOs, or to prefill the UBO's address in your onboarding flow.
+          properties:
+            addressFirstLine:
+              type: string
+              description: First line of the address.
+              example: 7 Sample Lane
+            city:
+              type: string
+              description: City or town.
+              example: York
+            postCode:
+              type: string
+              description: Postal code.
+              example: YO1 7AA
+            state:
+              type: string
+              description: State, province or region.
+    registry-people-result:
+      type: object
+      description: >
+        Directors or UBOs of the business.
+
+
+        `individuals` is an empty list when none were found, and is omitted,
+        together with `totalCountIncludingCompanies`, when they couldn't be
+        looked up. See [Directors and
+        UBOs](/guides/product/account-setup/customer-onboarding/business-registry-lookup#directors-and-ubos).
+      properties:
+        totalCountIncludingCompanies:
+          type: integer
+          description: >-
+            Number of directors or UBOs, including companies. `individuals`
+            lists individuals only, so this can be higher than the number of
+            items in `individuals`.
+          example: 2
+        individuals:
+          type: array
+          description: >-
+            Individual directors or UBOs. Companies are not listed. Empty when
+            none were found, omitted when they couldn't be looked up.
+          items:
+            $ref: '#/components/schemas/registry-individual'
+    problem-validation:
+      type: object
+      properties:
+        type:
+          type: string
+          format: uri-reference
+          description: >-
+            Type of the problem. Always `/errors/types/validation` for
+            validation errors.
+        title:
+          type: string
+          description: Short summary of the problem.
+        status:
+          type: integer
+          description: HTTP status code.
+        errors:
+          type: array
+          description: Validation failures, one for each invalid parameter.
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+                description: >-
+                  Machine-readable error code, such as `parameter_missing`,
+                  `parameter_invalid_empty`, `parameter_invalid_format` or
+                  `parameter_invalid`.
+              detail:
+                type: string
+                description: Human-readable explanation of the failure.
+              ref:
+                type: string
+                description: Name of the invalid parameter.
+    problem-domain:
+      type: object
+      properties:
+        type:
+          type: string
+          format: uri-reference
+          description: >-
+            Type of the problem. Always `/errors/types/domain` for domain
+            errors.
+        title:
+          type: string
+          description: Short summary of the problem.
+        status:
+          type: integer
+          description: HTTP status code.
+        code:
+          type: string
+          description: Machine-readable error code.
+        detail:
+          type: string
+          description: Human-readable explanation of the problem.
     address:
       type: object
       description: Address associated with a profile.
